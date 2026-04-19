@@ -66,14 +66,14 @@ export default function Hero() {
             alignItems: "center",
             justifyContent: "center",
           }}>
-            {/* Sky-blue radial glow halo behind icon box — exact match live site */}
+            {/* Sky-blue radial glow halo — exact brand color #315b7f */}
             <div style={{
               position: "absolute",
               width: "220px",
               height: "220px",
               borderRadius: "50%",
-              background: "radial-gradient(circle at center, rgba(59,130,246,0.22) 0%, transparent 70%)",
-              filter: "blur(8px)",
+              background: "radial-gradient(circle at center, rgba(49,91,127,0.55) 0%, transparent 70%)",
+              filter: "blur(10px)",
               pointerEvents: "none",
             }} />
 
@@ -88,7 +88,7 @@ export default function Hero() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 40px -5px rgba(59,130,246,0.5), 0 0 80px 0px rgba(59,130,246,0.15)",
+              boxShadow: "0 0 40px -5px rgba(49,91,127,0.7), 0 0 80px 0px rgba(49,91,127,0.25)",
               zIndex: 1,
             }}>
               <Image
@@ -302,7 +302,7 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: "14px",
           fontWeight: 600,
-          color: "#B6FF56",
+          color: "#acd791",
           background: "rgba(3, 3, 3, 0.8)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255,255,255,0.1)",
