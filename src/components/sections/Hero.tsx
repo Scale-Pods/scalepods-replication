@@ -119,6 +119,10 @@ export default function Hero() {
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
+            background: "rgba(59, 130, 246, 0.05)",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            borderRadius: "40px",
+            padding: "6px 14px",
             fontFamily: "var(--font-inter), Inter, sans-serif",
             fontSize: "11.5px",
             fontWeight: 600,
@@ -126,37 +130,29 @@ export default function Hero() {
             textTransform: "uppercase",
             color: "#B8C7D9",
           }}>
-            {/* Blinking blue dot with animated pulse ring */}
+            {/* Blinking blue dot with exact pulse scale animation from live site */}
             <span style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-              {/* Pulse ring */}
+              {/* Solid core dot that scales and fades */}
               <motion.span
-                animate={{ scale: [1, 2.2, 2.2], opacity: [0.6, 0, 0] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+                animate={{ scale: [1, 1.6, 1], opacity: [1, 0.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 style={{
-                  position: "absolute",
-                  width: "7px",
-                  height: "7px",
+                  width: "8px",
+                  height: "8px",
                   borderRadius: "50%",
-                  background: "rgba(0,128,255,0.5)",
+                  background: "#3B82F6",
+                  boxShadow: "0 0 10px rgba(59,130,246,0.6)",
+                  flexShrink: 0,
+                  position: "relative",
+                  zIndex: 1,
                 }}
               />
-              {/* Solid core dot */}
-              <span style={{
-                width: "7px",
-                height: "7px",
-                borderRadius: "50%",
-                background: "#0080FF",
-                boxShadow: "0 0 8px 3px rgba(0,128,255,0.75)",
-                flexShrink: 0,
-                position: "relative",
-                zIndex: 1,
-              }} />
             </span>
             NEW GEN AI AUTOMATION PARTNER
           </span>
         </motion.div>
 
-        {/* H1 — with dark edge blend effect (not fully white at sides) */}
+        {/* H1 — with exact blended black/silver fade effect at sides */}
         <motion.h1
           variants={fadeUp(0.3)} initial="initial" animate="animate"
           style={{
@@ -166,8 +162,7 @@ export default function Hero() {
             lineHeight: 1.05,
             letterSpacing: "-0.028em",
             marginBottom: "18px",
-            // Text gradient: bright white at center, fades to muted silver at edges
-            background: "radial-gradient(ellipse 80% 100% at 50% 50%, #FFFFFF 0%, #FFFFFF 35%, #C8D2E0 62%, #8899AB 100%)",
+            background: "linear-gradient(90deg, #8899AB 0%, #FFFFFF 50%, #8899AB 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",

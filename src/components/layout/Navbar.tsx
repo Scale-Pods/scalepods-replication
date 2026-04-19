@@ -57,14 +57,14 @@ export default function Navbar() {
             position: "relative",
           }}
         >
-          {/* Logo — slightly larger, with left gap */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, marginLeft: "4px" }}>
+          {/* Logo — explicitly sized & positioned per live site */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, marginLeft: "40px" }}>
             <Image
               src="/logo-light.png"
               alt="ScalePods"
-              width={220}
-              height={60}
-              style={{ height: "44px", width: "auto", objectFit: "contain", display: "block" }}
+              width={160}
+              height={44}
+              style={{ width: "154px", height: "auto", objectFit: "contain", display: "block" }}
               priority
             />
           </Link>
