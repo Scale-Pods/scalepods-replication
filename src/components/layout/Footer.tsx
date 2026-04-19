@@ -3,7 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const footerLinks = ["Services", "Contact", "Blog", "Privacy", "Terms"];
+const footerLinks = [
+  { label: "Services", href: "/#services" },
+  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+];
 
 export default function Footer() {
   return (
@@ -90,8 +96,8 @@ export default function Footer() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "32px", marginBottom: "40px" }}>
           {footerLinks.map((link) => (
             <Link
-              key={link}
-              href={`#${link.toLowerCase()}`}
+              key={link.label}
+              href={link.href}
               style={{
                 fontSize: "14px",
                 color: "#6B7280",
@@ -101,7 +107,7 @@ export default function Footer() {
               onMouseEnter={e => (e.currentTarget.style.color = "#E5E7EB")}
               onMouseLeave={e => (e.currentTarget.style.color = "#6B7280")}
             >
-              {link}
+              {link.label}
             </Link>
           ))}
         </div>
@@ -119,7 +125,7 @@ export default function Footer() {
           }}
         >
           <span style={{ fontSize: "13px", color: "#374151" }}>
-            © 2025 Display. All rights reserved.
+            © 2025 ScalePods. All rights reserved.
           </span>
           <a
             href="mailto:Info@scalepods.co"

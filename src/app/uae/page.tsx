@@ -30,22 +30,22 @@ const F = {
 // ── Input style ───────────────────────────────────────────────────────────────
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: C.bgInput,
-  border: `1px solid ${C.border}`,
-  borderRadius: "10px",
-  padding: "12px 16px",
+  background: "#08090C",
+  border: "1px solid rgba(255,255,255,0.06)",
+  borderRadius: "8px",
+  padding: "14px 16px",
   fontFamily: F.inter,
   fontSize: "14px",
-  color: C.txtBody,
+  color: C.txtBright,
   outline: "none",
   boxSizing: "border-box",
 };
 
 const labelStyle: React.CSSProperties = {
   fontFamily: F.inter,
-  fontSize: "13px",
-  fontWeight: 500,
-  color: C.txtBright,
+  fontSize: "14px",
+  fontWeight: 600,
+  color: "#B8C7D9",
   marginBottom: "8px",
   display: "block",
 };
@@ -1437,61 +1437,39 @@ export default function UAEPage() {
                   )}
 
                   {/* Submit button */}
-                  <div style={{ position: "relative" }}>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -10px)",
-                        width: "100%",
-                        height: "110px",
-                        background:
-                          "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 65%)",
-                        pointerEvents: "none",
-                        zIndex: 0,
-                      }}
-                    />
+                  <div style={{ position: "relative", width: "100%" }}>
                     <button
                       type="submit"
                       disabled={loading}
                       style={{
                         position: "relative",
-                        zIndex: 1,
                         width: "100%",
-                        padding: "14px 24px",
+                        padding: "16px 24px",
+                        background: "#040508",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        borderRadius: "8px",
+                        color: "#FFFFFF",
                         fontFamily: F.inter,
                         fontSize: "15px",
                         fontWeight: 600,
-                        color: C.txtBright,
-                        background: C.bgPanel,
-                        border: `1px solid ${C.borderMid}`,
-                        borderRadius: "10px",
                         cursor: loading ? "not-allowed" : "pointer",
-                        overflow: "hidden",
-                        opacity: loading ? 0.7 : 1,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "8px",
+                        overflow: "hidden",
                       }}
                     >
                       <div
                         style={{
                           position: "absolute",
-                          inset: 0,
-                          boxShadow: "inset 0px -14px 28px -14px rgba(255,255,255,0.28)",
-                          pointerEvents: "none",
-                        }}
-                      />
-                      <div
-                        style={{
-                          position: "absolute",
                           bottom: 0,
-                          left: "10%",
-                          right: "10%",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "60%",
                           height: "1px",
                           background: "rgba(255,255,255,0.8)",
+                          boxShadow: "0px -4px 16px 4px rgba(255,255,255,0.25)",
                         }}
                       />
                       {loading ? (

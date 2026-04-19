@@ -19,17 +19,24 @@ const C = {
   txtMuted: "#636996",
 };
 
+const labelStyle = {
+  display: "block",
+  fontSize: "14px",
+  fontWeight: 600,
+  color: "#B8C7D9",
+  marginBottom: "8px",
+};
+
 const inputStyle = {
   width: "100%",
-  background: C.bgInput,
-  border: `1px solid ${C.border}`,
+  background: "#08090C",
+  border: "1px solid rgba(255,255,255,0.06)",
   borderRadius: "8px",
-  padding: "12px 16px",
+  padding: "14px 16px",
   fontSize: "14px",
   color: C.txtBright,
   outline: "none",
   boxSizing: "border-box" as const,
-  marginBottom: "16px",
 };
 
 export default function DownloadModal({
@@ -167,32 +174,43 @@ export default function DownloadModal({
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                  <input
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="Full Name"
-                    style={inputStyle}
-                    required
-                  />
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="Email Address"
-                    style={inputStyle}
-                    required
-                  />
-                  <input
-                    name="phone"
-                    type="tel"
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="Contact Number"
-                    style={inputStyle}
-                    required
-                  />
+                  <div style={{ marginBottom: "20px" }}>
+                    <label style={labelStyle}>Full Name</label>
+                    <input
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Alex Sollork"
+                      style={inputStyle}
+                      required
+                    />
+                  </div>
+                  
+                  <div style={{ marginBottom: "20px" }}>
+                    <label style={labelStyle}>Email Address</label>
+                    <input
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="Alex@gmail.com"
+                      style={inputStyle}
+                      required
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: "24px" }}>
+                    <label style={labelStyle}>Phone Number</label>
+                    <input
+                      name="phone"
+                      type="tel"
+                      value={form.phone}
+                      onChange={handleChange}
+                      placeholder="Enter with Country Code"
+                      style={inputStyle}
+                      required
+                    />
+                  </div>
 
                   {error && (
                     <p style={{ color: "#ff6b6b", fontSize: "13px", marginBottom: "16px", textAlign: "center" }}>
@@ -200,37 +218,52 @@ export default function DownloadModal({
                     </p>
                   )}
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    style={{
-                      width: "100%", padding: "14px 24px",
-                      background: "linear-gradient(90deg, rgba(82, 168, 255, 0.1) 0%, rgba(82, 168, 255, 0.2) 100%)",
-                      border: "1px solid rgba(109, 182, 255, 0.2)",
-                      borderRadius: "8px", color: C.blue, fontSize: "15px", fontWeight: 600,
-                      cursor: loading ? "not-allowed" : "pointer",
-                      display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-                      transition: "all 0.2s"
-                    }}
-                    onMouseEnter={(e) => {
-                      if(!loading) e.currentTarget.style.background = "linear-gradient(90deg, rgba(82, 168, 255, 0.15) 0%, rgba(82, 168, 255, 0.25) 100%)"
-                    }}
-                    onMouseLeave={(e) => {
-                      if(!loading) e.currentTarget.style.background = "linear-gradient(90deg, rgba(82, 168, 255, 0.1) 0%, rgba(82, 168, 255, 0.2) 100%)"
-                    }}
-                  >
-                    {loading ? (
-                      <>
-                        <Loader2 size={18} className="animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        <Download size={18} />
-                        Download Now
-                      </>
-                    )}
-                  </button>
+                  <div style={{ position: "relative", width: "100%" }}>
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        padding: "16px 24px",
+                        background: "#040508",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        borderRadius: "8px",
+                        color: "#FFFFFF",
+                        fontSize: "15px",
+                        fontWeight: 600,
+                        cursor: loading ? "not-allowed" : "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "8px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "60%",
+                          height: "1px",
+                          background: "rgba(255,255,255,0.8)",
+                          boxShadow: "0px -4px 16px 4px rgba(255,255,255,0.25)",
+                        }}
+                      />
+                      <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", gap: "8px" }}>
+                        {loading ? (
+                          <>
+                            <Loader2 size={18} className="animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          "Download Now"
+                        )}
+                      </span>
+                    </button>
+                  </div>
                   <p style={{
                     fontSize: "12px", color: C.txtMuted, textAlign: "center",
                     marginTop: "16px"
