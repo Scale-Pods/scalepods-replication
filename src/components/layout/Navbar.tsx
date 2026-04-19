@@ -32,34 +32,83 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center"
+        className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: scrolled ? "rgba(4,7,13,0.92)" : "rgba(4,7,13,0.75)",
-          backdropFilter: "blur(16px)",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+          height: "64px",
+          display: "flex",
+          alignItems: "center",
+          background: scrolled ? "rgba(4,7,13,0.92)" : "rgba(4,7,13,0.6)",
+          backdropFilter: "blur(20px)",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
           transition: "all 0.3s ease",
         }}
       >
-        <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+        {/* Left padding with gap from edge */}
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            width: "100%",
+            paddingLeft: "28px",
+            paddingRight: "28px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            position: "relative",
+          }}
+        >
+          {/* Logo — slightly larger, with left gap */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, marginLeft: "4px" }}>
             <Image
               src="/logo-light.png"
               alt="ScalePods"
-              width={200}
-              height={56}
-              className="h-14 w-auto scale-[1.5] origin-left"
+              width={220}
+              height={60}
+              style={{ height: "44px", width: "auto", objectFit: "contain", display: "block" }}
               priority
             />
           </Link>
 
-          {/* Center Nav */}
-          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+          {/* Center Nav — wrapped in a pill border */}
+          <nav
+            className="hidden md:flex"
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.09)",
+              borderRadius: "40px",
+              padding: "6px 12px",
+              backdropFilter: "blur(8px)",
+            }}
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-[14px] font-medium transition-colors duration-200 text-[#8899AB] hover:text-white"
+                style={{
+                  fontSize: "13.5px",
+                  fontWeight: 500,
+                  color: "#8899AB",
+                  textDecoration: "none",
+                  padding: "5px 14px",
+                  borderRadius: "24px",
+                  transition: "color 0.2s, background 0.2s",
+                  whiteSpace: "nowrap",
+                  fontFamily: "Inter, sans-serif",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#E4E9F2";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#8899AB";
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 {link.label}
               </Link>
@@ -70,6 +119,7 @@ export default function Navbar() {
           <button
             className="md:hidden text-white p-2"
             onClick={() => setMenuOpen(!menuOpen)}
+            style={{ marginLeft: "auto" }}
           >
             {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -83,7 +133,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6"
             style={{ background: "rgba(4,7,13,0.97)", backdropFilter: "blur(16px)" }}
           >
             <button
@@ -97,7 +147,16 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl font-medium text-white/70 hover:text-white transition-colors"
+                style={{
+                  fontSize: "22px",
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.75)",
+                  textDecoration: "none",
+                  transition: "color 0.2s",
+                  fontFamily: "Inter, sans-serif",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.75)")}
               >
                 {link.label}
               </Link>
