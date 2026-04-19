@@ -1417,7 +1417,7 @@ const reviewsData = [
     name: "Abinash Patra",
     title: "Senior VP at Square Yards",
     quote: "“Surprisingly simple. The AI adapts quickly. Our campaigns are now running 2x more efficiently.”",
-    image: "https://randomuser.me/api/portraits/men/90.jpg"
+    image: "/reviews/Abinash Patra.jpeg"
   }
 ];
 
