@@ -224,31 +224,7 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Scroll-down arrow */}
-        <motion.a
-          href="#services"
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 1.2, duration: 0.6 } }}
-          style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "#3A4260" }}
-        >
-          <motion.div
-            animate={{ y: [0, 7, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "50%",
-              border: "1px solid rgba(255,255,255,0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgba(255,255,255,0.03)",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            <ArrowDown style={{ width: "15px", height: "15px", color: "#6B7A96" }} />
-          </motion.div>
-        </motion.a>
+
 
       </div>
 
