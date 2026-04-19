@@ -1387,31 +1387,31 @@ const reviewsData = [
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
     quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction.”",
-    image: "https://randomuser.me/api/portraits/men/32.jpg"
+    image: "/reviews/Anuj Ruia.jpeg"
   },
   {
     name: "Tejesh Lohiya",
     title: "Analytics Manager at Orchestra",
     quote: "“Huge time-saver. Data is better organized. The insights we get now are actionable and fast.”",
-    image: "https://randomuser.me/api/portraits/men/44.jpg"
+    image: "/reviews/Tejesh Lohiya.jpeg"
   },
   {
     name: "Sharan Lekhi",
     title: "Founder at Krafty Animations",
     quote: "“Game-changer. Automation flows run flawlessly. Our team now focuses only on what really matters.”",
-    image: "https://randomuser.me/api/portraits/men/68.jpg"
+    image: "/reviews/Sharan Lekhi.jpeg"
   },
   {
     name: "Shreyansh Jaiswal",
     title: "Founder at HobbyFi",
     quote: "“Smooth setup. Their system replaced three tools. We saw improvements in just the first week.”",
-    image: "https://randomuser.me/api/portraits/men/22.jpg"
+    image: "/reviews/Shreyansh Jaiswal.jpeg"
   },
   {
     name: "Dhairya Shah",
     title: "Partner & CEO at Break The Code",
     quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control.”",
-    image: "https://randomuser.me/api/portraits/men/78.jpg"
+    image: "/reviews/Dhairya Shah.avif"
   },
   {
     name: "Abinash Patra",
