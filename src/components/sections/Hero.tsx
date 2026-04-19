@@ -53,7 +53,7 @@ export default function Hero() {
       {/* ── CONTENT ── */}
       <div
         className="relative z-[3] flex flex-col items-center text-center px-6 max-w-4xl mx-auto w-full"
-        style={{ paddingTop: "100px", paddingBottom: "80px" }}
+        style={{ paddingTop: "140px", paddingBottom: "80px" }}
       >
 
         {/* App Icon Box — slightly larger, glow rings removed per user request */}
@@ -66,6 +66,17 @@ export default function Hero() {
             alignItems: "center",
             justifyContent: "center",
           }}>
+            {/* Sky-blue radial glow halo behind icon box — exact match live site */}
+            <div style={{
+              position: "absolute",
+              width: "220px",
+              height: "220px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle at center, rgba(59,130,246,0.22) 0%, transparent 70%)",
+              filter: "blur(8px)",
+              pointerEvents: "none",
+            }} />
+
             {/* Main icon box */}
             <div style={{
               position: "relative",
@@ -77,7 +88,7 @@ export default function Hero() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 0 1px rgba(109,182,255,0.06), 0 0 36px 10px rgba(0,120,255,0.22), 0 0 72px 20px rgba(0,80,200,0.12)",
+              boxShadow: "0 0 40px -5px rgba(59,130,246,0.5), 0 0 80px 0px rgba(59,130,246,0.15)",
               zIndex: 1,
             }}>
               <Image
@@ -149,7 +160,7 @@ export default function Hero() {
           Unlock Growth.
         </motion.h1>
 
-        {/* Subtext — same blended gradient as H1, no forced single line */}
+        {/* Subtext — same blended gradient as H1, forced single line */}
         <motion.p
           variants={fadeUp(0.42)} initial="initial" animate="animate"
           style={{
@@ -157,8 +168,9 @@ export default function Hero() {
             fontSize: "15.5px",
             fontWeight: 400,
             lineHeight: 1.6,
-            maxWidth: "580px",
+            maxWidth: "800px",
             marginBottom: "28px",
+            whiteSpace: "nowrap",
             background: "linear-gradient(90deg, #8899AB 0%, #FFFFFF 50%, #8899AB 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
