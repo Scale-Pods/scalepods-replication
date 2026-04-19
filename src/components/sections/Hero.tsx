@@ -153,18 +153,20 @@ export default function Hero() {
           Unlock Growth.
         </motion.h1>
 
-        {/* Subtext — single line */}
+        {/* Subtext — same blended gradient as H1, no forced single line */}
         <motion.p
           variants={fadeUp(0.42)} initial="initial" animate="animate"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
             fontSize: "15.5px",
             fontWeight: 400,
-            color: "#545B7D",
             lineHeight: 1.6,
-            maxWidth: "600px",
+            maxWidth: "580px",
             marginBottom: "28px",
-            whiteSpace: "nowrap",
+            background: "linear-gradient(90deg, #8899AB 0%, #FFFFFF 50%, #8899AB 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
           }}
         >
           We build smart workflows that automate the repetitive, reduce overheads and keep teams lean.
@@ -292,11 +294,11 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: "14px",
           fontWeight: 600,
-          color: "#B6FF56", // Neon Green
-          background: "rgba(3, 3, 3, 0.8)", // Dark Glass
+          color: "#B6FF56",
+          background: "rgba(3, 3, 3, 0.8)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: "40px", // Pill shape
+          borderRadius: "10px", // Rectangular
           padding: "12px 24px",
           overflow: "hidden",
           cursor: "pointer",
