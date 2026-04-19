@@ -298,9 +298,7 @@ export default function UseCasesPage() {
                 zIndex: 0, pointerEvents: "none",
               }} />
               <a
-                href="https://calendly.com/scalepods"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/contact"
                 style={{
                   position: "relative", zIndex: 1,
                   display: "inline-flex", alignItems: "center", gap: "6px",
@@ -341,7 +339,7 @@ export default function UseCasesPage() {
             </a>
             <span style={{ opacity: 0.15, fontSize: "20px", color: "#FFF", whiteSpace: "pre" }}>|       |</span>
             <a
-              href="https://instagram.com/scalepods"
+              href="https://www.instagram.com/scalepods.co/"
               target="_blank" rel="noopener noreferrer"
               style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8 }}
             >

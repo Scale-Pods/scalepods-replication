@@ -573,7 +573,7 @@ export function Benefits() {
 
       {/* Button with Edge Light */}
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <GlowingButton href="#evaluate">
+        <GlowingButton href="/contact">
           Evaluate Your Funnel <ArrowUpRight style={{ width: "16px", height: "16px" }} />
         </GlowingButton>
       </div>
@@ -768,7 +768,7 @@ export function Comparison() {
 
       {/* Evaluate CTA */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: "32px" }}>
-         <GlowingButton href="#evaluate">
+         <GlowingButton href="/contact">
             <span style={{ color: C.green }}>Evaluate Your Funnel</span> <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "6px", color: C.green }} />
          </GlowingButton>
       </div>
@@ -1370,7 +1370,7 @@ export function Integrations() {
 
       {/* Flashing Book a Call CTA */}
       <div style={{ display: "flex", justifyContent: "center" }}>
-         <GlowingButton href="https://cal.com">
+         <GlowingButton href="/contact">
            Book a Call <ArrowUpRight style={{ width: "16px", height: "16px" }} />
          </GlowingButton>
       </div>
@@ -1553,7 +1553,7 @@ export function FAQ() {
              Still have questions? Feel free to get in touch with us today!
            </p>
 
-           <GlowingButton href="#contact">
+           <GlowingButton href="/contact">
               <ArrowUpRight style={{ width: "15px", height: "15px", marginRight: "6px" }} /> Ask A Question
            </GlowingButton>
         </motion.div>

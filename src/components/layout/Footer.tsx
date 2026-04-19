@@ -32,7 +32,7 @@ export default function Footer() {
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             {/* Instagram */}
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/scalepods.co/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -59,7 +59,7 @@ export default function Footer() {
 
             {/* LinkedIn */}
             <a
-              href="https://www.linkedin.com/company/scalepods-co/posts/?feedView=all"
+              href="https://www.linkedin.com/company/scalepods-co"
               target="_blank"
               rel="noopener noreferrer"
               style={{

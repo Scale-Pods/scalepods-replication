@@ -140,7 +140,7 @@ export default function Hero() {
         {/* CTA Button — dark bg + green text + bottom-center glow (matches live site) */}
         <motion.div variants={fadeUp(0.52)} initial="initial" animate="animate"
           style={{ marginBottom: "20px", position: "relative", display: "inline-block" }}>
-          <GlowingButton href="#contact">
+          <GlowingButton href="/contact">
             Book A Free Call <ArrowUpRight style={{ width: "15px", height: "15px" }} />
           </GlowingButton>
         </motion.div>
@@ -174,7 +174,7 @@ export default function Hero() {
 
           {/* LinkedIn */}
           <a
-            href="https://www.linkedin.com/company/scalepods-co/posts/?feedView=all"
+            href="https://www.linkedin.com/company/scalepods-co"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: "#545B7D", transition: "color 0.2s", display: "flex", alignItems: "center" }}
@@ -188,7 +188,7 @@ export default function Hero() {
 
       {/* Chat FAB */}
       <motion.a
-        href="#contact"
+        href="/contact"
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1, transition: { delay: 1.4, duration: 0.4 } }}
         whileHover={{ scale: 1.1 }}

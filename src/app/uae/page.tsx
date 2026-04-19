@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import DownloadModal from "@/components/ui/DownloadModal";
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
@@ -149,7 +150,7 @@ const pods = [
 ];
 
 // ── Pod card component ──────────────────────────────────────────────────────
-function PodCard({ pod, index }: { pod: typeof pods[0]; index: number }) {
+function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: number; onDownload: () => void }) {
   const textFirst = !pod.imageLeft;
   return (
     <motion.div
@@ -234,8 +235,8 @@ function PodCard({ pod, index }: { pod: typeof pods[0]; index: number }) {
               zIndex: 0,
             }}
           />
-          <a
-            href="#"
+          <button
+            onClick={(e) => { e.preventDefault(); onDownload(); }}
             style={{
               position: "relative",
               zIndex: 1,
@@ -275,7 +276,7 @@ function PodCard({ pod, index }: { pod: typeof pods[0]; index: number }) {
             />
             <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2 }} />
             <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -648,7 +649,7 @@ const AUTONOMOUS_FEATURES = [
   }
 ];
 
-function AutonomousWorkflowsSection() {
+function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) {
   return (
     <section style={{ padding: "80px 32px 140px", maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
       <motion.div
@@ -774,8 +775,8 @@ function AutonomousWorkflowsSection() {
             zIndex: 0,
           }}
         />
-        <a
-          href="#"
+        <button
+          onClick={(e) => { e.preventDefault(); onDownload(); }}
           style={{
             position: "relative",
             zIndex: 1,
@@ -790,7 +791,7 @@ function AutonomousWorkflowsSection() {
             border: "1px solid rgba(255,255,255,0.15)",
             borderRadius: "12px",
             padding: "16px 40px",
-            textDecoration: "none",
+            cursor: "pointer",
             backdropFilter: "blur(8px)",
             overflow: "hidden",
             minWidth: "280px",
@@ -816,7 +817,7 @@ function AutonomousWorkflowsSection() {
             }}
           />
           <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-        </a>
+        </button>
       </motion.div>
     </section>
   );
@@ -1071,6 +1072,7 @@ export default function UAEPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -1171,8 +1173,8 @@ export default function UAEPage() {
                 zIndex: 0,
               }}
             />
-            <a
-              href="#"
+            <button
+              onClick={(e) => { e.preventDefault(); setIsDownloadModalOpen(true); }}
               style={{
                 position: "relative",
                 zIndex: 1,
@@ -1187,7 +1189,7 @@ export default function UAEPage() {
                 border: "1px solid rgba(255,255,255,0.15)",
                 borderRadius: "12px",
                 padding: "14px 40px",
-                textDecoration: "none",
+                cursor: "pointer",
                 backdropFilter: "blur(12px)",
                 overflow: "hidden",
                 minWidth: "280px",
@@ -1214,7 +1216,7 @@ export default function UAEPage() {
               />
               <Download style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
               <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -1561,7 +1563,7 @@ export default function UAEPage() {
       <section style={{ padding: "40px 32px 60px", maxWidth: "1280px", margin: "0 auto" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {pods.map((pod, i) => (
-            <PodCard key={pod.title} pod={pod} index={i} />
+            <PodCard key={pod.title} pod={pod} index={i} onDownload={() => setIsDownloadModalOpen(true)} />
           ))}
         </div>
       </section>
@@ -1839,7 +1841,7 @@ export default function UAEPage() {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <a
-            href="#discover"
+            href="/contact"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -1870,11 +1872,12 @@ export default function UAEPage() {
       <WhyChooseUsSection />
 
       {/* ── AUTONOMOUS WORKFLOWS SECTION ──────────────────────────────────── */}
-      <AutonomousWorkflowsSection />
+      <AutonomousWorkflowsSection onDownload={() => setIsDownloadModalOpen(true)} />
 
       {/* ── FAQ SECTION ───────────────────────────────────────────────────── */}
       <FAQSection />
 
+      <DownloadModal isOpen={isDownloadModalOpen} onClose={() => setIsDownloadModalOpen(false)} />
     </main>
   );
 }

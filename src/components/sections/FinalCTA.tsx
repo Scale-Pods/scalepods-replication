@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function FinalCTA() {
   return (
@@ -38,13 +39,15 @@ export default function FinalCTA() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="w-full sm:w-auto"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto bg-gradient-to-br from-accent-blue to-accent-bright text-white px-12 py-5 rounded-[14px] font-semibold text-lg shadow-[0_8px_32px_rgba(109,182,255,0.4)] transition-all"
-          >
-            Book A Free Call
-          </motion.button>
+          <Link href="/contact" className="w-full sm:w-auto">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto bg-gradient-to-br from-accent-blue to-accent-bright text-white px-12 py-5 rounded-[14px] font-semibold text-lg shadow-[0_8px_32px_rgba(109,182,255,0.4)] transition-all"
+            >
+              Book A Free Call
+            </motion.button>
+          </Link>
           <p className="text-sm text-text-muted mt-4">No commitment. Just insights.</p>
         </motion.div>
       </div>
