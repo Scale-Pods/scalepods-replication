@@ -69,7 +69,7 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Center Nav — wrapped in a pill border */}
+          {/* Center Nav — pill border, hidden on mobile, flex on md+ */}
           <nav
             className="hidden md:flex"
             style={{

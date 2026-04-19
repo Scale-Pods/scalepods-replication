@@ -160,9 +160,10 @@ export default function Hero() {
           Unlock Growth.
         </motion.h1>
 
-        {/* Subtext — same blended gradient as H1, forced single line */}
+        {/* Subtext — same blended gradient as H1, wraps on mobile */}
         <motion.p
           variants={fadeUp(0.42)} initial="initial" animate="animate"
+          className="hero-subtext"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
             fontSize: "15.5px",
