@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function PrivacyPage() {
   return (
     <main style={{ background: "#04070D", minHeight: "100vh", fontFamily: "Inter, sans-serif" }}>
-      <section style={{ paddingTop: "120px", paddingBottom: "100px", px: "32px" }}>
+      <section style={{ paddingTop: "120px", paddingBottom: "100px", paddingLeft: "32px", paddingRight: "32px" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 24px" }}>
           
           <motion.div
