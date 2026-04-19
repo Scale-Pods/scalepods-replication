@@ -56,36 +56,16 @@ export default function Hero() {
         style={{ paddingTop: "100px", paddingBottom: "80px" }}
       >
 
-        {/* App Icon Box — slightly larger with subtle circular glow ring */}
+        {/* App Icon Box — slightly larger, glow rings removed per user request */}
         <motion.div variants={scaleIn(0.05)} initial="initial" animate="animate"
           style={{ marginBottom: "24px" }}>
-          {/* Outer faint glow ring */}
+          
           <div style={{
             position: "relative",
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
           }}>
-            {/* Subtle circular glow halo behind icon box */}
-            <div style={{
-              position: "absolute",
-              width: "160px",
-              height: "160px",
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(0,100,255,0.18) 0%, transparent 70%)",
-              filter: "blur(16px)",
-              pointerEvents: "none",
-            }} />
-            {/* Faint circle border ring */}
-            <div style={{
-              position: "absolute",
-              width: "148px",
-              height: "148px",
-              borderRadius: "50%",
-              border: "1px solid rgba(109,182,255,0.12)",
-              pointerEvents: "none",
-            }} />
-
             {/* Main icon box */}
             <div style={{
               position: "relative",
@@ -103,9 +83,9 @@ export default function Hero() {
               <Image
                 src="/scalepods-logo.avif"
                 alt="ScalePods"
-                width={80}
-                height={80}
-                style={{ width: "78px", height: "78px", objectFit: "contain" }}
+                width={100}
+                height={100}
+                style={{ width: "96px", height: "96px", objectFit: "contain" }}
                 priority
               />
             </div>
@@ -312,11 +292,12 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: "14px",
           fontWeight: 600,
-          color: "#E4E9F2",
-          background: "#0A0D14",
-          border: "1px solid rgba(255,255,255,0.12)",
-          borderRadius: "10px",
-          padding: "13px 28px",
+          color: "#B6FF56", // Neon Green
+          background: "rgba(3, 3, 3, 0.8)", // Dark Glass
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: "40px", // Pill shape
+          padding: "12px 24px",
           overflow: "hidden",
           cursor: "pointer",
         }}
@@ -326,26 +307,26 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           variants={{
             rest: {
               opacity: 0.5,
-              width: "50px",
-              height: "18px",
-              bottom: "-4px",
+              width: "40px",
+              height: "1px",
+              bottom: "0px",
+              boxShadow: "0 0 8px 1px rgba(255,255,255,0.6)",
             },
             hover: {
               opacity: 1,
               width: "100%",
-              height: "32px",
-              bottom: "-8px",
+              height: "1px",
+              bottom: "0px",
+              boxShadow: "0 -2px 15px 2px rgba(255,255,255,0.9)",
             },
           }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           style={{
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",
-            background: "radial-gradient(ellipse at center bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 50%, transparent 75%)",
+            background: "#fff",
             pointerEvents: "none",
-            borderRadius: "50%",
-            filter: "blur(2px)",
           }}
         />
         {/* Bottom border line — always-on white line at very bottom */}
