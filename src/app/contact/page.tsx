@@ -2,11 +2,26 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Mail, Users, HelpCircle, ChevronDown, ChevronUp,
-  ArrowUpRight, Headphones, MessageCircle, Loader2
+import { 
+  Mail, 
+  MessageSquare, 
+  Send, 
+  CheckCircle2, 
+  AlertCircle,
+  Phone,
+  Clock,
+  ArrowRight,
+  ChevronDown,
+  ChevronUp,
+  Headphones,
+  MessageCircle,
+  Loader2,
+  Users
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useMobile } from "@/lib/hooks";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 // ── Design tokens (matching site) ──────────────────────────────────────────
 const C = {
@@ -160,6 +175,7 @@ function FaqAccordion() {
 
 // ── Main Contact Page ───────────────────────────────────────────────────────
 export default function ContactPage() {
+  const isMobile = useMobile(768);
   const [form, setForm] = useState({
     name: "", email: "", phone: "", source: "", message: ""
   });
@@ -200,12 +216,13 @@ export default function ContactPage() {
   return (
     <main style={{ background: C.bgPage, minHeight: "100vh" }}>
 
+      <Navbar />
+
       {/* ── CONTACT SECTION ─────────────────────────────────────────────── */}
-      <section style={{ padding: "120px 24px 96px", position: "relative" }}>
+      <section style={{ padding: isMobile ? "80px 16px 64px" : "120px 24px 96px", position: "relative" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
-          {/* Header */}
-          <div style={{ textAlign: "center", marginBottom: "64px" }}>
+            <div className="contact-header" style={{ textAlign: "center", marginBottom: "64px" }}>
             <div style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "6px 16px", borderRadius: "100px",
@@ -233,10 +250,10 @@ export default function ContactPage() {
           </div>
 
           {/* Two-column layout */}
-          <div style={{
+          <div className="contact-grid" style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1.5fr",
-            gap: "24px",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
+            gap: isMobile ? "40px" : "24px",
             alignItems: "start",
           }}>
 

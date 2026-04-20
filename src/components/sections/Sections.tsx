@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
+import { useMobile } from "@/lib/hooks";
 
 // ── Design tokens — exact CSS Peeper values ───────────────────────────────────
 const C = {
@@ -250,7 +251,7 @@ export function Services() {
                 { x: 150, y: 160, color: "#fff", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
                 { x: 40, y: 130, color: "#fff", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg> },
               ].map((pos, i) => (
-                <motion.div key={i} animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5 + i * 0.2, repeat: Infinity, ease: "easeInOut" }} style={{ position: "absolute", top: pos.y, left: pos.x, width: "38px", height: "38px", borderRadius: "11px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(2px)", color: pos.color }}>
+                <motion.div key={i} animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5 + i * 0.2, repeat: Infinity, ease: "easeInOut" }} style={{ position: "absolute", top: pos.y, left: pos.x, width: "38px", height: "38px", borderRadius: "11px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", WebkitBackdropFilter: "blur(2px)", backdropFilter: "blur(2px)", color: pos.color }}>
                   {pos.icon}
                 </motion.div>
               ))}
@@ -1320,6 +1321,7 @@ function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], dir
 }
 
 export function Integrations() {
+  const isMobile = useMobile(768);
   return (
     <Section id="integrations">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
@@ -1338,10 +1340,10 @@ export function Integrations() {
       <Sub>Interact with all your favorite software without unnecessary fuss</Sub>
 
       {/* Marquee Container */}
-      <div style={{ display: "flex", justifyContent: "center", margin: "60px 0 40px" }}>
+      <div style={{ display: "flex", justifyContent: "center", margin: isMobile ? "40px 0" : "60px 0 40px" }}>
          <div style={{
            position: "relative",
-           width: "100%", maxWidth: "800px",
+           width: "100%", maxWidth: isMobile ? "100%" : "800px",
            background: "#080A10",
            border: "1px solid rgba(255,255,255,0.08)",
            borderRadius: "24px",
@@ -1350,8 +1352,8 @@ export function Integrations() {
            boxShadow: "0 20px 60px rgba(0,0,0,0.6)"
          }}>
            {/* Fade overlay masks strictly inside the container */}
-           <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "120px", background: "linear-gradient(to right, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
-           <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "120px", background: "linear-gradient(to left, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
+           <div className="integration-fade" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to right, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
+           <div className="integration-fade" style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to left, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
            
            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               <MarqueeRow items={row1} direction={1} speed={40} />

@@ -56,7 +56,7 @@ export default function BlogPage() {
         </div>
 
         {/* Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(520px, 1fr))", gap: "24px" }}>
+        <div className="blog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(520px, 1fr))", gap: "24px" }}>
           {blogPosts.map((post) => {
             const cat = categoryColors[post.category] ?? categoryColors.Article;
             const img = placeholderImages[post.slug];

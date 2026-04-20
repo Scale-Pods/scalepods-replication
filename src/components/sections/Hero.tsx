@@ -281,6 +281,7 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           fontWeight: 600,
           color: "#acd791",
           background: "rgba(3, 3, 3, 0.8)",
+          WebkitBackdropFilter: "blur(10px)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255,255,255,0.1)",
           borderRadius: "10px", // Rectangular

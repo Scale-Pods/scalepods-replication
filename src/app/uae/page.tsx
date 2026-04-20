@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import DownloadModal from "@/components/ui/DownloadModal";
+import { useMobile } from "@/lib/hooks";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
@@ -151,6 +154,7 @@ const pods = [
 
 // ── Pod card component ──────────────────────────────────────────────────────
 function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: number; onDownload: () => void }) {
+  const isMobile = useMobile(900); // Higher breakpoint for these complex cards
   const textFirst = !pod.imageLeft;
   return (
     <motion.div
@@ -158,43 +162,54 @@ function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: numbe
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, delay: 0.05 }}
+      className="pod-card-mobile"
       style={{
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
         gap: "0",
         background: C.bgCard,
         border: `1px solid ${C.border}`,
         borderRadius: "20px",
         overflow: "hidden",
-        marginBottom: "2px",
+        marginBottom: isMobile ? "24px" : "2px",
       }}
     >
-      {/* Text side */}
+      {/* Content for Desktop / Bottom Content for Mobile */}
       <div
+        className="pod-card-text"
         style={{
-          order: textFirst ? 0 : 1,
-          padding: "56px 52px",
+          order: isMobile ? 3 : (textFirst ? 0 : 1),
+          padding: isMobile ? "40px 24px" : "56px 52px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          textAlign: isMobile ? "center" : "left"
         }}
       >
-        <h3
-          style={{
-            fontFamily: F.inter,
-            fontSize: "28px",
-            fontWeight: 700,
-            color: C.txtBright,
-            marginBottom: "32px",
-            lineHeight: 1.2,
-          }}
-        >
-          {pod.title}
-        </h3>
+        {!isMobile && (
+          <h3
+            style={{
+              fontFamily: F.inter,
+              fontSize: "28px",
+              fontWeight: 700,
+              color: C.txtBright,
+              marginBottom: "32px",
+              lineHeight: 1.2,
+            }}
+          >
+            {pod.title}
+          </h3>
+        )}
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginBottom: "40px" }}>
+        <div className="pod-card-list" style={{ 
+          display: "flex", 
+          flexDirection: "column", 
+          gap: "20px", 
+          marginBottom: "40px",
+          alignItems: isMobile ? "center" : "flex-start"
+        }}>
           {pod.features.map((f, i) => (
-            <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+            <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", textAlign: "left", width: isMobile ? "100%" : "auto" }}>
               <ChevronRight
                 style={{
                   width: "16px",
@@ -221,7 +236,12 @@ function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: numbe
         </div>
 
         {/* Download button */}
-        <div style={{ position: "relative", display: "inline-block", alignSelf: "flex-start" }}>
+        <div className="pod-card-button" style={{ 
+          position: "relative", 
+          display: "inline-block", 
+          alignSelf: isMobile ? "center" : "flex-start",
+          width: isMobile ? "100%" : "auto"
+        }}>
           <div
             style={{
               position: "absolute",
@@ -280,12 +300,30 @@ function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: numbe
         </div>
       </div>
 
+      {/* Mobile Title (Always Top) */}
+      {isMobile && (
+        <div style={{ padding: "32px 24px 0", textAlign: "center", order: 1 }}>
+          <h3
+            style={{
+              fontFamily: F.inter,
+              fontSize: "24px",
+              fontWeight: 700,
+              color: C.txtBright,
+              lineHeight: 1.2,
+            }}
+          >
+            {pod.title}
+          </h3>
+        </div>
+      )}
+
       {/* Image side */}
       <div
+        className="pod-card-image"
         style={{
-          order: textFirst ? 1 : 0,
+          order: isMobile ? 2 : (textFirst ? 1 : 0),
           position: "relative",
-          minHeight: "420px",
+          minHeight: isMobile ? "240px" : "420px",
           background: C.bgPanel,
           overflow: "hidden",
         }}
@@ -302,9 +340,11 @@ function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: numbe
           style={{
             position: "absolute",
             inset: 0,
-            background: textFirst
-              ? "linear-gradient(to left, transparent 60%, rgba(8,10,16,0.5) 100%)"
-              : "linear-gradient(to right, transparent 60%, rgba(8,10,16,0.5) 100%)",
+            background: isMobile 
+              ? "linear-gradient(to top, rgba(8,10,16,0.8), transparent 40%)"
+              : (textFirst
+                  ? "linear-gradient(to left, transparent 60%, rgba(8,10,16,0.5) 100%)"
+                  : "linear-gradient(to right, transparent 60%, rgba(8,10,16,0.5) 100%)"),
             pointerEvents: "none",
           }}
         />
@@ -419,6 +459,7 @@ function IndustriesSection() {
 
       {/* Tabs */}
       <div
+        className="industry-tabs"
         style={{
           display: "flex",
           flexWrap: "wrap",
@@ -432,6 +473,7 @@ function IndustriesSection() {
           return (
             <button
               key={ind.id}
+              className="industry-tab-btn"
               onClick={() => setActiveTab(ind.id)}
               style={{
                 fontFamily: F.inter,
@@ -454,6 +496,7 @@ function IndustriesSection() {
 
       {/* Animated Content Card */}
       <div
+        className="industry-card-content"
         style={{
           background: C.bgCard,
           border: `1px solid rgba(172, 215, 145, 0.15)`,
@@ -792,6 +835,7 @@ function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) 
             borderRadius: "12px",
             padding: "16px 40px",
             cursor: "pointer",
+            WebkitBackdropFilter: "blur(8px)",
             backdropFilter: "blur(8px)",
             overflow: "hidden",
             minWidth: "280px",
@@ -910,6 +954,7 @@ function FAQSection() {
 
       {/* Grid Layout */}
       <div
+        className="faq-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 2fr",
@@ -1073,6 +1118,7 @@ export default function UAEPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const isMobile = useMobile(900);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -1104,9 +1150,8 @@ export default function UAEPage() {
         style={{
           position: "relative",
           marginTop: "56px",
-          width: "100vw",
-          marginLeft: "calc(-50vw + 50%)",
-          height: "340px",
+          width: "100%",
+          height: isMobile ? "220px" : "340px",
           overflow: "hidden",
           background: "#000",
         }}
@@ -1117,7 +1162,7 @@ export default function UAEPage() {
           alt="ScalePods UAE — Your End-to-End Workflow Automation Partner"
           fill
           priority
-          style={{ objectFit: "cover", objectPosition: "center 30%" }}
+          style={{ objectFit: isMobile ? "contain" : "cover", objectPosition: "center 30%" }}
           sizes="100vw"
         />
 
@@ -1190,6 +1235,7 @@ export default function UAEPage() {
                 borderRadius: "12px",
                 padding: "14px 40px",
                 cursor: "pointer",
+                WebkitBackdropFilter: "blur(12px)",
                 backdropFilter: "blur(12px)",
                 overflow: "hidden",
                 minWidth: "280px",
@@ -1224,12 +1270,13 @@ export default function UAEPage() {
       {/* ── PLUG AND PLAY SECTION ─────────────────────────────────────────── */}
       <section style={{ padding: "100px 32px", position: "relative" }}>
         <div
+          className="contact-grid" // Reusing contact-grid for 1fr stacking
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "64px",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+            gap: "40px",
             alignItems: "center",
           }}
         >
@@ -1606,6 +1653,7 @@ export default function UAEPage() {
           </p>
 
           <div
+            className="achievement-container"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -1629,7 +1677,7 @@ export default function UAEPage() {
             </div>
 
             {/* Separator 1 */}
-            <div style={{ width: "2px", background: "#fff", position: "relative", alignSelf: "stretch", opacity: 0.8, marginTop: "12px", marginBottom: "12px" }}>
+            <div className="achievement-separator" style={{ width: "2px", background: "#fff", position: "relative", alignSelf: "stretch", opacity: 0.8, marginTop: "12px", marginBottom: "12px" }}>
               <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", top: "-4px", left: "-3px" }} />
               <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", bottom: "-4px", left: "-3px" }} />
             </div>
@@ -1649,7 +1697,7 @@ export default function UAEPage() {
             </div>
 
             {/* Separator 2 */}
-            <div style={{ width: "2px", background: "#fff", position: "relative", alignSelf: "stretch", opacity: 0.8, marginTop: "12px", marginBottom: "12px" }}>
+            <div className="achievement-separator" style={{ width: "2px", background: "#fff", position: "relative", alignSelf: "stretch", opacity: 0.8, marginTop: "12px", marginBottom: "12px" }}>
               <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", top: "-4px", left: "-3px" }} />
               <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", bottom: "-4px", left: "-3px" }} />
             </div>

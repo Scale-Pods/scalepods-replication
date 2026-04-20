@@ -75,6 +75,12 @@ body {
 ::-webkit-scrollbar-thumb { background: #222222; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #2a2a3a; }
 
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #222222 #04070D;
+}
+
 /* ── Utility: Video dark-shift ── */
 .video-dark {
   filter: hue-rotate(200deg) saturate(0.25) brightness(0.35);
@@ -270,6 +276,88 @@ body {
     background: rgba(255,255,255,0.07) !important;
     border: 1px solid rgba(255,255,255,0.15) !important;
     color: #fff !important;
+  }
+
+  /* ── Integration Fade Overlays ── */
+  .integration-fade {
+    width: 40px !important;
+  }
+
+  /* ── Contact Page Stacking ── */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .contact-header {
+    margin-bottom: 40px !important;
+    padding: 0 16px !important;
+  }
+
+  /* ── Blog Page Grid Fix ── */
+  .blog-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 16px !important;
+  }
+  .blog-card-container {
+    padding: 20px !important;
+  }
+
+  /* ── UAE Page - PodCard Redesign ── */
+  .pod-card-mobile {
+    grid-template-columns: 1fr !important;
+    padding: 0 !important;
+  }
+  .pod-card-text {
+    padding: 32px 24px !important;
+    order: 2 !important;
+    text-align: center !important;
+  }
+  .pod-card-image {
+    order: 1 !important;
+    min-height: 240px !important;
+  }
+  .pod-card-title {
+    font-size: 24px !important;
+    margin-bottom: 24px !important;
+    text-align: center !important;
+  }
+  .pod-card-list {
+    align-items: center !important;
+    text-align: left !important;
+  }
+  .pod-card-button {
+    align-self: center !important;
+    width: 100% !important;
+  }
+
+  /* ── UAE Page - Achievements ── */
+  .achievement-container {
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+  .achievement-separator {
+    display: none !important;
+  }
+
+  /* ── UAE Page - Industry Tabs ── */
+  .industry-tabs {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    padding: 0 16px 12px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .industry-tab-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+  .industry-card-content {
+    padding: 32px 20px !important;
+  }
+
+  /* ── FAQ Stacking ── */
+  .faq-grid {
+    grid-template-columns: 1fr !important;
   }
 
   /* ── Services card that spans 2 cols on desktop ── */

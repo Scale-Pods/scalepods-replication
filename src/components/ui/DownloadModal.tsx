@@ -110,6 +110,7 @@ export default function DownloadModal({
             style={{
               position: "absolute", inset: 0,
               background: "rgba(4, 7, 13, 0.6)",
+              WebkitBackdropFilter: "blur(5px)",
               backdropFilter: "blur(5px)"
             }}
           />

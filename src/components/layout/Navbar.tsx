@@ -44,6 +44,7 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           background: scrolled ? "rgba(4,7,13,0.92)" : "rgba(4,7,13,0.6)",
+          WebkitBackdropFilter: "blur(20px)",
           backdropFilter: "blur(20px)",
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
           transition: "all 0.3s ease",
@@ -85,6 +86,7 @@ export default function Navbar() {
               border: "1px solid rgba(255,255,255,0.09)",
               borderRadius: "40px",
               padding: "6px 12px",
+              WebkitBackdropFilter: "blur(8px)",
               backdropFilter: "blur(8px)",
             }}
           >
