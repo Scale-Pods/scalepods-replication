@@ -1364,9 +1364,9 @@ export function Integrations() {
            <div className="integration-fade" style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to left, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
            
            <div style={{ display: "flex", flexDirection: "column", gap: "8px", overflow: "hidden" }}>
-              <MarqueeRow items={row1} direction={1}  speed={isMobile ? 12 : 32} />
-              <MarqueeRow items={row2} direction={-1} speed={isMobile ? 14 : 38} />
-              <MarqueeRow items={row3} direction={1}  speed={isMobile ? 10 : 28} />
+              <MarqueeRow items={row1} direction={1}  speed={isMobile ? 20 : 32} />
+              <MarqueeRow items={row2} direction={-1} speed={isMobile ? 22 : 38} />
+              <MarqueeRow items={row3} direction={1}  speed={isMobile ? 21 : 28} />
            </div>
          </div>
       </div>
