@@ -17,7 +17,8 @@ import {
   MessageCircle,
   Loader2,
   Users,
-  HelpCircle
+  HelpCircle,
+  ArrowUpRight
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useMobile } from "@/lib/hooks";
