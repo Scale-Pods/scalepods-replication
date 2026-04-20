@@ -1151,7 +1151,7 @@ export default function UAEPage() {
           position: "relative",
           marginTop: "56px",
           width: "100%",
-          height: isMobile ? "220px" : "340px",
+          height: isMobile ? "280px" : "340px",
           overflow: "hidden",
           background: "#000",
         }}
@@ -1198,10 +1198,13 @@ export default function UAEPage() {
         <div
           style={{
             position: "absolute",
-            bottom: "48px",
+            bottom: isMobile ? "24px" : "48px",
             left: "50%",
             transform: "translateX(-50%)",
             zIndex: 3,
+            width: isMobile ? "90%" : "auto",
+            display: "flex",
+            justifyContent: "center"
           }}
         >
           <div style={{ position: "relative", display: "inline-block" }}>
