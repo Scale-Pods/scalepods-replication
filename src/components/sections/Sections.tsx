@@ -1297,11 +1297,17 @@ const row3 = [ "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "go
 
 function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], direction?: number, speed?: number }) {
   return (
-    <div style={{ display: "flex", gap: "16px", width: "fit-content", padding: "4px 0" }}>
+    <div style={{ display: "flex", gap: "16px", width: "fit-content", padding: "4px 0", willChange: "transform" }}>
       <motion.div
         animate={{ x: direction === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={{ duration: speed, ease: "linear", repeat: Infinity }}
-        style={{ display: "flex", gap: "16px" }}
+        style={{
+          display: "flex",
+          gap: "16px",
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          transform: "translateZ(0)",
+        }}
       >
         {/* We map the array twice inline to ensure it repeats seamlessly */}
         {[...items, ...items].map((iconKey, i) => (
@@ -1357,10 +1363,10 @@ export function Integrations() {
            <div className="integration-fade" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to right, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
            <div className="integration-fade" style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to left, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
            
-           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              <MarqueeRow items={row1} direction={1} speed={40} />
-              <MarqueeRow items={row2} direction={-1} speed={45} />
-              <MarqueeRow items={row3} direction={1} speed={35} />
+           <div style={{ display: "flex", flexDirection: "column", gap: "8px", overflow: "hidden" }}>
+              <MarqueeRow items={row1} direction={1} speed={18} />
+              <MarqueeRow items={row2} direction={-1} speed={22} />
+              <MarqueeRow items={row3} direction={1} speed={16} />
            </div>
          </div>
       </div>
