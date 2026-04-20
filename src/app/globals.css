@@ -261,8 +261,8 @@ body {
     font-size: 13.5px !important;
   }
 
-  /* ── Section padding tighter ── */
-  section { padding: 48px 14px !important; }
+  /* ── Section padding tighter — only apply to non-UAE page sections ── */
+  section[id] { padding: 48px 14px !important; }
 
   /* ── Reduce card padding ── */
   div[style*="padding: 24px"] {
@@ -372,4 +372,24 @@ body {
     width: 100% !important;
     height: 120px !important;
   }
+
+  /* ── UAE Plug & Play: force vertical stack ── */
+  .plug-play-grid {
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+  .plug-play-left {
+    width: 100% !important;
+    flex: none !important;
+    order: 1 !important;
+  }
+  .plug-play-right {
+    width: 100% !important;
+    flex: none !important;
+    order: 2 !important;
+    margin-top: 0 !important;
+  }
+
+  /* ── Remove the blanket 48px override on SECTIONS so JS-set padding is respected ── */
+  section[data-uae] { padding: unset; }
 }

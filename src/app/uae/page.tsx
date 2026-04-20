@@ -1274,31 +1274,38 @@ export default function UAEPage() {
       {/* ── PLUG AND PLAY SECTION ─────────────────────────────────────────── */}
       <section style={{ padding: isMobile ? "60px 16px" : "100px 32px", position: "relative" }}>
         <div
+          className="plug-play-grid"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-            gap: isMobile ? "32px" : "40px",
-            alignItems: "start",
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? "40px" : "60px",
+            alignItems: "flex-start",
           }}
         >
           {/* Left: headline + bullets */}
           <motion.div
+            className="plug-play-left"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
+            style={{
+              flex: isMobile ? "none" : "1",
+              width: isMobile ? "100%" : "auto",
+              order: 1,
+            }}
           >
             <h2
               style={{
                 fontFamily: F.serif,
                 fontStyle: "italic",
-                fontSize: "clamp(36px, 4vw, 54px)",
+                fontSize: isMobile ? "clamp(40px, 10vw, 60px)" : "clamp(36px, 4vw, 54px)",
                 fontWeight: 400,
                 color: C.green,
                 lineHeight: 1.15,
-                marginBottom: "8px",
+                marginBottom: "12px",
               }}
             >
               Plug - and - Play Pods
@@ -1306,10 +1313,10 @@ export default function UAEPage() {
             <h3
               style={{
                 fontFamily: F.inter,
-                fontSize: "clamp(20px, 2.5vw, 28px)",
+                fontSize: isMobile ? "clamp(22px, 5vw, 30px)" : "clamp(20px, 2.5vw, 28px)",
                 fontWeight: 700,
                 color: C.txtBright,
-                marginBottom: "20px",
+                marginBottom: "24px",
               }}
             >
               for Growing Businesses.
@@ -1317,33 +1324,33 @@ export default function UAEPage() {
             <p
               style={{
                 fontFamily: F.inter,
-                fontSize: "15px",
+                fontSize: isMobile ? "16px" : "15px",
                 fontWeight: 600,
                 color: C.txtBody,
-                marginBottom: "32px",
-                lineHeight: 1.6,
+                marginBottom: "36px",
+                lineHeight: 1.7,
               }}
             >
               Automated Workflows That Accelerate Sales, Hiring &amp; Operations
             </p>
 
             {/* Bullet list */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "20px" : "16px" }}>
               {[
                 "Source, screen & schedule top talent on autopilot.",
                 "Deliver 24/7 customer care without scaling headcount.",
                 "Convert leads into booked customers with AI-powered outreach.",
               ].map((item, i) => (
-                <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
                   <ChevronRight
-                    style={{ width: "16px", height: "16px", color: C.green, flexShrink: 0, marginTop: "3px" }}
+                    style={{ width: isMobile ? "18px" : "16px", height: isMobile ? "18px" : "16px", color: C.green, flexShrink: 0, marginTop: "3px" }}
                   />
                   <p
                     style={{
                       fontFamily: F.inter,
-                      fontSize: "14px",
+                      fontSize: isMobile ? "15px" : "14px",
                       color: C.txtBody,
-                      lineHeight: 1.6,
+                      lineHeight: 1.7,
                       margin: 0,
                     }}
                   >
@@ -1354,12 +1361,19 @@ export default function UAEPage() {
             </div>
           </motion.div>
 
-          {/* Right: stat + form */}
+          {/* Right: stat + form — always below left text on mobile */}
           <motion.div
+            className="plug-play-right"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
+            style={{
+              flex: isMobile ? "none" : "1",
+              width: isMobile ? "100%" : "auto",
+              order: 2,
+              marginTop: isMobile ? "8px" : "0",
+            }}
           >
             {/* Stat headline */}
             <div style={{ marginBottom: "28px", textAlign: "center" }}>
