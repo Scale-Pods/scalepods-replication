@@ -1307,10 +1307,12 @@ function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], dir
         {[...items, ...items].map((iconKey, i) => (
           <div key={i} style={{
             width: "60px", height: "60px", borderRadius: "14px",
-            background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)",
-            boxShadow: "inset 0px 4px 20px rgba(0,0,0,0.5), 0px 4px 10px rgba(0,0,0,0.4)",
+            background: "rgba(255,255,255,0.10)",
+            border: "1px solid rgba(255,255,255,0.18)",
+            boxShadow: "0px 2px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            color: "rgba(255,255,255,0.6)"
+            color: "rgba(255,255,255,0.92)",
+            flexShrink: 0,
           }}>
              {I_SVG[iconKey as keyof typeof I_SVG] || <Database />}
           </div>
