@@ -16,7 +16,8 @@ import {
   Headphones,
   MessageCircle,
   Loader2,
-  Users
+  Users,
+  HelpCircle
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useMobile } from "@/lib/hooks";
