@@ -47,6 +47,23 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        
+        {/* Scalepods Chatbot Integration */}
+        <div id="scalepods-chat-root" />
+        <Script 
+          src="https://unpkg.com/react@18/umd/react.production.min.js" 
+          strategy="afterInteractive"
+          crossOrigin="anonymous" 
+        />
+        <Script 
+          src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" 
+          strategy="afterInteractive"
+          crossOrigin="anonymous" 
+        />
+        <Script 
+          src="https://v0-scalepods-chatbot-frontend.vercel.app/embed.js" 
+          strategy="afterInteractive" 
+        />
 
         {/* Global scroll fade-up animation via IntersectionObserver */}
         <Script id="scroll-fade-up" strategy="afterInteractive">{`

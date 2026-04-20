@@ -228,23 +228,7 @@ export default function Hero() {
 
       </div>
 
-      {/* Chat FAB */}
-      <motion.a
-        href="/contact"
-        initial={{ opacity: 0, scale: 0.7 }}
-        animate={{ opacity: 1, scale: 1, transition: { delay: 1.4, duration: 0.4 } }}
-        whileHover={{ scale: 1.1 }}
-        style={{
-          position: "fixed", bottom: "28px", right: "28px", zIndex: 50,
-          width: "48px", height: "48px", borderRadius: "50%",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          background: "#0D0F17",
-          border: "1.5px solid #00CED1",
-          boxShadow: "0 0 12px rgba(0,206,209,0.16)",
-        }}
-      >
-        <MessageSquare style={{ width: "18px", height: "18px", color: "#fff" }} />
-      </motion.a>
+
 
       {/* Ambient Floor Lighting Line */}
       <div style={{
