@@ -40,7 +40,7 @@ export default function Navbar() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          height: "64px",
+          height: "90px",
           display: "flex",
           alignItems: "center",
           background: scrolled ? "rgba(4,7,13,0.92)" : "rgba(4,7,13,0.6)",
@@ -66,9 +66,9 @@ export default function Navbar() {
             <Image
               src="/logo-light.png"
               alt="ScalePods"
-              width={180}
-              height={48}
-              style={{ width: "auto", height: "44px", objectFit: "contain", display: "block" }}
+              width={320}
+              height={88}
+              style={{ width: "auto", height: "88px", objectFit: "contain", display: "block" }}
               priority
             />
           </Link>
@@ -165,7 +165,7 @@ export default function Navbar() {
               alignItems: "center",
               justifyContent: "space-between",
               padding: "0 20px",
-              height: "64px",
+              height: "90px",
               borderBottom: "1px solid rgba(255,255,255,0.06)",
               flexShrink: 0,
             }}>
@@ -173,9 +173,9 @@ export default function Navbar() {
                 <Image
                   src="/logo-light.png"
                   alt="ScalePods"
-                  width={160}
-                  height={42}
-                  style={{ width: "auto", height: "40px", objectFit: "contain" }}
+                  width={300}
+                  height={80}
+                  style={{ width: "auto", height: "80px", objectFit: "contain" }}
                 />
               </Link>
               <button
