@@ -1198,13 +1198,13 @@ export default function UAEPage() {
         <div
           style={{
             position: "absolute",
-            bottom: isMobile ? "24px" : "48px",
-            left: "50%",
-            transform: "translateX(-50%)",
+            bottom: isMobile ? "20px" : "48px",
+            left: 0,
+            right: 0,
             zIndex: 3,
-            width: isMobile ? "90%" : "auto",
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
+            padding: "0 20px",
           }}
         >
           <div style={{ position: "relative", display: "inline-block" }}>
@@ -1230,19 +1230,20 @@ export default function UAEPage() {
                 alignItems: "center",
                 gap: "8px",
                 fontFamily: F.inter,
-                fontSize: "15px",
+                fontSize: isMobile ? "14px" : "15px",
                 fontWeight: 600,
                 color: "#FFFFFF",
                 background: "rgba(8,10,16,0.85)",
                 border: "1px solid rgba(255,255,255,0.15)",
                 borderRadius: "12px",
-                padding: "14px 40px",
+                padding: isMobile ? "12px 28px" : "14px 40px",
                 cursor: "pointer",
                 WebkitBackdropFilter: "blur(12px)",
                 backdropFilter: "blur(12px)",
                 overflow: "hidden",
-                minWidth: "280px",
+                minWidth: isMobile ? "220px" : "280px",
                 justifyContent: "center",
+                whiteSpace: "nowrap",
               }}
             >
               <div
@@ -1271,16 +1272,15 @@ export default function UAEPage() {
       </section>
 
       {/* ── PLUG AND PLAY SECTION ─────────────────────────────────────────── */}
-      <section style={{ padding: "100px 32px", position: "relative" }}>
+      <section style={{ padding: isMobile ? "60px 16px" : "100px 32px", position: "relative" }}>
         <div
-          className="contact-grid" // Reusing contact-grid for 1fr stacking
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-            gap: "40px",
-            alignItems: "center",
+            gap: isMobile ? "32px" : "40px",
+            alignItems: "start",
           }}
         >
           {/* Left: headline + bullets */}
@@ -1399,7 +1399,9 @@ export default function UAEPage() {
                 background: C.bgCard,
                 border: `1px solid ${C.border}`,
                 borderRadius: "16px",
-                padding: "32px",
+                padding: isMobile ? "24px 20px" : "32px",
+                width: "100%",
+                boxSizing: "border-box",
               }}
             >
               {submitted ? (

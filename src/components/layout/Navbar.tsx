@@ -66,9 +66,9 @@ export default function Navbar() {
             <Image
               src="/logo-light.png"
               alt="ScalePods"
-              width={140}
-              height={38}
-              style={{ width: "auto", height: "32px", objectFit: "contain", display: "block" }}
+              width={180}
+              height={48}
+              style={{ width: "auto", height: "44px", objectFit: "contain", display: "block" }}
               priority
             />
           </Link>
@@ -173,9 +173,9 @@ export default function Navbar() {
                 <Image
                   src="/logo-light.png"
                   alt="ScalePods"
-                  width={120}
-                  height={30}
-                  style={{ width: "auto", height: "28px", objectFit: "contain" }}
+                  width={160}
+                  height={42}
+                  style={{ width: "auto", height: "40px", objectFit: "contain" }}
                 />
               </Link>
               <button
