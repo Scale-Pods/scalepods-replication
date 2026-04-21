@@ -17,13 +17,13 @@ export async function POST(req: NextRequest) {
     if (path) {
       console.log(`[Revalidate] Refreshing path: ${path}`);
       revalidatePath(path);
-      // Also revalidate the main blog listing if it's a specific slug
+      // Also revalidate the main blog listing aggressively if it's a specific slug
       if (path.startsWith('/blog/')) {
-        revalidatePath('/blog');
+        revalidatePath('/blog', 'page');
       }
     } else {
       console.log('[Revalidate] Refreshing all blog paths');
-      revalidatePath('/blog');
+      revalidatePath('/blog', 'page');
       revalidatePath('/blog/[slug]', 'page');
     }
 
