@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     title: "The Future of Workflows: Why AI Automation Is the Standard",
     excerpt:
       "Discover how businesses are replacing repetitive tasks with intelligent automation — and why early adoption gives you a competitive edge.",
-    image: "/blog/workflow-hero.jpg",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85",
     sections: [
       {
         heading: "The Shift from Manual to Machine",
@@ -54,7 +54,7 @@ export const blogPosts: BlogPost[] = [
     title: "5 Ways AI Assistants Are Transforming Operations",
     excerpt:
       "From handling support queries to managing schedules, see how AI assistants are streamlining internal workflows across industries.",
-    image: "/blog/ai-assistants.jpg",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=85",
     sections: [
       {
         heading: "Always-On Execution",
@@ -85,7 +85,7 @@ export const blogPosts: BlogPost[] = [
     title: "Scaling Smarter: How Automation Helps Startups",
     excerpt:
       "Learn how fast-growing companies use AI to cut costs, boost output, and stay lean while scaling operations efficiently.",
-    image: "/blog/startup-scaling.jpg",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=85",
     sections: [
       {
         heading: "Launching with Lean Resources",
@@ -116,7 +116,7 @@ export const blogPosts: BlogPost[] = [
     title: "Beyond Bots: Real Business Impact from AI Integration",
     excerpt:
       "Explore real-world examples of how AI automation goes beyond simple chatbots to deliver measurable business value across teams.",
-    image: "/blog/beyond-bots.jpg",
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&q=85",
     sections: [
       {
         heading: "AI That Drives Outcomes, Not Just Conversations",
