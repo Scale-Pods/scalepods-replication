@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { blogPosts } from "@/lib/blogData";
+import { blogPosts as staticPosts, BlogPost } from "@/lib/blogData";
+import { supabase } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "Blog – ScalePods",
@@ -12,6 +13,7 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
   Resources: { bg: "rgba(109,182,255,0.1)", text: "#6DB6FF", border: "rgba(109,182,255,0.2)" },
 };
 
+// Use dynamically if possible, but keep placeholders for variety
 const placeholderImages: Record<string, string> = {
   "future-of-workflows-ai-automation": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
   "5-ways-ai-assistants-transforming-operations": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
@@ -19,7 +21,34 @@ const placeholderImages: Record<string, string> = {
   "beyond-bots-real-business-impact-ai-integration": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // 1. Fetch from Supabase
+  const { data: dbPosts, error } = await supabase
+    .from("website_content")
+    .select("*")
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+
+  if (error) console.error("[BlogPage] Supabase error:", error);
+
+  // 2. Map DB posts to BlogPost format
+  const dynamicPosts: BlogPost[] = (dbPosts || []).map((db) => ({
+    slug: db.slug,
+    title: db.title,
+    excerpt: db.excerpt,
+    category: db.category || "Article",
+    date: db.published_at ? new Date(db.published_at).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }) : "Recently",
+    image: db.hero_image,
+    sections: [] // We'll handle body content in the slug page
+  }));
+
+  // 3. Merge with static posts (filter out duplicates by slug)
+  const allPosts = [...dynamicPosts, ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))];
+
   return (
     <main style={{ background: "#04070D", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
@@ -56,17 +85,23 @@ export default function BlogPage() {
         </div>
 
         {/* Grid */}
-        <div className="blog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(520px, 1fr))", gap: "24px" }}>
-          {blogPosts.map((post) => {
+        <div className="blog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "24px" }}>
+          {allPosts.map((post) => {
             const cat = categoryColors[post.category] ?? categoryColors.Article;
-            const img = placeholderImages[post.slug];
+            const img = post.image || placeholderImages[post.slug] || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80";
             return (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 style={{ textDecoration: "none" }}
               >
-                <div className="blog-card">
+                <div className="blog-card" style={{ 
+                  background: "rgba(255,255,255,0.03)", 
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  transition: "transform 0.2s ease, border-color 0.2s ease",
+                }}>
                   {/* Card Content */}
                   <div style={{ padding: "28px 28px 20px" }}>
                     {/* Category + Date */}
