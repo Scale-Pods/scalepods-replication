@@ -441,7 +441,6 @@ export function DataAnalysis() {
         fontFamily={F.inter}
         fontSize="clamp(20px,3.2vw,40px)"
         color="#8E95A3"
-        dimColor="rgba(142, 149, 163, 0.15)"
         italicFontFamily={F.serif}
         lineHeight={1.45}
       />
