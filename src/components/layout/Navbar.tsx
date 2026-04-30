@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "Use Cases", href: "/use-cases" },
-  { label: "UAE", href: "/uae" },
+  { label: "GCC", href: "/gcc" },
 ];
 
 export default function Navbar() {
@@ -82,12 +82,6 @@ export default function Navbar() {
               transform: "translateX(-50%)",
               alignItems: "center",
               gap: "4px",
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.09)",
-              borderRadius: "40px",
-              padding: "6px 12px",
-              WebkitBackdropFilter: "blur(8px)",
-              backdropFilter: "blur(8px)",
             }}
           >
             {navLinks.map((link) => (
@@ -107,11 +101,9 @@ export default function Navbar() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = "#E4E9F2";
-                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = "#8899AB";
-                  e.currentTarget.style.background = "transparent";
                 }}
               >
                 {link.label}

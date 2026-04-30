@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Script from "next/script";
+import ChatbotLoader from "@/components/ui/ChatbotLoader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -49,21 +50,7 @@ export default function RootLayout({
         <Footer />
         
         {/* Scalepods Chatbot Integration */}
-        <div id="scalepods-chat-root" />
-        <Script 
-          src="https://unpkg.com/react@18/umd/react.production.min.js" 
-          strategy="afterInteractive"
-          crossOrigin="anonymous" 
-        />
-        <Script 
-          src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" 
-          strategy="afterInteractive"
-          crossOrigin="anonymous" 
-        />
-        <Script 
-          src="https://v0-scalepods-chatbot-frontend.vercel.app/embed.js" 
-          strategy="afterInteractive" 
-        />
+        <ChatbotLoader />
 
         {/* Global scroll fade-up animation via IntersectionObserver */}
         <Script id="scroll-fade-up" strategy="afterInteractive">{`

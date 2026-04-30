@@ -41,11 +41,58 @@ export default function FinalCTA() {
         >
           <Link href="/contact" className="w-full sm:w-auto">
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              initial="rest"
+              animate="rest"
+              whileHover="hover"
+              variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }}
               whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto bg-gradient-to-br from-accent-blue to-accent-bright text-white px-12 py-5 rounded-[14px] font-semibold text-lg shadow-[0_8px_32px_rgba(109,182,255,0.4)] transition-all"
+              className="relative w-full sm:w-auto bg-gradient-to-br from-accent-blue to-accent-bright text-white px-12 py-5 rounded-[14px] font-semibold text-lg shadow-[0_8px_32px_rgba(109,182,255,0.4)] transition-all overflow-hidden"
+              style={{ transformOrigin: "center" }}
             >
-              Book A Free Call
+              <motion.div
+                variants={{
+                  rest: { opacity: 0.16, width: "140px", height: "50px" },
+                  hover: { opacity: 0.36, width: "260px", height: "80px" },
+                }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  bottom: "-30px",
+                  transform: "translateX(-50%)",
+                  background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+                  pointerEvents: "none",
+                }}
+              />
+              <motion.div
+                variants={{ rest: { opacity: 0.75, width: "45%" }, hover: { opacity: 1, width: "85%" } }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  position: "absolute",
+                  bottom: "-4px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  height: "8px",
+                  background: "#fff",
+                  filter: "blur(6px)",
+                  borderRadius: "50%",
+                  pointerEvents: "none",
+                }}
+              />
+              <motion.div
+                variants={{ rest: { opacity: 1, width: "30%" }, hover: { opacity: 1, width: "70%" } }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  height: "1px",
+                  background: "rgba(255,255,255,0.85)",
+                  pointerEvents: "none",
+                }}
+              />
+              <span style={{ position: "relative", zIndex: 1 }}>Book A Free Call</span>
             </motion.button>
           </Link>
           <p className="text-sm text-text-muted mt-4">No commitment. Just insights.</p>

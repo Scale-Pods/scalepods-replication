@@ -8,20 +8,22 @@ import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import Link from "next/link";
 
 const fadeUp = (delay = 0): Variants => ({
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 16, filter: "blur(6px)" },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+    filter: "blur(0px)",
+    transition: { duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   },
 });
 
 const scaleIn = (delay = 0): Variants => ({
-  initial: { opacity: 0, scale: 0.9 },
+  initial: { opacity: 0, scale: 0.92, filter: "blur(6px)" },
   animate: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+    filter: "blur(0px)",
+    transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   },
 });
 
@@ -46,14 +48,14 @@ export default function Hero() {
       <div
         className="absolute inset-0 z-[2] pointer-events-none"
         style={{
-          background: "linear-gradient(to bottom, rgba(4,7,13,0.72) 0%, transparent 15%, transparent 72%, rgba(4,7,13,0.9) 100%)",
+          background: "linear-gradient(to bottom, rgba(4,7,13,0.8) 0%, transparent 18%, transparent 70%, rgba(4,7,13,0.95) 100%)",
         }}
       />
 
       {/* ── CONTENT ── */}
       <div
-        className="relative z-[3] flex flex-col items-center text-center px-6 max-w-4xl mx-auto w-full"
-        style={{ paddingTop: "140px", paddingBottom: "80px" }}
+        className="relative z-[3] flex flex-col items-center text-center px-6 max-w-5xl mx-auto w-full"
+        style={{ paddingTop: "160px", paddingBottom: "80px" }}
       >
 
         {/* App Icon Box — slightly larger, glow rings removed per user request */}
@@ -104,7 +106,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Badge — blinking blue dot */}
-        <motion.div variants={fadeUp(0.18)} initial="initial" animate="animate"
+        <motion.div variants={fadeUp(0.16)} initial="initial" animate="animate"
           style={{ marginBottom: "14px" }}>
           <span style={{
             display: "inline-flex",
@@ -141,15 +143,16 @@ export default function Hero() {
 
         {/* H1 — with exact blended black/silver fade effect at sides */}
         <motion.h1
-          variants={fadeUp(0.3)} initial="initial" animate="animate"
+          variants={fadeUp(0.28)} initial="initial" animate="animate"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
-            fontSize: "clamp(48px, 6.8vw, 80px)",
-            fontWeight: 500,
+            fontSize: "clamp(44px, 6.2vw, 72px)",
+            fontWeight: 600,
             lineHeight: 1.05,
             letterSpacing: "-0.028em",
             marginBottom: "18px",
-            background: "linear-gradient(90deg, #8899AB 0%, #FFFFFF 50%, #8899AB 100%)",
+            maxWidth: "980px",
+            background: "linear-gradient(90deg, #7f90a6 0%, #FFFFFF 50%, #7f90a6 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -162,17 +165,17 @@ export default function Hero() {
 
         {/* Subtext — same blended gradient as H1, wraps on mobile */}
         <motion.p
-          variants={fadeUp(0.42)} initial="initial" animate="animate"
+          variants={fadeUp(0.4)} initial="initial" animate="animate"
           className="hero-subtext"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
-            fontSize: "15.5px",
+            fontSize: "15px",
             fontWeight: 400,
             lineHeight: 1.6,
-            maxWidth: "800px",
+            maxWidth: "720px",
             marginBottom: "28px",
             whiteSpace: "nowrap",
-            background: "linear-gradient(90deg, #8899AB 0%, #FFFFFF 50%, #8899AB 100%)",
+            background: "linear-gradient(90deg, #7f90a6 0%, #FFFFFF 50%, #7f90a6 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -182,7 +185,7 @@ export default function Hero() {
         </motion.p>
 
         {/* CTA Button — lamp glow on hover (matches reference) */}
-        <motion.div variants={fadeUp(0.52)} initial="initial" animate="animate"
+        <motion.div variants={fadeUp(0.5)} initial="initial" animate="animate"
           style={{ marginBottom: "24px" }}>
           <HeroButton href="/contact">
             Book A Free Call <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "4px" }} />
@@ -191,8 +194,8 @@ export default function Hero() {
 
         {/* Social Icons */}
         <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.85, duration: 0.7 } }}
-          style={{ display: "flex", alignItems: "center", gap: "0", marginBottom: "36px" }}
+          initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.78, duration: 0.8 } }}
+          style={{ display: "flex", alignItems: "center", gap: "0", marginBottom: "30px" }}
         >
           <a
             href="https://www.instagram.com/scalepods.co/"
@@ -202,14 +205,14 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.color = "#B8C7D9")}
             onMouseLeave={e => (e.currentTarget.style.color = "#545B7D")}
           >
-            <InstagramIcon className="w-5 h-5" />
+            <InstagramIcon className="w-[18px] h-[18px]" />
           </a>
           <span style={{
             display: "inline-block",
             width: "1px",
-            height: "16px",
+            height: "12px",
             background: "#2a2a3a",
-            margin: "0 16px",
+            margin: "0 12px",
             flexShrink: 0,
           }} />
           <a
@@ -220,8 +223,18 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.color = "#B8C7D9")}
             onMouseLeave={e => (e.currentTarget.style.color = "#545B7D")}
           >
-            <LinkedinIcon className="w-5 h-5" />
+            <LinkedinIcon className="w-[18px] h-[18px]" />
           </a>
+        </motion.div>
+
+        {/* Subtle scroll cue */}
+        <motion.div
+          initial={{ opacity: 0, y: -2 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 1, duration: 0.8 } }}
+        >
+          <Link href="#founder-note" aria-label="Scroll to founder note" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#5b6287" }}>
+            <ArrowDown style={{ width: "18px", height: "18px" }} />
+          </Link>
         </motion.div>
 
 
@@ -268,12 +281,28 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           WebkitBackdropFilter: "blur(10px)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: "10px", // Rectangular
+          borderRadius: "12px",
           padding: "12px 24px",
           overflow: "hidden",
           cursor: "pointer",
         }}
       >
+        {/* Soft lamp wash that spreads to the edges on hover */}
+        <motion.div
+          variants={{
+            rest: { opacity: 0.16, width: "140px", height: "52px" },
+            hover: { opacity: 0.36, width: "280px", height: "84px" },
+          }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            bottom: "-28px",
+            transform: "translateX(-50%)",
+            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
         {/* Bottom-center lamp glow — tight dot at rest, spreads on hover */}
         <motion.div
           variants={{
@@ -292,7 +321,7 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
               boxShadow: "0 -2px 15px 2px rgba(255,255,255,0.9)",
             },
           }}
-          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "absolute",
             left: "50%",

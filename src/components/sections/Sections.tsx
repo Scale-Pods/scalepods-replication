@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
+import ScrollRevealText from "@/components/ui/ScrollRevealText";
+import ActivityBarChart from "@/components/ui/ActivityBarChart";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useMobile } from "@/lib/hooks";
 
 // ── Design tokens — exact CSS Peeper values ───────────────────────────────────
@@ -34,50 +37,56 @@ const card = {
   borderRadius: "14px",
 } as const;
 
-// Scroll-triggered fade-up
+// Scroll-triggered blur-reveal + fade-up — applied to all cards, badges, and blocks
 const fup = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
+  initial: { opacity: 0, y: 20, filter: "blur(8px)" },
+  whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
 });
 
 // ── Shared components ─────────────────────────────────────────────────────────
 function Label({ icon, text }: { icon: string; text: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
-      <span style={{ fontSize: "13px" }}>{icon}</span>
-      <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.17em", textTransform: "uppercase" as const, color: C.txtMuted }}>
-        {text}
-      </span>
-    </div>
+    <ScrollReveal>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+        <span style={{ fontSize: "13px" }}>{icon}</span>
+        <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.17em", textTransform: "uppercase" as const, color: C.txtMuted }}>
+          {text}
+        </span>
+      </div>
+    </ScrollReveal>
   );
 }
 
 function H2({ plain, italic }: { plain: string; italic?: string }) {
   return (
-    <h2 style={{
-      fontFamily: F.inter, fontSize: "clamp(32px,4.2vw,52px)",
-      fontWeight: 500, color: C.txtBright,
-      lineHeight: 1.1, letterSpacing: "-0.022em",
-      textAlign: "center", marginBottom: "12px",
-    }}>
-      {plain}
-      {italic && (
-        <em style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: C.txtBody }}>
-          {" "}{italic}
-        </em>
-      )}
-    </h2>
+    <ScrollReveal delay={0.05}>
+      <h2 style={{
+        fontFamily: F.inter, fontSize: "clamp(32px,4.2vw,52px)",
+        fontWeight: 500, color: C.txtBright,
+        lineHeight: 1.1, letterSpacing: "-0.022em",
+        textAlign: "center", marginBottom: "12px",
+      }}>
+        {plain}
+        {italic && (
+          <em style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: C.txtBody }}>
+            {" "}{italic}
+          </em>
+        )}
+      </h2>
+    </ScrollReveal>
   );
 }
 
 function Sub({ children }: { children: string }) {
   return (
-    <p style={{
-      fontFamily: F.inter, fontSize: "15px", fontWeight: 400, color: C.txtFaint,
-      lineHeight: 1.65, textAlign: "center", maxWidth: "520px", margin: "0 auto 44px",
-    }}>{children}</p>
+    <ScrollReveal delay={0.1}>
+      <p style={{
+        fontFamily: F.inter, fontSize: "15px", fontWeight: 400, color: C.txtFaint,
+        lineHeight: 1.65, textAlign: "center", maxWidth: "520px", margin: "0 auto 44px",
+      }}>{children}</p>
+    </ScrollReveal>
   );
 }
 
@@ -105,6 +114,22 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
         borderRadius: "12px", padding: "14px 32px",
         overflow: "hidden",
       }}>
+        {/* Soft lamp wash that spreads towards edges on hover */}
+        <motion.div
+          variants={{
+            rest: { opacity: 0.16, width: "140px", height: "50px" },
+            hover: { opacity: 0.36, width: "260px", height: "80px" },
+          }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            bottom: "-30px",
+            transform: "translateX(-50%)",
+            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
         {/* Soft inset glow mimicking the lamp lighting reflecting inside */}
         <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0px -15px 30px -15px rgba(255,255,255,0.4)", pointerEvents: "none" }} />
         
@@ -114,8 +139,8 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
         
         {/* Intense bottom spotlight glow */}
         <motion.div
-          variants={{ rest: { opacity: 0.8, width: "50%" }, hover: { opacity: 1, width: "80%" } }}
-          transition={{ duration: 0.3 }}
+          variants={{ rest: { opacity: 0.75, width: "45%" }, hover: { opacity: 1, width: "85%" } }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           style={{
              position: "absolute", bottom: "-4px", left: "50%", transform: "translateX(-50%)", x: "-50%",
              height: "8px", background: "#fff", filter: "blur(6px)", borderRadius: "50%"
@@ -123,8 +148,8 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
         />
         {/* Sharp bottom edge light */}
         <motion.div
-          variants={{ rest: { opacity: 1, width: "30%" }, hover: { opacity: 1, width: "60%" } }}
-          transition={{ duration: 0.3 }}
+          variants={{ rest: { opacity: 1, width: "30%" }, hover: { opacity: 1, width: "70%" } }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           style={{
              position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", x: "-50%",
              height: "1px", background: "rgba(255,255,255,1)"
@@ -384,28 +409,42 @@ export function DataAnalysis() {
         </span>
       </div>
 
-      <h2 style={{
-        fontFamily: F.inter, fontSize: "clamp(20px,3.2vw,40px)",
-        fontWeight: 400, color: "#8E95A3",
-        lineHeight: 1.45, letterSpacing: "-0.01em",
-        width: "100%",
-      }}>
-        <span style={{ display: "block" }}>
-          We find what to{" "}
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>automate</em>
-          {", who your users are & how"}
-        </span>
-        <span style={{ display: "block" }}>
-          {"AI can optimize your "}
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>workflow</em>
-          {". Best part is we also"}
-        </span>
-        <span style={{ display: "block" }}>
-          {"build and launch "}
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>custom solutions</em>
-          {".\""}
-        </span>
-      </h2>
+      <ScrollRevealText
+        words={[
+          { text: "We" },
+          { text: "find" },
+          { text: "what" },
+          { text: "to" },
+          { text: "automate,", italic: true, accentColor: C.green },
+          { text: "who" },
+          { text: "your" },
+          { text: "users" },
+          { text: "are" },
+          { text: "&" },
+          { text: "how" },
+          { text: "AI" },
+          { text: "can" },
+          { text: "optimize" },
+          { text: "your" },
+          { text: "workflow.", italic: true, accentColor: C.green },
+          { text: "Best" },
+          { text: "part" },
+          { text: "is" },
+          { text: "we" },
+          { text: "also" },
+          { text: "build" },
+          { text: "and" },
+          { text: "launch" },
+          { text: "custom", italic: true, accentColor: C.green },
+          { text: "solutions.", italic: true, accentColor: C.green },
+        ]}
+        fontFamily={F.inter}
+        fontSize="clamp(20px,3.2vw,40px)"
+        color="#8E95A3"
+        dimColor="rgba(142, 149, 163, 0.15)"
+        italicFontFamily={F.serif}
+        lineHeight={1.45}
+      />
 
       {/* Ambient Floor Lighting Line at exactly the bottom border */}
       <div style={{
@@ -929,11 +968,9 @@ export function Process() {
                    transition={{ duration: 0.5, ease: "easeOut" }}
                    style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
                  >
-                    {/* Abstract Bar Chart Backing */}
-                    <div style={{ position: "absolute", inset: "20px 40px", display: "flex", alignItems: "flex-end", gap: "8%", opacity: 0.3 }}>
-                       {[40, 70, 45, 90, 60, 80, 50].map((h, i) => (
-                          <div key={i} style={{ flex: 1, height: `${h}%`, background: "linear-gradient(to top, rgba(255,255,255,0.1), rgba(255,255,255,0.02))", borderRadius: "4px 4px 0 0" }} />
-                       ))}
+                    {/* Activity Bar Chart */}
+                    <div style={{ position: "absolute", inset: "10px 20px", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.35 }}>
+                       <ActivityBarChart />
                     </div>
 
                     {/* Floating Code Editor Overlay */}

@@ -297,8 +297,10 @@ export default function UseCasesPage() {
                 background: "radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 60%)",
                 zIndex: 0, pointerEvents: "none",
               }} />
-              <a
+              <motion.a
                 href="/contact"
+                initial="rest"
+                whileHover="hover"
                 style={{
                   position: "relative", zIndex: 1,
                   display: "inline-flex", alignItems: "center", gap: "6px",
@@ -308,20 +310,61 @@ export default function UseCasesPage() {
                   textDecoration: "none", overflow: "hidden",
                 }}
               >
+                {/* Soft lamp wash that spreads towards edges on hover */}
+                <motion.div
+                  variants={{
+                    rest: { opacity: 0.16, width: "140px", height: "50px" },
+                    hover: { opacity: 0.36, width: "260px", height: "80px" },
+                  }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    left: "50%",
+                    bottom: "-30px",
+                    transform: "translateX(-50%)",
+                    background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+                    pointerEvents: "none",
+                  }}
+                />
                 {/* Inset glow */}
                 <div style={{
                   position: "absolute", inset: 0,
                   boxShadow: "inset 0px -15px 30px -15px rgba(255,255,255,0.4)",
                   pointerEvents: "none",
                 }} />
+                {/* Bottom-center glow line */}
+                <motion.div
+                  variants={{ rest: { opacity: 0.75, width: "45%" }, hover: { opacity: 1, width: "85%" } }}
+                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: "-4px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    height: "8px",
+                    background: "#fff",
+                    filter: "blur(6px)",
+                    borderRadius: "50%",
+                    pointerEvents: "none",
+                  }}
+                />
                 {/* Bottom edge line */}
-                <div style={{
-                  position: "absolute", bottom: 0, left: "10%", right: "10%",
-                  height: "1px", background: "rgba(255,255,255,0.85)",
-                }} />
+                <motion.div
+                  variants={{ rest: { opacity: 1, width: "30%" }, hover: { opacity: 1, width: "70%" } }}
+                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    height: "1px",
+                    background: "rgba(255,255,255,0.85)",
+                    pointerEvents: "none",
+                  }}
+                />
                 <span style={{ position: "relative", zIndex: 2 }}>Book A Free Call</span>
                 <ArrowUpRight style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
-              </a>
+              </motion.a>
             </div>
           </div>
 
