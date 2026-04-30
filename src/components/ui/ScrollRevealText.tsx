@@ -110,9 +110,7 @@ function RevealWord({
           display: "inline-block",
           willChange: "opacity, filter",
           backfaceVisibility: "hidden",
-          // Sub-pixel rendering hint
-          WebkitFontSmoothing: "antialiased",
-        } as React.CSSProperties}
+        }}
       >
         {word.text}
       </motion.span>
