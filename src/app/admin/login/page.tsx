@@ -4,7 +4,25 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { Loader2, Lock, Mail, ChevronRight } from "lucide-react";
+import { Loader2, Lock, Mail, ChevronRight, ShieldCheck } from "lucide-react";
+
+// ── Design Tokens (Matching Homepage) ──────────────────────────────────────
+const C = {
+  bgPage:  "#04070D",
+  bgCard:  "rgba(13, 15, 23, 0.8)",
+  bgInput: "#0D0F17",
+  border:  "rgba(255, 255, 255, 0.08)",
+  green:   "#ACD791",
+  blue:    "#0080FF",
+  txtBright: "#E4E9F2",
+  txtBody:   "#B8C7D9",
+  txtMuted:  "#636996",
+};
+
+const F = {
+  inter: "Inter, sans-serif",
+  serif: "Instrument Serif, Georgia, serif",
+};
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -34,103 +52,172 @@ export default function AdminLogin() {
   };
 
   return (
-    <main className="min-h-screen bg-[#04070D] flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#ACD791]/10 rounded-full blur-[120px] pointer-events-none" />
+    <main style={{ 
+      minHeight: "100vh", 
+      background: C.bgPage, 
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "center", 
+      padding: "24px",
+      position: "relative",
+      overflow: "hidden",
+      fontFamily: F.inter
+    }}>
+      {/* ── Background Glows ── */}
+      <div style={{
+        position: "absolute", top: "20%", left: "-10%",
+        width: "500px", height: "500px",
+        background: "radial-gradient(circle, rgba(0,128,255,0.08) 0%, transparent 70%)",
+        pointerEvents: "none"
+      }} />
+      <div style={{
+        position: "absolute", bottom: "10%", right: "-10%",
+        width: "600px", height: "600px",
+        background: "radial-gradient(circle, rgba(172,215,145,0.06) 0%, transparent 70%)",
+        pointerEvents: "none"
+      }} />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md relative z-10"
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        style={{ width: "100%", maxWidth: "420px", position: "relative", zIndex: 10 }}
       >
-        {/* Logo/Header */}
-        <div className="text-center mb-8">
-          <motion.div 
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
-          >
-            <Lock className="w-3.5 h-3.5 text-[#ACD791]" />
-            <span className="text-[11px] font-bold tracking-[0.2em] text-white/70 uppercase">
-              Admin Access
+        {/* ── Header ── */}
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "8px",
+            padding: "6px 16px", borderRadius: "100px",
+            background: "rgba(255,255,255,0.04)", border: `1px solid ${C.border}`,
+            marginBottom: "24px",
+          }}>
+            <ShieldCheck style={{ width: "14px", height: "14px", color: C.green }} />
+            <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.2em", color: C.txtBright, textTransform: "uppercase" }}>
+              Secure Admin Access
             </span>
-          </motion.div>
-          <h1 className="text-3xl font-bold text-white mb-2 font-inter tracking-tight">
-            ScalePods <span className="text-[#ACD791] italic font-serif font-normal">Vault</span>
+          </div>
+
+          <h1 style={{ fontSize: "36px", fontWeight: 700, color: "white", marginBottom: "8px", letterSpacing: "-0.02em" }}>
+            ScalePods <em style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: C.txtMuted }}>Vault</em>
           </h1>
-          <p className="text-white/50 text-sm">Enter your credentials to access analytics</p>
+          <p style={{ color: C.txtMuted, fontSize: "14px" }}>Enter credentials to view analytics</p>
         </div>
 
-        {/* Login Card */}
-        <div className="bg-white/[0.03] border border-white/10 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label className="block text-xs font-semibold text-white/40 uppercase tracking-wider mb-2 ml-1">
+        {/* ── Login Card ── */}
+        <div style={{
+          background: C.bgCard,
+          border: `1px solid ${C.border}`,
+          backdropFilter: "blur(20px)",
+          borderRadius: "24px",
+          padding: "40px",
+          boxShadow: "0 24px 64px -12px rgba(0,0,0,0.5)"
+        }}>
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            
+            {/* Email Field */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <label style={{ fontSize: "12px", fontWeight: 600, color: C.txtMuted, textTransform: "uppercase", letterSpacing: "0.05em", marginLeft: "4px" }}>
                 Email Address
               </label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+              <div style={{ position: "relative" }}>
+                <Mail style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", color: "rgba(255,255,255,0.2)" }} />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@scalepods.co"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ACD791]/50 transition-all text-sm"
                   required
+                  style={{
+                    width: "100%", background: C.bgInput, border: `1px solid ${C.border}`,
+                    borderRadius: "12px", padding: "14px 16px 14px 44px", color: "white",
+                    fontSize: "14px", outline: "none", transition: "border-color 0.2s"
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = "rgba(109,182,255,0.4)"}
+                  onBlur={(e) => e.target.style.borderColor = C.border}
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-white/40 uppercase tracking-wider mb-2 ml-1">
+            {/* Password Field */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <label style={{ fontSize: "12px", fontWeight: 600, color: C.txtMuted, textTransform: "uppercase", letterSpacing: "0.05em", marginLeft: "4px" }}>
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+              <div style={{ position: "relative" }}>
+                <Lock style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", color: "rgba(255,255,255,0.2)" }} />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ACD791]/50 transition-all text-sm"
                   required
+                  style={{
+                    width: "100%", background: C.bgInput, border: `1px solid ${C.border}`,
+                    borderRadius: "12px", padding: "14px 16px 14px 44px", color: "white",
+                    fontSize: "14px", outline: "none", transition: "border-color 0.2s"
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = "rgba(109,182,255,0.4)"}
+                  onBlur={(e) => e.target.style.borderColor = C.border}
                 />
               </div>
             </div>
 
             {error && (
-              <motion.div 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs text-center"
-              >
+              <div style={{
+                padding: "12px", borderRadius: "8px", background: "rgba(248,113,113,0.08)",
+                border: "1px solid rgba(248,113,113,0.2)", color: "#F87171", fontSize: "12px", textAlign: "center"
+              }}>
                 {error}
-              </motion.div>
+              </div>
             )}
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-white text-black font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#ACD791] transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                width: "100%", padding: "16px", borderRadius: "12px",
+                background: "white", color: "black", border: "none",
+                fontWeight: 700, fontSize: "15px", cursor: loading ? "not-allowed" : "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
+                transition: "all 0.2s ease", position: "relative", overflow: "hidden"
+              }}
+              onMouseEnter={(e) => {
+                if(!loading) {
+                  e.currentTarget.style.background = C.green;
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if(!loading) {
+                  e.currentTarget.style.background = "white";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }
+              }}
             >
               {loading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 style={{ width: "20px", height: "20px", animation: "spin 1s linear infinite" }} />
               ) : (
                 <>
-                  Access Dashboard
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Enter Dashboard
+                  <ChevronRight style={{ width: "18px", height: "18px" }} />
                 </>
               )}
             </button>
           </form>
         </div>
 
-        <p className="text-center mt-8 text-white/20 text-xs uppercase tracking-widest font-bold">
+        <p style={{ textAlign: "center", marginTop: "32px", fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.15)", textTransform: "uppercase", letterSpacing: "0.15em" }}>
           &copy; 2024 ScalePods Analytics Engine
         </p>
       </motion.div>
+
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </main>
   );
 }
