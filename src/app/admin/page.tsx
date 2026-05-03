@@ -7,41 +7,8 @@ import { Users, Clock, MousePointer2, Globe, Laptop, ArrowUpRight, LogOut, Loade
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
-export default function AdminDashboard() {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const router = useRouter();
-  const supabase = createClient();
-
-  useEffect(() => {
-    async function checkUser() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push("/admin/login");
-      } else {
-        setUser(user);
-        setLoading(false);
-      }
-    }
-    checkUser();
-  }, [router, supabase]);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/admin/login");
-    router.refresh();
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#04070D] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#ACD791] animate-spin" />
-      </div>
-    );
-  }
-
-  // Dummy data mimicking the future n8n Clarity cache response
-  const MOCK_TRAFFIC_DATA = [
+// Dummy data mimicking the future n8n Clarity cache response
+const MOCK_TRAFFIC_DATA = [
   { time: "00:00", sessions: 120 },
   { time: "04:00", sessions: 200 },
   { time: "08:00", sessions: 450 },
@@ -67,6 +34,30 @@ const MOCK_PAGES_DATA = [
 ];
 
 export default function AdminDashboard() {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const router = useRouter();
+  const supabase = createClient();
+
+  useEffect(() => {
+    async function checkUser() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push("/admin/login");
+      } else {
+        setUser(user);
+        setLoading(false);
+      }
+    }
+    checkUser();
+  }, [router, supabase]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/admin/login");
+    router.refresh();
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -79,6 +70,14 @@ export default function AdminDashboard() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#04070D] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#ACD791] animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#04070D] text-[#B8C7D9] pt-24 pb-12 px-6">
