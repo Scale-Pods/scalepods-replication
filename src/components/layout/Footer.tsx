@@ -31,7 +31,7 @@ export default function Footer() {
               alt="ScalePods"
               width={180}
               height={50}
-              style={{ height: "48px", width: "auto", objectFit: "contain", display: "block" }}
+              style={{ height: "40px", width: "auto", objectFit: "contain", display: "block" }}
             />
           </Link>
 

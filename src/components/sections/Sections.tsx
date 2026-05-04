@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
@@ -392,7 +393,7 @@ export function Services() {
 // ═══════════════════════════════════════════════════════════════════════════════
 export function DataAnalysis() {
   return (
-    <section style={{ position: "relative", background: C.bgPage, padding: "160px 24px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <section id="data-analysis" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
       
       {/* Badge matching live site */}
       <div style={{
@@ -409,41 +410,43 @@ export function DataAnalysis() {
         </span>
       </div>
 
-      <ScrollRevealText
-        words={[
-          { text: "We" },
-          { text: "find" },
-          { text: "what" },
-          { text: "to" },
-          { text: "automate,", italic: true, accentColor: C.green },
-          { text: "who" },
-          { text: "your" },
-          { text: "users" },
-          { text: "are" },
-          { text: "&" },
-          { text: "how" },
-          { text: "AI" },
-          { text: "can" },
-          { text: "optimize" },
-          { text: "your" },
-          { text: "workflow.", italic: true, accentColor: C.green },
-          { text: "Best" },
-          { text: "part" },
-          { text: "is" },
-          { text: "we" },
-          { text: "also" },
-          { text: "build" },
-          { text: "and" },
-          { text: "launch" },
-          { text: "custom", italic: true, accentColor: C.green },
-          { text: "solutions.", italic: true, accentColor: C.green },
-        ]}
-        fontFamily={F.inter}
-        fontSize="clamp(20px,3.2vw,40px)"
-        color="#8E95A3"
-        italicFontFamily={F.serif}
-        lineHeight={1.45}
-      />
+      <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+        <ScrollRevealText
+          words={[
+            { text: "We" },
+            { text: "find" },
+            { text: "what" },
+            { text: "to" },
+            { text: "automate,", italic: true, accentColor: "#D9F99D" },
+            { text: "who" },
+            { text: "your" },
+            { text: "users" },
+            { text: "are" },
+            { text: "&" },
+            { text: "how" },
+            { text: "AI" },
+            { text: "can" },
+            { text: "optimize" },
+            { text: "your" },
+            { text: "workflow.", italic: true, accentColor: "#D9F99D" },
+            { text: "Best" },
+            { text: "part" },
+            { text: "is" },
+            { text: "we" },
+            { text: "also" },
+            { text: "build" },
+            { text: "and" },
+            { text: "launch" },
+            { text: "custom", italic: true, accentColor: "#D9F99D" },
+            { text: "solutions.", italic: true, accentColor: "#D9F99D" },
+          ]}
+          fontFamily={F.inter}
+          fontSize="clamp(20px, 2.4vw, 32px)"
+          color="#8E95A3"
+          italicFontFamily={F.serif}
+          lineHeight={1.4}
+        />
+      </div>
 
       {/* Ambient Floor Lighting Line at exactly the bottom border */}
       <div style={{
@@ -766,7 +769,7 @@ export function Comparison() {
         {/* ScalePods column */}
         <motion.div variants={fup(0)} initial="initial" whileInView="whileInView" viewport={{ once: true }}>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "48px", marginBottom: "24px" }}>
-            <img src="/logo-light.png" alt="ScalePods" style={{ width: "160px", height: "auto", objectFit: "contain" }} />
+            <Image src="/logo-light.png" alt="ScalePods" width={160} height={44} style={{ height: "44px", width: "auto", objectFit: "contain" }} />
           </div>
           <div style={{ ...card, padding: "12px 24px" }}>
             {pros.map((item, i) => (

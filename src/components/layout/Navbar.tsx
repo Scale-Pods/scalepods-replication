@@ -68,7 +68,7 @@ export default function Navbar() {
               alt="ScalePods"
               width={320}
               height={88}
-              style={{ width: "auto", height: "88px", objectFit: "contain", display: "block" }}
+              style={{ height: "44px", width: "auto", objectFit: "contain", display: "block" }}
               priority
             />
           </Link>
@@ -167,7 +167,7 @@ export default function Navbar() {
                   alt="ScalePods"
                   width={300}
                   height={80}
-                  style={{ width: "auto", height: "80px", objectFit: "contain" }}
+                  style={{ height: "40px", width: "auto", objectFit: "contain" }}
                 />
               </Link>
               <button

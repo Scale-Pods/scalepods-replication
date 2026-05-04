@@ -50,6 +50,7 @@ export default function ScrollReveal({
     <motion.div
       ref={ref}
       style={{
+        position: "relative",
         opacity,
         filter,
         y,
