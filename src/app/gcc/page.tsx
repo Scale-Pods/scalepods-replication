@@ -58,8 +58,8 @@ const labelStyle: React.CSSProperties = {
 const pods = [
   {
     title: "HR Workflow Automation Pod",
-    image: "/gcc/HR Workflow Automation Pod.avif",
-    mockup: <HRDashboardMockup />,
+    image: "/uae/hr-workflow.avif",
+    mockup: null,
     imageLeft: false,
     features: [
       {
@@ -78,8 +78,8 @@ const pods = [
   },
   {
     title: "Sales Workflow Automation Pod",
-    image: "/gcc/Sales Workflow Automation Pod.avif",
-    mockup: <SalesDashboardMockup />,
+    image: "/uae/sales-workflow.avif",
+    mockup: null,
     imageLeft: true,
     features: [
       {
@@ -98,8 +98,8 @@ const pods = [
   },
   {
     title: "Ops & Support Automation Pod",
-    image: "/gcc/Ops & Support Automation Pod.avif",
-    mockup: <OpsDashboardMockup />,
+    image: "/uae/ops-workflow.avif",
+    mockup: null,
     imageLeft: false,
     features: [
       {
@@ -118,8 +118,8 @@ const pods = [
   },
   {
     title: "Marketing Automation Pod",
-    image: "/gcc/Marketing Automation Pod.avif",
-    mockup: <MarketingDashboardMockup />,
+    image: "/uae/marketing-workflow.avif",
+    mockup: null,
     imageLeft: true,
     features: [
       {
@@ -138,8 +138,8 @@ const pods = [
   },
   {
     title: "Custom AI Workflow Pod",
-    image: "/gcc/Custom AI Workflow Pod.avif",
-    mockup: <SalesDashboardMockup />,
+    image: "/uae/custom-ai-workflow.avif",
+    mockup: null,
     imageLeft: false,
     features: [
       {
@@ -1170,7 +1170,7 @@ export default function UAEPage() {
       >
         {/* Image fills full width — cover fit, centered */}
         <Image
-          src="/uae/head uae page.avif"
+          src="/uae/head-uae.avif"
           alt="ScalePods UAE — Your End-to-End Workflow Automation Partner"
           fill
           priority
