@@ -1896,29 +1896,65 @@ export default function UAEPage() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
+          style={{ position: "relative", display: "inline-block" }}
         >
-          <a
+          {/* Ambient lamp behind button */}
+          <div style={{
+            position: "absolute",
+            top: "50%", left: "50%", transform: "translate(-50%, -10px)",
+            width: "380px", height: "200px",
+            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%)",
+            zIndex: 0, pointerEvents: "none",
+          }} />
+          <motion.a
             href="/contact"
+            initial="rest"
+            whileHover="hover"
+            animate="rest"
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: F.inter,
-              fontSize: "14px",
-              fontWeight: 600,
-              color: C.greenBright,
-              background: "#11171A",
-              border: "1px solid rgba(141, 199, 99, 0.2)",
-              borderRadius: "8px",
-              padding: "12px 24px",
-              textDecoration: "none",
-              transition: "background-color 0.2s",
+              position: "relative", zIndex: 1,
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              fontFamily: F.inter, fontSize: "14px", fontWeight: 600,
+              color: C.greenBright, background: "#11171A",
+              border: "1px solid rgba(172, 215, 145, 0.35)",
+              borderRadius: "12px", padding: "14px 32px",
+              textDecoration: "none", overflow: "hidden",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#162024")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#11171A")}
           >
-            <span style={{ fontSize: "16px" }}>↗</span> Discover the Impact for Your Business
-          </a>
+            {/* Soft lamp wash — spreads on hover */}
+            <motion.div
+              variants={{
+                rest: { opacity: 0.16, width: "140px", height: "50px" },
+                hover: { opacity: 0.36, width: "260px", height: "80px" },
+              }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: "absolute",
+                left: "50%",
+                bottom: "-30px",
+                transform: "translateX(-50%)",
+                background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+                pointerEvents: "none",
+              }}
+            />
+            {/* Bottom lamp line — breathing pulse animation */}
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                height: "1.5px",
+                background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
+                boxShadow: "0px 0px 12px 2px rgba(255,255,255,0.6)",
+                pointerEvents: "none",
+              }}
+            />
+            <span style={{ fontSize: "16px", position: "relative", zIndex: 2 }}>↗</span>
+            <span style={{ position: "relative", zIndex: 2 }}>Discover the Impact for Your Business</span>
+          </motion.a>
         </motion.div>
       </section>
 

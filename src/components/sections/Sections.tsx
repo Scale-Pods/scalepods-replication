@@ -111,7 +111,8 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
         position: "relative",
         display: "flex", alignItems: "center", gap: "8px",
         fontFamily: F.inter, fontSize: "15px", fontWeight: 600, color: C.green,
-        background: C.bgCard, border: `1px solid rgba(255,255,255,0.08)`,
+        background: C.bgCard, 
+        border: `1px solid rgba(172, 215, 145, 0.35)`,
         borderRadius: "12px", padding: "14px 32px",
         overflow: "hidden",
       }}>
@@ -131,8 +132,21 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
             pointerEvents: "none",
           }}
         />
-        {/* Soft inset glow mimicking the lamp lighting reflecting inside */}
-        <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0px -15px 30px -15px rgba(255,255,255,0.4)", pointerEvents: "none" }} />
+        {/* Bottom lamp line — breathing pulse animation always on */}
+        <motion.div
+          animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
+            height: "1.5px",
+            background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
+            boxShadow: "0px 0px 12px 2px rgba(255,255,255,0.6)",
+            pointerEvents: "none",
+          }}
+        />
         
         <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", gap: "6px" }}>
           {children}

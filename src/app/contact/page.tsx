@@ -450,35 +450,55 @@ export default function ContactPage() {
                       background: "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 65%)",
                       pointerEvents: "none", zIndex: 0,
                     }} />
-                    <button
+                    <motion.button
                       type="submit"
                       disabled={loading}
+                      whileHover="hover"
+                      initial="rest"
+                      animate="rest"
                       style={{
                         position: "relative", zIndex: 1,
                         width: "100%", padding: "14px 24px",
                         fontFamily: F.inter, fontSize: "15px", fontWeight: 600,
-                        color: C.txtBright, background: C.bgInput,
-                        border: `1px solid rgba(255,255,255,0.12)`,
+                        color: C.green, background: C.bgInput,
+                        border: `1px solid rgba(172, 215, 145, 0.35)`,
                         borderRadius: "10px", cursor: loading ? "not-allowed" : "pointer",
                         overflow: "hidden", opacity: loading ? 0.7 : 1,
                         transition: "border-color 0.2s, opacity 0.2s",
                         display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
                       }}
-                      onMouseEnter={e => !loading && (e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)")}
-                      onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
                     >
-                      {/* Inset soft glow */}
-                      <div style={{
-                        position: "absolute", inset: 0,
-                        boxShadow: "inset 0px -14px 28px -14px rgba(255,255,255,0.3)",
-                        pointerEvents: "none",
-                      }} />
-                      {/* Bottom edge light line */}
-                      <div style={{
-                        position: "absolute", bottom: 0, left: "10%", right: "10%",
-                        height: "1px", background: "rgba(255,255,255,0.8)",
-                        pointerEvents: "none",
-                      }} />
+                      {/* Soft lamp wash — spreads on hover */}
+                      <motion.div
+                        variants={{
+                          rest: { opacity: 0.16, width: "140px", height: "50px" },
+                          hover: { opacity: 0.36, width: "260px", height: "80px" },
+                        }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        style={{
+                          position: "absolute",
+                          left: "50%",
+                          bottom: "-30px",
+                          transform: "translateX(-50%)",
+                          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+                          pointerEvents: "none",
+                        }}
+                      />
+                      {/* Bottom lamp line — breathing pulse animation always on */}
+                      <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          height: "1.5px",
+                          background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
+                          boxShadow: "0px 0px 12px 2px rgba(255,255,255,0.6)",
+                          pointerEvents: "none",
+                        }}
+                      />
                       {loading ? (
                         <>
                           <motion.div
@@ -493,7 +513,7 @@ export default function ContactPage() {
                       ) : (
                         <span style={{ position: "relative", zIndex: 2 }}>Book A Full Funnel Analysis</span>
                       )}
-                    </button>
+                    </motion.button>
                   </div>
                 </form>
               )}
@@ -591,29 +611,54 @@ export default function ContactPage() {
                   background: "radial-gradient(ellipse at center, rgba(255,255,255,0.09) 0%, transparent 65%)",
                   zIndex: 0, pointerEvents: "none",
                 }} />
-                <a
+                <motion.a
                   href="mailto:Info@scalepods.co"
+                  whileHover="hover"
+                  initial="rest"
+                  animate="rest"
                   style={{
                     position: "relative", zIndex: 1,
                     display: "inline-flex", alignItems: "center", gap: "6px",
                     fontFamily: F.inter, fontSize: "14px", fontWeight: 600, color: C.green,
-                    background: C.bgInput, border: "1px solid rgba(255,255,255,0.08)",
+                    background: C.bgInput, border: "1px solid rgba(172, 215, 145, 0.35)",
                     borderRadius: "10px", padding: "11px 24px",
                     textDecoration: "none", overflow: "hidden",
                   }}
                 >
-                  <div style={{
-                    position: "absolute", inset: 0,
-                    boxShadow: "inset 0px -12px 24px -12px rgba(255,255,255,0.3)",
-                    pointerEvents: "none",
-                  }} />
-                  <div style={{
-                    position: "absolute", bottom: 0, left: "10%", right: "10%",
-                    height: "1px", background: "rgba(255,255,255,0.75)",
-                  }} />
+                  {/* Soft lamp wash — spreads on hover */}
+                  <motion.div
+                    variants={{
+                      rest: { opacity: 0.16, width: "120px", height: "40px" },
+                      hover: { opacity: 0.36, width: "220px", height: "60px" },
+                    }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      position: "absolute",
+                      left: "50%",
+                      bottom: "-25px",
+                      transform: "translateX(-50%)",
+                      background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+                      pointerEvents: "none",
+                    }}
+                  />
+                  {/* Bottom lamp line — breathing pulse animation always on */}
+                  <motion.div
+                    animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      height: "1.5px",
+                      background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
+                      boxShadow: "0px 0px 10px 1px rgba(255,255,255,0.5)",
+                      pointerEvents: "none",
+                    }}
+                  />
                   <ArrowUpRight style={{ width: "14px", height: "14px", position: "relative", zIndex: 2 }} />
                   <span style={{ position: "relative", zIndex: 2 }}>Ask A Question</span>
-                </a>
+                </motion.a>
               </div>
             </motion.div>
 

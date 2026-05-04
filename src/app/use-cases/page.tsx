@@ -294,23 +294,24 @@ export default function UseCasesPage() {
                 position: "absolute",
                 top: "50%", left: "50%", transform: "translate(-50%, -10px)",
                 width: "380px", height: "200px",
-                background: "radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 60%)",
+                background: "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%)",
                 zIndex: 0, pointerEvents: "none",
               }} />
               <motion.a
                 href="/contact"
                 initial="rest"
                 whileHover="hover"
+                animate="rest"
                 style={{
                   position: "relative", zIndex: 1,
                   display: "inline-flex", alignItems: "center", gap: "6px",
                   fontFamily: F.inter, fontSize: "15px", fontWeight: 600, color: C.green,
-                  background: C.bgCard, border: "1px solid rgba(255,255,255,0.1)",
+                  background: C.bgCard, border: "1px solid rgba(172, 215, 145, 0.35)",
                   borderRadius: "12px", padding: "14px 36px",
                   textDecoration: "none", overflow: "hidden",
                 }}
               >
-                {/* Soft lamp wash that spreads towards edges on hover */}
+                {/* Soft lamp wash — spreads on hover */}
                 <motion.div
                   variants={{
                     rest: { opacity: 0.16, width: "140px", height: "50px" },
@@ -326,39 +327,18 @@ export default function UseCasesPage() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* Inset glow */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  boxShadow: "inset 0px -15px 30px -15px rgba(255,255,255,0.4)",
-                  pointerEvents: "none",
-                }} />
-                {/* Bottom-center glow line */}
+                {/* Bottom lamp line — breathing pulse animation always on */}
                 <motion.div
-                  variants={{ rest: { opacity: 0.75, width: "45%" }, hover: { opacity: 1, width: "85%" } }}
-                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                  style={{
-                    position: "absolute",
-                    bottom: "-4px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    height: "8px",
-                    background: "#fff",
-                    filter: "blur(6px)",
-                    borderRadius: "50%",
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Bottom edge line */}
-                <motion.div
-                  variants={{ rest: { opacity: 1, width: "30%" }, hover: { opacity: 1, width: "70%" } }}
-                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   style={{
                     position: "absolute",
                     bottom: 0,
                     left: "50%",
                     transform: "translateX(-50%)",
-                    height: "1px",
-                    background: "rgba(255,255,255,0.85)",
+                    height: "1.5px",
+                    background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
+                    boxShadow: "0px 0px 12px 2px rgba(255,255,255,0.6)",
                     pointerEvents: "none",
                   }}
                 />
