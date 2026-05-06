@@ -474,11 +474,12 @@ export function DataAnalysis() {
       {/* Trusted Brands Marquee */}
       <div style={{ marginTop: "120px", width: "100%", maxWidth: "1200px", zIndex: 1 }}>
         <p style={{
-          fontFamily: F.inter,
+          fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: "15px",
-          color: "rgba(255,255,255,0.65)",
+          color: "#8E95A3",
           marginBottom: "48px",
-          fontWeight: 500,
+          fontWeight: 400,
+          letterSpacing: "0.01em"
         }}>
           Trusted by thousands of companies and investors all over the world
         </p>
