@@ -19,7 +19,7 @@ const C = {
   txtBright: "#E4E9F2",
   txtMid:    "#D5DBE6",
   txtBody:   "#B8C7D9",
-  txtMuted:  "#636996",
+  txtMuted:  "#D5DBE6",
   txtFaint:  "#545B7D",
   blueMid:   "#6DB6FF",
   blueOn:    "#0080FF",
@@ -31,11 +31,12 @@ const F = {
   serif: "var(--font-instrument), 'Instrument Serif', Georgia, serif",
 };
 
-// card base style – matches live site card appearance
+// card base style — 3D glassmorphism with depth shadow
 const card = {
-  background: C.bgCard,
-  border: `1px solid ${C.border}`,
-  borderRadius: "14px",
+  background: "linear-gradient(145deg, #12151F 0%, #0D0F17 60%, #090B12 100%)",
+  border: "1px solid rgba(255,255,255,0.07)",
+  borderRadius: "16px",
+  boxShadow: "0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
 } as const;
 
 // Scroll-triggered blur-reveal + fade-up — applied to all cards, badges, and blocks
@@ -215,10 +216,10 @@ export function Services() {
       <H2 plain="Smarter Services," italic="Built with AI" />
       <Sub>Everything you need to automate operations, boost productivity</Sub>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", perspective: "1200px" }}>
 
         {/* 1 – Automate Repetitive Tasks (1col) */}
-        <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px", position: "relative", overflow: "hidden" }}>
+        <motion.div {...fup(0)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div style={{ position: "absolute", inset: 0, zIndex: 5, background: "linear-gradient(to bottom, #0A0D14 5%, transparent 30%, transparent 70%, #0A0D14 95%)", pointerEvents: "none" }} />
             
@@ -253,7 +254,7 @@ export function Services() {
         </motion.div>
 
         {/* 2 – Automated Workflows (2cols Wide) */}
-        <motion.div {...fup(0.1)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px", gridColumn: "span 2", position: "relative", overflow: "hidden" }}>
+        <motion.div {...fup(0.1)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px", gridColumn: "span 2", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(109,182,255,0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
           <div style={{ position: "relative", height: "180px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", zIndex: 2 }}>
@@ -302,7 +303,7 @@ export function Services() {
         </motion.div>
 
         {/* 3 – Real-Time Intelligence (1col) */}
-        <motion.div {...fup(0.2)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px" }}>
+        <motion.div {...fup(0.2)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
             <motion.div variants={{ rest: { borderColor: C.border, boxShadow: "0px 0px 0px transparent" }, hover: { borderColor: "#6DB6FF66", boxShadow: "0px 4px 20px rgba(109,182,255,0.2)" } }} transition={{ duration: 0.3 }} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 14px", borderRadius: "10px", background: C.bgInput, border: `1px solid ${C.border}` }}>
               <span style={{ fontSize: "12px", color: "#8E95A3" }}>Research anything...</span>
@@ -335,7 +336,7 @@ export function Services() {
         </motion.div>
 
         {/* 4 – Custom AI Agent (1col) */}
-        <motion.div {...fup(0.3)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px" }}>
+        <motion.div {...fup(0.3)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", flexDirection: "column", borderRadius: "12px", overflow: "hidden", border: `1px solid ${C.border}`, background: "#05070A", boxShadow: "inset 0 0 20px rgba(0,0,0,0.5)" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 14px", background: "rgba(255,255,255,0.03)", borderBottom: `1px solid rgba(255,255,255,0.05)` }}>
               <div style={{ display: "flex", gap: "6px" }}>
@@ -367,7 +368,7 @@ export function Services() {
         </motion.div>
 
         {/* 5 – AI Strategy Consulting (1col) */}
-        <motion.div {...fup(0.4)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px" }}>
+        <motion.div {...fup(0.4)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="220" height="150" viewBox="0 0 220 150">
               <motion.path 

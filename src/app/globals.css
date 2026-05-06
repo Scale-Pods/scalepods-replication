@@ -18,7 +18,7 @@
   --color-text-bright:   #E4E9F2;
   --color-text-mid:      #D5DBE6;
   --color-text-body:     #B8C7D9;
-  --color-text-muted:    #636996;
+  --color-text-muted:    #D5DBE6;
   --color-text-faint:    #545B7D;
   --color-text-darker:   #555878;
 
@@ -408,3 +408,4 @@ body {
   /* ── Remove the blanket 48px override on SECTIONS so JS-set padding is respected ── */
   section[data-uae] { padding: unset; }
 }
+

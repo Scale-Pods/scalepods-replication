@@ -37,7 +37,7 @@ const C = {
   green:   "#ACD791",
   txtBright: "#E4E9F2",
   txtBody:   "#B8C7D9",
-  txtMuted:  "#636996",
+  txtMuted:  "#D5DBE6",
 };
 const F = {
   inter: "Inter, sans-serif",
@@ -694,3 +694,4 @@ export default function ContactPage() {
     </main>
   );
 }
+
