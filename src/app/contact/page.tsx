@@ -612,7 +612,7 @@ export default function ContactPage() {
                   zIndex: 0, pointerEvents: "none",
                 }} />
                 <motion.a
-                  href="https://wa.me/YOUR_NUMBER?text=Hi%20ScalePods!%20I%20have%20a%20question%20about%20your%20workflow%20automation%20services."
+                  href="https://wa.me/917680974640?text=Hi%20ScalePods!%20I%20have%20a%20question%20about%20your%20workflow%20automation%20services."
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover="hover"
