@@ -9,6 +9,36 @@ import ScrollRevealText from "@/components/ui/ScrollRevealText";
 import ActivityBarChart from "@/components/ui/ActivityBarChart";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { useMobile } from "@/lib/hooks";
+import {
+  GaugeContainer,
+  GaugeValueArc,
+  GaugeReferenceArc,
+  useGaugeState,
+} from '@mui/x-charts/Gauge';
+
+function GaugePointer() {
+  const { valueAngle, outerRadius, cx, cy } = useGaugeState();
+
+  if (valueAngle === null) {
+    // No value to display
+    return null;
+  }
+
+  const target = {
+    x: cx + outerRadius * Math.sin(valueAngle),
+    y: cy - outerRadius * Math.cos(valueAngle),
+  };
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={5} fill="#6DB6FF" />
+      <path
+        d={`M ${cx} ${cy} L ${target.x} ${target.y}`}
+        stroke="#6DB6FF"
+        strokeWidth={3}
+      />
+    </g>
+  );
+}
 
 // ── Design tokens — exact CSS Peeper values ───────────────────────────────────
 const C = {
@@ -553,41 +583,101 @@ export function DataAnalysis() {
 // BENEFITS
 // ═══════════════════════════════════════════════════════════════════════════════
 
+function BenefitCard({ card, i }: { card: any, i: number }) {
+  const [hovered, setHovered] = useState(false);
+  
+  return (
+    <motion.div
+      {...fup(i * 0.1)}
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: "relative",
+        background: "#080A0E",
+        borderRadius: "24px",
+        padding: "0px 0px 32px 0px",
+        overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.07)",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minHeight: "380px",
+        boxShadow: "0 0 0 1px rgba(61,69,79,0.5), 0 4px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)",
+        cursor: "default",
+      }}
+    >
+      {/* Subtle bottom edge line */}
+      <div
+        style={{
+          position: "absolute", bottom: 0, left: "20%", right: "20%",
+          height: "1px",
+          background: "linear-gradient(90deg, transparent, rgba(61,69,79,0.6), transparent)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Icon area — large, takes ~60% of card */}
+      <div style={{ width: "100%", height: "240px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
+        <card.Icon hovered={hovered} />
+      </div>
+
+      {/* Title */}
+      <motion.h3
+        variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, marginBottom: "10px", padding: "0 28px", position: "relative", zIndex: 1, lineHeight: 1.3 }}
+      >
+        {card.title}
+      </motion.h3>
+
+      {/* Description — muted slate color matching original */}
+      <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#8E95A3", lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1 }}>
+        {card.desc}
+      </p>
+    </motion.div>
+  );
+}
+
 export function Benefits() {
   const cards = [
     {
       title: "Real-Time Intelligence",
       desc: "Access accurate, real-time data to drive smarter decisions",
-      Icon: function Speedometer() {
+      Icon: function Speedometer({ hovered }: { hovered: boolean }) {
         return (
-          <svg width="100%" height="160" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="grad1" cx="50%" cy="100%" r="60%">
-                <stop offset="0%" stopColor="rgba(255,255,255,0.06)" />
-                <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-              </radialGradient>
-            </defs>
-            <motion.circle cx="100" cy="140" r="60" fill="url(#grad1)" 
-              variants={{ rest: { opacity: 0.4 }, hover: { opacity: 1 } }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} />
-            <path d="M 40 140 A 60 60 0 0 1 160 140" stroke="rgba(255,255,255,0.06)" strokeWidth="3" fill="none" />
-            <path d="M 40 140 A 60 60 0 0 1 80 83" stroke="rgba(255,255,255,0.12)" strokeWidth="3" fill="none" strokeLinecap="round" />
-            <motion.g 
-              variants={{ rest: { rotate: 0 }, hover: { rotate: 45 } }} 
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              style={{ transformOrigin: "100px 140px", transform: "rotate(20deg)" }}
+          <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <GaugeContainer
+              width={200}
+              height={160}
+              startAngle={-110}
+              endAngle={110}
+              value={hovered ? 75 : 0}
+              sx={{
+                '& .MuiGauge-referenceArc': {
+                  fill: 'rgba(255,255,255,0.06)',
+                },
+                '& .MuiGauge-valueArc': {
+                  fill: 'rgba(255,255,255,0.12)',
+                  transition: 'stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1), fill 0.7s ease',
+                },
+              }}
             >
-              <line x1="100" y1="140" x2="145" y2="105" stroke="rgba(255,255,255,0.2)" strokeWidth="4" strokeLinecap="round" />
-              <circle cx="100" cy="140" r="4" fill="#6DB6FF" />
-              <circle cx="100" cy="140" r="2.5" fill="#fff" />
-            </motion.g>
-          </svg>
+              <GaugeReferenceArc />
+              <GaugeValueArc />
+              <GaugePointer />
+            </GaugeContainer>
+          </div>
         );
       }
     },
     {
       title: "Measurable Impact",
       desc: "Track performance, uncover insights, and achieve data-backed growth",
-      Icon: function Bars() {
+      Icon: function Bars({ hovered }: { hovered: boolean }) {
         return (
           <svg width="100%" height="160" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -611,7 +701,7 @@ export function Benefits() {
     {
       title: "Seamless Integration",
       desc: "Connect tools, teams, and workflows with intelligent automation",
-      Icon: function Nodes() {
+      Icon: function Nodes({ hovered }: { hovered: boolean }) {
         return (
           <svg width="100%" height="160" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
             <motion.g variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }} transition={{ duration: 0.4 }} style={{ transformOrigin: "100px 80px" }}>
@@ -652,57 +742,7 @@ export function Benefits() {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "40px" }}>
         {cards.map((card, i) => (
-          <motion.div
-            key={card.title}
-            {...fup(i * 0.1)}
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            style={{
-              position: "relative",
-              background: "#080A0E",
-              borderRadius: "24px",
-              padding: "0px 0px 32px 0px",
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.07)",
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              minHeight: "380px",
-              boxShadow: "0 0 0 1px rgba(61,69,79,0.5), 0 4px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)",
-              cursor: "default",
-            }}
-          >
-            {/* Subtle bottom edge line */}
-            <div
-              style={{
-                position: "absolute", bottom: 0, left: "20%", right: "20%",
-                height: "1px",
-                background: "linear-gradient(90deg, transparent, rgba(61,69,79,0.6), transparent)",
-                pointerEvents: "none",
-              }}
-            />
-
-            {/* Icon area — large, takes ~60% of card */}
-            <div style={{ width: "100%", height: "240px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
-              <card.Icon />
-            </div>
-
-            {/* Title */}
-            <motion.h3
-              variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, marginBottom: "10px", padding: "0 28px", position: "relative", zIndex: 1, lineHeight: 1.3 }}
-            >
-              {card.title}
-            </motion.h3>
-
-            {/* Description — muted slate color matching original */}
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#8E95A3", lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1 }}>
-              {card.desc}
-            </p>
-          </motion.div>
+          <BenefitCard key={card.title} card={card} i={i} />
         ))}
       </div>
 
