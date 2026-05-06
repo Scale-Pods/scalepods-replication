@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, animate } from "framer-motion";
 import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import ScrollRevealText from "@/components/ui/ScrollRevealText";
@@ -648,6 +648,17 @@ export function Benefits() {
       title: "Real-Time Intelligence",
       desc: "Access accurate, real-time data to drive smarter decisions",
       Icon: function Speedometer({ hovered }: { hovered: boolean }) {
+        const [gaugeValue, setGaugeValue] = useState(0);
+
+        useEffect(() => {
+          const controls = animate(gaugeValue, hovered ? 75 : 0, {
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+            onUpdate: (latest) => setGaugeValue(latest),
+          });
+          return () => controls.stop();
+        }, [hovered]);
+
         return (
           <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <GaugeContainer
@@ -655,14 +666,13 @@ export function Benefits() {
               height={160}
               startAngle={-110}
               endAngle={110}
-              value={hovered ? 75 : 0}
+              value={gaugeValue}
               sx={{
                 '& .MuiGauge-referenceArc': {
                   fill: 'rgba(255,255,255,0.06)',
                 },
                 '& .MuiGauge-valueArc': {
                   fill: 'rgba(255,255,255,0.12)',
-                  transition: 'stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1), fill 0.7s ease',
                 },
               }}
             >
