@@ -20,7 +20,6 @@ function GaugePointer() {
   const { valueAngle, outerRadius, cx, cy } = useGaugeState();
 
   if (valueAngle === null) {
-    // No value to display
     return null;
   }
 
@@ -35,6 +34,7 @@ function GaugePointer() {
         d={`M ${cx} ${cy} L ${target.x} ${target.y}`}
         stroke="#6DB6FF"
         strokeWidth={3}
+        style={{ transition: 'd 1.2s cubic-bezier(0.22, 1, 0.36, 1)' }}
       />
     </g>
   );
@@ -648,17 +648,6 @@ export function Benefits() {
       title: "Real-Time Intelligence",
       desc: "Access accurate, real-time data to drive smarter decisions",
       Icon: function Speedometer({ hovered }: { hovered: boolean }) {
-        const [gaugeValue, setGaugeValue] = useState(0);
-
-        useEffect(() => {
-          const controls = animate(gaugeValue, hovered ? 75 : 0, {
-            duration: 0.7,
-            ease: [0.22, 1, 0.36, 1],
-            onUpdate: (latest) => setGaugeValue(latest),
-          });
-          return () => controls.stop();
-        }, [hovered]);
-
         return (
           <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <GaugeContainer
@@ -666,13 +655,14 @@ export function Benefits() {
               height={160}
               startAngle={-110}
               endAngle={110}
-              value={gaugeValue}
+              value={hovered ? 75 : 0}
               sx={{
                 '& .MuiGauge-referenceArc': {
                   fill: 'rgba(255,255,255,0.06)',
                 },
                 '& .MuiGauge-valueArc': {
                   fill: 'rgba(255,255,255,0.12)',
+                  transition: 'd 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
                 },
               }}
             >
