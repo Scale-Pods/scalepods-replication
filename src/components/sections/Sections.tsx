@@ -178,7 +178,7 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
 // Section wrapper — 96px top/bottom padding
 function Section({ id, children }: { id?: string; children: React.ReactNode }) {
   return (
-    <section id={id} style={{ position: "relative", background: C.bgPage, padding: "96px 24px" }}>
+    <section id={id} style={{ position: "relative", background: C.bgPage, padding: id === "benefits" ? "60px 24px" : "96px 24px" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         {children}
       </div>
@@ -650,7 +650,7 @@ export function Benefits() {
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Everything you need to automate, optimize, and scale</Sub>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "48px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "40px" }}>
         {cards.map((card, i) => (
           <motion.div
             key={card.title}
@@ -660,31 +660,32 @@ export function Benefits() {
             animate="rest"
             style={{
               position: "relative",
-              background: "linear-gradient(145deg, #12161E 0%, #0D0F17 60%, #0A0C14 100%)",
-              borderRadius: "20px",
-              padding: "0px 0px 36px 0px",
+              background: "#080A0E",
+              borderRadius: "24px",
+              padding: "0px 0px 32px 0px",
               overflow: "hidden",
-              border: `1px solid rgba(255,255,255,0.08)`,
+              border: "1px solid rgba(255,255,255,0.07)",
               textAlign: "center",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              boxShadow: "0 0 0 1px rgba(61,69,79,0.6), 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
+              minHeight: "380px",
+              boxShadow: "0 0 0 1px rgba(61,69,79,0.5), 0 4px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)",
               cursor: "default",
             }}
           >
-            {/* Subtle bottom edge reflection always present */}
+            {/* Subtle bottom edge line */}
             <div
               style={{
                 position: "absolute", bottom: 0, left: "20%", right: "20%",
                 height: "1px",
-                background: "linear-gradient(90deg, transparent, rgba(61,69,79,0.8), transparent)",
+                background: "linear-gradient(90deg, transparent, rgba(61,69,79,0.6), transparent)",
                 pointerEvents: "none",
               }}
             />
 
-            {/* Icon area — SVG children react to parent hover state */}
-            <div style={{ width: "100%", height: "180px", marginBottom: "24px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
+            {/* Icon area — large, takes ~60% of card */}
+            <div style={{ width: "100%", height: "240px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
               <card.Icon />
             </div>
 
@@ -697,8 +698,8 @@ export function Benefits() {
               {card.title}
             </motion.h3>
 
-            {/* Description */}
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1, opacity: 0.85 }}>
+            {/* Description — muted slate color matching original */}
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#8E95A3", lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1 }}>
               {card.desc}
             </p>
           </motion.div>
