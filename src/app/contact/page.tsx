@@ -318,7 +318,7 @@ export default function ContactPage() {
                   Let&apos;s collaborate on custom solutions or discuss product insights
                 </p>
                 <a
-                  href="https://calendly.com/scalepods"
+                  href="https://wa.me/919867271848?text=Hi%20ScalePods!%20I'm%20interested%20in%20discussing%20custom%20workflow%20automation%20solutions%20for%20my%20business."
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -326,7 +326,7 @@ export default function ContactPage() {
                     textDecoration: "underline", textUnderlineOffset: "3px",
                   }}
                 >
-                  Book a call
+                  Talk to our Sales team
                 </a>
               </div>
             </div>
