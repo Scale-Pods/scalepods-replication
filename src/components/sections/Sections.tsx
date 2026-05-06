@@ -409,8 +409,8 @@ const brands = [
   { src: "/brands/BECO.avif", alt: "BECO" },
   { src: "/brands/orchestra.png", alt: "Orchestra" },
   { src: "/brands/krafty-logo-white.png", alt: "Krafty Animations" },
-  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi" },
-  { src: "/brands/Break-the-code.avif", alt: "Break The Code" },
+  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi", whiteBg: true },
+  { src: "/brands/Break-the-code.avif", alt: "Break The Code", whiteBg: true },
   { src: "/brands/squareyards-logo-new.png", alt: "Square Yards" },
 ];
 
@@ -506,8 +506,8 @@ export function DataAnalysis() {
                 alignItems: "center", 
                 justifyContent: "center",
                 opacity: 0.6,
-                filter: "brightness(0) invert(1)",
-                transition: "opacity 0.3s ease, filter 0.3s ease",
+                mixBlendMode: brand.whiteBg ? "screen" : "normal",
+                transition: "opacity 0.3s ease",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.opacity = "1";
@@ -516,7 +516,16 @@ export function DataAnalysis() {
                 e.currentTarget.style.opacity = "0.6";
               }}
               >
-                <img src={brand.src} alt={brand.alt} style={{ maxHeight: "42px", width: "auto", objectFit: "contain" }} />
+                <img 
+                  src={brand.src} 
+                  alt={brand.alt} 
+                  style={{ 
+                    maxHeight: "42px", 
+                    width: "auto", 
+                    objectFit: "contain",
+                    filter: brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)"
+                  }} 
+                />
               </div>
             ))}
           </motion.div>
