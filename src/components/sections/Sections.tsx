@@ -475,7 +475,7 @@ export function DataAnalysis() {
       <div style={{ marginTop: "120px", width: "100%", maxWidth: "1200px", zIndex: 1 }}>
         <p style={{
           fontFamily: "var(--font-inter), Inter, sans-serif",
-          fontSize: "16px",
+          fontSize: "18px",
           color: "#8E95A3",
           marginBottom: "48px",
           fontWeight: 400,
