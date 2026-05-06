@@ -405,9 +405,18 @@ export function Services() {
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA ANALYSIS — tall section with big centered text
 // ═══════════════════════════════════════════════════════════════════════════════
+const brands = [
+  { src: "/brands/BECO.avif", alt: "BECO" },
+  { src: "/brands/orchestra.png", alt: "Orchestra" },
+  { src: "/brands/krafty-logo-white.png", alt: "Krafty Animations" },
+  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi" },
+  { src: "/brands/Break-the-code.avif", alt: "Break The Code" },
+  { src: "/brands/squareyards-logo-new.png", alt: "Square Yards" },
+];
+
 export function DataAnalysis() {
   return (
-    <section id="data-analysis" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <section id="data-analysis" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", minHeight: "850px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
       
       {/* Badge matching live site */}
       <div style={{
@@ -460,6 +469,58 @@ export function DataAnalysis() {
           italicFontFamily={F.serif}
           lineHeight={1.4}
         />
+      </div>
+
+      {/* Trusted Brands Marquee */}
+      <div style={{ marginTop: "120px", width: "100%", maxWidth: "1200px", zIndex: 1 }}>
+        <p style={{
+          fontFamily: F.inter,
+          fontSize: "15px",
+          color: "rgba(255,255,255,0.65)",
+          marginBottom: "48px",
+          fontWeight: 500,
+        }}>
+          Trusted by thousands of companies and investors all over the world
+        </p>
+
+        <div style={{
+          position: "relative",
+          width: "100%",
+          overflow: "hidden",
+          maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage: "-webkit-linear-gradient(left, transparent, black 15%, black 85%, transparent)",
+        }}>
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "max-content",
+            }}
+          >
+            {[...brands, ...brands].map((brand, i) => (
+              <div key={i} style={{ 
+                marginRight: "90px", 
+                display: "flex", 
+                alignItems: "center", 
+                justifyContent: "center",
+                opacity: 0.6,
+                filter: "brightness(0) invert(1)",
+                transition: "opacity 0.3s ease, filter 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = "1";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = "0.6";
+              }}
+              >
+                <img src={brand.src} alt={brand.alt} style={{ maxHeight: "42px", width: "auto", objectFit: "contain" }} />
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
 
       {/* Ambient Floor Lighting Line at exactly the bottom border */}
