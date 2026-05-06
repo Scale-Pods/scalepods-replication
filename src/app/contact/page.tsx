@@ -612,7 +612,9 @@ export default function ContactPage() {
                   zIndex: 0, pointerEvents: "none",
                 }} />
                 <motion.a
-                  href="mailto:Info@scalepods.co"
+                  href="https://wa.me/918379062166"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover="hover"
                   initial="rest"
                   animate="rest"
