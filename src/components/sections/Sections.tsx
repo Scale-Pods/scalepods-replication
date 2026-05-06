@@ -31,12 +31,11 @@ const F = {
   serif: "var(--font-instrument), 'Instrument Serif', Georgia, serif",
 };
 
-// card base style — 3D glassmorphism with depth shadow
+// card base style – matches live site card appearance
 const card = {
-  background: "linear-gradient(145deg, #12151F 0%, #0D0F17 60%, #090B12 100%)",
-  border: "1px solid rgba(255,255,255,0.07)",
-  borderRadius: "16px",
-  boxShadow: "0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
+  background: C.bgCard,
+  border: `1px solid ${C.border}`,
+  borderRadius: "14px",
 } as const;
 
 // Scroll-triggered blur-reveal + fade-up — applied to all cards, badges, and blocks
@@ -216,10 +215,10 @@ export function Services() {
       <H2 plain="Smarter Services," italic="Built with AI" />
       <Sub>Everything you need to automate operations, boost productivity</Sub>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", perspective: "1200px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
 
         {/* 1 – Automate Repetitive Tasks (1col) */}
-        <motion.div {...fup(0)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px", position: "relative", overflow: "hidden" }}>
+        <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div style={{ position: "absolute", inset: 0, zIndex: 5, background: "linear-gradient(to bottom, #0A0D14 5%, transparent 30%, transparent 70%, #0A0D14 95%)", pointerEvents: "none" }} />
             
@@ -254,7 +253,7 @@ export function Services() {
         </motion.div>
 
         {/* 2 – Automated Workflows (2cols Wide) */}
-        <motion.div {...fup(0.1)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px", gridColumn: "span 2", position: "relative", overflow: "hidden" }}>
+        <motion.div {...fup(0.1)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px", gridColumn: "span 2", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(109,182,255,0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
           <div style={{ position: "relative", height: "180px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", zIndex: 2 }}>
@@ -303,7 +302,7 @@ export function Services() {
         </motion.div>
 
         {/* 3 – Real-Time Intelligence (1col) */}
-        <motion.div {...fup(0.2)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px" }}>
+        <motion.div {...fup(0.2)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
             <motion.div variants={{ rest: { borderColor: C.border, boxShadow: "0px 0px 0px transparent" }, hover: { borderColor: "#6DB6FF66", boxShadow: "0px 4px 20px rgba(109,182,255,0.2)" } }} transition={{ duration: 0.3 }} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 14px", borderRadius: "10px", background: C.bgInput, border: `1px solid ${C.border}` }}>
               <span style={{ fontSize: "12px", color: "#8E95A3" }}>Research anything...</span>
@@ -336,7 +335,7 @@ export function Services() {
         </motion.div>
 
         {/* 4 – Custom AI Agent (1col) */}
-        <motion.div {...fup(0.3)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px" }}>
+        <motion.div {...fup(0.3)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", flexDirection: "column", borderRadius: "12px", overflow: "hidden", border: `1px solid ${C.border}`, background: "#05070A", boxShadow: "inset 0 0 20px rgba(0,0,0,0.5)" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 14px", background: "rgba(255,255,255,0.03)", borderBottom: `1px solid rgba(255,255,255,0.05)` }}>
               <div style={{ display: "flex", gap: "6px" }}>
@@ -368,7 +367,7 @@ export function Services() {
         </motion.div>
 
         {/* 5 – AI Strategy Consulting (1col) */}
-        <motion.div {...fup(0.4)} initial="rest" whileHover={{ y: -6, scale: 1.02, boxShadow: "0 20px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,182,255,0.12), inset 0 1px 0 rgba(255,255,255,0.07)" }} transition={{ duration: 0.3, ease: "easeOut" }} style={{ ...card, padding: "24px" }}>
+        <motion.div {...fup(0.4)} initial="rest" whileHover="hover" style={{ ...card, padding: "24px" }}>
           <div style={{ position: "relative", height: "180px", marginBottom: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="220" height="150" viewBox="0 0 220 150">
               <motion.path 
@@ -643,7 +642,7 @@ export function Benefits() {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="#0080FF" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
         </svg>
-        <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtMuted }}>
+        <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtBright }}>
           BENEFITS
         </span>
       </div>
@@ -651,7 +650,7 @@ export function Benefits() {
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Everything you need to automate, optimize, and scale</Sub>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "48px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "48px", perspective: "1200px" }}>
         {cards.map((card, i) => (
           <motion.div
             key={card.title}
@@ -659,47 +658,94 @@ export function Benefits() {
             initial="rest"
             whileHover="hover"
             animate="rest"
+            whileTap={{ scale: 0.97 }}
             style={{
-              position: "relative", background: C.bgCard, borderRadius: "16px",
-              padding: "0px 0px 32px 0px", overflow: "hidden",
-              border: `1px solid ${C.border}`, textAlign: "center",
-              display: "flex", flexDirection: "column", alignItems: "center",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+              position: "relative",
+              background: "linear-gradient(145deg, #12161E 0%, #0D0F17 60%, #0A0C14 100%)",
+              borderRadius: "20px",
+              padding: "0px 0px 36px 0px",
+              overflow: "hidden",
+              border: `1px solid rgba(255,255,255,0.08)`,
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+              transformStyle: "preserve-3d",
+              cursor: "default",
             }}
+            variants={{
+              rest: {
+                rotateX: 0,
+                rotateY: 0,
+                y: 0,
+                boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+              },
+              hover: {
+                rotateX: -6,
+                rotateY: i === 0 ? 6 : i === 2 ? -6 : 0,
+                y: -10,
+                boxShadow: "0 28px 60px rgba(0,0,0,0.7), 0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(109,182,255,0.15), inset 0 1px 0 rgba(255,255,255,0.1)",
+              },
+            }}
+            transition={{ type: "spring", stiffness: 280, damping: 22 }}
           >
-            {/* Top Edge Light - visible on hover */}
+            {/* Animated top-edge glow on hover */}
+            <motion.div
+              variants={{ rest: { opacity: 0, scaleX: 0.4 }, hover: { opacity: 1, scaleX: 1 } }}
+              transition={{ duration: 0.35 }}
+              style={{
+                position: "absolute", top: 0, left: "50%", translateX: "-50%",
+                width: "70%", height: "1px",
+                background: "linear-gradient(90deg, transparent, rgba(109,182,255,0.8), rgba(255,255,255,0.9), rgba(109,182,255,0.8), transparent)",
+                boxShadow: "0 0 12px 2px rgba(109,182,255,0.4)",
+              }}
+            />
+            {/* Radial glow behind icon */}
             <motion.div
               variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
               transition={{ duration: 0.4 }}
               style={{
-                position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", x: "-50%",
-                width: "60%", height: "1px", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
+                position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+                width: "100%", height: "200px",
+                background: "radial-gradient(ellipse at 50% 0%, rgba(109,182,255,0.12) 0%, transparent 70%)",
+                pointerEvents: "none",
               }}
             />
-            {/* Bottom Edge Light - always faintly visible, brighter on hover */}
+            {/* Bottom floor reflection */}
             <motion.div
-              variants={{ rest: { opacity: 0.4, width: "30%" }, hover: { opacity: 1, width: "80%" } }}
+              variants={{ rest: { opacity: 0.3, scaleX: 0.5 }, hover: { opacity: 0.8, scaleX: 1 } }}
               transition={{ duration: 0.4 }}
               style={{
-                position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", x: "-50%",
-                height: "1px", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
+                position: "absolute", bottom: 0, left: "50%", translateX: "-50%",
+                height: "1px", width: "60%",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
               }}
             />
 
-            <div style={{ width: "100%", height: "160px", marginBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            {/* Icon area */}
+            <div style={{ width: "100%", height: "180px", marginBottom: "24px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
               <card.Icon />
             </div>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 600, color: C.blueMid, marginBottom: "8px", padding: "0 24px" }}>
+
+            {/* Title */}
+            <motion.h3
+              variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
+              transition={{ duration: 0.3 }}
+              style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, marginBottom: "10px", padding: "0 28px", position: "relative", zIndex: 1, lineHeight: 1.3 }}
+            >
               {card.title}
-            </h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtFaint, lineHeight: 1.6, padding: "0 24px" }}>
+            </motion.h3>
+
+            {/* Description */}
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1, opacity: 0.85 }}>
               {card.desc}
             </p>
           </motion.div>
         ))}
       </div>
 
-      {/* Button with Edge Light */}
+      {/* Button */}
       <div style={{ display: "flex", justifyContent: "center" }}>
         <GlowingButton href="/contact">
           Evaluate Your Funnel <ArrowUpRight style={{ width: "16px", height: "16px" }} />
