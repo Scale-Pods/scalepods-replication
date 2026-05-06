@@ -568,12 +568,12 @@ export function Benefits() {
               </radialGradient>
             </defs>
             <motion.circle cx="100" cy="140" r="60" fill="url(#grad1)" 
-              variants={{ rest: { opacity: 0.4 }, hover: { opacity: 1 } }} transition={{ duration: 0.3 }} />
+              variants={{ rest: { opacity: 0.4 }, hover: { opacity: 1 } }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} />
             <path d="M 40 140 A 60 60 0 0 1 160 140" stroke="rgba(255,255,255,0.06)" strokeWidth="3" fill="none" />
             <path d="M 40 140 A 60 60 0 0 1 80 83" stroke="rgba(255,255,255,0.12)" strokeWidth="3" fill="none" strokeLinecap="round" />
             <motion.g 
               variants={{ rest: { rotate: 0 }, hover: { rotate: 45 } }} 
-              transition={{ type: "spring", stiffness: 120, damping: 14 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               style={{ transformOrigin: "100px 140px", transform: "rotate(20deg)" }}
             >
               <line x1="100" y1="140" x2="145" y2="105" stroke="rgba(255,255,255,0.2)" strokeWidth="4" strokeLinecap="round" />
@@ -597,13 +597,13 @@ export function Benefits() {
               </linearGradient>
             </defs>
             <motion.rect variants={{ rest: { height: 35, y: 95 }, hover: { height: 45, y: 85 } }}
-              x="50" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.3, delay: 0.0 }} />
+              x="50" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.0 }} />
             <motion.rect variants={{ rest: { height: 50, y: 80 }, hover: { height: 60, y: 70 } }}
-              x="80" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.3, delay: 0.05 }} />
+              x="80" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.05 }} />
             <motion.rect variants={{ rest: { height: 65, y: 65 }, hover: { height: 85, y: 45 } }}
-              x="110" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.3, delay: 0.1 }} />
+              x="110" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }} />
             <motion.rect variants={{ rest: { height: 45, y: 85 }, hover: { height: 55, y: 75 } }}
-              x="140" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.3, delay: 0.15 }} />
+              x="140" width="18" rx="4" fill="url(#gradBar)" transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.15 }} />
           </svg>
         );
       }
@@ -650,7 +650,7 @@ export function Benefits() {
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Everything you need to automate, optimize, and scale</Sub>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "48px", perspective: "1200px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "48px" }}>
         {cards.map((card, i) => (
           <motion.div
             key={card.title}
@@ -658,7 +658,6 @@ export function Benefits() {
             initial="rest"
             whileHover="hover"
             animate="rest"
-            whileTap={{ scale: 0.97 }}
             style={{
               position: "relative",
               background: "linear-gradient(145deg, #12161E 0%, #0D0F17 60%, #0A0C14 100%)",
@@ -670,60 +669,21 @@ export function Benefits() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
-              transformStyle: "preserve-3d",
+              boxShadow: "0 0 0 1px rgba(61,69,79,0.6), 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
               cursor: "default",
             }}
-            variants={{
-              rest: {
-                rotateX: 0,
-                rotateY: 0,
-                y: 0,
-                boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
-              },
-              hover: {
-                rotateX: -6,
-                rotateY: i === 0 ? 6 : i === 2 ? -6 : 0,
-                y: -10,
-                boxShadow: "0 28px 60px rgba(0,0,0,0.7), 0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(109,182,255,0.15), inset 0 1px 0 rgba(255,255,255,0.1)",
-              },
-            }}
-            transition={{ type: "spring", stiffness: 280, damping: 22 }}
           >
-            {/* Animated top-edge glow on hover */}
-            <motion.div
-              variants={{ rest: { opacity: 0, scaleX: 0.4 }, hover: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.35 }}
+            {/* Subtle bottom edge reflection always present */}
+            <div
               style={{
-                position: "absolute", top: 0, left: "50%", translateX: "-50%",
-                width: "70%", height: "1px",
-                background: "linear-gradient(90deg, transparent, rgba(109,182,255,0.8), rgba(255,255,255,0.9), rgba(109,182,255,0.8), transparent)",
-                boxShadow: "0 0 12px 2px rgba(109,182,255,0.4)",
-              }}
-            />
-            {/* Radial glow behind icon */}
-            <motion.div
-              variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-              transition={{ duration: 0.4 }}
-              style={{
-                position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
-                width: "100%", height: "200px",
-                background: "radial-gradient(ellipse at 50% 0%, rgba(109,182,255,0.12) 0%, transparent 70%)",
+                position: "absolute", bottom: 0, left: "20%", right: "20%",
+                height: "1px",
+                background: "linear-gradient(90deg, transparent, rgba(61,69,79,0.8), transparent)",
                 pointerEvents: "none",
               }}
             />
-            {/* Bottom floor reflection */}
-            <motion.div
-              variants={{ rest: { opacity: 0.3, scaleX: 0.5 }, hover: { opacity: 0.8, scaleX: 1 } }}
-              transition={{ duration: 0.4 }}
-              style={{
-                position: "absolute", bottom: 0, left: "50%", translateX: "-50%",
-                height: "1px", width: "60%",
-                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-              }}
-            />
 
-            {/* Icon area */}
+            {/* Icon area — SVG children react to parent hover state */}
             <div style={{ width: "100%", height: "180px", marginBottom: "24px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
               <card.Icon />
             </div>
@@ -731,7 +691,7 @@ export function Benefits() {
             {/* Title */}
             <motion.h3
               variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, marginBottom: "10px", padding: "0 28px", position: "relative", zIndex: 1, lineHeight: 1.3 }}
             >
               {card.title}
