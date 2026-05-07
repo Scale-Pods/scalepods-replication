@@ -47,24 +47,28 @@ export default async function AdminPage() {
 
 function DashboardSkeleton() {
   return (
-    <div className="min-h-screen bg-[#04070D] pt-24 pb-12 px-6 animate-pulse">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="h-10 w-72 bg-white/5 rounded-xl" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="min-h-screen bg-[#04070D] animate-pulse">
+      {/* Header bar skeleton */}
+      <div className="sticky top-0 z-40 border-b border-white/[0.05] bg-[#04070D]/80 h-16 flex items-center px-6">
+        <div className="h-5 w-48 bg-white/5 rounded-full" />
+      </div>
+      <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        <div className="h-8 w-72 bg-white/5 rounded-xl" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-36 bg-white/5 rounded-2xl border border-white/5" />
+            <div key={i} className="h-32 bg-white/[0.03] rounded-2xl border border-white/[0.05]" />
           ))}
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 h-80 bg-white/5 rounded-2xl border border-white/5" />
-          <div className="flex flex-col gap-6">
-            <div className="h-36 bg-white/5 rounded-2xl border border-white/5" />
-            <div className="h-36 bg-white/5 rounded-2xl border border-white/5" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-2 h-72 bg-white/[0.03] rounded-2xl border border-white/[0.05]" />
+          <div className="flex flex-col gap-4">
+            <div className="h-32 bg-white/[0.03] rounded-2xl border border-white/[0.05]" />
+            <div className="h-32 bg-white/[0.03] rounded-2xl border border-white/[0.05]" />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-52 bg-white/5 rounded-2xl border border-white/5" />
+            <div key={i} className="h-48 bg-white/[0.03] rounded-2xl border border-white/[0.05]" />
           ))}
         </div>
       </div>

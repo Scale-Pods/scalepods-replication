@@ -8,8 +8,8 @@ import {
   ResponsiveContainer, AreaChart, Area,
 } from "recharts";
 import {
-  Users, Clock, MousePointer2, Globe, ArrowUpRight, LogOut,
-  Info, MapPin, Monitor, Cpu, Link, Megaphone,
+  Users, Clock, MousePointer2, Globe, LogOut,
+  Info, MapPin, Monitor, Cpu, Link, Megaphone, BarChart3,
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -51,88 +51,97 @@ function fmtSecs(secs: number): string {
 function fmtTime(iso: string) {
   try {
     return new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  } catch {
-    return iso;
-  }
+  } catch { return iso; }
 }
 
-// ── Animation variants ───────────────────────────────────────────────────────
+// ── Animation ────────────────────────────────────────────────────────────────
 
 const container = {
   hidden:  { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
+};
+const card = {
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
 };
 
-const item = {
-  hidden:  { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0,  transition: { duration: 0.4, ease: "easeOut" as const } },
-};
+// ── BarList ───────────────────────────────────────────────────────────────────
 
-// ── Sub-components ───────────────────────────────────────────────────────────
-
-function StatCard({
-  icon, label, value, accent, badge,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string | number;
-  accent: string;
-  badge?: string;
-}) {
-  return (
-    <motion.div variants={item} className="use-case-card !text-left !p-6 flex flex-col justify-between">
-      <div className="flex items-center justify-between mb-4">
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${accent}`}>{icon}</div>
-        {badge && (
-          <span className="flex items-center gap-1 text-[#ACD791] text-sm font-medium">
-            {badge} <ArrowUpRight size={14} />
-          </span>
-        )}
-      </div>
-      <div>
-        <p className="text-[#636996] text-sm font-medium mb-1">{label}</p>
-        <h3 className="text-3xl font-bold text-white">{value}</h3>
-      </div>
-    </motion.div>
-  );
-}
-
-function BarList({
-  items, valueKey, nameKey, color,
-}: {
+function BarList({ items, valueKey, nameKey, color }: {
   items: Record<string, any>[];
-  valueKey: string;
-  nameKey: string;
-  color: string;
+  valueKey: string; nameKey: string; color: string;
 }) {
-  if (!items?.length) return <p className="text-sm text-[#636996]">No data yet</p>;
+  if (!items?.length) return <p className="text-sm text-[#636996] italic">No data yet</p>;
   const max = Math.max(...items.map((i) => i[valueKey] ?? 0)) || 1;
   return (
     <div className="space-y-3">
       {items.map((i) => (
-        <div key={i[nameKey]} className="flex items-center justify-between gap-3">
-          <span className="text-sm text-[#E4E9F2] truncate flex-1">{i[nameKey]}</span>
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-700"
-                style={{ width: `${Math.round(((i[valueKey] ?? 0) / max) * 100)}%`, backgroundColor: color }}
-              />
-            </div>
-            <span className="text-xs font-medium text-white w-8 text-right">
-              {i.percentage !== undefined ? `${i.percentage}%` : i[valueKey]?.toLocaleString()}
-            </span>
+        <div key={i[nameKey]} className="flex items-center gap-3">
+          <span className="text-sm text-[#C8D6E5] truncate w-24 flex-shrink-0">{i[nameKey]}</span>
+          <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${Math.round(((i[valueKey] ?? 0) / max) * 100)}%` }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="h-full rounded-full"
+              style={{ backgroundColor: color }}
+            />
           </div>
+          <span className="text-xs font-semibold text-white w-10 text-right flex-shrink-0">
+            {i.percentage !== undefined ? `${i.percentage}%` : i[valueKey]?.toLocaleString()}
+          </span>
         </div>
       ))}
     </div>
   );
 }
 
-// ── Main Client Component ─────────────────────────────────────────────────────
+// ── StatCard ──────────────────────────────────────────────────────────────────
+
+function StatCard({ icon, label, value, iconBg, iconColor, sub }: {
+  icon: React.ReactNode; label: string; value: string | number;
+  iconBg: string; iconColor: string; sub?: string;
+}) {
+  return (
+    <motion.div variants={card}
+      className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-transparent p-6 flex flex-col gap-4 hover:border-white/10 transition-colors">
+      <div className="flex items-start justify-between">
+        <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${iconBg}`}
+          style={{ color: iconColor }}>
+          {icon}
+        </div>
+        <span className="text-xs text-[#636996] mt-1">{sub}</span>
+      </div>
+      <div>
+        <p className="text-[#636996] text-xs font-medium uppercase tracking-wider mb-1">{label}</p>
+        <h3 className="text-3xl font-bold text-white tracking-tight">{value}</h3>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Widget wrapper ────────────────────────────────────────────────────────────
+
+function Widget({ title, icon, children, span, iconColor }: {
+  title: string; icon: React.ReactNode; children: React.ReactNode;
+  span?: string; iconColor?: string;
+}) {
+  return (
+    <motion.div variants={card}
+      className={`rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-transparent p-6 hover:border-white/10 transition-colors ${span ?? ""}`}>
+      <h3 className="text-sm font-semibold text-white mb-5 flex items-center gap-2">
+        <span style={{ color: iconColor ?? "#6DB6FF" }}>{icon}</span>
+        {title}
+      </h3>
+      {children}
+    </motion.div>
+  );
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
 
 export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
-  const router = useRouter();
+  const router  = useRouter();
   const supabase = createClient();
 
   const trendData = useMemo(
@@ -140,8 +149,9 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
     [trend]
   );
 
-  const engagementLabel = fmtSecs(snapshot?.avgEngagementSecs ?? 0);
-  const scrollLabel     = snapshot?.avgScrollDepth ? `${snapshot.avgScrollDepth}%` : "—";
+  const engagement = fmtSecs(snapshot?.avgEngagementSecs ?? 0);
+  const scroll     = snapshot?.avgScrollDepth ? `${snapshot.avgScrollDepth}%` : "—";
+  const sessions   = (snapshot?.totalSessions ?? 0).toLocaleString();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -150,103 +160,135 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#04070D] text-[#B8C7D9] pt-24 pb-16 px-6">
-      <div className="max-w-7xl mx-auto">
-
-        {/* ── Header ─────────────────────────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4"
-        >
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 font-satoshi">
-              ScalePods Analytics
-            </h1>
-            <p className="text-[#636996]">
-              Welcome back, <span className="text-white font-medium">{user.email}</span>
-            </p>
+    <div className="min-h-screen bg-[#04070D] text-[#B8C7D9]">
+      {/* ── Dashboard Header Bar ─────────────────────────────────────── */}
+      <div className="sticky top-0 z-40 border-b border-white/[0.05] bg-[#04070D]/80 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          {/* Left: title */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#0080FF]/15 flex items-center justify-center">
+              <BarChart3 size={16} className="text-[#0080FF]" />
+            </div>
+            <div>
+              <span className="text-white font-semibold text-sm">Analytics Dashboard</span>
+              <span className="text-[#636996] text-xs ml-2">· {user.email}</span>
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            {/* Info badge */}
-            <div className="group relative flex items-center gap-3 bg-[#10131C] px-4 py-2 rounded-full border border-white/5 text-sm cursor-help">
-              <div className="w-2 h-2 rounded-full bg-[#00CED1] animate-pulse" />
-              <span>Live Synced via n8n</span>
-              <Info size={14} className="text-[#636996] group-hover:text-white transition-colors" />
-              <div className="absolute top-full mt-2 right-0 w-72 bg-[#0D0F17] border border-white/10 p-3 rounded-xl text-xs text-[#B8C7D9] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-2xl">
-                Dashboard data is pre-aggregated server-side and cached at the edge for{" "}
-                <strong>10 minutes</strong>. Microsoft Clarity data syncs automatically every{" "}
-                <strong>2.4 hours</strong> via 10 scheduled n8n workflows.
+
+          {/* Right: sync badge + logout */}
+          <div className="flex items-center gap-3">
+            {/* Sync info */}
+            <div className="group relative flex items-center gap-2 bg-[#0D1018] px-3 py-1.5 rounded-full border border-white/[0.06] text-xs cursor-help">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#00CED1] animate-pulse" />
+              <span className="text-[#636996]">Syncs every 2.4h</span>
+              <Info size={12} className="text-[#636996]/60 group-hover:text-white transition-colors" />
+              {/* Tooltip */}
+              <div className="absolute top-full mt-2 right-0 w-72 bg-[#0D0F17] border border-white/10 p-4 rounded-xl text-xs text-[#B8C7D9] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-2xl pointer-events-none">
+                <p className="font-semibold text-white mb-1">Auto-sync Architecture</p>
+                <p className="text-[#636996] leading-relaxed">
+                  10 n8n workflows run on a staggered 2.4-hour schedule to maximize the Microsoft Clarity API quota (10 req/day).
+                  Data is pre-processed server-side and cached at the Vercel edge for <strong className="text-white">10 minutes</strong>.
+                </p>
                 {snapshot?.lastSync && (
-                  <span className="block mt-1 text-[#636996]">
-                    Last sync: {new Date(snapshot.lastSync).toLocaleString()}
-                  </span>
+                  <p className="mt-2 text-[#636996]">
+                    Last sync: <span className="text-white">{new Date(snapshot.lastSync).toLocaleString()}</span>
+                  </p>
                 )}
               </div>
             </div>
+
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm hover:bg-red-500/20 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs hover:bg-red-500/20 transition-all"
             >
-              <LogOut size={16} /> Logout
+              <LogOut size={13} /> Logout
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* ── Page Content ────────────────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+
+        {/* Page title */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-8"
+        >
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">
+            ScalePods Visitor Analytics
+          </h1>
+          <p className="text-[#636996] text-sm">
+            Microsoft Clarity data — last {trend?.data?.length ?? 0} data points over 3 days
+          </p>
         </motion.div>
 
-        {/* ── Stat Cards ─────────────────────────────────────────────────── */}
+        {/* ── KPI Stat Cards ──────────────────────────────────────────── */}
         <motion.div
           variants={container} initial="hidden" animate="visible"
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
         >
           <StatCard
             icon={<Users size={20} />}
             label="Total Sessions"
-            value={(snapshot?.totalSessions ?? 0).toLocaleString()}
-            accent="bg-[rgba(109,182,255,0.1)] text-[#6DB6FF]"
-            badge="Live Data"
+            value={sessions}
+            iconBg="bg-[#6DB6FF]/10"
+            iconColor="#6DB6FF"
+            sub="All time"
           />
           <StatCard
             icon={<Clock size={20} />}
-            label="Avg Engagement Time"
-            value={engagementLabel || "1m 45s"}
-            accent="bg-[rgba(0,206,209,0.1)] text-[#00CED1]"
+            label="Avg Engagement"
+            value={engagement || "1m 45s"}
+            iconBg="bg-[#00CED1]/10"
+            iconColor="#00CED1"
+            sub="Per session"
           />
           <StatCard
             icon={<MousePointer2 size={20} />}
             label="Avg Scroll Depth"
-            value={scrollLabel || "64%"}
-            accent="bg-[rgba(255,165,0,0.1)] text-orange-400"
+            value={scroll || "64%"}
+            iconBg="bg-orange-400/10"
+            iconColor="#fb923c"
+            sub="Page depth"
           />
         </motion.div>
 
-        {/* ── Traffic Trend + Browsers + Devices ─────────────────────────── */}
+        {/* ── Traffic Trend + Browsers + Devices ─────────────────────── */}
         <motion.div
           variants={container} initial="hidden" animate="visible"
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4"
         >
-          {/* Area Chart */}
-          <motion.div variants={item} className="use-case-card lg:col-span-2 !text-left !p-6 flex flex-col">
-            <h3 className="text-lg font-bold text-white mb-6 font-satoshi">Traffic Trend (Last 3 Days)</h3>
-            <div className="h-[280px] w-full">
+          {/* Area chart */}
+          <motion.div variants={card}
+            className="lg:col-span-2 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-transparent p-6 hover:border-white/10 transition-colors">
+            <h3 className="text-sm font-semibold text-white mb-1 flex items-center gap-2">
+              <span className="text-[#0080FF]"><BarChart3 size={16} /></span>
+              Traffic Trend
+            </h3>
+            <p className="text-xs text-[#636996] mb-5">Sessions over last 3 days</p>
+            <div className="h-[240px]">
               {trendData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <AreaChart data={trendData} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
                     <defs>
-                      <linearGradient id="gradSessions" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%"  stopColor="#0080FF" stopOpacity={0.35} />
+                      <linearGradient id="gSessions" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%"  stopColor="#0080FF" stopOpacity={0.3} />
                         <stop offset="95%" stopColor="#0080FF" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
-                    <XAxis dataKey="time" stroke="#636996" fontSize={11} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#636996" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
+                    <CartesianGrid strokeDasharray="2 4" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                    <XAxis dataKey="time" stroke="#42526E" fontSize={10} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#42526E" fontSize={10} tickLine={false} axisLine={false} allowDecimals={false} />
                     <RechartsTooltip
-                      contentStyle={{ backgroundColor: "#0D0F17", borderColor: "rgba(255,255,255,0.08)", borderRadius: 8 }}
+                      contentStyle={{ backgroundColor: "#0B0D14", borderColor: "rgba(255,255,255,0.08)", borderRadius: 10, fontSize: 12 }}
                       itemStyle={{ color: "#fff" }}
+                      cursor={{ stroke: "rgba(255,255,255,0.1)" }}
                     />
                     <Area type="monotone" dataKey="sessions" stroke="#0080FF" strokeWidth={2.5}
-                      fillOpacity={1} fill="url(#gradSessions)" />
+                      fillOpacity={1} fill="url(#gSessions)" dot={false} activeDot={{ r: 4, fill: "#0080FF" }} />
                   </AreaChart>
                 </ResponsiveContainer>
               ) : (
@@ -257,79 +299,51 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
             </div>
           </motion.div>
 
-          {/* Browsers + Devices */}
-          <motion.div variants={item} className="flex flex-col gap-6">
-            <div className="use-case-card !text-left !p-6 flex-1">
-              <h3 className="text-lg font-bold text-white mb-4 font-satoshi flex items-center gap-2">
-                <Globe size={17} className="text-[#6DB6FF]" /> Top Browsers
-              </h3>
+          {/* Browsers + Devices stacked */}
+          <div className="flex flex-col gap-4">
+            <Widget title="Top Browsers" icon={<Globe size={15} />} iconColor="#6DB6FF">
               <BarList items={snapshot?.browsers ?? []} nameKey="name" valueKey="value" color="#0080FF" />
-            </div>
-            <div className="use-case-card !text-left !p-6 flex-1">
-              <h3 className="text-lg font-bold text-white mb-4 font-satoshi flex items-center gap-2">
-                <Monitor size={17} className="text-[#00CED1]" /> Devices
-              </h3>
+            </Widget>
+            <Widget title="Devices" icon={<Monitor size={15} />} iconColor="#00CED1">
               <BarList items={snapshot?.devices ?? []} nameKey="name" valueKey="value" color="#00CED1" />
-            </div>
-          </motion.div>
+            </Widget>
+          </div>
         </motion.div>
 
-        {/* ── Bottom Grid ─────────────────────────────────────────────────── */}
+        {/* ── Bottom Row ──────────────────────────────────────────────── */}
         <motion.div
           variants={container} initial="hidden" animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
         >
-          {/* Popular Pages */}
-          <motion.div variants={item} className="use-case-card !text-left !p-6 lg:col-span-2">
-            <h3 className="text-lg font-bold text-white mb-4 font-satoshi flex items-center gap-2">
-              <Link size={17} className="text-[#ACD791]" /> Popular Pages
-            </h3>
+          <Widget title="Popular Pages" icon={<Link size={15} />} iconColor="#ACD791" span="lg:col-span-2">
             <div className="space-y-3">
-              {(snapshot?.pages ?? []).length > 0 ? (
-                snapshot!.pages.map((p) => (
-                  <div key={p.path} className="flex items-center justify-between">
-                    <span className="text-sm text-[#E4E9F2] truncate max-w-[200px]">{p.path}</span>
-                    <span className="text-sm font-medium text-[#ACD791]">{p.views.toLocaleString()} views</span>
-                  </div>
-                ))
-              ) : (
-                <p className="text-sm text-[#636996]">No data yet</p>
-              )}
+              {(snapshot?.pages ?? []).length > 0 ? snapshot!.pages.map((p) => (
+                <div key={p.path} className="flex items-center justify-between">
+                  <code className="text-xs text-[#C8D6E5] bg-white/[0.04] px-2 py-0.5 rounded font-mono truncate max-w-[200px]">
+                    {p.path}
+                  </code>
+                  <span className="text-xs font-semibold text-[#ACD791] ml-3 flex-shrink-0">
+                    {p.views.toLocaleString()} views
+                  </span>
+                </div>
+              )) : <p className="text-sm text-[#636996] italic">No data yet</p>}
             </div>
-          </motion.div>
+          </Widget>
 
-          {/* Countries */}
-          <motion.div variants={item} className="use-case-card !text-left !p-6">
-            <h3 className="text-lg font-bold text-white mb-4 font-satoshi flex items-center gap-2">
-              <MapPin size={17} className="text-orange-400" /> Top Countries
-            </h3>
+          <Widget title="Top Countries" icon={<MapPin size={15} />} iconColor="#fb923c">
             <BarList items={snapshot?.countries ?? []} nameKey="name" valueKey="value" color="#f97316" />
-          </motion.div>
+          </Widget>
 
-          {/* OS */}
-          <motion.div variants={item} className="use-case-card !text-left !p-6">
-            <h3 className="text-lg font-bold text-white mb-4 font-satoshi flex items-center gap-2">
-              <Cpu size={17} className="text-purple-400" /> Operating Systems
-            </h3>
+          <Widget title="Operating Systems" icon={<Cpu size={15} />} iconColor="#a855f7">
             <BarList items={snapshot?.os ?? []} nameKey="name" valueKey="value" color="#a855f7" />
-          </motion.div>
+          </Widget>
 
-          {/* Channels */}
-          <motion.div variants={item} className="use-case-card !text-left !p-6 lg:col-span-2">
-            <h3 className="text-lg font-bold text-white mb-4 font-satoshi flex items-center gap-2">
-              <Megaphone size={17} className="text-pink-400" /> Channels / Sources
-            </h3>
+          <Widget title="Channels / Sources" icon={<Megaphone size={15} />} iconColor="#ec4899" span="lg:col-span-4">
             <BarList
-              items={
-                (snapshot?.channels ?? []).length > 0
-                  ? snapshot!.channels
-                  : snapshot?.sources ?? []
-              }
-              nameKey="name"
-              valueKey="value"
-              color="#ec4899"
+              items={(snapshot?.channels ?? []).length > 0 ? snapshot!.channels : snapshot?.sources ?? []}
+              nameKey="name" valueKey="value" color="#ec4899"
             />
-          </motion.div>
+          </Widget>
         </motion.div>
 
       </div>
