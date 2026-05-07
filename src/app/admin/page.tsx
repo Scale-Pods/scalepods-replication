@@ -151,7 +151,7 @@ export default function AdminDashboard() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } }
   };
 
   if (loading) {
@@ -293,7 +293,7 @@ export default function AdminDashboard() {
                     <span className="text-sm text-[#E4E9F2] truncate w-20">{item.name}</span>
                     <div className="flex items-center gap-3 flex-1 justify-end">
                       <div className="w-24 h-2 bg-[rgba(255,255,255,0.05)] rounded-full overflow-hidden">
-                        <div className="h-full bg-[#0080FF] rounded-full" style={{ width: \`\${item.percentage}%\` }} />
+                        <div className="h-full bg-[#0080FF] rounded-full" style={{ width: `${item.percentage}%` }} />
                       </div>
                       <span className="text-xs font-medium text-white w-8 text-right">{item.percentage}%</span>
                     </div>
