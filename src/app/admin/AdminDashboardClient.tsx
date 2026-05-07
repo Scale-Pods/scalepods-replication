@@ -169,10 +169,10 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#020408] text-[#B8C7D9] selection:bg-[#0080FF]/30">
+    <div className="min-h-screen bg-[#020408] text-[#B8C7D9] selection:bg-[#0080FF]/30 pt-24">
       
       {/* ── Top Navigation ─────────────────────────────────────── */}
-      <div className="sticky top-0 z-40 border-b border-white/[0.04] bg-[#020408]/90 backdrop-blur-xl">
+      <div className="sticky top-24 z-40 border-b border-white/[0.04] bg-[#020408]/90 backdrop-blur-xl">
         <div className="max-w-screen-2xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0080FF] to-[#0055FF] flex items-center justify-center shadow-[0_0_15px_rgba(0,128,255,0.3)]">

@@ -47,9 +47,9 @@ export default async function AdminPage() {
 
 function DashboardSkeleton() {
   return (
-    <div className="min-h-screen bg-[#04070D] animate-pulse">
+    <div className="min-h-screen bg-[#04070D] animate-pulse pt-24">
       {/* Header bar skeleton */}
-      <div className="sticky top-0 z-40 border-b border-white/[0.05] bg-[#04070D]/80 h-16 flex items-center px-6">
+      <div className="sticky top-24 z-40 border-b border-white/[0.05] bg-[#04070D]/80 h-16 flex items-center px-6">
         <div className="h-5 w-48 bg-white/5 rounded-full" />
       </div>
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
