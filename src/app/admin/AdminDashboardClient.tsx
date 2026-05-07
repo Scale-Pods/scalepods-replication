@@ -251,6 +251,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
           </div>
 
         </div>
+      </div>
     </div>
   );
 }
