@@ -50,6 +50,7 @@ export default function AdminDashboard() {
         return;
       }
       setUser(user);
+      setLoading(false); // Stop the full-screen spinner immediately
       
       try {
         // Fetch Live Snapshot
@@ -63,8 +64,6 @@ export default function AdminDashboard() {
         processData(snapshotJson.data || [], trendJson.data || []);
       } catch (err) {
         console.error("Failed to fetch analytics:", err);
-      } finally {
-        setLoading(false);
       }
     }
     init();
