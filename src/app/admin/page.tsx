@@ -84,19 +84,28 @@ export default function AdminDashboard() {
           const sessions = parseInt(entry.sessionsCount || entry.subTotal || entry.pagesViews || "0", 10);
           if (sessions <= 0) return;
 
-          if (entry.browser) agg.browser[entry.browser] = (agg.browser[entry.browser] || 0) + sessions;
-          if (entry.country) agg.country[entry.country] = (agg.country[entry.country] || 0) + sessions;
-          if (entry.device) agg.device[entry.device] = (agg.device[entry.device] || 0) + sessions;
-          if (entry.os) agg.os[entry.os] = (agg.os[entry.os] || 0) + sessions;
-          if (entry.source) agg.source[entry.source] = (agg.source[entry.source] || 0) + sessions;
-          if (entry.campaign) agg.campaign[entry.campaign] = (agg.campaign[entry.campaign] || 0) + sessions;
-          if (entry.channel) agg.channel[entry.channel] = (agg.channel[entry.channel] || 0) + sessions;
-          if (entry.url) {
+          const browser = entry.Browser || entry.browser;
+          const country = entry.Country || entry.country;
+          const device = entry.Device || entry.device;
+          const os = entry.OS || entry.os;
+          const source = entry.Source || entry.source;
+          const campaign = entry.Campaign || entry.campaign;
+          const channel = entry.Channel || entry.channel;
+          const url = entry.Url || entry.url;
+
+          if (browser) agg.browser[browser] = (agg.browser[browser] || 0) + sessions;
+          if (country) agg.country[country] = (agg.country[country] || 0) + sessions;
+          if (device) agg.device[device] = (agg.device[device] || 0) + sessions;
+          if (os) agg.os[os] = (agg.os[os] || 0) + sessions;
+          if (source) agg.source[source] = (agg.source[source] || 0) + sessions;
+          if (campaign) agg.campaign[campaign] = (agg.campaign[campaign] || 0) + sessions;
+          if (channel) agg.channel[channel] = (agg.channel[channel] || 0) + sessions;
+          if (url) {
             try {
-              const p = new URL(entry.url).pathname;
+              const p = new URL(url).pathname;
               agg.url[p] = (agg.url[p] || 0) + sessions;
             } catch {
-              agg.url[entry.url] = (agg.url[entry.url] || 0) + sessions;
+              agg.url[url] = (agg.url[url] || 0) + sessions;
             }
           }
         });
