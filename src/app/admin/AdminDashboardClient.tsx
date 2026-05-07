@@ -15,6 +15,8 @@ import {
   Plus,
   RefreshCw,
   Calendar,
+  Globe,
+  BarChart3,
 } from "lucide-react";
 import { useMemo } from "react";
 
