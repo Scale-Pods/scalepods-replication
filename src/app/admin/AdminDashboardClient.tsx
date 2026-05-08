@@ -88,8 +88,8 @@ const mapToPercentage = (items: any[], nameKey: string, valueKey: string, prefix
 function MetricCard({ label, value }: { label: string; value: string | number }) {
   return (
     <div>
-      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{label}</p>
-      <p className="text-[28px] font-bold text-white tracking-tight">{value}</p>
+      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.1em] mb-1.5">{label}</p>
+      <p className="text-[32px] font-extrabold text-white tracking-tight leading-tight">{value}</p>
     </div>
   );
 }
@@ -289,14 +289,16 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
                     dataKey="displayDate" 
                     axisLine={false} 
                     tickLine={false} 
-                    tick={{ fill: '#4B5563', fontSize: 12 }} 
-                    dy={10}
-                    minTickGap={30}
+                    tick={{ fill: '#374151', fontSize: 11, fontWeight: 500 }} 
+                    dy={15}
+                    minTickGap={40}
                   />
                   <YAxis 
                     axisLine={false} 
                     tickLine={false} 
-                    tick={{ fill: '#4B5563', fontSize: 12 }}
+                    tick={{ fill: '#374151', fontSize: 11, fontWeight: 500 }}
+                    dx={-10}
+                    width={40}
                   />
                   <RechartsTooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} />
                   <Area 
@@ -340,7 +342,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
           </div>
           
           {/* Subtle glow background for the section */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#3B82F6]/5 blur-[120px] pointer-events-none -z-10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 blur-[100px] pointer-events-none -z-10" />
         </section>
 
         {/* Bottom Details Grid */}
