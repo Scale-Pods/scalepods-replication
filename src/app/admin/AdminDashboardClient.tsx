@@ -269,7 +269,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
             <MetricCard label="Last Update" value={lastSync} />
           </div>
           
-          <div className="w-full h-[350px] mt-6">
+          <div className="w-full h-[350px] mt-24">
             {trendData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={trendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
