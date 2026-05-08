@@ -250,7 +250,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
 
       {/* ── Main Content Area ────────────────────────────────────────────── */}
       <main className="flex-1 overflow-y-auto p-12 bg-[#050505] custom-scrollbar z-0 relative">
-        <header className="flex justify-between items-center mb-12">
+        <header className="flex justify-between items-center mb-20">
           <h2 className="text-3xl font-bold text-white tracking-tight">Analytics Overview</h2>
           <button className="flex items-center gap-3 bg-[#0A0A0A] border border-white/10 shadow-xl px-5 py-2.5 rounded-xl text-[13px] font-bold text-gray-300 hover:text-white transition-all">
             <Calendar size={16} />
@@ -261,7 +261,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
 
         {/* Main Chart Section */}
         <section className="bg-[#0A0A0A] rounded-xl p-12 border border-white/10 shadow-2xl mb-12 relative overflow-hidden z-0">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16 mt-4">
             <MetricCard label="Total Sessions" value={sessions} />
             <MetricCard label="Average Session" value={engagement} />
             <MetricCard label="Avg Scroll Depth" value={scroll} />
