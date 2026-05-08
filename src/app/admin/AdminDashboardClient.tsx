@@ -17,7 +17,9 @@ import {
   Beaker,
   Settings,
   ArrowLeft,
-  ChevronDown
+  ChevronDown,
+  BarChart3,
+  ClipboardList
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -171,10 +173,9 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 function SidebarItem({ icon, label, active }: { icon: React.ReactNode; label: string; active?: boolean }) {
   return (
-    <div className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer transition-colors ${active ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+    <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg cursor-pointer transition-colors ${active ? 'bg-[#151821] text-[#3B82F6]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
       <span className="w-5 h-5">{icon}</span>
       <span className="text-sm font-medium">{label}</span>
-      {active && <div className="ml-auto w-1 h-4 bg-[#3B82F6] rounded-full shadow-[0_0_8px_rgba(59,130,246,0.6)]" />}
     </div>
   );
 }
@@ -207,7 +208,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
     <div className="fixed inset-0 z-[100] bg-[#050505] flex font-sans overflow-hidden text-white antialiased">
       
       {/* ── Sidebar ──────────────────────────────────────────────────────── */}
-      <aside className="w-64 bg-[#000000] border-r border-white/5 flex flex-col h-screen p-6 shrink-0">
+      <aside className="w-64 bg-[#000000] border-r border-white/5 border-l-[3px] border-l-[#6366f1] flex flex-col h-screen p-6 shrink-0">
         <div className="flex items-center gap-3 mb-10">
           <div className="w-8 h-8 flex items-center justify-center rounded bg-[#3B82F6]/20">
             <div className="w-4 h-4 bg-[#3B82F6] rounded-sm rotate-45" />
@@ -219,7 +220,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
           <div>
             <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Dashboard</h2>
             <div className="space-y-1">
-              <SidebarItem icon={<LayoutDashboard size={20} />} label="Analytics" active />
+              <SidebarItem icon={<BarChart3 size={20} />} label="Analytics" active />
               <SidebarItem icon={<Users size={20} />} label="Visitors" />
             </div>
           </div>
@@ -228,7 +229,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
             <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Tools</h2>
             <div className="space-y-1">
               <SidebarItem icon={<Filter size={20} />} label="Funnels" />
-              <SidebarItem icon={<Beaker size={20} />} label="A/B Tests" />
+              <SidebarItem icon={<ClipboardList size={20} />} label="A/B Tests" />
             </div>
           </div>
         </div>
