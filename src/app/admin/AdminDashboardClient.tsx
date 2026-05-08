@@ -119,9 +119,9 @@ function DetailCard({ title, items, emptyState }: { title: string; items?: Detai
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {items.slice(0, 5).map((item, index) => (
-            <div key={index} className="space-y-1.5">
+            <div key={index} className="space-y-2">
               <div className="flex justify-between items-end">
                 <div>
                   <p className="text-xs font-bold text-white tracking-wide truncate max-w-[150px]">{item.label}</p>
@@ -345,7 +345,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
         </section>
 
         {/* Bottom Details Grid */}
-        <section className="grid grid-cols-4 gap-6">
+        <section className="grid grid-cols-4 gap-6 mt-12">
           <DetailCard title="Sources" items={mapToPercentage(snapshot?.sources ?? [], 'name', 'value')} emptyState={!snapshot?.sources?.length} />
           <DetailCard title="Pages" items={mapToPercentage(snapshot?.pages ?? [], 'path', 'views', true)} />
           <DetailCard title="Geography" items={mapToPercentage(snapshot?.countries ?? [], 'name', 'value')} />
