@@ -78,8 +78,7 @@ const mapToPercentage = (items: any[], nameKey: string, valueKey: string, prefix
   return items.map(i => ({
     label: prefix ? `/${i[nameKey]}` : i[nameKey],
     value: i[valueKey],
-    percentage: Math.round(((i[valueKey] ?? 0) / max) * 100),
-    sublabel: "Inter, OpenType features" // To replicate the design perfectly
+    percentage: Math.round(((i[valueKey] ?? 0) / max) * 100)
   }));
 };
 
@@ -103,10 +102,9 @@ interface DetailItem {
 
 function DetailCard({ title, items, emptyState }: { title: string; items?: DetailItem[]; emptyState?: boolean }) {
   return (
-    <div className="bg-[#0A0A0A] rounded-2xl p-6 border border-[rgba(255,255,255,0.1)] shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] flex flex-col min-h-[220px]">
+    <div className="bg-[#0A0A0A] rounded-xl p-8 border border-white/10 shadow-xl flex flex-col min-h-[220px]">
       <div className="mb-6">
-        <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
-        <p className="text-[10px] text-gray-500 font-medium">Inter in GT Walsheim</p>
+        <h3 className="text-lg font-bold text-white">{title}</h3>
       </div>
 
       {emptyState || !items?.length ? (
@@ -262,7 +260,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
         </header>
 
         {/* Main Chart Section */}
-        <section className="bg-[#0A0A0A] rounded-[32px] p-12 border border-white/10 shadow-2xl mb-12 relative overflow-hidden z-0">
+        <section className="bg-[#0A0A0A] rounded-xl p-12 border border-white/10 shadow-2xl mb-12 relative overflow-hidden z-0">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-12">
             <MetricCard label="Total Sessions" value={sessions} />
             <MetricCard label="Average Session" value={engagement} />
