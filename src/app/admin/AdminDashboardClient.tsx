@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/client";
 import { motion } from "framer-motion";
 import {
   XAxis, YAxis, Tooltip as RechartsTooltip,
-  ResponsiveContainer, AreaChart, Area,
+  ResponsiveContainer, AreaChart, Area, CartesianGrid
 } from "recharts";
 import {
   LogOut,
@@ -69,8 +69,8 @@ function fmtDayStr(iso: string) {
 function KPICard({ label, value }: { label: string; value: string | number }) {
   return (
     <div>
-      <p className="text-xs text-gray-500 font-medium mb-1">{label}</p>
-      <p className="text-2xl font-bold text-white">{value}</p>
+      <p className="text-[10px] tracking-wider text-gray-500 font-bold mb-2 uppercase">{label}</p>
+      <p className="text-[28px] font-bold text-white">{value}</p>
     </div>
   );
 }
@@ -161,9 +161,12 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
           <div>
             <h3 className="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Dashboard</h3>
             <div className="space-y-1">
-              <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-800/50 text-[#3b82f6]">
-                <LineChart size={20} />
-                <span className="text-sm font-medium">Analytics</span>
+              <div className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#1a1c24]">
+                <div className="flex items-center space-x-3 text-white">
+                  <LineChart size={18} className="text-[#3b82f6]" />
+                  <span className="text-sm font-semibold">Analytics</span>
+                </div>
+                <div className="w-1 h-4 bg-[#3b82f6] rounded-full"></div>
               </div>
             </div>
           </div>
@@ -187,12 +190,12 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
       {/* ── Main Content Area ────────────────────────────────────────────── */}
       <main className="flex-1 p-8 overflow-y-auto bg-[#020306] custom-scrollbar">
         {/* Top Header */}
-        <header className="flex items-center justify-between mb-8">
+        <header className="flex items-center justify-between mb-10">
           <h1 className="text-2xl font-bold text-white">Analytics Overview</h1>
-          <div className="text-sm text-gray-400 flex items-center gap-2">
-            <Calendar size={16} />
-            {minDate} — {maxDate}
-          </div>
+          <button className="bg-gray-800/40 border border-gray-700 px-4 py-2 rounded-lg text-sm flex items-center space-x-2 text-gray-300 hover:bg-gray-800/60 transition-colors">
+            <Calendar size={14} />
+            <span>{minDate} — {maxDate}</span>
+          </button>
         </header>
 
         {/* Main Chart Section */}
@@ -217,8 +220,22 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
                         <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="displayDate" hide />
-                    <YAxis hide domain={[0, 'dataMax + 10']} />
+                    <CartesianGrid stroke="rgba(255,255,255,0.05)" vertical={false} />
+                    <XAxis 
+                      dataKey="displayDate" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 10, fill: '#6b7280' }} 
+                      dy={10} 
+                      minTickGap={30}
+                    />
+                    <YAxis 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 10, fill: '#6b7280' }} 
+                      dx={-10} 
+                      domain={[0, 'dataMax + 10']} 
+                    />
                     <RechartsTooltip
                       contentStyle={{ backgroundColor: "#1a1c24", border: "1px solid #374151", borderRadius: 8, fontSize: 12 }}
                       itemStyle={{ color: "#fff", fontWeight: "bold" }}
