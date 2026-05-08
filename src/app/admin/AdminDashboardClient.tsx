@@ -76,7 +76,7 @@ const mapToPercentage = (items: any[], nameKey: string, valueKey: string, prefix
   if (!items) return [];
   const max = Math.max(...items.map(i => i[valueKey] ?? 0)) || 1;
   return items.map(i => ({
-    label: prefix ? `/${i[nameKey]}` : i[nameKey],
+    label: i[nameKey],
     value: i[valueKey],
     percentage: Math.round(((i[valueKey] ?? 0) / max) * 100)
   }));
