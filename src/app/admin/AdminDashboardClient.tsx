@@ -84,11 +84,14 @@ const mapToPercentage = (items: any[], nameKey: string, valueKey: string, prefix
 
 // ── Sub-components ───────────────────────────────────────────────────────────
 
-function MetricCard({ label, value }: { label: string; value: string | number }) {
+function MetricCard({ label, value, showDot }: { label: string; value: string | number; showDot?: boolean }) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">{label}</p>
-      <p className="text-[36px] font-bold text-white tracking-tight leading-none">{value}</p>
+      <div className="flex items-center gap-2">
+        <p className="text-xs font-medium text-gray-400">{label}</p>
+        {showDot && <div className="w-1.5 h-1.5 bg-[#3B82F6] rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]" />}
+      </div>
+      <p className="text-[32px] font-bold text-white tracking-tight leading-none">{value}</p>
     </div>
   );
 }
@@ -250,26 +253,33 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
 
       {/* ── Main Content Area ────────────────────────────────────────────── */}
       <main className="flex-1 overflow-y-auto p-12 bg-[#050505] custom-scrollbar z-0 relative">
-        <header className="flex justify-between items-center mb-20">
-          <h2 className="text-3xl font-bold text-white tracking-tight">Analytics Overview</h2>
-          <button className="flex items-center gap-3 bg-[#0A0A0A] border border-white/10 shadow-xl px-5 py-2.5 rounded-xl text-[13px] font-bold text-gray-300 hover:text-white transition-all">
-            <Calendar size={16} />
-            <span>{minDate} — {maxDate}</span>
-            <ChevronDown size={16} />
-          </button>
+        <header className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold text-white tracking-tight">Analytics</h2>
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 bg-[#1A1A1A] border border-white/5 px-4 py-2 rounded-lg text-[13px] font-medium text-gray-300 hover:text-white transition-all">
+              <span>Last 30 days</span>
+              <ChevronDown size={14} className="text-gray-500" />
+            </button>
+            <button className="flex items-center gap-3 bg-[#1A1A1A] border border-white/5 px-4 py-2 rounded-lg text-[13px] font-medium text-gray-300 hover:text-white transition-all">
+              <Calendar size={14} className="text-gray-500" />
+              <span>{minDate} — {maxDate}</span>
+            </button>
+          </div>
         </header>
+
+        <div className="h-[1px] w-full bg-white/5 mb-12" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16 px-2">
+          <MetricCard label="Live Visitors" value="1" showDot />
+          <MetricCard label="Unique Visitors" value={sessions} />
+          <MetricCard label="Total Pageviews" value={snapshot?.pages?.reduce((a,b)=>a+b.views,0).toLocaleString() ?? "0"} />
+          <MetricCard label="Bounce Rate" value="79.5%" />
+          <MetricCard label="Average Session" value={engagement} />
+        </div>
 
         {/* Main Chart Section */}
         <section className="bg-[#0A0A0A] rounded-xl p-12 border border-white/10 shadow-2xl mb-12 relative overflow-hidden z-0">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16 mt-4">
-            <MetricCard label="Total Sessions" value={sessions} />
-            <MetricCard label="Average Session" value={engagement} />
-            <MetricCard label="Avg Scroll Depth" value={scroll} />
-            <MetricCard label="Total Pageviews" value={snapshot?.pages?.reduce((a,b)=>a+b.views,0).toLocaleString() ?? "0"} />
-            <MetricCard label="Last Update" value={lastSync} />
-          </div>
-          
-          <div className="w-full h-[350px] mt-24">
+          <div className="w-full h-[350px]">
             {trendData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={trendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
