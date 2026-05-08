@@ -18,8 +18,8 @@ import {
   Settings,
   ArrowLeft,
   ChevronDown,
-  BarChart3,
-  ClipboardList
+  BarChart,
+  Clipboard
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -220,7 +220,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
           <div>
             <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Dashboard</h2>
             <div className="space-y-1">
-              <SidebarItem icon={<BarChart3 size={20} />} label="Analytics" active />
+              <SidebarItem icon={<BarChart size={20} />} label="Analytics" active />
               <SidebarItem icon={<Users size={20} />} label="Visitors" />
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
             <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Tools</h2>
             <div className="space-y-1">
               <SidebarItem icon={<Filter size={20} />} label="Funnels" />
-              <SidebarItem icon={<ClipboardList size={20} />} label="A/B Tests" />
+              <SidebarItem icon={<Clipboard size={20} />} label="A/B Tests" />
             </div>
           </div>
         </div>
