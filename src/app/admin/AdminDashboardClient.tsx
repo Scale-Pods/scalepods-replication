@@ -11,7 +11,13 @@ import {
   LogOut,
   Calendar,
   Globe,
-  LineChart,
+  LayoutDashboard,
+  Users,
+  Filter,
+  Beaker,
+  Settings,
+  ArrowLeft,
+  ChevronDown
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -64,57 +70,111 @@ function fmtDayStr(iso: string) {
   } catch { return iso; }
 }
 
+const mapToPercentage = (items: any[], nameKey: string, valueKey: string, prefix = false) => {
+  if (!items) return [];
+  const max = Math.max(...items.map(i => i[valueKey] ?? 0)) || 1;
+  return items.map(i => ({
+    label: prefix ? `/${i[nameKey]}` : i[nameKey],
+    value: i[valueKey],
+    percentage: Math.round(((i[valueKey] ?? 0) / max) * 100),
+    sublabel: "Inter, OpenType features" // To replicate the design perfectly
+  }));
+};
+
 // ── Sub-components ───────────────────────────────────────────────────────────
 
-function KPICard({ label, value }: { label: string; value: string | number }) {
+function MetricCard({ label, value }: { label: string; value: string | number }) {
   return (
     <div>
-      <p className="text-[10px] tracking-wider text-gray-500 font-bold mb-2 uppercase">{label}</p>
-      <p className="text-[28px] font-bold text-white">{value}</p>
+      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{label}</p>
+      <p className="text-[28px] font-bold text-white tracking-tight">{value}</p>
     </div>
   );
 }
 
-function TableWidget({ title, subtitle, items, nameKey, valueKey, prefix }: {
-  title: string; subtitle: string; items: Record<string, any>[];
-  nameKey: string; valueKey: string; prefix?: boolean;
-}) {
-  if (!items?.length) return (
-    <div className="bg-[#0a0b10] shadow-[0_0_15px_rgba(59,130,246,0.15)] border border-[rgba(59,130,246,0.2)] rounded-xl p-5 h-64 flex flex-col">
-      <h4 className="text-sm font-semibold text-white mb-0.5">{title}</h4>
-      <p className="text-[10px] text-gray-500 mb-6">{subtitle}</p>
-      <div className="flex-1 flex flex-col items-center justify-center space-y-3 opacity-40">
-        <span className="text-xs text-gray-400">No data</span>
+interface DetailItem {
+  label: string;
+  value: string | number;
+  percentage?: number;
+  sublabel?: string;
+}
+
+function DetailCard({ title, items, emptyState }: { title: string; items?: DetailItem[]; emptyState?: boolean }) {
+  return (
+    <div className="bg-[#0A0A0A] rounded-2xl p-6 border border-[rgba(255,255,255,0.1)] shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] flex flex-col min-h-[220px]">
+      <div className="mb-6">
+        <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
+        <p className="text-[10px] text-gray-500 font-medium">Inter in GT Walsheim</p>
       </div>
+
+      {emptyState || !items?.length ? (
+        <div className="flex-1 flex flex-col items-center justify-center text-center opacity-50">
+          <div className="w-24 h-16 bg-white/5 rounded-lg mb-4 border border-white/10 flex flex-col p-2 gap-1 overflow-hidden relative">
+            <div className="w-full h-1 bg-white/20 rounded-full" />
+            <div className="w-2/3 h-1 bg-white/20 rounded-full" />
+            <div className="w-1/2 h-1 bg-white/20 rounded-full" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[10px] font-bold text-white">No data</span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {items.slice(0, 5).map((item, index) => (
+            <div key={index} className="space-y-1.5">
+              <div className="flex justify-between items-end">
+                <div>
+                  <p className="text-xs font-bold text-white tracking-wide truncate max-w-[150px]">{item.label}</p>
+                  {item.sublabel && <p className="text-[9px] text-gray-500">{item.sublabel}</p>}
+                </div>
+                <span className="text-xs font-bold text-white">{item.value}</span>
+              </div>
+              {item.percentage !== undefined && (
+                <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${item.percentage}%` }}
+                    transition={{ duration: 1, ease: "easeOut", delay: index * 0.1 }}
+                    className={`h-full rounded-full ${index % 2 === 0 ? 'bg-[#3B82F6]' : 'bg-[#8B5CF6]'} shadow-[0_0_8px_rgba(59,130,246,0.4)]`}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
+}
 
-  const max = Math.max(...items.map(i => i[valueKey] ?? 0)) || 1;
-
-  return (
-    <div className="bg-[#0a0b10] shadow-[0_0_15px_rgba(59,130,246,0.15)] border border-[rgba(59,130,246,0.2)] rounded-xl p-5 h-64 flex flex-col">
-      <h4 className="text-sm font-semibold text-white mb-0.5">{title}</h4>
-      <p className="text-[10px] text-gray-500 mb-6">{subtitle}</p>
-      <div className="space-y-4 flex-1 overflow-y-auto pr-2">
-        {items.slice(0, 5).map((i, idx) => {
-          const w = Math.round(((i[valueKey] ?? 0) / max) * 100);
-          const barColor = idx === 0 ? "bg-gradient-to-r from-blue-600 to-purple-600" : (idx % 2 === 1 ? "bg-[#8b5cf6]" : "bg-[#3b82f6]");
-          
-          return (
-            <div key={i[nameKey]}>
-              <div className="flex justify-between text-[11px] mb-1.5">
-                <span className="text-gray-300 truncate max-w-[150px]">
-                  {prefix ? `/${i[nameKey]}` : i[nameKey]}
-                </span>
-                <span className="text-white font-bold">{i[valueKey]?.toLocaleString()}</span>
-              </div>
-              <div className="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
-                <div className={`${barColor} h-1.5 rounded-full`} style={{ width: `${w}%` }}></div>
-              </div>
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-[#151515] border border-white/10 p-3 rounded-lg shadow-2xl backdrop-blur-md">
+        <p className="text-[10px] text-gray-400 mb-2">{payload[0]?.payload?.displayDate ?? 'Date'}</p>
+        {payload.map((entry: any, index: number) => (
+          <div key={index} className="flex items-center justify-between gap-4 mb-1 last:mb-0">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: entry.color }} />
+              <span className="text-xs text-gray-200">
+                {entry.name === 'sessions' ? '/sessions' : entry.name === 'trend2' ? '/unique' : '/bounce'}
+              </span>
             </div>
-          );
-        })}
+            <span className="text-xs font-bold text-white">{entry.value}</span>
+          </div>
+        ))}
       </div>
+    );
+  }
+  return null;
+};
+
+function SidebarItem({ icon, label, active }: { icon: React.ReactNode; label: string; active?: boolean }) {
+  return (
+    <div className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer transition-colors ${active ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+      <span className="w-5 h-5">{icon}</span>
+      <span className="text-sm font-medium">{label}</span>
+      {active && <div className="ml-auto w-1 h-4 bg-[#3B82F6] rounded-full shadow-[0_0_8px_rgba(59,130,246,0.6)]" />}
     </div>
   );
 }
@@ -144,131 +204,152 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-[#020306] flex font-sans overflow-hidden text-[#e2e8f0]">
+    <div className="fixed inset-0 z-[100] bg-[#050505] flex font-sans overflow-hidden text-white antialiased">
       
       {/* ── Sidebar ──────────────────────────────────────────────────────── */}
-      <aside className="w-64 bg-[#050608] flex flex-col border-r border-gray-800/50 shrink-0">
-        {/* Logo Section */}
-        <div className="p-6 flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-md flex items-center justify-center">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg>
+      <aside className="w-64 bg-[#000000] border-r border-white/5 flex flex-col h-screen p-6 shrink-0">
+        <div className="flex items-center gap-3 mb-10">
+          <div className="w-8 h-8 flex items-center justify-center rounded bg-[#3B82F6]/20">
+            <div className="w-4 h-4 bg-[#3B82F6] rounded-sm rotate-45" />
           </div>
-          <span className="text-xl font-bold tracking-tight">ScalePods</span>
+          <h1 className="text-xl font-bold tracking-tight text-white">ScalePods</h1>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 px-4 space-y-8 mt-4 overflow-y-auto">
+        <div className="space-y-8 flex-1">
           <div>
-            <h3 className="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Dashboard</h3>
+            <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Dashboard</h2>
             <div className="space-y-1">
-              <div className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#1a1c24]">
-                <div className="flex items-center space-x-3 text-white">
-                  <LineChart size={18} className="text-[#3b82f6]" />
-                  <span className="text-sm font-semibold">Analytics</span>
-                </div>
-                <div className="w-1 h-4 bg-[#3b82f6] rounded-full"></div>
-              </div>
+              <SidebarItem icon={<LayoutDashboard size={20} />} label="Analytics" active />
+              <SidebarItem icon={<Users size={20} />} label="Visitors" />
             </div>
           </div>
-        </nav>
 
-        {/* Sidebar Footer */}
-        <div className="p-4 border-t border-gray-800/50">
-          <div className="space-y-1">
-            <button onClick={() => router.push('/')} className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
-              <Globe size={16} />
-              <span className="text-xs">Back to Site</span>
-            </button>
-            <button onClick={handleLogout} className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
-              <LogOut size={16} />
-              <span className="text-xs">Log Out</span>
-            </button>
+          <div>
+            <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Tools</h2>
+            <div className="space-y-1">
+              <SidebarItem icon={<Filter size={20} />} label="Funnels" />
+              <SidebarItem icon={<Beaker size={20} />} label="A/B Tests" />
+            </div>
           </div>
+        </div>
+
+        <div className="mt-auto space-y-4 pt-6 border-t border-white/5">
+          <button onClick={() => router.push('/')} className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors w-full text-left px-4">
+            <ArrowLeft size={18} />
+            <span className="text-sm">Back to Site</span>
+          </button>
+          <button className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors w-full text-left px-4">
+            <Settings size={18} />
+            <span className="text-sm">Settings</span>
+          </button>
+          <button onClick={handleLogout} className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors w-full text-left px-4">
+            <LogOut size={18} />
+            <span className="text-sm">Log Out</span>
+          </button>
         </div>
       </aside>
 
       {/* ── Main Content Area ────────────────────────────────────────────── */}
-      <main className="flex-1 p-8 overflow-y-auto bg-[#020306] custom-scrollbar">
-        {/* Top Header */}
-        <header className="flex items-center justify-between mb-10">
-          <h1 className="text-2xl font-bold text-white">Analytics Overview</h1>
-          <button className="bg-gray-800/40 border border-gray-700 px-4 py-2 rounded-lg text-sm flex items-center space-x-2 text-gray-300 hover:bg-gray-800/60 transition-colors">
+      <main className="flex-1 overflow-y-auto p-10 bg-[#050505] custom-scrollbar z-0 relative">
+        <header className="flex justify-between items-center mb-10">
+          <h2 className="text-2xl font-bold text-white tracking-tight">Analytics Overview</h2>
+          <button className="flex items-center gap-2 bg-[#0A0A0A] border border-[rgba(255,255,255,0.1)] shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] px-4 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-colors">
             <Calendar size={14} />
-            <span>{minDate} — {maxDate}</span>
+            {minDate} — {maxDate} <ChevronDown size={14} />
           </button>
         </header>
 
         {/* Main Chart Section */}
-        <section className="bg-[#0a0b10] shadow-[0_0_15px_rgba(59,130,246,0.15)] border border-[rgba(59,130,246,0.2)] rounded-2xl p-6 mb-8">
-          {/* Metric Bar */}
-          <div className="grid grid-cols-5 gap-4 mb-8">
-            <KPICard label="Total Sessions" value={sessions} />
-            <KPICard label="Average Session" value={engagement} />
-            <KPICard label="Avg Scroll Depth" value={scroll} />
-            <KPICard label="Total Pageviews" value={snapshot?.pages?.reduce((a,b)=>a+b.views,0).toLocaleString() ?? "0"} />
-            <KPICard label="Last Update" value={lastSync} />
+        <section className="bg-[#0A0A0A] rounded-3xl p-10 border border-[rgba(255,255,255,0.1)] shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] mb-10 relative overflow-hidden z-0">
+          <div className="grid grid-cols-5 gap-8 mb-4">
+            <MetricCard label="Total Sessions" value={sessions} />
+            <MetricCard label="Average Session" value={engagement} />
+            <MetricCard label="Avg Scroll Depth" value={scroll} />
+            <MetricCard label="Total Pageviews" value={snapshot?.pages?.reduce((a,b)=>a+b.views,0).toLocaleString() ?? "0"} />
+            <MetricCard label="Last Update" value={lastSync} />
           </div>
-
-          {/* Chart Visual */}
-          <div className="relative h-[300px] w-full">
-              {trendData.length > 0 ? (
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={trendData}>
-                    <defs>
-                      <linearGradient id="gradPurple" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%"  stopColor="#8b5cf6" stopOpacity={0.4} />
-                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid stroke="rgba(255,255,255,0.05)" vertical={false} />
-                    <XAxis 
-                      dataKey="displayDate" 
-                      axisLine={false} 
-                      tickLine={false} 
-                      tick={{ fontSize: 10, fill: '#6b7280' }} 
-                      dy={10} 
-                      minTickGap={30}
-                    />
-                    <YAxis 
-                      axisLine={false} 
-                      tickLine={false} 
-                      tick={{ fontSize: 10, fill: '#6b7280' }} 
-                      dx={-10} 
-                      domain={[0, 'dataMax + 10']} 
-                    />
-                    <RechartsTooltip
-                      contentStyle={{ backgroundColor: "#1a1c24", border: "1px solid #374151", borderRadius: 8, fontSize: 12 }}
-                      itemStyle={{ color: "#fff", fontWeight: "bold" }}
-                      cursor={{ stroke: "rgba(255,255,255,0.2)", strokeWidth: 1 }}
-                    />
-                    <Area type="monotone" dataKey="sessions" stroke="#8b5cf6" strokeWidth={2}
-                      fillOpacity={1} fill="url(#gradPurple)" dot={false} activeDot={{ r: 4, fill: "#3b82f6" }} />
-                    <Area type="monotone" dataKey="sessions" stroke="#3b82f6" strokeWidth={2}
-                      fillOpacity={0} fill="none" dot={false} 
-                      data={trendData.map(d => ({ ...d, sessions: d.sessions * 0.8 }))}
-                    />
-                    <Area type="monotone" dataKey="sessions" stroke="#6366f1" strokeWidth={2}
-                      fillOpacity={0} fill="none" dot={false} 
-                      data={trendData.map(d => ({ ...d, sessions: d.sessions * 0.6 }))}
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-white/30 text-sm">
-                  Waiting for data...
-                </div>
-              )}
+          
+          <div className="w-full h-[350px] mt-6">
+            {trendData.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={trendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0}/>
+                    </linearGradient>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
+                  <XAxis 
+                    dataKey="displayDate" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#4B5563', fontSize: 12 }} 
+                    dy={10}
+                    minTickGap={30}
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#4B5563', fontSize: 12 }}
+                  />
+                  <RechartsTooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} />
+                  <Area 
+                    type="monotone" 
+                    dataKey={(d) => d.sessions}
+                    name="sessions"
+                    stroke="#8B5CF6" 
+                    strokeWidth={3}
+                    fillOpacity={1} 
+                    fill="url(#colorPv)" 
+                    dot={{ r: 0 }}
+                    activeDot={{ r: 6, fill: '#8B5CF6', stroke: 'white', strokeWidth: 2 }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey={(d) => d.sessions * 0.75}
+                    name="trend2"
+                    stroke="#3B82F6" 
+                    strokeWidth={3}
+                    fillOpacity={1} 
+                    fill="url(#colorUv)" 
+                    dot={{ r: 0 }}
+                    activeDot={{ r: 6, fill: '#3B82F6', stroke: 'white', strokeWidth: 2 }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey={(d) => d.sessions * 0.5}
+                    name="trend3"
+                    stroke="#6366F1" 
+                    strokeWidth={2}
+                    fillOpacity={0} 
+                    dot={{ r: 0 }}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-white/30 text-sm">
+                Waiting for data...
+              </div>
+            )}
           </div>
+          
+          {/* Subtle glow background for the section */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#3B82F6]/5 blur-[120px] pointer-events-none -z-10" />
         </section>
 
-        {/* Bottom Cards Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <TableWidget title="Sources" subtitle="Referrer" items={snapshot?.sources ?? []} nameKey="name" valueKey="value" />
-          <TableWidget title="Pages" subtitle="All" items={snapshot?.pages ?? []} nameKey="path" valueKey="views" prefix />
-          <TableWidget title="Geography" subtitle="Countries" items={snapshot?.countries ?? []} nameKey="name" valueKey="value" />
-          <TableWidget title="Devices" subtitle="Type" items={snapshot?.devices ?? []} nameKey="name" valueKey="value" />
-          <TableWidget title="Browsers" subtitle="All" items={snapshot?.browsers ?? []} nameKey="name" valueKey="value" />
-          <TableWidget title="Operating Systems" subtitle="OS" items={snapshot?.os ?? []} nameKey="name" valueKey="value" />
+        {/* Bottom Details Grid */}
+        <section className="grid grid-cols-4 gap-6">
+          <DetailCard title="Sources" items={mapToPercentage(snapshot?.sources ?? [], 'name', 'value')} emptyState={!snapshot?.sources?.length} />
+          <DetailCard title="Pages" items={mapToPercentage(snapshot?.pages ?? [], 'path', 'views', true)} />
+          <DetailCard title="Geography" items={mapToPercentage(snapshot?.countries ?? [], 'name', 'value')} />
+          <DetailCard title="Devices" items={mapToPercentage(snapshot?.devices ?? [], 'name', 'value')} />
+          <DetailCard title="Browsers" items={mapToPercentage(snapshot?.browsers ?? [], 'name', 'value')} />
+          <DetailCard title="Operating Systems" items={mapToPercentage(snapshot?.os ?? [], 'name', 'value')} />
         </section>
 
       </main>
