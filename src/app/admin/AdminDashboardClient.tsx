@@ -87,9 +87,9 @@ const mapToPercentage = (items: any[], nameKey: string, valueKey: string, prefix
 
 function MetricCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div>
-      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.1em] mb-1.5">{label}</p>
-      <p className="text-[32px] font-extrabold text-white tracking-tight leading-tight">{value}</p>
+    <div className="flex flex-col gap-2">
+      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">{label}</p>
+      <p className="text-[36px] font-bold text-white tracking-tight leading-none">{value}</p>
     </div>
   );
 }
@@ -173,9 +173,9 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 function SidebarItem({ icon, label, active }: { icon: React.ReactNode; label: string; active?: boolean }) {
   return (
-    <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg cursor-pointer transition-colors ${active ? 'bg-[#151821] text-[#3B82F6]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
-      <span className="w-5 h-5">{icon}</span>
-      <span className="text-sm font-medium">{label}</span>
+    <div className={`flex items-center gap-4 px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 ${active ? 'bg-[#1a1c24] text-[#3B82F6] shadow-lg' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+      <span className="w-5 h-5 flex items-center justify-center">{icon}</span>
+      <span className="text-[15px] font-semibold">{label}</span>
     </div>
   );
 }
@@ -216,18 +216,18 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
           <h1 className="text-xl font-bold tracking-tight text-white">ScalePods</h1>
         </div>
 
-        <div className="space-y-8 flex-1">
+        <div className="space-y-12 flex-1 mt-4">
           <div>
-            <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Dashboard</h2>
-            <div className="space-y-1">
+            <h2 className="text-[11px] font-bold text-gray-600 uppercase tracking-[0.2em] mb-6 px-4">Dashboard</h2>
+            <div className="space-y-2">
               <SidebarItem icon={<BarChart size={20} />} label="Analytics" active />
               <SidebarItem icon={<Users size={20} />} label="Visitors" />
             </div>
           </div>
 
           <div>
-            <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Tools</h2>
-            <div className="space-y-1">
+            <h2 className="text-[11px] font-bold text-gray-600 uppercase tracking-[0.2em] mb-6 px-4">Tools</h2>
+            <div className="space-y-2">
               <SidebarItem icon={<Filter size={20} />} label="Funnels" />
               <SidebarItem icon={<Clipboard size={20} />} label="A/B Tests" />
             </div>
@@ -251,18 +251,19 @@ export default function AdminDashboardClient({ user, snapshot, trend }: Props) {
       </aside>
 
       {/* ── Main Content Area ────────────────────────────────────────────── */}
-      <main className="flex-1 overflow-y-auto p-10 bg-[#050505] custom-scrollbar z-0 relative">
-        <header className="flex justify-between items-center mb-10">
-          <h2 className="text-2xl font-bold text-white tracking-tight">Analytics Overview</h2>
-          <button className="flex items-center gap-2 bg-[#0A0A0A] border border-[rgba(255,255,255,0.1)] shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] px-4 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-colors">
-            <Calendar size={14} />
-            {minDate} — {maxDate} <ChevronDown size={14} />
+      <main className="flex-1 overflow-y-auto p-12 bg-[#050505] custom-scrollbar z-0 relative">
+        <header className="flex justify-between items-center mb-12">
+          <h2 className="text-3xl font-bold text-white tracking-tight">Analytics Overview</h2>
+          <button className="flex items-center gap-3 bg-[#0A0A0A] border border-white/10 shadow-xl px-5 py-2.5 rounded-xl text-[13px] font-bold text-gray-300 hover:text-white transition-all">
+            <Calendar size={16} />
+            <span>{minDate} — {maxDate}</span>
+            <ChevronDown size={16} />
           </button>
         </header>
 
         {/* Main Chart Section */}
-        <section className="bg-[#0A0A0A] rounded-3xl p-10 border border-[rgba(255,255,255,0.1)] shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] mb-10 relative overflow-hidden z-0">
-          <div className="grid grid-cols-5 gap-8 mb-4">
+        <section className="bg-[#0A0A0A] rounded-[32px] p-12 border border-white/10 shadow-2xl mb-12 relative overflow-hidden z-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-12">
             <MetricCard label="Total Sessions" value={sessions} />
             <MetricCard label="Average Session" value={engagement} />
             <MetricCard label="Avg Scroll Depth" value={scroll} />
