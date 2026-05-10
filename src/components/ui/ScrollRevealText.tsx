@@ -37,7 +37,7 @@ export const ScrollRevealParagraph = ({
     offset: ["start 0.9", "end 0.6"],
   });
 
-  const items = words || (text ? text.split(" ").map(w => ({ text: w })) : []);
+  const items: Word[] = words || (text ? text.split(" ").map(w => ({ text: w })) : []);
 
   return (
     <div 
