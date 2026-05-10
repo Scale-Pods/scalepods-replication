@@ -880,8 +880,9 @@ function FeatureVisual({ hovered, i1, i2 }: { hovered: boolean; i1: React.ReactN
         style={{
           border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "10px", padding: "10px 20px", display: "flex", alignItems: "center", gap: "14px",
-          transition: { duration: 0.3 }, color: "#ACD791"
+          color: "#ACD791"
         }}
+        transition={{ duration: 0.3 }}
       >
         <div style={{ filter: hovered ? "drop-shadow(0 0 6px #ACD791)" : "none", display: "flex", alignItems: "center" }}>{i1}</div>
         <div style={{ height: "20px", width: "1.2px", background: "rgba(255,255,255,0.1)" }} />
