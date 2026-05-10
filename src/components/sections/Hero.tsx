@@ -98,7 +98,7 @@ export default function Hero() {
                 alt="ScalePods"
                 width={100}
                 height={100}
-                style={{ width: "96px", height: "96px", objectFit: "contain" }}
+                style={{ width: "96px", height: "auto", objectFit: "contain" }}
                 priority
               />
             </div>

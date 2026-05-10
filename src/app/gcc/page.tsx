@@ -10,6 +10,9 @@ import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { HRDashboardMockup, SalesDashboardMockup, OpsDashboardMockup, MarketingDashboardMockup } from "@/components/sections/DashboardMockups";
+import { BeamsBackground } from "@/components/ui/beams-background";
+import { ScrollRevealParagraph } from "@/components/ui/ScrollRevealText";
+// import { StickyFeatureReveal } from "@/components/sections/StickyFeatureReveal"; // Retired for card-based layout
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
@@ -58,9 +61,9 @@ const labelStyle: React.CSSProperties = {
 const pods = [
   {
     title: "HR Workflow Automation Pod",
-    image: "/uae/hr-workflow.avif",
+    image: "/features/HR-Workflow-Automation-Pod.png",
     mockup: null,
-    imageLeft: false,
+    imageLeft: true,
     features: [
       {
         bold: "Automated Screening & Shortlisting:",
@@ -78,7 +81,7 @@ const pods = [
   },
   {
     title: "Sales Workflow Automation Pod",
-    image: "/uae/sales-workflow.avif",
+    image: "/features/Sales-Workflow-Automation-Pod.png",
     mockup: null,
     imageLeft: true,
     features: [
@@ -98,9 +101,9 @@ const pods = [
   },
   {
     title: "Ops & Support Automation Pod",
-    image: "/uae/ops-workflow.avif",
+    image: "/features/Ops-and-Support-Automation-Pod.avif",
     mockup: null,
-    imageLeft: false,
+    imageLeft: true,
     features: [
       {
         bold: "24/7 Customer Support Automation:",
@@ -118,7 +121,7 @@ const pods = [
   },
   {
     title: "Marketing Automation Pod",
-    image: "/uae/marketing-workflow.avif",
+    image: "/features/Marketing-Automation-Pod.avif",
     mockup: null,
     imageLeft: true,
     features: [
@@ -138,7 +141,7 @@ const pods = [
   },
   {
     title: "Custom AI Workflow Pod",
-    image: "/uae/custom-ai-workflow.avif",
+    image: "/features/Custom-AI-Workflow-Pod.avif",
     mockup: null,
     imageLeft: false,
     features: [
@@ -164,202 +167,195 @@ function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: numbe
   const textFirst = !pod.imageLeft;
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1], delay: index * 0.1 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95, filter: "blur(12px)" }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ 
+        duration: 1.2, 
+        ease: [0.22, 1, 0.36, 1], 
+        delay: index * 0.1 
+      }}
       className="pod-card-mobile"
       style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-        gap: "0",
-        background: C.bgCard,
-        border: `1px solid ${C.border}`,
+        display: "flex",
+        flexDirection: "column",
+        background: "rgba(8, 10, 14, 0.65)",
+        border: `1px solid rgba(141, 199, 99, 0.4)`,
         borderRadius: "20px",
         overflow: "hidden",
-        marginBottom: isMobile ? "24px" : "2px",
+        marginBottom: isMobile ? "24px" : "32px",
+        padding: isMobile ? "32px 16px" : "48px 40px",
+        maxWidth: "1100px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
       }}
     >
-      {/* Content for Desktop / Bottom Content for Mobile */}
-      <div
-        className="pod-card-text"
-        style={{
-          order: isMobile ? 3 : (textFirst ? 0 : 1),
-          padding: isMobile ? "40px 24px" : "56px 52px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          textAlign: isMobile ? "center" : "left"
-        }}
-      >
-        {!isMobile && (
-          <h3
-            style={{
-              fontFamily: F.inter,
-              fontSize: "28px",
-              fontWeight: 700,
-              color: C.txtBright,
-              marginBottom: "32px",
-              lineHeight: 1.2,
-            }}
-          >
-            {pod.title}
-          </h3>
-        )}
-
-        <div className="pod-card-list" style={{ 
-          display: "flex", 
-          flexDirection: "column", 
-          gap: "20px", 
-          marginBottom: "40px",
-          alignItems: isMobile ? "center" : "flex-start"
-        }}>
-          {pod.features.map((f, i) => (
-            <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", textAlign: "left", width: isMobile ? "100%" : "auto" }}>
-              <ChevronRight
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  color: C.green,
-                  flexShrink: 0,
-                  marginTop: "3px",
-                }}
-              />
-              <p
-                style={{
-                  fontFamily: F.inter,
-                  fontSize: "14px",
-                  lineHeight: 1.7,
-                  color: C.txtBody,
-                  margin: 0,
-                }}
-              >
-                <strong style={{ color: C.txtBright, fontWeight: 600 }}>{f.bold}</strong>
-                {f.rest}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Download button */}
-        <div className="pod-card-button" style={{ 
-          position: "relative", 
-          display: "inline-block", 
-          alignSelf: isMobile ? "center" : "flex-start",
-          width: isMobile ? "100%" : "auto"
-        }}>
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -10px)",
-              width: "280px",
-              height: "100px",
-              background: "radial-gradient(ellipse at center, rgba(255,255,255,0.09) 0%, transparent 65%)",
-              pointerEvents: "none",
-              zIndex: 0,
-            }}
-          />
-          <button
-            onClick={(e) => { e.preventDefault(); onDownload(); }}
-            style={{
-              position: "relative",
-              zIndex: 1,
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: F.inter,
-              fontSize: "14px",
-              fontWeight: 600,
-              color: C.txtBright,
-              background: C.bgPanel,
-              border: `1px solid ${C.borderMid}`,
-              borderRadius: "10px",
-              padding: "13px 28px",
-              textDecoration: "none",
-              overflow: "hidden",
-              cursor: "pointer",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                boxShadow: "inset 0px -14px 28px -14px rgba(255,255,255,0.25)",
-                pointerEvents: "none",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: "10%",
-                right: "10%",
-                height: "1px",
-                background: "rgba(255,255,255,0.75)",
-              }}
-            />
-            <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2 }} />
-            <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-          </button>
-        </div>
+      {/* Centered Pod Title at the Top */}
+      <div style={{ textAlign: "center", marginBottom: isMobile ? "32px" : "48px" }}>
+        <h3
+          style={{
+            fontFamily: F.serif,
+            fontStyle: "italic",
+            fontSize: isMobile ? "28px" : "42px",
+            fontWeight: 400,
+            color: C.green,
+            lineHeight: 1.1,
+            marginBottom: "8px",
+          }}
+        >
+          {pod.title}
+        </h3>
+        <div style={{ width: "80px", height: "1px", background: `linear-gradient(90deg, transparent, ${C.green}, transparent)`, marginLeft: "auto", marginRight: "auto" }} />
       </div>
 
-      {/* Mobile Title (Always Top) */}
-      {isMobile && (
-        <div style={{ padding: "32px 24px 0", textAlign: "center", order: 1 }}>
-          <h3
-            style={{
-              fontFamily: F.inter,
-              fontSize: "24px",
-              fontWeight: 700,
-              color: C.txtBright,
-              lineHeight: 1.2,
-            }}
-          >
-            {pod.title}
-          </h3>
-        </div>
-      )}
-
-      {/* Image side */}
       <div
-        className="pod-card-image"
         style={{
-          order: isMobile ? 2 : (textFirst ? 1 : 0),
-          position: "relative",
-          minHeight: isMobile ? "240px" : "420px",
-          background: C.bgPanel,
-          overflow: "hidden",
+          display: "grid",
+          gridTemplateColumns: isMobile 
+            ? "1fr" 
+            : (index % 2 === 0 ? "1.2fr 0.8fr" : "0.8fr 1.2fr"),
+          gap: isMobile ? "32px" : "64px",
+          width: "100%",
+          alignItems: "center"
         }}
       >
-        {pod.mockup ? (
-          <div style={{ width: "100%", height: "100%", overflow: "hidden" }}>
-            {pod.mockup}
-          </div>
-        ) : (
+        {/* Visual / Image Side - Locked 16:10 Aspect Ratio */}
+        <div
+          className="pod-card-image"
+          style={{
+            order: isMobile ? 1 : (index % 2 === 0 ? 0 : 1),
+            position: "relative",
+            aspectRatio: "16/10",
+            width: "100%",
+            background: "rgba(255,255,255,0.01)",
+            borderRadius: "16px",
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.06)",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.5)"
+          }}
+        >
           <Image
             src={pod.image}
             alt={pod.title}
             fill
             style={{ objectFit: "cover", objectPosition: "center" }}
-            sizes="600px"
+            sizes="750px"
+            priority={index < 2}
           />
-        )}
-        {/* Edge fade overlay matching the card bg */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to bottom, transparent 70%, rgba(8,10,16,0.3) 100%)",
+              pointerEvents: "none",
+            }}
+          />
+        </div>
+
+        {/* Content Side - Perfectly Balanced Width */}
         <div
+          className="pod-card-text"
           style={{
-            position: "absolute",
-            inset: 0,
-            background: isMobile 
-              ? "linear-gradient(to top, rgba(8,10,16,0.8), transparent 40%)"
-              : (textFirst
-                  ? "linear-gradient(to left, transparent 60%, rgba(8,10,16,0.5) 100%)"
-                  : "linear-gradient(to right, transparent 60%, rgba(8,10,16,0.5) 100%)"),
-            pointerEvents: "none",
+            order: isMobile ? 2 : (index % 2 === 0 ? 1 : 0),
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "100%",
           }}
-        />
+        >
+          <div className="pod-card-list" style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            gap: "24px", 
+            marginBottom: "40px",
+            paddingLeft: isMobile ? "0" : (index % 2 === 0 ? "0" : "12px"),
+            paddingRight: isMobile ? "0" : (index % 2 === 0 ? "12px" : "0"),
+          }}>
+            {pod.features.map((f, i) => (
+              <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", textAlign: "left" }}>
+                <div style={{ 
+                  marginTop: "3px", 
+                  width: "20px", 
+                  height: "20px", 
+                  borderRadius: "50%", 
+                  background: "rgba(172,215,145,0.08)", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center", 
+                  border: "1px solid rgba(172,215,145,0.15)", 
+                  flexShrink: 0 
+                }}>
+                  <ChevronRight style={{ width: "12px", height: "12px", color: C.green }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p
+                    style={{
+                      fontFamily: F.inter,
+                      fontSize: "14px",
+                      lineHeight: 1.6,
+                      color: C.txtBody,
+                      margin: 0,
+                    }}
+                  >
+                    <strong style={{ color: C.txtBright, fontWeight: 700, display: "block", marginBottom: "2px", fontSize: "15px" }}>{f.bold}</strong>
+                    {f.rest}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Download button */}
+          <div className="pod-card-button" style={{ alignSelf: isMobile ? "center" : "flex-start", marginTop: "8px" }}>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <button
+                onClick={(e) => { e.preventDefault(); onDownload(); }}
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  fontFamily: F.inter,
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#FFFFFF",
+                  background: "rgba(8,10,16,0.85)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  borderRadius: "12px",
+                  padding: "13px 32px",
+                  cursor: "pointer",
+                  WebkitBackdropFilter: "blur(12px)",
+                  backdropFilter: "blur(12px)",
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
+                    pointerEvents: "none",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "8%",
+                    right: "8%",
+                    height: "1px",
+                    background: "rgba(255,255,255,0.85)",
+                  }}
+                />
+                <Download size={16} style={{ color: C.green, position: "relative", zIndex: 2 }} />
+                <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -430,7 +426,7 @@ function IndustriesSection() {
   const activeData = INDUSTRIES.find((ind) => ind.id === activeTab)!;
 
   return (
-    <section style={{ padding: "80px 32px 100px", maxWidth: "1000px", margin: "0 auto" }}>
+    <section style={{ padding: "80px 32px 100px", maxWidth: "1000px", marginLeft: "auto", marginRight: "auto" }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -492,12 +488,14 @@ function IndustriesSection() {
                 fontSize: "15px",
                 fontWeight: 600,
                 color: isActive ? "#000" : C.txtBright,
-                background: isActive ? C.greenBright : "transparent",
-                border: `1px solid ${isActive ? C.greenBright : "rgba(255,255,255,0.15)"}`,
+                background: isActive ? C.greenBright : "rgba(8, 10, 14, 0.4)",
+                border: `1px solid ${isActive ? C.greenBright : "rgba(141, 199, 99, 0.3)"}`,
                 borderRadius: "30px",
                 padding: "12px 28px",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
               }}
             >
               {ind.name}
@@ -510,8 +508,8 @@ function IndustriesSection() {
       <div
         className="industry-card-content"
         style={{
-          background: C.bgCard,
-          border: `1px solid rgba(172, 215, 145, 0.15)`,
+          background: "rgba(8, 10, 14, 0.65)",
+          border: `1px solid rgba(141, 199, 99, 0.4)`,
           borderRadius: "16px",
           padding: "48px",
           minHeight: "320px",
@@ -519,6 +517,8 @@ function IndustriesSection() {
           flexDirection: "column",
           justifyContent: "center",
           boxShadow: "0 12px 40px rgba(0,0,0,0.3)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
         }}
       >
         <motion.div
@@ -598,7 +598,7 @@ const CHOICES = [
 
 function WhyChooseUsSection() {
   return (
-    <section style={{ padding: "60px 32px 120px", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
+    <section style={{ padding: "60px 32px 120px", maxWidth: "900px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -706,7 +706,7 @@ const AUTONOMOUS_FEATURES = [
 
 function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) {
   return (
-    <section style={{ padding: "80px 32px 140px", maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
+    <section style={{ padding: "80px 32px 140px", maxWidth: "1000px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -739,7 +739,8 @@ function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) 
             fontWeight: 500,
             lineHeight: 1.6,
             maxWidth: "850px",
-            margin: "0 auto"
+            marginLeft: "auto",
+            marginRight: "auto"
           }}
         >
           Traditional automation only reduces steps — Scalepods' Agentic AI executes entire workflows on autopilot.
@@ -764,21 +765,23 @@ function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) 
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
             style={{
-              background: "#05070A",
-              border: "1px solid rgba(109, 182, 255, 0.15)",
-              borderRadius: "6px",
+              background: "rgba(8, 10, 14, 0.65)",
+              border: "1px solid rgba(141, 199, 99, 0.4)",
+              borderRadius: "12px",
               padding: "32px 28px",
               textAlign: "left",
-              boxShadow: "0 12px 32px rgba(0,0,0,0.4), inset 0 0 20px rgba(109, 182, 255, 0.03)",
+              boxShadow: "0 12px 32px rgba(0,0,0,0.4)",
               transition: "all 0.3s ease",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(109, 182, 255, 0.08)";
-              e.currentTarget.style.border = "1px solid rgba(109, 182, 255, 0.3)";
+              e.currentTarget.style.boxShadow = "0 16px 40px rgba(141, 199, 99, 0.1), inset 0 0 40px rgba(141, 199, 99, 0.08)";
+              e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.8)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.4), inset 0 0 20px rgba(109, 182, 255, 0.03)";
-              e.currentTarget.style.border = "1px solid rgba(109, 182, 255, 0.15)";
+              e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.4), inset 0 0 20px rgba(141, 199, 99, 0.03)";
+              e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.4)";
             }}
           >
             <h3
@@ -843,7 +846,7 @@ function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) 
             fontWeight: 600,
             color: "#FFFFFF",
             background: "rgba(12,14,20,0.8)",
-            border: "1px solid rgba(255,255,255,0.15)",
+            border: "1px solid rgba(141, 199, 99, 0.5)",
             borderRadius: "12px",
             padding: "16px 40px",
             cursor: "pointer",
@@ -911,7 +914,7 @@ function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section style={{ padding: "80px 32px 140px", maxWidth: "1200px", margin: "0 auto" }}>
+    <section style={{ padding: "80px 32px 140px", maxWidth: "1200px", marginLeft: "auto", marginRight: "auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -999,7 +1002,9 @@ function FAQSection() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              margin: "0 auto 24px"
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: "24px"
             }}
           >
             <HelpCircle style={{ width: "24px", height: "24px", color: C.txtBright }} />
@@ -1059,10 +1064,12 @@ function FAQSection() {
               <div
                 key={idx}
                 style={{
-                  background: "#080A0E",
-                  border: "1px solid rgba(109, 182, 255, 0.15)",
+                  background: "rgba(8, 10, 14, 0.65)",
+                  border: "1px solid #38404A",
                   borderRadius: "12px",
                   overflow: "hidden",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
                 }}
               >
                 <div
@@ -1141,6 +1148,14 @@ export default function UAEPage() {
     setLoading(true);
     setError(null);
 
+    // Strict Email Verification
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(form.email)) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
     const { error: dbError } = await supabase
       .from("contact_submissions")
       .insert([{ full_name: form.name, email: form.email, phone: form.phone, source: "UAE Page" }]);
@@ -1154,142 +1169,18 @@ export default function UAEPage() {
   }
 
   return (
-    <main style={{ background: C.bgPage, minHeight: "100vh", fontFamily: F.inter }}>
+    <main style={{ minHeight: "100vh", fontFamily: F.inter }}>
+      <BeamsBackground>
 
-      {/* ── HERO / COVER SECTION ─────────────────────────────────────────── */}
-      {/* Starts at 56px = navbar height (fixed). Full-width edge-to-edge. */}
-      <section
-        style={{
-          position: "relative",
-          marginTop: "56px",
-          width: "100%",
-          height: isMobile ? "280px" : "340px",
-          overflow: "hidden",
-          background: "#000",
-        }}
-      >
-        {/* Image fills full width — cover fit, centered */}
-        <Image
-          src="/uae/head-uae.avif"
-          alt="ScalePods UAE — Your End-to-End Workflow Automation Partner"
-          fill
-          priority
-          style={{ objectFit: isMobile ? "contain" : "cover", objectPosition: "center 30%" }}
-          sizes="100vw"
-        />
-
-        {/* Bottom fade to page bg */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "100px",
-            background: "linear-gradient(to bottom, transparent, #04070D)",
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        />
-
-        {/* Floor glow line */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "1px",
-            background: "linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.35) 50%, transparent 90%)",
-            boxShadow: "0 -12px 40px 8px rgba(255,255,255,0.1)",
-            zIndex: 2,
-          }}
-        />
-
-        {/* Download button — overlaid inside image, bottom-center */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: isMobile ? "20px" : "48px",
-            left: 0,
-            right: 0,
-            zIndex: 3,
-            display: "flex",
-            justifyContent: "center",
-            padding: "0 20px",
-          }}
-        >
-          <div style={{ position: "relative", display: "inline-block" }}>
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -10px)",
-                width: "340px",
-                height: "120px",
-                background: "radial-gradient(ellipse at center, rgba(255,255,255,0.14) 0%, transparent 65%)",
-                pointerEvents: "none",
-                zIndex: 0,
-              }}
-            />
-            <button
-              onClick={(e) => { e.preventDefault(); setIsDownloadModalOpen(true); }}
-              style={{
-                position: "relative",
-                zIndex: 1,
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                fontFamily: F.inter,
-                fontSize: isMobile ? "14px" : "15px",
-                fontWeight: 600,
-                color: "#FFFFFF",
-                background: "rgba(8,10,16,0.85)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                borderRadius: "12px",
-                padding: isMobile ? "12px 28px" : "14px 40px",
-                cursor: "pointer",
-                WebkitBackdropFilter: "blur(12px)",
-                backdropFilter: "blur(12px)",
-                overflow: "hidden",
-                minWidth: isMobile ? "220px" : "280px",
-                justifyContent: "center",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
-                  pointerEvents: "none",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: "8%",
-                  right: "8%",
-                  height: "1px",
-                  background: "rgba(255,255,255,0.85)",
-                }}
-              />
-              <Download style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
-              <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* ── PLUG AND PLAY SECTION ─────────────────────────────────────────── */}
-      <section style={{ padding: isMobile ? "60px 16px" : "100px 32px", position: "relative" }}>
+      <section style={{ padding: isMobile ? "70px 16px" : "90px 32px", position: "relative" }}>
         <div
           className="plug-play-grid"
           style={{
             maxWidth: "1200px",
-            margin: "0 auto",
+            marginLeft: "auto",
+            marginRight: "auto",
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
             gap: isMobile ? "40px" : "60px",
@@ -1304,16 +1195,21 @@ export default function UAEPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
             style={{
-              flex: isMobile ? "none" : "1",
+              flex: isMobile ? "none" : "1.2",
               width: isMobile ? "100%" : "auto",
               order: 1,
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              paddingTop: isMobile ? "20px" : "40px",
             }}
           >
             <h2
               style={{
                 fontFamily: F.serif,
                 fontStyle: "italic",
-                fontSize: isMobile ? "clamp(40px, 10vw, 60px)" : "clamp(36px, 4vw, 54px)",
+                fontSize: isMobile ? "clamp(44px, 11vw, 64px)" : "clamp(40px, 4.5vw, 58px)",
                 fontWeight: 400,
                 color: C.green,
                 lineHeight: 1.15,
@@ -1325,7 +1221,7 @@ export default function UAEPage() {
             <h3
               style={{
                 fontFamily: F.inter,
-                fontSize: isMobile ? "clamp(22px, 5vw, 30px)" : "clamp(20px, 2.5vw, 28px)",
+                fontSize: isMobile ? "clamp(24px, 5.5vw, 32px)" : "clamp(22px, 2.7vw, 30px)",
                 fontWeight: 700,
                 color: C.txtBright,
                 marginBottom: "24px",
@@ -1336,31 +1232,40 @@ export default function UAEPage() {
             <p
               style={{
                 fontFamily: F.inter,
-                fontSize: isMobile ? "16px" : "15px",
+                fontSize: isMobile ? "18px" : "17px",
                 fontWeight: 600,
                 color: C.txtBody,
                 marginBottom: "36px",
                 lineHeight: 1.7,
+                maxWidth: "600px",
               }}
             >
               Automated Workflows That Accelerate Sales, Hiring &amp; Operations
             </p>
 
             {/* Bullet list */}
-            <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "20px" : "16px" }}>
+            <div style={{ 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: isMobile ? "20px" : "16px",
+              alignItems: "flex-start",
+              maxWidth: "450px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}>
               {[
                 "Source, screen & schedule top talent on autopilot.",
                 "Deliver 24/7 customer care without scaling headcount.",
                 "Convert leads into booked customers with AI-powered outreach.",
               ].map((item, i) => (
-                <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
+                <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", textAlign: "left" }}>
                   <ChevronRight
                     style={{ width: isMobile ? "18px" : "16px", height: isMobile ? "18px" : "16px", color: C.green, flexShrink: 0, marginTop: "3px" }}
                   />
                   <p
                     style={{
                       fontFamily: F.inter,
-                      fontSize: isMobile ? "15px" : "14px",
+                      fontSize: isMobile ? "17px" : "16px",
                       color: C.txtBody,
                       lineHeight: 1.7,
                       margin: 0,
@@ -1370,6 +1275,71 @@ export default function UAEPage() {
                   </p>
                 </div>
               ))}
+            </div>
+
+            {/* Download button moved here */}
+            <div style={{ marginTop: "48px", display: "flex", justifyContent: "center" }}>
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -10px)",
+                    width: "340px",
+                    height: "120px",
+                    background: "radial-gradient(ellipse at center, rgba(255,255,255,0.14) 0%, transparent 65%)",
+                    pointerEvents: "none",
+                    zIndex: 0,
+                  }}
+                />
+                <button
+                  onClick={(e) => { e.preventDefault(); setIsDownloadModalOpen(true); }}
+                  style={{
+                    position: "relative",
+                    zIndex: 1,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    fontFamily: F.inter,
+                    fontSize: isMobile ? "14px" : "15px",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    background: "rgba(8,10,16,0.85)",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    borderRadius: "12px",
+                    padding: isMobile ? "12px 28px" : "14px 40px",
+                    cursor: "pointer",
+                    WebkitBackdropFilter: "blur(12px)",
+                    backdropFilter: "blur(12px)",
+                    overflow: "hidden",
+                    minWidth: isMobile ? "220px" : "280px",
+                    justifyContent: "center",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
+                      pointerEvents: "none",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: "8%",
+                      right: "8%",
+                      height: "1px",
+                      background: "rgba(255,255,255,0.85)",
+                    }}
+                  />
+                  <Download style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
+                  <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
+                </button>
+              </div>
             </div>
           </motion.div>
 
@@ -1388,11 +1358,11 @@ export default function UAEPage() {
             }}
           >
             {/* Stat headline */}
-            <div style={{ marginBottom: "28px", textAlign: "center" }}>
+            <div style={{ marginBottom: "20px", textAlign: "center" }}>
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "clamp(16px, 2vw, 20px)",
+                  fontSize: "clamp(15px, 1.8vw, 18px)",
                   fontWeight: 700,
                   color: C.txtBright,
                   lineHeight: 1.4,
@@ -1405,7 +1375,7 @@ export default function UAEPage() {
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "clamp(18px, 2.5vw, 24px)",
+                  fontSize: "clamp(17px, 2.2vw, 22px)",
                   fontWeight: 800,
                   color: C.txtBright,
                   lineHeight: 1.3,
@@ -1414,7 +1384,7 @@ export default function UAEPage() {
                 <span style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>30%</span>{" "}
                 and Eliminate Bottlenecks
               </p>
-              <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, marginTop: "8px" }}>
+              <p style={{ fontFamily: F.inter, fontSize: "13px", color: C.txtMuted, marginTop: "6px" }}>
                 By completing the form
               </p>
             </div>
@@ -1422,12 +1392,14 @@ export default function UAEPage() {
             {/* Form card */}
             <div
               style={{
-                background: C.bgCard,
-                border: `1px solid ${C.border}`,
+                background: "rgba(8, 10, 14, 0.65)",
+                border: `1px solid #38404A`,
                 borderRadius: "16px",
-                padding: isMobile ? "24px 20px" : "32px",
+                padding: "20px",
                 width: "100%",
                 boxSizing: "border-box",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
               }}
             >
               {submitted ? (
@@ -1442,7 +1414,9 @@ export default function UAEPage() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      margin: "0 auto 20px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      marginBottom: "20px",
                     }}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={C.green} strokeWidth="2">
@@ -1459,41 +1433,80 @@ export default function UAEPage() {
               ) : (
                 <form onSubmit={handleSubmit}>
                   {/* Full Name */}
-                  <div style={{ marginBottom: "18px" }}>
-                    <label style={labelStyle}>Full Name</label>
+                  <div style={{ marginBottom: "14px" }}>
+                    <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
+                      Full Name
+                    </label>
                     <input
                       name="name"
+                      type="text"
+                      required
+                      placeholder="Alex Sollork"
                       value={form.name}
                       onChange={handleChange}
-                      placeholder="Alex Sollork"
-                      style={inputStyle}
-                      required
+                      style={{
+                        width: "100%",
+                        background: C.bgInput,
+                        border: `1px solid ${C.border}`,
+                        borderRadius: "12px",
+                        padding: "10px 16px",
+                        color: "#FFFFFF",
+                        fontFamily: F.inter,
+                        fontSize: "15px",
+                        outline: "none",
+                      }}
                     />
                   </div>
 
                   {/* Email */}
-                  <div style={{ marginBottom: "18px" }}>
-                    <label style={labelStyle}>Email Address</label>
+                  <div style={{ marginBottom: "14px" }}>
+                    <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
+                      Email Address
+                    </label>
                     <input
                       name="email"
                       type="email"
+                      required
+                      placeholder="Alex@gmail.com"
                       value={form.email}
                       onChange={handleChange}
-                      placeholder="Alex@gmail.com"
-                      style={inputStyle}
-                      required
+                      style={{
+                        width: "100%",
+                        background: C.bgInput,
+                        border: `1px solid ${C.border}`,
+                        borderRadius: "12px",
+                        padding: "10px 16px",
+                        color: "#FFFFFF",
+                        fontFamily: F.inter,
+                        fontSize: "15px",
+                        outline: "none",
+                      }}
                     />
                   </div>
 
                   {/* Phone */}
-                  <div style={{ marginBottom: "24px" }}>
-                    <label style={labelStyle}>Phone Number</label>
+                  <div style={{ marginBottom: "18px" }}>
+                    <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
+                      Phone Number
+                    </label>
                     <input
                       name="phone"
+                      type="tel"
+                      required
+                      placeholder="Enter with Country Code"
                       value={form.phone}
                       onChange={handleChange}
-                      placeholder="Enter with Country Code"
-                      style={inputStyle}
+                      style={{
+                        width: "100%",
+                        background: C.bgInput,
+                        border: `1px solid ${C.border}`,
+                        borderRadius: "12px",
+                        padding: "10px 16px",
+                        color: "#FFFFFF",
+                        fontFamily: F.inter,
+                        fontSize: "15px",
+                        outline: "none",
+                      }}
                     />
                   </div>
 
@@ -1501,10 +1514,10 @@ export default function UAEPage() {
                     <p
                       style={{
                         fontFamily: F.inter,
-                        fontSize: "13px",
+                        fontSize: "12px",
                         color: "#F87171",
                         marginBottom: "12px",
-                        padding: "10px 14px",
+                        padding: "8px 12px",
                         background: "rgba(248,113,113,0.08)",
                         border: "1px solid rgba(248,113,113,0.2)",
                         borderRadius: "8px",
@@ -1522,13 +1535,13 @@ export default function UAEPage() {
                       style={{
                         position: "relative",
                         width: "100%",
-                        padding: "16px 24px",
-                        background: "#040508",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        borderRadius: "8px",
+                        padding: "12px 24px",
+                        background: "rgba(8,10,16,0.85)",
+                        border: "1px solid rgba(255,255,255,0.15)",
+                        borderRadius: "10px",
                         color: "#FFFFFF",
                         fontFamily: F.inter,
-                        fontSize: "15px",
+                        fontSize: "14px",
                         fontWeight: 600,
                         cursor: loading ? "not-allowed" : "pointer",
                         display: "flex",
@@ -1536,8 +1549,18 @@ export default function UAEPage() {
                         justifyContent: "center",
                         gap: "8px",
                         overflow: "hidden",
+                        WebkitBackdropFilter: "blur(12px)",
+                        backdropFilter: "blur(12px)",
                       }}
                     >
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
+                          pointerEvents: "none",
+                        }}
+                      />
                       <div
                         style={{
                           position: "absolute",
@@ -1557,7 +1580,7 @@ export default function UAEPage() {
                           style={{ display: "flex", alignItems: "center" }}
                         >
                           <Loader2
-                            style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }}
+                            style={{ width: "14px", height: "14px", position: "relative", zIndex: 2 }}
                           />
                         </motion.div>
                       ) : null}
@@ -1616,8 +1639,8 @@ export default function UAEPage() {
       </section>
 
       {/* ── POD CARDS ─────────────────────────────────────────────────────── */}
-      <section style={{ padding: "40px 32px 60px", maxWidth: "1280px", margin: "0 auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <section style={{ padding: "40px 32px 60px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
           {pods.map((pod, i) => (
             <PodCard key={pod.title} pod={pod} index={i} onDownload={() => setIsDownloadModalOpen(true)} />
           ))}
@@ -1633,12 +1656,15 @@ export default function UAEPage() {
           transition={{ duration: 0.6 }}
           style={{
             maxWidth: "1100px",
-            margin: "0 auto",
-            background: C.bgCard,
-            border: `1px solid ${C.border}`,
+            marginLeft: "auto",
+            marginRight: "auto",
+            background: "rgba(8, 10, 14, 0.65)",
+            border: `1px solid rgba(141, 199, 99, 0.4)`,
             borderRadius: "16px",
             padding: "56px 48px",
             textAlign: "center",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
           }}
         >
           <h2
@@ -1664,7 +1690,9 @@ export default function UAEPage() {
               color: C.txtBright,
               fontWeight: 600,
               maxWidth: "800px",
-              margin: "0 auto 20px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: "20px",
               lineHeight: 1.6,
             }}
           >
@@ -1751,7 +1779,7 @@ export default function UAEPage() {
       </section>
 
       {/* ── TOP BENEFITS SECTION ────────────────────────────────────────────── */}
-      <section style={{ padding: "60px 32px 100px", maxWidth: "1200px", margin: "0 auto", textAlign: "center" }}>
+      <section style={{ padding: "60px 32px 100px", maxWidth: "1200px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1780,7 +1808,9 @@ export default function UAEPage() {
               color: C.txtBright,
               fontWeight: 500,
               maxWidth: "850px",
-              margin: "0 auto 56px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: "56px",
               lineHeight: 1.6,
             }}
           >
@@ -1801,20 +1831,20 @@ export default function UAEPage() {
         >
           {[
             {
-              title: "Accelerated Sales Efficiency",
-              desc: "Automated lead scraping, multi-channel outreach, and AI-driven follow-ups remove manual bottlenecks. Your sales team spends less time chasing and more time closing.",
+              title: "Self-Optimizing & Continuously Learning",
+              desc: "AI agents adapt in real time based on performance, learning from interactions, outcomes, and user behaviour to improve accuracy and reduce manual oversight.",
             },
             {
-              title: "Faster, Smarter Hiring",
-              desc: "Our HR workflow automation pod screens, filters, and schedules candidates instantly. Reduce hiring delays, maintain quality, and streamline onboarding across all departments.",
+              title: "Autonomous Sales & Operations Execution",
+              desc: "From scraping leads to follow-ups, scheduling, ticketing and order workflows — autonomous pods run end-to-end tasks without manual intervention.",
             },
             {
-              title: "24/7 Customer Support Automation",
-              desc: "AI support agents handle inquiries, updates, and issue resolution round-the-clock, enabling faster response times and improved customer satisfaction without adding headcount.",
+              title: "Touchless Content & HR Automation",
+              desc: "AI generates content, screens candidates, schedules interviews, and updates workflows automatically — eliminating repetitive admin work entirely.",
             },
             {
-              title: "End-To-End Workflow Integration",
-              desc: "Connect sales, HR, marketing, and operations into one automated system. Scalepods unifies your business processes to eliminate silos and improve decision-making with real-time visibility.",
+              title: "Trusted by High-Growth Teams Across the UAE",
+              desc: "Startups and SMEs use Scalepods to automate sales, HR, marketing, and support — reducing costs, improving speed, and scaling workflows in under 7 days.",
             },
           ].map((item, idx) => (
             <motion.div
@@ -1824,21 +1854,24 @@ export default function UAEPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               style={{
-                background: C.bgCard,
-                border: "1px solid rgba(109, 182, 255, 0.2)",
+                background: "rgba(8, 10, 14, 0.65)",
+                border: "1px solid rgba(141, 199, 99, 0.4)",
                 borderRadius: "12px",
                 padding: "36px 24px 24px",
                 position: "relative",
                 textAlign: "center",
                 boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                transition: "all 0.3s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 32px rgba(109, 182, 255, 0.15)";
-                e.currentTarget.style.border = "1px solid rgba(109, 182, 255, 0.4)";
+                e.currentTarget.style.boxShadow = "0 8px 32px rgba(141, 199, 99, 0.15)";
+                e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.8)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.4)";
-                e.currentTarget.style.border = "1px solid rgba(109, 182, 255, 0.2)";
+                e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.4)";
               }}
             >
               {/* Number Circle */}
@@ -1970,6 +2003,7 @@ export default function UAEPage() {
       {/* ── FAQ SECTION ───────────────────────────────────────────────────── */}
       <FAQSection />
 
+      </BeamsBackground>
       <DownloadModal isOpen={isDownloadModalOpen} onClose={() => setIsDownloadModalOpen(false)} />
     </main>
   );

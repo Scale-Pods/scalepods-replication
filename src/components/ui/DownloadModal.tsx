@@ -32,7 +32,7 @@ const inputStyle = {
   background: "#08090C",
   border: "1px solid rgba(255,255,255,0.06)",
   borderRadius: "8px",
-  padding: "14px 16px",
+  padding: "10px 14px",
   fontSize: "14px",
   color: C.txtBright,
   outline: "none",
@@ -59,6 +59,14 @@ export default function DownloadModal({
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Strict Email Verification
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(form.email)) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
 
     // Save to download_leads table
     const { error: dbError } = await supabase
@@ -125,17 +133,19 @@ export default function DownloadModal({
               position: "relative",
               width: "100%",
               maxWidth: "440px",
-              background: C.bgModal,
-              border: `1px solid ${C.border}`,
+              background: "rgba(8, 10, 14, 0.65)",
+              border: `1px solid rgba(141, 199, 99, 0.4)`,
               borderRadius: "16px",
-              padding: "32px",
-              boxShadow: "0 24px 48px rgba(0,0,0,0.4)"
+              padding: "24px 32px",
+              boxShadow: "0 24px 48px rgba(0,0,0,0.4)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
             }}
           >
             <button
               onClick={onClose}
               style={{
-                position: "absolute", top: "16px", right: "16px",
+                position: "absolute", top: "12px", right: "12px",
                 background: "transparent", border: "none", cursor: "pointer",
                 color: C.txtMuted, display: "flex", alignItems: "center", justifyContent: "center",
                 padding: "8px", borderRadius: "50%", transition: "all 0.2s"
@@ -158,24 +168,24 @@ export default function DownloadModal({
               </div>
             ) : (
               <>
-                <div style={{ textAlign: "center", marginBottom: "24px" }}>
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <div style={{
-                    width: "48px", height: "48px", background: "rgba(109, 182, 255, 0.1)",
+                    width: "40px", height: "40px", background: "rgba(141, 199, 99, 0.1)",
                     borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center",
-                    margin: "0 auto 16px"
+                    margin: "0 auto 12px"
                   }}>
-                    <Download size={24} color={C.blue} />
+                    <Download size={20} color={C.greenBright} />
                   </div>
-                  <h3 style={{ fontSize: "22px", fontWeight: 600, color: C.txtBright, marginBottom: "8px" }}>
+                  <h3 style={{ fontSize: "20px", fontWeight: 600, color: C.txtBright, marginBottom: "4px" }}>
                     Get the Feature Guides
                   </h3>
-                  <p style={{ color: C.txtBody, fontSize: "14px" }}>
+                  <p style={{ color: C.txtBody, fontSize: "13px" }}>
                     Enter your details below to receive our exclusive feature guides via direct download.
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                  <div style={{ marginBottom: "20px" }}>
+                  <div style={{ marginBottom: "14px" }}>
                     <label style={labelStyle}>Full Name</label>
                     <input
                       name="name"
@@ -187,7 +197,7 @@ export default function DownloadModal({
                     />
                   </div>
                   
-                  <div style={{ marginBottom: "20px" }}>
+                  <div style={{ marginBottom: "14px" }}>
                     <label style={labelStyle}>Email Address</label>
                     <input
                       name="email"
@@ -200,7 +210,7 @@ export default function DownloadModal({
                     />
                   </div>
 
-                  <div style={{ marginBottom: "24px" }}>
+                  <div style={{ marginBottom: "18px" }}>
                     <label style={labelStyle}>Phone Number</label>
                     <input
                       name="phone"
@@ -220,16 +230,29 @@ export default function DownloadModal({
                   )}
 
                   <div style={{ position: "relative", width: "100%" }}>
+                    {/* Internal lamp glow for the button */}
+                    <div style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -6px)",
+                      width: "80%",
+                      height: "40px",
+                      background: "radial-gradient(ellipse at center, rgba(141, 199, 99, 0.15) 0%, transparent 70%)",
+                      pointerEvents: "none",
+                      zIndex: 0
+                    }} />
                     <button
                       type="submit"
                       disabled={loading}
                       style={{
                         position: "relative",
+                        zIndex: 1,
                         width: "100%",
-                        padding: "16px 24px",
-                        background: "#040508",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        borderRadius: "8px",
+                        padding: "12px 24px",
+                        background: "rgba(8,10,16,0.85)",
+                        border: "1px solid rgba(141, 199, 99, 0.5)",
+                        borderRadius: "12px",
                         color: "#FFFFFF",
                         fontSize: "15px",
                         fontWeight: 600,
@@ -238,31 +261,39 @@ export default function DownloadModal({
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "8px",
+                        WebkitBackdropFilter: "blur(12px)",
+                        backdropFilter: "blur(12px)",
                         overflow: "hidden",
+                        transition: "all 0.3s ease"
                       }}
                     >
-                      <div
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                          width: "60%",
-                          height: "1px",
-                          background: "rgba(255,255,255,0.8)",
-                          boxShadow: "0px -4px 16px 4px rgba(255,255,255,0.25)",
-                        }}
-                      />
-                      <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", gap: "8px" }}>
-                        {loading ? (
-                          <>
-                            <Loader2 size={18} className="animate-spin" />
-                            Processing...
-                          </>
-                        ) : (
-                          "Download Now"
-                        )}
-                      </span>
+                      {/* Inner inset top light shadow */}
+                      <div style={{
+                        position: "absolute",
+                        inset: 0,
+                        boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.3)",
+                        pointerEvents: "none"
+                      }} />
+                      {/* Bottom lamp line */}
+                      <div style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: "10%",
+                        right: "10%",
+                        height: "1px",
+                        background: "rgba(141, 199, 99, 0.8)",
+                      }} />
+                      {loading ? (
+                        <>
+                          <Loader2 className="animate-spin" size={18} />
+                          <span>Processing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Download size={18} />
+                          <span>Download Now</span>
+                        </>
+                      )}
                     </button>
                   </div>
                   <p style={{

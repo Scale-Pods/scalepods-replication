@@ -29,9 +29,9 @@ export default function Footer() {
             <Image
               src="/logo-light.png"
               alt="ScalePods"
-              width={180}
-              height={50}
-              style={{ height: "40px", width: "auto", objectFit: "contain", display: "block" }}
+              width={360}
+              height={100}
+              style={{ height: "100px", width: "auto", objectFit: "contain", display: "block" }}
             />
           </Link>
 

@@ -15,16 +15,16 @@ import {
 
 export default function Home() {
   return (
-    <main>
+    <main style={{ position: "relative" }}>
       <Hero />
       <DataAnalysis />
       <Benefits />
       <Services />
+      <Reviews />
       <Features />
       <Process />
       <CaseStudies />
       <Integrations />
-      <Reviews />
       <FAQ />
       <Comparison />
       <FinalCTA />

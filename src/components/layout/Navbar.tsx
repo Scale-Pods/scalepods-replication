@@ -40,7 +40,7 @@ export default function Navbar() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          height: "90px",
+          height: "70px",
           display: "flex",
           alignItems: "center",
           background: scrolled ? "rgba(4,7,13,0.92)" : "rgba(4,7,13,0.6)",
@@ -62,13 +62,13 @@ export default function Navbar() {
           position: "relative",
         }}>
           {/* Logo */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "70px" }}>
             <Image
               src="/logo-light.png"
               alt="ScalePods"
-              width={320}
-              height={88}
-              style={{ height: "88px", width: "auto", objectFit: "contain", display: "block" }}
+              width={360}
+              height={100}
+              style={{ height: "100px", width: "auto", objectFit: "contain", display: "block", transition: "height 0.3s ease" }}
               priority
             />
           </Link>
@@ -157,17 +157,17 @@ export default function Navbar() {
               alignItems: "center",
               justifyContent: "space-between",
               padding: "0 20px",
-              height: "90px",
+              height: "70px",
               borderBottom: "1px solid rgba(255,255,255,0.06)",
               flexShrink: 0,
             }}>
-              <Link href="/" onClick={() => setMenuOpen(false)}>
+              <Link href="/" onClick={() => setMenuOpen(false)} style={{ display: "flex", alignItems: "center" }}>
                 <Image
                   src="/logo-light.png"
                   alt="ScalePods"
-                  width={300}
-                  height={80}
-                  style={{ height: "80px", width: "auto", objectFit: "contain" }}
+                  width={360}
+                  height={100}
+                  style={{ height: "100px", width: "auto", objectFit: "contain", display: "block" }}
                 />
               </Link>
               <button
