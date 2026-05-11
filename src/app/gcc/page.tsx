@@ -1354,7 +1354,9 @@ export default function UAEPage() {
               flex: isMobile ? "none" : "1",
               width: isMobile ? "100%" : "auto",
               order: 2,
-              marginTop: isMobile ? "8px" : "0",
+              marginTop: isMobile ? "8px" : "24px",
+              marginLeft: isMobile ? "0" : "-40px",
+              marginRight: isMobile ? "0" : "40px",
             }}
           >
             {/* Stat headline */}
@@ -1395,8 +1397,11 @@ export default function UAEPage() {
                 background: "rgba(8, 10, 14, 0.65)",
                 border: `1px solid #38404A`,
                 borderRadius: "16px",
-                padding: "20px",
+                padding: "30px",
                 width: "100%",
+                maxWidth: "480px",
+                marginLeft: "auto",
+                marginRight: "auto",
                 boxSizing: "border-box",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
@@ -1433,7 +1438,7 @@ export default function UAEPage() {
               ) : (
                 <form onSubmit={handleSubmit}>
                   {/* Full Name */}
-                  <div style={{ marginBottom: "14px" }}>
+                  <div style={{ marginBottom: "20px" }}>
                     <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
                       Full Name
                     </label>
@@ -1449,7 +1454,7 @@ export default function UAEPage() {
                         background: C.bgInput,
                         border: `1px solid ${C.border}`,
                         borderRadius: "12px",
-                        padding: "10px 16px",
+                        padding: "14px 16px",
                         color: "#FFFFFF",
                         fontFamily: F.inter,
                         fontSize: "15px",
@@ -1459,7 +1464,7 @@ export default function UAEPage() {
                   </div>
 
                   {/* Email */}
-                  <div style={{ marginBottom: "14px" }}>
+                  <div style={{ marginBottom: "20px" }}>
                     <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
                       Email Address
                     </label>
@@ -1475,7 +1480,7 @@ export default function UAEPage() {
                         background: C.bgInput,
                         border: `1px solid ${C.border}`,
                         borderRadius: "12px",
-                        padding: "10px 16px",
+                        padding: "14px 16px",
                         color: "#FFFFFF",
                         fontFamily: F.inter,
                         fontSize: "15px",
@@ -1485,7 +1490,7 @@ export default function UAEPage() {
                   </div>
 
                   {/* Phone */}
-                  <div style={{ marginBottom: "18px" }}>
+                  <div style={{ marginBottom: "24px" }}>
                     <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
                       Phone Number
                     </label>
@@ -1501,7 +1506,7 @@ export default function UAEPage() {
                         background: C.bgInput,
                         border: `1px solid ${C.border}`,
                         borderRadius: "12px",
-                        padding: "10px 16px",
+                        padding: "14px 16px",
                         color: "#FFFFFF",
                         fontFamily: F.inter,
                         fontSize: "15px",
@@ -1535,7 +1540,7 @@ export default function UAEPage() {
                       style={{
                         position: "relative",
                         width: "100%",
-                        padding: "12px 24px",
+                        padding: "16px 24px",
                         background: "rgba(8,10,16,0.85)",
                         border: "1px solid rgba(255,255,255,0.15)",
                         borderRadius: "10px",

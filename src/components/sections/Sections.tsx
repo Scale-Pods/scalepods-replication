@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, animate } from "framer-motion";
-import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search } from "lucide-react";
+import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import ScrollRevealText from "@/components/ui/ScrollRevealText";
 import ActivityBarChart from "@/components/ui/ActivityBarChart";
@@ -266,7 +266,7 @@ export function Services() {
           </div>
 
           {/* Text Content */}
-          <div style={{ textAlign: "left" }}>
+          <div style={{ textAlign: "center" }}>
             <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>
               Automate repetitive tasks
             </h3>
@@ -322,7 +322,7 @@ export function Services() {
             </div>
           </div>
  
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, textAlign: "center" }}>
             <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Automated Workflows</h3>
             <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.5 }}>Build intelligent workflows that automate multi-step processes across platforms.</p>
           </div>
@@ -374,8 +374,10 @@ export function Services() {
               </div>
             </motion.div>
           </div>
-          <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Real-Time Intelligence</h3>
-          <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>Make smarter decisions with live data insights. Tap into real-time data</p>
+          <div style={{ textAlign: "center" }}>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Real-Time Intelligence</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>Make smarter decisions with live data insights. Tap into real-time data</p>
+          </div>
         </motion.div>
 
         {/* 4 – Custom AI Agent (1col) */}
@@ -435,8 +437,10 @@ export function Services() {
               </motion.div>
             </div>
           </div>
-          <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Custom AI Agent development</h3>
-          <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>We develop custom AI agents that integrate seamlessly with your tools</p>
+          <div style={{ textAlign: "center" }}>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Custom AI Agent development</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>We develop custom AI agents that integrate seamlessly with your tools</p>
+          </div>
         </motion.div>
 
         {/* 5 – AI Strategy Consulting (1col) */}
@@ -465,8 +469,10 @@ export function Services() {
               <motion.circle cx="110" cy="75" r="5" fill="#6DB6FF" variants={{ rest: { scale: [1, 1.4, 1], filter: ["blur(0px)", "blur(2px)", "blur(0px)"] } }} transition={{ duration: 2.5, repeat: Infinity }} />
             </svg>
           </div>
-          <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>AI Strategy Consulting</h3>
-          <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>Get expert guidance to implement AI solutions that drive business growth</p>
+          <div style={{ textAlign: "center" }}>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>AI Strategy Consulting</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>Get expert guidance to implement AI solutions that drive business growth</p>
+          </div>
         </motion.div>
 
       </div>
@@ -480,14 +486,14 @@ export function Services() {
 // ═══════════════════════════════════════════════════════════════════════════════
 const brands = [
   { src: "/brands/BECO.avif", alt: "BECO" },
-  { src: "/brands/gammacode.webp", alt: "Gammacode" },
+  { src: "/brands/gammacode.webp", alt: "Gammacode", isBlack: true },
   { src: "/brands/krafty-logo-white.png", alt: "Krafty Animations" },
   { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi", whiteBg: true },
   { src: "/brands/Break-the-code.avif", alt: "Break The Code", whiteBg: true },
-  { src: "/brands/passsionfruit.avif", alt: "Passionfruit" },
-  { src: "/brands/propertygeld.png", alt: "PropertyGeld" },
-  { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels" },
-  { src: "/brands/lotus-manor.webp", alt: "Lotus Manor" },
+  { src: "/brands/passsionfruit.avif", alt: "Passionfruit", isBlack: true },
+  { src: "/brands/propertygeld.png", alt: "PropertyGeld", isBlack: true },
+  { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", isBlack: true },
+  { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", isBlack: true },
 ];
 
 export function DataAnalysis() {
@@ -509,38 +515,39 @@ export function DataAnalysis() {
         </span>
       </div>
 
-      <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <ScrollRevealText
+          className="justify-center text-center"
           words={[
             { text: "We" },
             { text: "find" },
             { text: "what" },
             { text: "to" },
-            { text: "automate,", italic: true, accentColor: "#D9F99D" },
+            { text: "automate,", italic: true, accentColor: "#ACD791" },
             { text: "who" },
             { text: "your" },
             { text: "users" },
             { text: "are" },
             { text: "&" },
             { text: "how" },
-            { text: "AI" },
+            { text: "AI", newLine: true },
             { text: "can" },
             { text: "optimize" },
             { text: "your" },
-            { text: "workflow.", italic: true, accentColor: "#D9F99D" },
+            { text: "workflow.", italic: true, accentColor: "#ACD791" },
             { text: "Best" },
             { text: "part" },
             { text: "is" },
             { text: "we" },
             { text: "also" },
-            { text: "build" },
+            { text: "build", newLine: true },
             { text: "and" },
             { text: "launch" },
-            { text: "custom", italic: true, accentColor: "#D9F99D" },
-            { text: "solutions.", italic: true, accentColor: "#D9F99D" },
+            { text: "custom", italic: true, accentColor: "#ACD791" },
+            { text: "solutions.\"", italic: true, accentColor: "#ACD791" },
           ]}
           fontFamily={F.inter}
-          fontSize="clamp(20px, 2.4vw, 32px)"
+          fontSize="clamp(18px, 2.5vw, 30px)"
           color="#8E95A3"
           italicFontFamily={F.serif}
           lineHeight={1.4}
@@ -560,52 +567,71 @@ export function DataAnalysis() {
           Trusted by thousands of companies and investors all over the world
         </p>
 
-        <div style={{
+        <style>{`
+          @keyframes marquee-scroll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .marquee-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            animation: marquee-scroll 25s linear infinite;
+          }
+          .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+          }
+          .brand-logo-container {
+            margin-right: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, mix-blend-mode 0.3s ease;
+          }
+          .brand-logo-container:hover {
+            opacity: 1;
+            mix-blend-mode: normal !important;
+          }
+          .brand-logo-img {
+            max-height: 42px;
+            width: auto;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+          }
+          .brand-logo-container:hover .brand-logo-img {
+            filter: var(--hover-filter, none) !important;
+          }
+        `}</style>
+
+        <div className="marquee-container" style={{
           position: "relative",
           width: "100%",
           overflow: "hidden",
           maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
           WebkitMaskImage: "-webkit-linear-gradient(left, transparent, black 15%, black 85%, transparent)",
         }}>
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              width: "max-content",
-            }}
-          >
+          <div className="marquee-track">
             {[...brands, ...brands].map((brand, i) => (
-              <div key={i} style={{
-                marginRight: "90px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: 0.6,
-                mixBlendMode: brand.whiteBg ? "screen" : "normal",
-                transition: "opacity 0.3s ease",
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = "1";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = "0.6";
-                }}
+              <div 
+                key={i} 
+                className="brand-logo-container"
+                style={{
+                  mixBlendMode: brand.whiteBg ? "screen" : "normal",
+                  "--hover-filter": brand.isBlack ? "invert(1) brightness(200%)" : "none"
+                } as React.CSSProperties}
               >
                 <img
                   src={brand.src}
                   alt={brand.alt}
+                  className="brand-logo-img"
                   style={{
-                    maxHeight: "42px",
-                    width: "auto",
-                    objectFit: "contain",
                     filter: brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)"
                   }}
                 />
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -680,8 +706,106 @@ export function Benefits() {
     {
       title: "Real-Time Intelligence",
       desc: "Access accurate, real-time data to drive smarter decisions",
-      Icon: function Speedometer({ hovered }: { hovered: boolean }) {
-        return <div className="w-full h-full flex items-center justify-center -mt-4"><FuturisticGauge isHovered={hovered} initialAngle={25} targetAngle={75} className="w-full" /></div>;
+      Icon: function RadarSweep({ hovered }: { hovered: boolean }) {
+        return (
+          <div className="w-full h-full flex items-center justify-center relative overflow-hidden -mt-4">
+            <style>{`
+              .radar-panel {
+                position: relative;
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                border: 1px solid rgba(44, 46, 49, 0.6);
+                box-shadow: 
+                  inset 0 0 0 26px transparent,
+                  inset 0 0 0 27px rgba(44, 46, 49, 0.4),
+                  inset 0 0 0 53px transparent,
+                  inset 0 0 0 54px rgba(44, 46, 49, 0.4);
+                overflow: hidden;
+              }
+              
+              .radar-panel:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 1px;
+                height: 100%;
+                background: rgba(44, 46, 49, 0.4);
+              }
+              
+              .radar-panel:after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: rgba(44, 46, 49, 0.4);
+              }
+              
+              .radar-scanner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 160px;
+                height: 160px;
+                background: conic-gradient(from 0deg, transparent 70%, rgba(44, 46, 49, 0.2) 99%, rgba(44, 46, 49, 1) 100%);
+                border-radius: 50%;
+                transform-origin: center;
+                animation: scanning 4s infinite linear;
+              }
+              
+              .radar-targets {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+              }
+              
+              .radar-target {
+                display: block;
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #6DB6FF;
+                box-shadow: 0 0 10px #6DB6FF;
+                opacity: 0;
+                animation: target-pulse 4s infinite linear;
+              }
+              
+              @keyframes scanning {
+                100% { transform: rotate(360deg); }
+              }
+              
+              @keyframes target-pulse {
+                1% { opacity: 0.5; transform: scale(2.5); }
+                3% { opacity: 1; transform: scale(1.5); }
+                60% { opacity: 0; transform: scale(0.6); }
+              }
+            `}</style>
+
+            <div className="radar-panel">
+              <div 
+                className="radar-scanner" 
+                style={{ 
+                  animationPlayState: hovered ? 'running' : 'paused',
+                  opacity: hovered ? 1 : 0,
+                  transition: 'opacity 0.3s ease'
+                }} 
+              />
+              <ul className="radar-targets">
+                <li className="radar-target" style={{ animationDelay: "2250ms", top: "30%", left: "30%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
+                <li className="radar-target" style={{ animationDelay: "3200ms", top: "15%", left: "60%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
+                <li className="radar-target" style={{ animationDelay: "5050ms", top: "70%", left: "80%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
+                <li className="radar-target" style={{ animationDelay: "1100ms", top: "60%", left: "20%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
+                <li className="radar-target" style={{ animationDelay: "3000ms", top: "30%", left: "50%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
+              </ul>
+            </div>
+          </div>
+        );
       }
     },
     {
@@ -692,22 +816,22 @@ export function Benefits() {
           <svg width="100%" height="200" viewBox="0 0 220 200">
             <defs><linearGradient id="gradBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="rgba(255,255,255,0.15)" /><stop offset="100%" stopColor="rgba(255,255,255,0.02)" /></linearGradient></defs>
             <motion.rect
-              animate={hovered ? { height: 80, y: 90 } : { height: 40, y: 130 }}
+              animate={hovered ? { height: 70, y: 100 } : { height: 40, y: 130 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               x="15" width="36" rx="8" fill="url(#gradBar)"
             />
             <motion.rect
-              animate={hovered ? { height: 120, y: 50 } : { height: 60, y: 110 }}
+              animate={hovered ? { height: 105, y: 65 } : { height: 60, y: 110 }}
               transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
               x="65" width="36" rx="8" fill="url(#gradBar)"
             />
             <motion.rect
-              animate={hovered ? { height: 160, y: 10 } : { height: 80, y: 90 }}
+              animate={hovered ? { height: 140, y: 30 } : { height: 80, y: 90 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               x="115" width="36" rx="8" fill="url(#gradBar)"
             />
             <motion.rect
-              animate={hovered ? { height: 100, y: 70 } : { height: 50, y: 120 }}
+              animate={hovered ? { height: 85, y: 85 } : { height: 50, y: 120 }}
               transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               x="165" width="36" rx="8" fill="url(#gradBar)"
             />
@@ -788,42 +912,52 @@ export function Features() {
       title: "Workflow Automation",
       desc: "Automate complex business processes to boost speed, clarity, and efficiency.",
       Visual: ({ hovered }: { hovered: boolean }) => (
-        <FeatureVisual hovered={hovered} i1={<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9F99D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="4" cy="17" r="1.5" fill="#D9F99D" /><path d="M4 17c3 0 4-10 9-10c4 0 5 4 8-1" /><polyline points="17 6 21 6 21 10" /></svg>} i2={<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9F99D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21a7 7 0 0 1-7-7c0-3.87 3.13-7 7-7s7 3.13 7 7a7 7 0 0 1-7 7z" opacity="0.3" /><path d="M16 14c0-2.21-1.79-4-4-4s-4 1.79-4 4c0 1.1.45 2.1 1.17 2.83" /><circle cx="12" cy="7" r="1" fill="#D9F99D" /><circle cx="15" cy="11" r="1" fill="#D9F99D" /><circle cx="9" cy="11" r="1" fill="#D9F99D" /></svg>} />
+        <FeatureVisual hovered={hovered} i1={<GitBranch style={{ width: "30px", height: "30px" }} />} i2={<Brain style={{ width: "30px", height: "30px" }} />} />
       )
     },
     {
       title: "Custom AI Solutions",
       desc: "Build tailored AI systems that align with your business goals and challenges.",
       Visual: ({ hovered }: { hovered: boolean }) => (
-        <FeatureVisual hovered={hovered} i1={<Sliders style={{ width: "20px", height: "20px" }} />} i2={<Settings style={{ width: "20px", height: "20px" }} />} />
+        <FeatureVisual 
+          hovered={hovered} 
+          i1={
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" /><circle cx="4" cy="12" r="2" />
+              <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" /><circle cx="12" cy="10" r="2" />
+              <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" /><circle cx="20" cy="14" r="2" />
+            </svg>
+          } 
+          i2={<Settings style={{ width: "30px", height: "30px" }} />} 
+        />
       )
     },
     {
       title: "AI Assistant",
       desc: "Deploy intelligent virtual agents to streamline tasks.",
       Visual: ({ hovered }: { hovered: boolean }) => (
-        <FeatureVisual hovered={hovered} i1={<Bot style={{ width: "22px", height: "22px" }} />} i2={<Sparkles style={{ width: "20px", height: "20px" }} />} />
+        <FeatureVisual hovered={hovered} i1={<Bot style={{ width: "32px", height: "32px" }} />} i2={<Sparkles style={{ width: "30px", height: "30px" }} />} />
       )
     },
     {
       title: "Sales & Marketing",
       desc: "Leverage AI to optimize campaigns, track leads, and personalize outreach.",
       Visual: ({ hovered }: { hovered: boolean }) => (
-        <FeatureVisual hovered={hovered} i1={<Maximize style={{ width: "20px", height: "20px" }} />} i2={<PieChart style={{ width: "20px", height: "20px" }} />} />
+        <FeatureVisual hovered={hovered} i1={<MoveDiagonal style={{ width: "28px", height: "28px" }} />} i2={<PieChart style={{ width: "28px", height: "28px" }} />} />
       )
     },
     {
       title: "Performance Tracking",
       desc: "Track automation results in real time to improve and scale your workflows.",
       Visual: ({ hovered }: { hovered: boolean }) => (
-        <FeatureVisual hovered={hovered} i1={<TrendingUp style={{ width: "20px", height: "20px" }} />} i2={<BarChart3 style={{ width: "20px", height: "20px" }} />} />
+        <FeatureVisual hovered={hovered} i1={<TrendingUp style={{ width: "30px", height: "30px" }} />} i2={<BarChart3 style={{ width: "30px", height: "30px" }} />} />
       )
     },
     {
       title: "Seamless Integrations",
       desc: "Connect your tools and apps for smooth, unified AI-powered workflows.",
       Visual: ({ hovered }: { hovered: boolean }) => (
-        <FeatureVisual hovered={hovered} i1={<Plug style={{ width: "20px", height: "20px" }} />} i2={<Database style={{ width: "20px", height: "20px" }} />} />
+        <FeatureVisual hovered={hovered} i1={<PlugZap style={{ width: "30px", height: "30px" }} />} i2={<Database style={{ width: "30px", height: "30px" }} />} />
       )
     },
   ];
@@ -836,12 +970,12 @@ export function Features() {
           <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>FEATURES</span>
         </div>
       </div>
-      <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "12px" }}>
+      <div style={{ transform: "scale(0.85)", transformOrigin: "top center", marginBottom: "8px" }}>
         <H2 plain="All features in " italic="one place" />
         <Sub>Everything you need to automate operations, boost productivity</Sub>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", maxWidth: "1050px", margin: "0 auto" }}>
         {items.map((it, i) => (
           <FeatureCard key={i} it={it} i={i} />
         ))}
@@ -857,12 +991,12 @@ function FeatureCard({ it, i }: { it: any; i: number }) {
       {...fup(i * 0.05)} 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ ...card, padding: "20px 16px", textAlign: "center", display: "flex", flexDirection: "column", gap: "12px", minHeight: "320px", justifyContent: "center" }}
+      style={{ ...card, border: "1px solid #38404A", borderRadius: "12px", padding: "16px", textAlign: "center", display: "flex", flexDirection: "column", gap: "8px", minHeight: "220px", justifyContent: "flex-start" }}
     >
       <it.Visual hovered={isHovered} />
-      <div>
-        <h3 style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 700, color: C.blueMid, marginBottom: "6px" }}>{it.title}</h3>
-        <p style={{ fontFamily: F.inter, fontSize: "13px", color: "#82868F", lineHeight: 1.5 }}>{it.desc}</p>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <h3 style={{ fontFamily: F.inter, fontSize: "14px", fontWeight: 700, color: C.blueMid, marginBottom: "2px" }}>{it.title}</h3>
+        <p style={{ fontFamily: F.inter, fontSize: "11.5px", color: "#82868F", lineHeight: 1.35 }}>{it.desc}</p>
       </div>
     </motion.div>
   );
@@ -871,21 +1005,27 @@ function FeatureCard({ it, i }: { it: any; i: number }) {
 // Sub-component to standardize the box-in-box visual pattern
 function FeatureVisual({ hovered, i1, i2 }: { hovered: boolean; i1: React.ReactNode; i2: React.ReactNode }) {
   return (
-    <div style={{ position: "relative", width: "100%", height: "110px", background: "#0D1117", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: "1px solid rgba(255,255,255,0.03)" }}>
+    <div style={{ 
+      position: "relative", width: "100%", height: "110px", 
+      background: "linear-gradient(180deg, #090B10 0%, #0D0F17 100%)", 
+      borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", 
+      overflow: "hidden", border: "1px solid rgba(255,255,255,0.05)",
+      boxShadow: "inset 0 2px 10px rgba(0,0,0,0.5)"
+    }}>
       <motion.div 
         animate={{ 
           background: hovered ? "#1A202A" : "#161B22",
-          boxShadow: hovered ? "0 0 20px rgba(217, 249, 157, 0.15), 0 5px 20px rgba(0,0,0,0.5)" : "0 5px 20px rgba(0,0,0,0.4)"
+          boxShadow: hovered ? "0 0 20px rgba(172, 215, 145, 0.15), 0 5px 20px rgba(0,0,0,0.5)" : "none",
+          color: hovered ? "#ACD791" : "rgba(172, 215, 145, 0.4)"
         }}
         style={{
           border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: "10px", padding: "10px 20px", display: "flex", alignItems: "center", gap: "14px",
-          color: "#ACD791"
+          borderRadius: "10px", padding: "8px 16px", display: "flex", alignItems: "center", gap: "12px"
         }}
         transition={{ duration: 0.3 }}
       >
         <div style={{ filter: hovered ? "drop-shadow(0 0 6px #ACD791)" : "none", display: "flex", alignItems: "center" }}>{i1}</div>
-        <div style={{ height: "20px", width: "1.2px", background: "rgba(255,255,255,0.1)" }} />
+        <div style={{ height: "24px", width: "1.2px", background: "rgba(255,255,255,0.1)" }} />
         <div style={{ filter: hovered ? "drop-shadow(0 0 6px #ACD791)" : "none", display: "flex", alignItems: "center" }}>{i2}</div>
       </motion.div>
     </div>
