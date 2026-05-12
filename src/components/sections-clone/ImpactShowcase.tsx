@@ -65,7 +65,7 @@ const metrics = [
     value: 3,
     suffix: "x",
     desc: "Increase in booked demos within 60 days.",
-    icon: <TrendingUp size={20} color={C.blue} />,
+    icon: TrendingUp,
     color: C.blue
   },
   {
@@ -73,7 +73,7 @@ const metrics = [
     value: 50,
     suffix: "%",
     desc: "Reduction in average time-to-hire velocity.",
-    icon: <Users size={20} color={C.green} />,
+    icon: Users,
     color: C.green
   },
   {
@@ -81,7 +81,7 @@ const metrics = [
     value: 70,
     suffix: "%",
     desc: "Reduction in repetitive departmental tasks.",
-    icon: <Zap size={20} color={C.blue} />,
+    icon: Zap,
     color: C.blue
   },
   {
@@ -89,7 +89,7 @@ const metrics = [
     value: 24,
     suffix: "/7",
     desc: "Autonomous AI operations without human oversight.",
-    icon: <ShieldCheck size={20} color={C.green} />,
+    icon: ShieldCheck,
     color: C.green
   }
 ];
@@ -250,7 +250,7 @@ export const ImpactShowcase = () => {
                   justifyContent: "center",
                   marginBottom: "16px"
                 }}>
-                  {React.cloneElement(m.icon as React.ReactElement, { size: 18 })}
+                  <m.icon size={18} color={m.color} />
                 </div>
 
                 <div style={{ display: "flex", alignItems: "baseline", gap: "2px", marginBottom: "4px" }}>
