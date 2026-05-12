@@ -39,7 +39,7 @@ const lifecycleStages = [
     title: "Business Discovery",
     desc: "We dive deep into your operations to identify critical bottlenecks and hidden inefficiencies.",
     details: ["Operational Audit", "Bottleneck ID", "Data Mapping"],
-    icon: <Search size={22} />,
+    icon: Search,
     color: "#6DB6FF"
   },
   {
@@ -47,7 +47,7 @@ const lifecycleStages = [
     title: "AI Workflow Design",
     desc: "Engineering custom AI orchestration layers and deep-stack integrations.",
     details: ["System Architecture", "Logic Engineering", "API Strategy"],
-    icon: <Workflow size={22} />,
+    icon: Workflow,
     color: "#ACD791"
   },
   {
@@ -55,7 +55,7 @@ const lifecycleStages = [
     title: "Development & Deployment",
     desc: "Rapid implementation and production activation of autonomous agentic ecosystems.",
     details: ["Agent Training", "Stack Integration", "Live Activation"],
-    icon: <Rocket size={22} />,
+    icon: Rocket,
     color: "#6DB6FF"
   },
   {
@@ -63,7 +63,7 @@ const lifecycleStages = [
     title: "Optimisation & Scaling",
     desc: "Continuous performance tuning and infrastructure scaling for long-term leverage.",
     details: ["Impact Analytics", "Dynamic Scaling", "Logic Refinement"],
-    icon: <TrendingUp size={22} />,
+    icon: TrendingUp,
     color: "#ACD791"
   }
 ];
@@ -253,7 +253,7 @@ export const ProcessShowcase = () => {
                      color: hoveredIndex === i ? stage.color : C.txtBright,
                      transition: "all 0.4s ease"
                    }}>
-                      {React.cloneElement(stage.icon as React.ReactElement, { size: 18 })}
+                      <stage.icon size={18} />
                    </div>
                    <div style={{
                      marginTop: "10px",
