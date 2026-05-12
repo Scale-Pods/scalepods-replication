@@ -129,7 +129,7 @@ const Globe: React.FC<GlobeProps> = ({
           state.phi = phiRef.current;
           state.theta = thetaRef.current; 
         },
-      });
+      } as any);
     };
 
     const onMouseDown = (e: MouseEvent) => {
