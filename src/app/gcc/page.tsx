@@ -3,15 +3,25 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle } from "lucide-react";
+import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle, ArrowUpRight } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import DownloadModal from "@/components/ui/DownloadModal";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { HRDashboardMockup, SalesDashboardMockup, OpsDashboardMockup, MarketingDashboardMockup } from "@/components/sections/DashboardMockups";
 import { BeamsBackground } from "@/components/ui/beams-background";
-import { ScrollRevealParagraph } from "@/components/ui/ScrollRevealText";
+import { ImmersiveFeatures } from "@/components/sections/ImmersiveFeatures";
+import { SalesPodShowcase } from "@/components/sections/SalesPodShowcase";
+import { HRShowcase } from "@/components/sections/HRShowcase";
+import { OpsShowcase } from "@/components/sections/OpsShowcase";
+import { MarketingShowcase } from "@/components/sections/MarketingShowcase";
+import { CustomWorkflowShowcase } from "@/components/sections/CustomWorkflowShowcase";
+import { ImpactShowcase } from "@/components/sections/ImpactShowcase";
+import { WhyChooseShowcase } from "@/components/sections/WhyChooseShowcase";
+import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
+import { CaseStudiesShowcase } from "@/components/sections/CaseStudiesShowcase";
+import { KnowledgeShowcase } from "@/components/sections/KnowledgeShowcase";
+import { FinalCTASection } from "@/components/sections/FinalCTASection";
 // import { StickyFeatureReveal } from "@/components/sections/StickyFeatureReveal"; // Retired for card-based layout
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
@@ -32,1114 +42,85 @@ const C = {
 const F = {
   inter: "Inter, sans-serif",
   serif: "Instrument Serif, Georgia, serif",
+  accent: "Instrument Serif, serif",
 };
 
-// ── Input style ───────────────────────────────────────────────────────────────
+// ── Glassmorphism tokens ──────────────────────────────────────────────────────
+const G = {
+  bg: "rgba(255, 255, 255, 0.015)",
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+  blur: "blur(40px)",
+};
+
+// ── Shared input style (matching contact page) ────────────────────────────────
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: "#08090C",
-  border: "1px solid rgba(255,255,255,0.06)",
-  borderRadius: "8px",
-  padding: "14px 16px",
+  background: "#0D0F17",
+  border: "1px solid rgba(255,255,255,0.07)",
+  borderRadius: "10px",
+  padding: "10px 14px",
   fontFamily: F.inter,
   fontSize: "14px",
-  color: C.txtBright,
+  color: C.txtBody,
   outline: "none",
   boxSizing: "border-box",
+  transition: "border-color 0.2s",
 };
 
 const labelStyle: React.CSSProperties = {
   fontFamily: F.inter,
-  fontSize: "14px",
-  fontWeight: 600,
-  color: "#B8C7D9",
-  marginBottom: "8px",
+  fontSize: "13px",
+  fontWeight: 500,
+  color: C.txtBright,
+  marginBottom: "6px",
   display: "block",
 };
 
-// ── Pod data ──────────────────────────────────────────────────────────────────
-const pods = [
-  {
-    title: "HR Workflow Automation Pod",
-    image: "/features/HR-Workflow-Automation-Pod.png",
-    mockup: null,
-    imageLeft: true,
-    features: [
-      {
-        bold: "Automated Screening & Shortlisting:",
-        rest: " AI screens applications, filters top candidates, and builds a qualified shortlist instantly.",
-      },
-      {
-        bold: "Instant Scheduling & Follow-Ups:",
-        rest: " Automated WhatsApp/Voice agents schedule interviews, send reminders, and handle coordination.",
-      },
-      {
-        bold: "Streamlined Onboarding Workflow:",
-        rest: " Digital documents, task checklists, and approvals handled through fully automated workflows.",
-      },
-    ],
-  },
-  {
-    title: "Sales Workflow Automation Pod",
-    image: "/features/Sales-Workflow-Automation-Pod.png",
-    mockup: null,
-    imageLeft: true,
-    features: [
-      {
-        bold: "Automated Lead Sourcing & Scraping:",
-        rest: " Find verified prospects across industries with AI-powered lead scraping.",
-      },
-      {
-        bold: "Cold Outreach Across Email & LinkedIn:",
-        rest: " Launch multi-channel campaigns with automated cold emails, LinkedIn workflows, and smart follow-ups.",
-      },
-      {
-        bold: "Remote SDR & Post-Sales Management:",
-        rest: " A dedicated SDR account manager handles qualification, demos, and after-sales coordination.",
-      },
-    ],
-  },
-  {
-    title: "Ops & Support Automation Pod",
-    image: "/features/Ops-and-Support-Automation-Pod.avif",
-    mockup: null,
-    imageLeft: true,
-    features: [
-      {
-        bold: "24/7 Customer Support Automation:",
-        rest: " AI agents handle FAQs, tickets, order updates, and escalations across WhatsApp, Chat & Voice.",
-      },
-      {
-        bold: "Automated Order & Service Workflows:",
-        rest: " Trigger confirmations, reminders, status updates, and feedback requests without manual effort.",
-      },
-      {
-        bold: "Integrated CRM & Operations Hub:",
-        rest: " Connect support workflows to your CRM/ERP so teams get real-time updates and zero lead leakage.",
-      },
-    ],
-  },
-  {
-    title: "Marketing Automation Pod",
-    image: "/features/Marketing-Automation-Pod.avif",
-    mockup: null,
-    imageLeft: true,
-    features: [
-      {
-        bold: "AI Content & Video Creation:",
-        rest: " Generate social posts, blogs, video scripts, and full video assets using AI-driven pipelines.",
-      },
-      {
-        bold: "Automated Scheduling & Publishing:",
-        rest: " Set it once — AI handles posting across Instagram, LinkedIn, YouTube & more.",
-      },
-      {
-        bold: "Centralized Workflow & Calendar Automation:",
-        rest: " Plan, manage, and automate your entire content workflow with smart calendars and approvals.",
-      },
-    ],
-  },
-  {
-    title: "Custom AI Workflow Pod",
-    image: "/features/Custom-AI-Workflow-Pod.avif",
-    mockup: null,
-    imageLeft: false,
-    features: [
-      {
-        bold: "Tailored Workflows Built Around Your Business:",
-        rest: " We understand your processes deeply and design automation flows that match your exact operational needs.",
-      },
-      {
-        bold: "End-to-End AI Integration:",
-        rest: " Connect CRM, WhatsApp, Voice, HR, Ops & Marketing into one seamless automated system.",
-      },
-      {
-        bold: "Adaptive, Scalable & Fully Customizable:",
-        rest: " Workflows evolve with your growth — add new triggers, channels, or automations anytime.",
-      },
-    ],
-  },
+// ── Country codes list ─────────────────────────────────────────────────────
+const countries = [
+  { name: "UAE", code: "+971", flag: "🇦🇪" },
+  { name: "USA", code: "+1", flag: "🇺🇸" },
+  { name: "UK", code: "+44", flag: "🇬🇧" },
+  { name: "India", code: "+91", flag: "🇮🇳" },
+  { name: "Saudi Arabia", code: "+966", flag: "🇸🇦" },
+  { name: "Qatar", code: "+974", flag: "🇶🇦" },
+  { name: "Canada", code: "+1", flag: "🇨🇦" },
+  { name: "Australia", code: "+61", flag: "🇦🇺" },
+  { name: "Germany", code: "+49", flag: "🇩🇪" },
+  { name: "France", code: "+33", flag: "🇫🇷" },
+  { name: "Japan", code: "+81", flag: "🇯🇵" },
+  { name: "Other", code: "Custom", flag: "🌐" },
 ];
 
-// ── Pod card component ──────────────────────────────────────────────────────
-function PodCard({ pod, index, onDownload }: { pod: typeof pods[0]; index: number; onDownload: () => void }) {
-  const isMobile = useMobile(900); // Higher breakpoint for these complex cards
-  const textFirst = !pod.imageLeft;
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.95, filter: "blur(12px)" }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ 
-        duration: 1.2, 
-        ease: [0.22, 1, 0.36, 1], 
-        delay: index * 0.1 
-      }}
-      className="pod-card-mobile"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        background: "rgba(8, 10, 14, 0.65)",
-        border: `1px solid rgba(141, 199, 99, 0.4)`,
-        borderRadius: "20px",
-        overflow: "hidden",
-        marginBottom: isMobile ? "24px" : "32px",
-        padding: isMobile ? "32px 16px" : "48px 40px",
-        maxWidth: "1100px",
-        marginLeft: "auto",
-        marginRight: "auto",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-      }}
-    >
-      {/* Centered Pod Title at the Top */}
-      <div style={{ textAlign: "center", marginBottom: isMobile ? "32px" : "48px" }}>
-        <h3
-          style={{
-            fontFamily: F.serif,
-            fontStyle: "italic",
-            fontSize: isMobile ? "28px" : "42px",
-            fontWeight: 400,
-            color: C.green,
-            lineHeight: 1.1,
-            marginBottom: "8px",
-          }}
-        >
-          {pod.title}
-        </h3>
-        <div style={{ width: "80px", height: "1px", background: `linear-gradient(90deg, transparent, ${C.green}, transparent)`, marginLeft: "auto", marginRight: "auto" }} />
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: isMobile 
-            ? "1fr" 
-            : (index % 2 === 0 ? "1.2fr 0.8fr" : "0.8fr 1.2fr"),
-          gap: isMobile ? "32px" : "64px",
-          width: "100%",
-          alignItems: "center"
-        }}
-      >
-        {/* Visual / Image Side - Locked 16:10 Aspect Ratio */}
-        <div
-          className="pod-card-image"
-          style={{
-            order: isMobile ? 1 : (index % 2 === 0 ? 0 : 1),
-            position: "relative",
-            aspectRatio: "16/10",
-            width: "100%",
-            background: "rgba(255,255,255,0.01)",
-            borderRadius: "16px",
-            overflow: "hidden",
-            border: "1px solid rgba(255,255,255,0.06)",
-            boxShadow: "0 20px 50px rgba(0,0,0,0.5)"
-          }}
-        >
-          <Image
-            src={pod.image}
-            alt={pod.title}
-            fill
-            style={{ objectFit: "cover", objectPosition: "center" }}
-            sizes="750px"
-            priority={index < 2}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(to bottom, transparent 70%, rgba(8,10,16,0.3) 100%)",
-              pointerEvents: "none",
-            }}
-          />
-        </div>
-
-        {/* Content Side - Perfectly Balanced Width */}
-        <div
-          className="pod-card-text"
-          style={{
-            order: isMobile ? 2 : (index % 2 === 0 ? 1 : 0),
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <div className="pod-card-list" style={{ 
-            display: "flex", 
-            flexDirection: "column", 
-            gap: "24px", 
-            marginBottom: "40px",
-            paddingLeft: isMobile ? "0" : (index % 2 === 0 ? "0" : "12px"),
-            paddingRight: isMobile ? "0" : (index % 2 === 0 ? "12px" : "0"),
-          }}>
-            {pod.features.map((f, i) => (
-              <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", textAlign: "left" }}>
-                <div style={{ 
-                  marginTop: "3px", 
-                  width: "20px", 
-                  height: "20px", 
-                  borderRadius: "50%", 
-                  background: "rgba(172,215,145,0.08)", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center", 
-                  border: "1px solid rgba(172,215,145,0.15)", 
-                  flexShrink: 0 
-                }}>
-                  <ChevronRight style={{ width: "12px", height: "12px", color: C.green }} />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <p
-                    style={{
-                      fontFamily: F.inter,
-                      fontSize: "14px",
-                      lineHeight: 1.6,
-                      color: C.txtBody,
-                      margin: 0,
-                    }}
-                  >
-                    <strong style={{ color: C.txtBright, fontWeight: 700, display: "block", marginBottom: "2px", fontSize: "15px" }}>{f.bold}</strong>
-                    {f.rest}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Download button */}
-          <div className="pod-card-button" style={{ alignSelf: isMobile ? "center" : "flex-start", marginTop: "8px" }}>
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <button
-                onClick={(e) => { e.preventDefault(); onDownload(); }}
-                style={{
-                  position: "relative",
-                  zIndex: 1,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  fontFamily: F.inter,
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  color: "#FFFFFF",
-                  background: "rgba(8,10,16,0.85)",
-                  border: "1px solid rgba(255,255,255,0.15)",
-                  borderRadius: "12px",
-                  padding: "13px 32px",
-                  cursor: "pointer",
-                  WebkitBackdropFilter: "blur(12px)",
-                  backdropFilter: "blur(12px)",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
-                    pointerEvents: "none",
-                  }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: "8%",
-                    right: "8%",
-                    height: "1px",
-                    background: "rgba(255,255,255,0.85)",
-                  }}
-                />
-                <Download size={16} style={{ color: C.green, position: "relative", zIndex: 2 }} />
-                <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+    <div style={{ display: "flex", flexDirection: "column", marginBottom: "8px" }}>
+      <label style={labelStyle}>{label}</label>
+      {children}
+    </div>
   );
 }
 
-// ── Industries Data & Component ───────────────────────────────────────────────────
-
-const INDUSTRIES = [
-  {
-    id: "hospitality",
-    name: "Hospitality",
-    points: [
-      "Automate guest booking, confirmations, and pre-arrival check-ins.",
-      "Deploy AI concierge bots for 24/7 guest requests and dietary preferences.",
-      "Streamline housekeeping instructions based on automated checkout triggers.",
-      "Nurture past guests with automated review requests and loyalty offers.",
-      "Centralize multi-channel guest inquiries (WhatsApp, Email, Booking platforms).",
-    ],
-  },
-  {
-    id: "salons",
-    name: "Salons & Spa",
-    points: [
-      "Automate appointment scheduling, confirmations & rescheduling.",
-      "Send personalized service reminders & reactivation campaigns.",
-      "Capture walk-in leads & nurture them with WhatsApp sequences.",
-      "Auto-generate content (reels, posts, offers) for Instagram & WhatsApp.",
-      "Automate membership, package and loyalty follow-ups.",
-    ],
-  },
-  {
-    id: "retail",
-    name: "Retail Stores",
-    points: [
-      "Automate inventory alerts and supplier re-ordering workflows.",
-      "Launch abandoned cart recovery sequences via WhatsApp and Email.",
-      "Manage customer loyalty points and automated reward distributions.",
-      "Deploy AI agents to handle return requests and order tracking instantly.",
-      "Collect conversational feedback and auto-generate customer reviews.",
-    ],
-  },
-  {
-    id: "hospitals",
-    name: "Hospitals & Clinics",
-    points: [
-      "Automate patient appointment booking, reminders & follow-ups.",
-      "Use AI triage workflows to collect basic symptoms before handover.",
-      "Streamline billing reminders, insurance follow-ups & approvals.",
-      "Automate post-consultation care instructions & repeat visit triggers.",
-      "Centralise patient communication in Arabic & English.",
-    ],
-  },
-  {
-    id: "realestate",
-    name: "Real Estate",
-    points: [
-      "Scrape property leads & launch automated follow-up sequences.",
-      "Automate viewing scheduling, confirmations & rescheduling.",
-      "Manage document workflows: deposits, contracts, move-in checklists.",
-      "Automate tenant communications: rent reminders, maintenance, renewals.",
-      "Centralize property enquiries via WhatsApp + CRM integration.",
-    ],
-  },
-];
-
-function IndustriesSection() {
-  const [activeTab, setActiveTab] = useState(INDUSTRIES[0].id);
-  const activeData = INDUSTRIES.find((ind) => ind.id === activeTab)!;
-
-  return (
-    <section style={{ padding: "80px 32px 100px", maxWidth: "1000px", marginLeft: "auto", marginRight: "auto" }}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        style={{ textAlign: "center", marginBottom: "48px" }}
-      >
-        <h2
-          style={{
-            fontFamily: F.inter,
-            fontSize: "clamp(28px, 3.5vw, 40px)",
-            fontWeight: 700,
-            color: C.txtBright,
-            lineHeight: 1.2,
-            marginBottom: "16px",
-          }}
-        >
-          Workflow Automation Solutions Built for{" "}
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.greenBright }}>
-            Fast Growing Industries
-          </em>
-        </h2>
-        <p
-          style={{
-            fontFamily: F.inter,
-            fontSize: "15px",
-            color: C.txtBright,
-            fontWeight: 500,
-            lineHeight: 1.6,
-          }}
-        >
-          Businesses across the UAE trust Scalepods to automate sales, HR, operations, and support workflows
-          using Conversational AI and custom automation pipelines. Whether you’re in hospitality, retail,
-          healthcare, real estate, or beauty &amp; wellness, our workflow automation solutions streamline processes,
-          reduce manual effort, and improve efficiency across every department.
-        </p>
-      </motion.div>
-
-      {/* Tabs */}
-      <div
-        className="industry-tabs"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "12px",
-          marginBottom: "48px",
-        }}
-      >
-        {INDUSTRIES.map((ind) => {
-          const isActive = activeTab === ind.id;
-          return (
-            <button
-              key={ind.id}
-              className="industry-tab-btn"
-              onClick={() => setActiveTab(ind.id)}
-              style={{
-                fontFamily: F.inter,
-                fontSize: "15px",
-                fontWeight: 600,
-                color: isActive ? "#000" : C.txtBright,
-                background: isActive ? C.greenBright : "rgba(8, 10, 14, 0.4)",
-                border: `1px solid ${isActive ? C.greenBright : "rgba(141, 199, 99, 0.3)"}`,
-                borderRadius: "30px",
-                padding: "12px 28px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-              }}
-            >
-              {ind.name}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Animated Content Card */}
-      <div
-        className="industry-card-content"
-        style={{
-          background: "rgba(8, 10, 14, 0.65)",
-          border: `1px solid rgba(141, 199, 99, 0.4)`,
-          borderRadius: "16px",
-          padding: "48px",
-          minHeight: "320px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.3)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-        }}
-      >
-        <motion.div
-          key={activeTab} // triggers re-animation on tab change
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          style={{ display: "flex", flexDirection: "column", gap: "24px" }}
-        >
-          {activeData.points.map((point, idx) => (
-            <motion.div
-              key={`${activeTab}-${idx}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.08 }}
-              style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}
-            >
-              <div
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderRadius: "50%",
-                  background: "rgba(172, 215, 145, 0.1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  marginTop: "2px",
-                }}
-              >
-                <ChevronRight style={{ width: "14px", height: "14px", color: C.greenBright }} />
-              </div>
-              <p
-                style={{
-                  fontFamily: F.inter,
-                  fontSize: "16px",
-                  color: C.txtBright,
-                  fontWeight: 500,
-                  margin: 0,
-                  lineHeight: 1.6,
-                }}
-              >
-                {point}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ── Why Choose Us ─────────────────────────────────────────────────────────────
-
-const CHOICES = [
-  {
-    title: "End-to-End Workflow Automation",
-    description: "Automate sales, hiring, support, and marketing workflows through one unified automation platform."
-  },
-  {
-    title: "Custom Solutions for Every Business",
-    description: "Tailored AI workflows designed around your industry, team size, and operational processes."
-  },
-  {
-    title: "Faster Go-Live & Rapid ROI",
-    description: "Deploy fully functional workflows within 7 days and start seeing results during the 30-day pilot."
-  },
-  {
-    title: "Human + AI for Maximum Efficiency",
-    description: "Our remote SDRs and operations pods work alongside AI agents to ensure accuracy, quality, and personalisation."
-  },
-  {
-    title: "Built for the UAE Market",
-    description: "Arabic-friendly workflows, WhatsApp-first automation, and seamless integration with your existing systems."
-  }
-];
-
-function WhyChooseUsSection() {
-  return (
-    <section style={{ padding: "60px 32px 120px", maxWidth: "900px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        style={{ marginBottom: "56px" }}
-      >
-        <h2
-          style={{
-            fontFamily: F.inter,
-            fontSize: "clamp(28px, 3.5vw, 36px)",
-            fontWeight: 700,
-            color: C.txtBright,
-            lineHeight: 1.3,
-            marginBottom: "8px",
-          }}
-        >
-          Why Businesses Choose Scalepods as Their
-          <br />
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: C.greenBright }}>
-            Workflow Automation Partner
-          </em>
-        </h2>
-        <p
-          style={{
-            fontFamily: F.inter,
-            fontSize: "15px",
-            color: C.txtBright,
-            fontWeight: 600,
-            lineHeight: 1.6,
-            marginTop: "24px",
-            padding: "0 20px"
-          }}
-        >
-          Scalepods combines Conversational Agentic AI with managed human pods to automate sales, HR, marketing, and operations end-to-end. 
-          Our custom workflow automation solutions reduce manual work, accelerate growth, and help UAE businesses scale faster with lower 
-          operational costs. Designed for local needs and bilingual (EN/AR) support, Scalepods delivers measurable results from day one.
-        </p>
-      </motion.div>
-
-      <div style={{ textAlign: "left" }}>
-        {CHOICES.map((choice, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            style={{
-              padding: "24px 0",
-              borderTop: i === 0 ? "none" : `1.5px solid rgba(255, 255, 255, 0.9)`,
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: F.inter,
-                fontSize: "22px",
-                fontWeight: 600,
-                color: C.blue,
-                marginBottom: "8px",
-                letterSpacing: "-0.01em"
-              }}
-            >
-              {choice.title}
-            </h3>
-            <p
-              style={{
-                fontFamily: F.inter,
-                fontSize: "16px",
-                color: "rgba(255, 255, 255, 0.65)",
-                margin: 0,
-                lineHeight: 1.6,
-                fontWeight: 500,
-              }}
-            >
-              {choice.description}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ── Autonomous Workflows ────────────────────────────────────────────────────────
-
-const AUTONOMOUS_FEATURES = [
-  {
-    title: "1. Self-Optimizing & Continuously Learning",
-    description: "AI agents adapt in real time based on performance, learning from interactions, outcomes, and user behaviour to improve accuracy and reduce manual oversight."
-  },
-  {
-    title: "2. Autonomous Sales & Operations Execution",
-    description: "From scraping leads to follow-ups, scheduling, ticketing and order workflows — autonomous pods run end-to-end tasks without manual intervention."
-  },
-  {
-    title: "3. Touchless Content & HR Automation",
-    description: "AI generates content, screens candidates, schedules interviews, and updates workflows automatically — eliminating repetitive admin work entirely."
-  },
-  {
-    title: "4. Trusted by High-Growth Teams Across the UAE",
-    description: "Startups and SMEs use Scalepods to automate sales, HR, marketing, and support — reducing costs, improving speed, and scaling workflows in under 7 days."
-  }
-];
-
-function AutonomousWorkflowsSection({ onDownload }: { onDownload: () => void }) {
-  return (
-    <section style={{ padding: "80px 32px 140px", maxWidth: "1000px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        style={{ marginBottom: "56px" }}
-      >
-        <h2
-          style={{
-            fontFamily: F.inter,
-            fontSize: "clamp(26px, 3vw, 36px)",
-            fontWeight: 700,
-            color: "#fff",
-            lineHeight: 1.3,
-            marginBottom: "24px",
-          }}
-        >
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: C.greenBright }}>
-            From Manual Tasks to Autonomous Workflows:
-          </em>{" "}
-          Agentic AI Built for Modern
-          <br />
-          Growing Businesses
-        </h2>
-        <p
-          style={{
-            fontFamily: F.inter,
-            fontSize: "16px",
-            color: "#fff",
-            fontWeight: 500,
-            lineHeight: 1.6,
-            maxWidth: "850px",
-            marginLeft: "auto",
-            marginRight: "auto"
-          }}
-        >
-          Traditional automation only reduces steps — Scalepods' Agentic AI executes entire workflows on autopilot.
-          Our AI agents don't just automate tasks; they understand context, take actions, and continuously improve
-          your business processes.
-        </p>
-      </motion.div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "24px",
-          marginBottom: "80px"
-        }}
-      >
-        {AUTONOMOUS_FEATURES.map((feat, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            style={{
-              background: "rgba(8, 10, 14, 0.65)",
-              border: "1px solid rgba(141, 199, 99, 0.4)",
-              borderRadius: "12px",
-              padding: "32px 28px",
-              textAlign: "left",
-              boxShadow: "0 12px 32px rgba(0,0,0,0.4)",
-              transition: "all 0.3s ease",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 16px 40px rgba(141, 199, 99, 0.1), inset 0 0 40px rgba(141, 199, 99, 0.08)";
-              e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.8)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.4), inset 0 0 20px rgba(141, 199, 99, 0.03)";
-              e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.4)";
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: F.inter,
-                fontSize: "18px",
-                fontWeight: 700,
-                color: "#fff",
-                marginBottom: "12px",
-                letterSpacing: "-0.01em"
-              }}
-            >
-              {feat.title}
-            </h3>
-            <p
-              style={{
-                fontFamily: F.inter,
-                fontSize: "15px",
-                color: "rgba(255,255,255,0.85)",
-                fontWeight: 500,
-                margin: 0,
-                lineHeight: 1.6,
-              }}
-            >
-              {feat.description}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Button with glow */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        style={{ position: "relative", display: "inline-block" }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -10px)",
-            width: "320px",
-            height: "110px",
-            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 65%)",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
-        <button
-          onClick={(e) => { e.preventDefault(); onDownload(); }}
-          style={{
-            position: "relative",
-            zIndex: 1,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            fontFamily: F.inter,
-            fontSize: "15px",
-            fontWeight: 600,
-            color: "#FFFFFF",
-            background: "rgba(12,14,20,0.8)",
-            border: "1px solid rgba(141, 199, 99, 0.5)",
-            borderRadius: "12px",
-            padding: "16px 40px",
-            cursor: "pointer",
-            WebkitBackdropFilter: "blur(8px)",
-            backdropFilter: "blur(8px)",
-            overflow: "hidden",
-            minWidth: "280px",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              boxShadow: "inset 0px -18px 32px -16px rgba(255,255,255,0.35)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              left: "8%",
-              right: "8%",
-              height: "1px",
-              background: "rgba(255,255,255,0.9)",
-            }}
-          />
-          <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
-        </button>
-      </motion.div>
-    </section>
-  );
-}
-// ── FAQ Section ───────────────────────────────────────────────────────────────
-
-const FAQS = [
-  {
-    question: "Q1: What is a workflow automation company and how can it benefit my business?",
-    answer: "A workflow automation company like Scalepods builds AI-driven + human-in-loop systems that automate repetitive tasks - from lead outreach to HR onboarding to customer support. This reduces errors, cuts operational costs, and boosts efficiency so businesses can scale faster."
-  },
-  {
-    question: "Can small and medium-sized businesses (SMBs) use workflow automation or is it only for large enterprises?",
-    answer: "Workflow automation is incredibly beneficial for SMBs. Our solutions are designed to help growing teams do more with less, automating repetitive administrative tasks so your team can focus on closing deals and growth, without needing to hire large operational teams."
-  },
-  {
-    question: "How fast can we implement automation workflows with ScalePods?",
-    answer: "We pride ourselves on speed to value. Typical pilot programs and core workflows can be fully deployed within 7 to 14 days, allowing you to start seeing measurable ROI in your first month of partnership."
-  },
-  {
-    question: "Will workflow automation really reduce errors and improve reliability of business processes?",
-    answer: "Yes. By replacing manual data entry and repetitive tasks with AI agents and rule-based logic, errors are virtually eliminated. Our human-in-the-loop managed pods ensure that any edge cases are handled with perfect accuracy."
-  },
-  {
-    question: "What types of business functions can Scalepods automate (sales, HR, support, marketing, operations)?",
-    answer: "We automate end-to-end workflows across your entire business. This includes lead scraping and multichannel outreach for sales, candidate screening and interview scheduling for HR, and 24/7 AI-driven conversational support."
-  },
-  {
-    question: "Is it difficult to integrate Scalepods automation with existing tools and systems (CRM, ERP, WhatsApp)?",
-    answer: "Not at all. Scalepods is built to seamlessly integrate with your existing tech stack, including popular CRMs like Salesforce or HubSpot, ERP systems, and communication channels like WhatsApp, ensuring a smooth transition with zero disruption."
-  }
-];
-
-function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  return (
-    <section style={{ padding: "80px 32px 140px", maxWidth: "1200px", marginLeft: "auto", marginRight: "auto" }}>
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        style={{ textAlign: "center", marginBottom: "56px" }}
-      >
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: "20px",
-            padding: "6px 16px",
-            marginBottom: "24px"
-          }}
-        >
-          <MessageCircle style={{ width: "14px", height: "14px", color: C.blue }} />
-          <span style={{ fontFamily: F.inter, fontSize: "13px", fontWeight: 600, color: C.txtBright, letterSpacing: "0.05em" }}>
-            FAQ'S
-          </span>
-        </div>
-        <h2
-          style={{
-            fontFamily: F.inter,
-            fontSize: "clamp(32px, 4vw, 48px)",
-            fontWeight: 700,
-            color: C.txtBright,
-            lineHeight: 1.2,
-            marginBottom: "16px",
-          }}
-        >
-          Frequently Asked{" "}
-          <em style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>
-            Questions
-          </em>
-        </h2>
-        <p
-          style={{
-            fontFamily: F.inter,
-            fontSize: "16px",
-            color: "rgba(255,255,255,0.6)",
-            fontWeight: 500,
-          }}
-        >
-          Find quick answers to the most common support questions
-        </p>
-      </motion.div>
-
-      {/* Grid Layout */}
-      <div
-        className="faq-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
-          gap: "40px",
-          alignItems: "flex-start"
-        }}
-      >
-        {/* Left Card */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-          style={{
-            background: "#080A0E",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: "16px",
-            padding: "48px 32px",
-            textAlign: "center",
-            boxShadow: "0 12px 32px rgba(0,0,0,0.3)"
-          }}
-        >
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginBottom: "24px"
-            }}
-          >
-            <HelpCircle style={{ width: "24px", height: "24px", color: C.txtBright }} />
-          </div>
-          <h3
-            style={{
-              fontFamily: F.inter,
-              fontSize: "20px",
-              fontWeight: 700,
-              color: C.txtBright,
-              marginBottom: "16px"
-            }}
-          >
-            Still Have Questions?
-          </h3>
-          <p
-            style={{
-              fontFamily: F.inter,
-              fontSize: "15px",
-              color: "rgba(255,255,255,0.6)",
-              lineHeight: 1.6,
-              marginBottom: "32px",
-              fontWeight: 500
-            }}
-          >
-            Still have questions? Feel free to get in touch with us today!
-          </p>
-          <a
-            href="/contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: F.inter,
-              fontSize: "14px",
-              fontWeight: 600,
-              color: C.greenBright,
-              background: "#12161E",
-              border: "1px solid rgba(255,255,255,0.05)",
-              borderRadius: "8px",
-              padding: "14px 28px",
-              textDecoration: "none",
-              transition: "background 0.2s"
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.background = "#1A1F2A"}
-            onMouseLeave={(e) => e.currentTarget.style.background = "#12161E"}
-          >
-            <span style={{ fontSize: "16px" }}>↗</span> Ask A Question
-          </a>
-        </motion.div>
-
-        {/* Right Accordion */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          {FAQS.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={idx}
-                style={{
-                  background: "rgba(8, 10, 14, 0.65)",
-                  border: "1px solid #38404A",
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                }}
-              >
-                <div
-                  style={{
-                    padding: "24px 32px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: "24px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => setOpenIndex(isOpen ? null : idx)}
-                >
-                  <h4
-                    style={{
-                      fontFamily: F.inter,
-                      fontSize: "16px",
-                      fontWeight: 500,
-                      color: C.blue,
-                      margin: 0,
-                      lineHeight: 1.5
-                    }}
-                  >
-                    {faq.question}
-                  </h4>
-                  <ChevronDown
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      color: "rgba(255,255,255,0.5)",
-                      flexShrink: 0,
-                      transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      transition: "transform 0.3s ease"
-                    }}
-                  />
-                </div>
-                
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ padding: "0 32px 32px", color: "rgba(255,255,255,0.6)" }}
-                  >
-                    <div style={{ height: "1px", background: "rgba(255,255,255,0.1)", marginBottom: "20px" }} />
-                    <p style={{ fontFamily: F.inter, fontSize: "15px", lineHeight: 1.6, margin: 0 }}>
-                      {faq.answer}
-                    </p>
-                  </motion.div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // ── Main UAE Page ─────────────────────────────────────────────────────────────
 export default function UAEPage() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [form, setForm] = useState({ 
+    name: "", 
+    email: "", 
+    phone: "", 
+    company: "", 
+    requirement: "",
+    countryCode: "+971",
+    customCode: ""
+  });
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const isMobile = useMobile(900);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
@@ -1156,9 +137,18 @@ export default function UAEPage() {
       return;
     }
 
+    const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
+
     const { error: dbError } = await supabase
       .from("contact_submissions")
-      .insert([{ full_name: form.name, email: form.email, phone: form.phone, source: "UAE Page" }]);
+      .insert([{ 
+        full_name: form.name, 
+        email: form.email, 
+        phone: `${dialCode} ${form.phone}`, 
+        company_name: form.company,
+        business_requirement: form.requirement,
+        source_page: "gcc" 
+      }]);
 
     setLoading(false);
     if (dbError) {
@@ -1174,7 +164,7 @@ export default function UAEPage() {
 
 
       {/* ── PLUG AND PLAY SECTION ─────────────────────────────────────────── */}
-      <section style={{ padding: isMobile ? "70px 16px" : "90px 32px", position: "relative" }}>
+      <section style={{ padding: isMobile ? "80px 16px" : "80px 32px 60px", position: "relative" }}>
         <div
           className="plug-play-grid"
           style={{
@@ -1183,8 +173,8 @@ export default function UAEPage() {
             marginRight: "auto",
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
-            gap: isMobile ? "40px" : "60px",
-            alignItems: "flex-start",
+            gap: isMobile ? "32px" : "48px",
+            alignItems: "center",
           }}
         >
           {/* Left: headline + bullets */}
@@ -1207,13 +197,14 @@ export default function UAEPage() {
           >
             <h2
               style={{
-                fontFamily: F.serif,
+                fontFamily: F.accent,
                 fontStyle: "italic",
-                fontSize: isMobile ? "clamp(44px, 11vw, 64px)" : "clamp(40px, 4.5vw, 58px)",
+                fontSize: isMobile ? "clamp(44px, 11vw, 64px)" : "clamp(42px, 5.8vw, 82px)",
                 fontWeight: 400,
                 color: C.green,
-                lineHeight: 1.15,
-                marginBottom: "12px",
+                lineHeight: 1,
+                marginBottom: "16px",
+                letterSpacing: "-0.02em"
               }}
             >
               Plug - and - Play Pods
@@ -1221,7 +212,7 @@ export default function UAEPage() {
             <h3
               style={{
                 fontFamily: F.inter,
-                fontSize: isMobile ? "clamp(24px, 5.5vw, 32px)" : "clamp(22px, 2.7vw, 30px)",
+                fontSize: isMobile ? "clamp(26px, 6vw, 36px)" : "clamp(24px, 3.2vw, 38px)",
                 fontWeight: 700,
                 color: C.txtBright,
                 marginBottom: "24px",
@@ -1232,11 +223,11 @@ export default function UAEPage() {
             <p
               style={{
                 fontFamily: F.inter,
-                fontSize: isMobile ? "18px" : "17px",
+                fontSize: isMobile ? "18px" : "18px",
                 fontWeight: 600,
                 color: C.txtBody,
-                marginBottom: "36px",
-                lineHeight: 1.7,
+                marginBottom: "32px",
+                lineHeight: 1.6,
                 maxWidth: "600px",
               }}
             >
@@ -1247,9 +238,9 @@ export default function UAEPage() {
             <div style={{ 
               display: "flex", 
               flexDirection: "column", 
-              gap: isMobile ? "20px" : "16px",
+              gap: isMobile ? "18px" : "14px",
               alignItems: "flex-start",
-              maxWidth: "450px",
+              maxWidth: "480px",
               marginLeft: "auto",
               marginRight: "auto",
             }}>
@@ -1260,14 +251,14 @@ export default function UAEPage() {
               ].map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", textAlign: "left" }}>
                   <ChevronRight
-                    style={{ width: isMobile ? "18px" : "16px", height: isMobile ? "18px" : "16px", color: C.green, flexShrink: 0, marginTop: "3px" }}
+                    style={{ width: isMobile ? "18px" : "18px", height: isMobile ? "18px" : "18px", color: C.green, flexShrink: 0, marginTop: "4px" }}
                   />
                   <p
                     style={{
                       fontFamily: F.inter,
-                      fontSize: isMobile ? "17px" : "16px",
+                      fontSize: isMobile ? "17px" : "17px",
                       color: C.txtBody,
-                      lineHeight: 1.7,
+                      lineHeight: 1.6,
                       margin: 0,
                     }}
                   >
@@ -1277,8 +268,8 @@ export default function UAEPage() {
               ))}
             </div>
 
-            {/* Download button moved here */}
-            <div style={{ marginTop: "48px", display: "flex", justifyContent: "center" }}>
+            {/* Download button */}
+            <div style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}>
               <div style={{ position: "relative", display: "inline-block" }}>
                 <div
                   style={{
@@ -1288,7 +279,7 @@ export default function UAEPage() {
                     transform: "translate(-50%, -10px)",
                     width: "340px",
                     height: "120px",
-                    background: "radial-gradient(ellipse at center, rgba(255,255,255,0.14) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse at center, rgba(172, 215, 145, 0.1) 0%, transparent 65%)",
                     pointerEvents: "none",
                     zIndex: 0,
                   }}
@@ -1302,41 +293,24 @@ export default function UAEPage() {
                     alignItems: "center",
                     gap: "8px",
                     fontFamily: F.inter,
-                    fontSize: isMobile ? "14px" : "15px",
+                    fontSize: isMobile ? "13px" : "14px",
                     fontWeight: 600,
                     color: "#FFFFFF",
-                    background: "rgba(8,10,16,0.85)",
-                    border: "1px solid rgba(255,255,255,0.15)",
+                    background: G.bg,
+                    border: G.border,
                     borderRadius: "12px",
-                    padding: isMobile ? "12px 28px" : "14px 40px",
+                    padding: isMobile ? "10px 24px" : "14px 36px",
                     cursor: "pointer",
-                    WebkitBackdropFilter: "blur(12px)",
-                    backdropFilter: "blur(12px)",
+                    backdropFilter: G.blur,
+                    WebkitBackdropFilter: G.blur,
                     overflow: "hidden",
-                    minWidth: isMobile ? "220px" : "280px",
+                    minWidth: isMobile ? "200px" : "240px",
                     justifyContent: "center",
                     whiteSpace: "nowrap",
+                    transition: "all 0.3s ease"
                   }}
                 >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
-                      pointerEvents: "none",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: "8%",
-                      right: "8%",
-                      height: "1px",
-                      background: "rgba(255,255,255,0.85)",
-                    }}
-                  />
-                  <Download style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
+                  <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2, color: C.green }} />
                   <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
                 </button>
               </div>
@@ -1354,9 +328,10 @@ export default function UAEPage() {
               flex: isMobile ? "none" : "1",
               width: isMobile ? "100%" : "auto",
               order: 2,
-              marginTop: isMobile ? "8px" : "24px",
-              marginLeft: isMobile ? "0" : "-40px",
-              marginRight: isMobile ? "0" : "40px",
+              marginTop: isMobile ? "8px" : "0",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
             }}
           >
             {/* Stat headline */}
@@ -1364,7 +339,7 @@ export default function UAEPage() {
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "clamp(15px, 1.8vw, 18px)",
+                  fontSize: "15px",
                   fontWeight: 700,
                   color: C.txtBright,
                   lineHeight: 1.4,
@@ -1372,12 +347,12 @@ export default function UAEPage() {
                 }}
               >
                 Improve Workflow{" "}
-                <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>Efficiency by</em>
+                <em style={{ fontFamily: F.accent, fontStyle: "italic", color: C.green }}>Efficiency by</em>
               </p>
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "clamp(17px, 2.2vw, 22px)",
+                  fontSize: "22px",
                   fontWeight: 800,
                   color: C.txtBright,
                   lineHeight: 1.3,
@@ -1386,25 +361,23 @@ export default function UAEPage() {
                 <span style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>30%</span>{" "}
                 and Eliminate Bottlenecks
               </p>
-              <p style={{ fontFamily: F.inter, fontSize: "13px", color: C.txtMuted, marginTop: "6px" }}>
-                By completing the form
-              </p>
             </div>
 
             {/* Form card */}
             <div
               style={{
                 background: "rgba(8, 10, 14, 0.65)",
-                border: `1px solid #38404A`,
-                borderRadius: "16px",
-                padding: "30px",
+                border: "1px solid rgba(172, 215, 145, 0.4)",
+                borderRadius: "20px",
+                padding: "32px",
                 width: "100%",
-                maxWidth: "480px",
-                marginLeft: "auto",
-                marginRight: "auto",
+                maxWidth: "520px",
                 boxSizing: "border-box",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
+                position: "relative",
+                zIndex: 1,
+                boxShadow: "0 20px 60px rgba(0,0,0,0.4)"
               }}
             >
               {submitted ? (
@@ -1437,115 +410,178 @@ export default function UAEPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  {/* Full Name */}
-                  <div style={{ marginBottom: "20px" }}>
-                    <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
-                      Full Name
-                    </label>
-                    <input
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="Alex Sollork"
-                      value={form.name}
-                      onChange={handleChange}
-                      style={{
-                        width: "100%",
-                        background: C.bgInput,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: "12px",
-                        padding: "14px 16px",
-                        color: "#FFFFFF",
-                        fontFamily: F.inter,
-                        fontSize: "15px",
-                        outline: "none",
-                      }}
-                    />
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                    <Field label="Full Name">
+                      <input
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="Enter Name"
+                        style={inputStyle}
+                        required
+                      />
+                    </Field>
+                    <Field label="Work Email">
+                      <input
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="Work Email"
+                        style={inputStyle}
+                        required
+                      />
+                    </Field>
                   </div>
 
-                  {/* Email */}
-                  <div style={{ marginBottom: "20px" }}>
-                    <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
-                      Email Address
-                    </label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="Alex@gmail.com"
-                      value={form.email}
-                      onChange={handleChange}
-                      style={{
-                        width: "100%",
-                        background: C.bgInput,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: "12px",
-                        padding: "14px 16px",
-                        color: "#FFFFFF",
-                        fontFamily: F.inter,
-                        fontSize: "15px",
-                        outline: "none",
-                      }}
-                    />
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "12px" }}>
+                    <Field label="Phone Number">
+                      <div style={{ position: "relative" }}>
+                        <button
+                          type="button"
+                          onClick={() => setShowCountryPicker(!showCountryPicker)}
+                          style={{
+                            ...inputStyle,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "4px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <span style={{ fontSize: "14px" }}>
+                            {countries.find(c => c.code === form.countryCode)?.flag || "🌐"}
+                          </span>
+                          <span style={{ fontSize: "12px", color: C.txtBright }}>
+                            {form.countryCode === "Custom" ? "..." : form.countryCode}
+                          </span>
+                          <ChevronDown size={12} style={{ opacity: 0.5 }} />
+                        </button>
+
+                        <AnimatePresence>
+                          {showCountryPicker && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              style={{
+                                position: "absolute",
+                                top: "100%",
+                                left: 0,
+                                marginTop: "4px",
+                                background: "#0D0F17",
+                                border: `1px solid ${C.border}`,
+                                borderRadius: "10px",
+                                width: "180px",
+                                maxHeight: "150px",
+                                overflowY: "auto",
+                                zIndex: 100,
+                                padding: "4px",
+                                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.5)",
+                                backdropFilter: "blur(12px)",
+                              }}
+                            >
+                              {countries.map((c, idx) => (
+                                <div
+                                  key={idx}
+                                  onClick={() => {
+                                    setForm(prev => ({ ...prev, countryCode: c.code }));
+                                    setShowCountryPicker(false);
+                                  }}
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "8px",
+                                    padding: "6px 10px",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                    background: form.countryCode === c.code ? "rgba(255,255,255,0.05)" : "transparent",
+                                  }}
+                                >
+                                  <span style={{ fontSize: "14px" }}>{c.flag}</span>
+                                  <span style={{ fontSize: "12px", color: C.txtBright }}>{c.name}</span>
+                                </div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </Field>
+                    <div style={{ marginTop: "18px" }}>
+                      <input
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="Phone Number"
+                        style={inputStyle}
+                        required
+                      />
+                    </div>
                   </div>
 
-                  {/* Phone */}
-                  <div style={{ marginBottom: "24px" }}>
-                    <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: C.txtBright, marginBottom: "6px", fontFamily: F.inter }}>
-                      Phone Number
-                    </label>
+                  <Field label="Company Name">
                     <input
-                      name="phone"
-                      type="tel"
-                      required
-                      placeholder="Enter with Country Code"
-                      value={form.phone}
+                      name="company"
+                      value={form.company}
                       onChange={handleChange}
-                      style={{
-                        width: "100%",
-                        background: C.bgInput,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: "12px",
-                        padding: "14px 16px",
-                        color: "#FFFFFF",
-                        fontFamily: F.inter,
-                        fontSize: "15px",
-                        outline: "none",
-                      }}
+                      placeholder="Company Name"
+                      style={inputStyle}
+                      required
                     />
-                  </div>
+                  </Field>
+
+                  <Field label="Business Requirement">
+                    <textarea
+                      name="requirement"
+                      value={form.requirement}
+                      onChange={handleChange}
+                      placeholder="Tell us about your automation needs..."
+                      rows={2}
+                      style={{ ...inputStyle, resize: "none", minHeight: "50px" }}
+                    />
+                  </Field>
 
                   {error && (
-                    <p
-                      style={{
-                        fontFamily: F.inter,
-                        fontSize: "12px",
-                        color: "#F87171",
-                        marginBottom: "12px",
-                        padding: "8px 12px",
-                        background: "rgba(248,113,113,0.08)",
-                        border: "1px solid rgba(248,113,113,0.2)",
-                        borderRadius: "8px",
-                      }}
-                    >
+                    <p style={{
+                      fontFamily: F.inter, fontSize: "12px",
+                      color: "#F87171", marginBottom: "8px",
+                      padding: "8px 12px",
+                      background: "rgba(248,113,113,0.08)",
+                      border: "1px solid rgba(248,113,113,0.2)",
+                      borderRadius: "8px",
+                    }}>
                       {error}
                     </p>
                   )}
 
-                  {/* Submit button */}
-                  <div style={{ position: "relative", width: "100%" }}>
-                    <button
+                  {/* Submit Button with lamp glow (matching contact page) */}
+                  <div style={{ position: "relative", marginTop: "12px" }}>
+                    <div style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -6px)",
+                      width: "80%",
+                      height: "40px",
+                      background: "radial-gradient(ellipse at center, rgba(141, 199, 99, 0.15) 0%, transparent 70%)",
+                      pointerEvents: "none",
+                      zIndex: 0
+                    }} />
+                    <motion.button
                       type="submit"
                       disabled={loading}
+                      initial="rest"
+                      whileHover="hover"
+                      animate="rest"
                       style={{
                         position: "relative",
+                        zIndex: 1,
                         width: "100%",
-                        padding: "16px 24px",
+                        padding: "12px 24px",
                         background: "rgba(8,10,16,0.85)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        borderRadius: "10px",
+                        border: "1px solid rgba(141, 199, 99, 0.5)",
+                        borderRadius: "12px",
                         color: "#FFFFFF",
-                        fontFamily: F.inter,
                         fontSize: "14px",
                         fontWeight: 600,
                         cursor: loading ? "not-allowed" : "pointer",
@@ -1553,29 +589,25 @@ export default function UAEPage() {
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "8px",
-                        overflow: "hidden",
-                        WebkitBackdropFilter: "blur(12px)",
                         backdropFilter: "blur(12px)",
+                        overflow: "hidden",
+                        transition: "all 0.3s ease"
                       }}
                     >
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
-                          pointerEvents: "none",
+                      <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)", pointerEvents: "none" }} />
+                      <motion.div
+                        variants={{
+                          rest: { opacity: 0.16, width: "140px", height: "50px" },
+                          hover: { opacity: 0.36, width: "260px", height: "80px" },
                         }}
-                      />
-                      <div
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         style={{
                           position: "absolute",
-                          bottom: 0,
                           left: "50%",
+                          bottom: "-30px",
                           transform: "translateX(-50%)",
-                          width: "60%",
-                          height: "1px",
-                          background: "rgba(255,255,255,0.8)",
-                          boxShadow: "0px -4px 16px 4px rgba(255,255,255,0.25)",
+                          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+                          pointerEvents: "none",
                         }}
                       />
                       {loading ? (
@@ -1584,15 +616,13 @@ export default function UAEPage() {
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           style={{ display: "flex", alignItems: "center" }}
                         >
-                          <Loader2
-                            style={{ width: "14px", height: "14px", position: "relative", zIndex: 2 }}
-                          />
+                          <Loader2 size={16} />
                         </motion.div>
                       ) : null}
                       <span style={{ position: "relative", zIndex: 2 }}>
-                        {loading ? "Submitting..." : "Book A Full Funnel Analysis"}
+                        {loading ? "Booking..." : "Book AI Strategy Call"}
                       </span>
-                    </button>
+                    </motion.button>
                   </div>
                 </form>
               )}
@@ -1614,399 +644,32 @@ export default function UAEPage() {
         />
       </section>
 
-      {/* ── KEY FEATURES HEADER ───────────────────────────────────────────── */}
-      <section style={{ padding: "80px 32px 20px", textAlign: "center" }}>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-          style={{
-            fontFamily: F.inter,
-            fontSize: "clamp(28px, 3.5vw, 48px)",
-            fontWeight: 700,
-            color: C.txtBright,
-            lineHeight: 1.2,
-          }}
-        >
-          Key Features of{" "}
-          <em
-            style={{
-              fontFamily: F.serif,
-              fontStyle: "italic",
-              fontWeight: 400,
-              color: C.green,
-            }}
-          >
-            Scalepods Workflow Automation
-          </em>
-        </motion.h2>
-      </section>
 
-      {/* ── POD CARDS ─────────────────────────────────────────────────────── */}
-      <section style={{ padding: "40px 32px 60px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          {pods.map((pod, i) => (
-            <PodCard key={pod.title} pod={pod} index={i} onDownload={() => setIsDownloadModalOpen(true)} />
-          ))}
-        </div>
-      </section>
+      {/* ── IMMERSIVE PRODUCT SHOWCASE SECTION ───────────────────────────── */}
+      <ImmersiveFeatures />
 
-      {/* ── WHAT UAE BUSINESSES ACHIEVE ────────────────────────────────────────── */}
-      <section style={{ padding: "60px 32px", position: "relative" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{
-            maxWidth: "1100px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            background: "rgba(8, 10, 14, 0.65)",
-            border: `1px solid rgba(141, 199, 99, 0.4)`,
-            borderRadius: "16px",
-            padding: "56px 48px",
-            textAlign: "center",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: F.inter,
-              fontSize: "clamp(28px, 3.5vw, 40px)",
-              fontWeight: 700,
-              color: C.txtBright,
-              lineHeight: 1.2,
-              marginBottom: "16px",
-            }}
-          >
-            What{" "}
-            <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.greenBright }}>
-              UAE Businesses
-            </em>{" "}
-            Achieve with Scalepods
-          </h2>
-          <p
-            style={{
-              fontFamily: F.inter,
-              fontSize: "16px",
-              color: C.txtBright,
-              fontWeight: 600,
-              maxWidth: "800px",
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginBottom: "20px",
-              lineHeight: 1.6,
-            }}
-          >
-            By combining Conversational Agentic AI with managed human pods, Scalepods delivers
-            fast, measurable improvements across sales, hiring and operations.
-          </p>
-          <p
-            style={{
-              fontFamily: F.inter,
-              fontSize: "16px",
-              color: C.blue,
-              fontWeight: 600,
-              marginBottom: "48px",
-            }}
-          >
-            Typical pilot outcomes we deliver for UAE SMEs:
-          </p>
+      {/* ── SALES POD FLAGSHIP SHOWCASE ──────────────────────────────────── */}
+      <SalesPodShowcase />
 
-          <div
-            className="achievement-container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "stretch",
-              gap: "24px",
-              position: "relative",
-            }}
-          >
-            {/* Column 1 */}
-            <div style={{ flex: 1, textAlign: "center", padding: "0 10px" }}>
-              <div style={{ color: C.greenBright, fontSize: "28px", fontWeight: 800, marginBottom: "8px" }}>
-                3x
-              </div>
-              <div style={{ color: C.greenBright, fontSize: "20px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.2 }}>
-                More Booked Demos
-              </div>
-              <p style={{ color: C.txtBody, fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
-                Typical pilot uplift in booked meetings thanks to automated lead scraping,
-                multi-channel outreach and instant scheduling.
-              </p>
-            </div>
+      {/* ── HR AUTOMATION / HIRING OS SHOWCASE ────────────────────────────── */}
+      <HRShowcase />
 
-            {/* Separator 1 */}
-            <div className="achievement-separator" style={{ width: "2px", background: "#fff", position: "relative", alignSelf: "stretch", opacity: 0.8, marginTop: "12px", marginBottom: "12px" }}>
-              <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", top: "-4px", left: "-3px" }} />
-              <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", bottom: "-4px", left: "-3px" }} />
-            </div>
+      {/* ── OPERATIONS & SUPPORT COMMAND CENTER SHOWCASE ──────────────────── */}
+      <OpsShowcase />
 
-            {/* Column 2 */}
-            <div style={{ flex: 1, textAlign: "center", padding: "0 10px" }}>
-              <div style={{ color: C.greenBright, fontSize: "28px", fontWeight: 800, marginBottom: "8px" }}>
-                50%
-              </div>
-              <div style={{ color: C.greenBright, fontSize: "20px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.2 }}>
-                Faster Time-to-Hire
-              </div>
-              <p style={{ color: C.txtBody, fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
-                Reduce hiring cycles by up to half with AI screening, instant shortlists
-                and automated interview scheduling.
-              </p>
-            </div>
+      {/* ── MARKETING AUTOMATION SHOWCASE ────────────────────────────────── */}
+      <MarketingShowcase />
 
-            {/* Separator 2 */}
-            <div className="achievement-separator" style={{ width: "2px", background: "#fff", position: "relative", alignSelf: "stretch", opacity: 0.8, marginTop: "12px", marginBottom: "12px" }}>
-              <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", top: "-4px", left: "-3px" }} />
-              <div style={{ width: "8px", height: "8px", background: "#fff", borderRadius: "50%", position: "absolute", bottom: "-4px", left: "-3px" }} />
-            </div>
+      {/* ── CUSTOM AI WORKFLOW SOLUTIONS SHOWCASE ────────────────────────── */}
+      <CustomWorkflowShowcase />
 
-            {/* Column 3 */}
-            <div style={{ flex: 1, textAlign: "center", padding: "0 10px" }}>
-              <div style={{ color: C.greenBright, fontSize: "28px", fontWeight: 800, marginBottom: "8px" }}>
-                70%
-              </div>
-              <div style={{ color: C.greenBright, fontSize: "20px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.2 }}>
-                Less Manual Follow-Up
-              </div>
-              <p style={{ color: C.txtBody, fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
-                Cut manual outreach and follow-ups through WhatsApp/Voice/Chat
-                automation and human-in-the-loop handovers.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── TOP BENEFITS SECTION ────────────────────────────────────────────── */}
-      <section style={{ padding: "60px 32px 100px", maxWidth: "1200px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        >
-          <h2
-            style={{
-              fontFamily: F.inter,
-              fontSize: "clamp(28px, 3.5vw, 40px)",
-              fontWeight: 700,
-              color: C.txtBright,
-              lineHeight: 1.2,
-              marginBottom: "16px",
-            }}
-          >
-            Top Benefits of{" "}
-            <em style={{ fontFamily: F.serif, fontStyle: "italic", color: C.greenBright }}>
-              Scalepods Workflow Automation
-            </em>
-          </h2>
-          <p
-            style={{
-              fontFamily: F.inter,
-              fontSize: "15px",
-              color: C.txtBright,
-              fontWeight: 500,
-              maxWidth: "850px",
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginBottom: "56px",
-              lineHeight: 1.6,
-            }}
-          >
-            Discover how Scalepods' AI-powered workflow automation enhances sales, hiring, and operations.
-            From reducing manual work to improving speed and accuracy, our custom workflows help UAE
-            businesses scale faster with fewer resources.
-          </p>
-        </motion.div>
-
-        {/* 4 Cards Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "24px",
-            marginBottom: "48px",
-          }}
-        >
-          {[
-            {
-              title: "Self-Optimizing & Continuously Learning",
-              desc: "AI agents adapt in real time based on performance, learning from interactions, outcomes, and user behaviour to improve accuracy and reduce manual oversight.",
-            },
-            {
-              title: "Autonomous Sales & Operations Execution",
-              desc: "From scraping leads to follow-ups, scheduling, ticketing and order workflows — autonomous pods run end-to-end tasks without manual intervention.",
-            },
-            {
-              title: "Touchless Content & HR Automation",
-              desc: "AI generates content, screens candidates, schedules interviews, and updates workflows automatically — eliminating repetitive admin work entirely.",
-            },
-            {
-              title: "Trusted by High-Growth Teams Across the UAE",
-              desc: "Startups and SMEs use Scalepods to automate sales, HR, marketing, and support — reducing costs, improving speed, and scaling workflows in under 7 days.",
-            },
-          ].map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              style={{
-                background: "rgba(8, 10, 14, 0.65)",
-                border: "1px solid rgba(141, 199, 99, 0.4)",
-                borderRadius: "12px",
-                padding: "36px 24px 24px",
-                position: "relative",
-                textAlign: "center",
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 32px rgba(141, 199, 99, 0.15)";
-                e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.8)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.4)";
-                e.currentTarget.style.border = "1px solid rgba(141, 199, 99, 0.4)";
-              }}
-            >
-              {/* Number Circle */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-16px",
-                  left: "-16px",
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "50%",
-                  background: "#051323",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: C.blue,
-                  fontFamily: F.inter,
-                  fontSize: "18px",
-                  fontWeight: 800,
-                  boxShadow: "0 0 16px rgba(109, 182, 255, 0.3)",
-                }}
-              >
-                {idx + 1}
-              </div>
-              <h3
-                style={{
-                  fontFamily: F.inter,
-                  fontSize: "16px",
-                  fontWeight: 700,
-                  color: C.txtBright,
-                  marginBottom: "16px",
-                  lineHeight: 1.3,
-                }}
-              >
-                {item.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: F.inter,
-                  fontSize: "13px",
-                  color: C.txtBody,
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                {item.desc}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{ position: "relative", display: "inline-block" }}
-        >
-          {/* Ambient lamp behind button */}
-          <div style={{
-            position: "absolute",
-            top: "50%", left: "50%", transform: "translate(-50%, -10px)",
-            width: "380px", height: "200px",
-            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%)",
-            zIndex: 0, pointerEvents: "none",
-          }} />
-          <motion.a
-            href="/contact"
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            style={{
-              position: "relative", zIndex: 1,
-              display: "inline-flex", alignItems: "center", gap: "8px",
-              fontFamily: F.inter, fontSize: "14px", fontWeight: 600,
-              color: C.greenBright, background: "#11171A",
-              border: "1px solid rgba(172, 215, 145, 0.35)",
-              borderRadius: "12px", padding: "14px 32px",
-              textDecoration: "none", overflow: "hidden",
-            }}
-          >
-            {/* Soft lamp wash — spreads on hover */}
-            <motion.div
-              variants={{
-                rest: { opacity: 0.16, width: "140px", height: "50px" },
-                hover: { opacity: 0.36, width: "260px", height: "80px" },
-              }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                position: "absolute",
-                left: "50%",
-                bottom: "-30px",
-                transform: "translateX(-50%)",
-                background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
-                pointerEvents: "none",
-              }}
-            />
-            {/* Bottom lamp line — breathing pulse animation */}
-            <motion.div
-              animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: "50%",
-                transform: "translateX(-50%)",
-                height: "1.5px",
-                background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
-                boxShadow: "0px 0px 12px 2px rgba(255,255,255,0.6)",
-                pointerEvents: "none",
-              }}
-            />
-            <span style={{ fontSize: "16px", position: "relative", zIndex: 2 }}>↗</span>
-            <span style={{ position: "relative", zIndex: 2 }}>Discover the Impact for Your Business</span>
-          </motion.a>
-        </motion.div>
-      </section>
-
-      {/* ── INDUSTRIES SECTION ────────────────────────────────────────────── */}
-      <IndustriesSection />
-
-      {/* ── WHY CHOOSE US SECTION ─────────────────────────────────────────── */}
-      <WhyChooseUsSection />
-
-      {/* ── AUTONOMOUS WORKFLOWS SECTION ──────────────────────────────────── */}
-      <AutonomousWorkflowsSection onDownload={() => setIsDownloadModalOpen(true)} />
-
-      {/* ── FAQ SECTION ───────────────────────────────────────────────────── */}
-      <FAQSection />
+      {/* ── BUSINESS OUTCOMES / IMPACT METRICS SHOWCASE ─────────────────── */}
+      <ImpactShowcase />
+      <WhyChooseShowcase />
+      <ProcessShowcase />
+      <CaseStudiesShowcase />
+      <KnowledgeShowcase />
+      <FinalCTASection />
 
       </BeamsBackground>
       <DownloadModal isOpen={isDownloadModalOpen} onClose={() => setIsDownloadModalOpen(false)} />

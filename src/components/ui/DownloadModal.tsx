@@ -42,9 +42,15 @@ const inputStyle = {
 export default function DownloadModal({
   isOpen,
   onClose,
+  zipFile = "/downloads/sales-guide.pdf",
+  zipName = "sales-guide.pdf",
+  title = "Get the Feature Guide",
 }: {
   isOpen: boolean;
   onClose: () => void;
+  zipFile?: string;
+  zipName?: string;
+  title?: string;
 }) {
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [loading, setLoading] = useState(false);
@@ -86,8 +92,8 @@ export default function DownloadModal({
       setSubmitted(true);
       // Trigger download
       const link = document.createElement("a");
-      link.href = "/Scalepods-Feature Guides.zip";
-      link.download = "Scalepods-Feature Guides.zip";
+      link.href = zipFile;
+      link.download = zipName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -177,7 +183,7 @@ export default function DownloadModal({
                     <Download size={20} color={C.greenBright} />
                   </div>
                   <h3 style={{ fontSize: "20px", fontWeight: 600, color: C.txtBright, marginBottom: "4px" }}>
-                    Get the Feature Guides
+                    {title}
                   </h3>
                   <p style={{ color: C.txtBody, fontSize: "13px" }}>
                     Enter your details below to receive our exclusive feature guides via direct download.

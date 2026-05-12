@@ -1730,6 +1730,12 @@ export function Integrations() {
 
 const reviewsData = [
   {
+    name: "Vinay Kumar",
+    title: "Managing Director at LOTUS MANOR REAL ESTATE L.L.C, DUBAI.",
+    quote: "“We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right and the timeline is tight.”",
+    image: "/reviews/Vinay Kumar.webp"
+  },
+  {
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
     quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction.”",
@@ -1787,36 +1793,52 @@ export function Reviews() {
         <Sub>Hear from real users who achieved success with our automation</Sub>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "16px", marginTop: "40px" }}>
-        {reviewsData.map((review, i) => (
-          <motion.div
-            key={i}
-            {...fup(i * 0.1)}
-            style={{
-              ...card,
-              padding: "24px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px"
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-              <img src={review.image} alt={review.name} style={{ width: "48px", height: "48px", borderRadius: "12px", objectFit: "cover", border: `1px solid ${C.border}` }} />
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <span style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 700, color: C.blueMid }}>{review.name}</span>
-                <span style={{ fontFamily: F.inter, fontSize: "13px", color: C.green, marginTop: "2px" }}>{review.title}</span>
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", 
+        gap: "16px", 
+        marginTop: "48px",
+        justifyContent: "center"
+      }}>
+        {reviewsData.map((review, i) => {
+          const isTopSpot = i === 0;
+          return (
+            <motion.div
+              key={i}
+              {...fup(i * 0.1)}
+              style={{
+                ...card,
+                padding: "32px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+                minHeight: isTopSpot ? "280px" : "220px",
+                gridColumn: isTopSpot ? "1 / -1" : "auto",
+                maxWidth: isTopSpot ? "680px" : "100%",
+                margin: isTopSpot ? "0 auto 32px" : "0",
+                boxShadow: isTopSpot ? "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(172, 215, 145, 0.1)" : card.background,
+                border: isTopSpot ? `1.5px solid rgba(172, 215, 145, 0.3)` : `1.5px solid ${C.border}`,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <img src={review.image} alt={review.name} style={{ width: "56px", height: "56px", borderRadius: "14px", objectFit: "cover", border: `1px solid ${C.border}` }} />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid }}>{review.name}</span>
+                  <span style={{ fontFamily: F.inter, fontSize: "13px", color: C.green, marginTop: "2px", fontWeight: 500 }}>{review.title}</span>
+                </div>
               </div>
-            </div>
 
-            <div style={{ width: "100%", height: "1.5px", background: "rgba(255,255,255,0.05)" }} />
+              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.08)" }} />
 
-            <p style={{
-              fontFamily: F.inter, fontSize: "14px", color: C.txtBody, lineHeight: 1.6, margin: 0
-            }}>
-              {review.quote}
-            </p>
-          </motion.div>
-        ))}
+              <p style={{
+                fontFamily: F.inter, fontSize: "15px", color: C.txtBody, lineHeight: 1.7, margin: 0,
+                fontWeight: 450
+              }}>
+                {review.quote}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
     </Section>
   );
