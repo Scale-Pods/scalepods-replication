@@ -97,7 +97,7 @@ export const ImmersiveFeatures = () => {
           width: "100%",
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-          gap: isMobile ? "48px" : "60px",
+          gap: isMobile ? "48px" : "40px",
           alignItems: "center"
         }}
       >
@@ -144,7 +144,7 @@ export const ImmersiveFeatures = () => {
               fontWeight: 800,
               color: C.txtBright,
               lineHeight: 1.1,
-              marginBottom: "16px",
+              marginBottom: "10px",
               letterSpacing: "-0.04em",
             }}
           >
@@ -160,7 +160,7 @@ export const ImmersiveFeatures = () => {
               fontSize: "clamp(14px, 1.6vw, 16px)",
               color: C.txtBody,
               lineHeight: 1.6,
-              marginBottom: "24px",
+              marginBottom: "16px",
               letterSpacing: "-0.01em",
               opacity: 0.8,
               maxWidth: "520px"
@@ -173,10 +173,10 @@ export const ImmersiveFeatures = () => {
           <div style={{ 
             display: "flex", 
             flexDirection: "column", 
-            gap: "8px", 
+            gap: "6px", 
             width: "100%",
             maxWidth: "480px",
-            marginBottom: "32px"
+            marginBottom: "20px"
           }}>
             {features.map((feat, idx) => (
               <motion.div
@@ -188,7 +188,7 @@ export const ImmersiveFeatures = () => {
                 onClick={() => handleCardClick(feat.id)}
                 whileHover={{ x: 6, background: "rgba(172, 215, 145, 0.05)" }}
                 style={{
-                  padding: "12px 20px",
+                  padding: "8px 16px",
                   background: "rgba(255, 255, 255, 0.02)",
                   border: G.border,
                   borderRadius: "16px",
@@ -244,7 +244,7 @@ export const ImmersiveFeatures = () => {
           style={{ 
             position: "relative",
             width: "100%",
-            height: isMobile ? "400px" : "500px",
+            height: isMobile ? "400px" : "420px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
