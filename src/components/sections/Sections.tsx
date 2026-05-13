@@ -579,15 +579,17 @@ export function DataAnalysis() {
           position: "relative",
           width: "100%",
           overflow: "hidden",
-          maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          padding: isMobile ? "20px 0" : "40px 0",
+          maskImage: isMobile ? "none" : "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage: isMobile ? "none" : "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}>
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{ 
-              duration: isMobile ? 15 : 25, 
+              duration: isMobile ? 12 : 25, 
               repeat: Infinity, 
-              ease: "linear" 
+              ease: "linear",
+              repeatType: "loop"
             }}
             style={{ 
               display: "flex", 
@@ -604,15 +606,15 @@ export function DataAnalysis() {
                   alignItems: "center",
                   justifyContent: "center",
                   opacity: 0.6,
-                  transition: "all 0.3s ease",
                   mixBlendMode: brand.whiteBg ? "screen" : "normal",
+                  height: isMobile ? "24px" : "42px",
                 }}
               >
                 <img
                   src={brand.src}
                   alt={brand.alt}
                   style={{
-                    maxHeight: isMobile ? "24px" : "42px",
+                    height: "100%",
                     width: "auto",
                     objectFit: "contain",
                     filter: brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)"
