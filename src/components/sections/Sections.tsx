@@ -498,6 +498,7 @@ const brands = [
 ];
 
 export function DataAnalysis() {
+  const isMobile = useMobile(1023);
   return (
     <section id="data-analysis" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", minHeight: "850px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 
