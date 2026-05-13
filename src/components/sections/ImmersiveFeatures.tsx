@@ -349,10 +349,10 @@ export const ImmersiveFeatures = () => {
             opacity: 0.8 !important;
           }
           
-          /* Mobile/Tablet Refinement */
+          /* MOBILE RESPONSIVE MASTER FIX (Max-width 1024px) */
           @media (max-width: 1024px) {
             #immersive-features {
-              padding: 48px 0 64px !important;
+              padding: 80px 0 60px !important; /* Increased top padding to avoid navbar overlap */
             }
             .immersive-grid {
               display: flex !important;
@@ -360,7 +360,7 @@ export const ImmersiveFeatures = () => {
               gap: 32px !important;
               align-items: center !important;
               text-align: center !important;
-              grid-template-columns: 1fr !important;
+              width: 100% !important;
             }
             .content-left {
               width: 100% !important;
@@ -368,61 +368,92 @@ export const ImmersiveFeatures = () => {
               display: flex !important;
               flex-direction: column !important;
               align-items: center !important;
-              padding: 0 24px !important;
+              padding: 0 20px !important; /* ~1cm equivalent margin */
             }
             .heading-primary {
-              font-size: clamp(30px, 8vw, 40px) !important;
-              line-height: 1.1 !important;
+              /* Fluid typography to prevent awkward wrapping */
+              font-size: clamp(30px, 8.5vw, 38px) !important;
+              line-height: 1.15 !important;
               margin-bottom: 16px !important;
-              max-width: 100% !important;
+              max-width: 90% !important;
+              display: block !important;
             }
             .description-text {
-              font-size: 14px !important;
+              font-size: clamp(14px, 3.8vw, 15px) !important;
               line-height: 1.5 !important;
-              margin-bottom: 32px !important;
-              max-width: 520px !important;
-              padding: 0 10px !important;
+              margin-bottom: 24px !important;
+              max-width: 100% !important;
+              padding: 0 !important;
+              width: 100% !important;
             }
             
             .cards-container {
               width: 100% !important;
-              max-width: 440px !important;
+              max-width: 100% !important;
               margin-bottom: 24px !important;
               gap: 8px !important;
+              display: flex !important;
+              flex-direction: column !important;
+            }
+            .feature-card-refined {
+              padding: 14px 18px !important;
+              border-radius: 16px !important;
+              width: 100% !important;
             }
             .cta-container {
               width: 100% !important;
-              margin-bottom: 16px !important;
-              margin-top: 0 !important;
-            }
-
-            .carousel-outer-wrap {
-              width: 100% !important;
-              margin-top: 32px !important;
-              padding: 0 38px !important; 
+              margin-top: 8px !important;
+              margin-bottom: 40px !important;
               display: flex !important;
               justify-content: center !important;
             }
+
+            .carousel-outer-wrap {
+              width: 100% !important;
+              margin-top: 0 !important;
+              padding: 0 10px !important; 
+              display: flex !important;
+              justify-content: center !important;
+              position: relative !important;
+              z-index: 1 !important;
+            }
             
             .slider-responsive-container {
-              --slider-width: clamp(16rem, 75vw, 22rem) !important;
-              --slider-perspective: 40em !important;
-              min-height: 420px !important;
+              /* Carousel size optimized for mobile fit */
+              --slider-width: clamp(14rem, 72vw, 20rem) !important;
+              --slider-perspective: 32em !important; /* Reduced perspective for better mobile focus */
+              min-height: 380px !important;
               width: 100% !important;
+              display: flex !important;
+              align-items: center !important;
+              gap: 12px !important;
+            }
+            .carousel-outer-wrap {
+              width: 100% !important;
+              order: 2 !important;
+              padding-top: 20px !important;
+            }
+            .slider-responsive-container {
+              width: 100% !important;
+              min-height: 300px !important;
             }
           }
 
-          @media (max-width: 480px) {
+          /* Narrow Screen Optimizations (320px - 430px) */
+          @media (max-width: 900px) {
+            .hero-section {
+              padding: 100px 16px 40px;
+            }
             .heading-primary {
-              font-size: clamp(28px, 10vw, 36px) !important;
+              font-size: clamp(28px, 9.5vw, 32px) !important;
             }
             .carousel-outer-wrap {
-              padding: 0 20px !important;
+              padding: 0 5px !important;
             }
             .slider-responsive-container {
-              --slider-width: 14rem !important;
-              --slider-perspective: 32em !important;
-              min-height: 360px !important;
+              --slider-width: 13.5rem !important;
+              --slider-perspective: 28em !important;
+              min-height: 340px !important;
             }
           }
         `}</style>
