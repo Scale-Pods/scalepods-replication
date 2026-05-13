@@ -122,18 +122,19 @@ export const ImmersiveFeatures = () => {
         position: "relative", 
         overflow: "hidden",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "auto",
       }}
     >
-      {/* Background Refinement: Subtle ambient lighting only */}
-      <div 
+      <div
         style={{
           position: "absolute",
-          inset: 0,
-          backgroundImage: "radial-gradient(circle at 85% 50%, rgba(172, 215, 145, 0.02) 0%, transparent 40%), radial-gradient(circle at 15% 85%, rgba(109, 182, 255, 0.01) 0%, transparent 30%)",
-          zIndex: 0,
+          top: "20%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "80%",
+          height: "80%",
+          background: "radial-gradient(circle at center, rgba(172, 215, 145, 0.05) 0%, transparent 70%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
         }}
       />
 
@@ -153,7 +154,7 @@ export const ImmersiveFeatures = () => {
           margin: "0 auto",
           display: "grid",
           gridTemplateColumns: "0.8fr 1.2fr",
-          gap: "80px",
+          gap: "40px",
           alignItems: "center",
           position: "relative",
           zIndex: 1,
@@ -162,7 +163,7 @@ export const ImmersiveFeatures = () => {
         className="immersive-grid"
       >
         {/* Left Side Content */}
-        <div className="content-left" style={{ maxWidth: "520px" }}>
+        <div className="content-left" style={{ maxWidth: "480px" }}>
           <motion.div 
             style={{ 
               textAlign: "center",
@@ -180,17 +181,17 @@ export const ImmersiveFeatures = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                padding: "4px 10px",
+                padding: "3px 8px",
                 background: "rgba(172, 215, 145, 0.08)",
                 border: `1px solid rgba(172, 215, 145, 0.2)`,
                 borderRadius: "100px",
-                marginBottom: "12px"
+                marginBottom: "8px"
               }}
             >
               <Zap size={10} color={C.green} />
               <span style={{ 
                 color: C.green, 
-                fontSize: "10px", 
+                fontSize: "9px", 
                 fontWeight: 700, 
                 textTransform: "uppercase", 
                 letterSpacing: "0.1em" 
@@ -203,11 +204,11 @@ export const ImmersiveFeatures = () => {
               className="heading-primary"
               style={{
                 fontFamily: F.inter,
-                fontSize: "clamp(34px, 4.5vw, 42px)",
+                fontSize: "clamp(32px, 4vw, 38px)",
                 fontWeight: 800,
                 color: C.txtBright,
                 lineHeight: 1.1,
-                marginBottom: "16px",
+                marginBottom: "12px",
                 letterSpacing: "-0.04em",
               }}
             >
@@ -221,10 +222,10 @@ export const ImmersiveFeatures = () => {
               className="description-text"
               style={{
                 fontFamily: F.inter,
-                fontSize: "clamp(14px, 1.5vw, 16px)",
+                fontSize: "clamp(13px, 1.4vw, 15px)",
                 color: C.txtBody,
-                lineHeight: 1.6,
-                marginBottom: "32px",
+                lineHeight: 1.5,
+                marginBottom: "20px",
                 letterSpacing: "-0.01em",
                 opacity: 0.8,
                 maxWidth: "600px",
@@ -236,7 +237,7 @@ export const ImmersiveFeatures = () => {
           </motion.div>
 
           {/* Compact Feature Cards with Staggered Reveal */}
-          <div className="cards-container" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          <div className="cards-container" style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
             {features.map((feat, idx) => (
               <motion.div
                 key={idx}
@@ -245,12 +246,12 @@ export const ImmersiveFeatures = () => {
                   show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
                 }}
                 onClick={() => handleCardClick(feat.id)}
-                whileHover={{ x: 8, background: "rgba(172, 215, 145, 0.04)" }}
+                whileHover={{ x: 6, background: "rgba(172, 215, 145, 0.04)" }}
                 style={{
-                  padding: "12px 20px",
-                  background: "rgba(255, 255, 255, 0.035)",
+                  padding: "10px 16px",
+                  background: "rgba(255, 255, 255, 0.03)",
                   border: G.border,
-                  borderRadius: "14px",
+                  borderRadius: "12px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -261,28 +262,28 @@ export const ImmersiveFeatures = () => {
                 }}
                 className="feature-card-refined"
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "14px", position: "relative", zIndex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", position: "relative", zIndex: 1 }}>
                   <div style={{ color: C.green, opacity: 0.8, display: "flex" }}>
                     {feat.icon}
                   </div>
                   <div>
-                    <h4 style={{ color: C.txtBright, fontSize: "13.5px", fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>
+                    <h4 style={{ color: C.txtBright, fontSize: "13px", fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>
                       {feat.title}
                     </h4>
-                    <p style={{ color: C.green, fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "1px", opacity: 0.9 }}>
+                    <p style={{ color: C.green, fontSize: "9px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "1px", opacity: 0.9 }}>
                       {feat.outcome}
                     </p>
                   </div>
                 </div>
                 
                 <div className="card-arrow" style={{ opacity: 0.2, transition: "transform 0.3s ease" }}>
-                  <ChevronRight size={14} color={C.txtBright} />
+                  <ChevronRight size={12} color={C.txtBright} />
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="cta-container" style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+          <div className="cta-container" style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "16px" }}>
             <Link href="/contact" style={{ textDecoration: "none" }}>
               <motion.button
                 variants={{
@@ -290,13 +291,12 @@ export const ImmersiveFeatures = () => {
                   show: { opacity: 1, scale: 1, transition: { delay: 0.4 } }
                 }}
                 style={{
-                  marginTop: "12px",
-                  padding: "10px 28px",
+                  padding: "8px 24px",
                   background: C.green,
                   color: "#000",
                   border: "none",
                   borderRadius: "100px",
-                  fontSize: "13px",
+                  fontSize: "12px",
                   fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
@@ -307,7 +307,7 @@ export const ImmersiveFeatures = () => {
                 whileHover={{ scale: 1.05, boxShadow: `0 8px 25px rgba(172, 215, 145, 0.3)` }}
                 whileTap={{ scale: 0.98 }}
               >
-                Start Your Pilot <ArrowRight size={16} />
+                Start Your Pilot <ArrowRight size={14} />
               </motion.button>
             </Link>
           </div>
@@ -338,7 +338,6 @@ export const ImmersiveFeatures = () => {
             />
           </div>
         </motion.div>
-      </motion.div>
 
         <style jsx>{`
           .feature-card-refined:hover {
@@ -350,71 +349,84 @@ export const ImmersiveFeatures = () => {
             opacity: 0.8 !important;
           }
           
-          /* Mobile Overrides */
+          /* Mobile/Tablet Refinement */
           @media (max-width: 1024px) {
             #immersive-features {
-              padding: 64px 16px 80px !important;
+              padding: 48px 0 64px !important;
             }
             .immersive-grid {
               display: flex !important;
               flex-direction: column !important;
-              gap: 48px !important;
+              gap: 32px !important;
               align-items: center !important;
               text-align: center !important;
+              grid-template-columns: 1fr !important;
             }
             .content-left {
+              width: 100% !important;
               max-width: 100% !important;
               display: flex !important;
               flex-direction: column !important;
               align-items: center !important;
+              padding: 0 24px !important;
             }
             .heading-primary {
-              font-size: clamp(34px, 10vw, 48px) !important;
+              font-size: clamp(30px, 8vw, 40px) !important;
               line-height: 1.1 !important;
-              margin-bottom: 24px !important;
+              margin-bottom: 16px !important;
               max-width: 100% !important;
-              padding: 0 10px;
             }
             .description-text {
-              font-size: 16px !important;
-              line-height: 1.6 !important;
-              margin-bottom: 40px !important;
-              max-width: 100% !important;
-              padding: 0 20px !important;
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+              margin-bottom: 32px !important;
+              max-width: 520px !important;
+              padding: 0 10px !important;
             }
+            
             .cards-container {
-              gap: 12px !important;
               width: 100% !important;
-              max-width: 480px !important;
-              margin-bottom: 40px !important;
+              max-width: 440px !important;
+              margin-bottom: 24px !important;
+              gap: 8px !important;
             }
             .cta-container {
-              margin-bottom: 64px !important;
+              width: 100% !important;
+              margin-bottom: 16px !important;
+              margin-top: 0 !important;
             }
+
             .carousel-outer-wrap {
               width: 100% !important;
-              margin-top: 0 !important;
-              padding-top: 40px;
-              border-top: 1px solid rgba(255, 255, 255, 0.05);
+              margin-top: 32px !important;
+              padding: 0 38px !important; 
+              display: flex !important;
+              justify-content: center !important;
             }
+            
             .slider-responsive-container {
-              --slider-width: 16rem !important;
-              --slider-perspective: 45em !important;
+              --slider-width: clamp(16rem, 75vw, 22rem) !important;
+              --slider-perspective: 40em !important;
               min-height: 420px !important;
+              width: 100% !important;
             }
           }
 
-          @media (max-width: 640px) {
+          @media (max-width: 480px) {
             .heading-primary {
-              font-size: clamp(32px, 11vw, 42px) !important;
+              font-size: clamp(28px, 10vw, 36px) !important;
+            }
+            .carousel-outer-wrap {
+              padding: 0 20px !important;
             }
             .slider-responsive-container {
               --slider-width: 14rem !important;
-              --slider-perspective: 35em !important;
-              min-height: 380px !important;
+              --slider-perspective: 32em !important;
+              min-height: 360px !important;
             }
           }
         `}</style>
-      </section>
+      </motion.div>
+    </section>
     );
   };

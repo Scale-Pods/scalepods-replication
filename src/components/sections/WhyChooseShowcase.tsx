@@ -45,15 +45,11 @@ const LogoMarquee = () => {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Edge Gradient Masks for Premium Fade */}
-      <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "100px", background: "linear-gradient(to right, #000, transparent)", zIndex: 2, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "100px", background: "linear-gradient(to left, #000, transparent)", zIndex: 2, pointerEvents: "none" }} />
-
       <motion.div
         animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
         transition={{ 
           x: {
-            duration: 30, // Slower for premium feel
+            duration: isMobile ? 12 : 30, // Faster on mobile to match visual speed
             repeat: Infinity,
             ease: "linear",
             repeatType: "loop"
