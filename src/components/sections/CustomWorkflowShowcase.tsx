@@ -89,34 +89,6 @@ const customCarouselImages = [
     imageUrl: "/images/showcase/custom/custom-3.png",
     category: "AUTONOMOUS OPS"
   },
-  { 
-    id: 4, 
-    title: "Infrastructure Monitor", 
-    description: "Live health tracking of custom AI deployments.",
-    imageUrl: "/images/showcase/custom/custom-4.png",
-    category: "REVENUE ENGINE"
-  },
-  { 
-    id: 5, 
-    title: "Process Optimization", 
-    description: "Automated bottleneck detection and flow refinement.",
-    imageUrl: "/images/showcase/custom/custom-5.png",
-    category: "STRATEGIC GROWTH"
-  },
-  { 
-    id: 6, 
-    title: "Security Shield", 
-    description: "Enterprise-grade isolation for your sensitive data.",
-    imageUrl: "/images/showcase/custom/custom-6.png",
-    category: "GOVERNANCE"
-  },
-  { 
-    id: 7, 
-    title: "Scaling Dashboard", 
-    description: "Monitor global distribution of your custom pods.",
-    imageUrl: "/images/showcase/custom/custom-7.png",
-    category: "INFRASTRUCTURE"
-  },
 ];
 
 const StatIconSize = 14;

@@ -100,7 +100,7 @@ export const ThreeDCarousel = ({
 
   return (
     <div 
-      className={`relative w-full h-[400px] md:h-[640px] flex items-center justify-center ${isMobile ? 'perspective-[1200px]' : 'perspective-[1500px]'}`}
+      className={`relative w-full h-full flex items-center justify-center ${isMobile ? 'perspective-[1200px]' : 'perspective-[1500px]'}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "transparent", overflow: "visible" }}

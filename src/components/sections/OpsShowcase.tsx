@@ -111,13 +111,6 @@ const opsCarouselImages = [
     imageUrl: "/images/showcase/ops/ops-6.png",
     category: "GROWTH SYSTEMS"
   },
-  { 
-    id: 7, 
-    title: "Strategic Overview", 
-    description: "High-level operational performance and health metrics.",
-    imageUrl: "/images/showcase/ops/ops-7.png",
-    category: "LEADERSHIP"
-  },
 ];
 
 const StatIconSize = 14;

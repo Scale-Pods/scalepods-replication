@@ -89,34 +89,6 @@ const hrCarouselImages = [
     imageUrl: "/images/showcase/hr/hr-3.png",
     category: "EMPLOYEE SUCCESS"
   },
-  { 
-    id: 4, 
-    title: "Engagement Analytics", 
-    description: "Monitor team health and retention signals in real-time.",
-    imageUrl: "/images/showcase/hr/hr-4.png",
-    category: "REVENUE INTELLIGENCE"
-  },
-  { 
-    id: 5, 
-    title: "Performance Tracking", 
-    description: "Automated feedback loops and goal management.",
-    imageUrl: "/images/showcase/hr/hr-5.png",
-    category: "GROWTH OPS"
-  },
-  { 
-    id: 6, 
-    title: "Compliance Engine", 
-    description: "Automated global payroll and legal documentation.",
-    imageUrl: "/images/showcase/hr/hr-6.png",
-    category: "INFRASTRUCTURE"
-  },
-  { 
-    id: 7, 
-    title: "Strategic HR Dashboard", 
-    description: "End-to-end workforce planning and optimization.",
-    imageUrl: "/images/showcase/hr/hr-7.png",
-    category: "LEADERSHIP"
-  },
 ];
 
 const StatIconSize = 14;

@@ -38,12 +38,11 @@ const features = [
 ];
 
 const ringImages = [
-  { id: 1, title: "Audit Checker", description: "AI-powered document validation & procurement auditing.", imageUrl: "/images/carousel/audit-checker.png" },
-  { id: 2, title: "Expense Tracker", description: "Interactive financial analytics & invoicing system.", imageUrl: "/images/carousel/expense-tracker.png" },
-  { id: 3, title: "Marketing Automation", description: "Automated multi-channel outreach workflows.", imageUrl: "/images/carousel/marketing-tool.png" },
-  { id: 4, title: "Procurement Command Center", description: "Centralized procurement lifecycle management.", imageUrl: "/images/carousel/procurement-tool.png" },
-  { id: 5, title: "Property Management", description: "Operational workflow automation platform.", imageUrl: "/images/carousel/property-management.png" },
-  { id: 6, title: "Sales Intelligence", description: "AI-driven lead conversion & outreach engine.", imageUrl: "/images/carousel/sales-tool.png" },
+  { id: 1, title: "Sales Automation", description: "AI-driven lead conversion & outreach engine.", imageUrl: "/images/carousel/sales-tool.png" },
+  { id: 2, title: "HR Automation", description: "AI screening & instant shortlists for faster hiring.", imageUrl: "/images/carousel/hr-pod.png" },
+  { id: 3, title: "Ops Automation", description: "24/7 AI agents for order flows and follow-ups.", imageUrl: "/images/carousel/audit-checker.png" },
+  { id: 4, title: "Marketing Automation", description: "Automated multi-channel outreach and content workflows.", imageUrl: "/images/carousel/marketing-tool.png" },
+  { id: 5, title: "Custom Workflows", description: "Tailored AI operational systems for full process autonomy.", imageUrl: "/images/carousel/property-management.png" },
 ];
 
 export const ImmersiveFeatures = () => {
@@ -246,7 +245,7 @@ export const ImmersiveFeatures = () => {
           style={{ 
             position: "relative",
             width: "100%",
-            height: isMobile ? "380px" : "400px",
+            height: isMobile ? "380px" : "500px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

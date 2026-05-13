@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "Use Cases", href: "/use-cases" },
-  { label: "GCC", href: "/gcc" },
+  { label: "Global", href: "/gcc" },
 ];
 
 export default function Navbar() {

@@ -72,50 +72,36 @@ const salesCarouselImages = [
     id: 1, 
     title: "Sales Intelligence Hub", 
     description: "Real-time prospect intent and behavioral tracking.",
-    imageUrl: "/images/showcase/sales/sales-1.png", 
+    imageUrl: "/images/showcase/sales/Sales tool 1.png", 
     category: "PIPELINE OPS"
   },
   { 
     id: 2, 
     title: "Outreach Orchestrator", 
     description: "Manage multi-channel automated sales sequences.",
-    imageUrl: "/images/showcase/sales/sales-2.png",
+    imageUrl: "/images/showcase/sales/Sales tool 2.png",
     category: "CAMPAIGN ENGINE"
   },
   { 
     id: 3, 
     title: "Conversion Analytics", 
     description: "Deep-dive ROI and funnel performance metrics.",
-    imageUrl: "/images/showcase/sales/sales-3.png",
+    imageUrl: "/images/showcase/sales/Sales tool 3.png",
     category: "REVENUE GROWTH"
   },
   { 
     id: 4, 
     title: "Lead Scoring Center", 
     description: "AI-driven lead prioritization and routing.",
-    imageUrl: "/images/showcase/sales/sales-4.png",
+    imageUrl: "/images/showcase/sales/Sales tool 4.png",
     category: "GROWTH ARCHITECTURE"
   },
   { 
     id: 5, 
     title: "Agent Performance", 
     description: "Monitor AI agent efficacy and meeting volume.",
-    imageUrl: "/images/showcase/sales/sales-5.png",
+    imageUrl: "/images/showcase/sales/Sales tool 5.png",
     category: "SALES OPS"
-  },
-  { 
-    id: 6, 
-    title: "Deal Flow Monitor", 
-    description: "End-to-end visualization of the sales lifecycle.",
-    imageUrl: "/images/showcase/sales/sales-6.png",
-    category: "INFRASTRUCTURE"
-  },
-  { 
-    id: 7, 
-    title: "Strategic Dashboard", 
-    description: "High-level revenue forecasting and growth planning.",
-    imageUrl: "/images/showcase/sales/sales-7.png",
-    category: "LEADERSHIP"
   },
 ];
 
