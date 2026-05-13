@@ -159,7 +159,7 @@ export default function UAEPage() {
   }
 
   return (
-    <main style={{ minHeight: "100vh", fontFamily: F.inter }}>
+    <main style={{ minHeight: "100vh", fontFamily: F.inter, overflowX: "hidden", position: "relative" }}>
       <BeamsBackground>
 
 
@@ -269,7 +269,7 @@ export default function UAEPage() {
           }
           @media (max-width: 900px) {
             .hero-section {
-              padding: 60px 16px 40px;
+              padding: 120px 16px 40px !important;
             }
             .plug-play-grid {
               flex-direction: column !important;
@@ -281,25 +281,30 @@ export default function UAEPage() {
               padding-top: 20px !important;
             }
             .hero-title-accent {
-              font-size: clamp(38px, 10vw, 54px) !important;
+              font-size: clamp(34px, 10vw, 48px) !important;
+              line-height: 1.1 !important;
             }
             .hero-subtitle {
-              font-size: clamp(24px, 6vw, 32px) !important;
+              font-size: clamp(22px, 6vw, 28px) !important;
+              line-height: 1.2 !important;
             }
             .hero-desc {
               font-size: 16px !important;
+              line-height: 1.5 !important;
+              max-width: 100% !important;
             }
             .bullet-list {
               margin-left: 0 !important;
               margin-right: 0 !important;
+              width: 100% !important;
             }
             .bullet-text {
-              font-size: 15px !important;
+              font-size: 14px !important;
             }
             .plug-play-right {
               flex: none !important;
               width: 100% !important;
-              margin-top: 8px !important;
+              margin-top: 24px !important;
             }
             .form-card {
               padding: 24px !important;

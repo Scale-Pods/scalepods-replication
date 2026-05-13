@@ -399,7 +399,7 @@ export const SalesPodShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
           perspective: "1200px",
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
         }}>
@@ -479,9 +479,9 @@ export const SalesPodShowcase = () => {
                   {/* Mock Stats Grid */}
                   <div style={{ 
                     display: "grid", 
-                    gridTemplateColumns: isMobile ? "1fr 1fr 1fr" : "1fr 1fr 1fr", 
-                    gap: isMobile ? "8px" : "16px", 
-                    marginBottom: isMobile ? "20px" : "32px" 
+                    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", 
+                    gap: isMobile ? "12px" : "16px", 
+                    marginBottom: isMobile ? "24px" : "32px" 
                   }}>
                     {[
                       { label: "Booked", value: "84", icon: <CheckCircle2 size={StatIconSize} color={C.green} /> },

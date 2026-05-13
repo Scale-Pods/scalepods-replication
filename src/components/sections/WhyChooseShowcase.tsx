@@ -57,7 +57,7 @@ const LogoMarquee = () => {
         }}
         style={{ 
           display: "flex", 
-          gap: isMobile ? "40px" : "80px", // Reduced gap on mobile
+          gap: isMobile ? "24px" : "80px", 
           width: "max-content",
           alignItems: "center"
         }}
@@ -66,7 +66,7 @@ const LogoMarquee = () => {
           <motion.div
             key={idx}
             style={{
-              height: isMobile ? "32px" : "44px", // Smaller logos on mobile
+              height: isMobile ? "24px" : "44px", 
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -87,7 +87,7 @@ const LogoMarquee = () => {
               style={{ 
                 height: "100%", 
                 width: "auto", 
-                maxWidth: isMobile ? "100px" : "160px",
+                maxWidth: isMobile ? "80px" : "160px",
                 objectFit: "contain"
               }} 
             />

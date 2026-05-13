@@ -319,7 +319,7 @@ export const CustomWorkflowShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
           perspective: "1200px",
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
         }}>
@@ -578,6 +578,13 @@ export const CustomWorkflowShowcase = () => {
             height: auto !important;
             display: flex !important;
             flex-direction: column !important;
+            gap: 12px !important;
+          }
+          .ops-surface-container > div {
+            grid-column: auto !important;
+            grid-row: auto !important;
+            width: 100% !important;
+            min-height: 200px !important;
           }
         }
       `}</style>

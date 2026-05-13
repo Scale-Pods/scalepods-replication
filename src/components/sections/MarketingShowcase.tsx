@@ -364,7 +364,7 @@ export const MarketingShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
           perspective: "1200px",
           order: isMobile ? 2 : 1,
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"

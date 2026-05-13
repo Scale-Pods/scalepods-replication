@@ -152,10 +152,6 @@ export const ImmersiveFeatures = () => {
         style={{
           maxWidth: "1320px",
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "0.8fr 1.2fr",
-          gap: "40px",
-          alignItems: "center",
           position: "relative",
           zIndex: 1,
           width: "100%",
@@ -340,6 +336,13 @@ export const ImmersiveFeatures = () => {
         </motion.div>
 
         <style jsx>{`
+          .immersive-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+          }
+
           .feature-card-refined:hover {
             border-color: rgba(172, 215, 145, 0.4) !important;
             background: rgba(172, 215, 145, 0.03) !important;
@@ -352,12 +355,12 @@ export const ImmersiveFeatures = () => {
           /* MOBILE RESPONSIVE MASTER FIX (Max-width 1024px) */
           @media (max-width: 1024px) {
             #immersive-features {
-              padding: 80px 0 60px !important; /* Increased top padding to avoid navbar overlap */
+              padding: 100px 0 60px !important; /* Increased top padding to avoid navbar overlap */
             }
             .immersive-grid {
               display: flex !important;
               flex-direction: column !important;
-              gap: 32px !important;
+              gap: 48px !important;
               align-items: center !important;
               text-align: center !important;
               width: 100% !important;
@@ -369,43 +372,45 @@ export const ImmersiveFeatures = () => {
               flex-direction: column !important;
               align-items: center !important;
               padding: 0 20px !important; /* ~1cm equivalent margin */
+              order: 1 !important;
             }
             .heading-primary {
               /* Fluid typography to prevent awkward wrapping */
-              font-size: clamp(30px, 8.5vw, 38px) !important;
+              font-size: clamp(32px, 9vw, 42px) !important;
               line-height: 1.15 !important;
-              margin-bottom: 16px !important;
-              max-width: 90% !important;
+              margin-bottom: 20px !important;
+              max-width: 100% !important;
               display: block !important;
             }
             .description-text {
-              font-size: clamp(14px, 3.8vw, 15px) !important;
-              line-height: 1.5 !important;
-              margin-bottom: 24px !important;
-              max-width: 100% !important;
+              font-size: 16px !important;
+              line-height: 1.6 !important;
+              margin-bottom: 32px !important;
+              max-width: 580px !important;
               padding: 0 !important;
               width: 100% !important;
             }
             
             .cards-container {
               width: 100% !important;
-              max-width: 100% !important;
+              max-width: 480px !important;
               margin-bottom: 24px !important;
-              gap: 8px !important;
+              gap: 12px !important;
               display: flex !important;
               flex-direction: column !important;
             }
             .feature-card-refined {
-              padding: 14px 18px !important;
+              padding: 16px 20px !important;
               border-radius: 16px !important;
               width: 100% !important;
             }
             .cta-container {
               width: 100% !important;
-              margin-top: 8px !important;
-              margin-bottom: 40px !important;
+              margin-top: 12px !important;
+              margin-bottom: 56px !important;
               display: flex !important;
               justify-content: center !important;
+              order: 2 !important;
             }
 
             .carousel-outer-wrap {
@@ -416,44 +421,36 @@ export const ImmersiveFeatures = () => {
               justify-content: center !important;
               position: relative !important;
               z-index: 1 !important;
+              order: 3 !important; /* Carousel at the absolute bottom */
             }
             
             .slider-responsive-container {
               /* Carousel size optimized for mobile fit */
-              --slider-width: clamp(14rem, 72vw, 20rem) !important;
-              --slider-perspective: 32em !important; /* Reduced perspective for better mobile focus */
-              min-height: 380px !important;
+              --slider-width: clamp(16rem, 75vw, 22rem) !important;
+              --slider-perspective: 35em !important; 
+              min-height: 400px !important;
               width: 100% !important;
               display: flex !important;
               align-items: center !important;
-              gap: 12px !important;
-            }
-            .carousel-outer-wrap {
-              width: 100% !important;
-              order: 2 !important;
-              padding-top: 20px !important;
-            }
-            .slider-responsive-container {
-              width: 100% !important;
-              min-height: 300px !important;
+              justify-content: center !important;
             }
           }
 
           /* Narrow Screen Optimizations (320px - 430px) */
-          @media (max-width: 900px) {
-            .hero-section {
-              padding: 100px 16px 40px;
+          @media (max-width: 480px) {
+            #immersive-features {
+              padding: 80px 0 40px !important;
             }
             .heading-primary {
-              font-size: clamp(28px, 9.5vw, 32px) !important;
+              font-size: clamp(30px, 11vw, 36px) !important;
             }
             .carousel-outer-wrap {
               padding: 0 5px !important;
             }
             .slider-responsive-container {
-              --slider-width: 13.5rem !important;
-              --slider-perspective: 28em !important;
-              min-height: 340px !important;
+              --slider-width: 14.5rem !important;
+              --slider-perspective: 30em !important;
+              min-height: 360px !important;
             }
           }
         `}</style>
