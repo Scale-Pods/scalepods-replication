@@ -61,7 +61,7 @@ export const ImmersiveFeatures = () => {
       id="immersive-features"
       className="immersive-features-section"
       style={{ 
-        padding: isMobile ? "80px 16px 40px" : "64px 32px",
+        padding: isMobile ? "80px 16px 40px" : "32px 32px",
         position: "relative", 
         overflow: "hidden",
         background: "transparent"
@@ -105,7 +105,7 @@ export const ImmersiveFeatures = () => {
         <div style={{ 
           display: "flex", 
           flexDirection: "column", 
-          alignItems: isMobile ? "center" : "flex-start",
+          alignItems: "center",
           textAlign: isMobile ? "center" : "left",
           width: "100%"
         }}>
@@ -173,10 +173,10 @@ export const ImmersiveFeatures = () => {
           <div style={{ 
             display: "flex", 
             flexDirection: "column", 
-            gap: "6px", 
+            gap: "4px", 
             width: "100%",
             maxWidth: "480px",
-            marginBottom: "20px"
+            marginBottom: "16px"
           }}>
             {features.map((feat, idx) => (
               <motion.div
@@ -212,27 +212,29 @@ export const ImmersiveFeatures = () => {
             ))}
           </div>
 
-          <Link href="/contact" style={{ textDecoration: "none" }}>
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: `0 8px 25px rgba(172, 215, 145, 0.3)` }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                padding: "12px 32px",
-                background: C.green,
-                color: "#000",
-                border: "none",
-                borderRadius: "100px",
-                fontSize: "14px",
-                fontWeight: 700,
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                cursor: "pointer",
-              }}
-            >
-              Start Your Pilot <ArrowRight size={16} />
-            </motion.button>
-          </Link>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "4px" }}>
+            <Link href="/contact" style={{ textDecoration: "none" }}>
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: `0 8px 25px rgba(172, 215, 145, 0.3)` }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  padding: "10px 32px",
+                  background: C.green,
+                  color: "#000",
+                  border: "none",
+                  borderRadius: "100px",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                Start Your Pilot <ArrowRight size={16} />
+              </motion.button>
+            </Link>
+          </div>
         </div>
 
         {/* Right Column: 3D Carousel (Order 2 on Desktop & Mobile) */}
@@ -244,7 +246,7 @@ export const ImmersiveFeatures = () => {
           style={{ 
             position: "relative",
             width: "100%",
-            height: isMobile ? "400px" : "420px",
+            height: isMobile ? "380px" : "400px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
