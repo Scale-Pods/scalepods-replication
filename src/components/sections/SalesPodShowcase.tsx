@@ -105,14 +105,14 @@ const salesCarouselImages = [
 export const SalesPodShowcase = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const isMobile = useMobile(1024);
+  const isMobile = useMobile(1023);
   return (
     <section 
       id="sales-pod-showcase"
       className="sales-pod-section"
       style={{ 
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
         background: "transparent",
         minHeight: "auto"
       }}
@@ -121,15 +121,13 @@ export const SalesPodShowcase = () => {
         .sales-pod-section {
           padding: 64px 32px 72px;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .sales-pod-section {
             padding: 40px 16px 56px;
           }
         }
       `}</style>
-      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
-      
-      {/* Primary Diagonal Flow Beam - Highly visible through glass */}
+      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
         animate={isMobile ? { opacity: 0.04 } : { 
           x: [-30, 30, -30],
@@ -150,58 +148,12 @@ export const SalesPodShowcase = () => {
         }} 
       />
 
-      {/* Atmospheric Glow behind Left Side */}
-      <div style={{
-        position: "absolute",
-        top: "10%",
-        left: "-10%",
-        width: "50%",
-        height: "80%",
-        background: `radial-gradient(circle at center, ${C.green}06 0%, transparent 70%)`,
-        filter: "blur(120px)",
-        zIndex: 0,
-        pointerEvents: "none"
-      }} />
-
-      {/* Atmospheric Glow behind Right Side */}
-      <motion.div 
-        animate={isMobile ? { opacity: 0.06 } : { 
-          scale: [1, 1.15, 1],
-          opacity: [0.06, 0.1, 0.06]
-        }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute",
-          bottom: "-20%",
-          right: "-10%",
-          width: "60%",
-          height: "90%",
-          background: `radial-gradient(circle at center, ${C.green}0A 0%, transparent 70%)`,
-          filter: isMobile ? "blur(80px)" : "blur(130px)",
-          zIndex: 0,
-          pointerEvents: "none"
-        }} 
-      />
-
-      {/* Subtle Blue Contrast Beam (Bottom Left) */}
-      <div style={{
-        position: "absolute",
-        bottom: "-10%",
-        left: "5%",
-        width: "300px",
-        height: "300px",
-        background: "radial-gradient(circle, rgba(109, 182, 255, 0.02) 0%, transparent 70%)",
-        filter: "blur(100px)",
-        zIndex: 0,
-        pointerEvents: "none"
-      }} />
-
       <div style={{
         maxWidth: "1240px",
         margin: "0 auto",
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1.2fr",
-        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", 
         alignItems: "center",
         position: "relative",
         zIndex: 1,
@@ -222,18 +174,6 @@ export const SalesPodShowcase = () => {
               textAlign: "center"
             }}
           >
-          {/* Subtle glow specifically behind heading area */}
-          <div style={{
-            position: "absolute",
-            top: "-40px",
-            left: "-40px",
-            width: "300px",
-            height: "200px",
-            background: `radial-gradient(circle at center, ${C.green}03 0%, transparent 70%)`,
-            filter: "blur(60px)",
-            zIndex: -1,
-            pointerEvents: "none"
-          }} />
           <div style={{
             display: "inline-flex",
             alignItems: "center",
@@ -399,9 +339,11 @@ export const SalesPodShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
-          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
+          order: isMobile ? 2 : 1,
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+          overflow: "visible"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -467,7 +409,7 @@ export const SalesPodShowcase = () => {
                       <div style={{ 
                         padding: "8px 18px", 
                         background: "rgba(109, 182, 255, 0.08)", 
-                        borderRadius: "10px", 
+                        borderRadius: "100px", 
                         border: "1px solid rgba(109, 182, 255, 0.15)",
                         backdropFilter: "blur(10px)"
                       }}>
@@ -557,17 +499,19 @@ export const SalesPodShowcase = () => {
                     style={{
                       position: "absolute",
                       top: "-30px",
-                      right: "-12px",
-                      background: "rgba(10, 12, 16, 0.4)",
+                      right: isMobile ? "0px" : "-12px",
+                      background: "rgba(10, 12, 16, 0.7)",
                       padding: "16px 24px",
                       borderRadius: "20px",
-                      border: `1px solid rgba(172, 215, 145, 0.3)`,
+                      border: `1px solid rgba(172, 215, 145, 0.4)`,
                       boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
                       display: "flex",
                       alignItems: "center",
                       gap: "14px",
-                      zIndex: 3,
-                      backdropFilter: "blur(24px)"
+                      zIndex: 10,
+                      backdropFilter: "blur(24px)",
+                      scale: isMobile ? 0.9 : 1,
+                      willChange: "transform, opacity"
                     }}
                   >
                     <motion.div 
@@ -621,11 +565,9 @@ export const SalesPodShowcase = () => {
                     items={salesCarouselImages} 
                     autoRotate={true} 
                     tightLayout={true}
-                    cardScale={1.1} // Increase size by ~10%
+                    cardScale={1.1}
                   />
                 </div>
-
-                {/* Ambient Glow intensify for Preview Mode */}
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -654,7 +596,7 @@ export const SalesPodShowcase = () => {
           background: rgba(172, 215, 145, 0.15) !important;
           box-shadow: 0 0 20px rgba(172, 215, 145, 0.1);
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .salespod-grid {
             grid-template-columns: 1fr !important;
             gap: 60px !important;

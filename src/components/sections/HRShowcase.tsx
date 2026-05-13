@@ -6,13 +6,13 @@ import {
   Users, 
   Search, 
   Calendar, 
-  MessageSquare, 
+  FileText, 
   CheckCircle2, 
   ArrowRight, 
-  ShieldCheck, 
+  Sparkles,
   Layers,
   Zap,
-  Filter,
+  BarChart3,
   Download,
   ChevronDown,
   ChevronUp
@@ -46,61 +46,92 @@ const G = {
 
 const features = [
   { 
-    title: "Autonomous Sourcing", 
-    desc: "AI identifies top 1% talent across global platforms 24/7.",
+    title: "AI Talent Sourcing", 
+    desc: "Autonomous identification of top-tier talent across global platforms.",
     icon: <Search size={16} /> 
   },
   { 
-    title: "AI Resume Scoring", 
-    desc: "Instant candidate ranking based on technical ICP match.",
-    icon: <Filter size={16} /> 
+    title: "Resume Intelligence", 
+    desc: "Automated screening and scoring based on specific role DNA.",
+    icon: <FileText size={16} /> 
   },
   { 
-    title: "Smart Scheduling", 
-    desc: "Zero-friction interview booking with auto-calendar sync.",
+    title: "Interview Orchestration", 
+    desc: "Seamless scheduling and candidate coordination 24/7.",
     icon: <Calendar size={16} /> 
   },
   { 
-    title: "WhatsApp Engagement", 
-    desc: "Automated candidate nurturing and screening via chat.",
-    icon: <MessageSquare size={16} /> 
+    title: "Employee Onboarding", 
+    desc: "Automated document collection and workflow orientation.",
+    icon: <Users size={16} /> 
   },
 ];
+
 const hrCarouselImages = [
   { 
     id: 1, 
-    title: "HR Analytics Dashboard", 
-    description: "Real-time recruitment performance and hiring analytics.",
-    imageUrl: "/images/showcase/hr/hr-1.png",
-    category: "SCALEPODS HR SYSTEM"
+    title: "Talent Acquisition Hub", 
+    description: "Manage global recruitment pipelines automatically.",
+    imageUrl: "/images/showcase/hr/hr-1.png", 
+    category: "RECRUITMENT OPS"
   },
   { 
     id: 2, 
-    title: "Campaign Management Panel", 
-    description: "Create and manage hiring campaigns across multiple roles.",
+    title: "Candidate Intelligence", 
+    description: "AI-driven skill mapping and cultural fit analysis.",
     imageUrl: "/images/showcase/hr/hr-2.png",
-    category: "HIRING CAMPAIGN SYSTEM"
+    category: "TALENT SCORING"
   },
   { 
     id: 3, 
-    title: "Candidate Pipeline Workflow", 
-    description: "Track sourcing, screening, and interview operations visually.",
+    title: "Onboarding Workflow", 
+    description: "Autonomous new-hire integration and documentation.",
     imageUrl: "/images/showcase/hr/hr-3.png",
-    category: "AUTOMATED HIRING PIPELINE"
+    category: "EMPLOYEE SUCCESS"
+  },
+  { 
+    id: 4, 
+    title: "Engagement Analytics", 
+    description: "Monitor team health and retention signals in real-time.",
+    imageUrl: "/images/showcase/hr/hr-4.png",
+    category: "REVENUE INTELLIGENCE"
+  },
+  { 
+    id: 5, 
+    title: "Performance Tracking", 
+    description: "Automated feedback loops and goal management.",
+    imageUrl: "/images/showcase/hr/hr-5.png",
+    category: "GROWTH OPS"
+  },
+  { 
+    id: 6, 
+    title: "Compliance Engine", 
+    description: "Automated global payroll and legal documentation.",
+    imageUrl: "/images/showcase/hr/hr-6.png",
+    category: "INFRASTRUCTURE"
+  },
+  { 
+    id: 7, 
+    title: "Strategic HR Dashboard", 
+    description: "End-to-end workforce planning and optimization.",
+    imageUrl: "/images/showcase/hr/hr-7.png",
+    category: "LEADERSHIP"
   },
 ];
+
+const StatIconSize = 14;
 
 export const HRShowcase = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const isMobile = useMobile(1024);
+  const isMobile = useMobile(1023);
   return (
     <section 
       id="hr-section"
       className="hr-section"
       style={{ 
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
         background: "transparent",
         minHeight: "auto"
       }}
@@ -109,7 +140,7 @@ export const HRShowcase = () => {
         .hr-section {
           padding: 64px 32px 72px;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .hr-section {
             padding: 40px 16px 56px;
           }
@@ -120,45 +151,45 @@ export const HRShowcase = () => {
       {/* Primary Flow Beam */}
       <motion.div 
         animate={isMobile ? { opacity: 0.04 } : { 
-          x: [30, -30, 30],
+          x: [-40, 40, -40],
           opacity: [0.04, 0.08, 0.04]
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
           top: "-30%",
-          right: "5%",
-          width: "90%",
+          left: "-10%",
+          width: "100%",
           height: "160%",
-          background: `linear-gradient(245deg, transparent 15%, ${C.green}20 50%, transparent 85%)`,
+          background: `linear-gradient(135deg, transparent 20%, ${C.blue}15 50%, transparent 80%)`,
           filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
-          transform: "rotate(12deg)"
+          transform: "rotate(-10deg)"
         }} 
       />
 
       <div style={{
-        maxWidth: "1240px",
+        maxWidth: "1280px",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1.2fr 1fr",
-        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
+        gridTemplateColumns: isMobile ? "1fr" : "1.3fr 1fr",
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", 
         alignItems: "center",
         position: "relative",
         zIndex: 1,
         transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="hr-showcase-grid">
         
-        {/* Right Side: Content (Order 2 on Desktop) */}
+        {/* Left Side: Content */}
         <motion.div
-          initial={{ opacity: 0, x: isMobile ? -30 : 30 }}
+          initial={{ opacity: 0, x: isMobile ? -30 : -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ 
             position: "relative", 
-            order: isMobile ? 1 : 2,
+            order: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -183,7 +214,7 @@ export const HRShowcase = () => {
               textTransform: "uppercase", 
               letterSpacing: "0.1em" 
             }}>
-              Recruitment Intelligence
+              Workforce Intelligence
             </span>
           </div>
 
@@ -196,7 +227,7 @@ export const HRShowcase = () => {
             marginBottom: "12px",
             letterSpacing: "-0.05em"
           }}>
-            HR Workflow <span style={{ fontFamily: F.accent, fontStyle: "italic", fontWeight: 400, color: C.green }}>Automation Pod</span>
+            HR & Talent <span style={{ fontFamily: F.accent, fontStyle: "italic", fontWeight: 400, color: C.green }}>Workflow Pod</span>
           </h2>
 
           <div style={{ marginBottom: "24px" }}>
@@ -207,7 +238,7 @@ export const HRShowcase = () => {
               marginBottom: "8px",
               opacity: 0.95
             }}>
-              Scale your team without the recruiter burnout.
+              Build your elite team with autonomous talent pipelines.
             </p>
             <p style={{
               fontSize: "14px",
@@ -215,9 +246,9 @@ export const HRShowcase = () => {
               lineHeight: 1.6,
               opacity: 0.8
             }}>
-              ScalePods transforms recruitment from a manual grind into an autonomous pipeline. 
-              Identify, screen, and schedule top talent <span style={{ color: C.green, fontWeight: 700 }}> 5x faster </span> 
-              while maintaining a premium candidate experience.
+              ScalePods automates the entire talent lifecycle. Our HR pods handle sourcing, 
+              screening, and scheduling 24/7, ensuring <span style={{ color: C.blue, fontWeight: 700 }}> top 1% recruitment velocity </span> 
+              without any manual HR bottlenecking.
             </p>
           </div>
 
@@ -240,7 +271,7 @@ export const HRShowcase = () => {
                   display: "flex", 
                   alignItems: "center", 
                   gap: "10px", 
-                  color: C.green,
+                  color: C.blue,
                   marginBottom: "8px"
                 }}>
                   {feat.icon}
@@ -294,7 +325,7 @@ export const HRShowcase = () => {
               }}
               className="hr-cta"
             >
-              Download Feature Guide <Download size={18} />
+              Download HR Guide <Download size={18} />
             </button>
 
             <motion.button
@@ -303,10 +334,10 @@ export const HRShowcase = () => {
               whileTap={{ scale: 0.98 }}
               style={{
                 padding: "12px 24px",
-                background: "rgba(172, 215, 145, 0.05)",
-                border: "1px solid rgba(172, 215, 145, 0.15)",
+                background: "rgba(109, 182, 255, 0.05)",
+                border: "1px solid rgba(109, 182, 255, 0.15)",
                 borderRadius: "12px",
-                color: C.green,
+                color: C.blue,
                 fontSize: "13px",
                 fontWeight: 600,
                 display: "flex",
@@ -328,14 +359,15 @@ export const HRShowcase = () => {
           </div>
         </motion.div>
 
-        {/* Left Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
+        {/* Right Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
         <div style={{ 
           position: "relative", 
-          order: isMobile ? 2 : 1,
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
-          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
+          order: isMobile ? 2 : 1,
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+          overflow: "visible"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -358,7 +390,7 @@ export const HRShowcase = () => {
                   border: G.border,
                   borderRadius: "28px",
                   padding: isMobile ? "20px" : "32px",
-                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
+                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(109, 182, 255, 0.03)`,
                   backdropFilter: isMobile ? "blur(12px)" : G.blur,
                   height: "100%",
                   display: "flex",
@@ -367,101 +399,133 @@ export const HRShowcase = () => {
                   {/* Top Reflection Rim Light */}
                   <div style={{
                     position: "absolute",
-                    top: 0, left: "15%", right: "15%",
+                    top: 0, left: "20%", right: "20%",
                     height: "1px",
                     background: `linear-gradient(90deg, transparent, rgba(109, 182, 255, 0.3), transparent)`,
                     pointerEvents: "none"
                   }} />
 
                   {/* Dashboard Header */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
+                  <div style={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    alignItems: "center",
+                    marginBottom: "32px"
+                  }}>
                     <div>
-                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Hiring Pipeline</h3>
+                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Workforce Hub</h3>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
                         <div style={{ width: "6px", height: "6px", background: C.blue, borderRadius: "50%", boxShadow: `0 0 10px ${C.blue}` }} />
-                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>AI Screening: Autonomous</p>
+                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Pod Status: Live Triage</p>
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "10px" }}>
-                      <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "8px", padding: "6px 12px", border: "1px solid rgba(255,255,255,0.1)" }}>
-                        <span style={{ color: C.txtBright, fontSize: "11px", fontWeight: 600 }}>12 Active Roles</span>
+                      <div style={{ background: "rgba(109, 182, 255, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.blue}22` }}>
+                        <span style={{ color: C.blue, fontSize: "11px", fontWeight: 700 }}>12 Qualified Leads</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Visual Pipeline Stages */}
-                  <div style={{ 
-                    display: "grid", 
-                    gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", 
-                    gap: "8px", 
-                    marginBottom: isMobile ? "24px" : "32px", 
-                    padding: "4px",
-                    background: "rgba(255,255,255,0.03)", borderRadius: "12px"
-                  }}>
-                    {["Sourcing", "Screening", "Interview", "Offer"].map((stage, i) => (
-                      <div key={i} style={{ 
-                        textAlign: "center", padding: "10px 4px", borderRadius: "8px",
-                        background: i <= 1 ? "rgba(109, 182, 255, 0.15)" : "transparent",
-                        border: i <= 1 ? `1px solid rgba(109, 182, 255, 0.2)` : "none"
-                      }}>
-                        <div style={{ fontSize: "10px", fontWeight: 700, color: i <= 1 ? C.blue : C.txtBody, textTransform: "uppercase", opacity: i <= 1 ? 1 : 0.4 }}>{stage}</div>
-                        <div style={{ fontSize: "14px", fontWeight: 800, color: C.txtBright, marginTop: "2px" }}>{i === 0 ? "248" : i === 1 ? "42" : i === 2 ? "12" : "3"}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Candidate Intelligence Feed */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {/* Talent Queue Visual */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
                     {[
-                      { name: "Alex Rivet", role: "Senior Engineer", score: "98%", status: "AI Screened" },
-                      { name: "Elena K.", role: "Product Lead", score: "94%", status: "Interviewing" },
-                      { name: "Marcus T.", role: "Growth Lead", score: "89%", status: "AI Sourced" },
-                    ].map((cand, i) => (
+                      { name: "Alex Chen", role: "Sr. AI Engineer", status: "Interviewing", score: "98/100" },
+                      { name: "Mia Wong", role: "Growth Lead", status: "Screened", score: "94/100" },
+                      { name: "John Smith", role: "Product Designer", status: "Onboarding", score: "91/100" },
+                    ].map((item, i) => (
                       <div key={i} style={{ 
-                        display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px",
-                        background: "rgba(255,255,255,0.015)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.04)",
-                        backdropFilter: "blur(4px)", transition: "all 0.3s ease"
+                        display: "flex", 
+                        alignItems: "center", 
+                        justifyContent: "space-between",
+                        padding: "14px 20px",
+                        background: "rgba(255,255,255,0.015)",
+                        borderRadius: "16px",
+                        border: "1px solid rgba(255,255,255,0.04)",
+                        backdropFilter: "blur(4px)"
                       }}>
                         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                          <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <Users size={16} color={C.blue} style={{ margin: "auto" }} />
+                          <div style={{ 
+                            width: "32px", 
+                            height: "32px", 
+                            borderRadius: "50%", 
+                            background: "rgba(255,255,255,0.05)", 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "center",
+                            border: `1px solid ${C.border}`
+                          }}>
+                            <Users size={14} color={C.txtBody} />
                           </div>
                           <div>
-                            <div style={{ fontSize: "14px", fontWeight: 600, color: C.txtBright }}>{cand.name}</div>
-                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{cand.role}</div>
+                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.name}</div>
+                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{item.role}</div>
                           </div>
                         </div>
                         <div style={{ textAlign: "right" }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: "6px", justifyContent: "flex-end" }}>
-                            <ShieldCheck size={12} color={C.green} />
-                            <span style={{ fontSize: "12px", fontWeight: 800, color: C.green }}>{cand.score} Match</span>
-                          </div>
-                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4, marginTop: "2px" }}>{cand.status}</div>
+                          <div style={{ fontSize: "10px", fontWeight: 700, color: item.status === "Onboarding" ? C.green : C.blue, textTransform: "uppercase" }}>{item.status}</div>
+                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>Score: {item.score}</div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Floating Element: Automation Engine */}
+                  {/* Hiring Velocity Placeholder */}
+                  <div style={{ 
+                    padding: "20px", 
+                    background: "rgba(109, 182, 255, 0.03)", 
+                    borderRadius: "20px", 
+                    border: "1px solid rgba(109, 182, 255, 0.1)",
+                    position: "relative",
+                    overflow: "hidden"
+                  }}>
+                    <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Recruitment Velocity</span>
+                      <Zap size={14} color={C.blue} />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "40px" }}>
+                      {[20, 50, 40, 70, 60, 85, 95].map((h, i) => (
+                        <motion.div 
+                          key={i}
+                          initial={{ height: 0 }}
+                          whileInView={{ height: `${h}%` }}
+                          transition={{ delay: i * 0.1, duration: 1 }}
+                          style={{ flex: 1, background: C.blue, borderRadius: "2px", opacity: i === 6 ? 1 : 0.4 }} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Floating Element: AI Recruiter Pulse */}
                   <motion.div 
-                    animate={{ y: [0, -10, 0] }}
+                    animate={{ x: [0, 10, 0], y: [0, -10, 0] }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                     style={{
-                      position: "absolute", top: "-35px", left: "-15px", background: "rgba(10, 12, 16, 0.4)",
-                      padding: "16px 24px", borderRadius: "20px", border: `1px solid rgba(109, 182, 255, 0.3)`,
+                      position: "absolute",
+                      bottom: isMobile ? "0px" : "-30px",
+                      left: isMobile ? "20px" : "40px",
+                      background: "rgba(10, 12, 16, 0.7)",
+                      padding: isMobile ? "12px 18px" : "16px 24px",
+                      borderRadius: "16px",
+                      border: `1px solid rgba(109, 182, 255, 0.35)`,
                       boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(109, 182, 255, 0.05)`,
-                      display: "flex", alignItems: "center", gap: "14px", zIndex: 3, backdropFilter: "blur(24px)"
+                      display: "flex",
+                      alignItems: "center",
+                      gap: isMobile ? "10px" : "14px",
+                      zIndex: 10,
+                      backdropFilter: "blur(24px)",
+                      scale: isMobile ? 0.9 : 1,
+                      willChange: "transform, opacity"
                     }}
                   >
                     <div style={{ position: "relative" }}>
-                      <Layers size={18} color={C.blue} />
+                      <Search size={isMobile ? 14 : 18} color={C.blue} />
                       <motion.div 
-                        animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.7, 0.3] }}
-                        transition={{ duration: 2, repeat: Infinity }}
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
+                        transition={{ duration: 2.5, repeat: Infinity }}
                         style={{ position: "absolute", inset: -4, background: C.blue, borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
                       />
                     </div>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: C.txtBright }}>Workflow Active</span>
+                    <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>AI Recruiter Active</span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -494,16 +558,15 @@ export const HRShowcase = () => {
             )}
           </AnimatePresence>
         </div>
-
       </div>
 
       <style jsx>{`
         .hr-cta:hover {
           transform: translateY(-2px);
-          box-shadow: 0 12px 30px rgba(172, 215, 145, 0.3);
+          box-shadow: 0 12px 30px rgba(109, 182, 255, 0.3);
           background: #C1E9A7 !important;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .hr-showcase-grid {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
@@ -517,13 +580,14 @@ export const HRShowcase = () => {
           }
         }
       `}</style>
-    <DownloadModal 
-      isOpen={isModalOpen} 
-      onClose={() => setIsModalOpen(false)}
-      zipFile="/downloads/hr-guide.pdf"
-      zipName="hr-guide.pdf"
-      title="Download HR Workflow Guide"
-    />
+
+      <DownloadModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        zipFile="/downloads/hr-guide.pdf"
+        zipName="hr-guide.pdf"
+        title="Download HR Workflow Guide"
+      />
     </section>
   );
 };

@@ -124,14 +124,14 @@ const StatIconSize = 14;
 export const MarketingShowcase = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const isMobile = useMobile(1024);
+  const isMobile = useMobile(1023);
   return (
     <section 
       id="marketing-section"
       className="marketing-section"
       style={{ 
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
         background: "transparent",
         minHeight: "auto"
       }}
@@ -140,7 +140,7 @@ export const MarketingShowcase = () => {
         .marketing-section {
           padding: 64px 32px 72px;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .marketing-section {
             padding: 40px 16px 56px;
           }
@@ -174,7 +174,7 @@ export const MarketingShowcase = () => {
         margin: "0 auto",
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr",
-        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", 
         alignItems: "center",
         position: "relative",
         zIndex: 1,
@@ -364,10 +364,11 @@ export const MarketingShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "560px" : "480px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
           order: isMobile ? 2 : 1,
-          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+          overflow: "visible"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -565,7 +566,7 @@ export const MarketingShowcase = () => {
           box-shadow: 0 12px 30px rgba(172, 215, 145, 0.3);
           background: #C1E9A7 !important;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .marketing-showcase-grid {
             grid-template-columns: 1fr !important;
             gap: 60px !important;

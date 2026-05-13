@@ -339,7 +339,7 @@ export const ImmersiveFeatures = () => {
           .immersive-grid {
             display: grid;
             grid-template-columns: 0.8fr 1.2fr;
-            gap: 40px;
+            gap: 60px;
             align-items: center;
           }
 
@@ -352,10 +352,10 @@ export const ImmersiveFeatures = () => {
             opacity: 0.8 !important;
           }
           
-          /* MOBILE RESPONSIVE MASTER FIX (Max-width 1024px) */
-          @media (max-width: 1024px) {
+          /* MOBILE RESPONSIVE MASTER FIX (Max-width 1023px) */
+          @media (max-width: 1023px) {
             #immersive-features {
-              padding: 100px 0 60px !important; /* Increased top padding to avoid navbar overlap */
+              padding: 100px 0 60px !important;
             }
             .immersive-grid {
               display: flex !important;
@@ -371,24 +371,19 @@ export const ImmersiveFeatures = () => {
               display: flex !important;
               flex-direction: column !important;
               align-items: center !important;
-              padding: 0 20px !important; /* ~1cm equivalent margin */
+              padding: 0 20px !important;
               order: 1 !important;
             }
             .heading-primary {
-              /* Fluid typography to prevent awkward wrapping */
               font-size: clamp(32px, 9vw, 42px) !important;
               line-height: 1.15 !important;
               margin-bottom: 20px !important;
-              max-width: 100% !important;
-              display: block !important;
             }
             .description-text {
               font-size: 16px !important;
               line-height: 1.6 !important;
               margin-bottom: 32px !important;
               max-width: 580px !important;
-              padding: 0 !important;
-              width: 100% !important;
             }
             
             .cards-container {
@@ -402,7 +397,6 @@ export const ImmersiveFeatures = () => {
             .feature-card-refined {
               padding: 16px 20px !important;
               border-radius: 16px !important;
-              width: 100% !important;
             }
             .cta-container {
               width: 100% !important;
@@ -421,18 +415,13 @@ export const ImmersiveFeatures = () => {
               justify-content: center !important;
               position: relative !important;
               z-index: 1 !important;
-              order: 3 !important; /* Carousel at the absolute bottom */
+              order: 3 !important;
             }
             
             .slider-responsive-container {
-              /* Carousel size optimized for mobile fit */
               --slider-width: clamp(16rem, 75vw, 22rem) !important;
               --slider-perspective: 35em !important; 
               min-height: 400px !important;
-              width: 100% !important;
-              display: flex !important;
-              align-items: center !important;
-              justify-content: center !important;
             }
           }
 
@@ -443,9 +432,6 @@ export const ImmersiveFeatures = () => {
             }
             .heading-primary {
               font-size: clamp(30px, 11vw, 36px) !important;
-            }
-            .carousel-outer-wrap {
-              padding: 0 5px !important;
             }
             .slider-responsive-container {
               --slider-width: 14.5rem !important;

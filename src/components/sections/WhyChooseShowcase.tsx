@@ -40,16 +40,18 @@ const LogoMarquee = () => {
         width: "100%",
         overflow: "hidden",
         position: "relative",
-        padding: "20px 0"
+        padding: isMobile ? "10px 0" : "30px 0"
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
     >
       <motion.div
         animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
         transition={{ 
           x: {
-            duration: isMobile ? 8 : 25, // Significantly faster on mobile for fluidity
+            duration: isMobile ? 12 : 25, 
             repeat: Infinity,
             ease: "linear",
             repeatType: "loop"
@@ -57,35 +59,35 @@ const LogoMarquee = () => {
         }}
         style={{ 
           display: "flex", 
-          gap: isMobile ? "32px" : "80px", // Better spacing for mobile visibility
+          gap: isMobile ? "40px" : "80px", 
           width: "max-content",
           alignItems: "center"
         }}
       >
-        {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => (
+        {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => (
           <motion.div
             key={idx}
             style={{
-              height: isMobile ? "22px" : "44px", 
+              height: isMobile ? "26px" : "44px", 
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              filter: logo.whiteBg ? "grayscale(100%) invert(1) brightness(1.5)" : "grayscale(100%) brightness(0.8) invert(0.8)",
-              opacity: 0.4,
-              transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
-              mixBlendMode: logo.whiteBg ? "screen" : "normal",
+              filter: "grayscale(100%)",
+              opacity: 0.5,
+              transition: "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
               willChange: "transform, filter, opacity"
             }}
-            whileHover={!isMobile ? { 
-              filter: logo.whiteBg ? "none" : (logo.isBlack ? "none" : "grayscale(0%) brightness(1) invert(0)"),
+            whileHover={{ 
+              filter: "grayscale(0%)",
               opacity: 1,
               scale: 1.1,
-            } : {}}
+              filter: `grayscale(0%) drop-shadow(0 0 8px ${C.green}44)`
+            }}
             whileTap={{
-              filter: logo.whiteBg ? "none" : (logo.isBlack ? "none" : "grayscale(0%) brightness(1) invert(0)"),
+              filter: "grayscale(0%)",
               opacity: 1,
               scale: 1.05,
-              transition: { duration: 0.2 }
+              filter: `grayscale(0%) drop-shadow(0 0 12px ${C.green}66)`
             }}
           >
             <img 
@@ -94,7 +96,7 @@ const LogoMarquee = () => {
               style={{ 
                 height: "100%", 
                 width: "auto", 
-                maxWidth: isMobile ? "75px" : "160px",
+                maxWidth: isMobile ? "90px" : "160px",
                 objectFit: "contain"
               }} 
             />
@@ -356,9 +358,10 @@ export const WhyChooseShowcase = () => {
             style={{ 
               position: "relative",
               width: "100%",
-              height: "80px",
+              height: isMobile ? "60px" : "120px",
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
+              overflow: "visible"
             }}
           >
             <LogoMarquee />

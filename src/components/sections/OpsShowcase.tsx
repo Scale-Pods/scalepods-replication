@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
+  BarChart3, 
+  Workflow, 
   Settings, 
-  MessageSquare, 
-  Share2, 
-  Bell, 
   CheckCircle2, 
   ArrowRight, 
-  Network,
-  Cpu,
   Zap,
-  Globe,
+  Layers,
+  Cpu,
+  MessageSquare,
+  Mail,
   Download,
   ChevronDown,
   ChevronUp
@@ -46,83 +46,92 @@ const G = {
 
 const features = [
   { 
-    title: "Workflow Automation", 
-    desc: "Monitor and automate operational workflows.",
-    icon: <Globe size={16} /> 
+    title: "Omnichannel Hub", 
+    desc: "Unified control of WhatsApp, Email, and CRM communications.",
+    icon: <MessageSquare size={16} /> 
   },
   { 
-    title: "Approval Tracking", 
-    desc: "Track approvals and process execution centrally.",
-    icon: <Share2 size={16} /> 
+    title: "AI Triage System", 
+    desc: "Automated intent recognition and priority-based routing.",
+    icon: <Cpu size={16} /> 
   },
   { 
-    title: "Intelligent Operations", 
-    desc: "Manage intelligent business operations at scale.",
-    icon: <Network size={16} /> 
+    title: "Order Flow Control", 
+    desc: "Autonomous management of fulfillment and logistics pipelines.",
+    icon: <Workflow size={16} /> 
   },
   { 
-    title: "Process Control", 
-    desc: "Eliminate operational bottlenecks with an AI-driven command center.",
-    icon: <Bell size={16} /> 
+    title: "Real-time Monitoring", 
+    desc: "Live visibility into operational velocity and bottleneck detection.",
+    icon: <BarChart3 size={16} /> 
   },
 ];
 
 const opsCarouselImages = [
   { 
     id: 1, 
-    title: "Procurement Command Center", 
-    description: "Automated purchase flows and vendor management.",
+    title: "Omnichannel Command", 
+    description: "Sync WhatsApp, Email, and CRM in real-time.",
     imageUrl: "/images/showcase/ops/ops-1.png", 
-    category: "OPERATIONS COMMAND CENTER"
+    category: "UNIFIED COMMS"
   },
   { 
     id: 2, 
-    title: "Supply Chain Intelligence", 
-    description: "Real-time tracking of logistics and procurement cycles.",
+    title: "Supply Chain Sync", 
+    description: "Automated logistics and fulfillment tracking.",
     imageUrl: "/images/showcase/ops/ops-2.png",
-    category: "PROCESS AUTOMATION"
+    category: "LOGISTICS ENGINE"
   },
   { 
     id: 3, 
-    title: "Property Management Hub", 
-    description: "Intelligent asset and facility orchestration.",
+    title: "Support Triage", 
+    description: "AI intent routing for customer queries.",
     imageUrl: "/images/showcase/ops/ops-3.png",
-    category: "FACILITY INTELLIGENCE"
+    category: "ROUTING INTELLIGENCE"
   },
   { 
     id: 4, 
-    title: "Asset Lifecycle Control", 
-    description: "Comprehensive tracking of high-value infrastructure.",
+    title: "Warehouse Control", 
+    description: "Autonomous inventory and stock management.",
     imageUrl: "/images/showcase/ops/ops-4.png",
-    category: "OPERATIONAL AUDIT"
+    category: "INVENTORY OPS"
   },
   { 
     id: 5, 
-    title: "Expense Intelligence Layer", 
-    description: "Automated financial process and claim verification.",
+    title: "Pipeline Dashboard", 
+    description: "End-to-end operational visibility.",
     imageUrl: "/images/showcase/ops/ops-5.png",
-    category: "FINANCIAL AUTOMATION"
+    category: "STRATEGIC OPS"
   },
   { 
     id: 6, 
-    title: "Budgetary Control Panel", 
-    description: "Real-time expenditure monitoring and forecasting.",
+    title: "Order Automation", 
+    description: "Manage 10,000+ orders with zero manual touch.",
     imageUrl: "/images/showcase/ops/ops-6.png",
-    category: "COST EFFICIENCY"
+    category: "FULFILLMENT POD"
+  },
+  { 
+    id: 7, 
+    title: "Integrations Layer", 
+    description: "Connect 2000+ apps into one operational DNA.",
+    imageUrl: "/images/showcase/ops/ops-7.png",
+    category: "INFRASTRUCTURE"
   },
 ];
+
+const StatIconSize = 14;
 
 export const OpsShowcase = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const isMobile = useMobile(1024);
+  const isMobile = useMobile(1023);
   return (
     <section 
       id="ops-section"
       className="ops-section"
       style={{ 
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
         background: "transparent",
         minHeight: "auto"
       }}
@@ -131,7 +140,7 @@ export const OpsShowcase = () => {
         .ops-section {
           padding: 64px 32px 72px;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .ops-section {
             padding: 40px 16px 56px;
           }
@@ -141,44 +150,31 @@ export const OpsShowcase = () => {
       
       {/* Primary Flow Beam */}
       <motion.div 
-        animate={isMobile ? { opacity: 0.03 } : { 
-          x: [-30, 30, -30],
-          opacity: [0.03, 0.06, 0.03]
+        animate={isMobile ? { opacity: 0.04 } : { 
+          x: [-40, 40, -40],
+          opacity: [0.04, 0.08, 0.04]
         }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
-          top: "-20%",
-          left: "5%",
-          width: "90%",
-          height: "150%",
-          background: `linear-gradient(115deg, transparent 20%, ${C.green}18 50%, transparent 80%)`,
+          top: "-30%",
+          left: "-10%",
+          width: "100%",
+          height: "160%",
+          background: `linear-gradient(135deg, transparent 20%, ${C.blue}20 50%, transparent 80%)`,
           filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
-          transform: "rotate(-8deg)"
+          transform: "rotate(-10deg)"
         }} 
       />
 
-      {/* Blue Ambient Detail */}
       <div style={{
-        position: "absolute",
-        top: "20%",
-        right: "-5%",
-        width: "40%",
-        height: "60%",
-        background: "radial-gradient(circle at center, rgba(109, 182, 255, 0.04) 0%, transparent 70%)",
-        filter: "blur(120px)",
-        zIndex: 0,
-        pointerEvents: "none"
-      }} />
-
-      <div style={{
-        maxWidth: "1240px",
+        maxWidth: "1280px",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1.2fr",
-        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
+        gridTemplateColumns: isMobile ? "1fr" : "1.3fr 1fr",
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", 
         alignItems: "center",
         position: "relative",
         zIndex: 1,
@@ -187,12 +183,13 @@ export const OpsShowcase = () => {
         
         {/* Left Side: Content */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: isMobile ? -30 : -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ 
-            position: "relative",
+            position: "relative", 
+            order: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -204,20 +201,20 @@ export const OpsShowcase = () => {
             alignItems: "center",
             gap: "8px",
             padding: "6px 12px",
-            background: "rgba(172, 215, 145, 0.08)",
-            border: `1px solid rgba(172, 215, 145, 0.15)`,
+            background: "rgba(109, 182, 255, 0.08)",
+            border: `1px solid rgba(109, 182, 255, 0.15)`,
             borderRadius: "100px",
             marginBottom: "20px"
           }}>
-            <Settings size={10} color={C.green} />
+            <Settings size={10} color={C.blue} />
             <span style={{ 
-              color: C.green, 
+              color: C.blue, 
               fontSize: "10px", 
               fontWeight: 700, 
               textTransform: "uppercase", 
               letterSpacing: "0.1em" 
             }}>
-              Operations Intelligence
+              Operations Efficiency
             </span>
           </div>
 
@@ -230,7 +227,7 @@ export const OpsShowcase = () => {
             marginBottom: "12px",
             letterSpacing: "-0.05em"
           }}>
-            Operations Workflow <span style={{ fontFamily: F.accent, fontStyle: "italic", fontWeight: 400, color: C.green }}>Automation Pod</span>
+            Operations <span style={{ fontFamily: F.accent, fontStyle: "italic", fontWeight: 400, color: C.green }}>Workflow Pod</span>
           </h2>
 
           <div style={{ marginBottom: "24px" }}>
@@ -241,7 +238,7 @@ export const OpsShowcase = () => {
               marginBottom: "8px",
               opacity: 0.95
             }}>
-              Unify your support and scale your operations.
+              24/7 autonomous management for your entire logistics and order engine.
             </p>
             <p style={{
               fontSize: "14px",
@@ -249,9 +246,10 @@ export const OpsShowcase = () => {
               lineHeight: 1.6,
               opacity: 0.8
             }}>
-              Eliminate operational bottlenecks with an AI-driven command center. ScalePods automates 
-              customer support and internal task routing, delivering <span style={{ color: C.blue, fontWeight: 700 }}> instant resolution </span> 
-              while centralizing your entire operational visibility.
+              ScalePods transforms complex operations into streamlined AI-driven pipelines. 
+              Our pods manage everything from omnichannel customer triage to multi-step 
+              fulfillment, ensuring <span style={{ color: C.blue, fontWeight: 700 }}> total process reliability </span> 
+              without human bottlenecking.
             </p>
           </div>
 
@@ -328,7 +326,7 @@ export const OpsShowcase = () => {
               }}
               className="ops-cta"
             >
-              Download Feature Guide <Download size={18} />
+              Download Workflow Guide <Download size={18} />
             </button>
 
             <motion.button
@@ -337,10 +335,10 @@ export const OpsShowcase = () => {
               whileTap={{ scale: 0.98 }}
               style={{
                 padding: "12px 24px",
-                background: "rgba(172, 215, 145, 0.05)",
-                border: "1px solid rgba(172, 215, 145, 0.15)",
+                background: "rgba(109, 182, 255, 0.05)",
+                border: "1px solid rgba(109, 182, 255, 0.15)",
                 borderRadius: "12px",
-                color: C.green,
+                color: C.blue,
                 fontSize: "13px",
                 fontWeight: 600,
                 display: "flex",
@@ -362,13 +360,15 @@ export const OpsShowcase = () => {
           </div>
         </motion.div>
 
-        {/* Right Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
+        {/* Right Side: High-Fidelity Interface Stack */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
-          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
+          order: isMobile ? 2 : 2,
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+          overflow: "visible"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -400,9 +400,9 @@ export const OpsShowcase = () => {
                   {/* Top Reflection Rim Light */}
                   <div style={{
                     position: "absolute",
-                    top: 0, left: "10%", right: "10%",
+                    top: 0, left: "20%", right: "20%",
                     height: "1px",
-                    background: `linear-gradient(90deg, transparent, rgba(172, 215, 145, 0.3), transparent)`,
+                    background: `linear-gradient(90deg, transparent, rgba(109, 182, 255, 0.3), transparent)`,
                     pointerEvents: "none"
                   }} />
 
@@ -414,54 +414,25 @@ export const OpsShowcase = () => {
                     marginBottom: "32px"
                   }}>
                     <div>
-                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Omnichannel Hub</h3>
+                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Ops Intelligence</h3>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
-                        <div style={{ width: "6px", height: "6px", background: C.green, borderRadius: "50%", boxShadow: `0 0 10px ${C.green}` }} />
-                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>AI Workflow: Continuous</p>
+                        <div style={{ width: "6px", height: "6px", background: C.blue, borderRadius: "50%", boxShadow: `0 0 10px ${C.blue}` }} />
+                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Pod Status: 100% Autonomous</p>
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "10px" }}>
-                      <div style={{ background: "rgba(109, 182, 255, 0.08)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.blue}22` }}>
-                        <span style={{ color: C.blue, fontSize: "11px", fontWeight: 700 }}>98.4% Resolution</span>
+                      <div style={{ background: "rgba(109, 182, 255, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.blue}22` }}>
+                        <span style={{ color: C.blue, fontSize: "11px", fontWeight: 700 }}>v3.4 Activated</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Operational Metrics Cards */}
-                  <div style={{ 
-                    display: "grid", 
-                    gridTemplateColumns: "1fr 1fr", 
-                    gap: isMobile ? "8px" : "16px", 
-                    marginBottom: isMobile ? "20px" : "32px" 
-                  }}>
-                    <div style={{ 
-                      padding: "16px", 
-                      background: "rgba(255,255,255,0.02)", 
-                      borderRadius: "16px", 
-                      border: "1px solid rgba(255,255,255,0.04)",
-                      backdropFilter: "blur(8px)"
-                    }}>
-                      <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.6, textTransform: "uppercase", marginBottom: "4px" }}>Active Tickets</div>
-                      <div style={{ fontSize: "22px", fontWeight: 800, color: C.txtBright }}>1,242</div>
-                    </div>
-                    <div style={{ 
-                      padding: "16px", 
-                      background: "rgba(255,255,255,0.02)", 
-                      borderRadius: "16px", 
-                      border: "1px solid rgba(255,255,255,0.04)",
-                      backdropFilter: "blur(8px)"
-                    }}>
-                      <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.6, textTransform: "uppercase", marginBottom: "4px" }}>Response Time</div>
-                      <div style={{ fontSize: "22px", fontWeight: 800, color: C.green }}>0.4s</div>
-                    </div>
-                  </div>
-
-                  {/* Omnichannel Activity Feed */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {/* Order Pipeline Visual */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
                     {[
-                      { type: "WhatsApp", action: "Order Tracking Auto-Reply", status: "Resolved", time: "Just now" },
-                      { type: "Email", action: "Subscription Refund Request", status: "AI Routing", time: "2m ago" },
-                      { type: "Web Chat", action: "Technical FAQ Inquiry", status: "Resolved", time: "5m ago" },
+                      { channel: "WhatsApp", action: "Order Triage", status: "Processed", time: "2s ago" },
+                      { channel: "Email", action: "Refund Intent", status: "Routing", time: "Just now" },
+                      { channel: "System", action: "Stock Balancing", status: "Syncing", time: "5s ago" },
                     ].map((item, i) => (
                       <div key={i} style={{ 
                         display: "flex", 
@@ -478,27 +449,53 @@ export const OpsShowcase = () => {
                             width: "32px", 
                             height: "32px", 
                             borderRadius: "8px", 
-                            background: i === 1 ? "rgba(109, 182, 255, 0.1)" : "rgba(172, 215, 145, 0.1)", 
+                            background: item.channel === "WhatsApp" ? "rgba(37, 211, 102, 0.1)" : "rgba(109, 182, 255, 0.1)", 
                             display: "flex", 
                             alignItems: "center", 
                             justifyContent: "center" 
                           }}>
-                            <MessageSquare size={14} color={i === 1 ? C.blue : C.green} />
+                            {item.channel === "WhatsApp" ? <MessageSquare size={14} color="#25D366" /> : <Mail size={14} color={C.blue} />}
                           </div>
                           <div>
-                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.type}</div>
-                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{item.action}</div>
+                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.action}</div>
+                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>Source: {item.channel}</div>
                           </div>
                         </div>
                         <div style={{ textAlign: "right" }}>
-                          <div style={{ fontSize: "10px", fontWeight: 700, color: item.status === "Resolved" ? C.green : C.blue, textTransform: "uppercase" }}>{item.status}</div>
+                          <div style={{ fontSize: "10px", fontWeight: 700, color: C.green, textTransform: "uppercase" }}>{item.status}</div>
                           <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>{item.time}</div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Floating Element: AI Routing Node */}
+                  {/* Performance Velocity Placeholder */}
+                  <div style={{ 
+                    padding: "20px", 
+                    background: "rgba(172, 215, 145, 0.03)", 
+                    borderRadius: "20px", 
+                    border: "1px solid rgba(172, 215, 145, 0.1)",
+                    position: "relative",
+                    overflow: "hidden"
+                  }}>
+                    <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Operational Velocity</span>
+                      <Zap size={14} color={C.green} />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "40px" }}>
+                      {[40, 60, 45, 80, 70, 95, 100].map((h, i) => (
+                        <motion.div 
+                          key={i}
+                          initial={{ height: 0 }}
+                          whileInView={{ height: `${h}%` }}
+                          transition={{ delay: i * 0.1, duration: 1 }}
+                          style={{ flex: 1, background: C.blue, borderRadius: "2px", opacity: i === 6 ? 1 : 0.4 }} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Floating Element: AI Routing Badge */}
                   <motion.div 
                     animate={{ x: [0, 10, 0], y: [0, -10, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -567,11 +564,10 @@ export const OpsShowcase = () => {
       <style jsx>{`
         .ops-cta:hover {
           transform: translateY(-2px);
-          border-color: ${C.blue} !important;
-          background: rgba(109, 182, 255, 0.05) !important;
-          box-shadow: 0 12px 30px rgba(109, 182, 255, 0.15);
+          box-shadow: 0 12px 30px rgba(109, 182, 255, 0.3);
+          background: #C1E9A7 !important;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 1023px) {
           .ops-showcase-grid {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
@@ -585,6 +581,7 @@ export const OpsShowcase = () => {
           }
         }
       `}</style>
+
       <DownloadModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)}
