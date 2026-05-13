@@ -250,7 +250,8 @@ export const ImmersiveFeatures = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            overflow: "visible"
+            overflow: "visible",
+            top: isMobile ? "0" : "-30px"
           }}
         >
           <div style={{ width: "100%", height: "100%", position: "relative" }}>
