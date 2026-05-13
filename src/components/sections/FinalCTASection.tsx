@@ -210,7 +210,12 @@ export const FinalCTASection = () => {
               justifyContent: isMobile ? "center" : "flex-start" 
             }}
           >
-            <Link href="/contact" style={{ textDecoration: "none" }}>
+            <a 
+              href="https://wa.me/917680974640?text=Hi%20ScalePods!%20I'm%20interested%20in%20deploying%20an%20AI%20Ecosystem%20for%20my%20business." 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
               <button
                 style={{
                   padding: "16px 36px",
@@ -232,7 +237,7 @@ export const FinalCTASection = () => {
               >
                 Deploy Your AI Ecosystem <ArrowRight size={20} />
               </button>
-            </Link>
+            </a>
             
             <a 
               href="https://wa.me/919867271848?text=Hi%20ScalePods!%20I'm%20interested%20in%20discussing%20custom%20workflow%20automation%20solutions%20for%20my%20business." 
