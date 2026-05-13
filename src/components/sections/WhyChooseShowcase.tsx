@@ -27,6 +27,7 @@ const marqueeLogos = [
   { name: "Krafty", url: "/brands/krafty-logo-white.png" },
   { name: "HobbyFi", url: "/brands/hobbyfi_logo.jpg", whiteBg: true },
   { name: "Break The Code", url: "/brands/Break-the-code.avif", whiteBg: true },
+  { name: "Suphal Media", url: "/brands/suphalmedia.avif", isBlack: true },
 ];
 
 const LogoMarquee = () => {

@@ -494,6 +494,7 @@ const brands = [
   { src: "/brands/propertygeld.png", alt: "PropertyGeld", isBlack: true },
   { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", isBlack: true },
   { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", isBlack: true },
+  { src: "/brands/suphalmedia.avif", alt: "Suphal Media", isBlack: true },
 ];
 
 export function DataAnalysis() {
