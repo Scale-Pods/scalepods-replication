@@ -49,7 +49,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for better mobile performance
 };
 
 // ── Shared input style (matching contact page) ────────────────────────────────
@@ -164,19 +164,168 @@ export default function UAEPage() {
 
 
       {/* ── PLUG AND PLAY SECTION ─────────────────────────────────────────── */}
-      <section style={{ padding: isMobile ? "80px 16px" : "80px 32px 60px", position: "relative" }}>
-        <div
-          className="plug-play-grid"
-          style={{
-            maxWidth: "1200px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            display: "flex",
-            flexDirection: isMobile ? "column" : "row",
-            gap: isMobile ? "32px" : "48px",
-            alignItems: "center",
-          }}
-        >
+      <section id="hero-plug-play" className="hero-section">
+        <style jsx>{`
+          .hero-section {
+            padding: 80px 32px 60px;
+            position: relative;
+          }
+          .plug-play-grid {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: row;
+            gap: 48px;
+            align-items: center;
+          }
+          .plug-play-left {
+            flex: 1.2;
+            width: auto;
+            order: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+          }
+          .hero-title-accent {
+            font-family: ${F.accent};
+            font-style: italic;
+            font-size: clamp(42px, 5.8vw, 82px);
+            font-weight: 400;
+            color: ${C.green};
+            line-height: 1.1;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+          }
+          .hero-subtitle {
+            font-family: ${F.inter};
+            font-size: clamp(24px, 3.2vw, 38px);
+            font-weight: 700;
+            color: ${C.txtBright};
+            margin-bottom: 20px;
+          }
+          .hero-desc {
+            font-family: ${F.inter};
+            font-size: 18px;
+            font-weight: 500;
+            color: ${C.txtBody};
+            margin-bottom: 24px;
+            line-height: 1.6;
+            max-width: 600px;
+          }
+          .bullet-list {
+            display: flex; 
+            flex-direction: column; 
+            gap: 14px;
+            align-items: flex-start;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .bullet-text {
+            font-family: ${F.inter};
+            font-size: 17px;
+            color: ${C.txtBody};
+            line-height: 1.5;
+            margin: 0;
+          }
+          .plug-play-right {
+            flex: 1;
+            width: auto;
+            order: 2;
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          .form-card {
+            background: rgba(8, 10, 14, 0.65);
+            border: 1px solid rgba(172, 215, 145, 0.4);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 520px;
+            box-sizing: border-box;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+          }
+          .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+          }
+          .phone-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 12px;
+          }
+          .phone-input-col {
+            margin-top: 18px;
+          }
+          @media (max-width: 900px) {
+            .hero-section {
+              padding: 60px 16px 40px;
+            }
+            .plug-play-grid {
+              flex-direction: column !important;
+              gap: 24px !important;
+            }
+            .plug-play-left {
+              flex: none !important;
+              width: 100% !important;
+              padding-top: 20px !important;
+            }
+            .hero-title-accent {
+              font-size: clamp(38px, 10vw, 54px) !important;
+            }
+            .hero-subtitle {
+              font-size: clamp(24px, 6vw, 32px) !important;
+            }
+            .hero-desc {
+              font-size: 16px !important;
+            }
+            .bullet-list {
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+            }
+            .bullet-text {
+              font-size: 15px !important;
+            }
+            .plug-play-right {
+              flex: none !important;
+              width: 100% !important;
+              margin-top: 8px !important;
+            }
+            .form-card {
+              padding: 24px !important;
+              backdrop-filter: blur(12px) !important;
+              -webkit-backdrop-filter: blur(12px) !important;
+              box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+            }
+            .form-row, .phone-row {
+              grid-template-columns: 1fr !important;
+            }
+            .phone-input-col {
+              margin-top: 0 !important;
+            }
+          }
+          .submit-btn {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+          @media (max-width: 900px) {
+            .submit-btn {
+              backdrop-filter: none !important;
+              -webkit-backdrop-filter: none !important;
+            }
+          }
+        `}</style>
+        <div className="plug-play-grid">
           {/* Left: headline + bullets */}
           <motion.div
             className="plug-play-left"
@@ -184,66 +333,20 @@ export default function UAEPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            style={{
-              flex: isMobile ? "none" : "1.2",
-              width: isMobile ? "100%" : "auto",
-              order: 1,
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              paddingTop: isMobile ? "20px" : "40px",
-            }}
           >
-            <h2
-              style={{
-                fontFamily: F.accent,
-                fontStyle: "italic",
-                fontSize: isMobile ? "clamp(44px, 11vw, 64px)" : "clamp(42px, 5.8vw, 82px)",
-                fontWeight: 400,
-                color: C.green,
-                lineHeight: 1,
-                marginBottom: "16px",
-                letterSpacing: "-0.02em"
-              }}
-            >
+            {/* ... Content remains as refactored ... */}
+            <h2 className="hero-title-accent">
               Plug - and - Play Pods
             </h2>
-            <h3
-              style={{
-                fontFamily: F.inter,
-                fontSize: isMobile ? "clamp(26px, 6vw, 36px)" : "clamp(24px, 3.2vw, 38px)",
-                fontWeight: 700,
-                color: C.txtBright,
-                marginBottom: "24px",
-              }}
-            >
+            <h3 className="hero-subtitle">
               for Growing Businesses.
             </h3>
-            <p
-              style={{
-                fontFamily: F.inter,
-                fontSize: isMobile ? "18px" : "18px",
-                fontWeight: 600,
-                color: C.txtBody,
-                marginBottom: "32px",
-                lineHeight: 1.6,
-                maxWidth: "600px",
-              }}
-            >
+            <p className="hero-desc">
               Automated Workflows That Accelerate Sales, Hiring &amp; Operations
             </p>
 
             {/* Bullet list */}
-            <div style={{ 
-              display: "flex", 
-              flexDirection: "column", 
-              gap: isMobile ? "18px" : "14px",
-              alignItems: "flex-start",
-              maxWidth: "480px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}>
+            <div className="bullet-list">
               {[
                 "Source, screen & schedule top talent on autopilot.",
                 "Deliver 24/7 customer care without scaling headcount.",
@@ -251,17 +354,9 @@ export default function UAEPage() {
               ].map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", textAlign: "left" }}>
                   <ChevronRight
-                    style={{ width: isMobile ? "18px" : "18px", height: isMobile ? "18px" : "18px", color: C.green, flexShrink: 0, marginTop: "4px" }}
+                    style={{ width: "18px", height: "18px", color: C.green, flexShrink: 0, marginTop: "4px" }}
                   />
-                  <p
-                    style={{
-                      fontFamily: F.inter,
-                      fontSize: isMobile ? "17px" : "17px",
-                      color: C.txtBody,
-                      lineHeight: 1.6,
-                      margin: 0,
-                    }}
-                  >
+                  <p className="bullet-text">
                     {item}
                   </p>
                 </div>
@@ -293,18 +388,18 @@ export default function UAEPage() {
                     alignItems: "center",
                     gap: "8px",
                     fontFamily: F.inter,
-                    fontSize: isMobile ? "13px" : "14px",
+                    fontSize: "14px",
                     fontWeight: 600,
                     color: "#FFFFFF",
                     background: G.bg,
                     border: G.border,
                     borderRadius: "12px",
-                    padding: isMobile ? "10px 24px" : "14px 36px",
+                    padding: "14px 36px",
                     cursor: "pointer",
-                    backdropFilter: G.blur,
-                    WebkitBackdropFilter: G.blur,
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
                     overflow: "hidden",
-                    minWidth: isMobile ? "200px" : "240px",
+                    minWidth: "240px",
                     justifyContent: "center",
                     whiteSpace: "nowrap",
                     transition: "all 0.3s ease"
@@ -324,15 +419,6 @@ export default function UAEPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            style={{
-              flex: isMobile ? "none" : "1",
-              width: isMobile ? "100%" : "auto",
-              order: 2,
-              marginTop: isMobile ? "8px" : "0",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
-            }}
           >
             {/* Stat headline */}
             <div style={{ marginBottom: "20px", textAlign: "center" }}>
@@ -364,22 +450,7 @@ export default function UAEPage() {
             </div>
 
             {/* Form card */}
-            <div
-              style={{
-                background: "rgba(8, 10, 14, 0.65)",
-                border: "1px solid rgba(172, 215, 145, 0.4)",
-                borderRadius: "20px",
-                padding: "32px",
-                width: "100%",
-                maxWidth: "520px",
-                boxSizing: "border-box",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                position: "relative",
-                zIndex: 1,
-                boxShadow: "0 20px 60px rgba(0,0,0,0.4)"
-              }}
-            >
+            <div className="form-card">
               {submitted ? (
                 <div style={{ textAlign: "center", padding: "32px 0" }}>
                   <div
@@ -410,7 +481,7 @@ export default function UAEPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                  <div className="form-row">
                     <Field label="Full Name">
                       <input
                         name="name"
@@ -434,7 +505,7 @@ export default function UAEPage() {
                     </Field>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "12px" }}>
+                  <div className="phone-row">
                     <Field label="Phone Number">
                       <div style={{ position: "relative" }}>
                         <button
@@ -507,7 +578,7 @@ export default function UAEPage() {
                         </AnimatePresence>
                       </div>
                     </Field>
-                    <div style={{ marginTop: "18px" }}>
+                    <div className="phone-input-col">
                       <input
                         name="phone"
                         value={form.phone}
@@ -573,6 +644,7 @@ export default function UAEPage() {
                       initial="rest"
                       whileHover="hover"
                       animate="rest"
+                      className="submit-btn"
                       style={{
                         position: "relative",
                         zIndex: 1,
@@ -589,7 +661,6 @@ export default function UAEPage() {
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "8px",
-                        backdropFilter: "blur(12px)",
                         overflow: "hidden",
                         transition: "all 0.3s ease"
                       }}

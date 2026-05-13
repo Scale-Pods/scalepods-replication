@@ -33,7 +33,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for better mobile performance
 };
 
 export const FinalCTASection = () => {
@@ -42,8 +42,8 @@ export const FinalCTASection = () => {
   return (
     <section 
       id="final-cta"
+      className="final-cta-section"
       style={{ 
-        padding: "80px 32px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
@@ -52,9 +52,30 @@ export const FinalCTASection = () => {
         alignItems: "center"
       }}
     >
+      <style jsx>{`
+        .final-cta-section {
+          padding: 80px 32px;
+        }
+        .cta-grid {
+          display: grid;
+          grid-template-columns: 1fr 1.1fr;
+          align-items: center;
+          gap: 80px;
+        }
+        @media (max-width: 1024px) {
+          .final-cta-section {
+            padding: 64px 20px 80px;
+          }
+          .cta-grid {
+            grid-template-columns: 1fr !important;
+            text-align: center;
+            gap: 40px !important;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC ENVIRONMENTAL ATMOSPHERE ── */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.05 } : { 
           opacity: [0.05, 0.12, 0.05],
           scale: [1, 1.05, 1],
           y: [-20, 20, -20]
@@ -68,7 +89,7 @@ export const FinalCTASection = () => {
           width: "100%",
           height: "100%",
           background: `radial-gradient(circle at 50% 50%, ${C.green}15 0%, transparent 70%)`,
-          filter: "blur(180px)",
+          filter: isMobile ? "blur(100px)" : "blur(180px)",
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -76,10 +97,10 @@ export const FinalCTASection = () => {
 
       {/* Vertical Beams */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-         {[...Array(3)].map((_, i) => (
+         {[...Array(isMobile ? 1 : 3)].map((_, i) => (
            <motion.div
              key={i}
-             animate={{ 
+             animate={isMobile ? { opacity: 0.03 } : { 
                opacity: [0.03, 0.08, 0.03],
                x: [i * 300, i * 300 + 40, i * 300]
              }}
@@ -182,7 +203,12 @@ export const FinalCTASection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}
+            style={{ 
+              display: "flex", 
+              gap: "16px", 
+              flexWrap: "wrap",
+              justifyContent: isMobile ? "center" : "flex-start" 
+            }}
           >
             <Link href="/contact" style={{ textDecoration: "none" }}>
               <button
@@ -244,7 +270,13 @@ export const FinalCTASection = () => {
              whileInView={{ opacity: 1 }}
              viewport={{ once: true }}
              transition={{ delay: 0.5 }}
-             style={{ display: "flex", gap: "24px", marginTop: "48px" }}
+             style={{ 
+               display: "flex", 
+               gap: isMobile ? "16px" : "24px", 
+               marginTop: "48px",
+               flexDirection: isMobile ? "column" : "row",
+               alignItems: isMobile ? "center" : "flex-start"
+             }}
           >
              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <ShieldCheck size={14} color={C.green} />

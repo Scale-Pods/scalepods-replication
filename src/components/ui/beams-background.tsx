@@ -51,6 +51,7 @@ export function BeamsBackground({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
+    const isMobileRef = useRef(false);
     const MINIMUM_BEAMS = 20;
 
     const opacityMap = {
@@ -70,6 +71,7 @@ export function BeamsBackground({
             const dpr = window.devicePixelRatio || 1;
             const width = window.innerWidth;
             const height = window.innerHeight;
+            isMobileRef.current = width < 768;
 
             canvas.width = width * dpr;
             canvas.height = height * dpr;
@@ -77,7 +79,8 @@ export function BeamsBackground({
             canvas.style.height = `${height}px`;
             ctx.scale(dpr, dpr);
 
-            const totalBeams = MINIMUM_BEAMS * 1.5;
+            const baseCount = isMobileRef.current ? 8 : MINIMUM_BEAMS;
+            const totalBeams = baseCount * 1.5;
             beamsRef.current = Array.from({ length: totalBeams }, () =>
                 createBeam(width, height)
             );
@@ -153,7 +156,9 @@ export function BeamsBackground({
             if (!canvas || !ctx) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.filter = "blur(35px)";
+            if (!isMobileRef.current) {
+                ctx.filter = "blur(35px)";
+            }
 
             const totalBeamsCount = beamsRef.current.length;
             beamsRef.current.forEach((beam, index) => {
@@ -200,7 +205,7 @@ export function BeamsBackground({
                     className="absolute inset-0"
                     style={{
                         background: "rgba(4, 7, 13, 0.05)",
-                        backdropFilter: "blur(50px)",
+                        backdropFilter: "blur(20px)", // Reduced from 50px for performance
                     }}
                     animate={{
                         opacity: [0.05, 0.15, 0.05],

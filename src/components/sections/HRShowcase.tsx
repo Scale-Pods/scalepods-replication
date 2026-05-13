@@ -41,7 +41,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for mobile performance
 };
 
 const features = [
@@ -97,19 +97,29 @@ export const HRShowcase = () => {
   return (
     <section 
       id="hr-section"
+      className="hr-section"
       style={{ 
-        padding: "64px 32px 72px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
         minHeight: "auto"
       }}
     >
+      <style jsx>{`
+        .hr-section {
+          padding: 64px 32px 72px;
+        }
+        @media (max-width: 1024px) {
+          .hr-section {
+            padding: 40px 16px 56px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
       
       {/* Primary Flow Beam */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.04 } : { 
           x: [30, -30, 30],
           opacity: [0.04, 0.08, 0.04]
         }}
@@ -121,7 +131,7 @@ export const HRShowcase = () => {
           width: "90%",
           height: "160%",
           background: `linear-gradient(245deg, transparent 15%, ${C.green}20 50%, transparent 85%)`,
-          filter: "blur(140px)",
+          filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
           transform: "rotate(12deg)"
@@ -133,10 +143,11 @@ export const HRShowcase = () => {
         margin: "0 auto",
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1.2fr 1fr",
-        gap: isMobile ? "40px" : "60px",
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
         alignItems: "center",
         position: "relative",
-        zIndex: 1
+        zIndex: 1,
+        transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="hr-showcase-grid">
         
         {/* Right Side: Content (Order 2 on Desktop) */}
@@ -213,14 +224,18 @@ export const HRShowcase = () => {
           {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
-            gridTemplateColumns: "1fr 1fr", 
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
             gap: "20px",
             marginBottom: "32px",
             width: "100%",
-            textAlign: "left"
+            textAlign: isMobile ? "center" : "left"
           }}>
             {features.map((feat, i) => (
-              <div key={i}>
+              <div key={i} style={{ 
+                display: "flex", 
+                flexDirection: "column",
+                alignItems: isMobile ? "center" : "flex-start"
+              }}>
                 <div style={{ 
                   display: "flex", 
                   alignItems: "center", 
@@ -243,7 +258,8 @@ export const HRShowcase = () => {
                   color: C.txtBody, 
                   lineHeight: 1.5, 
                   margin: 0,
-                  opacity: 0.7 
+                  opacity: 0.7,
+                  textAlign: isMobile ? "center" : "left"
                 }}>
                   {feat.desc}
                 </p>
@@ -317,8 +333,9 @@ export const HRShowcase = () => {
           position: "relative", 
           order: isMobile ? 2 : 1,
           width: "100%", 
-          height: "480px", 
-          perspective: "1200px" 
+          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
+          perspective: "1200px",
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -340,9 +357,9 @@ export const HRShowcase = () => {
                   background: G.bg,
                   border: G.border,
                   borderRadius: "28px",
-                  padding: "32px",
-                  boxShadow: `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
-                  backdropFilter: G.blur,
+                  padding: isMobile ? "20px" : "32px",
+                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
+                  backdropFilter: isMobile ? "blur(12px)" : G.blur,
                   height: "100%",
                   display: "flex",
                   flexDirection: "column"
@@ -374,7 +391,11 @@ export const HRShowcase = () => {
 
                   {/* Visual Pipeline Stages */}
                   <div style={{ 
-                    display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px", marginBottom: "32px", padding: "4px",
+                    display: "grid", 
+                    gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", 
+                    gap: "8px", 
+                    marginBottom: isMobile ? "20px" : "32px", 
+                    padding: "4px",
                     background: "rgba(255,255,255,0.03)", borderRadius: "12px"
                   }}>
                     {["Sourcing", "Screening", "Interview", "Offer"].map((stage, i) => (
@@ -457,7 +478,7 @@ export const HRShowcase = () => {
                 }}
               >
                 <div style={{ 
-                  width: "100%", height: "460px", marginTop: "-40px", position: "relative", overflow: "hidden",
+                  width: "100%", height: "100%", position: "relative", overflow: "visible",
                   display: "flex", alignItems: "center", justifyContent: "center"
                 }}>
                   <ThreeDCarousel items={hrCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />

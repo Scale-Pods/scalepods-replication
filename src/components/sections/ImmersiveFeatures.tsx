@@ -26,7 +26,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for better mobile performance
 };
 
 const features = [
@@ -162,7 +162,7 @@ export const ImmersiveFeatures = () => {
         className="immersive-grid"
       >
         {/* Left Side Content */}
-        <div style={{ maxWidth: "520px" }}>
+        <div className="content-left" style={{ maxWidth: "520px" }}>
           <motion.div 
             style={{ 
               textAlign: "center",
@@ -200,13 +200,14 @@ export const ImmersiveFeatures = () => {
             </motion.div>
 
             <h2
+              className="heading-primary"
               style={{
                 fontFamily: F.inter,
-                fontSize: "clamp(24px, 2.8vw, 38px)",
+                fontSize: "clamp(34px, 4.5vw, 42px)",
                 fontWeight: 800,
                 color: C.txtBright,
                 lineHeight: 1.1,
-                marginBottom: "12px",
+                marginBottom: "16px",
                 letterSpacing: "-0.04em",
               }}
             >
@@ -217,15 +218,17 @@ export const ImmersiveFeatures = () => {
             </h2>
 
             <p
+              className="description-text"
               style={{
                 fontFamily: F.inter,
-                fontSize: "14.5px",
+                fontSize: "clamp(14px, 1.5vw, 16px)",
                 color: C.txtBody,
-                lineHeight: 1.5,
-                marginBottom: "20px",
+                lineHeight: 1.6,
+                marginBottom: "32px",
                 letterSpacing: "-0.01em",
                 opacity: 0.8,
-                maxWidth: "540px"
+                maxWidth: "600px",
+                margin: "0 auto"
               }}
             >
               ScalePods provides a modular ecosystem of automated systems that work together to accelerate growth and eliminate manual overhead.
@@ -233,7 +236,7 @@ export const ImmersiveFeatures = () => {
           </motion.div>
 
           {/* Compact Feature Cards with Staggered Reveal */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          <div className="cards-container" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
             {features.map((feat, idx) => (
               <motion.div
                 key={idx}
@@ -244,10 +247,10 @@ export const ImmersiveFeatures = () => {
                 onClick={() => handleCardClick(feat.id)}
                 whileHover={{ x: 8, background: "rgba(172, 215, 145, 0.04)" }}
                 style={{
-                  padding: "8px 16px",
+                  padding: "12px 20px",
                   background: "rgba(255, 255, 255, 0.035)",
                   border: G.border,
-                  borderRadius: "10px",
+                  borderRadius: "14px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -279,7 +282,7 @@ export const ImmersiveFeatures = () => {
             ))}
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+          <div className="cta-container" style={{ display: "flex", justifyContent: "center", width: "100%" }}>
             <Link href="/contact" style={{ textDecoration: "none" }}>
               <motion.button
                 variants={{
@@ -312,6 +315,7 @@ export const ImmersiveFeatures = () => {
 
         {/* Right Side: 3D Cinematic Slider */}
         <motion.div
+          className="carousel-outer-wrap"
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -336,43 +340,81 @@ export const ImmersiveFeatures = () => {
         </motion.div>
       </motion.div>
 
-      <style jsx>{`
-        .feature-card-refined:hover {
-          border-color: rgba(172, 215, 145, 0.4) !important;
-          background: rgba(172, 215, 145, 0.03) !important;
-        }
-        .feature-card-refined:hover .card-arrow {
-          transform: translateX(4px);
-          opacity: 0.8 !important;
-        }
-        @media (max-width: 1024px) {
-          .slider-responsive-container {
-            --slider-width: 18rem !important;
-            --slider-perspective: 40em !important;
+        <style jsx>{`
+          .feature-card-refined:hover {
+            border-color: rgba(172, 215, 145, 0.4) !important;
+            background: rgba(172, 215, 145, 0.03) !important;
           }
-          .immersive-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-            text-align: center;
+          .feature-card-refined:hover .card-arrow {
+            transform: translateX(4px);
+            opacity: 0.8 !important;
           }
-          .immersive-grid > div {
-            margin: 0 auto;
-            align-items: center !important;
+          
+          /* Mobile Overrides */
+          @media (max-width: 1024px) {
+            #immersive-features {
+              padding: 64px 16px 80px !important;
+            }
+            .immersive-grid {
+              display: flex !important;
+              flex-direction: column !important;
+              gap: 48px !important;
+              align-items: center !important;
+              text-align: center !important;
+            }
+            .content-left {
+              max-width: 100% !important;
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: center !important;
+            }
+            .heading-primary {
+              font-size: clamp(34px, 10vw, 48px) !important;
+              line-height: 1.1 !important;
+              margin-bottom: 24px !important;
+              max-width: 100% !important;
+              padding: 0 10px;
+            }
+            .description-text {
+              font-size: 16px !important;
+              line-height: 1.6 !important;
+              margin-bottom: 40px !important;
+              max-width: 100% !important;
+              padding: 0 20px !important;
+            }
+            .cards-container {
+              gap: 12px !important;
+              width: 100% !important;
+              max-width: 480px !important;
+              margin-bottom: 40px !important;
+            }
+            .cta-container {
+              margin-bottom: 64px !important;
+            }
+            .carousel-outer-wrap {
+              width: 100% !important;
+              margin-top: 0 !important;
+              padding-top: 40px;
+              border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .slider-responsive-container {
+              --slider-width: 16rem !important;
+              --slider-perspective: 45em !important;
+              min-height: 420px !important;
+            }
           }
-        }
-        @media (max-width: 768px) {
-          .slider-responsive-container {
-            --slider-width: 14rem !important;
-            --slider-perspective: 30em !important;
+
+          @media (max-width: 640px) {
+            .heading-primary {
+              font-size: clamp(32px, 11vw, 42px) !important;
+            }
+            .slider-responsive-container {
+              --slider-width: 14rem !important;
+              --slider-perspective: 35em !important;
+              min-height: 380px !important;
+            }
           }
-          #immersive-features {
-            padding: 40px 20px !important;
-          }
-          .immersive-grid {
-            gap: 40px !important;
-          }
-        }
-      `}</style>
-    </section>
-  );
-};
+        `}</style>
+      </section>
+    );
+  };

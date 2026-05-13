@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   CheckCircle2
 } from "lucide-react";
+import { useMobile } from "@/lib/hooks";
 
 const F = {
   inter: "Inter, sans-serif",
@@ -22,7 +23,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for better mobile performance
 };
 
 const C = {
@@ -66,12 +67,13 @@ const caseStudies = [
 
 export const CaseStudiesShowcase = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const isMobile = useMobile(1024);
 
   return (
     <section 
       id="case-studies"
+      className="case-studies-section"
       style={{ 
-        padding: "40px 32px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
@@ -80,6 +82,16 @@ export const CaseStudiesShowcase = () => {
         alignItems: "center"
       }}
     >
+      <style jsx>{`
+        .case-studies-section {
+          padding: 64px 32px 72px;
+        }
+        @media (max-width: 1024px) {
+          .case-studies-section {
+            padding: 40px 16px 56px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT BEAM ── */}
       <motion.div 
         animate={{ 
@@ -94,7 +106,7 @@ export const CaseStudiesShowcase = () => {
           width: "50%",
           height: "100%",
           background: `linear-gradient(180deg, transparent, ${C.green}0A, transparent)`,
-          filter: "blur(150px)",
+          filter: "blur(80px)", // Reduced from 150px
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -176,7 +188,7 @@ export const CaseStudiesShowcase = () => {
                 border: G.border,
                 borderRadius: "24px",
                 padding: "24px",
-                backdropFilter: G.blur,
+                backdropFilter: "blur(12px)", // Standardized mobile blur
                 position: "relative",
                 overflow: "hidden",
                 cursor: "pointer",

@@ -11,8 +11,10 @@ import {
   Zap, 
   Users, 
   BarChart,
-  CheckCircle2
+  CheckCircle2,
+  Activity
 } from "lucide-react";
+import { useMobile } from "@/lib/hooks";
 
 // Curated set of brand logos from the main landing page
 const marqueeLogos = [
@@ -29,52 +31,58 @@ const marqueeLogos = [
 
 const LogoMarquee = () => {
   const [isPaused, setIsPaused] = React.useState(false);
+  const isMobile = useMobile(768);
 
   return (
     <div 
       style={{ 
         display: "flex", 
-        width: "max-content",
-        gap: "80px",
-        padding: "10px 0"
+        width: "100%",
+        overflow: "hidden",
+        position: "relative",
+        padding: "20px 0"
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
+      {/* Edge Gradient Masks for Premium Fade */}
+      <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "100px", background: "linear-gradient(to right, #000, transparent)", zIndex: 2, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "100px", background: "linear-gradient(to left, #000, transparent)", zIndex: 2, pointerEvents: "none" }} />
+
       <motion.div
         animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
         transition={{ 
           x: {
-            duration: 25,
+            duration: 30, // Slower for premium feel
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
+            repeatType: "loop"
           }
         }}
         style={{ 
           display: "flex", 
-          gap: "80px",
+          gap: isMobile ? "40px" : "80px", // Reduced gap on mobile
           width: "max-content",
           alignItems: "center"
         }}
       >
-        {[...marqueeLogos, ...marqueeLogos].map((logo, idx) => (
+        {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => (
           <motion.div
             key={idx}
             style={{
-              height: "48px",
+              height: isMobile ? "32px" : "44px", // Smaller logos on mobile
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              filter: logo.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)",
-              opacity: 0.5,
-              transition: "all 0.4s ease",
+              filter: logo.whiteBg ? "grayscale(100%) invert(1) brightness(1.5)" : "grayscale(100%) brightness(0.8) invert(0.8)",
+              opacity: 0.4,
+              transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
               mixBlendMode: logo.whiteBg ? "screen" : "normal",
             }}
             whileHover={{ 
-              filter: logo.isBlack ? "invert(1) brightness(200%)" : "none",
+              filter: logo.whiteBg ? "none" : (logo.isBlack ? "none" : "grayscale(0%) brightness(1) invert(0)"),
               opacity: 1,
-              scale: 1.08,
-              y: -4
+              scale: 1.1,
             }}
           >
             <img 
@@ -83,7 +91,7 @@ const LogoMarquee = () => {
               style={{ 
                 height: "100%", 
                 width: "auto", 
-                maxWidth: "180px",
+                maxWidth: isMobile ? "100px" : "160px",
                 objectFit: "contain"
               }} 
             />
@@ -112,7 +120,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for better mobile performance
 };
 
 const differentiators = [
@@ -155,11 +163,12 @@ const differentiators = [
 ];
 
 export const WhyChooseShowcase = () => {
+  const isMobile = useMobile(768);
   return (
     <section 
       id="why-scalepods"
+      className="why-choose-section"
       style={{ 
-        padding: "40px 32px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
@@ -168,6 +177,16 @@ export const WhyChooseShowcase = () => {
         alignItems: "center"
       }}
     >
+      <style jsx>{`
+        .why-choose-section {
+          padding: 64px 32px 72px;
+        }
+        @media (max-width: 768px) {
+          .why-choose-section {
+            padding: 40px 16px 56px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
         animate={{ 
@@ -182,7 +201,7 @@ export const WhyChooseShowcase = () => {
           width: "40%",
           height: "100%",
           background: `linear-gradient(90deg, transparent, ${C.green}0A, transparent)`,
-          filter: "blur(100px)",
+          filter: "blur(80px)", // Reduced from 100px
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -281,7 +300,7 @@ export const WhyChooseShowcase = () => {
                 border: G.border,
                 borderRadius: "20px",
                 padding: "20px",
-                backdropFilter: G.blur,
+                backdropFilter: "blur(12px)", // Standardized mobile blur
                 transition: "all 0.3s ease"
               }}
             >

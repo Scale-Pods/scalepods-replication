@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Info
 } from "lucide-react";
+import { useMobile } from "@/lib/hooks";
 
 const C = {
   green: "#ACD791",
@@ -32,7 +33,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for mobile performance
 };
 
 const knowledgeItems = [
@@ -68,12 +69,13 @@ const knowledgeItems = [
 
 export const KnowledgeShowcase = () => {
   const [activeId, setActiveId] = useState(knowledgeItems[0].id);
+  const isMobile = useMobile(1024);
 
   return (
     <section 
       id="knowledge-layer"
+      className="knowledge-section"
       style={{ 
-        padding: "40px 32px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
@@ -82,6 +84,16 @@ export const KnowledgeShowcase = () => {
         alignItems: "center"
       }}
     >
+      <style jsx>{`
+        .knowledge-section {
+          padding: 64px 32px 72px;
+        }
+        @media (max-width: 1024px) {
+          .knowledge-section {
+            padding: 40px 16px 56px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT BEAM ── */}
       <motion.div 
         animate={{ 
@@ -96,7 +108,7 @@ export const KnowledgeShowcase = () => {
           width: "60%",
           height: "100%",
           background: `linear-gradient(180deg, transparent, ${C.green}08, transparent)`,
-          filter: "blur(160px)",
+          filter: "blur(80px)", // Reduced from 160px
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -167,7 +179,7 @@ export const KnowledgeShowcase = () => {
           border: G.border,
           borderRadius: "32px",
           padding: "20px",
-          backdropFilter: G.blur
+          backdropFilter: "blur(12px)"
         }} className="knowledge-dashboard">
           
           {/* Question List */}

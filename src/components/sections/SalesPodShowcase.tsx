@@ -41,7 +41,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for mobile performance
 };
 
 const features = [
@@ -109,19 +109,29 @@ export const SalesPodShowcase = () => {
   return (
     <section 
       id="sales-pod-showcase"
+      className="sales-pod-section"
       style={{ 
-        padding: "64px 32px 72px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
         minHeight: "auto"
       }}
     >
+      <style jsx>{`
+        .sales-pod-section {
+          padding: 64px 32px 72px;
+        }
+        @media (max-width: 1024px) {
+          .sales-pod-section {
+            padding: 40px 16px 56px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
       
       {/* Primary Diagonal Flow Beam - Highly visible through glass */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.04 } : { 
           x: [-30, 30, -30],
           opacity: [0.04, 0.08, 0.04]
         }}
@@ -133,7 +143,7 @@ export const SalesPodShowcase = () => {
           width: "90%",
           height: "160%",
           background: `linear-gradient(115deg, transparent 15%, ${C.green}25 50%, transparent 85%)`,
-          filter: "blur(140px)",
+          filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
           transform: "rotate(-12deg)"
@@ -155,7 +165,7 @@ export const SalesPodShowcase = () => {
 
       {/* Atmospheric Glow behind Right Side */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.06 } : { 
           scale: [1, 1.15, 1],
           opacity: [0.06, 0.1, 0.06]
         }}
@@ -167,7 +177,7 @@ export const SalesPodShowcase = () => {
           width: "60%",
           height: "90%",
           background: `radial-gradient(circle at center, ${C.green}0A 0%, transparent 70%)`,
-          filter: "blur(130px)",
+          filter: isMobile ? "blur(80px)" : "blur(130px)",
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -191,10 +201,11 @@ export const SalesPodShowcase = () => {
         margin: "0 auto",
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1.2fr",
-        gap: isMobile ? "40px" : "60px",
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
         alignItems: "center",
         position: "relative",
-        zIndex: 1
+        zIndex: 1,
+        transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="salespod-grid">
         
         {/* Left Side: Content */}
@@ -281,14 +292,18 @@ export const SalesPodShowcase = () => {
           {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
-            gridTemplateColumns: "1fr 1fr", 
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
             gap: "20px",
             marginBottom: "32px",
             width: "100%",
-            textAlign: "left" // Keep the individual feature items left-aligned for readability
+            textAlign: isMobile ? "center" : "left" 
           }}>
             {features.map((feat, i) => (
-              <div key={i}>
+              <div key={i} style={{ 
+                display: "flex", 
+                flexDirection: "column",
+                alignItems: isMobile ? "center" : "flex-start"
+              }}>
                 <div style={{ 
                   display: "flex", 
                   alignItems: "center", 
@@ -311,7 +326,8 @@ export const SalesPodShowcase = () => {
                   color: C.txtBody, 
                   lineHeight: 1.5, 
                   margin: 0,
-                  opacity: 0.7 
+                  opacity: 0.7,
+                  textAlign: isMobile ? "center" : "left"
                 }}>
                   {feat.desc}
                 </p>
@@ -380,12 +396,12 @@ export const SalesPodShowcase = () => {
           </div>
         </motion.div>
 
-        {/* Right Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: "480px", // Fixed height to prevent layout jumps
-          perspective: "1200px" 
+          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
+          perspective: "1200px",
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -417,9 +433,9 @@ export const SalesPodShowcase = () => {
                   background: G.bg,
                   border: G.border,
                   borderRadius: "28px",
-                  padding: "32px",
-                  boxShadow: `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
-                  backdropFilter: G.blur,
+                  padding: isMobile ? "20px" : "32px",
+                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
+                  backdropFilter: isMobile ? "blur(12px)" : G.blur,
                   height: "100%",
                   display: "flex",
                   flexDirection: "column"
@@ -461,7 +477,12 @@ export const SalesPodShowcase = () => {
                   </div>
 
                   {/* Mock Stats Grid */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px", marginBottom: "32px" }}>
+                  <div style={{ 
+                    display: "grid", 
+                    gridTemplateColumns: isMobile ? "1fr 1fr 1fr" : "1fr 1fr 1fr", 
+                    gap: isMobile ? "8px" : "16px", 
+                    marginBottom: isMobile ? "20px" : "32px" 
+                  }}>
                     {[
                       { label: "Booked", value: "84", icon: <CheckCircle2 size={StatIconSize} color={C.green} /> },
                       { label: "Outreach", value: "2.4k", icon: <Activity size={StatIconSize} color={C.blue} /> },
@@ -472,7 +493,7 @@ export const SalesPodShowcase = () => {
                         whileHover={{ y: -2, background: "rgba(255,255,255,0.04)" }}
                         style={{ 
                           background: "rgba(255,255,255,0.02)", 
-                          padding: "18px", 
+                          padding: isMobile ? "12px" : "18px", 
                           borderRadius: "16px",
                           border: "1px solid rgba(255,255,255,0.06)",
                           backdropFilter: "blur(8px)",
@@ -589,10 +610,9 @@ export const SalesPodShowcase = () => {
               >
                 <div style={{ 
                   width: "100%", 
-                  height: "460px", 
-                  marginTop: "-40px", // Shift slightly upward for better balance
+                  height: "100%", 
                   position: "relative",
-                  overflow: "hidden", // Prevent cards from leaking into left content
+                  overflow: "visible", 
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center"

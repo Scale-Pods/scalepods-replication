@@ -41,7 +41,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for mobile performance
 };
 
 const features = [
@@ -128,19 +128,29 @@ export const MarketingShowcase = () => {
   return (
     <section 
       id="marketing-section"
+      className="marketing-section"
       style={{ 
-        padding: "64px 32px 72px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
         minHeight: "auto"
       }}
     >
+      <style jsx>{`
+        .marketing-section {
+          padding: 64px 32px 72px;
+        }
+        @media (max-width: 1024px) {
+          .marketing-section {
+            padding: 40px 16px 56px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
       
       {/* Primary Flow Beam */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.04 } : { 
           x: [40, -40, 40],
           opacity: [0.04, 0.08, 0.04]
         }}
@@ -152,7 +162,7 @@ export const MarketingShowcase = () => {
           width: "100%",
           height: "160%",
           background: `linear-gradient(135deg, transparent 20%, ${C.green}20 50%, transparent 80%)`,
-          filter: "blur(140px)",
+          filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
           transform: "rotate(-10deg)"
@@ -160,14 +170,15 @@ export const MarketingShowcase = () => {
       />
 
       <div style={{
-        maxWidth: "1240px",
+        maxWidth: "1280px",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1.2fr 1fr",
-        gap: isMobile ? "40px" : "60px",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr",
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
         alignItems: "center",
         position: "relative",
-        zIndex: 1
+        zIndex: 1,
+        transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="marketing-showcase-grid">
         
         {/* Right Side: Content (Order 2 on Desktop) */}
@@ -245,14 +256,18 @@ export const MarketingShowcase = () => {
           {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
-            gridTemplateColumns: "1fr 1fr", 
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
             gap: "20px",
             marginBottom: "32px",
             width: "100%",
-            textAlign: "left"
+            textAlign: isMobile ? "center" : "left"
           }}>
             {features.map((feat, i) => (
-              <div key={i}>
+              <div key={i} style={{ 
+                display: "flex", 
+                flexDirection: "column",
+                alignItems: isMobile ? "center" : "flex-start"
+              }}>
                 <div style={{ 
                   display: "flex", 
                   alignItems: "center", 
@@ -275,7 +290,8 @@ export const MarketingShowcase = () => {
                   color: C.txtBody, 
                   lineHeight: 1.5, 
                   margin: 0,
-                  opacity: 0.7 
+                  opacity: 0.7,
+                  textAlign: isMobile ? "center" : "left"
                 }}>
                   {feat.desc}
                 </p>
@@ -348,9 +364,10 @@ export const MarketingShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: "480px", 
+          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
           perspective: "1200px",
-          order: isMobile ? 2 : 1
+          order: isMobile ? 2 : 1,
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -372,9 +389,9 @@ export const MarketingShowcase = () => {
                   background: G.bg,
                   border: G.border,
                   borderRadius: "28px",
-                  padding: "32px",
-                  boxShadow: `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
-                  backdropFilter: G.blur,
+                  padding: isMobile ? "20px" : "32px",
+                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
+                  backdropFilter: isMobile ? "blur(12px)" : G.blur,
                   height: "100%",
                   display: "flex",
                   flexDirection: "column"
@@ -522,7 +539,7 @@ export const MarketingShowcase = () => {
                 }}
               >
                 <div style={{ 
-                  width: "100%", height: "460px", marginTop: "-40px", position: "relative", overflow: "hidden",
+                  width: "100%", height: "100%", position: "relative", overflow: "visible",
                   display: "flex", alignItems: "center", justifyContent: "center"
                 }}>
                   <ThreeDCarousel items={marketingCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />

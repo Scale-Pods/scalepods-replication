@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useMobile } from "@/lib/hooks";
 
 const footerLinks = [
   { label: "Services", href: "/#services" },
@@ -12,12 +13,13 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const isMobile = useMobile(1024);
   return (
     <footer
       style={{
         background: "#04070D",
         borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "80px 32px 40px",
+        padding: isMobile ? "40px 20px 40px" : "80px 32px 40px",
         fontFamily: "Inter, sans-serif",
         position: "relative",
         overflow: "hidden"

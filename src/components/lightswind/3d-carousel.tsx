@@ -90,7 +90,7 @@ export const ThreeDCarousel = ({
   }, [autoRotate, isHovering, nextSlide, rotateInterval]);
 
   const handleDragEnd = (event: any, info: any) => {
-    const threshold = 50;
+    const threshold = isMobile ? 30 : 50; // More sensitive on mobile
     if (info.offset.x < -threshold) {
       nextSlide();
     } else if (info.offset.x > threshold) {
@@ -100,7 +100,7 @@ export const ThreeDCarousel = ({
 
   return (
     <div 
-      className="relative w-full h-[480px] md:h-[640px] flex items-center justify-center perspective-[1500px]"
+      className={`relative w-full h-[400px] md:h-[640px] flex items-center justify-center ${isMobile ? 'perspective-[1200px]' : 'perspective-[1500px]'}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "transparent", overflow: "visible" }}
@@ -145,12 +145,12 @@ export const ThreeDCarousel = ({
                 initial={{ opacity: 0, scale: 0.8, x: relativeIndex * 200 }}
                 animate={{
                   opacity: isCenter ? 1 : 0.25, // Lower opacity for side cards
-                  scale: (isCenter ? 1 : 0.75) * cardScale, // Apply cardScale
-                  rotateY: relativeIndex * (tightLayout ? -20 : -35), // Tighter rotation
-                  x: relativeIndex * (isMobile ? 120 : (tightLayout ? 140 : 180)), // Tighter x spread
-                  z: -Math.abs(relativeIndex) * (tightLayout ? 150 : 200),
+                  scale: (isCenter ? 1 : (isMobile ? 0.85 : 0.75)) * cardScale, 
+                  rotateY: isMobile ? (relativeIndex * -15) : (relativeIndex * (tightLayout ? -20 : -35)), 
+                  x: relativeIndex * (isMobile ? 100 : (tightLayout ? 140 : 180)), 
+                  z: isMobile ? (-Math.abs(relativeIndex) * 100) : (-Math.abs(relativeIndex) * (tightLayout ? 150 : 200)),
                   zIndex: 10 - Math.abs(relativeIndex),
-                  filter: isCenter ? "blur(0px) brightness(1.1)" : "blur(4px) brightness(0.6)", // Focus hierarchy
+                  filter: isCenter ? "brightness(1.1)" : (isMobile ? "brightness(0.6)" : "blur(4px) brightness(0.6)"), 
                 }}
                 exit={{ opacity: 0, scale: 0.5 }}
                 transition={{
@@ -160,11 +160,12 @@ export const ThreeDCarousel = ({
                 }}
                 drag={isMobile ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2} // More elastic for tactile feedback
                 onDragEnd={handleDragEnd}
                 className="absolute"
                 style={{
-                  width: isMobile ? "300px" : "640px",
-                  aspectRatio: "16/9",
+                  width: isMobile ? "280px" : "640px",
+                  aspectRatio: isMobile ? "1/1.2" : "16/9",
                   background: "transparent",
                 }}
               >
@@ -191,14 +192,14 @@ export const ThreeDCarousel = ({
                   </div>
  
                   {/* Dedicated Text Box Below - Purely Floating */}
-                  <div className="p-6 h-[28%] flex flex-col justify-center items-center text-center" style={{ background: "transparent" }}>
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#ACD791] font-extrabold mb-2 block">
+                  <div className="p-4 md:p-6 h-[28%] flex flex-col justify-center items-center text-center" style={{ background: "transparent" }}>
+                    <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[#ACD791] font-extrabold mb-1.5 md:mb-2 block">
                       ScalePods System
                     </span>
-                    <h3 className="text-white text-xl font-bold tracking-tight mb-1.5">
+                    <h3 className="text-white text-base md:text-xl font-bold tracking-tight mb-1 md:mb-1.5">
                       {item.title}
                     </h3>
-                    <p className="text-[#B8C7D9] text-xs leading-relaxed opacity-80 line-clamp-2">
+                    <p className="text-[#B8C7D9] text-[10px] md:text-xs leading-relaxed opacity-80 line-clamp-2 md:line-clamp-none">
                       {item.description}
                     </p>
                   </div>

@@ -12,6 +12,7 @@ import {
   BarChart3,
   Clock
 } from "lucide-react";
+import { useMobile } from "@/lib/hooks";
 
 const C = {
   green: "#ACD791",
@@ -31,7 +32,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for mobile performance
 };
 
 // ── SUB-COMPONENT: ANIMATED COUNT UP ──
@@ -95,11 +96,14 @@ const metrics = [
 ];
 
 export const ImpactShowcase = () => {
+  const isMobile = useMobile(1024);
+  const isSmallMobile = useMobile(640);
+
   return (
     <section 
       id="impact-metrics"
+      className="impact-section"
       style={{ 
-        padding: "40px 32px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
@@ -108,9 +112,33 @@ export const ImpactShowcase = () => {
         alignItems: "center"
       }}
     >
+      <style jsx>{`
+        .impact-section {
+          padding: 40px 32px;
+        }
+        .impact-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+        @media (max-width: 1024px) {
+          .impact-section {
+            padding: 40px 20px;
+          }
+          .impact-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 16px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .impact-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.03 } : { 
           opacity: [0.03, 0.05, 0.03],
           y: [-20, 20, -20]
         }}
@@ -122,7 +150,7 @@ export const ImpactShowcase = () => {
           width: "50%",
           height: "100%",
           background: `linear-gradient(180deg, transparent, ${C.green}08, transparent)`,
-          filter: "blur(120px)",
+          filter: isMobile ? "blur(80px)" : "blur(120px)",
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -204,8 +232,8 @@ export const ImpactShowcase = () => {
         {/* Metrics Grid */}
         <div style={{ 
           display: "grid", 
-          gridTemplateColumns: "repeat(4, 1fr)", 
-          gap: "24px" 
+          gridTemplateColumns: isMobile ? (isSmallMobile ? "1fr" : "1fr 1fr") : "repeat(4, 1fr)", 
+          gap: isMobile ? "16px" : "24px" 
         }} className="impact-grid">
           {metrics.map((m, i) => (
             <motion.div
@@ -219,11 +247,11 @@ export const ImpactShowcase = () => {
                 background: G.bg,
                 border: G.border,
                 borderRadius: "24px",
-                padding: "24px",
-                backdropFilter: G.blur,
+                padding: isMobile ? "20px" : "24px",
+                backdropFilter: isMobile ? "blur(12px)" : G.blur,
                 position: "relative",
                 overflow: "hidden",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
+                boxShadow: isMobile ? "0 10px 20px rgba(0,0,0,0.15)" : "0 20px 40px rgba(0,0,0,0.2)"
               }}
             >
               {/* Subtle background glow based on metric color */}
@@ -305,8 +333,8 @@ export const ImpactShowcase = () => {
               background: G.bg,
               border: `1px solid ${C.blue}22`,
               borderRadius: "24px",
-              padding: "20px 24px",
-              backdropFilter: G.blur,
+              padding: isMobile ? "16px" : "20px 24px",
+              backdropFilter: isMobile ? "blur(12px)" : G.blur,
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center"

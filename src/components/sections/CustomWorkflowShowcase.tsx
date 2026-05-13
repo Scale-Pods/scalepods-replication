@@ -43,7 +43,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(40px)",
+  blur: "blur(12px)", // Reduced from 40px for mobile performance
 };
 
 const capabilities = [
@@ -95,17 +95,27 @@ export const CustomWorkflowShowcase = () => {
   return (
     <section 
       id="custom-workflows"
+      className="custom-workflow-section"
       style={{ 
-        padding: "60px 32px 80px",
         position: "relative",
         overflow: "hidden",
         background: "transparent",
         minHeight: "auto"
       }}
     >
+      <style jsx>{`
+        .custom-workflow-section {
+          padding: 60px 32px 80px;
+        }
+        @media (max-width: 1024px) {
+          .custom-workflow-section {
+            padding: 40px 16px 64px;
+          }
+        }
+      `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
-        animate={{ 
+        animate={isMobile ? { opacity: 0.03 } : { 
           opacity: [0.03, 0.05, 0.03],
           scale: [1, 1.1, 1]
         }}
@@ -117,7 +127,7 @@ export const CustomWorkflowShowcase = () => {
           width: "60%",
           height: "120%",
           background: `linear-gradient(180deg, transparent 0%, ${C.green}12 50%, transparent 100%)`,
-          filter: "blur(140px)",
+          filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -128,10 +138,11 @@ export const CustomWorkflowShowcase = () => {
         margin: "0 auto",
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr",
-        gap: isMobile ? "40px" : "60px",
+        gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", // Tighten gap when previewing
         alignItems: "center",
         position: "relative",
-        zIndex: 1
+        zIndex: 1,
+        transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="custom-workflow-grid">
         
         {/* Left Side: Content */}
@@ -215,7 +226,13 @@ export const CustomWorkflowShowcase = () => {
             textAlign: "left"
           }}>
             {capabilities.map((feat, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+              <div key={i} style={{ 
+                display: "flex", 
+                flexDirection: isMobile ? "column" : "row",
+                gap: isMobile ? "8px" : "16px", 
+                alignItems: isMobile ? "center" : "flex-start",
+                textAlign: isMobile ? "center" : "left"
+              }}>
                 <div style={{ 
                   width: "36px", 
                   height: "36px", 
@@ -299,12 +316,12 @@ export const CustomWorkflowShowcase = () => {
           </div>
         </motion.div>
 
-        {/* Right Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: "480px", 
-          perspective: "1200px" 
+          height: isMobile ? (isPreviewOpen ? "480px" : "400px") : "480px", 
+          perspective: "1200px",
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
         }}>
           <AnimatePresence mode="popLayout">
             {!isPreviewOpen ? (
@@ -344,11 +361,11 @@ export const CustomWorkflowShowcase = () => {
                       background: G.bg,
                       border: G.border,
                       borderRadius: "24px",
-                      padding: "24px",
-                      backdropFilter: G.blur,
+                      padding: isMobile ? "16px" : "24px",
+                      backdropFilter: isMobile ? "blur(12px)" : G.blur,
                       position: "relative",
                       overflow: "hidden",
-                      boxShadow: "0 20px 50px rgba(0,0,0,0.3)"
+                      boxShadow: isMobile ? "0 10px 30px rgba(0,0,0,0.2)" : "0 20px 50px rgba(0,0,0,0.3)"
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
@@ -520,7 +537,7 @@ export const CustomWorkflowShowcase = () => {
                 }}
               >
                 <div style={{ 
-                  width: "100%", height: "460px", marginTop: "-40px", position: "relative", overflow: "hidden",
+                  width: "100%", height: "100%", position: "relative", overflow: "visible",
                   display: "flex", alignItems: "center", justifyContent: "center"
                 }}>
                   <ThreeDCarousel items={customCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />
