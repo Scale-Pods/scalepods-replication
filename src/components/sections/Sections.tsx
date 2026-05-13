@@ -556,83 +556,70 @@ export function DataAnalysis() {
       </div>
 
       {/* Trusted Brands Marquee */}
-      <div style={{ marginTop: "120px", width: "100%", maxWidth: "1200px", zIndex: 1 }}>
+      <div style={{ 
+        marginTop: isMobile ? "60px" : "120px", 
+        width: "100%", 
+        maxWidth: "1200px", 
+        zIndex: 1,
+        paddingBottom: isMobile ? "20px" : "0"
+      }}>
         <p style={{
           fontFamily: "var(--font-inter), Inter, sans-serif",
-          fontSize: "18px",
+          fontSize: isMobile ? "14px" : "18px",
           color: "#8E95A3",
-          marginBottom: "48px",
+          marginBottom: isMobile ? "32px" : "48px",
           fontWeight: 400,
           letterSpacing: "0.01em"
         }}>
           Trusted by thousands of companies and investors all over the world
         </p>
 
-        <style>{`
-          @keyframes marquee-scroll {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-          }
-          .marquee-track {
-            display: flex;
-            align-items: center;
-            width: max-content;
-            animation: marquee-scroll 25s linear infinite;
-          }
-          .marquee-container:hover .marquee-track {
-            animation-play-state: paused;
-          }
-          .brand-logo-container {
-            margin-right: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.6;
-            transition: opacity 0.3s ease, mix-blend-mode 0.3s ease;
-          }
-          .brand-logo-container:hover {
-            opacity: 1;
-            mix-blend-mode: normal !important;
-          }
-          .brand-logo-img {
-            max-height: 42px;
-            width: auto;
-            object-fit: contain;
-            transition: filter 0.3s ease;
-          }
-          .brand-logo-container:hover .brand-logo-img {
-            filter: brightness(1.2) drop-shadow(0 0 12px rgba(172, 215, 145, 0.5)) !important;
-          }
-        `}</style>
-
-        <div className="marquee-container" style={{
+        <div style={{
           position: "relative",
           width: "100%",
           overflow: "hidden",
           maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-          WebkitMaskImage: "-webkit-linear-gradient(left, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}>
-          <div className="marquee-track">
-            {[...brands, ...brands].map((brand, i) => (
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ 
+              duration: isMobile ? 15 : 25, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              width: "max-content",
+              gap: isMobile ? "40px" : "80px"
+            }}
+          >
+            {[...brands, ...brands, ...brands, ...brands].map((brand, i) => (
               <div 
                 key={i} 
-                className="brand-logo-container"
                 style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  opacity: 0.6,
+                  transition: "all 0.3s ease",
                   mixBlendMode: brand.whiteBg ? "screen" : "normal",
-                  "--hover-filter": "none"
-                } as React.CSSProperties}
+                }}
               >
                 <img
                   src={brand.src}
                   alt={brand.alt}
-                  className="brand-logo-img"
                   style={{
+                    maxHeight: isMobile ? "24px" : "42px",
+                    width: "auto",
+                    objectFit: "contain",
                     filter: brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)"
                   }}
                 />
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
