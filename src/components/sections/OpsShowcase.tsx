@@ -504,29 +504,32 @@ export const OpsShowcase = () => {
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                       position: "absolute",
-                      bottom: "-30px",
-                      right: "40px",
-                      background: "rgba(10, 12, 16, 0.5)",
-                      padding: "16px 24px",
-                      borderRadius: "20px",
-                      border: `1px solid rgba(172, 215, 145, 0.3)`,
+                      bottom: isMobile ? "10px" : "-30px",
+                      right: isMobile ? "10px" : "40px",
+                      background: "rgba(10, 12, 16, 0.7)",
+                      padding: isMobile ? "10px 16px" : "16px 24px",
+                      borderRadius: "16px",
+                      border: `1px solid rgba(172, 215, 145, 0.35)`,
                       boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
                       display: "flex",
                       alignItems: "center",
-                      gap: "14px",
-                      zIndex: 3,
-                      backdropFilter: "blur(24px)"
+                      gap: isMobile ? "8px" : "14px",
+                      zIndex: 10,
+                      backdropFilter: "blur(24px)",
+                      scale: isMobile ? 0.85 : 1,
+                      transformOrigin: "bottom right",
+                      willChange: "transform, opacity"
                     }}
                   >
                     <div style={{ position: "relative" }}>
-                      <Cpu size={18} color={C.green} />
+                      <Cpu size={isMobile ? 14 : 18} color={C.green} />
                       <motion.div 
                         animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
                         transition={{ duration: 2.5, repeat: Infinity }}
                         style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
                       />
                     </div>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: C.txtBright }}>Routing Active</span>
+                    <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>Routing Active</span>
                   </motion.div>
                 </div>
               </motion.div>

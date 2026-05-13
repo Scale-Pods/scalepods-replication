@@ -49,7 +49,7 @@ const LogoMarquee = () => {
         animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
         transition={{ 
           x: {
-            duration: isMobile ? 12 : 30, // Faster on mobile to match visual speed
+            duration: isMobile ? 8 : 25, // Significantly faster on mobile for fluidity
             repeat: Infinity,
             ease: "linear",
             repeatType: "loop"
@@ -57,7 +57,7 @@ const LogoMarquee = () => {
         }}
         style={{ 
           display: "flex", 
-          gap: isMobile ? "24px" : "80px", 
+          gap: isMobile ? "32px" : "80px", // Better spacing for mobile visibility
           width: "max-content",
           alignItems: "center"
         }}
@@ -66,7 +66,7 @@ const LogoMarquee = () => {
           <motion.div
             key={idx}
             style={{
-              height: isMobile ? "24px" : "44px", 
+              height: isMobile ? "22px" : "44px", 
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -74,11 +74,18 @@ const LogoMarquee = () => {
               opacity: 0.4,
               transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
               mixBlendMode: logo.whiteBg ? "screen" : "normal",
+              willChange: "transform, filter, opacity"
             }}
-            whileHover={{ 
+            whileHover={!isMobile ? { 
               filter: logo.whiteBg ? "none" : (logo.isBlack ? "none" : "grayscale(0%) brightness(1) invert(0)"),
               opacity: 1,
               scale: 1.1,
+            } : {}}
+            whileTap={{
+              filter: logo.whiteBg ? "none" : (logo.isBlack ? "none" : "grayscale(0%) brightness(1) invert(0)"),
+              opacity: 1,
+              scale: 1.05,
+              transition: { duration: 0.2 }
             }}
           >
             <img 
@@ -87,7 +94,7 @@ const LogoMarquee = () => {
               style={{ 
                 height: "100%", 
                 width: "auto", 
-                maxWidth: isMobile ? "80px" : "160px",
+                maxWidth: isMobile ? "75px" : "160px",
                 objectFit: "contain"
               }} 
             />

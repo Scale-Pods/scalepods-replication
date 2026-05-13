@@ -364,7 +364,7 @@ export const MarketingShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "560px" : "420px") : "480px", 
+          height: isMobile ? (isPreviewOpen ? "560px" : "480px") : "480px", 
           perspective: "1200px",
           order: isMobile ? 2 : 1,
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
@@ -500,29 +500,31 @@ export const MarketingShowcase = () => {
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                       position: "absolute",
-                      top: "-30px",
-                      right: "30px",
-                      background: "rgba(10, 12, 16, 0.6)",
-                      padding: "16px 24px",
-                      borderRadius: "20px",
-                      border: `1px solid rgba(172, 215, 145, 0.35)`,
+                      top: isMobile ? "-20px" : "-30px",
+                      right: isMobile ? "20px" : "30px",
+                      background: "rgba(10, 12, 16, 0.7)",
+                      padding: isMobile ? "12px 20px" : "16px 24px",
+                      borderRadius: "16px",
+                      border: `1px solid rgba(172, 215, 145, 0.4)`,
                       boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
                       display: "flex",
                       alignItems: "center",
-                      gap: "14px",
-                      zIndex: 3,
-                      backdropFilter: "blur(24px)"
+                      gap: isMobile ? "10px" : "14px",
+                      zIndex: 10,
+                      backdropFilter: "blur(24px)",
+                      scale: isMobile ? 0.9 : 1,
+                      willChange: "transform, opacity"
                     }}
                   >
                     <div style={{ position: "relative" }}>
-                      <Zap size={18} color={C.green} />
+                      <Zap size={isMobile ? 14 : 18} color={C.green} />
                       <motion.div 
                         animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.8, 0.4] }}
                         transition={{ duration: 2, repeat: Infinity }}
                         style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", filter: "blur(8px)", zIndex: -1 }}
                       />
                     </div>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: C.txtBright }}>AI Creative Agent</span>
+                    <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>AI Creative Agent</span>
                   </motion.div>
                 </div>
               </motion.div>
