@@ -601,7 +601,7 @@ export function DataAnalysis() {
             transition: filter 0.3s ease;
           }
           .brand-logo-container:hover .brand-logo-img {
-            filter: var(--hover-filter, none) !important;
+            filter: brightness(1.2) drop-shadow(0 0 12px rgba(172, 215, 145, 0.5)) !important;
           }
         `}</style>
 
@@ -619,7 +619,7 @@ export function DataAnalysis() {
                 className="brand-logo-container"
                 style={{
                   mixBlendMode: brand.whiteBg ? "screen" : "normal",
-                  "--hover-filter": brand.isBlack ? "invert(1) brightness(200%)" : "none"
+                  "--hover-filter": "none"
                 } as React.CSSProperties}
               >
                 <img

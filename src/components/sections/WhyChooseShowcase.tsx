@@ -81,7 +81,7 @@ const LogoMarquee = () => {
             whileHover={{ 
               opacity: 1,
               scale: 1.1,
-              filter: `grayscale(0%) drop-shadow(0 0 8px ${C.green}44)`
+              filter: `grayscale(0%) brightness(1.2) drop-shadow(0 0 12px ${C.green}88)`
             }}
             whileTap={{
               opacity: 1,
