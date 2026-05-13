@@ -335,111 +335,112 @@ export const ImmersiveFeatures = () => {
           </div>
         </motion.div>
 
-        <style jsx>{`
-          .immersive-grid {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 60px;
-            align-items: center;
-          }
+      <style jsx>{`
+        .immersive-grid {
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          gap: 60px;
+          align-items: center;
+        }
 
-          .feature-card-refined:hover {
-            border-color: rgba(172, 215, 145, 0.4) !important;
-            background: rgba(172, 215, 145, 0.03) !important;
+        .feature-card-refined:hover {
+          border-color: rgba(172, 215, 145, 0.4) !important;
+          background: rgba(172, 215, 145, 0.03) !important;
+        }
+        .feature-card-refined:hover .card-arrow {
+          transform: translateX(4px);
+          opacity: 0.8 !important;
+        }
+        
+        /* MOBILE RESPONSIVE MASTER FIX (Max-width 1023px) */
+        @media (max-width: 1023px) {
+          #immersive-features {
+            padding: 100px 0 60px !important;
+            display: block !important;
           }
-          .feature-card-refined:hover .card-arrow {
-            transform: translateX(4px);
-            opacity: 0.8 !important;
+          .immersive-grid {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 48px !important;
+            align-items: center !important;
+            text-align: center !important;
+            width: 100% !important;
+          }
+          .content-left {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 0 20px !important;
+            order: 1 !important;
+          }
+          .heading-primary {
+            font-size: clamp(32px, 9vw, 42px) !important;
+            line-height: 1.15 !important;
+            margin-bottom: 20px !important;
+          }
+          .description-text {
+            font-size: 16px !important;
+            line-height: 1.6 !important;
+            margin-bottom: 32px !important;
+            max-width: 580px !important;
           }
           
-          /* MOBILE RESPONSIVE MASTER FIX (Max-width 1023px) */
-          @media (max-width: 1023px) {
-            #immersive-features {
-              padding: 100px 0 60px !important;
-            }
-            .immersive-grid {
-              display: flex !important;
-              flex-direction: column !important;
-              gap: 48px !important;
-              align-items: center !important;
-              text-align: center !important;
-              width: 100% !important;
-            }
-            .content-left {
-              width: 100% !important;
-              max-width: 100% !important;
-              display: flex !important;
-              flex-direction: column !important;
-              align-items: center !important;
-              padding: 0 20px !important;
-              order: 1 !important;
-            }
-            .heading-primary {
-              font-size: clamp(32px, 9vw, 42px) !important;
-              line-height: 1.15 !important;
-              margin-bottom: 20px !important;
-            }
-            .description-text {
-              font-size: 16px !important;
-              line-height: 1.6 !important;
-              margin-bottom: 32px !important;
-              max-width: 580px !important;
-            }
-            
-            .cards-container {
-              width: 100% !important;
-              max-width: 480px !important;
-              margin-bottom: 24px !important;
-              gap: 12px !important;
-              display: flex !important;
-              flex-direction: column !important;
-            }
-            .feature-card-refined {
-              padding: 16px 20px !important;
-              border-radius: 16px !important;
-            }
-            .cta-container {
-              width: 100% !important;
-              margin-top: 12px !important;
-              margin-bottom: 56px !important;
-              display: flex !important;
-              justify-content: center !important;
-              order: 2 !important;
-            }
-
-            .carousel-outer-wrap {
-              width: 100% !important;
-              margin-top: 0 !important;
-              padding: 0 10px !important; 
-              display: flex !important;
-              justify-content: center !important;
-              position: relative !important;
-              z-index: 1 !important;
-              order: 3 !important;
-            }
-            
-            .slider-responsive-container {
-              --slider-width: clamp(16rem, 75vw, 22rem) !important;
-              --slider-perspective: 35em !important; 
-              min-height: 400px !important;
-            }
+          .cards-container {
+            width: 100% !important;
+            max-width: 480px !important;
+            margin-bottom: 24px !important;
+            gap: 12px !important;
+            display: flex !important;
+            flex-direction: column !important;
+          }
+          .feature-card-refined {
+            padding: 16px 20px !important;
+            border-radius: 16px !important;
+          }
+          .cta-container {
+            width: 100% !important;
+            margin-top: 12px !important;
+            margin-bottom: 56px !important;
+            display: flex !important;
+            justify-content: center !important;
+            order: 2 !important;
           }
 
-          /* Narrow Screen Optimizations (320px - 430px) */
-          @media (max-width: 480px) {
-            #immersive-features {
-              padding: 80px 0 40px !important;
-            }
-            .heading-primary {
-              font-size: clamp(30px, 11vw, 36px) !important;
-            }
-            .slider-responsive-container {
-              --slider-width: 14.5rem !important;
-              --slider-perspective: 30em !important;
-              min-height: 360px !important;
-            }
+          .carousel-outer-wrap {
+            width: 100% !important;
+            margin-top: 0 !important;
+            padding: 0 10px !important; 
+            display: flex !important;
+            justify-content: center !important;
+            position: relative !important;
+            z-index: 1 !important;
+            order: 3 !important;
           }
-        `}</style>
+          
+          .slider-responsive-container {
+            --slider-width: clamp(16rem, 75vw, 22rem) !important;
+            --slider-perspective: 35em !important; 
+            min-height: 400px !important;
+          }
+        }
+
+        /* Narrow Screen Optimizations (320px - 430px) */
+        @media (max-width: 480px) {
+          #immersive-features {
+            padding: 80px 0 40px !important;
+          }
+          .heading-primary {
+            font-size: clamp(30px, 11vw, 36px) !important;
+          }
+          .slider-responsive-container {
+            --slider-width: 14.5rem !important;
+            --slider-perspective: 30em !important;
+            min-height: 360px !important;
+          }
+        }
+      `}</style>
       </motion.div>
     </section>
     );

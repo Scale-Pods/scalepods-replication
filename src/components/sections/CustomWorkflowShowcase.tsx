@@ -41,7 +41,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for mobile performance
+  blur: "blur(12px)", 
 };
 
 const features = [
@@ -142,13 +142,11 @@ export const CustomWorkflowShowcase = () => {
         }
         @media (max-width: 1023px) {
           .custom-section {
-            padding: 40px 16px 56px;
+            padding: 80px 16px 80px !important;
           }
         }
       `}</style>
-      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
-      
-      {/* Primary Flow Beam */}
+      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
         animate={isMobile ? { opacity: 0.04 } : { 
           x: [40, -40, 40],
@@ -181,15 +179,15 @@ export const CustomWorkflowShowcase = () => {
         transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="custom-showcase-grid">
         
-        {/* Right Side: Content (Order 2 on Desktop) */}
+        {/* Left Side: Content (Order 1 on Desktop & Mobile) */}
         <motion.div
-          initial={{ opacity: 0, x: isMobile ? -30 : 30 }}
+          initial={{ opacity: 0, x: isMobile ? -30 : -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ 
             position: "relative", 
-            order: isMobile ? 1 : 2,
+            order: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -253,7 +251,6 @@ export const CustomWorkflowShowcase = () => {
             </p>
           </div>
 
-          {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
@@ -360,13 +357,13 @@ export const CustomWorkflowShowcase = () => {
           </div>
         </motion.div>
 
-        {/* Left Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
+        {/* Right Side: High-Fidelity Interface Stack (Order 2 on Desktop & Mobile) */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
           height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
-          order: isMobile ? 2 : 1,
+          order: 2,
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
           overflow: "visible"
         }}>
@@ -385,7 +382,6 @@ export const CustomWorkflowShowcase = () => {
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
               >
-                {/* Main Glassmorphism Container */}
                 <div style={{
                   background: G.bg,
                   border: G.border,
@@ -397,7 +393,6 @@ export const CustomWorkflowShowcase = () => {
                   display: "flex",
                   flexDirection: "column"
                 }}>
-                  {/* Top Reflection Rim Light */}
                   <div style={{
                     position: "absolute",
                     top: 0, left: "20%", right: "20%",
@@ -406,7 +401,6 @@ export const CustomWorkflowShowcase = () => {
                     pointerEvents: "none"
                   }} />
 
-                  {/* Dashboard Header */}
                   <div style={{ 
                     display: "flex", 
                     justifyContent: "space-between", 
@@ -427,7 +421,6 @@ export const CustomWorkflowShowcase = () => {
                     </div>
                   </div>
 
-                  {/* Integration Status Visual */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
                     {[
                       { type: "Custom ERP Bridge", target: "SAP / Oracle", status: "Connected", health: "100%" },
@@ -469,7 +462,6 @@ export const CustomWorkflowShowcase = () => {
                     ))}
                   </div>
 
-                  {/* Flow Velocity Placeholder */}
                   <div style={{ 
                     padding: "20px", 
                     background: "rgba(172, 215, 145, 0.03)", 
@@ -495,7 +487,6 @@ export const CustomWorkflowShowcase = () => {
                     </div>
                   </div>
 
-                  {/* Floating Element: Custom Logic Pulse */}
                   <motion.div 
                     animate={{ rotate: [0, -5, 0], y: [0, -10, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -568,7 +559,8 @@ export const CustomWorkflowShowcase = () => {
         }
         @media (max-width: 1023px) {
           .custom-showcase-grid {
-            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
             gap: 60px !important;
             text-align: center;
           }

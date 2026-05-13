@@ -3,19 +3,20 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
-  BarChart3, 
-  Workflow, 
   Settings, 
+  Workflow, 
+  Database, 
+  Activity, 
   CheckCircle2, 
   ArrowRight, 
-  Zap,
+  Sparkles,
   Layers,
-  Cpu,
-  MessageSquare,
-  Mail,
+  Zap,
+  Layout,
   Download,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Cpu
 } from "lucide-react";
 import DownloadModal from "@/components/ui/DownloadModal";
 import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
@@ -41,81 +42,81 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for mobile performance
+  blur: "blur(12px)", 
 };
 
 const features = [
   { 
-    title: "Omnichannel Hub", 
-    desc: "Unified control of WhatsApp, Email, and CRM communications.",
-    icon: <MessageSquare size={16} /> 
-  },
-  { 
-    title: "AI Triage System", 
-    desc: "Automated intent recognition and priority-based routing.",
+    title: "Autonomous Fulfillment", 
+    desc: "End-to-end order processing and inventory management.",
     icon: <Cpu size={16} /> 
   },
   { 
-    title: "Order Flow Control", 
-    desc: "Autonomous management of fulfillment and logistics pipelines.",
+    title: "Cross-Stack Syncing", 
+    desc: "Real-time data synchronization between your legacy ERP and CRM.",
+    icon: <Database size={16} /> 
+  },
+  { 
+    title: "Dynamic Triage", 
+    desc: "Automated issue detection and intelligent routing for rapid resolution.",
     icon: <Workflow size={16} /> 
   },
   { 
-    title: "Real-time Monitoring", 
-    desc: "Live visibility into operational velocity and bottleneck detection.",
-    icon: <BarChart3 size={16} /> 
+    title: "Health Monitoring", 
+    desc: "Live visibility into all automated operational pipelines.",
+    icon: <Activity size={16} /> 
   },
 ];
 
 const opsCarouselImages = [
   { 
     id: 1, 
-    title: "Omnichannel Command", 
-    description: "Sync WhatsApp, Email, and CRM in real-time.",
+    title: "Operations Dashboard", 
+    description: "Centralized command center for all business logic.",
     imageUrl: "/images/showcase/ops/ops-1.png", 
-    category: "UNIFIED COMMS"
+    category: "OPERATIONS INTELLIGENCE"
   },
   { 
     id: 2, 
-    title: "Supply Chain Sync", 
-    description: "Automated logistics and fulfillment tracking.",
+    title: "Workflow Orchestration", 
+    description: "Manage complex cross-departmental automation.",
     imageUrl: "/images/showcase/ops/ops-2.png",
-    category: "LOGISTICS ENGINE"
+    category: "SYSTEM ARCHITECTURE"
   },
   { 
     id: 3, 
-    title: "Support Triage", 
-    description: "AI intent routing for customer queries.",
+    title: "Resource Allocation", 
+    description: "AI-driven inventory and workforce optimization.",
     imageUrl: "/images/showcase/ops/ops-3.png",
-    category: "ROUTING INTELLIGENCE"
+    category: "SUPPLY CHAIN"
   },
   { 
     id: 4, 
-    title: "Warehouse Control", 
-    description: "Autonomous inventory and stock management.",
+    title: "Autonomous Triage", 
+    description: "Self-healing operational pipelines and error handling.",
     imageUrl: "/images/showcase/ops/ops-4.png",
-    category: "INVENTORY OPS"
+    category: "REVENUE OPS"
   },
   { 
     id: 5, 
-    title: "Pipeline Dashboard", 
-    description: "End-to-end operational visibility.",
+    title: "Data Integrity Center", 
+    description: "Maintain perfect synchronization across your tech stack.",
     imageUrl: "/images/showcase/ops/ops-5.png",
-    category: "STRATEGIC OPS"
+    category: "DATA INFRASTRUCTURE"
   },
   { 
     id: 6, 
-    title: "Order Automation", 
-    description: "Manage 10,000+ orders with zero manual touch.",
+    title: "Scaling Engine", 
+    description: "Infrastructure that adapts to operational load dynamically.",
     imageUrl: "/images/showcase/ops/ops-6.png",
-    category: "FULFILLMENT POD"
+    category: "GROWTH SYSTEMS"
   },
   { 
     id: 7, 
-    title: "Integrations Layer", 
-    description: "Connect 2000+ apps into one operational DNA.",
+    title: "Strategic Overview", 
+    description: "High-level operational performance and health metrics.",
     imageUrl: "/images/showcase/ops/ops-7.png",
-    category: "INFRASTRUCTURE"
+    category: "LEADERSHIP"
   },
 ];
 
@@ -142,26 +143,24 @@ export const OpsShowcase = () => {
         }
         @media (max-width: 1023px) {
           .ops-section {
-            padding: 40px 16px 56px;
+            padding: 80px 16px 80px !important;
           }
         }
       `}</style>
-      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
-      
-      {/* Primary Flow Beam */}
+      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
         animate={isMobile ? { opacity: 0.04 } : { 
           x: [-40, 40, -40],
           opacity: [0.04, 0.08, 0.04]
         }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
           top: "-30%",
           left: "-10%",
           width: "100%",
           height: "160%",
-          background: `linear-gradient(135deg, transparent 20%, ${C.blue}20 50%, transparent 80%)`,
+          background: `linear-gradient(135deg, transparent 20%, ${C.blue}15 50%, transparent 80%)`,
           filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
@@ -181,7 +180,7 @@ export const OpsShowcase = () => {
         transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="ops-showcase-grid">
         
-        {/* Left Side: Content */}
+        {/* Left Side: Content (Order 1 on Desktop & Mobile) */}
         <motion.div
           initial={{ opacity: 0, x: isMobile ? -30 : -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -214,7 +213,7 @@ export const OpsShowcase = () => {
               textTransform: "uppercase", 
               letterSpacing: "0.1em" 
             }}>
-              Operations Efficiency
+              Operational Excellence
             </span>
           </div>
 
@@ -238,7 +237,7 @@ export const OpsShowcase = () => {
               marginBottom: "8px",
               opacity: 0.95
             }}>
-              24/7 autonomous management for your entire logistics and order engine.
+              Engineer your business for autonomous high-performance.
             </p>
             <p style={{
               fontSize: "14px",
@@ -246,14 +245,13 @@ export const OpsShowcase = () => {
               lineHeight: 1.6,
               opacity: 0.8
             }}>
-              ScalePods transforms complex operations into streamlined AI-driven pipelines. 
-              Our pods manage everything from omnichannel customer triage to multi-step 
-              fulfillment, ensuring <span style={{ color: C.blue, fontWeight: 700 }}> total process reliability </span> 
-              without human bottlenecking.
+              ScalePods transforms your day-to-day operations into a self-healing, 
+              fully automated system. We eliminate manual fulfillment bottlenecks and 
+              administrative friction, allowing your core team to focus on <span style={{ color: C.blue, fontWeight: 700 }}> high-impact strategic growth </span> 
+              while the pods handle the rest.
             </p>
           </div>
 
-          {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
@@ -326,7 +324,7 @@ export const OpsShowcase = () => {
               }}
               className="ops-cta"
             >
-              Download Workflow Guide <Download size={18} />
+              Download Operations Guide <Download size={18} />
             </button>
 
             <motion.button
@@ -360,13 +358,13 @@ export const OpsShowcase = () => {
           </div>
         </motion.div>
 
-        {/* Right Side: High-Fidelity Interface Stack */}
+        {/* Right Side: High-Fidelity Interface Stack (Order 2 on Desktop & Mobile) */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
           height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
-          order: isMobile ? 2 : 2,
+          order: 2,
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
           overflow: "visible"
         }}>
@@ -385,7 +383,6 @@ export const OpsShowcase = () => {
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
               >
-                {/* Main Glassmorphism Container */}
                 <div style={{
                   background: G.bg,
                   border: G.border,
@@ -397,7 +394,6 @@ export const OpsShowcase = () => {
                   display: "flex",
                   flexDirection: "column"
                 }}>
-                  {/* Top Reflection Rim Light */}
                   <div style={{
                     position: "absolute",
                     top: 0, left: "20%", right: "20%",
@@ -406,7 +402,6 @@ export const OpsShowcase = () => {
                     pointerEvents: "none"
                   }} />
 
-                  {/* Dashboard Header */}
                   <div style={{ 
                     display: "flex", 
                     justifyContent: "space-between", 
@@ -414,25 +409,24 @@ export const OpsShowcase = () => {
                     marginBottom: "32px"
                   }}>
                     <div>
-                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Ops Intelligence</h3>
+                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Operations Hub</h3>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
                         <div style={{ width: "6px", height: "6px", background: C.blue, borderRadius: "50%", boxShadow: `0 0 10px ${C.blue}` }} />
-                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Pod Status: 100% Autonomous</p>
+                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Pod Status: Live Syncing</p>
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "10px" }}>
                       <div style={{ background: "rgba(109, 182, 255, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.blue}22` }}>
-                        <span style={{ color: C.blue, fontSize: "11px", fontWeight: 700 }}>v3.4 Activated</span>
+                        <span style={{ color: C.blue, fontSize: "11px", fontWeight: 700 }}>99.9% Efficiency</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Order Pipeline Visual */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
                     {[
-                      { channel: "WhatsApp", action: "Order Triage", status: "Processed", time: "2s ago" },
-                      { channel: "Email", action: "Refund Intent", status: "Routing", time: "Just now" },
-                      { channel: "System", action: "Stock Balancing", status: "Syncing", time: "5s ago" },
+                      { type: "Order #8492", status: "Processed", label: "Autonomous Fulfillment" },
+                      { type: "Inventory Sync", status: "Active", label: "ERP Integration" },
+                      { type: "Support Triage", status: "Routed", label: "Intelligent Routing" },
                     ].map((item, i) => (
                       <div key={i} style={{ 
                         display: "flex", 
@@ -449,41 +443,40 @@ export const OpsShowcase = () => {
                             width: "32px", 
                             height: "32px", 
                             borderRadius: "8px", 
-                            background: item.channel === "WhatsApp" ? "rgba(37, 211, 102, 0.1)" : "rgba(109, 182, 255, 0.1)", 
+                            background: "rgba(109, 182, 255, 0.1)", 
                             display: "flex", 
                             alignItems: "center", 
                             justifyContent: "center" 
                           }}>
-                            {item.channel === "WhatsApp" ? <MessageSquare size={14} color="#25D366" /> : <Mail size={14} color={C.blue} />}
+                            <Workflow size={14} color={C.blue} />
                           </div>
                           <div>
-                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.action}</div>
-                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>Source: {item.channel}</div>
+                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.type}</div>
+                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{item.label}</div>
                           </div>
                         </div>
                         <div style={{ textAlign: "right" }}>
                           <div style={{ fontSize: "10px", fontWeight: 700, color: C.green, textTransform: "uppercase" }}>{item.status}</div>
-                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>{item.time}</div>
+                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>Real-time</div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Performance Velocity Placeholder */}
                   <div style={{ 
                     padding: "20px", 
-                    background: "rgba(172, 215, 145, 0.03)", 
+                    background: "rgba(109, 182, 255, 0.03)", 
                     borderRadius: "20px", 
-                    border: "1px solid rgba(172, 215, 145, 0.1)",
+                    border: "1px solid rgba(109, 182, 255, 0.1)",
                     position: "relative",
                     overflow: "hidden"
                   }}>
                     <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Operational Velocity</span>
-                      <Zap size={14} color={C.green} />
+                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Operational Flux</span>
+                      <Activity size={14} color={C.blue} />
                     </div>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "40px" }}>
-                      {[40, 60, 45, 80, 70, 95, 100].map((h, i) => (
+                      {[40, 30, 50, 70, 60, 85, 95].map((h, i) => (
                         <motion.div 
                           key={i}
                           initial={{ height: 0 }}
@@ -495,35 +488,33 @@ export const OpsShowcase = () => {
                     </div>
                   </div>
 
-                  {/* Floating Element: AI Routing Badge */}
                   <motion.div 
                     animate={{ x: [0, 10, 0], y: [0, -10, 0] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                       position: "absolute",
-                      bottom: isMobile ? "10px" : "-30px",
-                      right: isMobile ? "10px" : "40px",
+                      bottom: isMobile ? "0px" : "-30px",
+                      right: isMobile ? "20px" : "40px",
                       background: "rgba(10, 12, 16, 0.7)",
-                      padding: isMobile ? "10px 16px" : "16px 24px",
+                      padding: isMobile ? "12px 18px" : "16px 24px",
                       borderRadius: "16px",
-                      border: `1px solid rgba(172, 215, 145, 0.35)`,
-                      boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
+                      border: `1px solid rgba(109, 182, 255, 0.35)`,
+                      boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(109, 182, 255, 0.05)`,
                       display: "flex",
                       alignItems: "center",
-                      gap: isMobile ? "8px" : "14px",
+                      gap: isMobile ? "10px" : "14px",
                       zIndex: 10,
                       backdropFilter: "blur(24px)",
-                      scale: isMobile ? 0.85 : 1,
-                      transformOrigin: "bottom right",
+                      scale: isMobile ? 0.9 : 1,
                       willChange: "transform, opacity"
                     }}
                   >
                     <div style={{ position: "relative" }}>
-                      <Cpu size={isMobile ? 14 : 18} color={C.green} />
+                      <Sparkles size={isMobile ? 14 : 18} color={C.blue} />
                       <motion.div 
                         animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
                         transition={{ duration: 2.5, repeat: Infinity }}
-                        style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
+                        style={{ position: "absolute", inset: -4, background: C.blue, borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
                       />
                     </div>
                     <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>Routing Active</span>
@@ -569,7 +560,8 @@ export const OpsShowcase = () => {
         }
         @media (max-width: 1023px) {
           .ops-showcase-grid {
-            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
             gap: 60px !important;
             text-align: center;
           }

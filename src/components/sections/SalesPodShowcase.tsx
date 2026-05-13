@@ -3,23 +3,24 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
-  Zap, 
+  BarChart3, 
   Target, 
-  TrendingUp, 
-  MessageSquare, 
+  Globe, 
+  MousePointer2, 
   CheckCircle2, 
   ArrowRight, 
-  PieChart, 
-  Activity,
+  Sparkles,
+  Layers,
+  Zap,
+  Layout,
   Download,
-  Eye,
   ChevronDown,
   ChevronUp
 } from "lucide-react";
-import { AnimatePresence } from "framer-motion";
-import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
-import { useMobile } from "@/lib/hooks";
 import DownloadModal from "@/components/ui/DownloadModal";
+import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
+import { AnimatePresence } from "framer-motion";
+import { useMobile } from "@/lib/hooks";
 
 const C = {
   green: "#ACD791",
@@ -28,8 +29,7 @@ const C = {
   txtBright: "#E4E9F2",
   txtBody: "#B8C7D9",
   border: "rgba(255,255,255,0.08)",
-  bgCard: "rgba(8, 10, 14, 0.75)",
-  bgInput: "rgba(255, 255, 255, 0.03)",
+  bgCard: "rgba(255, 255, 255, 0.02)",
 };
 
 const F = {
@@ -41,66 +41,85 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for mobile performance
+  blur: "blur(12px)", 
 };
 
 const features = [
   { 
     title: "AI Lead Sourcing", 
-    desc: "Real-time extraction & verification of ICP-aligned leads.",
+    desc: "Autonomous identification of high-intent prospects across global databases.",
     icon: <Target size={16} /> 
   },
   { 
-    title: "Multi-Channel Outreach", 
-    desc: "Personalized Email, WhatsApp & Voice at scale.",
-    icon: <MessageSquare size={16} /> 
+    title: "Hyper-Personalization", 
+    desc: "AI-generated outreach tailored to each prospect's specific pain points.",
+    icon: <Sparkles size={16} /> 
   },
   { 
-    title: "Intelligent CRM Sync", 
-    desc: "Zero manual data entry. Auto-updates based on intent.",
-    icon: <Activity size={16} /> 
+    title: "Omnichannel Hub", 
+    desc: "Unified execution across LinkedIn, Email, and direct voice automation.",
+    icon: <Globe size={16} /> 
   },
   { 
-    title: "Meeting Booking Engine", 
-    desc: "Automated follow-ups that lead to booked calendar events.",
-    icon: <TrendingUp size={16} /> 
+    title: "Revenue Analytics", 
+    desc: "Real-time visibility into pipeline health and conversion velocity.",
+    icon: <BarChart3 size={16} /> 
   },
 ];
-
-const StatIconSize = 14;
 
 const salesCarouselImages = [
   { 
     id: 1, 
-    title: "Lead Pipeline Dashboard", 
-    description: "Real-time AI lead qualification workflow.",
-    imageUrl: "/images/showcase/sales/Sales tool 1.png" 
+    title: "Sales Intelligence Hub", 
+    description: "Real-time prospect intent and behavioral tracking.",
+    imageUrl: "/images/showcase/sales/sales-1.png", 
+    category: "PIPELINE OPS"
   },
   { 
     id: 2, 
-    title: "Outreach Automation", 
-    description: "Automated multi-channel outreach & intent tracking.",
-    imageUrl: "/images/showcase/sales/Sales tool 2.png" 
+    title: "Outreach Orchestrator", 
+    description: "Manage multi-channel automated sales sequences.",
+    imageUrl: "/images/showcase/sales/sales-2.png",
+    category: "CAMPAIGN ENGINE"
   },
   { 
     id: 3, 
-    title: "AI Intent Recognition", 
-    description: "High-precision lead scoring based on interaction signals.",
-    imageUrl: "/images/showcase/sales/Sales tool 3.png" 
+    title: "Conversion Analytics", 
+    description: "Deep-dive ROI and funnel performance metrics.",
+    imageUrl: "/images/showcase/sales/sales-3.png",
+    category: "REVENUE GROWTH"
   },
   { 
     id: 4, 
-    title: "Campaign Orchestrator", 
-    description: "Centralized control for global sales automation.",
-    imageUrl: "/images/showcase/sales/Sales tool 4.png" 
+    title: "Lead Scoring Center", 
+    description: "AI-driven lead prioritization and routing.",
+    imageUrl: "/images/showcase/sales/sales-4.png",
+    category: "GROWTH ARCHITECTURE"
   },
   { 
     id: 5, 
-    title: "Revenue Intelligence", 
-    description: "Performance metrics and ROI projection engine.",
-    imageUrl: "/images/showcase/sales/Sales tool 5.png" 
+    title: "Agent Performance", 
+    description: "Monitor AI agent efficacy and meeting volume.",
+    imageUrl: "/images/showcase/sales/sales-5.png",
+    category: "SALES OPS"
+  },
+  { 
+    id: 6, 
+    title: "Deal Flow Monitor", 
+    description: "End-to-end visualization of the sales lifecycle.",
+    imageUrl: "/images/showcase/sales/sales-6.png",
+    category: "INFRASTRUCTURE"
+  },
+  { 
+    id: 7, 
+    title: "Strategic Dashboard", 
+    description: "High-level revenue forecasting and growth planning.",
+    imageUrl: "/images/showcase/sales/sales-7.png",
+    category: "LEADERSHIP"
   },
 ];
+
+const StatIconSize = 14;
 
 export const SalesPodShowcase = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -109,7 +128,7 @@ export const SalesPodShowcase = () => {
   return (
     <section 
       id="sales-pod-showcase"
-      className="sales-pod-section"
+      className="salespod-section"
       style={{ 
         position: "relative",
         overflow: "visible",
@@ -118,41 +137,41 @@ export const SalesPodShowcase = () => {
       }}
     >
       <style jsx>{`
-        .sales-pod-section {
+        .salespod-section {
           padding: 64px 32px 72px;
         }
         @media (max-width: 1023px) {
-          .sales-pod-section {
-            padding: 40px 16px 56px;
+          .salespod-section {
+            padding: 40px 16px 80px !important;
           }
         }
       `}</style>
       {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
         animate={isMobile ? { opacity: 0.04 } : { 
-          x: [-30, 30, -30],
+          x: [-40, 40, -40],
           opacity: [0.04, 0.08, 0.04]
         }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
           top: "-30%",
-          left: "5%",
-          width: "90%",
+          left: "-10%",
+          width: "100%",
           height: "160%",
-          background: `linear-gradient(115deg, transparent 15%, ${C.green}25 50%, transparent 85%)`,
+          background: `linear-gradient(135deg, transparent 20%, ${C.green}15 50%, transparent 80%)`,
           filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
-          transform: "rotate(-12deg)"
+          transform: "rotate(-10deg)"
         }} 
       />
 
       <div style={{
-        maxWidth: "1240px",
+        maxWidth: "1280px",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1.2fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1.3fr 1fr",
         gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", 
         alignItems: "center",
         position: "relative",
@@ -160,20 +179,21 @@ export const SalesPodShowcase = () => {
         transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="salespod-grid">
         
-        {/* Left Side: Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ 
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center"
-            }}
-          >
+        {/* Left Side: Content (Order 1 on Desktop & Mobile) */}
+        <motion.div
+          initial={{ opacity: 0, x: isMobile ? -30 : -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ 
+            position: "relative", 
+            order: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center"
+          }}
+        >
           <div style={{
             display: "inline-flex",
             alignItems: "center",
@@ -184,7 +204,7 @@ export const SalesPodShowcase = () => {
             borderRadius: "100px",
             marginBottom: "20px"
           }}>
-            <Zap size={10} color={C.green} />
+            <Target size={10} color={C.green} />
             <span style={{ 
               color: C.green, 
               fontSize: "10px", 
@@ -192,7 +212,7 @@ export const SalesPodShowcase = () => {
               textTransform: "uppercase", 
               letterSpacing: "0.1em" 
             }}>
-              Sales Intelligence
+              Revenue Intelligence
             </span>
           </div>
 
@@ -205,7 +225,7 @@ export const SalesPodShowcase = () => {
             marginBottom: "12px",
             letterSpacing: "-0.05em"
           }}>
-            Sales Workflow <span style={{ fontFamily: F.accent, fontStyle: "italic", fontWeight: 400, color: C.green }}>Automation Pod</span>
+            Sales & Outreach <span style={{ fontFamily: F.accent, fontStyle: "italic", fontWeight: 400, color: C.green }}>Workflow Pod</span>
           </h2>
 
           <div style={{ marginBottom: "24px" }}>
@@ -216,7 +236,7 @@ export const SalesPodShowcase = () => {
               marginBottom: "8px",
               opacity: 0.95
             }}>
-              Stop the manual grind. Start scaling revenue.
+              Fill your calendar with high-intent prospects, automatically.
             </p>
             <p style={{
               fontSize: "14px",
@@ -224,19 +244,20 @@ export const SalesPodShowcase = () => {
               lineHeight: 1.6,
               opacity: 0.8
             }}>
-              SalesPod automates the entire top-of-funnel—from sourcing to meeting booking—delivering 
-              <span style={{ color: C.green, fontWeight: 700 }}> 3x more pipeline </span> with zero sales overhead.
+              ScalePods automates your entire top-of-funnel. From scraping deep prospect 
+              data to executing hyper-personalized multi-channel sequences, our AI pods 
+              ensure <span style={{ color: C.green, fontWeight: 700 }}> maximum pipeline velocity </span> 
+              without expanding your headcount.
             </p>
           </div>
 
-          {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
             gap: "20px",
             marginBottom: "32px",
             width: "100%",
-            textAlign: isMobile ? "center" : "left" 
+            textAlign: isMobile ? "center" : "left"
           }}>
             {features.map((feat, i) => (
               <div key={i} style={{ 
@@ -302,7 +323,7 @@ export const SalesPodShowcase = () => {
               }}
               className="salespod-cta"
             >
-              Download Feature Guide <Download size={18} />
+              Download Sales Guide <Download size={18} />
             </button>
 
             <motion.button
@@ -336,12 +357,13 @@ export const SalesPodShowcase = () => {
           </div>
         </motion.div>
 
+        {/* Right Side: High-Fidelity Interface Stack (Order 2 on Desktop & Mobile) */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
           height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
           perspective: "1200px",
-          order: isMobile ? 2 : 1,
+          order: 2,
           transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
           overflow: "visible"
         }}>
@@ -350,12 +372,7 @@ export const SalesPodShowcase = () => {
               <motion.div
                 key="dashboard-layer"
                 initial={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1, 
-                  filter: "blur(0px)",
-                  zIndex: 2
-                }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)", zIndex: 2 }}
                 exit={{ 
                   opacity: 0, 
                   scale: 0.98, 
@@ -363,14 +380,8 @@ export const SalesPodShowcase = () => {
                   transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] }
                 }}
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                style={{ 
-                  position: "absolute", 
-                  inset: 0, 
-                  width: "100%", 
-                  height: "100%" 
-                }}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
               >
-                {/* Main Glassmorphism Dashboard Container */}
                 <div style={{
                   background: G.bg,
                   border: G.border,
@@ -382,16 +393,14 @@ export const SalesPodShowcase = () => {
                   display: "flex",
                   flexDirection: "column"
                 }}>
-                  {/* Top Reflection Rim Light */}
                   <div style={{
                     position: "absolute",
-                    top: 0, left: "10%", right: "10%",
+                    top: 0, left: "20%", right: "20%",
                     height: "1px",
                     background: `linear-gradient(90deg, transparent, rgba(172, 215, 145, 0.3), transparent)`,
                     pointerEvents: "none"
                   }} />
 
-                  {/* Mock Header */}
                   <div style={{ 
                     display: "flex", 
                     justifyContent: "space-between", 
@@ -399,132 +408,115 @@ export const SalesPodShowcase = () => {
                     marginBottom: "32px"
                   }}>
                     <div>
-                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0, letterSpacing: "-0.01em" }}>Active Pipeline</h3>
+                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Sales Hub</h3>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
                         <div style={{ width: "6px", height: "6px", background: C.green, borderRadius: "50%", boxShadow: `0 0 10px ${C.green}` }} />
-                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>AI Engine: Monitoring...</p>
+                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Pod Status: Live Syncing</p>
                       </div>
                     </div>
-                    <div style={{ display: "flex", gap: "12px" }}>
-                      <div style={{ 
-                        padding: "8px 18px", 
-                        background: "rgba(109, 182, 255, 0.08)", 
-                        borderRadius: "100px", 
-                        border: "1px solid rgba(109, 182, 255, 0.15)",
-                        backdropFilter: "blur(10px)"
-                      }}>
-                        <span style={{ color: C.blue, fontSize: "12px", fontWeight: 700 }}>24 New Leads</span>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <div style={{ background: "rgba(172, 215, 145, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.green}22` }}>
+                        <span style={{ color: C.green, fontSize: "11px", fontWeight: 700 }}>98.2% Accuracy</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Mock Stats Grid */}
-                  <div style={{ 
-                    display: "grid", 
-                    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", 
-                    gap: isMobile ? "12px" : "16px", 
-                    marginBottom: isMobile ? "24px" : "32px" 
-                  }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
                     {[
-                      { label: "Booked", value: "84", icon: <CheckCircle2 size={StatIconSize} color={C.green} /> },
-                      { label: "Outreach", value: "2.4k", icon: <Activity size={StatIconSize} color={C.blue} /> },
-                      { label: "Conv.", value: "18.4%", icon: <PieChart size={StatIconSize} color={C.green} /> },
-                    ].map((stat, i) => (
-                      <motion.div 
-                        key={i} 
-                        whileHover={{ y: -2, background: "rgba(255,255,255,0.04)" }}
-                        style={{ 
-                          background: "rgba(255,255,255,0.02)", 
-                          padding: isMobile ? "12px" : "18px", 
-                          borderRadius: "16px",
-                          border: "1px solid rgba(255,255,255,0.06)",
-                          backdropFilter: "blur(8px)",
-                          transition: "all 0.3s ease"
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px", opacity: 0.6 }}>
-                          {stat.icon}
-                          <span style={{ fontSize: "10px", fontWeight: 600, color: C.txtBright, textTransform: "uppercase", letterSpacing: "0.05em" }}>{stat.label}</span>
-                        </div>
-                        <div style={{ fontSize: "24px", fontWeight: 800, color: C.txtBright }}>{stat.value}</div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Mock Lead Activity */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                    {[
-                      { name: "John D.", action: "WhatsApp AI Reply", time: "2m ago", status: "Hot Lead" },
-                      { name: "Sarah K.", action: "Invite Accepted", time: "15m ago", status: "Booked" },
-                      { name: "Mike R.", action: "AI Intent Captured", time: "1h ago", status: "Qualified" },
-                    ].map((activity, i) => (
+                      { type: "LinkedIn Outreach", prospect: "Sarah Jenkins", status: "Personalized", action: "LinkedIn" },
+                      { type: "Email Campaign", prospect: "Mark Thompson", status: "Sent", action: "Email" },
+                      { type: "Lead Scraper", prospect: "Target List A", status: "Scraping", action: "Database" },
+                    ].map((item, i) => (
                       <div key={i} style={{ 
                         display: "flex", 
                         alignItems: "center", 
                         justifyContent: "space-between",
                         padding: "14px 20px",
                         background: "rgba(255,255,255,0.015)",
-                        borderRadius: "14px",
+                        borderRadius: "16px",
                         border: "1px solid rgba(255,255,255,0.04)",
-                        backdropFilter: "blur(4px)",
-                        position: "relative"
+                        backdropFilter: "blur(4px)"
                       }}>
-                        <div style={{ 
-                          position: "absolute", 
-                          left: 0, top: "25%", bottom: "25%", 
-                          width: "2px", 
-                          background: activity.status === "Booked" ? C.green : C.blue,
-                          borderRadius: "0 4px 4px 0",
-                          boxShadow: `0 0 15px ${activity.status === "Booked" ? C.green : C.blue}66`
-                        }} />
                         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                          <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "rgba(255,255,255,0.05)", border: `1px solid ${C.border}` }} />
+                          <div style={{ 
+                            width: "32px", 
+                            height: "32px", 
+                            borderRadius: "8px", 
+                            background: "rgba(109, 182, 255, 0.1)", 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "center" 
+                          }}>
+                            {item.action === "LinkedIn" ? <Sparkles size={14} color={C.blue} /> : <Zap size={14} color={C.blue} />}
+                          </div>
                           <div>
-                            <div style={{ fontSize: "14px", fontWeight: 600, color: C.txtBright }}>{activity.name}</div>
-                            <div style={{ fontSize: "12px", color: C.txtBody, opacity: 0.6 }}>{activity.action}</div>
+                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.type}</div>
+                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{item.prospect}</div>
                           </div>
                         </div>
                         <div style={{ textAlign: "right" }}>
-                          <div style={{ fontSize: "11px", fontWeight: 700, color: activity.status === "Booked" ? C.green : C.blue, textTransform: "uppercase", letterSpacing: "0.02em" }}>{activity.status}</div>
-                          <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.4 }}>{activity.time}</div>
+                          <div style={{ fontSize: "10px", fontWeight: 700, color: C.green, textTransform: "uppercase" }}>{item.status}</div>
+                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>Real-time</div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Floating Element: AI Pulse */}
+                  <div style={{ 
+                    padding: "20px", 
+                    background: "rgba(109, 182, 255, 0.03)", 
+                    borderRadius: "20px", 
+                    border: "1px solid rgba(109, 182, 255, 0.1)",
+                    position: "relative",
+                    overflow: "hidden"
+                  }}>
+                    <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Pipeline Flux</span>
+                      <BarChart3 size={14} color={C.blue} />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "40px" }}>
+                      {[30, 45, 60, 40, 70, 85, 95].map((h, i) => (
+                        <motion.div 
+                          key={i}
+                          initial={{ height: 0 }}
+                          whileInView={{ height: `${h}%` }}
+                          transition={{ delay: i * 0.1, duration: 1 }}
+                          style={{ flex: 1, background: C.blue, borderRadius: "2px", opacity: i === 6 ? 1 : 0.4 }} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+
                   <motion.div 
-                    animate={{ y: [0, -10, 0] }}
+                    animate={{ rotate: [0, 5, 0], y: [0, -10, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                       position: "absolute",
-                      top: "-30px",
-                      right: isMobile ? "0px" : "-12px",
+                      bottom: isMobile ? "0px" : "-30px",
+                      right: isMobile ? "20px" : "40px",
                       background: "rgba(10, 12, 16, 0.7)",
-                      padding: "16px 24px",
-                      borderRadius: "20px",
-                      border: `1px solid rgba(172, 215, 145, 0.4)`,
+                      padding: isMobile ? "12px 18px" : "16px 24px",
+                      borderRadius: "16px",
+                      border: `1px solid rgba(172, 215, 145, 0.35)`,
                       boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
                       display: "flex",
                       alignItems: "center",
-                      gap: "14px",
+                      gap: isMobile ? "10px" : "14px",
                       zIndex: 10,
                       backdropFilter: "blur(24px)",
                       scale: isMobile ? 0.9 : 1,
                       willChange: "transform, opacity"
                     }}
                   >
-                    <motion.div 
-                      animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      style={{ 
-                        width: "10px", 
-                        height: "10px", 
-                        background: C.green, 
-                        borderRadius: "50%",
-                        boxShadow: `0 0 12px ${C.green}`
-                      }} />
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: C.txtBright, letterSpacing: "0.02em" }}>AI Agent Scaling...</span>
+                    <div style={{ position: "relative" }}>
+                      <Sparkles size={isMobile ? 14 : 18} color={C.green} />
+                      <motion.div 
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
+                        transition={{ duration: 2.5, repeat: Infinity }}
+                        style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
+                      />
+                    </div>
+                    <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>AI Outreach Active</span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -533,57 +525,30 @@ export const SalesPodShowcase = () => {
                 key="preview-layer"
                 initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ 
-                  opacity: 0, 
-                  scale: 0.96, 
-                  filter: "blur(8px)",
-                  transition: { duration: 0.4 }
-                }}
+                exit={{ opacity: 0, scale: 0.96, filter: "blur(8px)", transition: { duration: 0.4 } }}
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
                 style={{ 
-                  position: "absolute", 
-                  inset: 0, 
-                  width: "100%", 
-                  height: "100%",
-                  zIndex: 5,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center"
+                  position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 5,
+                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
                 }}
               >
                 <div style={{ 
-                  width: "100%", 
-                  height: "100%", 
-                  position: "relative",
-                  overflow: "visible", 
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center"
+                  width: "100%", height: "100%", position: "relative", overflow: "visible",
+                  display: "flex", alignItems: "center", justifyContent: "center"
                 }}>
-                  <ThreeDCarousel 
-                    items={salesCarouselImages} 
-                    autoRotate={true} 
-                    tightLayout={true}
-                    cardScale={1.1}
-                  />
+                  <ThreeDCarousel items={salesCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />
                 </div>
                 <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                   style={{
-                    position: "absolute",
-                    inset: "-60px",
-                    background: `radial-gradient(circle at center, ${C.green}15 0%, transparent 70%)`,
-                    zIndex: -1,
-                    pointerEvents: "none"
+                    position: "absolute", inset: "-60px", background: `radial-gradient(circle at center, ${C.green}15 0%, transparent 70%)`,
+                    zIndex: -1, pointerEvents: "none"
                   }} 
                 />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-
       </div>
 
       <style jsx>{`
@@ -592,13 +557,10 @@ export const SalesPodShowcase = () => {
           box-shadow: 0 12px 30px rgba(172, 215, 145, 0.3);
           background: #C1E9A7 !important;
         }
-        .explore-trigger:hover {
-          background: rgba(172, 215, 145, 0.15) !important;
-          box-shadow: 0 0 20px rgba(172, 215, 145, 0.1);
-        }
         @media (max-width: 1023px) {
           .salespod-grid {
-            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
             gap: 60px !important;
             text-align: center;
           }
@@ -610,13 +572,14 @@ export const SalesPodShowcase = () => {
           }
         }
       `}</style>
-    <DownloadModal 
-      isOpen={isModalOpen} 
-      onClose={() => setIsModalOpen(false)}
-      zipFile="/downloads/sales-guide.pdf"
-      zipName="sales-guide.pdf"
-      title="Download SalesPod Feature Guide"
-    />
+
+      <DownloadModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        zipFile="/downloads/sales-guide.pdf"
+        zipName="sales-guide.pdf"
+        title="Download Sales Workflow Guide"
+      />
     </section>
   );
 };

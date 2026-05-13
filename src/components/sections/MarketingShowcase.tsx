@@ -41,7 +41,7 @@ const F = {
 const G = {
   bg: "rgba(255, 255, 255, 0.015)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for mobile performance
+  blur: "blur(12px)", 
 };
 
 const features = [
@@ -142,13 +142,11 @@ export const MarketingShowcase = () => {
         }
         @media (max-width: 1023px) {
           .marketing-section {
-            padding: 40px 16px 56px;
+            padding: 80px 16px 80px !important;
           }
         }
       `}</style>
-      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE (Animated Beams) ── */}
-      
-      {/* Primary Flow Beam */}
+      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
       <motion.div 
         animate={isMobile ? { opacity: 0.04 } : { 
           x: [40, -40, 40],
@@ -173,7 +171,7 @@ export const MarketingShowcase = () => {
         maxWidth: "1280px",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1.2fr 1fr",
         gap: isMobile ? (isPreviewOpen ? "24px" : "40px") : "60px", 
         alignItems: "center",
         position: "relative",
@@ -181,7 +179,200 @@ export const MarketingShowcase = () => {
         transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
       }} className="marketing-showcase-grid">
         
-        {/* Right Side: Content (Order 2 on Desktop) */}
+        {/* Left Side: High-Fidelity Interface Stack (Order 1 on Desktop, 2 on Mobile) */}
+        <div style={{ 
+          position: "relative", 
+          width: "100%", 
+          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
+          perspective: "1200px",
+          order: isMobile ? 2 : 1,
+          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+          overflow: "visible"
+        }}>
+          <AnimatePresence mode="popLayout">
+            {!isPreviewOpen ? (
+              <motion.div
+                key="dashboard-layer"
+                initial={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)", zIndex: 2 }}
+                exit={{ 
+                  opacity: 0, 
+                  scale: 0.98, 
+                  filter: "blur(12px)",
+                  transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] }
+                }}
+                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+              >
+                <div style={{
+                  background: G.bg,
+                  border: G.border,
+                  borderRadius: "28px",
+                  padding: isMobile ? "20px" : "32px",
+                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
+                  backdropFilter: isMobile ? "blur(12px)" : G.blur,
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column"
+                }}>
+                  <div style={{
+                    position: "absolute",
+                    top: 0, left: "20%", right: "20%",
+                    height: "1px",
+                    background: `linear-gradient(90deg, transparent, rgba(172, 215, 145, 0.3), transparent)`,
+                    pointerEvents: "none"
+                  }} />
+
+                  <div style={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    alignItems: "center",
+                    marginBottom: "32px"
+                  }}>
+                    <div>
+                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Content Pipeline</h3>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
+                        <div style={{ width: "6px", height: "6px", background: C.green, borderRadius: "50%", boxShadow: `0 0 10px ${C.green}` }} />
+                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Campaign Engine: Optimizing</p>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <div style={{ background: "rgba(172, 215, 145, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.green}22` }}>
+                        <span style={{ color: C.green, fontSize: "11px", fontWeight: 700 }}>+420% Growth</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
+                    {[
+                      { type: "Social Post", title: "ScalePods Ecosystem Reveal", status: "Published", reach: "12.4k" },
+                      { type: "Blog Post", title: "The Future of AI Managed Pods", status: "Generating", reach: "Pending" },
+                      { type: "Email Campaign", title: "Enterprise Automation Guide", status: "Queued", reach: "4.2k" },
+                    ].map((item, i) => (
+                      <div key={i} style={{ 
+                        display: "flex", 
+                        alignItems: "center", 
+                        justifyContent: "space-between",
+                        padding: "14px 20px",
+                        background: "rgba(255,255,255,0.015)",
+                        borderRadius: "16px",
+                        border: "1px solid rgba(255,255,255,0.04)",
+                        backdropFilter: "blur(4px)"
+                      }}>
+                        <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                          <div style={{ 
+                            width: "32px", 
+                            height: "32px", 
+                            borderRadius: "8px", 
+                            background: item.status === "Published" ? "rgba(172, 215, 145, 0.1)" : "rgba(255,255,255,0.05)", 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "center" 
+                          }}>
+                            <Layout size={14} color={item.status === "Published" ? C.green : C.txtBody} />
+                          </div>
+                          <div>
+                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.type}</div>
+                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{item.title}</div>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          <div style={{ fontSize: "10px", fontWeight: 700, color: item.status === "Published" ? C.green : C.blue, textTransform: "uppercase" }}>{item.status}</div>
+                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>{item.reach} reach</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{ 
+                    padding: "20px", 
+                    background: "rgba(109, 182, 255, 0.03)", 
+                    borderRadius: "20px", 
+                    border: "1px solid rgba(109, 182, 255, 0.1)",
+                    position: "relative",
+                    overflow: "hidden"
+                  }}>
+                    <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Performance Velocity</span>
+                      <BarChart3 size={14} color={C.blue} />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "40px" }}>
+                      {[30, 45, 35, 60, 80, 55, 90].map((h, i) => (
+                        <motion.div 
+                          key={i}
+                          initial={{ height: 0 }}
+                          whileInView={{ height: `${h}%` }}
+                          transition={{ delay: i * 0.1, duration: 1 }}
+                          style={{ flex: 1, background: i === 6 ? C.green : C.blue, borderRadius: "2px", opacity: i === 6 ? 1 : 0.4 }} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <motion.div 
+                    animate={{ rotate: [0, 5, 0], y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      top: isMobile ? "-20px" : "-30px",
+                      right: isMobile ? "20px" : "30px",
+                      background: "rgba(10, 12, 16, 0.7)",
+                      padding: isMobile ? "12px 20px" : "16px 24px",
+                      borderRadius: "16px",
+                      border: `1px solid rgba(172, 215, 145, 0.4)`,
+                      boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: isMobile ? "10px" : "14px",
+                      zIndex: 10,
+                      backdropFilter: "blur(24px)",
+                      scale: isMobile ? 0.9 : 1,
+                      willChange: "transform, opacity"
+                    }}
+                  >
+                    <div style={{ position: "relative" }}>
+                      <Zap size={isMobile ? 14 : 18} color={C.green} />
+                      <motion.div 
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.8, 0.4] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", filter: "blur(8px)", zIndex: -1 }}
+                      />
+                    </div>
+                    <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>AI Creative Agent</span>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="preview-layer"
+                initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 0.96, filter: "blur(8px)", transition: { duration: 0.4 } }}
+                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                style={{ 
+                  position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 5,
+                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
+                }}
+              >
+                <div style={{ 
+                  width: "100%", height: "100%", position: "relative", overflow: "visible",
+                  display: "flex", alignItems: "center", justifyContent: "center"
+                }}>
+                  <ThreeDCarousel items={marketingCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />
+                </div>
+                <motion.div 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                  style={{
+                    position: "absolute", inset: "-60px", background: `radial-gradient(circle at center, ${C.green}15 0%, transparent 70%)`,
+                    zIndex: -1, pointerEvents: "none"
+                  }} 
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Right Side: Content (Order 2 on Desktop, 1 on Mobile) */}
         <motion.div
           initial={{ opacity: 0, x: isMobile ? -30 : 30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -253,7 +444,6 @@ export const MarketingShowcase = () => {
             </p>
           </div>
 
-          {/* Capabilities List */}
           <div style={{ 
             display: "grid", 
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", 
@@ -359,208 +549,12 @@ export const MarketingShowcase = () => {
             </motion.button>
           </div>
         </motion.div>
-
-        {/* Left Side: High-Fidelity Interface Stack (Fixed Height for Morphing) */}
-        <div style={{ 
-          position: "relative", 
-          width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
-          perspective: "1200px",
-          order: isMobile ? 2 : 1,
-          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
-          overflow: "visible"
-        }}>
-          <AnimatePresence mode="popLayout">
-            {!isPreviewOpen ? (
-              <motion.div
-                key="dashboard-layer"
-                initial={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)", zIndex: 2 }}
-                exit={{ 
-                  opacity: 0, 
-                  scale: 0.98, 
-                  filter: "blur(12px)",
-                  transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] }
-                }}
-                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-              >
-                {/* Main Glassmorphism Container */}
-                <div style={{
-                  background: G.bg,
-                  border: G.border,
-                  borderRadius: "28px",
-                  padding: isMobile ? "20px" : "32px",
-                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
-                  backdropFilter: isMobile ? "blur(12px)" : G.blur,
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column"
-                }}>
-                  {/* Top Reflection Rim Light */}
-                  <div style={{
-                    position: "absolute",
-                    top: 0, left: "20%", right: "20%",
-                    height: "1px",
-                    background: `linear-gradient(90deg, transparent, rgba(172, 215, 145, 0.3), transparent)`,
-                    pointerEvents: "none"
-                  }} />
-
-                  {/* Dashboard Header */}
-                  <div style={{ 
-                    display: "flex", 
-                    justifyContent: "space-between", 
-                    alignItems: "center",
-                    marginBottom: "32px"
-                  }}>
-                    <div>
-                      <h3 style={{ color: C.txtBright, fontSize: "18px", fontWeight: 700, margin: 0 }}>Content Pipeline</h3>
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
-                        <div style={{ width: "6px", height: "6px", background: C.green, borderRadius: "50%", boxShadow: `0 0 10px ${C.green}` }} />
-                        <p style={{ color: C.txtBody, fontSize: "12px", margin: 0, opacity: 0.6 }}>Campaign Engine: Optimizing</p>
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div style={{ background: "rgba(172, 215, 145, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.green}22` }}>
-                        <span style={{ color: C.green, fontSize: "11px", fontWeight: 700 }}>+420% Growth</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content Queue Visual */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
-                    {[
-                      { type: "Social Post", title: "ScalePods Ecosystem Reveal", status: "Published", reach: "12.4k" },
-                      { type: "Blog Post", title: "The Future of AI Managed Pods", status: "Generating", reach: "Pending" },
-                      { type: "Email Campaign", title: "Enterprise Automation Guide", status: "Queued", reach: "4.2k" },
-                    ].map((item, i) => (
-                      <div key={i} style={{ 
-                        display: "flex", 
-                        alignItems: "center", 
-                        justifyContent: "space-between",
-                        padding: "14px 20px",
-                        background: "rgba(255,255,255,0.015)",
-                        borderRadius: "16px",
-                        border: "1px solid rgba(255,255,255,0.04)",
-                        backdropFilter: "blur(4px)"
-                      }}>
-                        <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                          <div style={{ 
-                            width: "32px", 
-                            height: "32px", 
-                            borderRadius: "8px", 
-                            background: item.status === "Published" ? "rgba(172, 215, 145, 0.1)" : "rgba(255,255,255,0.05)", 
-                            display: "flex", 
-                            alignItems: "center", 
-                            justifyContent: "center" 
-                          }}>
-                            <Layout size={14} color={item.status === "Published" ? C.green : C.txtBody} />
-                          </div>
-                          <div>
-                            <div style={{ fontSize: "13px", fontWeight: 600, color: C.txtBright }}>{item.type}</div>
-                            <div style={{ fontSize: "11px", color: C.txtBody, opacity: 0.6 }}>{item.title}</div>
-                          </div>
-                        </div>
-                        <div style={{ textAlign: "right" }}>
-                          <div style={{ fontSize: "10px", fontWeight: 700, color: item.status === "Published" ? C.green : C.blue, textTransform: "uppercase" }}>{item.status}</div>
-                          <div style={{ fontSize: "10px", color: C.txtBody, opacity: 0.4 }}>{item.reach} reach</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Mini Analytics Chart Placeholder */}
-                  <div style={{ 
-                    padding: "20px", 
-                    background: "rgba(109, 182, 255, 0.03)", 
-                    borderRadius: "20px", 
-                    border: "1px solid rgba(109, 182, 255, 0.1)",
-                    position: "relative",
-                    overflow: "hidden"
-                  }}>
-                    <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                      <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Performance Velocity</span>
-                      <BarChart3 size={14} color={C.blue} />
-                    </div>
-                    <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "40px" }}>
-                      {[30, 45, 35, 60, 80, 55, 90].map((h, i) => (
-                        <motion.div 
-                          key={i}
-                          initial={{ height: 0 }}
-                          whileInView={{ height: `${h}%` }}
-                          transition={{ delay: i * 0.1, duration: 1 }}
-                          style={{ flex: 1, background: i === 6 ? C.green : C.blue, borderRadius: "2px", opacity: i === 6 ? 1 : 0.4 }} 
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Floating Element: AI Content Sparkle */}
-                  <motion.div 
-                    animate={{ rotate: [0, 5, 0], y: [0, -8, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    style={{
-                      position: "absolute",
-                      top: isMobile ? "-20px" : "-30px",
-                      right: isMobile ? "20px" : "30px",
-                      background: "rgba(10, 12, 16, 0.7)",
-                      padding: isMobile ? "12px 20px" : "16px 24px",
-                      borderRadius: "16px",
-                      border: `1px solid rgba(172, 215, 145, 0.4)`,
-                      boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: isMobile ? "10px" : "14px",
-                      zIndex: 10,
-                      backdropFilter: "blur(24px)",
-                      scale: isMobile ? 0.9 : 1,
-                      willChange: "transform, opacity"
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <Zap size={isMobile ? 14 : 18} color={C.green} />
-                      <motion.div 
-                        animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.8, 0.4] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", filter: "blur(8px)", zIndex: -1 }}
-                      />
-                    </div>
-                    <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>AI Creative Agent</span>
-                  </motion.div>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="preview-layer"
-                initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.96, filter: "blur(8px)", transition: { duration: 0.4 } }}
-                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                style={{ 
-                  position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 5,
-                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
-                }}
-              >
-                <div style={{ 
-                  width: "100%", height: "100%", position: "relative", overflow: "visible",
-                  display: "flex", alignItems: "center", justifyContent: "center"
-                }}>
-                  <ThreeDCarousel items={marketingCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />
-                </div>
-                <motion.div 
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  style={{
-                    position: "absolute", inset: "-60px", background: `radial-gradient(circle at center, ${C.green}15 0%, transparent 70%)`,
-                    zIndex: -1, pointerEvents: "none"
-                  }} 
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
       </div>
 
       <style jsx>{`
+        .marketing-section {
+          padding: 64px 32px 72px;
+        }
         .marketing-cta:hover {
           transform: translateY(-2px);
           box-shadow: 0 12px 30px rgba(172, 215, 145, 0.3);
@@ -568,7 +562,8 @@ export const MarketingShowcase = () => {
         }
         @media (max-width: 1023px) {
           .marketing-showcase-grid {
-            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
             gap: 60px !important;
             text-align: center;
           }
