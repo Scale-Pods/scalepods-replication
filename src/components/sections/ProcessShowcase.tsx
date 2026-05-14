@@ -75,7 +75,7 @@ export const ProcessShowcase = () => {
 
   return (
     <section 
-      id="deployment-process"
+      id="lifecycle"
       className="process-section"
       style={{ 
         position: "relative",

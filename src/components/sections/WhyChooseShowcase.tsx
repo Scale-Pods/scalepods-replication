@@ -181,7 +181,7 @@ export const WhyChooseShowcase = () => {
   const isMobile = useMobile(768);
   return (
     <section 
-      id="why-scalepods"
+      id="why-choose-us"
       className="why-choose-section"
       style={{ 
         position: "relative",

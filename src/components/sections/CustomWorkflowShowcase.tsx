@@ -99,7 +99,7 @@ export const CustomWorkflowShowcase = () => {
   const isMobile = useMobile(1023);
   return (
     <section 
-      id="custom-section"
+      id="custom-ai"
       className="custom-section"
       style={{ 
         position: "relative",

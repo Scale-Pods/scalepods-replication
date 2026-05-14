@@ -113,7 +113,7 @@ export const SalesPodShowcase = () => {
   const isMobile = useMobile(1023);
   return (
     <section 
-      id="sales-pod-showcase"
+      id="sales-automation"
       className="salespod-section"
       style={{ 
         position: "relative",

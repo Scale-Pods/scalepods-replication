@@ -99,7 +99,7 @@ export const HRShowcase = () => {
   const isMobile = useMobile(1023);
   return (
     <section 
-      id="hr-section"
+      id="hr-workflow"
       className="hr-section"
       style={{ 
         position: "relative",

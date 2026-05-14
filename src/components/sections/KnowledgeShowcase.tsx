@@ -73,7 +73,7 @@ export const KnowledgeShowcase = () => {
 
   return (
     <section 
-      id="knowledge-layer"
+      id="reviews"
       className="knowledge-section"
       style={{ 
         position: "relative",

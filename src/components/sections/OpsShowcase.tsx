@@ -121,7 +121,7 @@ export const OpsShowcase = () => {
   const isMobile = useMobile(1023);
   return (
     <section 
-      id="ops-section"
+      id="operations-workflow"
       className="ops-section"
       style={{ 
         position: "relative",

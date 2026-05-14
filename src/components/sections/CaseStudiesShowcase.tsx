@@ -71,7 +71,7 @@ export const CaseStudiesShowcase = () => {
 
   return (
     <section 
-      id="case-studies"
+      id="services"
       className="case-studies-section"
       style={{ 
         position: "relative",

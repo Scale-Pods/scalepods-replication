@@ -127,7 +127,7 @@ export const MarketingShowcase = () => {
   const isMobile = useMobile(1023);
   return (
     <section 
-      id="marketing-section"
+      id="marketing-workflow"
       className="marketing-section"
       style={{ 
         position: "relative",

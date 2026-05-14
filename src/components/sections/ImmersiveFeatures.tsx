@@ -57,7 +57,7 @@ export const ImmersiveFeatures = () => {
 
   return (
     <section 
-      id="immersive-features"
+      id="ai-workflow"
       className="immersive-features-section"
       style={{ 
         padding: isMobile ? "80px 16px 40px" : "32px 32px",

@@ -41,7 +41,7 @@ export const FinalCTASection = () => {
 
   return (
     <section 
-      id="final-cta"
+      id="footer"
       className="final-cta-section"
       style={{ 
         position: "relative",
