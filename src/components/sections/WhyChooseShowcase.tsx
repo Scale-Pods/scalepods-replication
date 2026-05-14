@@ -105,8 +105,8 @@ const LogoMarquee = () => {
                   objectFit: "contain",
                   transition: "all 0.4s ease",
                   filter: isHovered 
-                    ? (logo.isBlack ? "invert(1) brightness(1.5)" : "none") 
-                    : "brightness(0) invert(1)"
+                    ? (logo.whiteBg ? "invert(1) brightness(1.2)" : (logo.isBlack ? "invert(1) brightness(1.5)" : "none")) 
+                    : (logo.whiteBg ? "invert(1) grayscale(100%) opacity(0.7)" : "brightness(0) invert(1)")
                 }} 
               />
             </div>

@@ -677,8 +677,8 @@ export function DataAnalysis() {
                       objectFit: "contain",
                       transition: "all 0.4s ease",
                       filter: isHovered 
-                        ? (brand.isBlack ? "invert(1) brightness(1.5)" : "none") 
-                        : (brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)")
+                        ? (brand.whiteBg ? "invert(1) brightness(1.2)" : (brand.isBlack ? "invert(1) brightness(1.5)" : "none")) 
+                        : (brand.whiteBg ? "invert(1) grayscale(100%) opacity(0.7)" : "brightness(0) invert(1)")
                     }}
                   />
                 </div>
