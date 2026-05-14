@@ -1831,23 +1831,41 @@ const reviewsData = [
     name: "Shreyansh Jaiswal",
     title: "Founder at HobbyFi",
     quote: "“Smooth setup. Their system replaced three tools. We saw improvements in just the first week.”",
-    image: "/reviews/Shreyansh Jaiswal.jpeg"
+    image: "/reviews/Shreyansh Jaiswal.avif"
   },
   {
     name: "Dhairya Shah",
     title: "Partner & CEO at Break The Code",
     quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control.”",
     image: "/reviews/Dhairya Shah.avif"
-  },
-  {
-    name: "Abinash Patra",
-    title: "Senior VP at Square Yards",
-    quote: "“Surprisingly simple. The AI adapts quickly. Our campaigns are now running 2x more efficiently.”",
-    image: "/reviews/Abinash Patra.jpeg"
   }
 ];
 
+function ReviewCardContent({ review }: { review: any }) {
+  return (
+    <>
+      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <img src={review.image} alt={review.name} style={{ width: "56px", height: "56px", borderRadius: "14px", objectFit: "cover", border: `1px solid ${C.border}` }} />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid }}>{review.name}</span>
+          <span style={{ fontFamily: F.inter, fontSize: "13px", color: C.green, marginTop: "2px", fontWeight: 500 }}>{review.title}</span>
+        </div>
+      </div>
+
+      <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.08)" }} />
+
+      <p style={{
+        fontFamily: F.inter, fontSize: "15px", color: C.txtBody, lineHeight: 1.7, margin: 0,
+        fontWeight: 450
+      }}>
+        {review.quote}
+      </p>
+    </>
+  );
+}
+
 export function Reviews() {
+  const isMobile = useMobile(768);
   return (
     <Section id="reviews">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
@@ -1867,52 +1885,82 @@ export function Reviews() {
         <Sub>Hear from real users who achieved success with our automation</Sub>
       </div>
 
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", 
-        gap: "16px", 
-        marginTop: "48px",
-        justifyContent: "center"
-      }}>
-        {reviewsData.map((review, i) => {
-          const isTopSpot = i === 0;
-          return (
+      <div style={{ marginTop: "48px" }}>
+        {/* Featured Card */}
+        {reviewsData.slice(0, 1).map((review, i) => (
+          <motion.div
+            key="featured"
+            {...fup(0)}
+            style={{
+              ...card,
+              padding: "32px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+              minHeight: "280px",
+              maxWidth: "680px",
+              margin: "0 auto 32px",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(172, 215, 145, 0.1)",
+              border: `1.5px solid rgba(172, 215, 145, 0.3)`,
+            }}
+          >
+            <ReviewCardContent review={review} />
+          </motion.div>
+        ))}
+
+        {/* First Row: 3 Cards */}
+        <div style={{ 
+          display: "grid", 
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
+          gap: "16px",
+          marginBottom: "16px"
+        }}>
+          {reviewsData.slice(1, 4).map((review, i) => (
             <motion.div
-              key={i}
-              {...fup(i * 0.1)}
+              key={i + 1}
+              {...fup((i + 1) * 0.1)}
               style={{
                 ...card,
                 padding: "32px",
                 display: "flex",
                 flexDirection: "column",
                 gap: "24px",
-                minHeight: isTopSpot ? "280px" : "220px",
-                gridColumn: isTopSpot ? "1 / -1" : "auto",
-                maxWidth: isTopSpot ? "680px" : "100%",
-                margin: isTopSpot ? "0 auto 32px" : "0",
-                boxShadow: isTopSpot ? "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(172, 215, 145, 0.1)" : card.background,
-                border: isTopSpot ? `1.5px solid rgba(172, 215, 145, 0.3)` : `1.5px solid ${C.border}`,
+                minHeight: "220px",
+                border: `1.5px solid ${C.border}`,
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <img src={review.image} alt={review.name} style={{ width: "56px", height: "56px", borderRadius: "14px", objectFit: "cover", border: `1px solid ${C.border}` }} />
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid }}>{review.name}</span>
-                  <span style={{ fontFamily: F.inter, fontSize: "13px", color: C.green, marginTop: "2px", fontWeight: 500 }}>{review.title}</span>
-                </div>
-              </div>
-
-              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.08)" }} />
-
-              <p style={{
-                fontFamily: F.inter, fontSize: "15px", color: C.txtBody, lineHeight: 1.7, margin: 0,
-                fontWeight: 450
-              }}>
-                {review.quote}
-              </p>
+              <ReviewCardContent review={review} />
             </motion.div>
-          );
-        })}
+          ))}
+        </div>
+
+        {/* Second Row: 2 Cards Centered */}
+        <div style={{ 
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: "center",
+          gap: "16px",
+        }}>
+          {reviewsData.slice(4, 6).map((review, i) => (
+            <motion.div
+              key={i + 4}
+              {...fup((i + 4) * 0.1)}
+              style={{
+                ...card,
+                padding: "32px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+                minHeight: "220px",
+                width: isMobile ? "100%" : "calc(33.333% - 11px)",
+                maxWidth: isMobile ? "100%" : "calc(33.333% - 11px)",
+                border: `1.5px solid ${C.border}`,
+              }}
+            >
+              <ReviewCardContent review={review} />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </Section>
   );
