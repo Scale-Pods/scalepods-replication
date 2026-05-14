@@ -164,8 +164,13 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
 
 // Section wrapper — 96px top/bottom padding
 function Section({ id, children }: { id?: string; children: React.ReactNode }) {
+  const isMobile = useMobile(768);
   return (
-    <section id={id} style={{ position: "relative", background: C.bgPage, padding: (id === "benefits" || id === "services") ? "48px 24px 96px 24px" : "96px 24px" }}>
+    <section id={id} style={{ 
+      position: "relative", 
+      background: C.bgPage, 
+      padding: isMobile ? "80px 20px" : "140px 24px" 
+    }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         {children}
       </div>
@@ -499,8 +504,35 @@ const brands = [
 
 export function DataAnalysis() {
   const isMobile = useMobile(1023);
+  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Auto-resume after some time if tapped on mobile
+  useEffect(() => {
+    if (isPaused && isMobile) {
+      const timer = setTimeout(() => {
+        setIsPaused(false);
+        setHoveredIndex(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isPaused, isMobile]);
   return (
-    <section id="data-analysis" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", minHeight: "850px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+    <Section id="data-analysis">
+      <div style={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center", 
+        justifyContent: "center",
+        textAlign: "center",
+        minHeight: isMobile ? "auto" : "600px",
+      }}>
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
 
       {/* Badge matching live site */}
       <div style={{
@@ -558,11 +590,11 @@ export function DataAnalysis() {
 
       {/* Trusted Brands Marquee */}
       <div style={{ 
-        marginTop: isMobile ? "60px" : "120px", 
+        marginTop: isMobile ? "40px" : "120px", 
         width: "100%", 
         maxWidth: "1200px", 
         zIndex: 1,
-        paddingBottom: isMobile ? "20px" : "0"
+        paddingBottom: isMobile ? "10px" : "0"
       }}>
         <p style={{
           fontFamily: "var(--font-inter), Inter, sans-serif",
@@ -575,70 +607,88 @@ export function DataAnalysis() {
           Trusted by thousands of companies and investors all over the world
         </p>
 
-        <div style={{
-          position: "relative",
-          width: "100%",
-          overflow: "hidden",
-          padding: isMobile ? "20px 0" : "40px 0",
-          maskImage: isMobile ? "none" : "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-          WebkitMaskImage: isMobile ? "none" : "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-        }}>
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ 
-              duration: isMobile ? 12 : 25, 
-              repeat: Infinity, 
-              ease: "linear",
-              repeatType: "loop"
-            }}
-            style={{ 
-              display: "flex", 
-              alignItems: "center", 
-              width: "max-content",
-              gap: isMobile ? "40px" : "80px"
-            }}
-          >
-            {[...brands, ...brands, ...brands, ...brands].map((brand, i) => (
-              <div 
-                key={i} 
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  opacity: 0.6,
-                  mixBlendMode: brand.whiteBg ? "screen" : "normal",
-                  height: isMobile ? "24px" : "42px",
-                }}
-              >
-                <img
-                  src={brand.src}
-                  alt={brand.alt}
-                  style={{
-                    height: "100%",
-                    width: "auto",
-                    objectFit: "contain",
-                    filter: brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)"
+        {/* Trusted Brands Marquee */}
+        <div 
+          data-scroll-observed="1"
+          style={{
+            position: "relative",
+            width: "100%",
+            overflow: "hidden",
+            marginTop: isMobile ? "20px" : "40px",
+            padding: isMobile ? "20px 0" : "40px 0",
+            zIndex: 10,
+            maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            opacity: 1,
+            transform: "none"
+          }}
+        >
+          <style>{`
+            @keyframes marquee-v3 {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .marquee-track-v3 {
+              display: flex;
+              width: max-content;
+              animation: marquee-v3 35s linear infinite;
+            }
+            .paused {
+              animation-play-state: paused !important;
+            }
+          `}</style>
+          <div className={`marquee-track-v3 ${isPaused ? 'paused' : ''}`}>
+            {[...brands, ...brands, ...brands, ...brands].map((brand, i) => {
+              const isHovered = hoveredIndex === i;
+              return (
+                <div 
+                  key={i} 
+                  onMouseEnter={() => {
+                    setHoveredIndex(i);
+                    setIsPaused(true);
                   }}
-                />
-              </div>
-            ))}
-          </motion.div>
+                  onMouseLeave={() => {
+                    setHoveredIndex(null);
+                    setIsPaused(false);
+                  }}
+                  onTouchStart={() => {
+                    setHoveredIndex(i);
+                    setIsPaused(true);
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: isMobile ? "0 20px" : "0 40px",
+                    opacity: isHovered ? 1 : 0.6,
+                    height: isMobile ? "28px" : "42px",
+                    transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                    cursor: "pointer",
+                    transform: isHovered ? "scale(1.1)" : "scale(1)",
+                    flexShrink: 0
+                  }}
+                >
+                  <img
+                    src={brand.src}
+                    alt={brand.alt}
+                    style={{
+                      height: "100%",
+                      width: "auto",
+                      objectFit: "contain",
+                      transition: "all 0.4s ease",
+                      filter: isHovered 
+                        ? (brand.isBlack ? "invert(1) brightness(1.5)" : "none") 
+                        : (brand.whiteBg ? "grayscale(100%) invert(1) brightness(200%)" : "brightness(0) invert(1)")
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-
-      {/* Ambient Floor Lighting Line at exactly the bottom border */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "1px",
-        background: "linear-gradient(90deg, transparent 15%, rgba(255,255,255,0.4) 50%, transparent 85%)",
-        boxShadow: "0 -8px 30px 4px rgba(255,255,255,0.1)",
-        zIndex: 0, pointerEvents: "none"
-      }} />
-      <div style={{
-        position: "absolute", bottom: 0, left: "20%", right: "20%", height: "80px",
-        background: "radial-gradient(ellipse at bottom, rgba(255,255,255,0.12) 0%, transparent 70%)",
-        zIndex: 0, pointerEvents: "none"
-      }} />
-    </section>
+    </div>
+    </Section>
   );
 }
 
@@ -767,6 +817,27 @@ export function Benefits() {
                 animation: target-pulse 4s infinite linear;
               }
               
+              @keyframes spin {
+                from { transform: rotate(0deg); }
+                to   { transform: rotate(360deg); }
+              }
+              
+              @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+              
+              .marquee-container {
+                display: flex;
+                width: max-content;
+                animation: marquee 30s linear infinite;
+                will-change: transform;
+              }
+              
+              .marquee-paused {
+                animation-play-state: paused !important;
+              }
+
               @keyframes scanning {
                 100% { transform: rotate(360deg); }
               }
@@ -1623,20 +1694,31 @@ const row2 = ["slack", "stripe", "airtable", "salesforce", "slack", "stripe", "a
 const row3 = ["hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google"];
 
 function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], direction?: number, speed?: number }) {
+  const [isPaused, setIsPaused] = useState(false);
   return (
-    <div style={{ display: "flex", gap: "16px", width: "fit-content", padding: "4px 0", willChange: "transform" }}>
-      <motion.div
-        animate={{ x: direction === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={{ duration: speed, ease: "linear", repeat: Infinity }}
-        style={{
-          display: "flex",
-          gap: "16px",
-          willChange: "transform",
-          backfaceVisibility: "hidden",
-          transform: "translateZ(0)",
-        }}
-      >
-        {/* We map the array twice inline to ensure it repeats seamlessly */}
+    <div 
+      data-scroll-observed="1"
+      style={{ display: "flex", gap: "16px", width: "fit-content", padding: "4px 0", willChange: "transform", zIndex: 10, opacity: 1 }}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+    >
+      <style>{`
+        @keyframes marquee-int {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-track-int {
+          display: flex;
+          width: max-content;
+          animation: marquee-int ${speed}s linear infinite;
+          animation-direction: ${direction === 1 ? 'normal' : 'reverse'};
+        }
+        .paused-int {
+          animation-play-state: paused !important;
+        }
+      `}</style>
+      <div className={`marquee-track-int ${isPaused ? 'paused-int' : ''}`}>
         {[...items, ...items].map((iconKey, i) => (
           <div key={i} style={{
             width: "60px", height: "60px", borderRadius: "14px",
@@ -1646,11 +1728,12 @@ function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], dir
             display: "flex", alignItems: "center", justifyContent: "center",
             color: "rgba(255,255,255,0.92)",
             flexShrink: 0,
+            margin: "0 8px"
           }}>
             {I_SVG[iconKey as keyof typeof I_SVG] || <Database />}
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

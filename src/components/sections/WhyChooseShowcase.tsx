@@ -32,76 +32,87 @@ const marqueeLogos = [
 
 const LogoMarquee = () => {
   const [isPaused, setIsPaused] = React.useState(false);
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
   const isMobile = useMobile(768);
 
   return (
     <div 
+      data-scroll-observed="1"
       style={{ 
-        display: "flex", 
+        position: "relative",
         width: "100%",
         overflow: "hidden",
-        position: "relative",
-        padding: isMobile ? "10px 0" : "30px 0"
+        padding: isMobile ? "10px 0" : "30px 0",
+        zIndex: 10,
+        maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+        opacity: 1,
+        transform: "none"
       }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
-      onTouchEnd={() => setIsPaused(false)}
     >
-      <motion.div
-        animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
-        transition={{ 
-          x: {
-            duration: isMobile ? 12 : 25, 
-            repeat: Infinity,
-            ease: "linear",
-            repeatType: "loop"
-          }
-        }}
-        style={{ 
-          display: "flex", 
-          gap: isMobile ? "40px" : "80px", 
-          width: "max-content",
-          alignItems: "center"
-        }}
-      >
-        {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => (
-          <motion.div
-            key={idx}
-            style={{
-              height: isMobile ? "26px" : "44px", 
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              filter: "grayscale(100%)",
-              opacity: 0.5,
-              transition: "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
-              willChange: "transform, filter, opacity"
-            }}
-            whileHover={{ 
-              opacity: 1,
-              scale: 1.1,
-              filter: `grayscale(0%) brightness(1.2) drop-shadow(0 0 12px ${C.green}88)`
-            }}
-            whileTap={{
-              opacity: 1,
-              scale: 1.05,
-              filter: `grayscale(0%) drop-shadow(0 0 12px ${C.green}66)`
-            }}
-          >
-            <img 
-              src={logo.url} 
-              alt={logo.name} 
-              style={{ 
-                height: "100%", 
-                width: "auto", 
-                maxWidth: isMobile ? "90px" : "160px",
-                objectFit: "contain"
-              }} 
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+      <style>{`
+        @keyframes marquee-v3-gcc {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-track-v3-gcc {
+          display: flex;
+          width: max-content;
+          animation: marquee-v3-gcc 35s linear infinite;
+        }
+        .paused-gcc {
+          animation-play-state: paused !important;
+        }
+      `}</style>
+      <div className={`marquee-track-v3-gcc ${isPaused ? 'paused-gcc' : ''}`}>
+        {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => {
+          const isHovered = hoveredIndex === idx;
+          return (
+            <div
+              key={idx}
+              onMouseEnter={() => {
+                setHoveredIndex(idx);
+                setIsPaused(true);
+              }}
+              onMouseLeave={() => {
+                setHoveredIndex(null);
+                setIsPaused(false);
+              }}
+              onTouchStart={() => {
+                setHoveredIndex(idx);
+                setIsPaused(true);
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: isMobile ? "0 20px" : "0 40px",
+                opacity: isHovered ? 1 : 0.6,
+                height: isMobile ? "28px" : "44px",
+                transition: "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
+                cursor: "pointer",
+                transform: isHovered ? "scale(1.1)" : "scale(1)",
+                flexShrink: 0
+              }}
+            >
+              <img 
+                src={logo.url} 
+                alt={logo.name} 
+                style={{ 
+                  height: "100%", 
+                  width: "auto", 
+                  maxWidth: isMobile ? "100px" : "160px",
+                  objectFit: "contain",
+                  transition: "all 0.4s ease",
+                  filter: isHovered 
+                    ? (logo.isBlack ? "invert(1) brightness(1.5)" : "none") 
+                    : "brightness(0) invert(1)"
+                }} 
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -2,9 +2,26 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@500,700&display=swap');
 @import 'tailwindcss';
 @plugin 'lightswind/plugin';
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-container {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-paused {
+  animation-play-state: paused !important;
 }
 
 @theme {
@@ -146,7 +163,7 @@ body {
 /* ══════════════════════════════════════════════════════════
    GLOBAL SCROLL FADE-UP ANIMATION
    Applied to all section children via .fade-up class
-══════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════ */
 @keyframes fadeUpIn {
   from {
     opacity: 0;
@@ -166,7 +183,7 @@ body {
 
 /* ══════════════════════════════════════════════════════════
    MOBILE RESPONSIVE — max-width: 768px
-══════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
   /* ── Global ── */
@@ -406,7 +423,7 @@ body {
   }
 
   /* ── Remove the blanket 48px override on SECTIONS so JS-set padding is respected ── */
-  section[data-uae] { padding: unset; }
+  section[id] { padding: unset !important; }
 }
 
 /* ── Chatbot Button Refinement ── */
@@ -423,4 +440,3 @@ body {
   align-items: center !important;
   justify-content: center !important;
 }
-
