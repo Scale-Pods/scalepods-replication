@@ -207,29 +207,28 @@ export default function UAEPage() {
             flex: 1.2;
             width: auto;
             order: 1;
-            text-align: ${isMobile ? 'center' : 'left'};
+            text-align: ${isMobile ? "center" : "left"};
             display: flex;
             flex-direction: column;
-            align-items: ${isMobile ? 'center' : 'flex-start'};
+            align-items: ${isMobile ? "center" : "flex-start"};
             padding-top: 40px;
           }
           .hero-title-accent {
-            font-family: ${F.accent};
-            font-style: italic;
+            font-family: ${F.inter};
             font-size: clamp(42px, 5.8vw, 82px);
-            font-weight: 400;
+            font-weight: 800;
             color: ${C.green};
             line-height: 1.1;
             margin-bottom: 12px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.04em;
           }
           .hero-subtitle {
-            font-family: ${F.accent};
-            font-style: italic;
+            font-family: ${F.inter};
             font-size: clamp(24px, 3.2vw, 38px);
-            font-weight: 400;
+            font-weight: 700;
             color: ${C.txtBright};
             margin-bottom: 20px;
+            letter-spacing: -0.02em;
           }
           .hero-desc {
             font-family: ${F.inter};
@@ -239,7 +238,7 @@ export default function UAEPage() {
             margin-bottom: 24px;
             line-height: 1.6;
             max-width: 600px;
-            text-align: ${isMobile ? 'center' : 'left'};
+            text-align: ${isMobile ? "center" : "left"};
           }
           .bullet-list {
             display: flex; 
@@ -247,8 +246,8 @@ export default function UAEPage() {
             gap: 14px;
             align-items: flex-start;
             max-width: 480px;
-            margin-left: ${isMobile ? 'auto' : '0'};
-            margin-right: ${isMobile ? 'auto' : '0'};
+            margin-left: ${isMobile ? "auto" : "0"};
+            margin-right: ${isMobile ? "auto" : "0"};
           }
           .bullet-text {
             font-family: ${F.inter};
