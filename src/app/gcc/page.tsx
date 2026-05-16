@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle, ArrowUpRight } from "lucide-react";
@@ -97,14 +97,14 @@ const countries = [
   { name: "Other", code: "Custom", flag: "🌐" },
 ];
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+const Field = memo(function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", marginBottom: "6px" }}>
+    <div style={{ marginBottom: "14px" }}>
       <label style={labelStyle}>{label}</label>
       {children}
     </div>
   );
-}
+});
 
 
 // ── Main UAE Page ─────────────────────────────────────────────────────────────

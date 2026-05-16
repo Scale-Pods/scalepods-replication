@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useMemo, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, animate } from "framer-motion";
 import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap, ChevronLeft, ChevronRight } from "lucide-react";
@@ -52,7 +52,7 @@ const fup = (delay = 0) => ({
 });
 
 // ── Shared components ─────────────────────────────────────────────────────────
-function Label({ icon, text }: { icon: string; text: string }) {
+const Label = memo(function Label({ icon, text }: { icon: string; text: string }) {
   return (
     <ScrollReveal>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
@@ -63,9 +63,9 @@ function Label({ icon, text }: { icon: string; text: string }) {
       </div>
     </ScrollReveal>
   );
-}
+});
 
-function H2({ plain, italic, style = {} }: { plain: string; italic?: string; style?: React.CSSProperties }) {
+const H2 = memo(function H2({ plain, italic, style = {} }: { plain: string; italic?: string; style?: React.CSSProperties }) {
   return (
     <ScrollReveal delay={0.05}>
       <h2 style={{
@@ -84,9 +84,9 @@ function H2({ plain, italic, style = {} }: { plain: string; italic?: string; sty
       </h2>
     </ScrollReveal>
   );
-}
+});
 
-function Sub({ children, style = {} }: { children: string; style?: React.CSSProperties }) {
+const Sub = memo(function Sub({ children, style = {} }: { children: string; style?: React.CSSProperties }) {
   return (
     <ScrollReveal delay={0.1}>
       <p style={{
@@ -96,12 +96,12 @@ function Sub({ children, style = {} }: { children: string; style?: React.CSSProp
       }}>{children}</p>
     </ScrollReveal>
   );
-}
+});
 
 import { useTheme } from "@/components/providers/ThemeProvider";
 
 // Global Glowing CTA Button (Flashy Lamp Lighting)
-export function GlowingButton({ href, children }: { href: string; children: React.ReactNode }) {
+export const GlowingButton = memo(function GlowingButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <motion.a href={href}
       initial="rest" whileHover="hover"
@@ -154,12 +154,12 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
       </div>
     </motion.a>
   );
-}
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // GLOBAL SECTION GLOW COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════════
-export function SectionGlow() {
+export const SectionGlow = memo(function SectionGlow() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
   // Soft, cinematic neutral atmospheric glow (User requested #25282D)
@@ -184,7 +184,7 @@ export function SectionGlow() {
       }} />
     </>
   );
-}
+});
 
 // Section wrapper — 96px top/bottom padding
 function Section({ id, children }: { id?: string; children: React.ReactNode }) {
@@ -738,7 +738,7 @@ export function DataAnalysis() {
 // BENEFITS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function BenefitCard({ card, i }: { card: any, i: number }) {
+const BenefitCard = memo(function BenefitCard({ card, i }: { card: any, i: number }) {
   const [hovered, setHovered] = useState(false);
   const { resolvedTheme } = useTheme();
   const isMobile = useMobile(768);
@@ -755,279 +755,276 @@ function BenefitCard({ card, i }: { card: any, i: number }) {
         position: "relative",
         background: C.bgCard,
         borderRadius: "28px",
-        padding: "0px 0px 24px 0px",
+        padding: "32px 0",
         overflow: "hidden",
         border: `1.5px solid ${C.border}`,
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        minHeight: "320px",
+        justifyContent: "center",
+        minHeight: "340px",
         boxShadow: resolvedTheme === 'dark' ? "0 15px 45px -10px rgba(0,0,0,0.6)" : "0 10px 30px -10px rgba(0,0,0,0.05)",
         cursor: "default",
+        transform: "translate3d(0,0,0)",
+        willChange: "transform"
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", zIndex: 2 }} />
       <div style={{ position: "absolute", bottom: 0, left: "20%", right: "20%", height: "1.5px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ 
         width: "100%", 
-        height: isMobile ? "160px" : "180px", 
+        height: isMobile ? "140px" : "160px", 
         display: "flex", 
         justifyContent: "center", 
         alignItems: "center", 
         position: "relative", 
         zIndex: 1,
-        overflow: "hidden" // Ensure animation stays inside card
+        marginBottom: "20px"
       }}>
-        <div style={{ transform: isMobile ? "scale(0.85)" : "scale(1)" }}>
+        <div style={{ transform: isMobile ? "scale(0.8)" : "scale(0.9)" }}>
           <card.Icon hovered={hovered} />
         </div>
       </div>
-      <motion.h3
-        variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, marginBottom: "10px", padding: "0 28px", position: "relative", zIndex: 1, lineHeight: 1.3 }}
-      >
-        {card.title}
-      </motion.h3>
-      <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1 }}>
-        {card.desc}
-      </p>
+      <div style={{ padding: "0 28px", position: "relative", zIndex: 1 }}>
+        <motion.h3
+          variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, marginBottom: "8px", lineHeight: 1.3 }}
+        >
+          {card.title}
+        </motion.h3>
+        <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6, marginBottom: 0 }}>
+          {card.desc}
+        </p>
+      </div>
     </motion.div>
   );
-}
+});
+
+const benefitCards = [
+  {
+    title: "Real-Time Intelligence",
+    desc: "Access accurate, real-time data to drive smarter decisions",
+    Icon: function RadarSweep({ hovered }: { hovered: boolean }) {
+      return (
+        <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
+          <style>{`
+            .radar-panel {
+              position: relative;
+              width: 160px;
+              height: 160px;
+              border-radius: 50%;
+              border: 1px solid var(--color-border);
+              box-shadow: 
+                inset 0 0 0 26px transparent,
+                inset 0 0 0 27px var(--color-border),
+                inset 0 0 0 53px transparent,
+                inset 0 0 0 54px var(--color-border);
+              overflow: hidden;
+              animation: breathing 8s infinite ease-in-out;
+              will-change: transform, opacity;
+            }
+            
+            @keyframes breathing {
+              0%, 100% { transform: scale(0.96); opacity: 0.7; }
+              50% { transform: scale(1.02); opacity: 1; }
+            }
+            
+            .radar-panel:before {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 50%;
+              width: 1px;
+              height: 100%;
+              background: var(--color-border);
+            }
+            
+            .radar-panel:after {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              width: 100%;
+              height: 1px;
+              background: var(--color-border);
+            }
+            
+            .radar-scanner {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 160px;
+              height: 160px;
+              background: conic-gradient(from 0deg, transparent 70%, rgba(var(--color-blue-mid-rgb), 0.2) 99%, var(--color-blue-mid) 100%);
+              border-radius: 50%;
+              transform-origin: center;
+              animation: scanning 4s infinite linear;
+              will-change: transform;
+            }
+            
+            .radar-targets {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            
+            .radar-target {
+              display: block;
+              position: absolute;
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: #6DB6FF;
+              box-shadow: 0 0 10px #6DB6FF;
+              opacity: 0;
+              animation: target-pulse 4s infinite linear;
+              will-change: opacity, transform;
+            }
+
+            @keyframes scanning {
+              100% { transform: rotate(360deg); }
+            }
+            
+            @keyframes target-pulse {
+              1% { opacity: 0.5; transform: scale(2.5); }
+              3% { opacity: 1; transform: scale(1.5); }
+              60% { opacity: 0; transform: scale(0.6); }
+            }
+          `}</style>
+
+          <div className="radar-panel">
+            <div 
+              className="radar-scanner" 
+              style={{ 
+                animationPlayState: 'running',
+                opacity: hovered ? 1 : 0.35,
+                transition: 'opacity 0.6s ease'
+              }} 
+            />
+            <ul className="radar-targets">
+              <li className="radar-target" style={{ animationDelay: "2250ms", top: "30%", left: "30%", opacity: hovered ? 1 : 0.15, transition: 'opacity 0.8s ease' }} />
+              <li className="radar-target" style={{ animationDelay: "3200ms", top: "15%", left: "60%", opacity: hovered ? 1 : 0.15, transition: 'opacity 0.8s ease' }} />
+              <li className="radar-target" style={{ animationDelay: "5050ms", top: "70%", left: "80%", opacity: hovered ? 1 : 0.15, transition: 'opacity 0.8s ease' }} />
+              <li className="radar-target" style={{ animationDelay: "1100ms", top: "60%", left: "20%", opacity: hovered ? 1 : 0.15, transition: 'opacity 0.8s ease' }} />
+              <li className="radar-target" style={{ animationDelay: "3000ms", top: "30%", left: "50%", opacity: hovered ? 1 : 0.15, transition: 'opacity 0.8s ease' }} />
+            </ul>
+          </div>
+        </div>
+      );
+    }
+  },
+  {
+    title: "AI Strategy & Growth",
+    desc: "Get expert guidance to implement AI solutions that drive business growth",
+    Icon: function Bars({ hovered }: { hovered: boolean }) {
+      return (
+        <svg width="250" height="200" viewBox="0 0 220 200">
+          <defs><linearGradient id="gradBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="rgba(var(--color-text-bright-rgb), 0.15)" /><stop offset="100%" stopColor="rgba(var(--color-text-bright-rgb), 0.02)" /></linearGradient></defs>
+          <motion.rect
+            animate={{ 
+              height: hovered ? [70, 85, 70] : [40, 55, 40], 
+              y: hovered ? [100, 85, 100] : [130, 115, 130] 
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            x="15" width="36" rx="8" fill="url(#gradBar)"
+            style={{ willChange: "height, y" }}
+          />
+          <motion.rect
+            animate={{ 
+              height: hovered ? [105, 120, 105] : [60, 75, 60], 
+              y: hovered ? [65, 50, 65] : [110, 95, 110] 
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            x="65" width="36" rx="8" fill="url(#gradBar)"
+            style={{ willChange: "height, y" }}
+          />
+          <motion.rect
+            animate={{ 
+              height: hovered ? [140, 155, 140] : [80, 95, 80], 
+              y: hovered ? [30, 15, 30] : [90, 75, 90] 
+            }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            x="115" width="36" rx="8" fill="url(#gradBar)"
+            style={{ willChange: "height, y" }}
+          />
+          <motion.rect
+            animate={{ 
+              height: hovered ? [85, 100, 85] : [50, 65, 50], 
+              y: hovered ? [85, 70, 85] : [120, 105, 120] 
+            }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+            x="165" width="36" rx="8" fill="url(#gradBar)"
+            style={{ willChange: "height, y" }}
+          />
+        </svg>
+      );
+    }
+  },
+  {
+    title: "Custom AI Solutions",
+    desc: "We develop custom AI agents that integrate seamlessly with your tools",
+    Icon: function Nodes({ hovered }: { hovered: boolean }) {
+      return (
+        <svg width="200" height="160" viewBox="0 0 210 200">
+          <motion.g
+            animate={{
+              rotate: 360,
+              scale: hovered ? 1.08 : 1
+            }}
+            transition={{
+              rotate: { duration: hovered ? 15 : 45, repeat: Infinity, ease: "linear" },
+              scale: { duration: 0.5, ease: "easeOut" }
+            }}
+            style={{ transformOrigin: "105px 100px", willChange: "transform" }}
+          >
+            <line x1="105" y1="100" x2="50" y2="50" stroke="var(--color-border)" strokeWidth="2" />
+            <line x1="105" y1="100" x2="160" y2="45" stroke="var(--color-border)" strokeWidth="2" />
+            <line x1="105" y1="100" x2="35" y2="115" stroke="var(--color-border)" strokeWidth="2" />
+            <line x1="105" y1="100" x2="175" y2="125" stroke="var(--color-border)" strokeWidth="2" />
+            <line x1="105" y1="100" x2="115" y2="165" stroke="var(--color-border)" strokeWidth="2" />
+            <circle cx="50" cy="50" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+            <circle cx="160" cy="45" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+            <circle cx="35" cy="115" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+            <circle cx="175" cy="125" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+            <circle cx="115" cy="165" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+            <circle cx="105" cy="100" r="14" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+            <circle cx="105" cy="100" r="9" fill="rgba(var(--color-blue-mid-rgb), 0.1)" stroke="rgba(var(--color-blue-mid-rgb), 0.3)" strokeWidth="0.5" />
+            <circle cx="105" cy="100" r="2" fill="#6DB6FF" />
+            {[0, 60, 120, 180, 240, 300].map(angle => {
+              const r = 5.5;
+              const x = 105 + r * Math.cos(angle * Math.PI / 180);
+              const y = 100 + r * Math.sin(angle * Math.PI / 180);
+              return <circle key={angle} cx={x} cy={y} r="1" fill="#6DB6FF" opacity="0.8" />;
+            })}
+            <circle cx="105" cy="100" r="10" fill="none" stroke="#6DB6FF" strokeWidth="0.5" strokeDasharray="1 3" opacity="0.4" />
+          </motion.g>
+        </svg>
+      );
+    }
+  },
+];
 
 export function Benefits() {
   const isMobile = useMobile(768);
-  const cards = [
-    {
-      title: "Real-Time Intelligence",
-      desc: "Access accurate, real-time data to drive smarter decisions",
-      Icon: function RadarSweep({ hovered }: { hovered: boolean }) {
-        return (
-          <div className="w-full h-full flex items-center justify-center relative overflow-hidden -mt-4">
-            <style>{`
-              .radar-panel {
-                position: relative;
-                width: 160px;
-                height: 160px;
-                border-radius: 50%;
-                border: 1px solid var(--color-border);
-                box-shadow: 
-                  inset 0 0 0 26px transparent,
-                  inset 0 0 0 27px var(--color-border),
-                  inset 0 0 0 53px transparent,
-                  inset 0 0 0 54px var(--color-border);
-                overflow: hidden;
-              }
-              
-              .radar-panel:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 50%;
-                width: 1px;
-                height: 100%;
-                background: var(--color-border);
-              }
-              
-              .radar-panel:after {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 50%;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background: var(--color-border);
-              }
-              
-              .radar-scanner {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 160px;
-                height: 160px;
-                background: conic-gradient(from 0deg, transparent 70%, rgba(var(--color-blue-mid-rgb), 0.2) 99%, var(--color-blue-mid) 100%);
-                border-radius: 50%;
-                transform-origin: center;
-                animation: scanning 4s infinite linear;
-              }
-              
-              .radar-targets {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-              }
-              
-              .radar-target {
-                display: block;
-                position: absolute;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: #6DB6FF;
-                box-shadow: 0 0 10px #6DB6FF;
-                opacity: 0;
-                animation: target-pulse 4s infinite linear;
-              }
-              
-              @keyframes spin {
-                from { transform: rotate(0deg); }
-                to   { transform: rotate(360deg); }
-              }
-              
-              @keyframes marquee {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-              }
-              
-              .marquee-container {
-                display: flex;
-                width: max-content;
-                animation: marquee 30s linear infinite;
-                will-change: transform;
-              }
-              
-              .marquee-paused {
-                animation-play-state: paused !important;
-              }
-
-              @keyframes scanning {
-                100% { transform: rotate(360deg); }
-              }
-              
-              @keyframes target-pulse {
-                1% { opacity: 0.5; transform: scale(2.5); }
-                3% { opacity: 1; transform: scale(1.5); }
-                60% { opacity: 0; transform: scale(0.6); }
-              }
-            `}</style>
-
-            <div className="radar-panel">
-              <div 
-                className="radar-scanner" 
-                style={{ 
-                  animationPlayState: hovered ? 'running' : 'paused',
-                  opacity: hovered ? 1 : 0,
-                  transition: 'opacity 0.3s ease'
-                }} 
-              />
-              <ul className="radar-targets">
-                <li className="radar-target" style={{ animationDelay: "2250ms", top: "30%", left: "30%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
-                <li className="radar-target" style={{ animationDelay: "3200ms", top: "15%", left: "60%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
-                <li className="radar-target" style={{ animationDelay: "5050ms", top: "70%", left: "80%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
-                <li className="radar-target" style={{ animationDelay: "1100ms", top: "60%", left: "20%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
-                <li className="radar-target" style={{ animationDelay: "3000ms", top: "30%", left: "50%", animationPlayState: hovered ? 'running' : 'paused', opacity: hovered ? '' : 0, transition: hovered ? '' : 'opacity 0.3s ease' }} />
-              </ul>
-            </div>
-          </div>
-        );
-      }
-    },
-    {
-      title: "AI Strategy & Growth",
-      desc: "Get expert guidance to implement AI solutions that drive business growth",
-      Icon: function Bars({ hovered }: { hovered: boolean }) {
-        return (
-          <svg width="100%" height="200" viewBox="0 0 220 200">
-            <defs><linearGradient id="gradBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="rgba(var(--color-text-bright-rgb), 0.15)" /><stop offset="100%" stopColor="rgba(var(--color-text-bright-rgb), 0.02)" /></linearGradient></defs>
-            <motion.rect
-              animate={hovered ? { height: 70, y: 100 } : { height: 40, y: 130 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              x="15" width="36" rx="8" fill="url(#gradBar)"
-            />
-            <motion.rect
-              animate={hovered ? { height: 105, y: 65 } : { height: 60, y: 110 }}
-              transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              x="65" width="36" rx="8" fill="url(#gradBar)"
-            />
-            <motion.rect
-              animate={hovered ? { height: 140, y: 30 } : { height: 80, y: 90 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              x="115" width="36" rx="8" fill="url(#gradBar)"
-            />
-            <motion.rect
-              animate={hovered ? { height: 85, y: 85 } : { height: 50, y: 120 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              x="165" width="36" rx="8" fill="url(#gradBar)"
-            />
-          </svg>
-        );
-      }
-    },
-    {
-      title: "Custom AI Solutions",
-      desc: "We develop custom AI agents that integrate seamlessly with your tools",
-      Icon: function Nodes({ hovered }: { hovered: boolean }) {
-        return (
-          <svg width="100%" height="200" viewBox="0 0 210 200">
-            <motion.g
-              animate={{
-                rotate: hovered ? 360 : 0,
-                scale: hovered ? 1.1 : 1
-              }}
-              transition={{
-                rotate: hovered
-                  ? { duration: 15, repeat: Infinity, ease: "linear" }
-                  : { duration: 0.8, ease: "easeOut" },
-                scale: { duration: 0.3 }
-              }}
-              style={{ transformOrigin: "105px 100px" }}
-            >
-              <line x1="105" y1="100" x2="50" y2="50" stroke="var(--color-border)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="160" y2="45" stroke="var(--color-border)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="35" y2="115" stroke="var(--color-border)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="175" y2="125" stroke="var(--color-border)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="115" y2="165" stroke="var(--color-border)" strokeWidth="2" />
-              <circle cx="50" cy="50" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
-              <circle cx="160" cy="45" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
-              <circle cx="35" cy="115" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
-              <circle cx="175" cy="125" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
-              <circle cx="115" cy="165" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
-              <circle cx="105" cy="100" r="14" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
-              <circle cx="105" cy="100" r="9" fill="rgba(var(--color-blue-mid-rgb), 0.1)" stroke="rgba(var(--color-blue-mid-rgb), 0.3)" strokeWidth="0.5" />
-              <circle cx="105" cy="100" r="2" fill="#6DB6FF" />
-              {[0, 60, 120, 180, 240, 300].map(angle => {
-                const r = 5.5;
-                const x = 105 + r * Math.cos(angle * Math.PI / 180);
-                const y = 100 + r * Math.sin(angle * Math.PI / 180);
-                return <circle key={angle} cx={x} cy={y} r="1" fill="#6DB6FF" opacity="0.8" />;
-              })}
-              <circle cx="105" cy="100" r="10" fill="none" stroke="#6DB6FF" strokeWidth="0.5" strokeDasharray="1 3" opacity="0.4" />
-            </motion.g>
-          </svg>
-        );
-      }
-    }
-  ];
-
   return (
     <Section id="benefits">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
-        <div style={{
-          display: "flex", alignItems: "center", gap: "8px",
-          padding: "6px 14px", borderRadius: "100px",
-          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
-        }}>
-          <Sparkles style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
-          <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtBright }}>BENEFITS</span>
-        </div>
-      </div>
+      <Label icon="✦" text="BENEFITS" />
       <H2 plain="Why Choose " italic="Us?" />
-      <Sub>Everything you need to automate, optimize, and scale</Sub>
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
-        gap: isMobile ? "16px" : "12px", 
-        marginBottom: "12px",
-        width: "100%" 
+      <Sub>Automate growth with intelligence and speed</Sub>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+        gap: "24px",
+        marginTop: "48px"
       }}>
-        {cards.map((card, i) => <BenefitCard key={card.title} card={card} i={i} />)}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <GlowingButton href="/contact">Evaluate Your Funnel <ArrowUpRight style={{ width: "16px", height: "16px" }} /></GlowingButton>
+        {benefitCards.map((card, i) => (
+          <BenefitCard key={i} card={card} i={i} />
+        ))}
       </div>
     </Section>
   );
@@ -1956,7 +1953,7 @@ const row1 = ["n8n", "make", "zapier", "openai", "n8n", "make", "zapier", "opena
 const row2 = ["slack", "stripe", "airtable", "salesforce", "slack", "stripe", "airtable", "salesforce", "slack", "stripe", "airtable", "salesforce", "slack", "stripe"];
 const row3 = ["hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google"];
 
-function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], direction?: number, speed?: number }) {
+const MarqueeRow = memo(function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], direction?: number, speed?: number }) {
   const { resolvedTheme } = useTheme();
   return (
     <div 
@@ -1979,7 +1976,9 @@ function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], dir
         animationDuration: `${speed}s`,
         animationTimingFunction: "linear",
         animationIterationCount: "infinite",
-        animationDirection: direction === 1 ? 'normal' : 'reverse'
+        animationDirection: direction === 1 ? 'normal' : 'reverse',
+        transform: "translate3d(0,0,0)",
+        willChange: "transform"
       }}>
         {[...items, ...items].map((iconKey, i) => (
           <div key={i} style={{
@@ -1998,7 +1997,7 @@ function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], dir
       </div>
     </div>
   );
-}
+});
 
 export function Integrations() {
   const isMobile = useMobile(768);

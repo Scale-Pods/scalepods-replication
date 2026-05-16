@@ -43,16 +43,17 @@ export default function Hero() {
       {/* ── VIDEO BACKGROUND ── */}
       <video
         autoPlay loop muted playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-0 hero-video"
         style={{
           objectPosition: "center",
-          transform: isMobile ? "scale(1.1)" : "none", // Prevent edge flicker on mobile
-          // STRICT THEME ISOLATION
+          transform: isMobile ? "scale(1.1) translate3d(0,0,0)" : "none", 
           filter: resolvedTheme === 'dark' 
             ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)" 
             : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)",
           opacity: resolvedTheme === 'dark' ? 1 : 0.85,
-          transition: "filter 0.5s ease, opacity 0.5s ease"
+          transition: "filter 0.5s ease, opacity 0.5s ease",
+          willChange: "filter, opacity"
         }}
       >
         <source src="/background.mp4" type="video/mp4" />

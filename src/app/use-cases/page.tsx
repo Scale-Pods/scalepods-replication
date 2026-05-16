@@ -1,5 +1,6 @@
 "use client";
 
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import {
   Calendar, Mail, Phone, Bot, Hotel, Users, Headphones,
@@ -7,7 +8,8 @@ import {
   MapPin, Share2, ArrowUpRight, ChevronRight, Zap
 } from "lucide-react";
 import Link from "next/link";
-import ParticlesBackground from "@/components/ui/ParticlesBackground";
+import dynamic from "next/dynamic";
+const ParticlesBackground = dynamic(() => import("@/components/ui/ParticlesBackground"), { ssr: false });
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useMobile } from "@/lib/hooks";
 
@@ -109,7 +111,7 @@ const useCases = [
 ];
 
 // ── Card component (Premium Glassmorphic Version) ───────────────────────────
-function UseCaseCard({ title, desc, icons, index }: {
+const UseCaseCard = memo(function UseCaseCard({ title, desc, icons, index }: {
   title: string; desc: string;
   icons: React.ElementType[]; index: number;
 }) {
@@ -151,6 +153,8 @@ function UseCaseCard({ title, desc, icons, index }: {
           : "0 20px 30px -10px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)",
         transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
         contain: isMobile ? "paint" : "none",
+        transform: "translate3d(0,0,0)",
+        willChange: "transform"
       }}
       className="use-case-card group"
     >
@@ -267,7 +271,7 @@ function UseCaseCard({ title, desc, icons, index }: {
       </div>
     </motion.div>
   );
-}
+});
 
 
 // ── Main Use Cases Page ──────────────────────────────────────────────────────
