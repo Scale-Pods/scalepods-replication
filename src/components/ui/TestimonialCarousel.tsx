@@ -33,12 +33,6 @@ export const reviewsData = [
     image: "/reviews/Anuj Ruia.jpeg"
   },
   {
-    name: "Tejesh Lohiya",
-    title: "Analytics Manager at Orchestra",
-    quote: "“Huge time-saver. Data is better organized. The insights we get now are actionable and fast. Their automation systems reduced a lot of repetitive reporting work and improved visibility across our internal dashboards. The transition was smooth, and the team was responsive whenever adjustments were needed. It genuinely feels like we now operate with better clarity and speed.”",
-    image: "/reviews/Tejesh Lohiya.jpeg"
-  },
-  {
     name: "Sharan Lekhi",
     title: "Founder at Krafty Animations",
     quote: "“Game-changer. Automation flows run flawlessly. Our team now focuses only on what really matters. Scalepods helped us streamline communication, reduce manual coordination, and improve overall execution speed. The workflows are reliable, easy to manage, and built with real operational understanding. It’s one of the few systems we adopted that immediately started saving us valuable time.”",
