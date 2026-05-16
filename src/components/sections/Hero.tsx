@@ -56,7 +56,7 @@ export default function Hero() {
           height: "100%",
           objectFit: "cover",
           transform: "translate(-50%, -50%)",
-          filter: "grayscale(8%) contrast(1.02)",
+          filter: "saturate(0.72) hue-rotate(-12deg) brightness(0.82) contrast(1.08)",
           opacity: 1,
           willChange: "transform",
           backfaceVisibility: "hidden",
@@ -86,10 +86,24 @@ export default function Hero() {
             zIndex: 1,
             pointerEvents: "none",
             background: resolvedTheme === 'dark'
-              ? "linear-gradient(180deg, rgba(3,6,14,0.56) 0%, rgba(5,10,18,0.52) 35%, rgba(7,12,20,0.58) 70%, rgba(2,5,12,0.68) 100%)"
-              : "linear-gradient(180deg, rgba(240,244,248,0.70) 0%, rgba(232,238,245,0.58) 35%, rgba(226,232,240,0.52) 70%, rgba(220,228,238,0.60) 100%)",
-            backdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "blur(0.5px)",
-            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "blur(0.5px)",
+              ? "linear-gradient(180deg, rgba(2,6,14,0.78) 0%, rgba(4,8,18,0.72) 35%, rgba(6,10,20,0.74) 70%, rgba(2,5,12,0.84) 100%)"
+              : "linear-gradient(180deg, rgba(236,241,247,0.82) 0%, rgba(228,234,241,0.74) 35%, rgba(220,228,236,0.70) 70%, rgba(214,223,233,0.82) 100%)",
+            backdropFilter: resolvedTheme === 'dark' ? "blur(2px)" : "blur(1.5px)",
+            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(2px)" : "blur(1.5px)",
+          }}
+        />
+      )}
+
+      {/* ── MOBILE COLOR NEUTRALIZATION LAYER ── */}
+      {isMobile && (
+        <div 
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            background: "rgba(20, 28, 40, 0.12)",
+            mixBlendMode: "color",
+            pointerEvents: "none"
           }}
         />
       )}
