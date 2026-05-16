@@ -218,7 +218,14 @@ const Navbar = memo(() => {
         }}>
           {/* Logo Area */}
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <Link href="/" prefetch={true} style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "70px" }}>
+            <Link href="/" prefetch={true} style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              flexShrink: 0, 
+              height: "70px",
+              marginLeft: isMobile ? "18px" : "0",
+              transform: isMobile ? "translateX(4px)" : "none"
+            }}>
               <div style={{ position: "relative", width: "160px", height: "28px", flexShrink: 0 }}>
                 <Image
                   src="/scalepods-navbar-logo.png"

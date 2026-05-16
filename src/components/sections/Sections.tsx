@@ -11,6 +11,11 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import FuturisticGauge from "@/components/ui/FuturisticGauge";
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
 import { useMobile } from "@/lib/hooks";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, FreeMode } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/free-mode';
 
 // ── Design tokens — exact CSS Peeper values ───────────────────────────────────
 const C = {
@@ -523,16 +528,18 @@ export function Services() {
 // DATA ANALYSIS — tall section with big centered text
 // ═══════════════════════════════════════════════════════════════════════════════
 const brands = [
-  { src: "/brands/BECO.avif", alt: "BECO" },
-  { src: "/brands/gammacode.webp", alt: "Gammacode", isBlack: true },
-  { src: "/brands/krafty-logo-white.png", alt: "Krafty Animations" },
-  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi", whiteBg: true },
-  { src: "/brands/Break-the-code.avif", alt: "Break The Code", whiteBg: true },
-  { src: "/brands/passsionfruit.avif", alt: "Passionfruit", isBlack: true },
-  { src: "/brands/propertygeld.png", alt: "PropertyGeld", isBlack: true },
-  { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", isBlack: true },
-  { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", isBlack: true },
-  { src: "/brands/suphalmedia.avif", alt: "Suphal Media", isBlack: true },
+  { src: "/brands/BECO.avif", alt: "BECO", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/gammacode.webp", alt: "Gammacode", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/krafty-logo-white.png", alt: "Krafty", darkModeFilter: "none", lightModeFilter: "brightness(0)" },
+  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi", darkModeFilter: "invert(1)", lightModeFilter: "none" },
+  { src: "/brands/Break-the-code.avif", alt: "Break The Code", darkModeFilter: "invert(1)", lightModeFilter: "none" },
+  { src: "/brands/passsionfruit.avif", alt: "Passionfruit", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/propertygeld.png", alt: "PropertyGeld", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/suphalmedia.avif", alt: "Suphal Media", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/orchestra.png", alt: "Orchestra", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/squareyards-logo-new.png", alt: "Square Yards", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
 ];
 
 export function DataAnalysis() {
@@ -566,9 +573,9 @@ export function DataAnalysis() {
         overflow: "hidden"
       }}>
       <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @keyframes marquee-v4 {
+          from { transform: translate3d(0,0,0); }
+          to { transform: translate3d(-33.333%,0,0); }
         }
       `}</style>
 
@@ -655,78 +662,154 @@ export function DataAnalysis() {
             marginTop: isMobile ? "20px" : "40px",
             padding: isMobile ? "20px 0" : "40px 0",
             zIndex: 10,
-            maskImage: "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
+            maskImage: isMobile ? "none" : "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
+            WebkitMaskImage: isMobile ? "none" : "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
             opacity: 1,
             transform: "none"
           }}
         >
           <style>{`
-            @keyframes marquee-v3 {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
+            .marquee-wrapper-v4 {
+              width: 100%;
+              overflow: hidden;
+              position: relative;
             }
-            .marquee-track-v3 {
+            .marquee-track-v4 {
               display: flex;
+              align-items: center;
               width: max-content;
-              animation: marquee-v3 35s linear infinite;
+              gap: 56px;
+              animation: marquee-v4 30s linear infinite;
+              will-change: transform;
+              backface-visibility: hidden;
+              contain: content;
             }
-            .paused {
+            .paused-v3 {
               animation-play-state: paused !important;
             }
+            /* Swiper Custom Styles for Continuous Motion */
+            .mobile-swiper .swiper-wrapper {
+              transition-timing-function: linear !important;
+            }
           `}</style>
-          <div className={`marquee-track-v3 ${isPaused ? 'paused' : ''}`}>
-            {[...brands, ...brands, ...brands, ...brands].map((brand, i) => {
-              const isHovered = hoveredIndex === i;
-              return (
-                <div 
-                  key={i} 
-                  onMouseEnter={() => {
-                    setHoveredIndex(i);
-                    setIsPaused(true);
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredIndex(null);
-                    setIsPaused(false);
-                  }}
-                  onTouchStart={() => {
-                    setHoveredIndex(i);
-                    setIsPaused(true);
-                  }}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: isMobile ? "0 20px" : "0 40px",
-                    opacity: isHovered ? 1 : 0.6,
-                    height: isMobile ? "28px" : "42px",
-                    transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                    cursor: "pointer",
-                    transform: isHovered ? "scale(1.1)" : "scale(1)",
-                    flexShrink: 0
-                  }}
-                >
-                  <img
-                    src={brand.src}
-                    alt={brand.alt}
-                    style={{
-                      height: "100%",
-                      width: "auto",
-                      objectFit: "contain",
-                      transition: "all 0.4s ease",
-                      filter: resolvedTheme === "dark" 
-                        ? (isHovered 
-                          ? (brand.whiteBg ? "invert(1) brightness(1.2)" : (brand.isBlack ? "invert(1) brightness(1.5)" : "none")) 
-                          : (brand.whiteBg ? "invert(1) grayscale(100%) opacity(0.7)" : "brightness(0) invert(1)"))
-                        : (isHovered
-                          ? "none"
-                          : "grayscale(100%) opacity(0.6)")
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
+
+          {isMobile ? (
+            <div className="marquee-wrapper-v4 mobile-swiper" style={{ marginTop: "20px" }}>
+              <Swiper
+                modules={[Autoplay, FreeMode]}
+                slidesPerView="auto"
+                loop={true}
+                freeMode={{
+                  enabled: true,
+                  momentum: false,
+                  momentumBounce: false,
+                  sticky: false
+                }}
+                allowTouchMove={false}
+                speed={2200}
+                autoplay={{
+                  delay: 0,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: false,
+                  waitForTransition: true
+                }}
+                style={{ 
+                  width: "100%", 
+                  height: "40px", 
+                  willChange: "transform",
+                  transform: "translate3d(0,0,0)",
+                  backfaceVisibility: "hidden"
+                }}
+              >
+                {[...brands, ...brands, ...brands].map((brand: any, i) => (
+                  <SwiperSlide 
+                    key={`mobile-${brand.alt}-${i}`} 
+                    style={{ width: "auto", display: "flex", alignItems: "center", padding: "0 20px" }}
+                  >
+                    <div style={{
+                      height: "28px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}>
+                      <Image
+                        src={brand.src}
+                        alt={brand.alt}
+                        width={120}
+                        height={32}
+                        priority
+                        style={{
+                          height: "100%",
+                          width: "auto",
+                          objectFit: "contain",
+                          background: "transparent",
+                          pointerEvents: "none",
+                          userSelect: "none",
+                          filter: resolvedTheme === "dark" 
+                            ? (brand.darkModeFilter || "none") 
+                            : (brand.lightModeFilter || "none")
+                        }}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            <div className="marquee-wrapper-v4">
+              <div className={`marquee-track-v4 ${isPaused ? 'paused-v3' : ''}`}>
+                {[...brands, ...brands, ...brands].map((brand: any, i) => {
+                  const isHovered = hoveredIndex === i;
+                  return (
+                    <div
+                      key={`${brand.alt}-${i}`}
+                      onMouseEnter={() => {
+                        setHoveredIndex(i);
+                        setIsPaused(true);
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredIndex(null);
+                        setIsPaused(false);
+                      }}
+                      style={{
+                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        minWidth: "140px",
+                        height: "48px",
+                        transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                        transform: isHovered ? "scale(1.1)" : "scale(1)",
+                        opacity: isHovered ? 1 : 0.6,
+                        cursor: "pointer"
+                      }}
+                    >
+                      <Image
+                        src={brand.src}
+                        alt={brand.alt}
+                        width={140}
+                        height={48}
+                        style={{
+                          height: "100%",
+                          width: "auto",
+                          objectFit: "contain",
+                          pointerEvents: "none",
+                          userSelect: "none",
+                          background: "transparent",
+                          transition: "all 0.4s ease",
+                          filter: isHovered 
+                            ? "none" 
+                            : (resolvedTheme === "dark" 
+                              ? (brand.darkModeFilter || "brightness(0) invert(1) grayscale(1)") 
+                              : (brand.lightModeFilter || "grayscale(100%)"))
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

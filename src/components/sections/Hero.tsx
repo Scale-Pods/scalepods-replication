@@ -34,7 +34,7 @@ export default function Hero() {
   const { resolvedTheme } = useTheme();
   const isMobile = useMobile(768);
 
-  
+
   return (
     <section
       className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden"
@@ -42,37 +42,75 @@ export default function Hero() {
     >
       {/* ── VIDEO BACKGROUND ── */}
       <video
-        autoPlay loop muted playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0 hero-video"
-        style={{
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className={isMobile ? "absolute z-0" : "absolute inset-0 w-full h-full object-cover z-0 hero-video"}
+        style={isMobile ? {
+          top: "50%",
+          left: "50%",
+          width: "100vw",
+          height: "100%",
+          minWidth: "100%",
+          minHeight: "100%",
+          objectFit: "cover",
+          transform: "translate(-50%, -50%)",
+          opacity: resolvedTheme === 'dark' ? 0.35 : 0.22,
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          pointerEvents: "none",
+          filter: "none"
+        } : {
           objectPosition: "center",
-          transform: isMobile ? "scale(1.1) translate3d(0,0,0)" : "none", 
-          filter: resolvedTheme === 'dark' 
-            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)" 
+          filter: resolvedTheme === 'dark'
+            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)"
             : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)",
-          opacity: resolvedTheme === 'dark' ? 1 : 0.85,
+          opacity: resolvedTheme === 'dark' ? 0.35 : 0.22,
           transition: "filter 0.5s ease, opacity 0.5s ease",
-          willChange: "filter, opacity"
+          willChange: "filter, opacity",
+          pointerEvents: "none",
+          backfaceVisibility: "hidden"
         }}
       >
         <source src="/background.mp4" type="video/mp4" />
       </video>
+
+      {/* ── MOBILE VIDEO OVERLAY ── */}
+      {isMobile && (
+        <div
+          className="mobile-video-overlay"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            pointerEvents: "none",
+            background: resolvedTheme === 'dark'
+              ? "linear-gradient(180deg, rgba(3,7,18,0.62) 0%, rgba(5,10,20,0.55) 35%, rgba(7,12,22,0.58) 70%, rgba(2,6,15,0.72) 100%)"
+              : "linear-gradient(180deg, rgba(245,248,252,0.72) 0%, rgba(238,242,247,0.58) 35%, rgba(228,234,242,0.48) 70%, rgba(220,228,238,0.62) 100%)",
+            backdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "none",
+            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "none",
+          }}
+        />
+      )}
 
       {/* ── PARTICLES ── */}
       <div style={{ opacity: resolvedTheme === 'dark' ? 1 : 0.3, transition: 'opacity 1s ease', position: "relative", zIndex: 1 }}>
         <ParticlesBackground />
       </div>
 
-      {/* Gradient overlay — STRICT THEME ISOLATION */}
-      <div
-        className="absolute inset-0 z-[2] pointer-events-none"
-        style={{
-          background: resolvedTheme === 'dark'
-            ? "linear-gradient(to bottom, rgba(4,7,13,0.82) 0%, transparent 20%, transparent 68%, rgba(4,7,13,0.96) 100%)"
-            : "linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(250,250,250,0.65) 30%, rgba(250,250,250,0.65) 70%, rgba(255,255,255,0.95) 100%)",
-        }}
-      />
+      {/* Gradient overlay — DESKTOP ONLY */}
+      {!isMobile && (
+        <div
+          className="absolute inset-0 z-[2] pointer-events-none"
+          style={{
+            background: resolvedTheme === 'dark'
+              ? "linear-gradient(to bottom, rgba(4,7,13,0.82) 0%, transparent 20%, transparent 68%, rgba(4,7,13,0.96) 100%)"
+              : "linear-gradient(to bottom, rgba(255,255,255,0.72) 0%, rgba(250,250,250,0.45) 30%, rgba(250,250,250,0.45) 70%, rgba(255,255,255,0.72) 100%)",
+          }}
+        />
+      )}
 
       {/* ── CONTENT ── */}
       <div
@@ -82,7 +120,7 @@ export default function Hero() {
         {/* App Icon Box — slightly larger, glow rings removed per user request */}
         <motion.div variants={scaleIn(0.05)} initial="initial" animate="animate"
           style={{ marginBottom: "24px" }}>
-          
+
           <div style={{
             position: "relative",
             display: "inline-flex",
@@ -124,9 +162,9 @@ export default function Hero() {
                 alt="ScalePods"
                 width={108}
                 height={108}
-                style={{ 
-                  width: isMobile ? "62px" : "84px", 
-                  height: "auto", 
+                style={{
+                  width: isMobile ? "62px" : "84px",
+                  height: "auto",
                   objectFit: "contain",
                   filter: resolvedTheme === 'dark' ? "invert(1)" : "none",
                   transition: "filter 0.3s ease",
@@ -226,7 +264,7 @@ export default function Hero() {
         <motion.div variants={fadeUp(0.5, isMobile)} initial="initial" animate="animate"
           style={{ position: "relative", marginBottom: "24px", display: "inline-block" }}>
           <HeroButton href="/contact">
-            Book A Free Call 
+            Book A Free Call
             <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "4px" }} />
           </HeroButton>
         </motion.div>
@@ -235,29 +273,29 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.78, duration: 0.8 } }}
         >
-         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "32px", marginBottom: "30px", color: "var(--color-blue-bright)" }}>
-          <a
-            href="https://www.linkedin.com/company/scalepods-co"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "0.8")}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <span style={{ opacity: 0.15, fontSize: "20px", color: "var(--color-text-body)", whiteSpace: "pre" }}>|       |</span>
-          <a
-            href="https://www.instagram.com/scalepods.co/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "0.8")}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-        </div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "32px", marginBottom: "30px", color: "var(--color-blue-bright)" }}>
+            <a
+              href="https://www.linkedin.com/company/scalepods-co"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "0.8")}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
+            </a>
+            <span style={{ opacity: 0.15, fontSize: "20px", color: "var(--color-text-body)", whiteSpace: "pre" }}>|       |</span>
+            <a
+              href="https://www.instagram.com/scalepods.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "0.8")}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+            </a>
+          </div>
         </motion.div>
 
         {/* Subtle scroll cue */}
@@ -338,36 +376,36 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
             fontSize: "15px",
             fontWeight: 700,
             letterSpacing: "-0.01em",
-            
+
             // Theme Adaptive Colors (#B1D997 for dark mode text)
             color: isDark ? "#B1D997" : "#0f172a",
-            
+
             // Background Logic (Gradient using #B1D997)
             background: isDark
               ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
               : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
-            
+
             // Glass & Border (#B1D997 glow)
             backdropFilter: isDark ? "blur(12px)" : "none",
             WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
-            border: isDark 
-              ? "1px solid rgba(177, 217, 151, 0.4)" 
+            border: isDark
+              ? "1px solid rgba(177, 217, 151, 0.4)"
               : "1px solid rgba(177, 217, 151, 0.3)",
-            
+
             borderRadius: "12px",
             padding: "16px 36px",
             cursor: "pointer",
-            
+
             // Depth & Shadows
-            boxShadow: isDark 
-              ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+            boxShadow: isDark
+              ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)"
               : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
-            
+
             zIndex: 1,
             transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
           }}
         >
-          <span 
+          <span
             style={{ position: "relative", zIndex: 3, display: "flex", alignItems: "center", gap: "8px" }}
           >
             {children}
