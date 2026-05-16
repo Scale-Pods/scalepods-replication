@@ -436,9 +436,17 @@ export const ImmersiveFeatures = memo(() => {
                 className="feature-card"
               >
 
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <div style={{ color: C.green, opacity: 0.8 }}>{feat.icon}</div>
-                  <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1 }}>
+                  <div style={{ 
+                    color: C.green, 
+                    opacity: 0.8,
+                    width: "24px",
+                    display: "flex",
+                    justifyContent: "center"
+                  }}>
+                    {feat.icon}
+                  </div>
+                  <div style={{ textAlign: "left" }}>
                     <h4 style={{ color: C.txtBright, fontSize: "13px", fontWeight: 600, margin: 0 }}>{feat.title}</h4>
                     <p style={{ color: C.green, fontSize: "9px", fontWeight: 700, textTransform: "uppercase", marginTop: "1px" }}>{feat.outcome}</p>
                   </div>
