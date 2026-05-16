@@ -221,6 +221,7 @@ export default function UAEPage() {
             line-height: 1.1;
             margin-bottom: 12px;
             letter-spacing: -0.04em;
+            white-space: ${isMobile ? "normal" : "nowrap"};
           }
           .hero-subtitle {
             font-family: ${F.inter};
@@ -370,7 +371,7 @@ export default function UAEPage() {
 
             {/* ... Content remains as refactored ... */}
             <h2 className="hero-title-accent">
-              Plug - and - Play Pods
+              Plug-and-Play Pods
             </h2>
             <h3 className="hero-subtitle">
               for Growing Businesses.
