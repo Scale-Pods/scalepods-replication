@@ -47,25 +47,24 @@ export default function Hero() {
         muted
         playsInline
         preload="metadata"
-        className={isMobile ? "absolute z-0" : "absolute inset-0 w-full h-full object-cover z-0 hero-video"}
+        className={isMobile ? "mobile-video-bg" : "absolute inset-0 w-full h-full object-cover z-0 hero-video"}
         style={isMobile ? {
+          position: "absolute",
           top: "50%",
           left: "50%",
-          width: "100vw",
+          width: "100%",
           height: "100%",
-          minWidth: "100%",
-          minHeight: "100%",
           objectFit: "cover",
           transform: "translate(-50%, -50%)",
-          opacity: resolvedTheme === 'dark' ? 0.35 : 0.22,
+          filter: "grayscale(8%) contrast(1.02)",
+          opacity: 1,
           willChange: "transform",
           backfaceVisibility: "hidden",
-          pointerEvents: "none",
-          filter: "none"
+          pointerEvents: "none"
         } : {
           objectPosition: "center",
-          filter: resolvedTheme === 'dark'
-            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)"
+          filter: resolvedTheme === 'dark' 
+            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)" 
             : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)",
           opacity: resolvedTheme === 'dark' ? 0.35 : 0.22,
           transition: "filter 0.5s ease, opacity 0.5s ease",
@@ -79,7 +78,7 @@ export default function Hero() {
 
       {/* ── MOBILE VIDEO OVERLAY ── */}
       {isMobile && (
-        <div
+        <div 
           className="mobile-video-overlay"
           style={{
             position: "absolute",
@@ -87,10 +86,10 @@ export default function Hero() {
             zIndex: 1,
             pointerEvents: "none",
             background: resolvedTheme === 'dark'
-              ? "linear-gradient(180deg, rgba(3,7,18,0.62) 0%, rgba(5,10,20,0.55) 35%, rgba(7,12,22,0.58) 70%, rgba(2,6,15,0.72) 100%)"
-              : "linear-gradient(180deg, rgba(245,248,252,0.72) 0%, rgba(238,242,247,0.58) 35%, rgba(228,234,242,0.48) 70%, rgba(220,228,238,0.62) 100%)",
-            backdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "none",
-            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "none",
+              ? "linear-gradient(180deg, rgba(3,6,14,0.56) 0%, rgba(5,10,18,0.52) 35%, rgba(7,12,20,0.58) 70%, rgba(2,5,12,0.68) 100%)"
+              : "linear-gradient(180deg, rgba(240,244,248,0.70) 0%, rgba(232,238,245,0.58) 35%, rgba(226,232,240,0.52) 70%, rgba(220,228,238,0.60) 100%)",
+            backdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "blur(0.5px)",
+            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(1px)" : "blur(0.5px)",
           }}
         />
       )}
@@ -316,6 +315,7 @@ export default function Hero() {
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         style={{
+          display: isMobile ? "none" : "block",
           position: "absolute",
           bottom: 0,
           left: "50%",
