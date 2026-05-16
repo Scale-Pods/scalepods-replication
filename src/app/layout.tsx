@@ -44,7 +44,7 @@ export const viewport: Viewport = {
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://scalepods.co"),
+  metadataBase: new URL("https://scalepods.ai"),
   title: "ScalePods – New Gen AI Automation Partner",
   description:
     "We build smart workflows that automate the repetitive, reduce overheads, and keep teams lean.",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ScalePods – New Gen AI Automation Partner",
     description: "Automate the Busywork. Unlock Growth.",
-    url: "https://scalepods.co",
+    url: "https://scalepods.ai",
     siteName: "ScalePods",
     type: "website",
   },
@@ -90,6 +90,34 @@ export default function RootLayout({
         className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
         style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
       >
+        {/* Meta Pixel Code */}
+        <Script id="facebook-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}
+            (window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+
+            fbq('init', '1413415307241242');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1413415307241242&ev=PageView&noscript=1"
+            alt="facebook-pixel"
+          />
+        </noscript>
+
         <ThemeProvider>
           <ClarityProvider />
           <Navbar />
