@@ -180,7 +180,7 @@ export default function Footer() {
             >
               Info@scalepods.co
             </a>
-            <p style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>Dubai, United Arab Emirates</p>
+
           </div>
         </div>
 
