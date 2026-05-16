@@ -587,7 +587,7 @@ export function DataAnalysis() {
         </span>
       </div>
 
-      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: isMobile ? "0 10px" : "0" }}>
         <ScrollRevealText
           className="justify-center text-center"
           words={[
@@ -602,27 +602,27 @@ export function DataAnalysis() {
             { text: "are" },
             { text: "&" },
             { text: "how" },
-            { text: "AI", newLine: true },
+            { text: "AI", newLine: !isMobile },
             { text: "can" },
             { text: "optimize" },
             { text: "your" },
-            { text: "workflow.", italic: true, accentColor: "#ACD791" },
+            { text: "workflow.", italic: true, accentColor: "#ACD791", newLine: isMobile },
             { text: "Best" },
             { text: "part" },
             { text: "is" },
             { text: "we" },
             { text: "also" },
-            { text: "build", newLine: true },
+            { text: "build", newLine: !isMobile },
             { text: "and" },
             { text: "launch" },
             { text: "custom", italic: true, accentColor: "#ACD791" },
             { text: "solutions.\"", italic: true, accentColor: "#ACD791" },
           ]}
           fontFamily={F.inter}
-          fontSize="clamp(18px, 2.5vw, 30px)"
+          fontSize={isMobile ? "22px" : "clamp(18px, 2.5vw, 30px)"}
           color="var(--color-text-muted)"
           italicFontFamily={F.serif}
-          lineHeight={1.4}
+          lineHeight={isMobile ? 1.3 : 1.4}
         />
       </div>
 
@@ -768,8 +768,19 @@ function BenefitCard({ card, i }: { card: any, i: number }) {
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", zIndex: 2 }} />
       <div style={{ position: "absolute", bottom: 0, left: "20%", right: "20%", height: "1.5px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", pointerEvents: "none", zIndex: 2 }} />
-      <div style={{ width: "100%", height: "180px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
-        <card.Icon hovered={hovered} />
+      <div style={{ 
+        width: "100%", 
+        height: isMobile ? "160px" : "180px", 
+        display: "flex", 
+        justifyContent: "center", 
+        alignItems: "center", 
+        position: "relative", 
+        zIndex: 1,
+        overflow: "hidden" // Ensure animation stays inside card
+      }}>
+        <div style={{ transform: isMobile ? "scale(0.85)" : "scale(1)" }}>
+          <card.Icon hovered={hovered} />
+        </div>
       </div>
       <motion.h3
         variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
@@ -1004,7 +1015,13 @@ export function Benefits() {
       </div>
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Everything you need to automate, optimize, and scale</Sub>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", marginBottom: "12px" }}>
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
+        gap: isMobile ? "16px" : "12px", 
+        marginBottom: "12px",
+        width: "100%" 
+      }}>
         {cards.map((card, i) => <BenefitCard key={card.title} card={card} i={i} />)}
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -1086,7 +1103,14 @@ export function Features() {
         <Sub>Everything you need to automate operations, boost productivity</Sub>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", maxWidth: "1050px", margin: "0 auto" }}>
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
+        gap: isMobile ? "16px" : "10px", 
+        maxWidth: "1050px", 
+        margin: "0 auto",
+        width: "100%"
+      }}>
         {items.map((it, i) => (
           <FeatureCard key={i} it={it} i={i} />
         ))}
@@ -2216,8 +2240,15 @@ export function FAQ() {
 // ═══════════════════════════════════════════════════════════════════════════════
 export function FinalCTA() {
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(768);
   return (
-    <section id="contact" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", textAlign: "center", overflow: "hidden" }}>
+    <section id="contact" style={{ 
+      position: "relative", 
+      background: C.bgPage, 
+      padding: isMobile ? "80px 24px" : "160px 24px", 
+      textAlign: "center", 
+      overflow: "hidden" 
+    }}>
 
       {/* Ambient Button Radial Glow (Under Particles) */}
       <div style={{
@@ -2265,7 +2296,14 @@ export function FinalCTA() {
         </div>
 
         {/* Header */}
-        <h2 style={{ fontFamily: F.inter, fontSize: "42px", fontWeight: 700, color: C.txtBright, marginBottom: "8px", lineHeight: 1.2 }}>
+        <h2 style={{ 
+          fontFamily: F.inter, 
+          fontSize: isMobile ? "28px" : "42px", 
+          fontWeight: 700, 
+          color: C.txtBright, 
+          marginBottom: "8px", 
+          lineHeight: 1.2 
+        }}>
           Ready to Automate Smarter?<br />
           Let's <span style={{ fontFamily: F.serif, fontStyle: "italic", fontWeight: 400, color: C.txtBody }}>Build Together</span>
         </h2>

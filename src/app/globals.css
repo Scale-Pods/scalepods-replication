@@ -210,6 +210,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   width: 100%;
 }
 
@@ -262,6 +263,40 @@ img, video, canvas, svg {
   filter: brightness(1.1) contrast(0.88) saturate(0.75);
   opacity: 0.35 !important;
 }
+
+/* ── Mobile-specific video scaling and performance ── */
+@media (max-width: 768px) {
+  .hero-video-container {
+    height: 100svh !important;
+    height: -webkit-fill-available !important;
+  }
+  
+  .hero-video {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1.1); /* Prevent black bars/flicker */
+  }
+
+  /* Reduce blur intensity for mobile performance */
+  .premium-card, 
+  .internal-panel,
+  [style*="backdrop-filter"] {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+  
+  /* Optimize GPU usage */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .fade-up {
+    animation-duration: 0.5s !important; /* Quicker animations on mobile */
+  }
+}
+
 
 /* ── Light mode hero: always show subtle nav border for separation ── */
 [data-theme="light"] header {

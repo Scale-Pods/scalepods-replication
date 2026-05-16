@@ -10,8 +10,8 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 import { useMobile } from "@/lib/hooks";
 
 
-const fadeUp = (delay = 0): Variants => ({
-  initial: { opacity: 0, y: 16, filter: "blur(6px)" },
+const fadeUp = (delay = 0, isMobile = false): Variants => ({
+  initial: { opacity: 0, y: isMobile ? 10 : 16, filter: isMobile ? "blur(2px)" : "blur(6px)" },
   animate: {
     opacity: 1,
     y: 0,
@@ -20,8 +20,8 @@ const fadeUp = (delay = 0): Variants => ({
   },
 });
 
-const scaleIn = (delay = 0): Variants => ({
-  initial: { opacity: 0, scale: 0.92, filter: "blur(6px)" },
+const scaleIn = (delay = 0, isMobile = false): Variants => ({
+  initial: { opacity: 0, scale: 0.92, filter: isMobile ? "blur(2px)" : "blur(6px)" },
   animate: {
     opacity: 1,
     scale: 1,
@@ -43,12 +43,14 @@ export default function Hero() {
       {/* ── VIDEO BACKGROUND ── */}
       <video
         autoPlay loop muted playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-0 hero-video"
         style={{
+          objectPosition: "center",
+          transform: isMobile ? "scale(1.1)" : "none", // Prevent edge flicker on mobile
           // STRICT THEME ISOLATION
           filter: resolvedTheme === 'dark' 
-            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)" // Restored Dark Mode cinematic navy
-            : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)", // Light Mode neutral/cool grayscale (removes raw red/pink tint)
+            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)" 
+            : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)",
           opacity: resolvedTheme === 'dark' ? 1 : 0.85,
           transition: "filter 0.5s ease, opacity 0.5s ease"
         }}
@@ -89,32 +91,32 @@ export default function Hero() {
             {/* Sky-blue radial glow halo — dark only */}
             <div style={{
               position: "absolute",
-              width: "220px",
-              height: "220px",
+              width: isMobile ? "160px" : "220px",
+              height: isMobile ? "160px" : "220px",
               borderRadius: "50%",
               background: resolvedTheme === 'dark'
-                ? "radial-gradient(circle at center, rgba(109, 182, 255, 0.55) 0%, transparent 70%)"
+                ? "radial-gradient(circle at center, rgba(109, 182, 255, 0.4) 0%, transparent 70%)"
                 : "transparent",
-              filter: "blur(10px)",
+              filter: isMobile ? "blur(5px)" : "blur(10px)",
               pointerEvents: "none",
             }} />
 
             {/* Main icon box */}
             <div style={{
               position: "relative",
-              width: "132px",
-              height: "132px",
-              borderRadius: "28px",
+              width: isMobile ? "100px" : "132px",
+              height: isMobile ? "100px" : "132px",
+              borderRadius: isMobile ? "22px" : "28px",
               background: resolvedTheme === 'dark' ? "var(--color-bg-card)" : "rgba(255,255,255,0.95)",
               border: resolvedTheme === 'dark' ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.08)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               boxShadow: resolvedTheme === 'dark'
-                ? "0 0 40px -5px rgba(109, 182, 255, 0.7), 0 0 80px 0px rgba(109, 182, 255, 0.25)"
-                : "0 12px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.06)",
+                ? `0 0 ${isMobile ? '20px' : '40px'} -5px rgba(109, 182, 255, 0.7)`
+                : "0 12px 40px rgba(15,23,42,0.12)",
               zIndex: 1,
-              padding: "16px",
+              padding: isMobile ? "12px" : "16px",
             }}>
               <Image
                 src="/scalepods-logo.png"
@@ -122,7 +124,7 @@ export default function Hero() {
                 width={108}
                 height={108}
                 style={{ 
-                  width: "92px", 
+                  width: isMobile ? "70px" : "92px", 
                   height: "auto", 
                   objectFit: "contain",
                   filter: resolvedTheme === 'dark' ? "invert(1)" : "none",
@@ -135,7 +137,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Badge — blinking blue dot */}
-        <motion.div variants={fadeUp(0.16)} initial="initial" animate="animate"
+        <motion.div variants={fadeUp(0.16, isMobile)} initial="initial" animate="animate"
           style={{ marginBottom: "14px" }}>
           <span style={{
             display: "inline-flex",
@@ -172,10 +174,10 @@ export default function Hero() {
 
         {/* H1 — with exact blended black/silver fade effect at sides */}
         <motion.h1
-          variants={fadeUp(0.28)} initial="initial" animate="animate"
+          variants={fadeUp(0.28, isMobile)} initial="initial" animate="animate"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
-            fontSize: "clamp(44px, 6.2vw, 72px)",
+            fontSize: isMobile ? "38px" : "clamp(44px, 6.2vw, 72px)",
             fontWeight: 600,
             lineHeight: 1.05,
             letterSpacing: "-0.028em",
@@ -196,7 +198,7 @@ export default function Hero() {
 
         {/* Subtext — same blended gradient as H1, wraps on mobile */}
         <motion.p
-          variants={fadeUp(0.4)} initial="initial" animate="animate"
+          variants={fadeUp(0.4, isMobile)} initial="initial" animate="animate"
           className="hero-subtext"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
@@ -220,14 +222,12 @@ export default function Hero() {
 
 
         {/* CTA Button — lamp glow on hover (matches reference) */}
-        <motion.div variants={fadeUp(0.5)} initial="initial" animate="animate"
+        <motion.div variants={fadeUp(0.5, isMobile)} initial="initial" animate="animate"
           style={{ position: "relative", marginBottom: "24px", display: "inline-block" }}>
           <HeroButton href="/contact">
             Book A Free Call 
             <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "4px" }} />
           </HeroButton>
-
-
         </motion.div>
 
         {/* Social Icons */}
