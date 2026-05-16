@@ -207,10 +207,10 @@ export default function UAEPage() {
             flex: 1.2;
             width: auto;
             order: 1;
-            text-align: center;
+            text-align: ${isMobile ? 'center' : 'left'};
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: ${isMobile ? 'center' : 'flex-start'};
             padding-top: 40px;
           }
           .hero-title-accent {
@@ -224,9 +224,10 @@ export default function UAEPage() {
             letter-spacing: -0.02em;
           }
           .hero-subtitle {
-            font-family: ${F.inter};
+            font-family: ${F.accent};
+            font-style: italic;
             font-size: clamp(24px, 3.2vw, 38px);
-            font-weight: 700;
+            font-weight: 400;
             color: ${C.txtBright};
             margin-bottom: 20px;
           }
@@ -238,6 +239,7 @@ export default function UAEPage() {
             margin-bottom: 24px;
             line-height: 1.6;
             max-width: 600px;
+            text-align: ${isMobile ? 'center' : 'left'};
           }
           .bullet-list {
             display: flex; 
@@ -245,8 +247,8 @@ export default function UAEPage() {
             gap: 14px;
             align-items: flex-start;
             max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: ${isMobile ? 'auto' : '0'};
+            margin-right: ${isMobile ? 'auto' : '0'};
           }
           .bullet-text {
             font-family: ${F.inter};
