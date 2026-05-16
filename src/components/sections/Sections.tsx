@@ -1456,10 +1456,10 @@ export function Process() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
-                  style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}
+                  style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "hidden", borderRadius: "12px" }}
                 >
                   {/* Glowing Line Chart Area */}
-                  <div style={{ position: "relative", height: "160px", marginBottom: "20px", display: "flex", alignItems: "flex-end" }}>
+                  <div style={{ position: "relative", height: "160px", marginBottom: "20px", display: "flex", alignItems: "flex-end", overflow: "hidden", borderRadius: "8px" }}>
                     <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", bottom: 0 }}>
                       <defs>
                         <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
