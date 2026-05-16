@@ -30,7 +30,7 @@ const F = {
 const G = {
   bg: "var(--color-glass-bg)",
   border: "1px solid var(--color-glass-border)",
-  blur: "blur(16px)", 
+  blur: "blur(10px)", // Reduced from 16px
 };
 
 const features = [

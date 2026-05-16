@@ -166,7 +166,7 @@ export const ThreeDCarousel = React.memo(({
                   x: isActive ? 0 : (index < currentIndex ? -30 : 30),
                   pointerEvents: isActive ? "auto" : "none",
                   visibility: isActive ? "visible" : "hidden",
-                  filter: isActive ? "blur(0px)" : "blur(10px)"
+                  filter: isActive ? "blur(0px)" : (isMobile ? "blur(4px)" : "blur(10px)")
                 }}
                 transition={{ 
                   duration: isMobile ? 0.4 : 0.6, 
@@ -188,15 +188,16 @@ export const ThreeDCarousel = React.memo(({
                     background: isDark 
                       ? "linear-gradient(135deg, rgba(10, 15, 30, 0.7) 0%, rgba(5, 8, 22, 0.85) 100%)" 
                       : "linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 250, 230, 0.6) 100%)",
-                    backdropFilter: "blur(24px)",
-                    WebkitBackdropFilter: "blur(24px)",
+                    backdropFilter: isMobile ? "blur(12px)" : "blur(24px)",
+                    WebkitBackdropFilter: isMobile ? "blur(12px)" : "blur(24px)",
                     border: `1px solid ${isDark ? "rgba(177, 217, 151, 0.12)" : "rgba(177, 217, 151, 0.25)"}`,
                     borderRadius: "32px",
                     padding: isMobile ? "12px" : "20px",
                     boxShadow: isDark 
                       ? "0 40px 80px -20px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(177, 217, 151, 0.03)"
                       : "0 30px 60px -15px rgba(177, 217, 151, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.4)",
-                    transform: "translate3d(0,0,0)"
+                    transform: "translate3d(0,0,0)",
+                    contain: isMobile ? "content" : "none"
                   }}
                 >
                   {/* Subtle Top Shine */}

@@ -741,6 +741,7 @@ export function DataAnalysis() {
 function BenefitCard({ card, i }: { card: any, i: number }) {
   const [hovered, setHovered] = useState(false);
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(768);
 
   return (
     <motion.div
@@ -797,6 +798,7 @@ function BenefitCard({ card, i }: { card: any, i: number }) {
 }
 
 export function Benefits() {
+  const isMobile = useMobile(768);
   const cards = [
     {
       title: "Real-Time Intelligence",
@@ -1035,6 +1037,7 @@ export function Benefits() {
 // FEATURES
 // ═══════════════════════════════════════════════════════════════════════════════
 export function Features() {
+  const isMobile = useMobile(768);
   const items = [
     {
       title: "Workflow Automation",
@@ -2027,7 +2030,8 @@ export function Integrations() {
           borderRadius: "24px",
           padding: "24px 0",
           overflow: "hidden",
-          boxShadow: resolvedTheme === 'dark' ? "0 20px 60px rgba(0,0,0,0.6)" : "0 10px 30px rgba(0,0,0,0.05)"
+          boxShadow: resolvedTheme === 'dark' ? "0 20px 60px rgba(0,0,0,0.6)" : "0 10px 30px rgba(0,0,0,0.05)",
+          contain: isMobile ? "paint" : "none"
         }}>
           {/* Fade overlay masks strictly inside the container */}
           <div className="integration-fade" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: `linear-gradient(to right, var(--color-bg-card) 10%, transparent 100%)`, zIndex: 10, pointerEvents: "none" }} />

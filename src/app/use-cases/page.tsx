@@ -150,6 +150,7 @@ function UseCaseCard({ title, desc, icons, index }: {
           ? "0 20px 40px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05)"
           : "0 20px 30px -10px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)",
         transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+        contain: isMobile ? "paint" : "none",
       }}
       className="use-case-card group"
     >

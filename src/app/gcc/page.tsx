@@ -54,7 +54,7 @@ const F = {
 const G = {
   bg: "rgba(var(--color-text-bright-rgb), 0.015)",
   border: "1px solid var(--color-border-faint)",
-  blur: "blur(12px)",
+  blur: "blur(8px)", // Reduced from 12px
 };
 
 // ── Shared input style (matching contact page) ────────────────────────────────
@@ -192,6 +192,7 @@ export default function UAEPage() {
             display: flex;
             align-items: center;
             justify-content: center;
+            contain: paint;
           }
           .plug-play-grid {
             max-width: 1200px;
