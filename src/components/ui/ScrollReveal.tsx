@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
+
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -59,7 +61,8 @@ export default function ScrollReveal({
         backfaceVisibility: "hidden",
         ...style,
       }}
-      className={className}
+      className={cn("relative", className)}
+
     >
       {children}
     </motion.div>

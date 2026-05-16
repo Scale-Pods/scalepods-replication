@@ -88,6 +88,17 @@ export const ThreeDCarousel = React.memo(({
     setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
   }, [items.length]);
 
+  // Preload ALL images on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      items.forEach(item => {
+        const img = new window.Image();
+        img.src = item.imageUrl;
+      });
+    }
+  }, [items]);
+
+
   // Pause on tab inactive
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -122,24 +133,40 @@ export const ThreeDCarousel = React.memo(({
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "transparent", overflow: "visible" }}
     >
-      <div className="relative w-full flex flex-col items-center max-w-[900px] mx-auto">
-        <AnimatePresence mode="wait">
+      <div className="relative w-full flex flex-col items-center max-w-[900px] mx-auto overflow-hidden">
+        {/* We render all slides but only show the active one to prevent re-fetching/flickering */}
+        <div className="relative w-full" style={{ height: isMobile ? "auto" : "500px", minHeight: isMobile ? "200px" : "420px" }}>
           {items.map((item, index) => {
-            if (index !== currentIndex) return null;
-
+            const isActive = index === currentIndex;
+            
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, scale: 0.98, y: 15 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98, y: -15 }}
-                transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                drag={isMobile ? "x" : false}
+                initial={false}
+                animate={{ 
+                  opacity: isActive ? 1 : 0,
+                  scale: isActive ? 1 : 0.98,
+                  x: isActive ? 0 : (index < currentIndex ? -20 : 20),
+                  pointerEvents: isActive ? "auto" : "none",
+                  visibility: isActive ? "visible" : "hidden"
+                }}
+                transition={{ 
+                  duration: isMobile ? 0.35 : 0.5, 
+                  ease: [0.23, 1, 0.32, 1] 
+                }}
+                onDragEnd={handleDragEnd}
+                drag={isMobile && isActive ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.1}
-                onDragEnd={handleDragEnd}
-                className="w-full flex flex-col items-center"
-                style={{ willChange: "transform, opacity" }}
+                className="absolute inset-0 w-full flex flex-col items-center"
+                style={{ 
+                  willChange: "transform, opacity",
+                  zIndex: isActive ? 20 : 10,
+                  position: isActive ? "relative" : "absolute",
+                  top: 0,
+                  left: 0
+                }}
+
               >
                 {/* Hero Dashboard Viewport - Clean & Contained */}
                 <div 
@@ -156,7 +183,8 @@ export const ThreeDCarousel = React.memo(({
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    transform: "translate3d(0,0,0)"
+                    transform: "translate3d(0,0,0)",
+                    willChange: "transform"
                   }}
                 >
                   <div className="relative w-full h-full flex items-center justify-center p-3 md:p-6 min-h-[220px] md:min-h-[320px] lg:min-h-[420px]">
@@ -169,44 +197,17 @@ export const ThreeDCarousel = React.memo(({
                         objectPosition: "center",
                       }}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 900px"
-                      priority={index === 0}
+                      priority={isActive}
+                      loading={isActive ? "eager" : "lazy"}
                     />
                   </div>
-                  <style jsx>{`
-                    .carousel-viewport {
-                      height: 500px;
-                      min-height: 420px;
-                      max-height: 520px;
-                    }
-                    @media (max-width: 1440px) {
-                      .carousel-viewport {
-                        height: 440px;
-                        min-height: 360px;
-                        max-height: 460px;
-                      }
-                    }
-                    @media (max-width: 1024px) {
-                      .carousel-viewport {
-                        height: auto;
-                        min-height: 300px;
-                        max-height: none;
-                      }
-                    }
-                    @media (max-width: 768px) {
-                      .carousel-viewport {
-                        height: auto;
-                        min-height: 200px;
-                        max-height: 280px;
-                      }
-                    }
-                  `}</style>
                 </div>
 
                 {/* Navigation & Caption Block - Clean Spacing & Alignment */}
                 <div className="relative w-full flex items-center justify-center mt-8 px-4">
                   
                   {/* Left Button - Beside Caption */}
-                  {!isMobile && (
+                  {!isMobile && isActive && (
                     <button
                       onClick={prevSlide}
                       className="absolute left-0 w-[52px] h-[52px] rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 group z-50"
@@ -265,7 +266,7 @@ export const ThreeDCarousel = React.memo(({
                   </div>
 
                   {/* Right Button - Beside Caption */}
-                  {!isMobile && (
+                  {!isMobile && isActive && (
                     <button
                       onClick={nextSlide}
                       className="absolute right-0 w-[52px] h-[52px] rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 group z-50"
@@ -285,8 +286,38 @@ export const ThreeDCarousel = React.memo(({
               </motion.div>
             );
           })}
-        </AnimatePresence>
+        </div>
       </div>
+
+      <style jsx>{`
+        .carousel-viewport {
+          height: 500px;
+          min-height: 420px;
+          max-height: 520px;
+        }
+        @media (max-width: 1440px) {
+          .carousel-viewport {
+            height: 440px;
+            min-height: 360px;
+            max-height: 460px;
+          }
+        }
+        @media (max-width: 1024px) {
+          .carousel-viewport {
+            height: auto;
+            min-height: 300px;
+            max-height: none;
+          }
+        }
+        @media (max-width: 768px) {
+          .carousel-viewport {
+            height: auto;
+            min-height: 200px;
+            max-height: 280px;
+          }
+        }
+      `}</style>
+
 
       {/* Mobile Indicator Row */}
       {isMobile && (

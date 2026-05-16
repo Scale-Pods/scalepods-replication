@@ -403,9 +403,9 @@ export default function UAEPage() {
                     fontFamily: F.inter,
                     fontSize: "14px",
                     fontWeight: 600,
-                    color: "var(--color-text-bright)",
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
+                    color: resolvedTheme === 'light' ? "#000" : "var(--color-text-bright)",
+                    background: resolvedTheme === 'light' ? C.green : "var(--color-bg-card-alt)",
+                    border: resolvedTheme === 'light' ? "none" : "1px solid var(--color-border)",
                     borderRadius: "12px",
                     padding: "14px 36px",
                     cursor: "pointer",
@@ -415,8 +415,10 @@ export default function UAEPage() {
                     minWidth: "240px",
                     justifyContent: "center",
                     whiteSpace: "nowrap",
-                    transition: "all 0.3s ease"
+                    transition: "all 0.3s ease",
+                    boxShadow: resolvedTheme === 'light' ? "0 4px 20px rgba(var(--color-green-rgb), 0.3)" : "none"
                   }}
+
                 >
                   <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2, color: C.green }} />
                   <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>

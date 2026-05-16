@@ -125,15 +125,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 10) {
-        if (!scrolled) setScrolled(true);
-      } else {
-        if (scrolled) setScrolled(false);
-      }
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [scrolled]);
+  }, []);
+
 
   // Close menu on ESC key
   useEffect(() => {
