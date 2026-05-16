@@ -331,8 +331,8 @@ export const ImmersiveFeatures = memo(() => {
         <div style={{ 
           display: "flex", 
           flexDirection: "column", 
-          alignItems: "center",
-          textAlign: "center",
+          alignItems: isMobile ? "center" : "flex-start",
+          textAlign: isMobile ? "center" : "left",
           width: "100%"
         }}>
           <motion.div
@@ -373,7 +373,7 @@ export const ImmersiveFeatures = memo(() => {
               marginBottom: "8px",
               letterSpacing: "-0.03em",
               maxWidth: "600px",
-              margin: "0 auto 8px"
+              margin: isMobile ? "0 auto 8px" : "0 0 8px"
             }}
           >
             Key Features of{" "}
@@ -392,7 +392,7 @@ export const ImmersiveFeatures = memo(() => {
               letterSpacing: "-0.01em",
               opacity: 0.75,
               maxWidth: "480px",
-              textAlign: "center"
+              textAlign: isMobile ? "center" : "left"
             }}
           >
             ScalePods provides a modular ecosystem of automated systems that work together to accelerate growth.
