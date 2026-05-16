@@ -105,9 +105,9 @@ export default function Hero() {
             {/* Main icon box */}
             <div style={{
               position: "relative",
-              width: isMobile ? "100px" : "132px",
-              height: isMobile ? "100px" : "132px",
-              borderRadius: isMobile ? "22px" : "28px",
+              width: isMobile ? "90px" : "120px",
+              height: isMobile ? "90px" : "120px",
+              borderRadius: isMobile ? "18px" : "24px",
               background: resolvedTheme === 'dark' ? "var(--color-bg-card)" : "rgba(255,255,255,0.95)",
               border: resolvedTheme === 'dark' ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.08)",
               display: "flex",
@@ -125,7 +125,7 @@ export default function Hero() {
                 width={108}
                 height={108}
                 style={{ 
-                  width: isMobile ? "70px" : "92px", 
+                  width: isMobile ? "62px" : "84px", 
                   height: "auto", 
                   objectFit: "contain",
                   filter: resolvedTheme === 'dark' ? "invert(1)" : "none",
