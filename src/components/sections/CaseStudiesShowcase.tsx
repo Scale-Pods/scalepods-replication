@@ -14,25 +14,26 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
+import { useTheme } from "@/components/providers/ThemeProvider";
+
+const C = {
+  green: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
+};
 
 const F = {
-  inter: "Inter, sans-serif",
-  accent: "'Instrument Serif', serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  accent: "var(--font-instrument), serif",
 };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for better mobile performance
-};
-
-const C = {
-  green: "#ACD791",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.06)",
-  bgCard: "rgba(255, 255, 255, 0.012)",
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)", 
 };
 
 const caseStudies = [
@@ -68,6 +69,7 @@ const caseStudies = [
 export const CaseStudiesShowcase = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const isMobile = useMobile(1024);
+  const { resolvedTheme } = useTheme();
 
   return (
     <section 
@@ -84,7 +86,7 @@ export const CaseStudiesShowcase = () => {
     >
       <style jsx>{`
         .case-studies-section {
-          padding: 64px 32px 72px;
+          padding: 48px 32px 56px;
         }
         @media (max-width: 1024px) {
           .case-studies-section {
@@ -95,18 +97,20 @@ export const CaseStudiesShowcase = () => {
       {/* ── CINEMATIC AMBIENT BEAM ── */}
       <motion.div 
         animate={{ 
-          opacity: [0.04, 0.1, 0.04],
+          opacity: resolvedTheme === 'dark' ? [0.03, 0.08, 0.03] : [0.02, 0.05, 0.02],
           x: [20, -20, 20]
         }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
           top: "0%",
-          right: "30%",
-          width: "50%",
+          right: "20%",
+          width: "60%",
           height: "100%",
-          background: `linear-gradient(180deg, transparent, ${C.green}0A, transparent)`,
-          filter: "blur(80px)", // Reduced from 150px
+          background: resolvedTheme === 'dark' 
+            ? `radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.06) 0%, transparent 70%)`
+            : `radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.03) 0%, transparent 70%)`,
+          filter: "blur(60px)",
           zIndex: 0,
           pointerEvents: "none"
         }} 
@@ -180,18 +184,20 @@ export const CaseStudiesShowcase = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.1 }}
+              transition={{ delay: 0.1 + i * 0.1 }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
-                background: G.bg,
-                border: G.border,
-                borderRadius: "24px",
-                padding: "24px",
-                backdropFilter: "blur(12px)", // Standardized mobile blur
+                background: "var(--color-glass-bg)",
+                border: "1px solid var(--color-glass-border)",
+                borderRadius: "20px",
+                padding: "20px",
+                backdropFilter: "blur(18px)",
+                WebkitBackdropFilter: "blur(18px)",
                 position: "relative",
                 overflow: "hidden",
                 cursor: "pointer",
+                boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
                 transition: "all 0.5s ease"
               }}
             >
@@ -208,11 +214,11 @@ export const CaseStudiesShowcase = () => {
               />
 
               <div style={{ position: "relative", zIndex: 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
                    <div style={{ 
-                     width: "36px", 
-                     height: "36px", 
-                     borderRadius: "10px", 
+                     width: "32px", 
+                     height: "32px", 
+                     borderRadius: "8px", 
                      background: "rgba(255,255,255,0.03)", 
                      border: "1px solid rgba(255,255,255,0.06)",
                      display: "flex", 
@@ -229,23 +235,24 @@ export const CaseStudiesShowcase = () => {
                 </div>
 
                 <div style={{ fontSize: "11px", fontWeight: 700, color: C.blue, opacity: 0.7, marginBottom: "4px" }}>{cs.client}</div>
-                <h3 style={{ fontSize: "18px", fontWeight: 700, color: C.txtBright, marginBottom: "16px" }}>{cs.title}</h3>
+                <h3 style={{ fontSize: "18px", fontWeight: 700, color: C.txtBright, marginBottom: "14px", lineHeight: 1.2 }}>{cs.title}</h3>
 
                 <div style={{ 
-                  background: "rgba(0,0,0,0.2)", 
-                  borderRadius: "16px", 
-                  padding: "16px", 
-                  border: "1px solid rgba(255,255,255,0.03)",
-                  marginBottom: "20px"
+                  background: "rgba(var(--color-text-bright-rgb), 0.03)", 
+                  borderRadius: "14px", 
+                  padding: "14px", 
+                  border: "1px solid var(--color-border-faint)",
+                  boxShadow: "var(--internal-shadow-inset)",
+                  marginBottom: "16px"
                 }}>
-                  <div style={{ display: "flex", gap: "12px", alignItems: "flex-start", marginBottom: "12px" }}>
+                  <div style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "10px" }}>
                     <div style={{ width: "2px", height: "14px", background: "#FF5F5F", borderRadius: "2px", marginTop: "2px" }} />
                     <div>
                       <div style={{ fontSize: "10px", color: "#FF5F5F", fontWeight: 700, textTransform: "uppercase", marginBottom: "2px" }}>The Bottleneck</div>
                       <p style={{ fontSize: "12px", color: C.txtBody, lineHeight: 1.4, margin: 0, opacity: 0.7 }}>{cs.problem}</p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                  <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
                     <div style={{ width: "2px", height: "14px", background: C.green, borderRadius: "2px", marginTop: "2px" }} />
                     <div>
                       <div style={{ fontSize: "10px", color: C.green, fontWeight: 700, textTransform: "uppercase", marginBottom: "2px" }}>AI Transformation</div>
@@ -259,12 +266,12 @@ export const CaseStudiesShowcase = () => {
                   display: "flex", 
                   alignItems: "center", 
                   justifyContent: "space-between",
-                  paddingTop: "16px",
+                  paddingTop: "14px",
                   borderTop: "1px solid rgba(255,255,255,0.05)"
                 }}>
                    <div>
                       <div style={{ fontSize: "9px", color: C.txtBody, opacity: 0.4, textTransform: "uppercase", marginBottom: "2px" }}>Workflow Impact</div>
-                      <div style={{ fontSize: "20px", fontWeight: 800, color: C.txtBright }}>{cs.impact}</div>
+                      <div style={{ fontSize: "20px", fontWeight: 800, color: C.txtBright, lineHeight: 1.1 }}>{cs.impact}</div>
                    </div>
                    <motion.div 
                      animate={{ x: hoveredIndex === i ? 4 : 0 }}

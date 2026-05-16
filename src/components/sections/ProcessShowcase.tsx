@@ -15,23 +15,23 @@ import {
 import { useMobile } from "@/lib/hooks";
 
 const C = {
-  green: "#ACD791",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.06)",
-  bgCard: "rgba(255, 255, 255, 0.01)",
+  green: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
 };
 
 const F = {
-  inter: "Inter, sans-serif",
-  accent: "'Instrument Serif', serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  accent: "var(--font-instrument), serif",
 };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for better mobile performance
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)", 
 };
 
 const lifecycleStages = [
@@ -112,9 +112,11 @@ export const ProcessShowcase = () => {
           background: `linear-gradient(180deg, transparent, ${C.green}0C, transparent)`,
           filter: "blur(80px)", // Reduced from 140px
           zIndex: 0,
-          pointerEvents: "none"
+          pointerEvents: "none",
+          willChange: "transform, opacity"
         }} 
       />
+
 
       <div style={{
         maxWidth: "1280px",
@@ -225,14 +227,16 @@ export const ProcessShowcase = () => {
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
-                background: G.bg,
-                border: G.border,
-                 borderRadius: "24px",
+                background: "var(--color-glass-bg)",
+                border: "1px solid var(--color-glass-border)",
+                borderRadius: "24px",
                 padding: "24px 32px",
-                backdropFilter: "blur(12px)", // Standardized mobile blur
+                backdropFilter: "blur(18px)",
+                WebkitBackdropFilter: "blur(18px)",
                 position: "relative",
                 overflow: "hidden",
                 cursor: "pointer",
+                boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
                 transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
               }}
             >

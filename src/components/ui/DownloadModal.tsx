@@ -7,34 +7,34 @@ import { supabase } from "@/lib/supabase";
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
-  bgOverlay: "rgba(4, 7, 13, 0.8)",
-  bgModal: "#0A0E14",
-  bgInput: "#0D1017",
-  border: "rgba(255,255,255,0.07)",
-  green: "#ACD791",
-  greenBright: "#8DC763",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  txtMuted: "#D5DBE6",
+  bgOverlay: "rgba(0, 0, 0, 0.4)",
+  bgModal: "var(--color-bg-card)",
+  bgInput: "var(--color-bg-card-alt)",
+  border: "var(--color-border)",
+  green: "var(--color-green)",
+  greenBright: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  txtMuted: "var(--color-text-muted)",
 };
 
 const labelStyle = {
   display: "block",
   fontSize: "14px",
   fontWeight: 600,
-  color: "#B8C7D9",
+  color: "var(--color-text-body)",
   marginBottom: "8px",
 };
 
 const inputStyle = {
   width: "100%",
-  background: "#08090C",
-  border: "1px solid rgba(255,255,255,0.06)",
+  background: "var(--color-bg-card-alt)",
+  border: "1px solid var(--color-border)",
   borderRadius: "8px",
   padding: "10px 14px",
   fontSize: "14px",
-  color: C.txtBright,
+  color: "var(--color-text-bright)",
   outline: "none",
   boxSizing: "border-box" as const,
 };
@@ -123,9 +123,9 @@ export default function DownloadModal({
             onClick={onClose}
             style={{
               position: "absolute", inset: 0,
-              background: "rgba(4, 7, 13, 0.6)",
-              WebkitBackdropFilter: "blur(5px)",
-              backdropFilter: "blur(5px)"
+              background: C.bgOverlay,
+              WebkitBackdropFilter: "blur(8px)",
+              backdropFilter: "blur(8px)"
             }}
           />
 
@@ -139,13 +139,13 @@ export default function DownloadModal({
               position: "relative",
               width: "100%",
               maxWidth: "440px",
-              background: "rgba(8, 10, 14, 0.65)",
-              border: `1px solid rgba(141, 199, 99, 0.4)`,
+              background: "var(--color-bg-card)",
+              border: `1px solid var(--color-border)`,
               borderRadius: "16px",
               padding: "24px 32px",
-              boxShadow: "0 24px 48px rgba(0,0,0,0.4)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
+              boxShadow: "0 24px 48px rgba(0,0,0,0.2)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
             }}
           >
             <button
@@ -176,7 +176,7 @@ export default function DownloadModal({
               <>
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <div style={{
-                    width: "40px", height: "40px", background: "rgba(141, 199, 99, 0.1)",
+                    width: "40px", height: "40px", background: "rgba(var(--color-green-rgb), 0.1)",
                     borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center",
                     margin: "0 auto 12px"
                   }}>
@@ -230,13 +230,12 @@ export default function DownloadModal({
                   </div>
 
                   {error && (
-                    <p style={{ color: "#ff6b6b", fontSize: "13px", marginBottom: "16px", textAlign: "center" }}>
+                    <p style={{ color: "var(--color-error, #ff6b6b)", fontSize: "13px", marginBottom: "16px", textAlign: "center" }}>
                       {error}
                     </p>
                   )}
 
                   <div style={{ position: "relative", width: "100%" }}>
-                    {/* Internal lamp glow for the button */}
                     <div style={{
                       position: "absolute",
                       top: "50%",
@@ -244,7 +243,7 @@ export default function DownloadModal({
                       transform: "translate(-50%, -6px)",
                       width: "80%",
                       height: "40px",
-                      background: "radial-gradient(ellipse at center, rgba(141, 199, 99, 0.15) 0%, transparent 70%)",
+                      background: "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.15) 0%, transparent 70%)",
                       pointerEvents: "none",
                       zIndex: 0
                     }} />
@@ -256,10 +255,10 @@ export default function DownloadModal({
                         zIndex: 1,
                         width: "100%",
                         padding: "12px 24px",
-                        background: "rgba(8,10,16,0.85)",
-                        border: "1px solid rgba(141, 199, 99, 0.5)",
+                        background: "var(--color-bg-card-alt)",
+                        border: "1px solid var(--color-green)",
                         borderRadius: "12px",
-                        color: "#FFFFFF",
+                        color: "var(--color-text-bright)",
                         fontSize: "15px",
                         fontWeight: 600,
                         cursor: loading ? "not-allowed" : "pointer",
@@ -273,21 +272,19 @@ export default function DownloadModal({
                         transition: "all 0.3s ease"
                       }}
                     >
-                      {/* Inner inset top light shadow */}
                       <div style={{
                         position: "absolute",
                         inset: 0,
-                        boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.3)",
+                        boxShadow: "inset 0px -16px 30px -14px rgba(var(--color-green-rgb), 0.1)",
                         pointerEvents: "none"
                       }} />
-                      {/* Bottom lamp line */}
                       <div style={{
                         position: "absolute",
                         bottom: 0,
                         left: "10%",
                         right: "10%",
                         height: "1px",
-                        background: "rgba(141, 199, 99, 0.8)",
+                        background: "var(--color-green)",
                       }} />
                       {loading ? (
                         <>
@@ -317,4 +314,3 @@ export default function DownloadModal({
     </AnimatePresence>
   );
 }
-

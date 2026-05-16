@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   TrendingUp, 
   Users, 
@@ -15,24 +15,24 @@ import {
 import { useMobile } from "@/lib/hooks";
 
 const C = {
-  green: "#ACD791",
-  greenBright: "#8DC763",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.08)",
-  bgCard: "rgba(255, 255, 255, 0.02)",
+  green: "var(--color-green)",
+  greenBright: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
 };
 
 const F = {
-  inter: "Inter, sans-serif",
-  accent: "'Instrument Serif', serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  accent: "var(--font-instrument), serif",
 };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for mobile performance
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)", 
 };
 
 // ── SUB-COMPONENT: ANIMATED COUNT UP ──
@@ -152,9 +152,11 @@ export const ImpactShowcase = () => {
           background: `linear-gradient(180deg, transparent, ${C.green}08, transparent)`,
           filter: isMobile ? "blur(80px)" : "blur(120px)",
           zIndex: 0,
-          pointerEvents: "none"
+          pointerEvents: "none",
+          willChange: "transform, opacity"
         }} 
       />
+
 
       <div style={{
         maxWidth: "1280px",
@@ -244,14 +246,15 @@ export const ImpactShowcase = () => {
               transition={{ delay: 0.3 + i * 0.1 }}
               whileHover={{ y: -5 }}
               style={{
-                background: G.bg,
-                border: G.border,
+                background: "var(--color-glass-bg)",
+                border: "1px solid var(--color-glass-border)",
                 borderRadius: "24px",
                 padding: isMobile ? "20px" : "24px",
-                backdropFilter: isMobile ? "blur(12px)" : G.blur,
+                backdropFilter: "blur(18px)",
+                WebkitBackdropFilter: "blur(18px)",
                 position: "relative",
                 overflow: "hidden",
-                boxShadow: isMobile ? "0 10px 20px rgba(0,0,0,0.15)" : "0 20px 40px rgba(0,0,0,0.2)"
+                boxShadow: "var(--card-shadow), var(--card-shadow-inset)"
               }}
             >
               {/* Subtle background glow based on metric color */}
@@ -330,14 +333,16 @@ export const ImpactShowcase = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.7 }}
             style={{
-              background: G.bg,
-              border: `1px solid ${C.blue}22`,
+              background: "var(--color-glass-bg)",
+              border: `1px solid var(--color-glass-border)`,
               borderRadius: "24px",
               padding: isMobile ? "16px" : "20px 24px",
-              backdropFilter: isMobile ? "blur(12px)" : G.blur,
+              backdropFilter: "blur(18px)",
+              WebkitBackdropFilter: "blur(18px)",
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center"
+              alignItems: "center",
+              boxShadow: "var(--card-shadow), var(--card-shadow-inset)"
             }}
           >
             <div>
@@ -362,14 +367,16 @@ export const ImpactShowcase = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
             style={{
-              background: G.bg,
-              border: G.border,
+              background: "var(--color-glass-bg)",
+              border: "1px solid var(--color-glass-border)",
               borderRadius: "24px",
               padding: "20px 24px",
-              backdropFilter: G.blur,
+              backdropFilter: "blur(18px)",
+              WebkitBackdropFilter: "blur(18px)",
               display: "flex",
               alignItems: "center",
-              gap: "20px"
+              gap: "20px",
+              boxShadow: "var(--card-shadow), var(--card-shadow-inset)"
             }}
           >
             <div style={{ 

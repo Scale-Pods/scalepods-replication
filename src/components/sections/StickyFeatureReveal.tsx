@@ -56,7 +56,7 @@ export const StickyFeatureReveal = () => {
     const activeIndex = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.9], [0, 0, 1, 2]);
 
     return (
-        <section ref={containerRef} className="relative" style={{ height: "300vh" }}>
+        <section ref={containerRef} data-framer-scroll-target className="relative" style={{ height: "300vh", position: "relative" }}>
             <div className="sticky top-0 min-h-screen w-full flex flex-col items-center justify-center py-20 overflow-hidden">
                 <div className="max-w-[1400px] mx-auto w-full px-8">
                     

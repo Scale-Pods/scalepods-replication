@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  Article: { bg: "rgba(255,255,255,0.06)", text: "#E5E7EB", border: "rgba(255,255,255,0.1)" },
-  Resources: { bg: "rgba(109,182,255,0.1)", text: "#6DB6FF", border: "rgba(109,182,255,0.2)" },
+  Article: { bg: "var(--color-bg-card-alt)", text: "var(--color-text-bright)", border: "var(--color-border)" },
+  Resources: { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
 };
 
 // Use dynamically if possible, but keep placeholders for variety
@@ -52,7 +52,7 @@ export default async function BlogPage() {
   const allPosts = [...dynamicPosts, ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))];
 
   return (
-    <main style={{ background: "#04070D", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>
+    <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
@@ -60,28 +60,28 @@ export default async function BlogPage() {
           <div style={{
             display: "inline-flex", alignItems: "center", gap: "8px",
             padding: "6px 16px", borderRadius: "20px",
-            background: "rgba(0,128,255,0.08)", border: "1px solid rgba(0,128,255,0.2)",
+            background: "rgba(var(--color-blue-mid-rgb), 0.08)", border: "1px solid rgba(var(--color-blue-mid-rgb), 0.2)",
             marginBottom: "24px",
           }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="#0080FF" xmlns="http://www.w3.org/2000/svg">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-blue-mid)" xmlns="http://www.w3.org/2000/svg">
               <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
               <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
             </svg>
-            <span style={{ fontFamily: "Inter, sans-serif", fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "#E5E7EB" }}>
+            <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "var(--color-text-bright)" }}>
               Blog Posts
             </span>
           </div>
 
           <h1 style={{
-            fontFamily: "Inter, sans-serif", fontSize: "clamp(32px, 4vw, 52px)",
-            fontWeight: 700, color: "#FFFFFF", lineHeight: 1.15, marginBottom: "16px",
+            fontFamily: "var(--font-inter), sans-serif", fontSize: "clamp(32px, 4vw, 52px)",
+            fontWeight: 700, color: "var(--color-text-bright)", lineHeight: 1.15, marginBottom: "16px",
           }}>
             Latest News{" "}
-            <em style={{ fontFamily: "Instrument Serif, Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "#9CA3AF" }}>
+            <em style={{ fontFamily: "var(--font-instrument), serif", fontWeight: 400, fontStyle: "italic", color: "var(--color-text-muted)" }}>
               Articles
             </em>
           </h1>
-          <p style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", color: "#6B7280" }}>
+          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "16px", color: "var(--color-text-body)" }}>
             Stay up to date with the latest improvements and new features
           </p>
         </div>
@@ -98,8 +98,8 @@ export default async function BlogPage() {
                 style={{ textDecoration: "none" }}
               >
                 <div className="blog-card" style={{ 
-                  background: "rgba(255,255,255,0.03)", 
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "var(--color-bg-card)", 
+                  border: "1px solid var(--color-border)",
                   borderRadius: "16px",
                   overflow: "hidden",
                   transition: "transform 0.2s ease, border-color 0.2s ease",
@@ -109,28 +109,28 @@ export default async function BlogPage() {
                     {/* Category + Date */}
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
                       <span style={{
-                        fontFamily: "Inter, sans-serif", fontSize: "12px", fontWeight: 500,
+                        fontFamily: "var(--font-inter), sans-serif", fontSize: "12px", fontWeight: 500,
                         padding: "4px 10px", borderRadius: "6px",
                         background: cat.bg, color: cat.text, border: `1px solid ${cat.border}`,
                       }}>
                         {post.category}
                       </span>
-                      <span style={{ fontFamily: "Inter, sans-serif", fontSize: "13px", color: "#6B7280" }}>
+                      <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "13px", color: "var(--color-text-muted)" }}>
                         {post.date}
                       </span>
                     </div>
 
                     {/* Title */}
                     <h2 style={{
-                      fontFamily: "Inter, sans-serif", fontSize: "20px", fontWeight: 700,
-                      color: "#FFFFFF", lineHeight: 1.3, marginBottom: "12px",
+                      fontFamily: "var(--font-inter), sans-serif", fontSize: "20px", fontWeight: 700,
+                      color: "var(--color-text-bright)", lineHeight: 1.3, marginBottom: "12px",
                     }}>
                       {post.title}
                     </h2>
 
                     {/* Excerpt */}
                     <p style={{
-                      fontFamily: "Inter, sans-serif", fontSize: "14px", color: "#6B7280",
+                      fontFamily: "var(--font-inter), sans-serif", fontSize: "14px", color: "var(--color-text-body)",
                       lineHeight: 1.6, marginBottom: "20px",
                       display: "-webkit-box", WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical" as const, overflow: "hidden",

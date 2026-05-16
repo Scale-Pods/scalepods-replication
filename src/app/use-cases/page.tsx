@@ -10,20 +10,20 @@ import ParticlesBackground from "@/components/ui/ParticlesBackground";
 
 // ── Design tokens ───────────────────────────────────────────────────────────
 const C = {
-  bgPage:  "#04070D",
-  bgCard:  "#080A10",
-  bgIcon:  "#0D0F17",
-  border:  "rgba(255,255,255,0.07)",
-  blue:    "#6DB6FF",
-  blueBright: "#0080FF",
-  green:   "#ACD791",
-  txtBright: "#E4E9F2",
-  txtBody:   "#B8C7D9",
-  txtMuted:  "#6B7280",
+  bgPage:  "var(--color-bg-page)",
+  bgCard:  "var(--color-bg-card)",
+  bgIcon:  "var(--color-bg-card-alt)",
+  border:  "var(--color-border)",
+  blue:    "var(--color-blue-mid)",
+  blueBright: "var(--color-blue-mid)",
+  green:   "var(--color-green)",
+  txtBright: "var(--color-text-bright)",
+  txtBody:   "var(--color-text-body)",
+  txtMuted:  "var(--color-text-muted)",
 };
 const F = {
-  inter: "Inter, sans-serif",
-  serif: "Instrument Serif, Georgia, serif",
+  inter: "var(--font-inter), sans-serif",
+  serif: "var(--font-instrument), serif",
 };
 
 // ── Use-case card data ───────────────────────────────────────────────────────
@@ -121,7 +121,7 @@ function UseCaseCard({ title, desc, icons, index }: {
     >
       {/* Inner dark panel — the "screen" / stage area */}
       <div style={{
-        background: "#0A0E14",
+        background: "var(--color-bg-card-alt)",
         borderRadius: "16px",
         padding: "36px 24px",
         marginBottom: "28px",
@@ -130,38 +130,39 @@ function UseCaseCard({ title, desc, icons, index }: {
         justifyContent: "center",
         gap: "14px",
         minHeight: "110px",
+        border: "1px solid var(--color-border-faint)",
       }}>
         {/* Icon box 1 */}
         <div style={{
           width: "60px", height: "60px",
-          background: "#111827",
-          border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(var(--color-bg-card-rgb), 0.5)",
+          border: "1px solid var(--color-border)",
           borderRadius: "12px",
           display: "flex", alignItems: "center", justifyContent: "center",
           flexShrink: 0,
         }}>
-          <Icon1 style={{ width: "26px", height: "26px", color: "#ACD791", strokeWidth: 1.5 }} />
+          <Icon1 style={{ width: "26px", height: "26px", color: "var(--color-green)", strokeWidth: 1.5 }} />
         </div>
 
         {/* Icon box 2 */}
         <div style={{
           width: "60px", height: "60px",
-          background: "#111827",
-          border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(var(--color-bg-card-rgb), 0.5)",
+          border: "1px solid var(--color-border)",
           borderRadius: "12px",
           display: "flex", alignItems: "center", justifyContent: "center",
           flexShrink: 0,
         }}>
-          <Icon2 style={{ width: "26px", height: "26px", color: "#ACD791", strokeWidth: 1.5 }} />
+          <Icon2 style={{ width: "26px", height: "26px", color: "var(--color-green)", strokeWidth: 1.5 }} />
         </div>
       </div>
 
       {/* Title */}
       <h3 style={{
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "var(--font-inter), sans-serif",
         fontSize: "20px",
         fontWeight: 600,
-        color: "#6DB6FF",
+        color: "var(--color-blue-mid)",
         marginBottom: "10px",
         lineHeight: 1.3,
         textAlign: "center",
@@ -171,9 +172,9 @@ function UseCaseCard({ title, desc, icons, index }: {
 
       {/* Description */}
       <p style={{
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "var(--font-inter), sans-serif",
         fontSize: "15px",
-        color: "#9CA3AF",
+        color: "var(--color-text-body)",
         lineHeight: 1.65,
         textAlign: "center",
       }}>

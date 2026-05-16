@@ -5,16 +5,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 interface CarouselItem {
   id: number;
   title: string;
   description: string;
   imageUrl: string;
+  subtitle?: string;
+  heading?: string;
+  systemLabel?: string;
 }
 
 interface ThreeDCarouselProps {
-  items?: CarouselItem[];
+  items: CarouselItem[];
   autoRotate?: boolean;
   rotateInterval?: number;
   tightLayout?: boolean;
@@ -60,8 +64,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   },
 ];
 
-export const ThreeDCarousel = ({
-  items = DEFAULT_ITEMS,
+export const ThreeDCarousel = React.memo(({
+  items,
   autoRotate = true,
   rotateInterval = 4000,
   tightLayout = false,
@@ -69,8 +73,12 @@ export const ThreeDCarousel = ({
 }: ThreeDCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [isTabActive, setIsTabActive] = useState(true);
   const isMobile = useMobile(1024);
+  const { resolvedTheme } = useTheme();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isDark = resolvedTheme === "dark";
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % items.length);
@@ -80,148 +88,249 @@ export const ThreeDCarousel = ({
     setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
   }, [items.length]);
 
+  // Pause on tab inactive
   useEffect(() => {
-    if (autoRotate && !isHovering) {
+    const handleVisibilityChange = () => {
+      setIsTabActive(document.visibilityState === "visible");
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (autoRotate && !isHovering && isTabActive) {
       timerRef.current = setInterval(nextSlide, rotateInterval);
     }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [autoRotate, isHovering, nextSlide, rotateInterval]);
+  }, [autoRotate, isHovering, isTabActive, nextSlide, rotateInterval]);
 
-  const handleDragEnd = (event: any, info: any) => {
-    const threshold = isMobile ? 30 : 50; // More sensitive on mobile
+  const handleDragEnd = useCallback((event: any, info: any) => {
+    const threshold = isMobile ? 30 : 50; 
     if (info.offset.x < -threshold) {
       nextSlide();
     } else if (info.offset.x > threshold) {
       prevSlide();
     }
-  };
+  }, [isMobile, nextSlide, prevSlide]);
 
   return (
     <div 
-      className={`relative w-full h-full flex items-center justify-center ${isMobile ? 'perspective-[1200px]' : 'perspective-[1500px]'}`}
+      className="relative w-full flex flex-col items-center"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "transparent", overflow: "visible" }}
     >
-      {/* Cinematic Edge Fade Mask - REPLACED WITH TRANSPARENT FADE */}
-      <div className="absolute inset-y-0 left-0 w-32 z-40 pointer-events-none" style={{ background: "transparent" }} />
-      <div className="absolute inset-y-0 right-0 w-32 z-40 pointer-events-none" style={{ background: "transparent" }} />
-
-      {/* Navigation Buttons - Desktop */}
-      {!isMobile && (
-        <>
-          <button
-            onClick={prevSlide}
-            className="absolute left-[-18px] z-[50] w-12 h-12 rounded-full flex items-center justify-center bg-white/5 border border-white/10 backdrop-blur-xl text-[#ACD791] transition-all hover:scale-110 hover:bg-[#ACD791]/10 hover:border-[#ACD791]/30 group shadow-[0_0_20px_rgba(172,215,145,0.1)] hover:shadow-[0_0_30px_rgba(172,215,145,0.3)]"
-          >
-            <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-[-18px] z-[50] w-12 h-12 rounded-full flex items-center justify-center bg-white/5 border border-white/10 backdrop-blur-xl text-[#ACD791] transition-all hover:scale-110 hover:bg-[#ACD791]/10 hover:border-[#ACD791]/30 group shadow-[0_0_20px_rgba(172,215,145,0.1)] hover:shadow-[0_0_30px_rgba(172,215,145,0.3)]"
-          >
-            <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
-          </button>
-        </>
-      )}
-
-      <div className="relative w-full h-full flex items-center justify-center preserve-3d">
-        <AnimatePresence mode="popLayout">
+      <div className="relative w-full flex flex-col items-center max-w-[900px] mx-auto">
+        <AnimatePresence mode="wait">
           {items.map((item, index) => {
-            let relativeIndex = index - currentIndex;
-            if (relativeIndex > Math.floor(items.length / 2)) relativeIndex -= items.length;
-            if (relativeIndex < -Math.floor(items.length / 2)) relativeIndex += items.length;
-
-            const isCenter = relativeIndex === 0;
-            const isVisible = Math.abs(relativeIndex) <= 2;
-
-            if (!isVisible) return null;
+            if (index !== currentIndex) return null;
 
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, scale: 0.8, x: relativeIndex * 200 }}
-                animate={{
-                  opacity: isCenter ? 1 : 0.25, // Lower opacity for side cards
-                  scale: (isCenter ? 1 : (isMobile ? 0.85 : 0.75)) * cardScale, 
-                  rotateY: isMobile ? (relativeIndex * -15) : (relativeIndex * (tightLayout ? -20 : -35)), 
-                  x: relativeIndex * (isMobile ? 100 : (tightLayout ? 140 : 180)), 
-                  z: isMobile ? (-Math.abs(relativeIndex) * 100) : (-Math.abs(relativeIndex) * (tightLayout ? 150 : 200)),
-                  zIndex: 10 - Math.abs(relativeIndex),
-                  filter: isCenter ? "brightness(1.1)" : (isMobile ? "brightness(0.6)" : "blur(4px) brightness(0.6)"), 
-                }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 20,
-                }}
+                initial={{ opacity: 0, scale: 0.98, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98, y: -15 }}
+                transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
                 drag={isMobile ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2} // More elastic for tactile feedback
+                dragElastic={0.1}
                 onDragEnd={handleDragEnd}
-                className="absolute"
-                style={{
-                  width: isMobile ? "280px" : "640px",
-                  aspectRatio: isMobile ? "1/1.2" : "16/9",
-                  background: "transparent",
-                }}
+                className="w-full flex flex-col items-center"
+                style={{ willChange: "transform, opacity" }}
               >
-                {/* Premium Card - REMOVED FRAMES FOR FLOATING EFFECT */}
+                {/* Hero Dashboard Viewport - Clean & Contained */}
                 <div 
-                  className={`relative w-full h-full transition-all duration-500 ${
-                    isCenter 
-                      ? "scale-100" 
-                      : "opacity-25 grayscale-[0.5]"
-                  }`}
-                  style={{ background: "transparent" }}
+                  className="carousel-viewport relative w-full flex items-center justify-center"
+                  style={{
+                    borderRadius: "28px",
+                    boxShadow: isDark 
+                      ? "0 30px 90px rgba(0,0,0,0.75)" 
+                      : "0 24px 60px rgba(15,23,42,0.14), 0 10px 30px rgba(15,23,42,0.08)",
+                    background: isDark ? "rgba(255,255,255,0.01)" : "rgba(15,23,42,0.02)",
+                    overflow: "hidden",
+                    border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(255,255,255,0.5)",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transform: "translate3d(0,0,0)"
+                  }}
                 >
-                  
-                  {/* Top Image Container - Floating Dashboard */}
-                  <div className="relative w-full h-[72%] overflow-visible flex items-center justify-center" style={{ background: "transparent" }}>
+                  <div className="relative w-full h-full flex items-center justify-center p-3 md:p-6 min-h-[220px] md:min-h-[320px] lg:min-h-[420px]">
                     <Image
                       src={item.imageUrl}
                       alt={item.title}
                       fill
                       className="object-contain"
-                      sizes="(max-width: 1024px) 300px, 640px"
-                      priority={isCenter}
+                      style={{ 
+                        objectPosition: "center",
+                      }}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 900px"
+                      priority={index === 0}
                     />
                   </div>
- 
-                  {/* Dedicated Text Box Below - Purely Floating */}
-                  <div className="p-4 md:p-6 h-[28%] flex flex-col justify-center items-center text-center" style={{ background: "transparent" }}>
-                    <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[#ACD791] font-extrabold mb-1.5 md:mb-2 block">
-                      ScalePods System
+                  <style jsx>{`
+                    .carousel-viewport {
+                      height: 500px;
+                      min-height: 420px;
+                      max-height: 520px;
+                    }
+                    @media (max-width: 1440px) {
+                      .carousel-viewport {
+                        height: 440px;
+                        min-height: 360px;
+                        max-height: 460px;
+                      }
+                    }
+                    @media (max-width: 1024px) {
+                      .carousel-viewport {
+                        height: auto;
+                        min-height: 300px;
+                        max-height: none;
+                      }
+                    }
+                    @media (max-width: 768px) {
+                      .carousel-viewport {
+                        height: auto;
+                        min-height: 200px;
+                        max-height: 280px;
+                      }
+                    }
+                  `}</style>
+                </div>
+
+                {/* Navigation & Caption Block - Clean Spacing & Alignment */}
+                <div className="relative w-full flex items-center justify-center mt-8 px-4">
+                  
+                  {/* Left Button - Beside Caption */}
+                  {!isMobile && (
+                    <button
+                      onClick={prevSlide}
+                      className="absolute left-0 w-[52px] h-[52px] rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 group z-50"
+                      style={{
+                        background: "rgba(255,255,255,0.92)",
+                        border: "1px solid rgba(15,23,42,0.08)",
+                        backdropFilter: "blur(14px)",
+                        WebkitBackdropFilter: "blur(14px)",
+                        color: "#0F172A",
+                        boxShadow: "0 8px 24px rgba(15,23,42,0.12)",
+                      }}
+                    >
+                      <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
+                    </button>
+                  )}
+
+                  {/* Restored Text Content Layout */}
+                  <div className="flex flex-col items-center text-center max-w-[540px] px-14 md:px-0">
+                    <span 
+                      className="uppercase block mb-3 mx-auto"
+                      style={{ 
+                        color: isDark ? "var(--color-green)" : "#84CC16",
+                        fontSize: isDark ? "10px" : "0.82rem",
+                        fontWeight: isDark ? 900 : 700,
+                        letterSpacing: "0.38em",
+                        textShadow: isDark ? "none" : "0 0 12px rgba(132,204,22,0.18)",
+                        background: isDark ? "transparent" : "rgba(255,255,255,0.45)",
+                        backdropFilter: isDark ? "none" : "blur(8px)",
+                        WebkitBackdropFilter: isDark ? "none" : "blur(8px)",
+                        padding: isDark ? "0" : "4px 14px",
+                        borderRadius: "999px",
+                        width: "fit-content",
+                        lineHeight: "1.2"
+                      }}
+                    >
+                      {item.systemLabel || "ScalePods System"}
                     </span>
-                    <h3 className="text-white text-base md:text-xl font-bold tracking-tight mb-1 md:mb-1.5">
-                      {item.title}
+                    <h3 
+                      className="text-xl md:text-2xl font-bold tracking-tight mb-1.5"
+                      style={{ color: isDark ? "#FFFFFF" : "#0F172A" }}
+                    >
+                      {item.heading || item.title}
                     </h3>
-                    <p className="text-[#B8C7D9] text-[10px] md:text-xs leading-relaxed opacity-80 line-clamp-2 md:line-clamp-none">
+                    {item.subtitle && (
+                      <p 
+                        className="text-[11px] md:text-xs font-semibold mb-2 opacity-90"
+                        style={{ color: isDark ? "var(--color-green)" : "#475467" }}
+                      >{item.subtitle}</p>
+                    )}
+                    <p 
+                      className="text-[11px] md:text-xs leading-relaxed opacity-70"
+                      style={{ color: isDark ? "#B8C7D9" : "#667085" }}
+                    >
                       {item.description}
                     </p>
                   </div>
-                </div>
 
-                {/* Soft Ground Glow */}
-                {isCenter && (
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[90%] h-6 bg-[#ACD791]/10 blur-3xl rounded-full" 
-                  />
-                )}
+                  {/* Right Button - Beside Caption */}
+                  {!isMobile && (
+                    <button
+                      onClick={nextSlide}
+                      className="absolute right-0 w-[52px] h-[52px] rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 group z-50"
+                      style={{
+                        background: "rgba(255,255,255,0.92)",
+                        border: "1px solid rgba(15,23,42,0.08)",
+                        backdropFilter: "blur(14px)",
+                        WebkitBackdropFilter: "blur(14px)",
+                        color: "#0F172A",
+                        boxShadow: "0 8px 24px rgba(15,23,42,0.12)",
+                      }}
+                    >
+                      <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
+                    </button>
+                  )}
+                </div>
               </motion.div>
             );
           })}
         </AnimatePresence>
       </div>
 
-      {/* Mobile Swipe Indicator - Optional, keep it clean */}
+      {/* Mobile Indicator Row */}
+      {isMobile && (
+        <div className="flex gap-6 items-center mt-6">
+          <button
+            onClick={prevSlide}
+            className="w-11 h-11 rounded-full flex items-center justify-center"
+            style={{
+              background: "rgba(255,255,255,0.92)",
+              border: "1px solid rgba(15,23,42,0.08)",
+              backdropFilter: "blur(14px)",
+              color: "#0F172A",
+              boxShadow: "0 8px 24px rgba(15,23,42,0.08)",
+            }}
+          >
+            <ChevronLeft size={22} />
+          </button>
+          <div className="flex gap-2">
+            {items.map((_, i) => (
+              <div 
+                key={i} 
+                className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-5' : 'w-1'}`} 
+                style={{ background: i === currentIndex ? "var(--color-green)" : (isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)") }}
+              />
+            ))}
+          </div>
+          <button
+            onClick={nextSlide}
+            className="w-11 h-11 rounded-full flex items-center justify-center"
+            style={{
+              background: "rgba(255,255,255,0.92)",
+              border: "1px solid rgba(15,23,42,0.08)",
+              backdropFilter: "blur(14px)",
+              color: "#0F172A",
+              boxShadow: "0 8px 24px rgba(15,23,42,0.08)",
+            }}
+          >
+            <ChevronRight size={22} />
+          </button>
+        </div>
+      )}
     </div>
   );
-};
+});
+
 
 export default ThreeDCarousel;

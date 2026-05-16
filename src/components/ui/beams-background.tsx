@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 interface AnimatedGradientBackgroundProps {
     className?: string;
@@ -52,6 +53,7 @@ export function BeamsBackground({
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
     const isMobileRef = useRef(false);
+    const { resolvedTheme } = useTheme();
     const MINIMUM_BEAMS = 20;
 
     const opacityMap = {
@@ -127,25 +129,29 @@ export function BeamsBackground({
 
             const gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
 
+            const lightness = resolvedTheme === "dark" ? 65 : 45;
+            const saturation = resolvedTheme === "dark" ? 85 : 70;
+            const finalOpacity = resolvedTheme === "dark" ? pulsingOpacity : pulsingOpacity * 0.4;
+
             // Enhanced gradient with multiple color stops
-            gradient.addColorStop(0, `hsla(${beam.hue}, 85%, 65%, 0)`);
+            gradient.addColorStop(0, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, 0)`);
             gradient.addColorStop(
                 0.1,
-                `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`
+                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity * 0.5})`
             );
             gradient.addColorStop(
                 0.4,
-                `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`
+                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity})`
             );
             gradient.addColorStop(
                 0.6,
-                `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`
+                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity})`
             );
             gradient.addColorStop(
                 0.9,
-                `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`
+                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity * 0.5})`
             );
-            gradient.addColorStop(1, `hsla(${beam.hue}, 85%, 65%, 0)`);
+            gradient.addColorStop(1, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, 0)`);
 
             ctx.fillStyle = gradient;
             ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
@@ -156,9 +162,9 @@ export function BeamsBackground({
             if (!canvas || !ctx) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (!isMobileRef.current) {
-                ctx.filter = "blur(35px)";
-            }
+            
+            // REMOVED expensive ctx.filter = "blur(35px)" which was causing layout thrashing
+            // We now rely on the CSS filter: blur(15px) on the canvas element for performance.
 
             const totalBeamsCount = beamsRef.current.length;
             beamsRef.current.forEach((beam, index) => {
@@ -176,6 +182,7 @@ export function BeamsBackground({
             animationFrameRef.current = requestAnimationFrame(animate);
         }
 
+
         animate();
 
         return () => {
@@ -184,7 +191,7 @@ export function BeamsBackground({
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, [intensity]);
+    }, [intensity, resolvedTheme]);
 
     return (
         <div
@@ -192,20 +199,21 @@ export function BeamsBackground({
                 "relative min-h-screen w-full",
                 className
             )}
-            style={{ background: "#04070D" }}
+            style={{ background: "var(--color-bg-page)" }}
         >
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
                 <canvas
                     ref={canvasRef}
                     className="absolute inset-0"
-                    style={{ filter: "blur(15px)" }}
+                    style={{ filter: "blur(40px)", opacity: 0.6 }}
                 />
+
 
                 <motion.div
                     className="absolute inset-0"
                     style={{
-                        background: "rgba(4, 7, 13, 0.05)",
-                        backdropFilter: "blur(20px)", // Reduced from 50px for performance
+                        background: resolvedTheme === "dark" ? "rgba(4, 7, 13, 0.05)" : "rgba(255, 255, 255, 0.05)",
+                        backdropFilter: "blur(20px)", 
                     }}
                     animate={{
                         opacity: [0.05, 0.15, 0.05],

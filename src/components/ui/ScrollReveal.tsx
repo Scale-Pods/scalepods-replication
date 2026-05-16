@@ -49,6 +49,7 @@ export default function ScrollReveal({
   return (
     <motion.div
       ref={ref}
+      data-framer-scroll-target
       style={{
         position: "relative",
         opacity,

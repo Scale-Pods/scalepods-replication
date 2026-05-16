@@ -3,28 +3,29 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, animate } from "framer-motion";
-import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap } from "lucide-react";
+import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap, ChevronLeft, ChevronRight } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import ScrollRevealText from "@/components/ui/ScrollRevealText";
 import ActivityBarChart from "@/components/ui/ActivityBarChart";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FuturisticGauge from "@/components/ui/FuturisticGauge";
+import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
 import { useMobile } from "@/lib/hooks";
 
 // ── Design tokens — exact CSS Peeper values ───────────────────────────────────
 const C = {
-  bgPage: "#04070D",
-  bgCard: "#080A0E",
-  bgInput: "#10131C",
-  border: "#38404A",
-  txtBright: "#E4E9F2",
-  txtMid: "#D5DBE6",
-  txtBody: "#B8C7D9",
-  txtMuted: "#D5DBE6",
-  txtFaint: "#545B7D",
-  blueMid: "#6DB6FF",
-  blueOn: "#0080FF",
-  green: "#ACD791",
+  bgPage: "var(--color-bg-page)",
+  bgCard: "var(--color-bg-card)",
+  bgInput: "var(--color-bg-input)",
+  border: "var(--color-border)",
+  txtBright: "var(--color-text-bright)",
+  txtMid: "var(--color-text-mid)",
+  txtBody: "var(--color-text-body)",
+  txtMuted: "var(--color-text-muted)",
+  txtFaint: "var(--color-text-faint)",
+  blueMid: "var(--color-blue-mid)",
+  blueOn: "var(--color-blue-bright)",
+  green: "var(--color-green)",
 };
 
 const F = {
@@ -34,8 +35,11 @@ const F = {
 
 // card base style – matches live site card appearance
 const card = {
-  background: C.bgCard,
-  border: `1.5px solid ${C.border}`,
+  background: "var(--color-glass-bg)",
+  backdropFilter: "blur(18px)",
+  WebkitBackdropFilter: "blur(18px)",
+  border: `1px solid var(--color-glass-border)`,
+  boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
   borderRadius: "28px",
 } as const;
 
@@ -61,7 +65,7 @@ function Label({ icon, text }: { icon: string; text: string }) {
   );
 }
 
-function H2({ plain, italic }: { plain: string; italic?: string }) {
+function H2({ plain, italic, style = {} }: { plain: string; italic?: string; style?: React.CSSProperties }) {
   return (
     <ScrollReveal delay={0.05}>
       <h2 style={{
@@ -69,6 +73,7 @@ function H2({ plain, italic }: { plain: string; italic?: string }) {
         fontWeight: 500, color: C.txtBright,
         lineHeight: 1.1, letterSpacing: "-0.022em",
         textAlign: "center", marginBottom: "8px",
+        ...style
       }}>
         {plain}
         {italic && (
@@ -81,16 +86,19 @@ function H2({ plain, italic }: { plain: string; italic?: string }) {
   );
 }
 
-function Sub({ children }: { children: string }) {
+function Sub({ children, style = {} }: { children: string; style?: React.CSSProperties }) {
   return (
     <ScrollReveal delay={0.1}>
       <p style={{
-        fontFamily: F.inter, fontSize: "15px", fontWeight: 400, color: "#D5DBE6",
+        fontFamily: F.inter, fontSize: "15px", fontWeight: 400, color: C.txtBody,
         lineHeight: 1.65, textAlign: "center", maxWidth: "520px", margin: "0 auto 12px",
+        ...style
       }}>{children}</p>
     </ScrollReveal>
   );
 }
+
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 // Global Glowing CTA Button (Flashy Lamp Lighting)
 export function GlowingButton({ href, children }: { href: string; children: React.ReactNode }) {
@@ -104,16 +112,17 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
         position: "absolute",
         top: "50%", left: "50%", transform: "translate(-50%, -10px)",
         width: "350px", height: "180px",
-        background: "radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 60%)",
+        background: "radial-gradient(ellipse at center, var(--color-green) 0%, transparent 60%)",
+        opacity: 0.1,
         zIndex: -1, pointerEvents: "none"
       }} />
 
       <div style={{
         position: "relative",
         display: "flex", alignItems: "center", gap: "8px",
-        fontFamily: F.inter, fontSize: "15px", fontWeight: 600, color: C.green,
-        background: C.bgCard,
-        border: `1px solid #181B20`,
+        fontFamily: F.inter, fontSize: "15px", fontWeight: 600, color: "var(--color-green)",
+        background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
+        border: `1px solid var(--color-border)`,
         borderRadius: "12px", padding: "14px 32px",
         overflow: "hidden",
       }}>
@@ -129,7 +138,7 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
             left: "50%",
             bottom: "-30px",
             transform: "translateX(-50%)",
-            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse at center, var(--color-green) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -145,7 +154,7 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "absolute", bottom: "-4px", left: "50%", transform: "translateX(-50%)", x: "-50%",
-            height: "8px", background: "#fff", filter: "blur(6px)", borderRadius: "50%"
+            height: "8px", background: "var(--color-text-bright)", filter: "blur(6px)", borderRadius: "50%"
           }}
         />
         {/* Sharp bottom edge light */}
@@ -154,7 +163,7 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", x: "-50%",
-            height: "1px", background: "rgba(255,255,255,1)"
+            height: "1.5px", background: "var(--color-text-bright)"
           }}
         />
       </div>
@@ -162,9 +171,40 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// GLOBAL SECTION GLOW COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
+export function SectionGlow() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+  // Soft, cinematic neutral atmospheric glow (User requested #25282D)
+  const glowColor = isDark ? "#25282D" : "#E5E7EB"; 
+
+  return (
+    <>
+      {/* Diffuse, atmospheric floor ambient glow */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0, height: "200px",
+        background: `radial-gradient(ellipse at bottom, ${glowColor} 0%, transparent 75%)`,
+        zIndex: 0, pointerEvents: "none",
+        opacity: isDark ? 0.4 : 0.25
+      }} />
+      {/* Subtle crisp bounding line with glow */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0, height: "1px",
+        background: `linear-gradient(90deg, transparent 15%, ${glowColor} 50%, transparent 85%)`,
+        boxShadow: `0 -10px 40px 5px ${glowColor}`,
+        zIndex: 0, pointerEvents: "none",
+        opacity: isDark ? 0.8 : 0.6
+      }} />
+    </>
+  );
+}
+
 // Section wrapper — 96px top/bottom padding
 function Section({ id, children }: { id?: string; children: React.ReactNode }) {
   const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
   return (
     <section id={id} style={{ 
       position: "relative", 
@@ -175,50 +215,52 @@ function Section({ id, children }: { id?: string; children: React.ReactNode }) {
         {children}
       </div>
 
-      {/* Ambient Floor Lighting Line at exactly the bottom border */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "1px",
-        background: "linear-gradient(90deg, transparent 15%, rgba(255,255,255,0.4) 50%, transparent 85%)",
-        boxShadow: "0 -8px 30px 4px rgba(255,255,255,0.1)",
-        zIndex: 0, pointerEvents: "none"
-      }} />
-      <div style={{
-        position: "absolute", bottom: 0, left: "20%", right: "20%", height: "80px",
-        background: "radial-gradient(ellipse at bottom, rgba(255,255,255,0.12) 0%, transparent 70%)",
-        zIndex: 0, pointerEvents: "none"
-      }} />
+      <SectionGlow />
     </section>
   );
 }
 // SERVICES
 // ═══════════════════════════════════════════════════════════════════════════════
 export function Services() {
+  const { resolvedTheme } = useTheme();
   return (
-    <Section id="services">
+    <section id="services" style={{ 
+      position: "relative", 
+      background: C.bgPage, 
+      padding: "clamp(24px, 3vw, 32px) clamp(20px, 3vw, 24px)",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#0080FF" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" fill="#0080FF" />
-          <path d="M12 22C11.8 22 11.6 21.95 11.43 21.85L4.43 17.85C4.12 17.67 3.93 17.34 3.93 16.98V8.98C3.93 8.62 4.12 8.29 4.43 8.11L11.43 4.11C11.78 3.91 12.23 3.91 12.58 4.11L19.58 8.11C19.89 8.29 20.08 8.62 20.08 8.98V16.98C20.08 17.34 19.89 17.67 19.58 17.85L12.58 21.85C12.4 21.95 12.2 22 12 22ZM12 5.06L6.05 8.44V15.52L12 18.9L17.95 15.52V8.44L12 5.06Z" fill="#0D0F17" />
-        </svg>
-        <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtMuted }}>
-          SERVICES
-        </span>
+        <div style={{
+          display: "flex", alignItems: "center", gap: "8px",
+          padding: "6px 14px", borderRadius: "100px",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
+        }}>
+          <Bot style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
+          <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtMuted }}>
+            SERVICES
+          </span>
+        </div>
       </div>
-      <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "-10px" }}>
+      <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "8px" }}>
         <H2 plain="Smarter Services," italic="Built with AI" />
         <Sub>Everything you need to automate operations, boost productivity</Sub>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 w-full">
 
         {/* 1 – Automate Repetitive Tasks (1col) */}
-        <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "16px", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+        <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
           {/* Vertical Infinite Scroller Visual */}
-          <div style={{ position: "relative", height: "120px", marginBottom: "12px", display: "flex", flexDirection: "column", justifyContent: "center", borderRadius: "12px", overflow: "hidden", background: "rgba(0,0,0,0.2)" }}>
+          <div style={{ position: "relative", height: "100px", marginBottom: "12px", display: "flex", flexDirection: "column", justifyContent: "center", borderRadius: "12px", overflow: "hidden", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)" }}>
             {/* Top/Bottom Fade & Blur Mask */}
             <div style={{
               position: "absolute", inset: 0, zIndex: 5,
-              background: "linear-gradient(to bottom, #0D0F17 0%, transparent 35%, transparent 65%, #0D0F17 100%)",
+              background: `linear-gradient(to bottom, var(--color-bg-card) 0%, transparent 35%, transparent 65%, var(--color-bg-card) 100%)`,
               pointerEvents: "none"
             }} />
             <div style={{
@@ -235,7 +277,7 @@ export function Services() {
               style={{ display: "flex", flexDirection: "column", gap: "10px" }}
             >
               {[0, 1].map((set) => (
-                <div key={set} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div key={set} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   {[
                     { text: "Social media post", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ACD791" strokeWidth="2"><path d="M20 6L9 17L4 12" /></svg>, status: "done" },
                     { text: "Employee Tracking", icon: <Users style={{ width: "14px", color: "#6DB6FF" }} />, status: "spin" },
@@ -252,17 +294,17 @@ export function Services() {
                   ].map((it, i) => (
                     <div key={i} style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
-                      padding: "8px 12px", borderRadius: "8px",
-                      background: "#10131C", border: "1px solid rgba(255,255,255,0.05)",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                      padding: "6px 10px", borderRadius: "8px",
+                      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
+                      boxShadow: resolvedTheme === 'dark' ? "0 4px 12px rgba(0,0,0,0.2)" : "0 4px 8px rgba(0,0,0,0.05)",
                       margin: "0 10px"
                     }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: F.inter, fontSize: "11px", color: C.txtBody }}>
                         {it.icon} {it.text}
                       </div>
                       {it.status === "done" && <Check style={{ width: "12px", height: "12px", color: "#ACD791" }} />}
-                      {it.status === "spin" && <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1.5px solid #6DB6FF", borderTopColor: "transparent" }} />}
-                      {it.status === "pending" && <div style={{ width: "10px", height: "10px", border: "1.5px solid #333", borderRadius: "50%" }} />}
+                      {it.status === "spin" && <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1.5px solid var(--color-blue-mid)", borderTopColor: "transparent" }} />}
+                      {it.status === "pending" && <div style={{ width: "10px", height: "10px", border: "1.5px solid var(--color-border)", borderRadius: "50%" }} />}
                     </div>
                   ))}
                 </div>
@@ -272,24 +314,24 @@ export function Services() {
 
           {/* Text Content */}
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>
               Automate repetitive tasks
             </h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>
               We help you streamline internal operations by automating manual workflows
             </p>
           </div>
         </motion.div>
 
         {/* 2 – Automated Workflows (2cols Wide) - SIDE BY SIDE LAYOUT */}
-        <motion.div {...fup(0.1)} initial="rest" whileHover="hover" style={{ ...card, padding: "16px", gridColumn: "span 2", position: "relative", overflow: "hidden", display: "flex", alignItems: "center", gap: "20px" }}>
-          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(109,182,255,0.08) 0%, transparent 70%)", zIndex: 0 }} />
+        <motion.div {...fup(0.1)} initial="rest" whileHover="hover" className="md:col-span-2 flex flex-col md:flex-row items-center gap-4 relative overflow-hidden" style={{ ...card, padding: "10px" }}>
+          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(var(--color-blue-mid-rgb), 0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
-          <div style={{ position: "relative", flex: 1.2, height: "120px", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
-            <div style={{ position: "relative", width: "240px", height: "120px", transform: "scale(0.85)" }}>
+          <div style={{ position: "relative", flex: 1.2, height: "100px", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+            <div style={{ position: "relative", width: "240px", height: "120px", transform: "scale(0.75)" }}>
  
               {/* Central Glowing Star */}
-              <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "50px", height: "50px", borderRadius: "50%", border: "1px solid rgba(109,182,255,0.2)", background: "#0A0D14", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 40px rgba(109,182,255,0.2)", zIndex: 20 }}>
+              <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "50px", height: "50px", borderRadius: "50%", border: "1px solid var(--color-border)", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 0 40px rgba(var(--color-blue-mid-rgb), 0.2)`, zIndex: 20 }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" fill="#ACD791" stroke="#ACD791" strokeWidth="2" />
                 </svg>
@@ -306,7 +348,7 @@ export function Services() {
                     y: [Math.sin(i * 60 * Math.PI / 180) * 60, 0],
                   }}
                   transition={{ duration: 2, repeat: Infinity, delay: i * 0.4, ease: "linear" }}
-                  style={{ position: "absolute", top: "50%", left: "50%", width: "3px", height: "3px", background: "#fff", borderRadius: "50%", boxShadow: "0 0 6px #fff", zIndex: 15 }}
+                  style={{ position: "absolute", top: "50%", left: "50%", width: "3px", height: "3px", background: "var(--color-text-bright)", borderRadius: "50%", boxShadow: `0 0 6px var(--color-text-bright)`, zIndex: 15 }}
                 />
               ))}
  
@@ -320,38 +362,39 @@ export function Services() {
                 { x: 100, y: 100, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
                 { x: 20, y: 80, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><path d="M9 9h.01" /><path d="M15 9h.01" /></svg> },
               ].map((pos, i) => (
-                <motion.div key={i} animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5 + i * 0.2, repeat: Infinity, ease: "easeInOut" }} style={{ position: "absolute", top: pos.y, left: pos.x, width: "28px", height: "28px", borderRadius: "8px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", WebkitBackdropFilter: "blur(2px)", backdropFilter: "blur(2px)", color: pos.color }}>
+                <motion.div key={i} animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5 + i * 0.2, repeat: Infinity, ease: "easeInOut" }} style={{ position: "absolute", top: pos.y, left: pos.x, width: "28px", height: "28px", borderRadius: "8px", background: "var(--color-glass-bg)", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center", WebkitBackdropFilter: "blur(2px)", backdropFilter: "blur(2px)", color: pos.color }}>
                   {pos.icon}
                 </motion.div>
               ))}
+
             </div>
           </div>
  
           <div style={{ flex: 1, textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Automated Workflows</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.5 }}>Build intelligent workflows that automate multi-step processes across platforms.</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Automated Workflows</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.5 }}>Build intelligent workflows that automate multi-step processes across platforms.</p>
           </div>
         </motion.div>
 
         {/* 3 – Real-Time Intelligence (1col) */}
-        <motion.div {...fup(0.2)} initial="rest" whileHover="hover" style={{ ...card, padding: "16px" }}>
-          <div style={{ position: "relative", width: "100%", height: "120px", marginBottom: "12px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <motion.div {...fup(0.2)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px" }}>
+          <div style={{ position: "relative", width: "100%", height: "100px", marginBottom: "12px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             {/* Background Stacks */}
-            <div style={{ position: "absolute", top: "5px", width: "90%", height: "140px", background: "rgba(255,255,255,0.02)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transform: "translateY(-8px) scale(0.95)", zIndex: 0 }} />
-            <div style={{ position: "absolute", top: "15px", width: "90%", height: "140px", background: "rgba(255,255,255,0.03)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transform: "translateY(-4px) scale(0.98)", zIndex: 1 }} />
+            <div style={{ position: "absolute", top: "5px", width: "90%", height: "90px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "12px", border: "1px solid var(--color-border)", transform: "translateY(-8px) scale(0.95)", zIndex: 0, opacity: 0.5 }} />
+            <div style={{ position: "absolute", top: "15px", width: "90%", height: "90px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "12px", border: "1px solid var(--color-border)", transform: "translateY(-4px) scale(0.98)", zIndex: 1, opacity: 0.8 }} />
 
             {/* Main Visual Container */}
             <motion.div
-              style={{ position: "relative", width: "90%", height: "140px", background: C.bgCard, borderRadius: "12px", border: `1px solid ${C.border}`, boxShadow: "0 20px 40px rgba(0,0,0,0.4)", zIndex: 2, padding: "12px", overflow: "hidden" }}
+              style={{ position: "relative", width: "90%", height: "90px", background: C.bgCard, borderRadius: "12px", border: `1px solid ${C.border}`, boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.05)", zIndex: 2, padding: "8px", overflow: "hidden" }}
             >
               {/* Search Bar */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#080A0E", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px", padding: "2px 2px 2px 8px", marginBottom: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "var(--color-bg-input)", border: "1px solid var(--color-border)", borderRadius: "20px", padding: "2px 2px 2px 8px", marginBottom: "8px" }}>
                 <span style={{ fontFamily: F.inter, fontSize: "9px", color: "#4A5064" }}>Research anything...</span>
                 <div style={{ background: "linear-gradient(135deg, #ACD791 0%, #8FB37A 100%)", padding: "2px 8px", borderRadius: "18px", fontFamily: F.inter, fontSize: "8px", fontWeight: 600, color: C.bgCard }}>Research</div>
               </div>
 
               {/* Insight Cards */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                 {[
                   { text: "Software & App Industry", delay: 0 },
                   { text: "UX & UI Design Industry", delay: 0.1, x: 12 },
@@ -363,33 +406,33 @@ export function Services() {
                     transition={{ delay: it.delay, duration: 0.4 }}
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
-                      background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)",
-                      borderRadius: "6px", padding: "4px 6px"
+                      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
+                      borderRadius: "6px", padding: "2px 6px"
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <div style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Users style={{ width: "6px", height: "6px", color: "white" }} />
+                      <div style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Users style={{ width: "6px", height: "6px", color: "var(--color-text-bright)" }} />
                       </div>
-                      <span style={{ fontFamily: F.inter, fontSize: "7.5px", color: "white", opacity: 0.8 }}>{it.text}</span>
+                      <span style={{ fontFamily: F.inter, fontSize: "7.5px", color: "var(--color-text-bright)", opacity: 0.8 }}>{it.text}</span>
                     </div>
-                    <TrendingUp style={{ width: "8px", height: "8px", color: "rgba(255,255,255,0.4)" }} />
+                    <TrendingUp style={{ width: "8px", height: "8px", color: C.txtFaint }} />
                   </motion.div>
                 ))}
               </div>
             </motion.div>
           </div>
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Real-Time Intelligence</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>Make smarter decisions with live data insights. Tap into real-time data</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Real-Time Intelligence</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>Make smarter decisions with live data insights. Tap into real-time data</p>
           </div>
         </motion.div>
 
         {/* 4 – Custom AI Agent (1col) */}
-        <motion.div {...fup(0.3)} initial="rest" whileHover="hover" style={{ ...card, padding: "16px" }}>
-          <div style={{ position: "relative", height: "120px", marginBottom: "12px", display: "flex", flexDirection: "column", borderRadius: "12px", overflow: "hidden", border: `1px solid ${C.border}`, background: C.bgCard, boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}>
+        <motion.div {...fup(0.3)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px" }}>
+          <div style={{ position: "relative", height: "100px", marginBottom: "12px", display: "flex", flexDirection: "column", borderRadius: "12px", overflow: "hidden", border: `1px solid ${C.border}`, background: C.bgCard, boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.05)" }}>
             {/* Window Header */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: "rgba(255,255,255,0.02)", borderBottom: `1px solid rgba(255,255,255,0.05)` }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 10px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderBottom: `1px solid var(--color-border)` }}>
               <div style={{ display: "flex", gap: "6px" }}>
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FF5F56", opacity: 0.8 }} />
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FFBD2E", opacity: 0.8 }} />
@@ -397,26 +440,26 @@ export function Services() {
               </div>
 
               {/* Centered Search Bar */}
-              <div style={{ flex: 1, margin: "0 15px", height: "18px", background: "rgba(255,255,255,0.03)", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 8px" }}>
-                <Search style={{ width: "10px", height: "10px", color: "rgba(255,255,255,0.3)" }} />
+              <div style={{ flex: 1, margin: "0 15px", height: "18px", background: "var(--color-bg-input)", borderRadius: "10px", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 8px" }}>
+                <Search style={{ width: "10px", height: "10px", color: C.txtFaint }} />
               </div>
 
-              <div style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", padding: "3px 8px", fontSize: "10px", color: "#8E95A3", fontFamily: F.inter, fontWeight: 500, display: "flex", alignItems: "center", gap: "4px" }}>
+              <div style={{ background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)", borderRadius: "6px", padding: "3px 8px", fontSize: "10px", color: C.txtMuted, fontFamily: F.inter, fontWeight: 500, display: "flex", alignItems: "center", gap: "4px" }}>
                 Code <code style={{ fontSize: "11px" }}>{`</>`}</code>
               </div>
             </div>
 
             {/* Code Content */}
-            <div style={{ position: "relative", flex: 1, overflow: "hidden", padding: "12px 0" }}>
+            <div style={{ position: "relative", flex: 1, overflow: "hidden", padding: "6px 0" }}>
               <div style={{ position: "absolute", inset: 0, zIndex: 5, background: `linear-gradient(to bottom, ${C.bgCard} 0%, transparent 20%, transparent 80%, ${C.bgCard} 100%)`, pointerEvents: "none" }} />
 
               <motion.div
                 animate={{ y: [0, -220] }}
                 transition={{ duration: 15, ease: "linear", repeat: Infinity }}
-                style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+                style={{ display: "flex", flexDirection: "column", gap: "8px" }}
               >
                 {[0, 1].map((set) => (
-                  <div key={set} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <div key={set} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     {[
                       { l: 1, c: `self.activation_limit =`, v: `activation_limit` },
                       { l: 2, c: `self.current_mode = "idle"`, v: `` },
@@ -426,8 +469,8 @@ export function Services() {
                       { l: 6, c: `self.activation_limit:`, v: ``, indent: true },
                       { l: 7, c: `self.current_mode = "engaged"`, v: ``, indent: true },
                     ].map((line, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "0 14px" }}>
-                        <div style={{ minWidth: "14px", height: "14px", borderRadius: "50%", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "8px", color: "#4A5064", fontFamily: "monospace" }}>
+                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "0 10px" }}>
+                        <div style={{ minWidth: "14px", height: "14px", borderRadius: "50%", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "8px", color: C.txtFaint, fontFamily: "monospace" }}>
                           {line.l}
                         </div>
                         <div style={{ fontFamily: "monospace", fontSize: "10px", lineHeight: "1.5", color: "#8E95A3", whiteSpace: "pre" }}>
@@ -443,27 +486,28 @@ export function Services() {
             </div>
           </div>
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>Custom AI Agent development</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>We develop custom AI agents that integrate seamlessly with your tools</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Custom AI Agent development</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>We develop custom AI agents that integrate seamlessly with your tools</p>
           </div>
         </motion.div>
 
         {/* 5 – AI Strategy Consulting (1col) */}
-        <motion.div {...fup(0.4)} initial="rest" whileHover="hover" style={{ ...card, padding: "16px" }}>
-          <div style={{ position: "relative", height: "120px", marginBottom: "12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="220" height="150" viewBox="0 0 220 150">
+        <motion.div {...fup(0.4)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px" }}>
+          <div style={{ position: "relative", height: "100px", marginBottom: "12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ transform: "scale(0.8)", transformOrigin: "center" }}>
+              <svg width="220" height="150" viewBox="0 0 220 150">
               <motion.path
                 d="M110 75 L40 30 M110 75 L60 120 M110 75 L170 40 M110 75 L190 100"
-                stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" strokeDasharray="5 5"
+                stroke="var(--color-border)" strokeWidth="1.5" strokeDasharray="5 5"
                 variants={{ rest: { strokeDashoffset: [0, -20] } }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               />
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" />
+              <circle cx="40" cy="30" r="16" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" />
               <rect x="34" y="24" width="3" height="12" fill="#545B7D" rx="1" />
-              <rect x="40" y="20" width="3" height="16" fill="#8E95A3" rx="1" />
+              <rect x="40" y="20" width="3" height="16" fill="var(--color-text-muted)" rx="1" />
               <rect x="46" y="28" width="3" height="8" fill="#545B7D" rx="1" />
 
-              <circle cx="60" cy="120" r="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" />
-              <circle cx="170" cy="40" r="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" />
+              <circle cx="60" cy="120" r="10" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" />
+              <circle cx="170" cy="40" r="8" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" />
 
               <motion.circle
                 cx="190" cy="100" r="18" fill="rgba(172,215,145,0.08)" stroke="rgba(172,215,145,0.3)"
@@ -473,15 +517,19 @@ export function Services() {
 
               <motion.circle cx="110" cy="75" r="5" fill="#6DB6FF" variants={{ rest: { scale: [1, 1.4, 1], filter: ["blur(0px)", "blur(2px)", "blur(0px)"] } }} transition={{ duration: 2.5, repeat: Infinity }} />
             </svg>
+            </div>
           </div>
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "8px" }}>AI Strategy Consulting</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.6 }}>Get expert guidance to implement AI solutions that drive business growth</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>AI Strategy Consulting</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>Get expert guidance to implement AI solutions that drive business growth</p>
           </div>
         </motion.div>
 
       </div>
-    </Section>
+      </div>
+
+      <SectionGlow />
+    </section>
   );
 }
 
@@ -504,6 +552,7 @@ const brands = [
 
 export function DataAnalysis() {
   const isMobile = useMobile(1023);
+  const { resolvedTheme } = useTheme();
   const [isPaused, setIsPaused] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -538,10 +587,10 @@ export function DataAnalysis() {
       <div style={{
         display: "inline-flex", alignItems: "center", gap: "8px",
         padding: "6px 16px", borderRadius: "20px",
-        background: "rgba(0,128,255,0.08)", border: `1px solid rgba(0,128,255,0.15)`,
+        background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: `1px solid var(--color-border)`,
         marginBottom: "32px",
       }}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#0080FF" xmlns="http://www.w3.org/2000/svg">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-blue-mid)" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
         </svg>
         <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtBright }}>
@@ -582,7 +631,7 @@ export function DataAnalysis() {
           ]}
           fontFamily={F.inter}
           fontSize="clamp(18px, 2.5vw, 30px)"
-          color="#8E95A3"
+          color="var(--color-text-muted)"
           italicFontFamily={F.serif}
           lineHeight={1.4}
         />
@@ -599,7 +648,7 @@ export function DataAnalysis() {
         <p style={{
           fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: isMobile ? "14px" : "18px",
-          color: "#8E95A3",
+          color: "var(--color-text-muted)",
           marginBottom: isMobile ? "32px" : "48px",
           fontWeight: 400,
           letterSpacing: "0.01em"
@@ -617,8 +666,8 @@ export function DataAnalysis() {
             marginTop: isMobile ? "20px" : "40px",
             padding: isMobile ? "20px 0" : "40px 0",
             zIndex: 10,
-            maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            maskImage: "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
             opacity: 1,
             transform: "none"
           }}
@@ -676,9 +725,13 @@ export function DataAnalysis() {
                       width: "auto",
                       objectFit: "contain",
                       transition: "all 0.4s ease",
-                      filter: isHovered 
-                        ? (brand.whiteBg ? "invert(1) brightness(1.2)" : (brand.isBlack ? "invert(1) brightness(1.5)" : "none")) 
-                        : (brand.whiteBg ? "invert(1) grayscale(100%) opacity(0.7)" : "brightness(0) invert(1)")
+                      filter: resolvedTheme === "dark" 
+                        ? (isHovered 
+                          ? (brand.whiteBg ? "invert(1) brightness(1.2)" : (brand.isBlack ? "invert(1) brightness(1.5)" : "none")) 
+                          : (brand.whiteBg ? "invert(1) grayscale(100%) opacity(0.7)" : "brightness(0) invert(1)"))
+                        : (isHovered
+                          ? "none"
+                          : "grayscale(100%) opacity(0.6)")
                     }}
                   />
                 </div>
@@ -698,6 +751,7 @@ export function DataAnalysis() {
 
 function BenefitCard({ card, i }: { card: any, i: number }) {
   const [hovered, setHovered] = useState(false);
+  const { resolvedTheme } = useTheme();
 
   return (
     <motion.div
@@ -719,12 +773,12 @@ function BenefitCard({ card, i }: { card: any, i: number }) {
         flexDirection: "column",
         alignItems: "center",
         minHeight: "320px",
-        boxShadow: "0 15px 45px -10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05)",
+        boxShadow: resolvedTheme === 'dark' ? "0 15px 45px -10px rgba(0,0,0,0.6)" : "0 10px 30px -10px rgba(0,0,0,0.05)",
         cursor: "default",
       }}
     >
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)", zIndex: 2 }} />
-      <div style={{ position: "absolute", bottom: 0, left: "20%", right: "20%", height: "1.5px", background: "linear-gradient(90deg, transparent, #212830, transparent)", pointerEvents: "none", zIndex: 2 }} />
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", zIndex: 2 }} />
+      <div style={{ position: "absolute", bottom: 0, left: "20%", right: "20%", height: "1.5px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ width: "100%", height: "180px", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 1 }}>
         <card.Icon hovered={hovered} />
       </div>
@@ -735,7 +789,7 @@ function BenefitCard({ card, i }: { card: any, i: number }) {
       >
         {card.title}
       </motion.h3>
-      <p style={{ fontFamily: F.inter, fontSize: "14px", color: "#82868F", lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1 }}>
+      <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.65, padding: "0 28px", position: "relative", zIndex: 1 }}>
         {card.desc}
       </p>
     </motion.div>
@@ -756,12 +810,12 @@ export function Benefits() {
                 width: 160px;
                 height: 160px;
                 border-radius: 50%;
-                border: 1px solid rgba(44, 46, 49, 0.6);
+                border: 1px solid var(--color-border);
                 box-shadow: 
                   inset 0 0 0 26px transparent,
-                  inset 0 0 0 27px rgba(44, 46, 49, 0.4),
+                  inset 0 0 0 27px var(--color-border),
                   inset 0 0 0 53px transparent,
-                  inset 0 0 0 54px rgba(44, 46, 49, 0.4);
+                  inset 0 0 0 54px var(--color-border);
                 overflow: hidden;
               }
               
@@ -773,7 +827,7 @@ export function Benefits() {
                 left: 50%;
                 width: 1px;
                 height: 100%;
-                background: rgba(44, 46, 49, 0.4);
+                background: var(--color-border);
               }
               
               .radar-panel:after {
@@ -784,7 +838,7 @@ export function Benefits() {
                 left: 0;
                 width: 100%;
                 height: 1px;
-                background: rgba(44, 46, 49, 0.4);
+                background: var(--color-border);
               }
               
               .radar-scanner {
@@ -793,7 +847,7 @@ export function Benefits() {
                 left: 0;
                 width: 160px;
                 height: 160px;
-                background: conic-gradient(from 0deg, transparent 70%, rgba(44, 46, 49, 0.2) 99%, rgba(44, 46, 49, 1) 100%);
+                background: conic-gradient(from 0deg, transparent 70%, rgba(var(--color-blue-mid-rgb), 0.2) 99%, var(--color-blue-mid) 100%);
                 border-radius: 50%;
                 transform-origin: center;
                 animation: scanning 4s infinite linear;
@@ -876,7 +930,7 @@ export function Benefits() {
       Icon: function Bars({ hovered }: { hovered: boolean }) {
         return (
           <svg width="100%" height="200" viewBox="0 0 220 200">
-            <defs><linearGradient id="gradBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="rgba(255,255,255,0.15)" /><stop offset="100%" stopColor="rgba(255,255,255,0.02)" /></linearGradient></defs>
+            <defs><linearGradient id="gradBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="rgba(var(--color-text-bright-rgb), 0.15)" /><stop offset="100%" stopColor="rgba(var(--color-text-bright-rgb), 0.02)" /></linearGradient></defs>
             <motion.rect
               animate={hovered ? { height: 70, y: 100 } : { height: 40, y: 130 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -920,18 +974,18 @@ export function Benefits() {
               }}
               style={{ transformOrigin: "105px 100px" }}
             >
-              <line x1="105" y1="100" x2="50" y2="50" stroke="rgba(255,255,255,0.08)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="160" y2="45" stroke="rgba(255,255,255,0.08)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="35" y2="115" stroke="rgba(255,255,255,0.08)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="175" y2="125" stroke="rgba(255,255,255,0.08)" strokeWidth="2" />
-              <line x1="105" y1="100" x2="115" y2="165" stroke="rgba(255,255,255,0.08)" strokeWidth="2" />
-              <circle cx="50" cy="50" r="4.5" fill="rgba(255,255,255,0.12)" />
-              <circle cx="160" cy="45" r="4.5" fill="rgba(255,255,255,0.12)" />
-              <circle cx="35" cy="115" r="4.5" fill="rgba(255,255,255,0.12)" />
-              <circle cx="175" cy="125" r="4.5" fill="rgba(255,255,255,0.12)" />
-              <circle cx="115" cy="165" r="4.5" fill="rgba(255,255,255,0.12)" />
-              <circle cx="105" cy="100" r="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-              <circle cx="105" cy="100" r="9" fill="rgba(0,128,255,0.1)" stroke="rgba(0,128,255,0.3)" strokeWidth="0.5" />
+              <line x1="105" y1="100" x2="50" y2="50" stroke="var(--color-border)" strokeWidth="2" />
+              <line x1="105" y1="100" x2="160" y2="45" stroke="var(--color-border)" strokeWidth="2" />
+              <line x1="105" y1="100" x2="35" y2="115" stroke="var(--color-border)" strokeWidth="2" />
+              <line x1="105" y1="100" x2="175" y2="125" stroke="var(--color-border)" strokeWidth="2" />
+              <line x1="105" y1="100" x2="115" y2="165" stroke="var(--color-border)" strokeWidth="2" />
+              <circle cx="50" cy="50" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx="160" cy="45" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx="35" cy="115" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx="175" cy="125" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx="115" cy="165" r="4.5" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx="105" cy="100" r="14" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx="105" cy="100" r="9" fill="rgba(var(--color-blue-mid-rgb), 0.1)" stroke="rgba(var(--color-blue-mid-rgb), 0.3)" strokeWidth="0.5" />
               <circle cx="105" cy="100" r="2" fill="#6DB6FF" />
               {[0, 60, 120, 180, 240, 300].map(angle => {
                 const r = 5.5;
@@ -950,8 +1004,14 @@ export function Benefits() {
   return (
     <Section id="benefits">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#0080FF"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" /></svg>
-        <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtBright }}>BENEFITS</span>
+        <div style={{
+          display: "flex", alignItems: "center", gap: "8px",
+          padding: "6px 14px", borderRadius: "100px",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
+        }}>
+          <Sparkles style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
+          <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtBright }}>BENEFITS</span>
+        </div>
       </div>
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Everything you need to automate, optimize, and scale</Sub>
@@ -1027,8 +1087,8 @@ export function Features() {
   return (
     <Section id="features">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "6px 14px", borderRadius: "100px", background: "rgba(0,128,255,0.06)", border: "1px solid rgba(0,128,255,0.2)" }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#0080FF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "6px 14px", borderRadius: "100px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)" }}>
+          <Layers style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
           <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>FEATURES</span>
         </div>
       </div>
@@ -1053,12 +1113,12 @@ function FeatureCard({ it, i }: { it: any; i: number }) {
       {...fup(i * 0.05)} 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ ...card, border: "1px solid #38404A", borderRadius: "12px", padding: "16px", textAlign: "center", display: "flex", flexDirection: "column", gap: "8px", minHeight: "220px", justifyContent: "flex-start" }}
+      style={{ ...card, border: `1px solid var(--color-border)`, borderRadius: "12px", padding: "16px", textAlign: "center", display: "flex", flexDirection: "column", gap: "8px", minHeight: "220px", justifyContent: "flex-start" }}
     >
       <it.Visual hovered={isHovered} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <h3 style={{ fontFamily: F.inter, fontSize: "14px", fontWeight: 700, color: C.blueMid, marginBottom: "2px" }}>{it.title}</h3>
-        <p style={{ fontFamily: F.inter, fontSize: "11.5px", color: "#82868F", lineHeight: 1.35 }}>{it.desc}</p>
+        <p style={{ fontFamily: F.inter, fontSize: "11.5px", color: C.txtMuted, lineHeight: 1.35 }}>{it.desc}</p>
       </div>
     </motion.div>
   );
@@ -1069,26 +1129,26 @@ function FeatureVisual({ hovered, i1, i2 }: { hovered: boolean; i1: React.ReactN
   return (
     <div style={{ 
       position: "relative", width: "100%", height: "110px", 
-      background: "linear-gradient(180deg, #090B10 0%, #0D0F17 100%)", 
+      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", 
       borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", 
-      overflow: "hidden", border: "1px solid rgba(255,255,255,0.05)",
-      boxShadow: "inset 0 2px 10px rgba(0,0,0,0.5)"
+      overflow: "hidden", border: "1px solid var(--color-border)",
+      boxShadow: "inset 0 2px 10px rgba(0,0,0,0.2)"
     }}>
       <motion.div 
         animate={{ 
-          background: hovered ? "#1A202A" : "#161B22",
-          boxShadow: hovered ? "0 0 20px rgba(172, 215, 145, 0.15), 0 5px 20px rgba(0,0,0,0.5)" : "none",
-          color: hovered ? "#ACD791" : "rgba(172, 215, 145, 0.4)"
+          background: hovered ? "var(--color-bg-input)" : "var(--color-bg-card)",
+          boxShadow: hovered ? "0 0 20px var(--green-glow-40), 0 5px 20px rgba(0,0,0,0.3)" : "none",
+          color: hovered ? "var(--color-green)" : "var(--color-text-faint)"
         }}
         style={{
-          border: "1px solid rgba(255,255,255,0.08)",
+          border: "1px solid var(--color-border)",
           borderRadius: "10px", padding: "8px 16px", display: "flex", alignItems: "center", gap: "12px"
         }}
         transition={{ duration: 0.3 }}
       >
-        <div style={{ filter: hovered ? "drop-shadow(0 0 6px #ACD791)" : "none", display: "flex", alignItems: "center" }}>{i1}</div>
-        <div style={{ height: "24px", width: "1.2px", background: "rgba(255,255,255,0.1)" }} />
-        <div style={{ filter: hovered ? "drop-shadow(0 0 6px #ACD791)" : "none", display: "flex", alignItems: "center" }}>{i2}</div>
+        <div style={{ filter: hovered ? "drop-shadow(0 0 6px var(--color-green))" : "none", display: "flex", alignItems: "center" }}>{i1}</div>
+        <div style={{ height: "24px", width: "1.2px", background: "var(--color-border)" }} />
+        <div style={{ filter: hovered ? "drop-shadow(0 0 6px var(--color-green))" : "none", display: "flex", alignItems: "center" }}>{i2}</div>
       </motion.div>
     </div>
   );
@@ -1101,15 +1161,16 @@ const pros = ["Fast setup with ready AI workflows", "Built to grow and adapt wit
 const cons = ["Slower execution and manual setup", "Requires manual updates as you scale", "Limited or delayed reporting", "Higher labor costs, less automation", "Generic support or none at all"];
 
 export function Comparison() {
+  const { resolvedTheme } = useTheme();
   return (
     <Section id="comparison">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
-          background: "rgba(0,128,255,0.06)", border: "1px solid rgba(0,128,255,0.2)",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
         }}>
-          <GitCompare style={{ width: "12px", height: "12px", color: "#0080FF" }} />
+          <GitCompare style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
           <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>
             COMPARISON
           </span>
@@ -1121,21 +1182,29 @@ export function Comparison() {
       <div style={{ maxWidth: "1100px", margin: "60px auto 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "32px" }}>
         {/* ScalePods column */}
         <motion.div variants={fup(0)} initial="initial" whileInView="whileInView" viewport={{ once: true }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "48px", marginBottom: "24px" }}>
-            <Image
-              src="/logo-light.png"
-              alt="ScalePods"
-              width={180}
-              height={50}
-              style={{ height: "50px", width: "auto", objectFit: "contain", display: "block" }}
-            />
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "24px" }}>
+            {/* Cropped logo: 2193×377 ≈ 5.8:1 ratio → 200px wide × 34px tall */}
+            <div style={{ position: "relative", width: "200px", height: "34px" }}>
+              <Image
+                src="/scalepods-navbar-logo.png"
+                alt="ScalePods"
+                fill
+                sizes="200px"
+                style={{
+                  objectFit: "contain",
+                  objectPosition: "center center",
+                  filter: resolvedTheme === "dark" ? "invert(1)" : "none",
+                  transition: "filter 0.3s ease",
+                }}
+              />
+            </div>
           </div>
           <div style={{ ...card, padding: "12px 24px" }}>
             {pros.map((item, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: "16px",
                 padding: "24px 0",
-                borderBottom: i < pros.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+                borderBottom: i < pros.length - 1 ? `1px solid var(--color-border)` : "none",
               }}>
                 <Check style={{ width: "16px", height: "16px", flexShrink: 0, color: C.green }} />
                 <span style={{ fontFamily: F.inter, fontSize: "15px", color: C.txtBright }}>{item}</span>
@@ -1157,7 +1226,7 @@ export function Comparison() {
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: "16px",
                 padding: "24px 0",
-                borderBottom: i < cons.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+                borderBottom: i < cons.length - 1 ? `1px solid var(--color-border)` : "none",
               }}>
                 <X style={{ width: "16px", height: "16px", flexShrink: 0, color: C.blueMid }} />
                 <span style={{ fontFamily: F.inter, fontSize: "15px", color: C.txtFaint }}>{item}</span>
@@ -1204,6 +1273,7 @@ const processSteps = [
 
 export function Process() {
   const [activeTab, setActiveTab] = useState(0);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1213,22 +1283,34 @@ export function Process() {
   }, []);
 
   return (
-    <Section id="process">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#0080FF" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" fill="#0080FF" />
-          <path d="M12 22C11.8 22 11.6 21.95 11.43 21.85L4.43 17.85C4.12 17.67 3.93 17.34 3.93 16.98V8.98C3.93 8.62 4.12 8.29 4.43 8.11L11.43 4.11C11.78 3.91 12.23 3.91 12.58 4.11L19.58 8.11C19.89 8.29 20.08 8.62 20.08 8.98V16.98C20.08 17.34 19.89 17.67 19.58 17.85L12.58 21.85C12.4 21.95 12.2 22 12 22ZM12 5.06L6.05 8.44V15.52L12 18.9L17.95 15.52V8.44L12 5.06Z" fill="#0D0F17" />
-        </svg>
-        <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtMuted }}>
-          PROCESS
-        </span>
+    <section id="process" style={{ 
+      position: "relative", 
+      background: C.bgPage, 
+      padding: "clamp(32px, 4vw, 48px) clamp(20px, 3vw, 24px)",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
+        <div style={{
+          display: "flex", alignItems: "center", gap: "8px",
+          padding: "6px 14px", borderRadius: "100px",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
+        }}>
+          <Zap style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
+          <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.txtMuted }}>
+            PROCESS
+          </span>
+        </div>
       </div>
       <H2 plain="Our Simple & " italic="Smart Process" />
       <Sub>Everything you need to collaborate, create, and scale, all in one place.</Sub>
 
-      <div style={{ borderRadius: "16px", border: `1px solid ${C.border}`, background: C.bgCard, overflow: "hidden", marginTop: "32px" }}>
+      <div style={{ borderRadius: "16px", border: `1px solid ${C.border}`, background: C.bgCard, overflow: "hidden", marginTop: "16px" }}>
         {/* Navigation Tabs */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", padding: "16px", gap: "16px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", padding: "8px", gap: "6px" }}>
           {processSteps.map((step, idx) => {
             const isActive = activeTab === idx;
             return (
@@ -1236,10 +1318,10 @@ export function Process() {
                 key={idx}
                 onClick={() => setActiveTab(idx)}
                 style={{
-                  padding: "16px",
+                  padding: "8px",
                   borderRadius: "8px",
-                  background: isActive ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.01)",
-                  border: `1px solid ${isActive ? "rgba(172,215,145,0.2)" : C.border}`,
+                  background: isActive ? "var(--color-bg-card-alt)" : "transparent",
+                  border: `1px solid ${isActive ? "rgba(var(--color-green-rgb), 0.3)" : "var(--color-border)"}`,
                   color: isActive ? C.green : C.txtMuted,
                   fontFamily: F.inter,
                   fontSize: "13px",
@@ -1257,12 +1339,12 @@ export function Process() {
         </div>
 
         {/* Content Area */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "450px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: "300px" }}>
 
           {/* Left Column - Visual Mockups */}
-          <div style={{ position: "relative", padding: "32px", overflow: "hidden" }}>
+          <div style={{ position: "relative", padding: "24px", overflow: "hidden" }}>
             {/* Gradient glow behind visuals */}
-            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "300px", height: "300px", background: "radial-gradient(circle, rgba(109,182,255,0.08) 0%, transparent 70%)", zIndex: 0 }} />
+            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "300px", height: "300px", background: "radial-gradient(circle, rgba(var(--color-blue-mid-rgb), 0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
             <AnimatePresence mode="wait">
               {activeTab === 0 && (
@@ -1282,7 +1364,7 @@ export function Process() {
                       </div>
                       <div style={{ fontSize: "24px", fontWeight: 700, color: C.txtBright, marginBottom: "8px" }}>-32%</div>
                       <svg width="100%" height="40" viewBox="0 0 100 40" preserveAspectRatio="none">
-                        <path d="M0 30 Q 15 40 25 30 T 50 30 T 75 35 T 100 25" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M0 30 Q 15 40 25 30 T 50 30 T 75 35 T 100 25" fill="none" stroke="var(--color-border)" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </div>
                     <div style={{ flex: 1, background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: "12px", padding: "16px" }}>
@@ -1292,18 +1374,18 @@ export function Process() {
                       </div>
                       <div style={{ fontSize: "24px", fontWeight: 700, color: C.txtBright, marginBottom: "8px" }}>-54%</div>
                       <svg width="100%" height="40" viewBox="0 0 100 40" preserveAspectRatio="none">
-                        <path d="M0 35 Q 15 20 25 25 T 50 35 T 75 25 T 100 30" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M0 35 Q 15 20 25 25 T 50 35 T 75 25 T 100 30" fill="none" stroke="var(--color-border)" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </div>
                   </div>
                   {/* Floating Weakest Systems card animated slightly upwards */}
                   <motion.div
                     initial={{ y: 20 }} animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ background: "#0A0D14", border: `1px solid rgba(255,255,255,0.1)`, borderRadius: "12px", padding: "16px", boxShadow: "0 10px 40px rgba(0,0,0,0.5)", zIndex: 10, marginTop: "8px" }}
+                    style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", border: `1px solid var(--color-border)`, borderRadius: "12px", padding: "16px", boxShadow: resolvedTheme === 'dark' ? "0 10px 40px rgba(0,0,0,0.5)" : "0 10px 30px rgba(0,0,0,0.05)", zIndex: 10, marginTop: "8px" }}
                   >
                     <div style={{ fontSize: "11px", color: C.txtMuted, marginBottom: "16px" }}>Weakest Systems</div>
                     <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                      <div style={{ width: "32px", height: "32px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div style={{ width: "32px", height: "32px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <BarChart3 style={{ width: "16px", height: "16px", color: C.txtFaint }} />
                       </div>
                       <div style={{ flex: 1 }}>
@@ -1311,7 +1393,7 @@ export function Process() {
                           <span style={{ fontSize: "13px", color: C.txtBright, fontWeight: 500 }}>Marketing & ads</span>
                           <span style={{ fontSize: "12px", color: C.txtMuted }}>32% <span style={{ color: C.txtFaint }}>Score</span></span>
                         </div>
-                        <div style={{ width: "100%", height: "4px", background: "rgba(255,255,255,0.05)", borderRadius: "2px", overflow: "hidden" }}>
+                        <div style={{ width: "100%", height: "4px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "2px", overflow: "hidden" }}>
                           <div style={{ width: "32%", height: "100%", background: C.txtFaint, borderRadius: "2px" }} />
                         </div>
                       </div>
@@ -1337,7 +1419,7 @@ export function Process() {
                   {/* Floating Code Editor Overlay */}
                   <motion.div
                     initial={{ y: 20 }} animate={{ y: [0, 8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ background: "#05070A", border: `1px solid rgba(255,255,255,0.08)`, borderRadius: "12px", width: "90%", padding: "16px", boxShadow: "0 20px 50px rgba(0,0,0,0.6)", zIndex: 10 }}
+                    style={{ background: "var(--color-bg-input)", border: `1px solid var(--color-border)`, borderRadius: "12px", width: "90%", padding: "16px", boxShadow: resolvedTheme === 'dark' ? "0 20px 50px rgba(0,0,0,0.6)" : "0 10px 30px rgba(0,0,0,0.05)", zIndex: 10 }}
                   >
                     <div style={{ fontFamily: "monospace", fontSize: "12px", color: C.txtMuted, display: "flex", flexDirection: "column", gap: "8px", whiteSpace: "pre-wrap" }}>
                       <div><span style={{ color: "#545B7D" }}>// Build & Implement -{">"}</span></div>
@@ -1367,8 +1449,8 @@ export function Process() {
                     <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", bottom: 0 }}>
                       <defs>
                         <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="rgba(109,182,255,0.2)" />
-                          <stop offset="100%" stopColor="rgba(109,182,255,0)" />
+                          <stop offset="0%" stopColor="rgba(var(--color-blue-mid-rgb), 0.2)" />
+                          <stop offset="100%" stopColor="rgba(var(--color-blue-mid-rgb), 0)" />
                         </linearGradient>
                       </defs>
                       <motion.path
@@ -1387,7 +1469,7 @@ export function Process() {
                   {/* Floating Growth Tracker Card */}
                   <motion.div
                     initial={{ y: 20 }} animate={{ y: [0, -8, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ background: "#0A0D14", border: `1px solid rgba(255,255,255,0.1)`, borderRadius: "12px", padding: "16px", boxShadow: "0 10px 40px rgba(0,0,0,0.5)", zIndex: 10 }}
+                    style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", border: `1px solid var(--color-border)`, borderRadius: "12px", padding: "16px", boxShadow: resolvedTheme === 'dark' ? "0 10px 40px rgba(0,0,0,0.5)" : "0 10px 30px rgba(0,0,0,0.05)", zIndex: 10 }}
                   >
                     <div style={{ fontSize: "11px", color: C.txtMuted, marginBottom: "16px" }}>Growth & Efficiency Driven by AI</div>
                     <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -1399,7 +1481,7 @@ export function Process() {
                           <span style={{ fontSize: "13px", color: C.txtBright, fontWeight: 500 }}>Marketing & ads</span>
                           <span style={{ fontSize: "12px", color: C.txtBright }}>84% <span style={{ color: C.txtFaint }}>Score</span></span>
                         </div>
-                        <div style={{ width: "100%", height: "4px", background: "rgba(255,255,255,0.05)", borderRadius: "2px", overflow: "hidden" }}>
+                        <div style={{ width: "100%", height: "4px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "2px", overflow: "hidden" }}>
                           <motion.div
                             initial={{ width: "0%" }} animate={{ width: "84%" }} transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
                             style={{ height: "100%", background: C.blueMid, borderRadius: "2px", boxShadow: "0 0 10px #6DB6FF" }}
@@ -1414,7 +1496,7 @@ export function Process() {
           </div>
 
           {/* Right Column - Descriptive Text */}
-          <div style={{ padding: "48px 48px 48px 24px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div style={{ padding: "32px 32px 32px 24px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab} // triggers re-animation on tab change
@@ -1422,7 +1504,7 @@ export function Process() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+                style={{ display: "flex", flexDirection: "column", gap: "12px" }}
               >
                 <span style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 600, color: C.txtFaint }}>
                   {processSteps[activeTab].num}
@@ -1439,238 +1521,402 @@ export function Process() {
 
         </div>
       </div>
-    </Section>
+      </div>
+
+      <SectionGlow />
+    </section>
   );
 }
 
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// CASE STUDIES (OUR CLIENTS)
+// CASE STUDIES (OUR CLIENTS) - CINEMATIC REDESIGN
 // ═══════════════════════════════════════════════════════════════════════════════
+
 const caseStudiesData = [
   {
     id: 1,
-    title: "Expo Success",
-    paragraphs: [
-      "A company attending a major industry expo needed to capture and follow up with hundreds of leads quickly. Using our Exhibition Automation Pod, they transformed their process completely.",
-      "Previously, it took their team 2-3 days to manually enter lead data and send follow-ups. With ScalePods, leads were captured via Telegram, automatically synced to their CRM, and personalized emails and WhatsApp messages were sent within 30 seconds.",
-      "The result? They connected with prospects while the conversation was still fresh, leading to significantly higher engagement rates and faster deal cycles."
+    category: "EXHIBITION AUTOMATION",
+    title: "Expo Success Story",
+    description: "A company attending a major industry expo needed to capture and follow up with hundreds of leads quickly. Previously, it took their team 2-3 days to manually enter data. With ScalePods, personalized follow-ups were sent within 30 seconds of capture.",
+    metrics: [
+      { value: "40%", label: "Lead Retention" },
+      { value: "65%", label: "ROI Surge" }
     ],
-    stats: [
-      { value: "40 %", label: "gain in retention" },
-      { value: "65 %", label: "surge in ROI" }
-    ],
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600&auto=format&fit=crop",
+    accent: "var(--color-blue-mid)"
   },
   {
     id: 2,
-    title: "SaaS Startup Scales Lead Qualification",
-    paragraphs: [
-      "A rapidly growing SaaS startup was drowning in inbound leads but lacked the resources to qualify them effectively. Their small sales team couldn't keep up with the volume, and valuable opportunities were slipping through the cracks.",
-      "We deployed our B2B Lead generator and WhatsApp Reachout System to automatically qualify, score, and engage leads based on predefined criteria. The AI analyzed company size, industry, and engagement signals to prioritize the hottest prospects.",
-      "Within three months, they processed 35,000 leads with zero additional headcount, allowing their sales team to focus exclusively on high-value conversations."
+    category: "B2B GROWTH ENGINE",
+    title: "SaaS Scaling Autonomy",
+    description: "A rapidly growing SaaS startup was drowning in inbound leads but lacked the resources to qualify them. We deployed an AI qualification system that processed 35,000 leads with zero additional headcount, allowing the sales team to focus on high-value closings.",
+    metrics: [
+      { value: "30%", label: "Sales Growth" },
+      { value: "55%", label: "Engagement" }
     ],
-    stats: [
-      { value: "30 %", label: "growth in sales" },
-      { value: "55 %", label: "rise in engagement" }
-    ],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
+    accent: "var(--color-green)"
   },
   {
     id: 3,
-    title: "Tech Firm Accelerates Hiring with AI",
-    paragraphs: [
-      "A fast-growing tech company faced hiring delays — too many applicants, too little HR bandwidth.",
-      "We implemented our HR Pipeline Automation Pod to handle resume parsing, candidate scoring, and interview scheduling. The AI screened 3,500+ resumes, ranked applicants by fit, and used WhatsApp and Calendly automations for instant scheduling and updates.",
-      "In just two months, the hiring cycle dropped from 14 days to 5, enabling recruiters to focus only on culture fit while ScalePods ran the entire funnel."
+    category: "AI RECRUITMENT",
+    title: "Tech Hiring Acceleration",
+    description: "A fast-growing tech firm faced hiring delays with thousands of manual applications. Our HR Pipeline Pod screened 3,500+ resumes and ranked applicants by fit, dropping the hiring cycle from 14 days to just 5 days.",
+    metrics: [
+      { value: "70%", label: "Faster Hiring" },
+      { value: "35%", label: "Lower CAC" }
     ],
-    stats: [
-      { value: "70 %", label: "Faster Recruitement" },
-      { value: "35 %", label: "Lower CAC" }
-    ],
-    image: "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1600&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1600&auto=format&fit=crop",
+    accent: "var(--color-blue-mid)"
   }
 ];
 
 export function CaseStudies() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(1024);
+  const SLIDE_DURATION = 12000; // 12 seconds
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % caseStudiesData.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [activeIndex]);
+    if (isPaused) return;
+    
+    let startTime = Date.now();
+    let animationFrame: number;
 
-  const getCardStyle = (index: number) => {
-    const total = caseStudiesData.length;
-    // Calculate the 'distance' from the active index, always positive
-    // offset 0 = active front, offset 1 = behind 1, offset 2 = behind 2
-    const offset = (index - activeIndex + total) % total;
+    const step = () => {
+      const elapsed = Date.now() - startTime;
+      const currentProgress = (elapsed / SLIDE_DURATION) * 100;
+      
+      if (currentProgress >= 100) {
+        setActiveIndex((prev) => (prev + 1) % caseStudiesData.length);
+        setProgress(0);
+        startTime = Date.now();
+      } else {
+        setProgress(currentProgress);
+      }
+      animationFrame = requestAnimationFrame(step);
+    };
 
-    if (offset === 0) {
-      return {
-        zIndex: 10,
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        pointerEvents: "auto" as const,
-        cursor: "default"
-      };
-    } else if (offset === 1) {
-      return {
-        zIndex: 9,
-        y: -40,
-        scale: 0.96,
-        opacity: 0.6,
-        pointerEvents: "auto" as const,
-        cursor: "pointer"
-      };
-    } else if (offset === 2) {
-      return {
-        zIndex: 8,
-        y: -80,
-        scale: 0.92,
-        opacity: 0.3,
-        pointerEvents: "auto" as const,
-        cursor: "pointer"
-      };
-    }
-    // Fallback if more items are added
-    return { zIndex: 0, y: -100, scale: 0.8, opacity: 0, pointerEvents: "none" as const, cursor: "default" };
-  };
+    animationFrame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [activeIndex, isPaused]);
+
+  const activeStudy = caseStudiesData[activeIndex];
 
   return (
-    <Section id="clients">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
-        <div style={{
-          display: "flex", alignItems: "center", gap: "8px",
-          padding: "6px 14px", borderRadius: "100px",
-          background: "rgba(0,128,255,0.06)", border: "1px solid rgba(0,128,255,0.2)",
-        }}>
-          <Users style={{ width: "12px", height: "12px", color: "#0080FF" }} />
-          <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>
-            OUR CLIENTS
-          </span>
+    <section id="clients" style={{ 
+      position: "relative", 
+      background: C.bgPage, 
+      padding: isMobile ? "64px 16px 40px" : "72px 32px 48px",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      overflow: "hidden"
+    }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
+        
+        {/* Header Section */}
+        <div style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
+            <div style={{
+              display: "flex", alignItems: "center", gap: "8px",
+              padding: "4px 12px", borderRadius: "100px",
+              background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
+            }}>
+              <Users style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
+              <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em", color: C.txtBright }}>
+                OUR CLIENTS
+              </span>
+            </div>
+          </div>
+          <H2 
+            plain="Success Stories to " 
+            italic="Inspire" 
+            style={{ fontSize: isMobile ? "32px" : "clamp(40px, 4vw, 56px)", marginBottom: "4px" }} 
+          />
+          <Sub style={{ fontSize: "14px", marginBottom: "0" }}>Discover how businesses and creators achieve results</Sub>
         </div>
-      </div>
-      <H2 plain="Success Stories to " italic="Inspire" />
-      <Sub>Discover how businesses and creators achieve results</Sub>
 
-      <div style={{ position: "relative", width: "100%", maxWidth: "1024px", margin: "80px auto", height: "650px", perspective: 1000 }}>
-        {caseStudiesData.map((study, index) => {
-          const style = getCardStyle(index);
-          const total = caseStudiesData.length;
-          const offset = (index - activeIndex + total) % total;
-
-          return (
-            <motion.div
-              key={study.id}
-              onClick={() => {
-                if (offset !== 0) setActiveIndex(index);
-              }}
-              initial={false}
-              animate={{
-                y: style.y,
-                scale: style.scale,
-                opacity: style.opacity,
-                zIndex: style.zIndex,
-              }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background: "#0A0D14",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "16px",
-                overflow: "hidden",
-                pointerEvents: style.pointerEvents,
-                cursor: style.cursor,
-                boxShadow: offset === 0 ? "0 20px 60px rgba(0,0,0,0.5)" : "none",
-              }}
-            >
-              {/* Browser Window Header */}
-              <div style={{
-                height: "44px",
-                borderBottom: "1px solid rgba(255,255,255,0.05)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "0 20px",
-                background: "rgba(255,255,255,0.02)"
-              }}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div style={{ width: "24px", height: "24px", borderRadius: "50%", background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Check style={{ width: "12px", height: "12px", color: C.txtFaint }} />
-                  </div>
+        {/* Cinematic Carousel Container */}
+        <div 
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "1100px",
+            height: isMobile ? "auto" : "min(540px, 60vh)",
+            margin: "0 auto",
+            background: "rgba(255,255,255,0.01)",
+            backdropFilter: "blur(4px)",
+            borderRadius: "32px",
+            border: "1px solid var(--color-border-faint)",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            boxShadow: resolvedTheme === 'dark' ? "0 40px 100px -20px rgba(0,0,0,0.8)" : "0 20px 50px -10px rgba(0,0,0,0.05)"
+          }}
+        >
+          {/* Left Panel: Content */}
+          <div style={{
+            flex: isMobile ? "none" : "0 0 42%",
+            padding: isMobile ? "32px 24px" : "clamp(32px, 4vw, 48px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            position: "relative",
+            zIndex: 2,
+            background: resolvedTheme === 'dark' ? "rgba(4, 7, 13, 0.4)" : "rgba(255, 255, 255, 0.4)",
+            backdropFilter: "blur(20px)"
+          }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStudy.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <div style={{ 
+                  fontSize: "10px", 
+                  fontWeight: 800, 
+                  color: activeStudy.accent, 
+                  letterSpacing: "0.15em", 
+                  marginBottom: "12px" 
+                }}>
+                  {activeStudy.category}
                 </div>
-                <div style={{ display: "flex", gap: "6px" }}>
-                  <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                  <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                  <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
+                
+                <h3 style={{ 
+                  fontFamily: F.inter, 
+                  fontSize: "clamp(24px, 2.5vw, 32px)", 
+                  fontWeight: 800, 
+                  color: C.txtBright, 
+                  lineHeight: 1.1, 
+                  marginBottom: "16px",
+                  letterSpacing: "-0.02em"
+                }}>
+                  {activeStudy.title}
+                </h3>
+                
+                <p style={{ 
+                  fontFamily: F.inter, 
+                  fontSize: "14px", 
+                  color: C.txtBody, 
+                  lineHeight: 1.6, 
+                  marginBottom: "20px",
+                  opacity: 0.85,
+                  maxWidth: "400px"
+                }}>
+                  {activeStudy.description}
+                </p>
+
+                {/* KPI Metrics */}
+                <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
+                  {activeStudy.metrics.map((m, idx) => (
+                    <div key={idx} style={{ 
+                      flex: 1,
+                      padding: "12px 16px",
+                      borderRadius: "16px",
+                      background: "rgba(var(--color-text-bright-rgb), 0.03)",
+                      border: "1px solid var(--color-border-faint)",
+                      backdropFilter: "blur(8px)"
+                    }}>
+                      <div style={{ fontSize: "18px", fontWeight: 800, color: C.txtBright, marginBottom: "2px" }}>{m.value}</div>
+                      <div style={{ fontSize: "9px", fontWeight: 700, color: C.txtMuted, textTransform: "uppercase", letterSpacing: "0.05em" }}>{m.label}</div>
+                    </div>
+                  ))}
                 </div>
-              </div>
 
-              {/* Card Body Split Layout */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", height: "calc(100% - 44px)" }}>
+                {/* Progress Indicator */}
+                <div style={{ 
+                  width: "100%", 
+                  height: "2px", 
+                  background: "rgba(var(--color-text-bright-rgb), 0.1)",
+                  borderRadius: "2px",
+                  overflow: "hidden"
+                }}>
+                  <motion.div 
+                    style={{ 
+                      height: "100%", 
+                      background: activeStudy.accent,
+                      width: `${progress}%`
+                    }} 
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-                {/* Left Text/Stats */}
-                <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                  <div>
-                    <h3 style={{ fontFamily: F.inter, fontSize: "28px", fontWeight: 600, color: C.blueMid, marginBottom: "24px", lineHeight: 1.3 }}>
-                      {study.title}
-                    </h3>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                      {study.paragraphs.map((p, i) => (
-                        <p key={i} style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>
-                          {p}
-                        </p>
-                      ))}
+          {/* Right Panel: Visuals */}
+          <div style={{
+            flex: isMobile ? "none" : "1",
+            height: isMobile ? "280px" : "auto",
+            position: "relative",
+            overflow: "hidden",
+            background: "#000"
+          }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStudy.id}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                style={{ width: "100%", height: "100%" }}
+              >
+                <img 
+                  src={activeStudy.image} 
+                  alt={activeStudy.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }}
+                />
+                <div style={{ 
+                  position: "absolute", 
+                  inset: 0, 
+                  background: `linear-gradient(to right, ${resolvedTheme === 'dark' ? '#04070D' : '#F8FAF7'} 0%, transparent 40%)`,
+                  display: isMobile ? 'none' : 'block'
+                }} />
+                <div style={{ 
+                  position: "absolute", 
+                  inset: 0, 
+                  background: `linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%)`,
+                  display: isMobile ? 'block' : 'none'
+                }} />
+
+                {/* Floating KPI Cards */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  style={{
+                    position: "absolute",
+                    bottom: "24px",
+                    right: "24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                    zIndex: 10
+                  }}
+                >
+                  <div style={{
+                    padding: "12px 20px",
+                    background: "rgba(255,255,255,0.1)",
+                    backdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: "16px",
+                    boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px"
+                  }}>
+                    <TrendingUp size={18} color={activeStudy.accent} />
+                    <div>
+                      <div style={{ fontSize: "16px", fontWeight: 800, color: "#fff" }}>{activeStudy.metrics[0].value}</div>
+                      <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.7)", textTransform: "uppercase" }}>Impact Delivered</div>
                     </div>
                   </div>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
 
-                  {/* Stats Block */}
-                  <div style={{ display: "flex", gap: "16px", marginTop: "32px" }}>
-                    {study.stats.map((stat, i) => (
-                      <div key={i} style={{ flex: 1, border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "16px 0", textAlign: "center", background: "rgba(255,255,255,0.02)" }}>
-                        <div style={{ fontFamily: F.inter, fontSize: "24px", fontWeight: 600, color: C.green, marginBottom: "8px" }}>
-                          {stat.value}
-                        </div>
-                        <div style={{ fontFamily: F.inter, fontSize: "12px", color: C.txtBright }}>
-                          {stat.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right Image Container */}
-                <div style={{ padding: "40px 40px 40px 0" }}>
-                  <div style={{ width: "100%", height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative" }}>
-                    <img
-                      src={study.image}
-                      alt={study.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                    {/* Shadow overlay to blend edges */}
-                    <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0 0 40px rgba(10, 13, 20, 0.4)" }} />
-                  </div>
-                </div>
-
+            {/* Navigation Arrows */}
+            {!isMobile && (
+              <div style={{ 
+                position: "absolute", 
+                top: "50%",
+                left: "24px", 
+                right: "24px",
+                transform: "translateY(-50%)",
+                display: "flex", 
+                justifyContent: "space-between",
+                zIndex: 10,
+                pointerEvents: "none"
+              }}>
+                <button 
+                  onClick={() => setActiveIndex((prev) => (prev - 1 + caseStudiesData.length) % caseStudiesData.length)}
+                  style={{
+                    width: "40px", height: "40px", borderRadius: "50%",
+                    background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.2)", color: "#fff",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    cursor: "pointer", transition: "all 0.3s ease", pointerEvents: "auto"
+                  }}
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button 
+                  onClick={() => setActiveIndex((prev) => (prev + 1) % caseStudiesData.length)}
+                  style={{
+                    width: "40px", height: "40px", borderRadius: "50%",
+                    background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.2)", color: "#fff",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    cursor: "pointer", transition: "all 0.3s ease", pointerEvents: "auto"
+                  }}
+                >
+                  <ChevronRight size={18} />
+                </button>
               </div>
-            </motion.div>
-          );
-        })}
+            )}
+          </div>
+        </div>
+
+        {/* Thumbnail Navigation */}
+        <div style={{ 
+          display: "flex", 
+          justifyContent: "center", 
+          gap: "10px", 
+          marginTop: isMobile ? "24px" : "20px" 
+        }}>
+          {caseStudiesData.map((study, idx) => (
+            <motion.button
+              key={study.id}
+              onClick={() => setActiveIndex(idx)}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                width: isMobile ? "70px" : "100px",
+                height: isMobile ? "40px" : "56px",
+                borderRadius: "10px",
+                overflow: "hidden",
+                position: "relative",
+                border: activeIndex === idx ? `2px solid ${study.accent}` : "1px solid var(--color-border-faint)",
+                background: "var(--color-bg-card)",
+                cursor: "pointer",
+                transition: "border-color 0.3s ease"
+              }}
+            >
+              <img 
+                src={study.image} 
+                alt="" 
+                style={{ width: "100%", height: "100%", objectFit: "cover", opacity: activeIndex === idx ? 1 : 0.4 }}
+              />
+              {activeIndex === idx && (
+                <motion.div 
+                  layoutId="active-thumb"
+                  style={{ 
+                    position: "absolute", 
+                    inset: 0, 
+                    background: `linear-gradient(to top, ${study.accent}44, transparent)`,
+                    zIndex: 1
+                  }} 
+                />
+              )}
+            </motion.button>
+          ))}
+        </div>
+
       </div>
-    </Section>
+
+      <SectionGlow />
+    </section>
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// INTEGRATIONS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const I_SVG = {
@@ -1683,7 +1929,7 @@ const I_SVG = {
   hubspot: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><circle cx="5" cy="5" r="2" /><circle cx="19" cy="5" r="2" /><path d="M6.5 6.5l4 4M17.5 6.5l-4 4M12 15v5" /></svg>,
   salesforce: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg>,
   stripe: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /><path d="M6 14h.01" /></svg>,
-  twilio: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" /><circle cx="8" cy="12" r="2.5" fill="#080A10" /><circle cx="16" cy="12" r="2.5" fill="#080A10" /></svg>,
+  twilio: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" /><circle cx="8" cy="12" r="2.5" fill="var(--color-bg-card-alt)" /><circle cx="16" cy="12" r="2.5" fill="var(--color-bg-card-alt)" /></svg>,
   notion: <svg width="22" height="22" viewBox="0 0 100 100"><path d="M10 10v80h80V10H10zm11 11h58v58H21V21zm9 8v29l32-15V14l-32 15z" fill="currentColor" /></svg>,
   google: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" /></svg>,
 };
@@ -1694,39 +1940,38 @@ const row2 = ["slack", "stripe", "airtable", "salesforce", "slack", "stripe", "a
 const row3 = ["hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google", "notion", "hubspot", "twilio", "google"];
 
 function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], direction?: number, speed?: number }) {
-  const [isPaused, setIsPaused] = useState(false);
+  const { resolvedTheme } = useTheme();
   return (
     <div 
       data-scroll-observed="1"
-      style={{ display: "flex", gap: "16px", width: "fit-content", padding: "4px 0", willChange: "transform", zIndex: 10, opacity: 1 }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
+      style={{ 
+        position: "relative",
+        display: "flex", 
+        gap: "16px", 
+        width: "fit-content", 
+        padding: "4px 0", 
+        willChange: "transform", 
+        zIndex: 10, 
+        opacity: 1 
+      }}
     >
-      <style>{`
-        @keyframes marquee-int {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .marquee-track-int {
-          display: flex;
-          width: max-content;
-          animation: marquee-int ${speed}s linear infinite;
-          animation-direction: ${direction === 1 ? 'normal' : 'reverse'};
-        }
-        .paused-int {
-          animation-play-state: paused !important;
-        }
-      `}</style>
-      <div className={`marquee-track-int ${isPaused ? 'paused-int' : ''}`}>
+      <div style={{
+        display: "flex",
+        width: "max-content",
+        animationName: "marquee-int",
+        animationDuration: `${speed}s`,
+        animationTimingFunction: "linear",
+        animationIterationCount: "infinite",
+        animationDirection: direction === 1 ? 'normal' : 'reverse'
+      }}>
         {[...items, ...items].map((iconKey, i) => (
           <div key={i} style={{
             width: "60px", height: "60px", borderRadius: "14px",
-            background: "rgba(255,255,255,0.10)",
-            border: "1px solid rgba(255,255,255,0.18)",
-            boxShadow: "0px 2px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
+            background: "var(--color-glass-bg)", backdropFilter: "blur(16px)",
+            border: "1px solid var(--color-border)",
+            boxShadow: resolvedTheme === 'dark' ? "0px 2px 12px rgba(0,0,0,0.5)" : "0px 2px 6px rgba(0,0,0,0.05)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            color: "rgba(255,255,255,0.92)",
+            color: "var(--color-text-bright)",
             flexShrink: 0,
             margin: "0 8px"
           }}>
@@ -1740,15 +1985,16 @@ function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], dir
 
 export function Integrations() {
   const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
   return (
     <Section id="integrations">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
-          background: "rgba(0,128,255,0.06)", border: "1px solid rgba(0,128,255,0.2)",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
         }}>
-          <Database style={{ width: "12px", height: "12px", color: "#0080FF" }} />
+          <Database style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
           <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>
             INTEGRATIONS
           </span>
@@ -1762,16 +2008,16 @@ export function Integrations() {
         <div style={{
           position: "relative",
           width: "100%", maxWidth: isMobile ? "100%" : "800px",
-          background: "#080A10",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
+          border: "1px solid var(--color-border)",
           borderRadius: "24px",
           padding: "24px 0",
           overflow: "hidden",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.6)"
+          boxShadow: resolvedTheme === 'dark' ? "0 20px 60px rgba(0,0,0,0.6)" : "0 10px 30px rgba(0,0,0,0.05)"
         }}>
           {/* Fade overlay masks strictly inside the container */}
-          <div className="integration-fade" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to right, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
-          <div className="integration-fade" style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: "linear-gradient(to left, #080A10 10%, transparent 100%)", zIndex: 10, pointerEvents: "none" }} />
+          <div className="integration-fade" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: `linear-gradient(to right, var(--color-bg-card) 10%, transparent 100%)`, zIndex: 10, pointerEvents: "none" }} />
+          <div className="integration-fade" style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: isMobile ? "40px" : "120px", background: `linear-gradient(to left, var(--color-bg-card) 10%, transparent 100%)`, zIndex: 10, pointerEvents: "none" }} />
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", overflow: "hidden" }}>
             <MarqueeRow items={row1} direction={1} speed={isMobile ? 20 : 32} />
@@ -1802,79 +2048,27 @@ export function Integrations() {
 // REVIEWS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const reviewsData = [
-  {
-    name: "Vinay Kumar",
-    title: "Managing Director at LOTUS MANOR REAL ESTATE L.L.C, DUBAI.",
-    quote: "“We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right and the timeline is tight.”",
-    image: "/reviews/Vinay Kumar.webp"
-  },
-  {
-    name: "Anuj Ruia",
-    title: "Co-Founder at BECO",
-    quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction.”",
-    image: "/reviews/Anuj Ruia.jpeg"
-  },
-  {
-    name: "Tejesh Lohiya",
-    title: "Analytics Manager at Orchestra",
-    quote: "“Huge time-saver. Data is better organized. The insights we get now are actionable and fast.”",
-    image: "/reviews/Tejesh Lohiya.jpeg"
-  },
-  {
-    name: "Sharan Lekhi",
-    title: "Founder at Krafty Animations",
-    quote: "“Game-changer. Automation flows run flawlessly. Our team now focuses only on what really matters.”",
-    image: "/reviews/Sharan Lekhi.jpeg"
-  },
-  {
-    name: "Shreyansh Jaiswal",
-    title: "Founder at HobbyFi",
-    quote: "“Smooth setup. Their system replaced three tools. We saw improvements in just the first week.”",
-    image: "/reviews/Shreyansh Jaiswal.avif"
-  },
-  {
-    name: "Dhairya Shah",
-    title: "Partner & CEO at Break The Code",
-    quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control.”",
-    image: "/reviews/Dhairya Shah.avif"
-  }
-];
-
-function ReviewCardContent({ review }: { review: any }) {
-  return (
-    <>
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-        <img src={review.image} alt={review.name} style={{ width: "56px", height: "56px", borderRadius: "14px", objectFit: "cover", border: `1px solid ${C.border}` }} />
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid }}>{review.name}</span>
-          <span style={{ fontFamily: F.inter, fontSize: "13px", color: C.green, marginTop: "2px", fontWeight: 500 }}>{review.title}</span>
-        </div>
-      </div>
-
-      <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.08)" }} />
-
-      <p style={{
-        fontFamily: F.inter, fontSize: "15px", color: C.txtBody, lineHeight: 1.7, margin: 0,
-        fontWeight: 450
-      }}>
-        {review.quote}
-      </p>
-    </>
-  );
-}
-
 export function Reviews() {
   const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
   return (
-    <Section id="reviews">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
+    <section id="reviews" style={{ 
+      position: "relative", 
+      background: C.bgPage, 
+      padding: isMobile ? "40px 20px" : "60px 24px",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
-          background: "rgba(0,128,255,0.06)", border: "1px solid rgba(0,128,255,0.2)",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
         }}>
-          <Heart style={{ width: "12px", height: "12px", color: "#0080FF", fill: "#0080FF" }} />
+          <Heart style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)", fill: "var(--color-blue-mid)" }} />
           <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>
             REVIEWS
           </span>
@@ -1885,84 +2079,13 @@ export function Reviews() {
         <Sub>Hear from real users who achieved success with our automation</Sub>
       </div>
 
-      <div style={{ marginTop: "48px" }}>
-        {/* Featured Card */}
-        {reviewsData.slice(0, 1).map((review, i) => (
-          <motion.div
-            key="featured"
-            {...fup(0)}
-            style={{
-              ...card,
-              padding: "32px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "24px",
-              minHeight: "280px",
-              maxWidth: "680px",
-              margin: "0 auto 32px",
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(172, 215, 145, 0.1)",
-              border: `1.5px solid rgba(172, 215, 145, 0.3)`,
-            }}
-          >
-            <ReviewCardContent review={review} />
-          </motion.div>
-        ))}
-
-        {/* First Row: 3 Cards */}
-        <div style={{ 
-          display: "grid", 
-          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
-          gap: "16px",
-          marginBottom: "16px"
-        }}>
-          {reviewsData.slice(1, 4).map((review, i) => (
-            <motion.div
-              key={i + 1}
-              {...fup((i + 1) * 0.1)}
-              style={{
-                ...card,
-                padding: "32px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "24px",
-                minHeight: "220px",
-                border: `1.5px solid ${C.border}`,
-              }}
-            >
-              <ReviewCardContent review={review} />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Second Row: 2 Cards Centered */}
-        <div style={{ 
-          display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          justifyContent: "center",
-          gap: "16px",
-        }}>
-          {reviewsData.slice(4, 6).map((review, i) => (
-            <motion.div
-              key={i + 4}
-              {...fup((i + 4) * 0.1)}
-              style={{
-                ...card,
-                padding: "32px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "24px",
-                minHeight: "220px",
-                width: isMobile ? "100%" : "calc(33.333% - 11px)",
-                maxWidth: isMobile ? "100%" : "calc(33.333% - 11px)",
-                border: `1.5px solid ${C.border}`,
-              }}
-            >
-              <ReviewCardContent review={review} />
-            </motion.div>
-          ))}
-        </div>
+      <div style={{ marginTop: "24px" }}>
+        <TestimonialCarousel />
       </div>
-    </Section>
+      </div>
+
+      <SectionGlow />
+    </section>
   );
 }
 
@@ -1994,6 +2117,8 @@ const faqData = [
 ];
 
 export function FAQ() {
+  const isMobile = useMobile(1023);
+  const { resolvedTheme } = useTheme();
   const [openIndex, setOpenIndex] = useState<number | null>(1); // Default second one open like mock
 
   return (
@@ -2002,9 +2127,9 @@ export function FAQ() {
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
-          background: "rgba(0,128,255,0.06)", border: "1px solid rgba(0,128,255,0.2)",
+          background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
         }}>
-          <MessageCircle style={{ width: "12px", height: "12px", color: "#0080FF" }} />
+          <MessageCircle style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
           <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>
             FAQ'S
           </span>
@@ -2020,14 +2145,14 @@ export function FAQ() {
 
         {/* Left Side: Still Have Questions Card */}
         <motion.div variants={fup(0.1)} initial="initial" whileInView="whileInView" viewport={{ once: true }} style={{
-          flex: "1 1 300px", maxWidth: "340px", background: "#080A10",
-          borderRadius: "24px", border: "1px solid rgba(255,255,255,0.05)",
+          flex: "1 1 300px", maxWidth: "340px", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
+          borderRadius: "24px", border: "1px solid var(--color-border)",
           padding: "40px 30px", display: "flex", flexDirection: "column",
-          alignItems: "center", textAlign: "center", boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+          alignItems: "center", textAlign: "center", boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.05)"
         }}>
           <div style={{
             width: "48px", height: "48px", borderRadius: "12px",
-            background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
             display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "24px", color: C.txtBright
           }}>
             <HelpCircle style={{ width: "24px", height: "24px" }} />
@@ -2053,8 +2178,8 @@ export function FAQ() {
             const isOpen = openIndex === i;
             return (
               <div key={i} style={{
-                background: isOpen ? "rgba(13,15,23, 0.4)" : "#080A10",
-                border: isOpen ? "1px solid rgba(109,182,255,0.12)" : "1px solid rgba(255,255,255,0.05)",
+                background: isOpen ? "var(--color-bg-card-alt)" : "var(--color-bg-card)",
+                border: isOpen ? "1px solid var(--color-blue-mid)" : "1px solid var(--color-border)",
                 borderRadius: "12px", overflow: "hidden", transition: "all 0.3s ease"
               }}>
                 <button
@@ -2100,6 +2225,7 @@ export function FAQ() {
 // FINAL CTA
 // ═══════════════════════════════════════════════════════════════════════════════
 export function FinalCTA() {
+  const { resolvedTheme } = useTheme();
   return (
     <section id="contact" style={{ position: "relative", background: C.bgPage, padding: "160px 24px", textAlign: "center", overflow: "hidden" }}>
 
@@ -2108,20 +2234,28 @@ export function FinalCTA() {
         position: "absolute",
         top: "50%", left: "50%", transform: "translate(-50%, -10px)",
         width: "600px", height: "400px",
-        background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%)",
+        background: resolvedTheme === 'dark' 
+          ? "radial-gradient(circle, rgba(var(--color-text-bright-rgb), 0.08) 0%, transparent 60%)"
+          : "radial-gradient(circle, rgba(var(--color-text-bright-rgb), 0.05) 0%, transparent 60%)",
         zIndex: 0, pointerEvents: "none"
       }} />
 
       {/* Footer Line Light Source (Under Particles) */}
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0, height: "1px",
-        background: "linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.4) 50%, transparent 90%)",
-        boxShadow: "0 -10px 40px 10px rgba(255,255,255,0.1)",
+        background: resolvedTheme === 'dark'
+          ? "linear-gradient(90deg, transparent 10%, rgba(var(--color-text-bright-rgb), 0.4) 50%, transparent 90%)"
+          : "linear-gradient(90deg, transparent 10%, rgba(var(--color-text-bright-rgb), 0.15) 50%, transparent 90%)",
+        boxShadow: resolvedTheme === 'dark' 
+          ? "0 -10px 40px 10px rgba(var(--color-text-bright-rgb), 0.1)"
+          : "0 -10px 40px 10px rgba(var(--color-text-bright-rgb), 0.03)",
         zIndex: 0, pointerEvents: "none"
       }} />
       <div style={{
         position: "absolute", bottom: 0, left: "20%", right: "20%", height: "100px",
-        background: "radial-gradient(ellipse at bottom, rgba(255,255,255,0.1) 0%, transparent 70%)",
+        background: resolvedTheme === 'dark'
+          ? "radial-gradient(ellipse at bottom, rgba(var(--color-text-bright-rgb), 0.1) 0%, transparent 70%)"
+          : "radial-gradient(ellipse at bottom, rgba(var(--color-text-bright-rgb), 0.05) 0%, transparent 70%)",
         zIndex: 0, pointerEvents: "none"
       }} />
 
@@ -2133,11 +2267,11 @@ export function FinalCTA() {
       <div style={{ position: "relative", zIndex: 2, maxWidth: "680px", margin: "0 auto" }}>
         {/* Reach out anytime with faint lines */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "32px" }}>
-          <div style={{ height: "1px", width: "60px", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2))" }} />
+          <div style={{ height: "1px", width: "60px", background: resolvedTheme === 'dark' ? "linear-gradient(90deg, transparent, rgba(var(--color-text-bright-rgb), 0.2))" : "linear-gradient(90deg, transparent, rgba(var(--color-text-bright-rgb), 0.1))" }} />
           <span style={{ fontFamily: F.inter, fontSize: "14px", fontStyle: "italic", color: C.txtMuted }}>
             Reach out anytime
           </span>
-          <div style={{ height: "1px", width: "60px", background: "linear-gradient(270deg, transparent, rgba(255,255,255,0.2))" }} />
+          <div style={{ height: "1px", width: "60px", background: resolvedTheme === 'dark' ? "linear-gradient(270deg, transparent, rgba(var(--color-text-bright-rgb), 0.2))" : "linear-gradient(270deg, transparent, rgba(var(--color-text-bright-rgb), 0.1))" }} />
         </div>
 
         {/* Header */}
@@ -2159,11 +2293,11 @@ export function FinalCTA() {
         </div>
 
         {/* Social Line */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "32px", marginBottom: "32px", color: "#0080FF" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "32px", marginBottom: "32px", color: "var(--color-blue-bright)" }}>
           <a href="https://www.linkedin.com/company/scalepods-co" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }} onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
           </a>
-          <span style={{ opacity: 0.15, fontSize: "20px", color: "#FFF", whiteSpace: "pre" }}>|       |</span>
+          <span style={{ opacity: 0.15, fontSize: "20px", color: "var(--color-text-body)", whiteSpace: "pre" }}>|       |</span>
           <a href="https://www.instagram.com/scalepods.co/" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }} onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
           </a>

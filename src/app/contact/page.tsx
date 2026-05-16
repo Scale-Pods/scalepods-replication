@@ -28,21 +28,21 @@ import { BeamsBackground } from "@/components/ui/beams-background";
 
 // ── Design tokens (matching site) ──────────────────────────────────────────
 const C = {
-  bgPage: "#04070D",
-  bgCard: "#080A10",
-  bgInput: "#0D0F17",
-  border: "rgba(255,255,255,0.07)",
-  borderHover: "rgba(255,255,255,0.12)",
-  blueMid: "#6DB6FF",
-  blueBright: "#0080FF",
-  green: "#ACD791",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  txtMuted: "#D5DBE6",
+  bgPage: "var(--color-bg-page)",
+  bgCard: "var(--color-bg-card)",
+  bgInput: "var(--color-bg-input)",
+  border: "var(--color-border)",
+  borderHover: "var(--color-border)",
+  blueMid: "var(--color-blue-mid)",
+  blueBright: "var(--color-blue-mid)",
+  green: "var(--color-green)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  txtMuted: "var(--color-text-muted)",
 };
 const F = {
-  inter: "Inter, sans-serif",
-  serif: "Instrument Serif, Georgia, serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  serif: "var(--font-instrument), 'Instrument Serif', Georgia, serif",
 };
 
 const faqData = [
@@ -184,10 +184,10 @@ function FaqAccordion() {
           <div
             key={i}
             style={{
-              background: isOpen ? "rgba(13,15,23,0.5)" : C.bgCard,
+              background: isOpen ? "var(--color-bg-card-alt)" : "var(--color-bg-card)",
               border: isOpen
-                ? "1px solid rgba(109,182,255,0.15)"
-                : `1px solid ${C.border}`,
+                ? "1px solid var(--color-blue-mid)"
+                : `1px solid var(--color-border)`,
               borderRadius: "12px",
               overflow: "hidden",
               transition: "all 0.3s ease",
@@ -355,8 +355,8 @@ export default function ContactPage() {
 
                 {/* Email Us card */}
                 <div style={{
-                  background: "rgba(8, 10, 14, 0.65)",
-                  border: "1px solid rgba(141, 199, 99, 0.4)",
+                  background: "var(--color-bg-card)",
+                  border: "1px solid var(--color-green)",
                   borderRadius: "16px",
                   padding: "22px",
                   backdropFilter: "blur(16px)",
@@ -390,8 +390,8 @@ export default function ContactPage() {
 
                 {/* Contact Sales card */}
                 <div style={{
-                  background: "rgba(8, 10, 14, 0.65)",
-                  border: "1px solid rgba(141, 199, 99, 0.4)",
+                  background: "var(--color-bg-card)",
+                  border: "1px solid var(--color-green)",
                   borderRadius: "16px",
                   padding: "22px",
                   backdropFilter: "blur(16px)",
@@ -428,8 +428,8 @@ export default function ContactPage() {
 
               {/* ── Right column: Contact form card */}
               <div style={{
-                background: "rgba(8, 10, 14, 0.65)",
-                border: "1px solid rgba(141, 199, 99, 0.4)",
+                background: "var(--color-bg-card)",
+                border: "1px solid var(--color-green)",
                 borderRadius: "16px",
                 padding: "16px",
                 maxWidth: "540px",
@@ -735,10 +735,10 @@ export default function ContactPage() {
                           zIndex: 1,
                           width: "100%",
                           padding: "12px 24px",
-                          background: "rgba(8,10,16,0.85)",
-                          border: "1px solid rgba(141, 199, 99, 0.5)",
+                          background: "var(--color-bg-card)",
+                          border: "1px solid var(--color-green)",
                           borderRadius: "12px",
-                          color: "#FFFFFF",
+                          color: "var(--color-text-bright)",
                           fontSize: "15px",
                           fontWeight: 600,
                           cursor: loading ? "not-allowed" : "pointer",

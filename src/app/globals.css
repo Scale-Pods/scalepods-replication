@@ -13,6 +13,16 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-int {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-v3-gcc {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 .marquee-container {
   display: flex;
   width: max-content;
@@ -24,29 +34,136 @@
   animation-play-state: paused !important;
 }
 
+:root {
+  --color-bg-page: #04070D;
+  --color-bg-card: #080A0E;
+  --color-bg-card-alt: #10131C;
+  --color-glass-bg: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.06);
+  --color-bg-dark: #08090A;
+  --color-bg-input: #141414;
+
+  --color-text-bright: #E4E9F2;
+  --color-text-mid: #D5DBE6;
+  --color-text-body: #B8C7D9;
+  --color-text-muted: #D5DBE6;
+  --color-text-faint: #545B7D;
+  --color-text-darker: #555878;
+
+  --color-border: #222222;
+  --color-border-faint: rgba(255, 255, 255, 0.06);
+
+  --color-blue-bright: #0080FF;
+  --color-blue-mid: #6DB6FF;
+  --color-blue-light: #94D1FF;
+  --color-teal: #00CED1;
+  --color-green: #ACD791;
+
+  --color-blue-glow: rgba(0, 128, 255, 0.1);
+
+  --color-green-rgb: 172, 215, 145;
+  --color-blue-mid-rgb: 109, 182, 255;
+  --color-bg-page-rgb: 4, 7, 13;
+  --color-text-bright-rgb: 228, 233, 242;
+  --shadow-md: 0 24px 48px rgba(0, 0, 0, 0.5);
+
+  /* Card Depth System Variables (Dark Mode) */
+  --card-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  --card-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --internal-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --btn-shadow: 0 0 20px rgba(172, 215, 145, 0.15);
+
+  --nav-bg: rgba(4, 7, 13, 0.6);
+  --nav-bg-scrolled: rgba(4, 7, 13, 0.92);
+  --nav-border: rgba(255, 255, 255, 0.07);
+  --sidebar-bg: rgba(4, 7, 13, 0.95);
+  --color-error: #ff6b6b;
+  --color-error-rgb: 255, 107, 107;
+  /* ── Framer Motion resolved glow values (cannot use rgba(var()) in animated elements) ── */
+  --green-glow-40: rgba(172, 215, 145, 0.4);
+  --blue-glow-40: rgba(109, 182, 255, 0.4);
+  /* ── Theme transition for the * selector ── */
+  --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease;
+}
+
+[data-theme="light"] {
+  --color-bg-page: #F8FAF7;
+  --color-bg-card: #FFFFFF;
+  --color-bg-card-alt: #F1F5F9;
+  --color-glass-bg: rgba(255, 255, 255, 0.72);
+  --color-glass-border: rgba(255, 255, 255, 0.65);
+  --color-bg-dark: #F1F5F9;
+  --color-bg-input: #FFFFFF;
+
+  /* Premium Light Mode Typography */
+  --color-text-bright: #0B1020;
+  --color-text-mid: #101828;
+  --color-text-body: #475467;
+  --color-text-muted: #667085;
+  --color-text-faint: #98A2B3;
+  --color-text-darker: #475467;
+
+  --color-border: #E2E8F0;
+  --color-border-faint: rgba(15, 23, 42, 0.05);
+
+  --color-blue-bright: #006ADC;
+  --color-blue-mid: #0080FF;
+  --color-blue-light: #3182CE;
+  --color-green: #84cc16;
+
+  --color-blue-glow: rgba(0, 128, 255, 0.06);
+
+  /* Card Depth System Variables */
+  --card-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.04);
+  --card-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --internal-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --btn-shadow: 0 6px 18px rgba(132, 204, 22, 0.18);
+
+  --color-green-rgb: 172, 215, 145;
+  --color-blue-mid-rgb: 0, 128, 255;
+  --color-bg-page-rgb: 248, 250, 247;
+  --color-text-bright-rgb: 15, 23, 42;
+  --shadow-md: 0 12px 24px rgba(15, 23, 42, 0.08);
+
+  --nav-bg: rgba(255, 255, 255, 0.75);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
+  --nav-border: rgba(15, 23, 42, 0.06);
+  --sidebar-bg: rgba(255, 255, 255, 0.98);
+  --color-error: #D0021B;
+  --color-error-rgb: 208, 2, 27;
+  /* ── Framer Motion resolved glow values ── */
+  --green-glow-40: rgba(172, 215, 145, 0.25);
+  --blue-glow-40: rgba(0, 128, 255, 0.2);
+  /* ── Hero CTA button overrides for light mode ── */
+  --hero-btn-bg: #0f172a;
+  --hero-btn-color: #ffffff;
+  --hero-btn-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+  --hero-btn-shadow-hover: 0 16px 40px rgba(15, 23, 42, 0.22);
+}
+
 @theme {
-  /* ── Exact CSS Peeper Colors ── */
-  --color-bg-page:       #04070D;
-  --color-bg-card:       #0D0F17;
-  --color-bg-card-alt:   #10131C;
-  --color-bg-dark:       #08090A;
-  --color-bg-input:      #141414;
+  /* ── Map Tailwind colors to CSS variables ── */
+  --color-bg-page:       var(--color-bg-page);
+  --color-bg-card:       var(--color-bg-card);
+  --color-bg-card-alt:   var(--color-bg-card-alt);
+  --color-bg-dark:       var(--color-bg-dark);
+  --color-bg-input:      var(--color-bg-input);
 
-  --color-text-bright:   #E4E9F2;
-  --color-text-mid:      #D5DBE6;
-  --color-text-body:     #B8C7D9;
-  --color-text-muted:    #D5DBE6;
-  --color-text-faint:    #545B7D;
-  --color-text-darker:   #555878;
+  --color-text-bright:   var(--color-text-bright);
+  --color-text-mid:      var(--color-text-mid);
+  --color-text-body:     var(--color-text-body);
+  --color-text-muted:    var(--color-text-muted);
+  --color-text-faint:    var(--color-text-faint);
+  --color-text-darker:   var(--color-text-darker);
 
-  --color-border:        #222222;
-  --color-border-faint:  rgba(255,255,255,0.06);
+  --color-border:        var(--color-border);
+  --color-border-faint:  var(--color-border-faint);
 
-  --color-blue-bright:   #0080FF;
-  --color-blue-mid:      #6DB6FF;
-  --color-blue-light:    #94D1FF;
-  --color-teal:          #00CED1;
-  --color-green:         #ACD791;
+  --color-blue-bright:   var(--color-blue-bright);
+  --color-blue-mid:      var(--color-blue-mid);
+  --color-blue-light:    var(--color-blue-light);
+  --color-teal:          var(--color-teal);
+  --color-green:         var(--color-green);
 
   /* ── Typography ── */
   --font-sans: 'Inter', 'Satoshi', ui-sans-serif, system-ui, sans-serif;
@@ -55,21 +172,33 @@
 }
 
 /* ── Base Styles ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  transition: var(--theme-transition);
+}
+
+/* ── Ensure Framer Motion scroll-target elements always have a positioning context ──
+   FM reads getComputedStyle(el).position at mount to validate scroll containers.
+   Any component that uses useScroll({ target: ref }) must have position != static. */
+[data-framer-scroll-target] {
+  position: relative;
+}
 
 html {
-  background: #04070D;
-  color-scheme: dark;
-  scroll-behavior: smooth;
+  background: var(--color-bg-page);
+  color: var(--color-text-body);
 }
 
 body {
-  background: #04070D;
-  color: #B8C7D9;
+  background: var(--color-bg-page);
+  color: var(--color-text-body);
   font-family: 'Inter', 'Satoshi', ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -84,18 +213,18 @@ body {
 .font-satoshi { font-family: 'Satoshi', 'Inter', sans-serif; }
 
 /* ── Selection ── */
-::selection { background: rgba(109,182,255,0.25); color: #fff; }
+::selection { background: rgba(var(--color-blue-mid-rgb), 0.25); color: var(--color-text-bright); }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #04070D; }
-::-webkit-scrollbar-thumb { background: #222222; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2a2a3a; }
+::-webkit-scrollbar-track { background: var(--color-bg-page); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-faint); }
 
 /* Firefox Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #222222 #04070D;
+  scrollbar-color: var(--color-border) var(--color-bg-page);
 }
 
 /* ── Utility: Video dark-shift ── */
@@ -103,22 +232,75 @@ body {
   filter: hue-rotate(200deg) saturate(0.25) brightness(0.35);
 }
 
+/* ── Light mode hero video: reduce cinematic intensity, add brightness ── */
+[data-theme="light"] .hero-video {
+  filter: brightness(1.1) contrast(0.88) saturate(0.75);
+  opacity: 0.35 !important;
+}
+
+/* ── Light mode hero: always show subtle nav border for separation ── */
+[data-theme="light"] header {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
+}
+
+/* ── Light mode navbar links ── */
+[data-theme="light"] nav a {
+  color: #1e293b !important;
+}
+[data-theme="light"] nav a:hover {
+  color: #84cc16 !important;
+}
+
+/* ── Light mode: suppress all decorative ambient glow layers ──
+   Add className="glow-ambient" to any absolute glow div that should
+   be invisible in light mode but visible in dark mode. ── */
+[data-theme="light"] .glow-ambient {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* ── Divider glow ── */
 .blue-edge {
   box-shadow: inset 0 0 0 1px rgba(109,182,255,0.12);
 }
 
+/* ── Premium Card Depth System ── */
+.premium-card {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--card-shadow), var(--card-shadow-inset);
+  border-radius: 28px;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+}
+
+.internal-panel {
+  background: rgba(var(--color-text-bright-rgb), 0.02);
+  border: 1px solid var(--color-border-faint);
+  box-shadow: var(--internal-shadow-inset);
+  border-radius: 16px;
+}
+
+[data-theme="light"] .premium-card {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="light"] .internal-panel {
+  background: rgba(15, 23, 42, 0.02);
+}
+
 /* ── Blog Card ── */
 .blog-card {
-  background: #0A0D14;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--color-bg-card-alt);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   overflow: hidden;
   transition: border-color 0.25s ease, transform 0.25s ease;
   cursor: pointer;
 }
 .blog-card:hover {
-  border-color: rgba(255,255,255,0.22);
+  border-color: var(--color-blue-mid);
   transform: translateY(-4px);
 }
 
@@ -130,7 +312,7 @@ body {
   font-family: Inter, sans-serif;
   font-size: 13px;
   font-weight: 500;
-  color: #6B7280;
+  color: var(--color-text-muted);
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 8px;
@@ -146,7 +328,7 @@ body {
 
 /* ── Use Case Card ── */
 .use-case-card {
-  background: #080A10;
+  background: var(--color-bg-card);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 24px;
   padding: 24px;

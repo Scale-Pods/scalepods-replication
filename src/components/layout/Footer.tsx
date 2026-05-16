@@ -12,15 +12,19 @@ const footerLinks = [
   { label: "Terms of Service", href: "/terms" },
 ];
 
+import { useTheme } from "@/components/providers/ThemeProvider";
+
 export default function Footer() {
   const isMobile = useMobile(1024);
+  const { resolvedTheme } = useTheme();
+  
   return (
     <footer
       style={{
-        background: "#04070D",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--color-bg-page)",
+        borderTop: "1px solid var(--color-border)",
         padding: isMobile ? "40px 20px 40px" : "80px 32px 40px",
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "var(--font-inter), sans-serif",
         position: "relative",
         overflow: "hidden"
       }}
@@ -33,9 +37,10 @@ export default function Footer() {
         transform: "translateX(-50%)",
         width: "60%",
         height: "1px",
-        background: "linear-gradient(90deg, transparent, rgba(172, 215, 145, 0.3), transparent)",
-        boxShadow: "0 0 30px 1px rgba(172, 215, 145, 0.2)",
-        zIndex: 1
+        background: "linear-gradient(90deg, transparent, var(--color-green), transparent)",
+        boxShadow: resolvedTheme === 'dark' ? "0 0 30px 1px var(--color-green)" : "none",
+        zIndex: 1,
+        opacity: resolvedTheme === 'dark' ? 0.2 : 0.05
       }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
@@ -49,17 +54,25 @@ export default function Footer() {
           {/* Brand Column */}
           <div style={{ flex: 1 }}>
             <Link href="/" style={{ display: "inline-block", marginBottom: "24px" }}>
-              <Image
-                src="/logo-light.png"
-                alt="ScalePods"
-                width={200}
-                height={55}
-                style={{ height: "55px", width: "auto", objectFit: "contain", display: "block" }}
-              />
+              {/* Cropped logo: 2193×377 ≈ 5.8:1 ratio */}
+              <div style={{ position: "relative", width: "260px", height: "45px" }}>
+                <Image
+                  src="/scalepods-navbar-logo.png"
+                  alt="ScalePods"
+                  fill
+                  sizes="260px"
+                  style={{
+                    objectFit: "contain",
+                    objectPosition: "left center",
+                    filter: resolvedTheme === "dark" ? "invert(1)" : "none",
+                    transition: "filter 0.3s ease",
+                  }}
+                />
+              </div>
             </Link>
             <p style={{ 
               fontSize: "14px", 
-              color: "#8899AB", 
+              color: "var(--color-text-body)", 
               lineHeight: 1.6, 
               maxWidth: "280px",
               marginBottom: "24px"
@@ -94,19 +107,19 @@ export default function Footer() {
                   style={{
                     width: "40px", height: "40px", borderRadius: "12px",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#E4E9F2", background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "var(--color-text-bright)", background: "var(--color-bg-card-alt)",
+                    border: "1px solid var(--color-border)",
                     textDecoration: "none", transition: "all 0.3s ease",
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                    e.currentTarget.style.borderColor = "rgba(172, 215, 145, 0.4)";
-                    e.currentTarget.style.color = "#ACD791";
+                    e.currentTarget.style.background = "var(--color-border)";
+                    e.currentTarget.style.borderColor = "var(--color-green)";
+                    e.currentTarget.style.color = "var(--color-green)";
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                    e.currentTarget.style.color = "#E4E9F2";
+                    e.currentTarget.style.background = "var(--color-bg-card-alt)";
+                    e.currentTarget.style.borderColor = "var(--color-border)";
+                    e.currentTarget.style.color = "var(--color-text-bright)";
                   }}
                 >
                   {social.icon}
@@ -118,15 +131,15 @@ export default function Footer() {
           {/* Links Columns */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
             <div>
-              <h4 style={{ color: "#E4E9F2", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Platform</h4>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Platform</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {footerLinks.slice(0, 3).map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
-                    style={{ fontSize: "14px", color: "#8899AB", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#ACD791")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "#8899AB")}
+                    style={{ fontSize: "14px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
                   >
                     {link.label}
                   </Link>
@@ -134,15 +147,15 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <h4 style={{ color: "#E4E9F2", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Legal</h4>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Legal</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {footerLinks.slice(3).map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
-                    style={{ fontSize: "14px", color: "#8899AB", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#ACD791")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "#8899AB")}
+                    style={{ fontSize: "14px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
                   >
                     {link.label}
                   </Link>
@@ -153,13 +166,13 @@ export default function Footer() {
 
           {/* Contact Column */}
           <div>
-            <h4 style={{ color: "#E4E9F2", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Connect</h4>
+            <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Connect</h4>
             <a
               href="mailto:Info@scalepods.co"
               style={{ 
                 display: "block", 
                 fontSize: "15px", 
-                color: "#E4E9F2", 
+                color: "var(--color-text-bright)", 
                 fontWeight: 600, 
                 textDecoration: "none",
                 marginBottom: "8px"
@@ -167,14 +180,14 @@ export default function Footer() {
             >
               Info@scalepods.co
             </a>
-            <p style={{ fontSize: "13px", color: "#8899AB" }}>Dubai, United Arab Emirates</p>
+            <p style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>Dubai, United Arab Emirates</p>
           </div>
         </div>
 
         {/* Bottom row */}
         <div
           style={{
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderTop: "1px solid var(--color-border)",
             paddingTop: "32px",
             display: "flex",
             alignItems: "center",
@@ -183,11 +196,11 @@ export default function Footer() {
             gap: "24px",
           }}
         >
-          <span style={{ fontSize: "13px", color: "#6B7280" }}>
+          <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
             © 2025 ScalePods AI Infrastructure. All rights reserved.
           </span>
           <div style={{ display: "flex", gap: "24px" }}>
-             <span style={{ fontSize: "11px", color: "#374151", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em" }}>Built for the future</span>
+             <span style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em" }}>Built for the future</span>
           </div>
         </div>
 

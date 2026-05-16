@@ -42,9 +42,11 @@ export const ScrollRevealParagraph = ({
 
   return (
     <div 
-      ref={containerRef} 
+      ref={containerRef}
+      data-framer-scroll-target
       className={cn("relative flex flex-wrap gap-x-1.5", className)}
       style={{
+        position: "relative",
         fontFamily,
         fontSize,
         color,

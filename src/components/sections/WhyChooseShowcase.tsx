@@ -15,6 +15,7 @@ import {
   Activity
 } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 // Curated set of brand logos from the main landing page
 const marqueeLogos = [
@@ -34,6 +35,7 @@ const LogoMarquee = () => {
   const [isPaused, setIsPaused] = React.useState(false);
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
   const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
 
   return (
     <div 
@@ -50,23 +52,33 @@ const LogoMarquee = () => {
         transform: "none"
       }}
     >
-      <style>{`
-        @keyframes marquee-v3-gcc {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .marquee-track-v3-gcc {
-          display: flex;
-          width: max-content;
-          animation: marquee-v3-gcc 35s linear infinite;
-        }
-        .paused-gcc {
-          animation-play-state: paused !important;
-        }
-      `}</style>
-      <div className={`marquee-track-v3-gcc ${isPaused ? 'paused-gcc' : ''}`}>
+      <div style={{
+        display: "flex",
+        width: "max-content",
+        animationName: "marquee-v3-gcc",
+        animationDuration: "35s",
+        animationTimingFunction: "linear",
+        animationIterationCount: "infinite",
+        animationPlayState: isPaused ? 'paused' : 'running',
+        willChange: "transform"
+      }}>
+
         {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => {
           const isHovered = hoveredIndex === idx;
+
+          let logoFilter = "none";
+          if (resolvedTheme === "dark") {
+             // Dark theme: invert black logos or those with white backgrounds to be white
+             logoFilter = isHovered 
+                ? (logo.whiteBg || logo.isBlack ? "invert(1) brightness(1.2)" : "none") 
+                : (logo.whiteBg || logo.isBlack ? "invert(1) grayscale(100%) opacity(0.7)" : "grayscale(100%) opacity(0.5)");
+          } else {
+             // Light theme: keep logos as they are, but grayscale if not hovered
+             logoFilter = isHovered
+                ? "none"
+                : "grayscale(100%) opacity(0.5)";
+          }
+
           return (
             <div
               key={idx}
@@ -92,7 +104,8 @@ const LogoMarquee = () => {
                 transition: "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
                 cursor: "pointer",
                 transform: isHovered ? "scale(1.1)" : "scale(1)",
-                flexShrink: 0
+                flexShrink: 0,
+                mixBlendMode: resolvedTheme === 'dark' ? 'screen' : 'multiply'
               }}
             >
               <img 
@@ -104,9 +117,7 @@ const LogoMarquee = () => {
                   maxWidth: isMobile ? "100px" : "160px",
                   objectFit: "contain",
                   transition: "all 0.4s ease",
-                  filter: isHovered 
-                    ? (logo.whiteBg ? "invert(1) brightness(1.2)" : (logo.isBlack ? "invert(1) brightness(1.5)" : "none")) 
-                    : (logo.whiteBg ? "invert(1) grayscale(100%) opacity(0.7)" : "brightness(0) invert(1)")
+                  filter: logoFilter
                 }} 
               />
             </div>
@@ -118,24 +129,24 @@ const LogoMarquee = () => {
 };
 
 const C = {
-  green: "#ACD791",
-  greenBright: "#8DC763",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.06)",
-  bgCard: "rgba(255, 255, 255, 0.015)",
+  green: "var(--color-green)",
+  greenBright: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
 };
 
 const F = {
-  inter: "Inter, sans-serif",
-  accent: "'Instrument Serif', serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  accent: "var(--font-instrument), serif",
 };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for better mobile performance
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)", 
 };
 
 const differentiators = [
@@ -143,42 +154,44 @@ const differentiators = [
     title: "AI-Native OS",
     desc: "Built as modular infrastructure, not just a set of disconnected automation scripts.",
     icon: <Cpu size={18} />,
-    color: "#6DB6FF"
+    color: "var(--color-blue-mid)"
   },
   {
     title: "End-to-End Ownership",
     desc: "We engineer, deploy, and manage the entire workflow lifecycle with human oversight.",
     icon: <Shield size={18} />,
-    color: "#ACD791"
+    color: "var(--color-green)"
   },
   {
     title: "Custom Architecture",
     desc: "Workflows engineered around your specific operational DNA and legacy tech stack.",
     icon: <Workflow size={18} />,
-    color: "#6DB6FF"
+    color: "var(--color-blue-mid)"
   },
   {
     title: "Omnichannel Sync",
     desc: "Seamless synchronization across WhatsApp, Email, CRM, and internal databases.",
     icon: <Globe size={18} />,
-    color: "#ACD791"
+    color: "var(--color-green)"
   },
   {
     title: "Modular Scaling",
     desc: "Infrastructure designed to expand with your volume without linear cost increases.",
     icon: <Layers size={18} />,
-    color: "#6DB6FF"
+    color: "var(--color-blue-mid)"
   },
   {
     title: "Human-in-the-Loop",
     desc: "Advanced AI orchestration paired with expert supervision for 100% reliability.",
     icon: <Users size={18} />,
-    color: "#ACD791"
+    color: "var(--color-green)"
   }
 ];
 
 export const WhyChooseShowcase = () => {
   const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+
   return (
     <section 
       id="why-choose-us"
@@ -202,8 +215,9 @@ export const WhyChooseShowcase = () => {
           }
         }
       `}</style>
-      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
+      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE — dark mode only ── */}
       <motion.div 
+        className="glow-ambient"
         animate={{ 
           opacity: [0.03, 0.06, 0.03],
           x: [-10, 10, -10]
@@ -215,12 +229,14 @@ export const WhyChooseShowcase = () => {
           left: "20%",
           width: "40%",
           height: "100%",
-          background: `linear-gradient(90deg, transparent, ${C.green}0A, transparent)`,
-          filter: "blur(80px)", // Reduced from 100px
+          background: `linear-gradient(90deg, transparent, rgba(var(--color-green-rgb), 0.04), transparent)`,
+          filter: "blur(80px)",
           zIndex: 0,
-          pointerEvents: "none"
+          pointerEvents: "none",
+          willChange: "transform, opacity"
         }} 
       />
+
 
       <div style={{
         maxWidth: "1280px",
@@ -241,8 +257,8 @@ export const WhyChooseShowcase = () => {
               alignItems: "center",
               gap: "8px",
               padding: "6px 12px",
-              background: "rgba(255, 255, 255, 0.03)",
-              border: `1px solid rgba(255, 255, 255, 0.08)`,
+              background: "var(--color-glass-bg)", backdropFilter: "blur(16px)",
+              border: `1px solid var(--color-border)`,
               borderRadius: "100px",
               marginBottom: "12px"
             }}
@@ -309,13 +325,17 @@ export const WhyChooseShowcase = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 + i * 0.05 }}
-              whileHover={{ y: -4, background: "rgba(255, 255, 255, 0.025)" }}
+              whileHover={{ y: -4, background: "var(--color-glass-bg)", backdropFilter: "blur(16px)" }}
               style={{
-                background: G.bg,
-                border: G.border,
+                background: "var(--color-glass-bg)",
+                border: "1px solid var(--color-glass-border)",
                 borderRadius: "20px",
                 padding: "20px",
-                backdropFilter: "blur(12px)", // Standardized mobile blur
+                backdropFilter: "blur(18px)",
+                WebkitBackdropFilter: "blur(18px)",
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
                 transition: "all 0.3s ease"
               }}
             >
@@ -323,8 +343,8 @@ export const WhyChooseShowcase = () => {
                 width: "32px", 
                 height: "32px", 
                 borderRadius: "8px", 
-                background: `${d.color}0D`, 
-                border: `1px solid ${d.color}1A`,
+                background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", 
+                border: `1px solid var(--color-border)`,
                 display: "flex", 
                 alignItems: "center", 
                 justifyContent: "center",
@@ -388,10 +408,6 @@ export const WhyChooseShowcase = () => {
         @media (max-width: 600px) {
           .why-grid {
             grid-template-columns: 1fr !important;
-          }
-          .trust-footer {
-            justifyContent: center !important;
-            text-align: center;
           }
         }
       `}</style>

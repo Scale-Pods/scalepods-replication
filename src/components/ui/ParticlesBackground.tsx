@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 // Pure canvas-based particle system — no external library dependency
 // Matches scalepods.co: faint white dots drifting slowly upward
@@ -32,6 +33,7 @@ export default function ParticlesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
   const particlesRef = useRef<Particle[]>([]);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -60,6 +62,8 @@ export default function ParticlesBackground() {
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      const color = resolvedTheme === "dark" ? "255, 255, 255" : "0, 128, 255";
+
       particlesRef.current.forEach((p) => {
         // Move
         p.y += p.speedY;
@@ -80,7 +84,7 @@ export default function ParticlesBackground() {
         // Draw
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.opacity.toFixed(3)})`;
+        ctx.fillStyle = `rgba(${color},${p.opacity.toFixed(3)})`;
         ctx.fill();
       });
 
@@ -93,7 +97,7 @@ export default function ParticlesBackground() {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [resolvedTheme]);
 
   return (
     <canvas
@@ -106,6 +110,7 @@ export default function ParticlesBackground() {
         zIndex: 1,
         pointerEvents: "none",
         display: "block",
+        transition: "opacity 1s ease"
       }}
       aria-hidden="true"
     />

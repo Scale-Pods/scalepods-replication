@@ -17,23 +17,23 @@ import Link from 'next/link';
 import { useMobile } from "@/lib/hooks";
 
 const C = {
-  green: "#ACD791",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.08)",
-  bgCard: "rgba(255, 255, 255, 0.015)",
+  green: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
 };
 
 const F = {
-  inter: "Inter, sans-serif",
-  accent: "'Instrument Serif', serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  accent: "var(--font-instrument), serif",
 };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for better mobile performance
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)", 
 };
 
 export const FinalCTASection = () => {
@@ -91,9 +91,11 @@ export const FinalCTASection = () => {
           background: `radial-gradient(circle at 50% 50%, ${C.green}15 0%, transparent 70%)`,
           filter: isMobile ? "blur(100px)" : "blur(180px)",
           zIndex: 0,
-          pointerEvents: "none"
+          pointerEvents: "none",
+          willChange: "transform, opacity, scale"
         }} 
       />
+
 
       {/* Vertical Beams */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
@@ -248,10 +250,10 @@ export const FinalCTASection = () => {
               <button
                 style={{
                   padding: "16px 36px",
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  background: "var(--color-glass-bg)",
+                  border: "1px solid var(--color-glass-border)",
                   borderRadius: "12px",
-                  color: C.txtBright,
+                  color: "var(--color-text-bright)",
                   fontSize: "16px",
                   fontWeight: 700,
                   cursor: "pointer",
@@ -259,10 +261,10 @@ export const FinalCTASection = () => {
                   alignItems: "center",
                   gap: "10px",
                   transition: "all 0.3s ease",
-                  backdropFilter: "blur(12px)"
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  boxShadow: "var(--card-shadow), var(--card-shadow-inset)"
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)"; e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)"; e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)"; }}
               >
                 Talk to an Architect
               </button>

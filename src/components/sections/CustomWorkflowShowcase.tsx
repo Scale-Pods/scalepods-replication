@@ -6,8 +6,6 @@ import {
   Puzzle, 
   Workflow, 
   Settings, 
-  CheckCircle2, 
-  ArrowRight, 
   Sparkles,
   Layers,
   Zap,
@@ -21,28 +19,26 @@ import DownloadModal from "@/components/ui/DownloadModal";
 import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
 import { AnimatePresence } from "framer-motion";
 import { useMobile } from "@/lib/hooks";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 const C = {
-  green: "#ACD791",
-  greenBright: "#8DC763",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.08)",
-  bgCard: "rgba(255, 255, 255, 0.02)",
-};
+  green: "var(--color-green)",
+  greenBright: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)" };
 
 const F = {
-  inter: "Inter, sans-serif",
-  serif: "Instrument Serif, Georgia, serif",
-  accent: "'Instrument Serif', serif",
-};
+  inter: "var(--font-inter), Inter, sans-serif",
+  serif: "var(--font-instrument), 'Instrument Serif', Georgia, serif",
+  accent: "var(--font-instrument), serif" };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", 
-};
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)" };
 
 const features = [
   { 
@@ -71,32 +67,38 @@ const customCarouselImages = [
   { 
     id: 1, 
     title: "Custom Logic Builder", 
-    description: "Map your proprietary business logic into AI pods.",
+    heading: "Proprietary Logic Engine",
+    subtitle: "Map your unique business DNA into AI pods.",
+    description: "Design and deploy custom conditional branches that mirror your team's specific decision-making process.",
     imageUrl: "/images/showcase/custom/custom-1.png", 
-    category: "LOGIC ARCHITECTURE"
+    systemLabel: "LOGIC ARCHITECTURE"
   },
   { 
     id: 2, 
     title: "API Orchestration", 
-    description: "Unified connectivity across your entire legacy stack.",
+    heading: "Multi-Stack Connector Hub",
+    subtitle: "Unified connectivity for complex legacy systems.",
+    description: "Bridge the gap between modern AI and legacy ERP/CRM infrastructure with custom-built API layers.",
     imageUrl: "/images/showcase/custom/custom-2.png",
-    category: "INTEGRATION LAYER"
+    systemLabel: "INTEGRATION LAYER"
   },
   { 
     id: 3, 
     title: "Dynamic Flow Control", 
-    description: "Self-healing workflows that adapt to edge cases.",
+    heading: "Self-Healing Workflow Pod",
+    subtitle: "Autonomous adaptation to operational edge cases.",
+    description: "Intelligent workflows that identify and resolve exceptions automatically, ensuring 100% process uptime.",
     imageUrl: "/images/showcase/custom/custom-3.png",
-    category: "AUTONOMOUS OPS"
+    systemLabel: "AUTONOMOUS OPS"
   },
 ];
-
-const StatIconSize = 14;
 
 export const CustomWorkflowShowcase = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const isMobile = useMobile(1023);
+  const { resolvedTheme } = useTheme();
+
   return (
     <section 
       id="custom-ai"
@@ -118,8 +120,9 @@ export const CustomWorkflowShowcase = () => {
           }
         }
       `}</style>
-      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE ── */}
+      {/* ── CINEMATIC AMBIENT INFRASTRUCTURE — dark mode only ── */}
       <motion.div 
+        className="glow-ambient"
         animate={isMobile ? { opacity: 0.04 } : { 
           x: [40, -40, 40],
           opacity: [0.04, 0.08, 0.04]
@@ -131,13 +134,15 @@ export const CustomWorkflowShowcase = () => {
           left: "-10%",
           width: "100%",
           height: "160%",
-          background: `linear-gradient(135deg, transparent 20%, ${C.green}15 50%, transparent 80%)`,
+          background: `linear-gradient(135deg, transparent 20%, rgba(var(--color-green-rgb), 0.15) 50%, transparent 80%)`,
           filter: isMobile ? "blur(80px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
-          transform: "rotate(-10deg)"
+          transform: "rotate(-10deg)",
+          willChange: "transform, opacity"
         }} 
       />
+
 
       <div style={{
         maxWidth: "1280px",
@@ -171,8 +176,8 @@ export const CustomWorkflowShowcase = () => {
             alignItems: "center",
             gap: "8px",
             padding: "6px 12px",
-            background: "rgba(172, 215, 145, 0.08)",
-            border: `1px solid rgba(172, 215, 145, 0.15)`,
+            background: "var(--color-glass-bg)", backdropFilter: "blur(16px)",
+            border: "1px solid var(--color-glass-border)",
             borderRadius: "100px",
             marginBottom: "20px"
           }}>
@@ -304,8 +309,9 @@ export const CustomWorkflowShowcase = () => {
               whileTap={{ scale: 0.98 }}
               style={{
                 padding: "12px 24px",
-                background: "rgba(172, 215, 145, 0.05)",
-                border: "1px solid rgba(172, 215, 145, 0.15)",
+                background: "var(--color-glass-bg)", 
+                backdropFilter: "blur(16px)",
+                border: "1px solid var(--color-glass-border)",
                 borderRadius: "12px",
                 color: C.green,
                 fontSize: "13px",
@@ -314,10 +320,10 @@ export const CustomWorkflowShowcase = () => {
                 alignItems: "center",
                 gap: "8px",
                 cursor: "pointer",
-                backdropFilter: "blur(10px)",
                 transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
                 width: "fit-content"
               }}
+
               className="explore-trigger"
             >
               {isPreviewOpen ? (
@@ -333,13 +339,14 @@ export const CustomWorkflowShowcase = () => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          height: isMobile ? (isPreviewOpen ? "600px" : "540px") : "480px", 
+          minHeight: isMobile ? (isPreviewOpen ? "600px" : "540px") : "520px",
+          height: "auto",
           perspective: "1200px",
           order: 2,
-          transition: "height 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+          transition: "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
           overflow: "visible"
         }}>
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             {!isPreviewOpen ? (
               <motion.div
                 key="dashboard-layer"
@@ -352,15 +359,17 @@ export const CustomWorkflowShowcase = () => {
                   transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] }
                 }}
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+                style={{ width: "100%", height: "100%", willChange: "transform, opacity, filter" }}
               >
+
                 <div style={{
-                  background: G.bg,
-                  border: G.border,
+                  background: "var(--color-glass-bg)",
+                  border: "1px solid var(--color-glass-border)",
                   borderRadius: "28px",
                   padding: isMobile ? "20px" : "32px",
-                  boxShadow: isMobile ? "0 20px 40px rgba(0,0,0,0.3)" : `0 40px 100px rgba(0,0,0,0.5), inset 0 0 40px rgba(172, 215, 145, 0.03)`,
-                  backdropFilter: isMobile ? "blur(12px)" : G.blur,
+                  boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
+                  backdropFilter: "blur(18px)",
+                  WebkitBackdropFilter: "blur(18px)",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column"
@@ -369,7 +378,7 @@ export const CustomWorkflowShowcase = () => {
                     position: "absolute",
                     top: 0, left: "20%", right: "20%",
                     height: "1px",
-                    background: `linear-gradient(90deg, transparent, rgba(172, 215, 145, 0.3), transparent)`,
+                    background: `linear-gradient(90deg, transparent, rgba(var(--color-green-rgb), 0.3), transparent)`,
                     pointerEvents: "none"
                   }} />
 
@@ -387,7 +396,7 @@ export const CustomWorkflowShowcase = () => {
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "10px" }}>
-                      <div style={{ background: "rgba(172, 215, 145, 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid ${C.green}22` }}>
+                      <div style={{ background: "rgba(var(--color-green-rgb), 0.1)", borderRadius: "8px", padding: "6px 12px", border: `1px solid var(--color-border)` }}>
                         <span style={{ color: C.green, fontSize: "11px", fontWeight: 700 }}>Custom V4.2</span>
                       </div>
                     </div>
@@ -404,20 +413,22 @@ export const CustomWorkflowShowcase = () => {
                         alignItems: "center", 
                         justifyContent: "space-between",
                         padding: "14px 20px",
-                        background: "rgba(255,255,255,0.015)",
+                        background: "rgba(var(--color-text-bright-rgb), 0.03)",
+                        backdropFilter: "blur(8px)",
+                        WebkitBackdropFilter: "blur(8px)",
                         borderRadius: "16px",
-                        border: "1px solid rgba(255,255,255,0.04)",
-                        backdropFilter: "blur(4px)"
-                      }}>
+                        border: "1px solid var(--color-border-faint)",
+                        boxShadow: "var(--internal-shadow-inset)" }}>
                         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
                           <div style={{ 
                             width: "32px", 
                             height: "32px", 
                             borderRadius: "8px", 
-                            background: "rgba(109, 182, 255, 0.1)", 
+                            background: "rgba(var(--color-blue-mid-rgb), 0.1)", 
                             display: "flex", 
                             alignItems: "center", 
-                            justifyContent: "center" 
+                            justifyContent: "center",
+                            border: `1px solid var(--color-border)`
                           }}>
                             <Workflow size={14} color={C.blue} />
                           </div>
@@ -436,9 +447,12 @@ export const CustomWorkflowShowcase = () => {
 
                   <div style={{ 
                     padding: "20px", 
-                    background: "rgba(172, 215, 145, 0.03)", 
+                    background: "rgba(var(--color-text-bright-rgb), 0.02)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
                     borderRadius: "20px", 
-                    border: "1px solid rgba(172, 215, 145, 0.1)",
+                    border: "1px solid var(--color-border-faint)",
+                    boxShadow: "var(--internal-shadow-inset)",
                     position: "relative",
                     overflow: "hidden"
                   }}>
@@ -452,10 +466,12 @@ export const CustomWorkflowShowcase = () => {
                           key={i}
                           initial={{ height: 0 }}
                           whileInView={{ height: `${h}%` }}
+                          viewport={{ once: true }}
                           transition={{ delay: i * 0.1, duration: 1 }}
                           style={{ flex: 1, background: C.green, borderRadius: "2px", opacity: i === 5 ? 1 : 0.4 }} 
                         />
                       ))}
+
                     </div>
                   </div>
 
@@ -466,16 +482,17 @@ export const CustomWorkflowShowcase = () => {
                       position: "absolute",
                       bottom: isMobile ? "0px" : "-30px",
                       right: isMobile ? "20px" : "40px",
-                      background: "rgba(10, 12, 16, 0.7)",
+                      background: "var(--color-glass-bg)",
                       padding: isMobile ? "12px 18px" : "16px 24px",
                       borderRadius: "16px",
-                      border: `1px solid rgba(172, 215, 145, 0.35)`,
-                      boxShadow: `0 20px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(172, 215, 145, 0.05)`,
+                      border: "1px solid var(--color-glass-border)",
+                      boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
                       display: "flex",
                       alignItems: "center",
                       gap: isMobile ? "10px" : "14px",
                       zIndex: 10,
                       backdropFilter: "blur(24px)",
+                      WebkitBackdropFilter: "blur(24px)",
                       scale: isMobile ? 0.9 : 1,
                       willChange: "transform, opacity"
                     }}
@@ -485,7 +502,7 @@ export const CustomWorkflowShowcase = () => {
                       <motion.div 
                         animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
                         transition={{ duration: 3, repeat: Infinity }}
-                        style={{ position: "absolute", inset: -4, background: C.green, borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
+                        style={{ position: "absolute", inset: -4, background: "var(--green-glow-40)", borderRadius: "50%", zIndex: -1, filter: "blur(8px)" }}
                       />
                     </div>
                     <span style={{ fontSize: isMobile ? "10px" : "12px", fontWeight: 700, color: C.txtBright }}>Logic Sync Active</span>
@@ -495,28 +512,16 @@ export const CustomWorkflowShowcase = () => {
             ) : (
               <motion.div
                 key="preview-layer"
-                initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.96, filter: "blur(8px)", transition: { duration: 0.4 } }}
+                initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -20, filter: "blur(8px)", transition: { duration: 0.4 } }}
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
                 style={{ 
-                  position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 5,
-                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
+                  width: "100%", zIndex: 5,
+                  display: "flex", flexDirection: "column", alignItems: "center"
                 }}
               >
-                <div style={{ 
-                  width: "100%", height: "100%", position: "relative", overflow: "visible",
-                  display: "flex", alignItems: "center", justifyContent: "center"
-                }}>
-                  <ThreeDCarousel items={customCarouselImages} autoRotate={true} tightLayout={true} cardScale={1.1} />
-                </div>
-                <motion.div 
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  style={{
-                    position: "absolute", inset: "-60px", background: `radial-gradient(circle at center, ${C.green}15 0%, transparent 70%)`,
-                    zIndex: -1, pointerEvents: "none"
-                  }} 
-                />
+                <ThreeDCarousel items={customCarouselImages} autoRotate={true} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -526,7 +531,7 @@ export const CustomWorkflowShowcase = () => {
       <style jsx>{`
         .custom-cta:hover {
           transform: translateY(-2px);
-          box-shadow: 0 12px 30px rgba(172, 215, 145, 0.3);
+          box-shadow: 0 12px 30px rgba(var(--color-green-rgb), 0.3);
           background: #C1E9A7 !important;
         }
         @media (max-width: 1023px) {

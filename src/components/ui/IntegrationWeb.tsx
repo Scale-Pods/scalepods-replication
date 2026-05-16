@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { useMobile } from "@/lib/hooks";
 
 const C = {
-  blueMid: "#6DB6FF",
-  green: "#ACD791",
-  border: "#222222",
-  bgCard: "#0D0F17",
+  blueMid: "var(--color-blue-mid)",
+  green: "var(--color-green)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
 };
 
 // Simplified SVGs for the nodes
@@ -76,8 +76,9 @@ export default function IntegrationWeb() {
               <path
                 d={pathD}
                 fill="none"
-                stroke="rgba(255,255,255,0.08)"
-                strokeWidth="2"
+                stroke="var(--color-border)"
+                strokeWidth="1"
+                opacity="0.3"
               />
               {/* Animated pulse packet along the path */}
               <motion.path
@@ -120,12 +121,12 @@ export default function IntegrationWeb() {
             width: isMobile ? "64px" : "80px",
             height: isMobile ? "64px" : "80px",
             borderRadius: "50%",
-            background: "#0A0D14",
-            border: `1px solid rgba(109,182,255,0.3)`,
+            background: "var(--color-bg-page)",
+            border: `1px solid rgba(var(--color-blue-mid-rgb), 0.3)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "0 0 40px rgba(109,182,255,0.2)",
+            boxShadow: "0 0 40px rgba(var(--color-blue-mid-rgb), 0.2)",
           }}
         >
           {/* Inner glowing star */}

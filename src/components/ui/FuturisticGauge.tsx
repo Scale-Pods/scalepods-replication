@@ -93,21 +93,21 @@ export default function FuturisticGauge({
 
           {/* Inner ambient glow */}
           <radialGradient id="arcGlow" cx="50%" cy="100%" r="100%">
-            <stop offset="0%" stopColor="rgba(0, 128, 255, 0.08)" />
+            <stop offset="0%" stopColor="rgba(var(--color-blue-mid-rgb), 0.08)" />
             <stop offset="80%" stopColor="transparent" />
           </radialGradient>
 
           {/* Needle Gradient: Dark Metallic */}
           <linearGradient id="needleBodyGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#1A1D23" />
-            <stop offset="50%" stopColor="#2A2F3A" />
-            <stop offset="100%" stopColor="#1A1D23" />
+            <stop offset="0%" stopColor="var(--color-bg-card-alt)" />
+            <stop offset="50%" stopColor="var(--color-border)" />
+            <stop offset="100%" stopColor="var(--color-bg-card-alt)" />
           </linearGradient>
 
           {/* Glowing Tip Gradient */}
           <radialGradient id="tipGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#6DB6FF" />
-            <stop offset="100%" stopColor="rgba(109, 182, 255, 0)" />
+            <stop offset="0%" stopColor="var(--color-blue-mid)" />
+            <stop offset="100%" stopColor="rgba(var(--color-blue-mid-rgb), 0)" />
           </radialGradient>
         </defs>
 
@@ -174,29 +174,29 @@ export default function FuturisticGauge({
           />
 
           {/* Needle Tip Accent (The "Premium" Dot) */}
-          <circle cx="100" cy="38" r="1.5" fill="#6DB6FF" filter="url(#glow)" />
+          <circle cx="100" cy="38" r="1.5" fill="var(--color-blue-mid)" filter="url(#glow)" />
           
           {/* Subtle Connector line */}
-          <line x1="100" y1="38" x2="100" y2="45" stroke="#6DB6FF" strokeWidth="0.5" opacity="0.3" />
+          <line x1="100" y1="38" x2="100" y2="45" stroke="var(--color-blue-mid)" strokeWidth="0.5" opacity="0.3" />
         </motion.g>
 
         {/* Center Pivot Assembly */}
         {/* Outer Ring */}
         <circle 
           cx="100" cy="110" r="7" 
-          fill="#080A0E" 
+          fill="var(--color-bg-page)" 
           stroke="rgba(255,255,255,0.05)" 
           strokeWidth="0.5" 
         />
         {/* Inner Hub */}
         <circle 
           cx="100" cy="110" r="3.5" 
-          fill="#1A1D23" 
+          fill="var(--color-bg-card-alt)" 
           stroke="rgba(255,255,255,0.1)" 
           strokeWidth="0.5" 
         />
         {/* Glowing Center Core */}
-        <circle cx="100" cy="110" r="1" fill="#6DB6FF" filter="url(#glow)" />
+        <circle cx="100" cy="110" r="1" fill="var(--color-blue-mid)" filter="url(#glow)" />
       </svg>
     </div>
   );

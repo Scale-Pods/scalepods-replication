@@ -22,6 +22,27 @@ const hexToRgbNormalized = (hex: string): [number, number, number] => {
   return [r / 255, g / 255, b / 255];
 };
 
+const cssVarToRgbNormalized = (varName: string): [number, number, number] => {
+  if (typeof window === "undefined") return [0, 0, 0];
+  const style = getComputedStyle(document.documentElement);
+  const value = style.getPropertyValue(varName).trim();
+  
+  if (!value) return [0, 0, 0];
+  
+  // Handle RGB string like "172, 215, 145"
+  if (value.includes(",")) {
+    const parts = value.split(",").map(p => parseInt(p.trim(), 10) / 255);
+    return [parts[0] || 0, parts[1] || 0, parts[2] || 0];
+  }
+  
+  // Handle hex
+  if (value.startsWith("#")) {
+    return hexToRgbNormalized(value);
+  }
+  
+  return [0, 0, 0];
+};
+
 interface GlobeProps {
   className?: string;
   theta?: number;
@@ -51,9 +72,9 @@ const Globe: React.FC<GlobeProps> = ({
   diffuse = 1.2,
   mapSamples = 16000,
   mapBrightness = 6,
-  baseColor = "#0f2d2a", 
-  markerColor = "#b8ff8a", 
-  glowColor = "#8DFF63", 
+  baseColor = "var(--color-bg-page)", 
+  markerColor = "var(--color-green)", 
+  glowColor = "var(--color-green)", 
   autoRotateSpeed = 0.0012,
   markers = [],
   width = 700,
@@ -76,17 +97,17 @@ const Globe: React.FC<GlobeProps> = ({
 
     const resolvedBaseColor: [number, number, number] =
       typeof baseColor === "string"
-        ? hexToRgbNormalized(baseColor)
+        ? (baseColor.startsWith("var") ? cssVarToRgbNormalized(baseColor.slice(4, -1)) : hexToRgbNormalized(baseColor))
         : baseColor; 
 
     const resolvedMarkerColor: [number, number, number] =
       typeof markerColor === "string"
-        ? hexToRgbNormalized(markerColor)
+        ? (markerColor.startsWith("var") ? cssVarToRgbNormalized(markerColor.slice(4, -1)) : hexToRgbNormalized(markerColor))
         : markerColor; 
 
     const resolvedGlowColor: [number, number, number] =
       typeof glowColor === "string"
-        ? hexToRgbNormalized(glowColor)
+        ? (glowColor.startsWith("var") ? cssVarToRgbNormalized(glowColor.slice(4, -1)) : hexToRgbNormalized(glowColor))
         : glowColor; 
 
     const initGlobe = () => {

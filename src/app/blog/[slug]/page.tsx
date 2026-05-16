@@ -49,7 +49,7 @@ export default async function ArticlePage({ params }: Props) {
   }
 
   return (
-    <main style={{ background: "#04070D", minHeight: "100vh", paddingTop: "64px", paddingBottom: "120px", color: "#B8C7D9" }}>
+    <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "64px", paddingBottom: "120px", color: "var(--color-text-body)" }}>
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Back Button */}
@@ -60,13 +60,13 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Meta */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
-          <span style={{ fontFamily: "Inter, sans-serif", fontSize: "13px", color: "#6B7280" }}>
+          <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "13px", color: "var(--color-text-muted)" }}>
             {displayData.date}
           </span>
           <span style={{
-            fontFamily: "Inter, sans-serif", fontSize: "11px", fontWeight: 600,
-            color: "#E5E7EB", padding: "4px 12px", borderRadius: "6px",
-            background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)",
+            fontFamily: "var(--font-inter), sans-serif", fontSize: "11px", fontWeight: 600,
+            color: "var(--color-text-bright)", padding: "4px 12px", borderRadius: "6px",
+            background: "var(--color-bg-card-alt)", border: "1px solid var(--color-border)",
             textTransform: "uppercase", letterSpacing: "0.05em"
           }}>
             {displayData.category}
@@ -75,8 +75,8 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Title */}
         <h1 style={{
-          fontFamily: "Inter, sans-serif", fontSize: "clamp(32px, 4vw, 56px)",
-          fontWeight: 700, color: "#FFFFFF", lineHeight: 1.1, marginBottom: "24px",
+          fontFamily: "var(--font-inter), sans-serif", fontSize: "clamp(32px, 4vw, 56px)",
+          fontWeight: 700, color: "var(--color-text-bright)", lineHeight: 1.1, marginBottom: "24px",
           letterSpacing: "-0.02em"
         }}>
           {displayData.title}
@@ -84,20 +84,20 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Excerpt */}
         <p style={{
-          fontFamily: "Inter, sans-serif", fontSize: "18px", color: "#6B7280",
+          fontFamily: "var(--font-inter), sans-serif", fontSize: "18px", color: "var(--color-text-muted)",
           lineHeight: 1.6, marginBottom: "40px",
         }}>
           {displayData.excerpt}
         </p>
 
         {/* Divider */}
-        <div style={{ height: "1px", background: "rgba(255,255,255,0.1)", marginBottom: "40px" }} />
+        <div style={{ height: "1px", background: "var(--color-border)", marginBottom: "40px" }} />
 
         {/* Hero Image */}
         <div style={{
           width: "100%", borderRadius: "16px", overflow: "hidden",
-          marginBottom: "64px", border: "1px solid rgba(255,255,255,0.1)",
-          boxShadow: "0 24px 48px rgba(0,0,0,0.4)"
+          marginBottom: "64px", border: "1px solid var(--color-border)",
+          boxShadow: "var(--shadow-md)"
         }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -113,15 +113,15 @@ export default async function ArticlePage({ params }: Props) {
             <div key={i} className="fade-up">
               {section.heading && (
                 <h2 style={{
-                  fontFamily: "Inter, sans-serif", fontSize: "24px", fontWeight: 700,
-                  color: "#FFFFFF", marginBottom: "18px", lineHeight: 1.3,
+                  fontFamily: "var(--font-inter), sans-serif", fontSize: "24px", fontWeight: 700,
+                  color: "var(--color-text-bright)", marginBottom: "18px", lineHeight: 1.3,
                   letterSpacing: "-0.01em"
                 }}>
                   {section.heading}
                 </h2>
               )}
               <div style={{
-                fontFamily: "Inter, sans-serif", fontSize: "16px", color: "#9CA3AF",
+                fontFamily: "var(--font-inter), sans-serif", fontSize: "16px", color: "var(--color-text-body)",
                 lineHeight: 1.8, whiteSpace: "pre-wrap"
               }}>
                 {section.body}
@@ -131,7 +131,7 @@ export default async function ArticlePage({ params }: Props) {
         </div>
 
         {/* Divider */}
-        <div style={{ height: "1px", background: "rgba(255,255,255,0.1)", marginTop: "80px", marginBottom: "40px" }} />
+        <div style={{ height: "1px", background: "var(--color-border)", marginTop: "80px", marginBottom: "40px" }} />
 
         {/* Bottom Back Button */}
         <Link href="/blog" className="blog-back-btn">

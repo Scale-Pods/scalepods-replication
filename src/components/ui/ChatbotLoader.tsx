@@ -31,10 +31,10 @@ export default function ChatbotLoader() {
       try {
         // Only load React/ReactDOM if not already present (Next.js uses its own internal copy)
         if (!(window as any).React) {
-          await loadScript("https://unpkg.com/react@18/umd/react.production.min.js");
+          await loadScript("https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js");
         }
         if (!(window as any).ReactDOM) {
-          await loadScript("https://unpkg.com/react-dom@18/umd/react-dom.production.min.js");
+          await loadScript("https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js");
         }
         await loadScript("https://v0-scalepods-chatbot-frontend.vercel.app/embed.js");
       } catch (err) {

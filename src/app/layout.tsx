@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -7,21 +7,28 @@ import Script from "next/script";
 import ChatbotLoader from "@/components/ui/ChatbotLoader";
 import ClarityProvider from "@/components/ui/ClarityProvider";
 
-const inter = Inter({
+const inter = localFont({
+  src: [
+    { path: "../fonts/inter/Inter-Regular.woff2",  weight: "400", style: "normal" },
+    { path: "../fonts/inter/Inter-Italic.woff2",   weight: "400", style: "italic" },
+    { path: "../fonts/inter/Inter-Medium.woff2",   weight: "500", style: "normal" },
+    { path: "../fonts/inter/Inter-SemiBold.woff2", weight: "600", style: "normal" },
+    { path: "../fonts/inter/Inter-Bold.woff2",     weight: "700", style: "normal" },
+  ],
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
+const instrumentSerif = localFont({
+  src: [
+    { path: "../fonts/instrument-serif/InstrumentSerif-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/instrument-serif/InstrumentSerif-Italic.woff2",  weight: "400", style: "italic" },
+  ],
   variable: "--font-instrument",
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
   display: "swap",
 });
+
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "ScalePods – New Gen AI Automation Partner",
@@ -41,18 +48,43 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <head>
+        <Script
+          id="theme-script"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (
+                    theme === 'dark' ||
+                    (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+                  ) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
         style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
       >
-        <ClarityProvider />
-        <Navbar />
-        {children}
-        <Footer />
-        
-        {/* Scalepods Chatbot Integration */}
-        <ChatbotLoader />
+        <ThemeProvider>
+          <ClarityProvider />
+          <Navbar />
+          {children}
+          <Footer />
+          
+          {/* Scalepods Chatbot Integration */}
+          <ChatbotLoader />
+        </ThemeProvider>
 
         {/* Global scroll fade-up animation via IntersectionObserver */}
         <Script id="scroll-fade-up" strategy="afterInteractive">{`

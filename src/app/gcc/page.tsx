@@ -4,64 +4,69 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle, ArrowUpRight } from "lucide-react";
+import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabase";
 import DownloadModal from "@/components/ui/DownloadModal";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { useTheme } from "@/components/providers/ThemeProvider";
 import { BeamsBackground } from "@/components/ui/beams-background";
-import { ImmersiveFeatures } from "@/components/sections/ImmersiveFeatures";
-import { SalesPodShowcase } from "@/components/sections/SalesPodShowcase";
-import { HRShowcase } from "@/components/sections/HRShowcase";
-import { OpsShowcase } from "@/components/sections/OpsShowcase";
-import { MarketingShowcase } from "@/components/sections/MarketingShowcase";
-import { CustomWorkflowShowcase } from "@/components/sections/CustomWorkflowShowcase";
-import { ImpactShowcase } from "@/components/sections/ImpactShowcase";
-import { WhyChooseShowcase } from "@/components/sections/WhyChooseShowcase";
-import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
-import { CaseStudiesShowcase } from "@/components/sections/CaseStudiesShowcase";
-import { KnowledgeShowcase } from "@/components/sections/KnowledgeShowcase";
-import { FinalCTASection } from "@/components/sections/FinalCTASection";
+
+// ── Dynamic Imports for Below-the-Fold Sections ─────────────────────────────
+const ImmersiveFeatures = dynamic(() => import("@/components/sections/ImmersiveFeatures").then(mod => mod.ImmersiveFeatures), { ssr: true });
+const SalesPodShowcase = dynamic(() => import("@/components/sections/SalesPodShowcase").then(mod => mod.SalesPodShowcase), { ssr: true });
+const HRShowcase = dynamic(() => import("@/components/sections/HRShowcase").then(mod => mod.HRShowcase), { ssr: true });
+const OpsShowcase = dynamic(() => import("@/components/sections/OpsShowcase").then(mod => mod.OpsShowcase), { ssr: true });
+const MarketingShowcase = dynamic(() => import("@/components/sections/MarketingShowcase").then(mod => mod.MarketingShowcase), { ssr: true });
+const CustomWorkflowShowcase = dynamic(() => import("@/components/sections/CustomWorkflowShowcase").then(mod => mod.CustomWorkflowShowcase), { ssr: true });
+const ImpactShowcase = dynamic(() => import("@/components/sections/ImpactShowcase").then(mod => mod.ImpactShowcase), { ssr: true });
+const WhyChooseShowcase = dynamic(() => import("@/components/sections/WhyChooseShowcase").then(mod => mod.WhyChooseShowcase), { ssr: true });
+const ProcessShowcase = dynamic(() => import("@/components/sections/ProcessShowcase").then(mod => mod.ProcessShowcase), { ssr: true });
+const CaseStudiesShowcase = dynamic(() => import("@/components/sections/CaseStudiesShowcase").then(mod => mod.CaseStudiesShowcase), { ssr: true });
+const KnowledgeShowcase = dynamic(() => import("@/components/sections/KnowledgeShowcase").then(mod => mod.KnowledgeShowcase), { ssr: true });
+const FinalCTASection = dynamic(() => import("@/components/sections/FinalCTASection").then(mod => mod.FinalCTASection), { ssr: true });
+
 // import { StickyFeatureReveal } from "@/components/sections/StickyFeatureReveal"; // Retired for card-based layout
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
-  bgPage:    "#04070D",
-  bgCard:    "#080A10",
-  bgPanel:   "#0A0E14",
-  bgInput:   "#0D1017",
-  border:    "rgba(255,255,255,0.07)",
-  borderMid: "rgba(255,255,255,0.12)",
-  green:     "#ACD791",
-  greenBright: "#8DC763",
-  blue:      "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody:   "#B8C7D9",
-  txtMuted:  "#D5DBE6",
+  bgPage:    "var(--color-bg-page)",
+  bgCard:    "var(--color-bg-card)",
+  bgPanel:   "var(--color-bg-card-alt)",
+  bgInput:   "var(--color-bg-input)",
+  border:    "var(--color-border)",
+  borderMid: "var(--color-border)",
+  green:     "var(--color-green)",
+  greenBright: "var(--color-green)",
+  blue:      "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody:   "var(--color-text-body)",
+  txtMuted:  "var(--color-text-muted)",
 };
 const F = {
-  inter: "Inter, sans-serif",
-  serif: "Instrument Serif, Georgia, serif",
-  accent: "Instrument Serif, serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  serif: "var(--font-instrument), 'Instrument Serif', Georgia, serif",
+  accent: "var(--font-instrument), serif",
 };
 
 // ── Glassmorphism tokens ──────────────────────────────────────────────────────
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for better mobile performance
+  bg: "rgba(var(--color-text-bright-rgb), 0.015)",
+  border: "1px solid var(--color-border-faint)",
+  blur: "blur(12px)",
 };
 
 // ── Shared input style (matching contact page) ────────────────────────────────
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: "#0D0F17",
-  border: "1px solid rgba(255,255,255,0.07)",
+  background: "var(--color-bg-input)",
+  border: "1px solid var(--color-border)",
   borderRadius: "10px",
   padding: "10px 14px",
   fontFamily: F.inter,
   fontSize: "14px",
-  color: C.txtBody,
+  color: "var(--color-text-body)",
   outline: "none",
   boxSizing: "border-box",
   transition: "border-color 0.2s",
@@ -119,6 +124,7 @@ export default function UAEPage() {
   const [error, setError] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const isMobile = useMobile(900);
+  const { resolvedTheme } = useTheme();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -241,8 +247,8 @@ export default function UAEPage() {
             align-items: center;
           }
           .form-card {
-            background: rgba(8, 10, 14, 0.65);
-            border: 1px solid rgba(172, 215, 145, 0.4);
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-green);
             border-radius: 20px;
             padding: 32px;
             width: 100%;
@@ -252,7 +258,7 @@ export default function UAEPage() {
             -webkit-backdrop-filter: blur(16px);
             position: relative;
             z-index: 1;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: var(--shadow-md);
           }
           .form-row {
             display: grid;
@@ -379,7 +385,9 @@ export default function UAEPage() {
                     transform: "translate(-50%, -10px)",
                     width: "340px",
                     height: "120px",
-                    background: "radial-gradient(ellipse at center, rgba(172, 215, 145, 0.1) 0%, transparent 65%)",
+                    background: resolvedTheme === 'dark' 
+                      ? "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.1) 0%, transparent 65%)"
+                      : "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.05) 0%, transparent 65%)",
                     pointerEvents: "none",
                     zIndex: 0,
                   }}
@@ -395,9 +403,9 @@ export default function UAEPage() {
                     fontFamily: F.inter,
                     fontSize: "14px",
                     fontWeight: 600,
-                    color: "#FFFFFF",
-                    background: G.bg,
-                    border: G.border,
+                    color: "var(--color-text-bright)",
+                    background: "var(--color-bg-card-alt)",
+                    border: "1px solid var(--color-border)",
                     borderRadius: "12px",
                     padding: "14px 36px",
                     cursor: "pointer",
@@ -545,7 +553,7 @@ export default function UAEPage() {
                                 top: "100%",
                                 left: 0,
                                 marginTop: "4px",
-                                background: "#0D0F17",
+                                background: "var(--color-bg-card)",
                                 border: `1px solid ${C.border}`,
                                 borderRadius: "10px",
                                 width: "180px",
@@ -553,7 +561,7 @@ export default function UAEPage() {
                                 overflowY: "auto",
                                 zIndex: 100,
                                 padding: "4px",
-                                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.5)",
+                                boxShadow: "var(--shadow-md)",
                                 backdropFilter: "blur(12px)",
                               }}
                             >
@@ -639,7 +647,9 @@ export default function UAEPage() {
                       transform: "translate(-50%, -6px)",
                       width: "80%",
                       height: "40px",
-                      background: "radial-gradient(ellipse at center, rgba(141, 199, 99, 0.15) 0%, transparent 70%)",
+                      background: resolvedTheme === 'dark' 
+                        ? "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.15) 0%, transparent 70%)"
+                        : "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.05) 0%, transparent 70%)",
                       pointerEvents: "none",
                       zIndex: 0
                     }} />
@@ -655,10 +665,10 @@ export default function UAEPage() {
                         zIndex: 1,
                         width: "100%",
                         padding: "12px 24px",
-                        background: "rgba(8,10,16,0.85)",
-                        border: "1px solid rgba(141, 199, 99, 0.5)",
+                        background: "var(--color-bg-card)",
+                        border: "1px solid var(--color-green)",
                         borderRadius: "12px",
-                        color: "#FFFFFF",
+                        color: "var(--color-text-bright)",
                         fontSize: "14px",
                         fontWeight: 600,
                         cursor: loading ? "not-allowed" : "pointer",
@@ -714,8 +724,12 @@ export default function UAEPage() {
             left: 0,
             right: 0,
             height: "1px",
-            background: "linear-gradient(90deg, transparent 15%, rgba(255,255,255,0.3) 50%, transparent 85%)",
-            boxShadow: "0 -10px 36px 4px rgba(255,255,255,0.07)",
+            background: resolvedTheme === 'dark'
+              ? "linear-gradient(90deg, transparent 15%, rgba(var(--color-text-bright-rgb), 0.3) 50%, transparent 85%)"
+              : "linear-gradient(90deg, transparent 15%, rgba(var(--color-text-bright-rgb), 0.1) 50%, transparent 85%)",
+            boxShadow: resolvedTheme === 'dark' 
+              ? "0 -10px 36px 4px rgba(var(--color-text-bright-rgb), 0.07)"
+              : "0 -10px 36px 4px rgba(var(--color-text-bright-rgb), 0.02)",
           }}
         />
       </section>

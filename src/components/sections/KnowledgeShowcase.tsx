@@ -17,23 +17,23 @@ import {
 import { useMobile } from "@/lib/hooks";
 
 const C = {
-  green: "#ACD791",
-  blue: "#6DB6FF",
-  txtBright: "#E4E9F2",
-  txtBody: "#B8C7D9",
-  border: "rgba(255,255,255,0.06)",
-  bgCard: "rgba(255, 255, 255, 0.015)",
+  green: "var(--color-green)",
+  blue: "var(--color-blue-mid)",
+  txtBright: "var(--color-text-bright)",
+  txtBody: "var(--color-text-body)",
+  border: "var(--color-border)",
+  bgCard: "var(--color-bg-card)",
 };
 
 const F = {
-  inter: "Inter, sans-serif",
-  accent: "'Instrument Serif', serif",
+  inter: "var(--font-inter), Inter, sans-serif",
+  accent: "var(--font-instrument), serif",
 };
 
 const G = {
-  bg: "rgba(255, 255, 255, 0.015)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  blur: "blur(12px)", // Reduced from 40px for mobile performance
+  bg: "var(--color-glass-bg)",
+  border: "1px solid var(--color-glass-border)",
+  blur: "blur(16px)", 
 };
 
 const knowledgeItems = [
@@ -173,13 +173,15 @@ export const KnowledgeShowcase = () => {
         {/* Dashboard Layout */}
         <div style={{ 
           display: "grid", 
-          gridTemplateColumns: "1fr 1.4fr", 
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1.4fr", 
           gap: "20px",
-          background: G.bg,
-          border: G.border,
+          background: "var(--color-glass-bg)",
+          border: "1px solid var(--color-glass-border)",
           borderRadius: "32px",
           padding: "20px",
-          backdropFilter: "blur(12px)"
+          backdropFilter: "blur(18px)",
+          WebkitBackdropFilter: "blur(18px)",
+          boxShadow: "var(--card-shadow), var(--card-shadow-inset)"
         }} className="knowledge-dashboard">
           
           {/* Question List */}
@@ -230,10 +232,11 @@ export const KnowledgeShowcase = () => {
 
           {/* Response Engine */}
           <div style={{ 
-            background: "rgba(0,0,0,0.2)", 
+            background: "rgba(var(--color-text-bright-rgb), 0.03)", 
             borderRadius: "24px", 
             padding: "32px", 
-            border: "1px solid rgba(255,255,255,0.03)",
+            border: "1px solid var(--color-border-faint)",
+            boxShadow: "var(--internal-shadow-inset)",
             position: "relative",
             overflow: "hidden",
             display: "flex",

@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const C = {
-  bgCard: "#0D0F17",
-  border: "#222222",
-  txtBright: "#E4E9F2",
-  txtMuted: "#636996",
-  txtFaint: "#545B7D",
-  blueMid: "#6DB6FF",
+  bgCard: "var(--color-bg-card)",
+  border: "var(--color-border)",
+  txtBright: "var(--color-text-bright)",
+  txtMuted: "var(--color-text-muted)",
+  txtFaint: "var(--color-text-body)",
+  blueMid: "var(--color-blue-mid)",
 };
 
 const F = {
@@ -144,8 +144,8 @@ export default function ActivityBarChart() {
                   style={{
                     width: "100%",
                     borderRadius: "6px 6px 2px 2px",
-                    background: `linear-gradient(to top, rgba(109,182,255,0.2), rgba(109,182,255,0.6))`,
-                    boxShadow: "0 0 12px rgba(109,182,255,0.15)",
+                    background: `linear-gradient(to top, rgba(var(--color-blue-mid-rgb), 0.2), rgba(var(--color-blue-mid-rgb), 0.6))`,
+                    boxShadow: "0 0 12px rgba(var(--color-blue-mid-rgb), 0.15)",
                     overflow: "hidden",
                     position: "relative",
                   }}
