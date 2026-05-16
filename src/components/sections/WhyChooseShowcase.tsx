@@ -194,7 +194,7 @@ export const WhyChooseShowcase = () => {
 
   return (
     <section 
-      id="why-choose-us"
+      id="why-choose"
       className="why-choose-section"
       style={{ 
         position: "relative",

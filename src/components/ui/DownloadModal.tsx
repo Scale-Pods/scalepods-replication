@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Download, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/providers/ThemeProvider";
+
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
@@ -52,10 +54,13 @@ export default function DownloadModal({
   zipName?: string;
   title?: string;
 }) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -254,44 +259,60 @@ export default function DownloadModal({
                         position: "relative",
                         zIndex: 1,
                         width: "100%",
-                        padding: "12px 24px",
-                        background: "var(--color-green)",
-                        border: "1px solid var(--color-green)",
-                        borderRadius: "12px",
-                        color: "#000",
-                        fontSize: "15px",
-                        fontWeight: 600,
-
-                        cursor: loading ? "not-allowed" : "pointer",
-                        display: "flex",
+                        display: "inline-flex",
                         alignItems: "center",
+                        gap: "10px",
+                        fontFamily: "var(--font-inter), Inter, sans-serif",
+                        fontSize: "15px",
+                        fontWeight: 700,
+                        letterSpacing: "-0.01em",
+                        
+                        // Theme Adaptive Colors (#B1D997 for dark mode text)
+                        color: isDark ? "#B1D997" : "#0f172a",
+                        
+                        // Background Logic (Gradient using #B1D997)
+                        background: isDark
+                          ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                          : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                        
+                        // Glass & Border (#B1D997 glow)
+                        backdropFilter: isDark ? "blur(12px)" : "none",
+                        WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                        border: isDark 
+                          ? "1px solid rgba(177, 217, 151, 0.4)" 
+                          : "1px solid rgba(177, 217, 151, 0.3)",
+                        
+                        borderRadius: "12px",
+                        padding: "16px 36px",
+                        cursor: loading ? "not-allowed" : "pointer",
+                        opacity: loading ? 0.8 : 1,
+                        
+                        // Depth & Shadows
+                        boxShadow: isDark 
+                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                          : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                        
                         justifyContent: "center",
-                        gap: "8px",
-                        WebkitBackdropFilter: "blur(12px)",
-                        backdropFilter: "blur(12px)",
-                        overflow: "hidden",
-                        transition: "all 0.3s ease"
+                        whiteSpace: "nowrap",
+                        transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
                       }}
                     >
-                      <div style={{
-                        position: "absolute",
-                        inset: 0,
-                        boxShadow: "inset 0px -16px 30px -14px rgba(var(--color-green-rgb), 0.1)",
-                        pointerEvents: "none"
-                      }} />
-
                       {loading ? (
-                        <>
-                          <Loader2 className="animate-spin" size={18} />
-                          <span>Processing...</span>
-                        </>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          <Loader2 size={16} />
+                        </motion.div>
                       ) : (
-                        <>
-                          <Download size={18} />
-                          <span>Download Now</span>
-                        </>
+                        <Download size={16} />
                       )}
+                      <span style={{ position: "relative", zIndex: 2 }}>
+                        {loading ? "Processing..." : "Download Now"}
+                      </span>
                     </button>
+
                   </div>
                   <p style={{
                     fontSize: "12px", color: C.txtMuted, textAlign: "center",

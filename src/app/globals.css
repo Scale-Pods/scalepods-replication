@@ -57,11 +57,12 @@
   --color-blue-mid: #6DB6FF;
   --color-blue-light: #94D1FF;
   --color-teal: #00CED1;
-  --color-green: #ACD791;
+  --color-green: #B1D997;
 
   --color-blue-glow: rgba(0, 128, 255, 0.1);
 
-  --color-green-rgb: 172, 215, 145;
+  --color-green-rgb: 177, 217, 151;
+
   --color-blue-mid-rgb: 109, 182, 255;
   --color-bg-page-rgb: 4, 7, 13;
   --color-text-bright-rgb: 228, 233, 242;
@@ -71,7 +72,8 @@
   --card-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
   --card-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --internal-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  --btn-shadow: 0 0 20px rgba(172, 215, 145, 0.15);
+  --btn-shadow: 0 0 15px rgba(177, 217, 151, 0.25);
+
 
   --nav-bg: rgba(4, 7, 13, 0.6);
   --nav-bg-scrolled: rgba(4, 7, 13, 0.92);
@@ -80,7 +82,8 @@
   --color-error: #ff6b6b;
   --color-error-rgb: 255, 107, 107;
   /* ── Framer Motion resolved glow values (cannot use rgba(var()) in animated elements) ── */
-  --green-glow-40: rgba(172, 215, 145, 0.4);
+  --green-glow-40: rgba(177, 217, 151, 0.4);
+
   --blue-glow-40: rgba(109, 182, 255, 0.4);
   /* ── Theme transition for the * selector ── */
   --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease;
@@ -109,7 +112,8 @@
   --color-blue-bright: #006ADC;
   --color-blue-mid: #0080FF;
   --color-blue-light: #3182CE;
-  --color-green: #84cc16;
+  --color-green: #B1D997;
+
 
   --color-blue-glow: rgba(0, 128, 255, 0.06);
 
@@ -117,9 +121,11 @@
   --card-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.04);
   --card-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   --internal-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 2px 6px rgba(15, 23, 42, 0.04);
-  --btn-shadow: 0 6px 18px rgba(132, 204, 22, 0.18);
+  --btn-shadow: 0 6px 18px rgba(177, 217, 151, 0.18);
 
-  --color-green-rgb: 172, 215, 145;
+
+  --color-green-rgb: 177, 217, 151;
+
   --color-blue-mid-rgb: 0, 128, 255;
   --color-bg-page-rgb: 248, 250, 247;
   --color-text-bright-rgb: 15, 23, 42;
@@ -422,19 +428,7 @@ body {
     padding: 16px 0 !important;
   }
 
-  /* ── Integration icon tiles: ensure visible ── */
-  div[style*="width: \"60px\""],
-  div[style*="width: 60px"] {
-    background: rgba(255,255,255,0.12) !important;
-    border: 1px solid rgba(255,255,255,0.22) !important;
-    color: rgba(255,255,255,0.95) !important;
-  }
-  div[style*="width: \"60px\""] svg,
-  div[style*="width: 60px"] svg {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-  }
+
 
   /* ── Comparison table: horizontal scroll ── */
   div[style*="grid-template-columns"][style*="200px"] {
@@ -474,23 +468,7 @@ body {
     padding: 16px !important;
   }
 
-  /* ── Integration icon tiles: more visible on small screens ── */
-  div[style*="width: 60px"][style*="height: 60px"] {
-    width: 56px !important;
-    height: 56px !important;
-    background: rgba(255,255,255,0.14) !important;
-    border: 1px solid rgba(255,255,255,0.25) !important;
-    color: #fff !important;
-  }
-  div[style*="width: 60px"][style*="height: 60px"] svg {
-    color: #fff !important;
-    fill: currentColor;
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-    width: 22px !important;
-    height: 22px !important;
-  }
+
 
   /* ── Integration Fade Overlays ── */
   .integration-fade {

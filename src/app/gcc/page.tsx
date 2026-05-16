@@ -63,7 +63,7 @@ const inputStyle: React.CSSProperties = {
   background: "var(--color-bg-input)",
   border: "1px solid var(--color-border)",
   borderRadius: "10px",
-  padding: "10px 14px",
+  padding: "9px 13px",
   fontFamily: F.inter,
   fontSize: "14px",
   color: "var(--color-text-body)",
@@ -99,7 +99,7 @@ const countries = [
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", marginBottom: "8px" }}>
+    <div style={{ display: "flex", flexDirection: "column", marginBottom: "6px" }}>
       <label style={labelStyle}>{label}</label>
       {children}
     </div>
@@ -125,6 +125,7 @@ export default function UAEPage() {
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const isMobile = useMobile(900);
   const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   useEffect(() => {
     // Prefetch global page assets
@@ -184,8 +185,13 @@ export default function UAEPage() {
       <section id="hero-plug-play" className="hero-section">
         <style jsx>{`
           .hero-section {
-            padding: 80px 32px 60px;
+            padding: 40px 32px 60px;
             position: relative;
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .plug-play-grid {
             max-width: 1200px;
@@ -261,7 +267,7 @@ export default function UAEPage() {
             background: var(--color-bg-card);
             border: 1px solid var(--color-green);
             border-radius: 20px;
-            padding: 32px;
+            padding: 26px;
             width: 100%;
             max-width: 520px;
             box-sizing: border-box;
@@ -286,7 +292,9 @@ export default function UAEPage() {
           }
           @media (max-width: 900px) {
             .hero-section {
-              padding: 120px 16px 40px !important;
+              padding: 100px 16px 40px !important;
+              min-height: auto !important;
+              display: block !important;
             }
             .plug-play-grid {
               flex-direction: column !important;
@@ -412,30 +420,43 @@ export default function UAEPage() {
                     zIndex: 1,
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "8px",
+                    gap: "10px",
                     fontFamily: F.inter,
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    color: "#000",
-                    background: C.green,
-                    border: "none",
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    letterSpacing: "-0.01em",
+                    
+                    // Theme Adaptive Colors (#B1D997 for dark mode text)
+                    color: isDark ? "#B1D997" : "#0f172a",
+                    
+                    // Background Logic (Gradient using #B1D997)
+                    background: isDark
+                      ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                      : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                    
+                    // Glass & Border (#B1D997 glow)
+                    backdropFilter: isDark ? "blur(12px)" : "none",
+                    WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                    border: isDark 
+                      ? "1px solid rgba(177, 217, 151, 0.4)" 
+                      : "1px solid rgba(177, 217, 151, 0.3)",
+                    
                     borderRadius: "12px",
-                    padding: "14px 36px",
+                    padding: "16px 36px",
                     cursor: "pointer",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    overflow: "hidden",
+                    
+                    // Depth & Shadows
+                    boxShadow: isDark 
+                      ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                      : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                    
                     minWidth: "240px",
                     justifyContent: "center",
                     whiteSpace: "nowrap",
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 4px 20px rgba(var(--color-green-rgb), 0.3)"
-
+                    transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
                   }}
-
                 >
-                  <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2, color: "#000" }} />
-
+                  <Download style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
                   <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
                 </button>
               </div>
@@ -449,7 +470,12 @@ export default function UAEPage() {
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: isMobile ? 0.45 : 0.55, delay: isMobile ? 0 : 0.1 }}
-            style={{ transform: "translate3d(0,0,0)", willChange: "transform, opacity" }}
+            style={{ 
+              transform: "translate3d(0,0,0)", 
+              willChange: "transform, opacity",
+              marginTop: isMobile ? "0" : "72px",
+              paddingRight: isMobile ? "0" : "32px"
+            }}
           >
 
             {/* Stat headline */}
@@ -658,7 +684,7 @@ export default function UAEPage() {
                   )}
 
                   {/* Submit Button with lamp glow (matching contact page) */}
-                  <div style={{ position: "relative", marginTop: "12px" }}>
+                  <div style={{ position: "relative", marginTop: "8px" }}>
                     <div style={{
                       position: "absolute",
                       top: "50%",
@@ -672,50 +698,51 @@ export default function UAEPage() {
                       pointerEvents: "none",
                       zIndex: 0
                     }} />
-                    <motion.button
+                    <button
                       type="submit"
                       disabled={loading}
-                      initial="rest"
-                      whileHover="hover"
-                      animate="rest"
-                      className="submit-btn"
                       style={{
                         position: "relative",
                         zIndex: 1,
                         width: "100%",
-                        padding: "12px 24px",
-                        background: "var(--color-green)",
-                        border: "1px solid var(--color-green)",
-                        borderRadius: "12px",
-                        color: "#000",
-
-                        fontSize: "14px",
-                        fontWeight: 600,
-                        cursor: loading ? "not-allowed" : "pointer",
-                        display: "flex",
+                        display: "inline-flex",
                         alignItems: "center",
+                        gap: "10px",
+                        fontFamily: F.inter,
+                        fontSize: "15px",
+                        fontWeight: 700,
+                        letterSpacing: "-0.01em",
+                        
+                        // Theme Adaptive Colors (#B1D997 for dark mode text)
+                        color: isDark ? "#B1D997" : "#0f172a",
+                        
+                        // Background Logic (Gradient using #B1D997)
+                        background: isDark
+                          ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                          : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                        
+                        // Glass & Border (#B1D997 glow)
+                        backdropFilter: isDark ? "blur(12px)" : "none",
+                        WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                        border: isDark 
+                          ? "1px solid rgba(177, 217, 151, 0.4)" 
+                          : "1px solid rgba(177, 217, 151, 0.3)",
+                        
+                        borderRadius: "12px",
+                        padding: "16px 36px",
+                        cursor: loading ? "not-allowed" : "pointer",
+                        opacity: loading ? 0.8 : 1,
+                        
+                        // Depth & Shadows
+                        boxShadow: isDark 
+                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                          : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                        
                         justifyContent: "center",
-                        gap: "8px",
-                        overflow: "hidden",
-                        transition: "all 0.3s ease"
+                        whiteSpace: "nowrap",
+                        transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
                       }}
                     >
-                      <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)", pointerEvents: "none" }} />
-                      <motion.div
-                        variants={{
-                          rest: { opacity: 0.16, width: "140px", height: "50px" },
-                          hover: { opacity: 0.36, width: "260px", height: "80px" },
-                        }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                        style={{
-                          position: "absolute",
-                          left: "50%",
-                          bottom: "-30px",
-                          transform: "translateX(-50%)",
-                          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
-                          pointerEvents: "none",
-                        }}
-                      />
                       {loading ? (
                         <motion.div
                           animate={{ rotate: 360 }}
@@ -728,7 +755,7 @@ export default function UAEPage() {
                       <span style={{ position: "relative", zIndex: 2 }}>
                         {loading ? "Booking..." : "Book AI Strategy Call"}
                       </span>
-                    </motion.button>
+                    </button>
                   </div>
                 </form>
               )}

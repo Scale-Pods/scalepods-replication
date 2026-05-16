@@ -33,7 +33,7 @@ export const HRDashboardMockup = () => {
       <div style={{ 
         position: "absolute", left: 0, top: 0, bottom: 0, width: "60px", 
         borderRight: "1px solid var(--color-border-faint)", 
-        background: "var(--color-glass-bg)", backdropFilter: "blur(16px)",
+        background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
         opacity: 0.5
       }} />
       
@@ -58,7 +58,7 @@ export const HRDashboardMockup = () => {
             { label: "Quality", value: "65.0", trend: "High", color: "var(--color-green)", icon: <CheckCircle2 size={14} /> }
           ].map((stat, i) => (
             <div key={i} style={{ 
-              background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", 
+              background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", 
               border: "1px solid var(--color-border-faint)", 
               borderRadius: "12px", 
               padding: "12px" 
@@ -93,7 +93,7 @@ export const SalesDashboardMockup = () => {
     <div style={{
       width: "100%",
       height: "100%",
-      background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
+      background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
       color: "var(--color-text-bright)",
       fontFamily: F.inter,
       display: "flex",
@@ -133,7 +133,7 @@ export const SalesDashboardMockup = () => {
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ fontSize: "10px", color: "var(--color-text-muted)", fontWeight: 500 }}>{tile.label}</span>
-                <div style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", width: "24px", height: "24px", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--color-border-faint)" }}>
+                <div style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", width: "24px", height: "24px", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--color-border-faint)" }}>
                   {tile.icon}
                 </div>
               </div>
@@ -143,7 +143,7 @@ export const SalesDashboardMockup = () => {
         </div>
 
         {/* Large Graph Area */}
-        <div style={{ background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "12px", padding: "16px", height: "100px", border: "1px solid var(--color-border-faint)" }}>
+        <div style={{ background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", borderRadius: "12px", padding: "16px", height: "100px", border: "1px solid var(--color-border-faint)" }}>
           <div style={{ fontSize: "11px", fontWeight: 600, marginBottom: "12px" }}>Lead Acquisition</div>
           <div style={{ height: "50px", width: "100%", position: "relative" }}>
             <svg width="100%" height="100%" preserveAspectRatio="none">
@@ -175,7 +175,7 @@ export const OpsDashboardMockup = () => {
         <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--color-green)", boxShadow: "0 0 10px var(--color-green)" }} />
       </div>
 
-      <div style={{ background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border-faint)", borderRadius: "16px", padding: "20px", textAlign: "center" }}>
+      <div style={{ background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid var(--color-border-faint)", borderRadius: "16px", padding: "20px", textAlign: "center" }}>
         <div style={{ width: "80px", height: "80px", borderRadius: "50%", border: "4px solid rgba(var(--color-blue-mid-rgb),0.1)", borderTopColor: "var(--color-blue-mid)", margin: "0 auto 16px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Phone size={24} color="var(--color-blue-mid)" />
         </div>
@@ -202,7 +202,7 @@ export const MarketingDashboardMockup = () => {
     <div style={{
       width: "100%",
       height: "100%",
-      background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
+      background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
       color: "var(--color-text-bright)",
       fontFamily: F.inter,
       padding: "20px",
@@ -211,11 +211,11 @@ export const MarketingDashboardMockup = () => {
       borderRadius: "16px",
     }}>
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <div style={{ flex: 1, background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "10px", padding: "12px", border: "1px solid var(--color-border-faint)" }}>
+        <div style={{ flex: 1, background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", borderRadius: "10px", padding: "12px", border: "1px solid var(--color-border-faint)" }}>
           <div style={{ fontSize: "10px", color: "var(--color-text-muted)", marginBottom: "4px" }}>Active Ads</div>
           <div style={{ fontSize: "16px", fontWeight: 700 }}>24</div>
         </div>
-        <div style={{ flex: 1, background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "10px", padding: "12px", border: "1px solid var(--color-border-faint)" }}>
+        <div style={{ flex: 1, background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", borderRadius: "10px", padding: "12px", border: "1px solid var(--color-border-faint)" }}>
           <div style={{ fontSize: "10px", color: "var(--color-text-muted)", marginBottom: "4px" }}>CTR</div>
           <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-green)" }}>4.8%</div>
         </div>

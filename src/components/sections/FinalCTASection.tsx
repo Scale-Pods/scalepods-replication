@@ -15,6 +15,8 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMobile } from "@/lib/hooks";
+import { useTheme } from "@/components/providers/ThemeProvider";
+
 
 const C = {
   green: "var(--color-green)",
@@ -38,10 +40,13 @@ const G = {
 
 export const FinalCTASection = () => {
   const isMobile = useMobile(1024);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
 
   return (
     <section 
-      id="footer"
+      id="final-cta"
       className="final-cta-section"
       style={{ 
         position: "relative",
@@ -221,24 +226,40 @@ export const FinalCTASection = () => {
               <button
                 style={{
                   padding: "16px 36px",
-                  background: C.green,
-                  border: "none",
+                  // Background Logic
+                  background: isDark
+                    ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                    : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                  
+                  // Theme Adaptive Colors
+                  color: isDark ? "#B1D997" : "#0f172a",
+                  
+                  // Glass & Border
+                  backdropFilter: isDark ? "blur(12px)" : "none",
+                  WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                  border: isDark 
+                    ? "1px solid rgba(177, 217, 151, 0.4)" 
+                    : "1px solid rgba(177, 217, 151, 0.3)",
+                  
                   borderRadius: "12px",
-                  color: "#000000",
                   fontSize: "16px",
                   fontWeight: 800,
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
-                  transition: "all 0.3s ease",
-                  boxShadow: `0 10px 30px ${C.green}44`
+                  
+                  // Depth & Shadows
+                  boxShadow: isDark 
+                    ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                    : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  
+                  transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)"
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = `0 15px 40px ${C.green}66`; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = `0 10px 30px ${C.green}44`; }}
               >
                 Deploy Your AI Ecosystem <ArrowRight size={20} />
               </button>
+
             </a>
             
             <a 
@@ -250,24 +271,40 @@ export const FinalCTASection = () => {
               <button
                 style={{
                   padding: "16px 36px",
-                  background: "var(--color-glass-bg)",
-                  border: "1px solid var(--color-glass-border)",
+                  // Background Logic
+                  background: isDark
+                    ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                    : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                  
+                  // Theme Adaptive Colors
+                  color: isDark ? "#B1D997" : "#0f172a",
+                  
+                  // Glass & Border
+                  backdropFilter: isDark ? "blur(12px)" : "none",
+                  WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                  border: isDark 
+                    ? "1px solid rgba(177, 217, 151, 0.4)" 
+                    : "1px solid rgba(177, 217, 151, 0.3)",
+                  
                   borderRadius: "12px",
-                  color: "var(--color-text-bright)",
                   fontSize: "16px",
                   fontWeight: 700,
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
-                  transition: "all 0.3s ease",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  boxShadow: "var(--card-shadow), var(--card-shadow-inset)"
+                  
+                  // Depth & Shadows
+                  boxShadow: isDark 
+                    ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                    : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  
+                  transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)"
                 }}
               >
                 Talk to an Architect
               </button>
+
             </a>
           </motion.div>
 

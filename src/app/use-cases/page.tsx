@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import {
   Calendar, Mail, Phone, Bot, Hotel, Users, Headphones,
   Video, BarChart2, User, ClipboardList, Package,
-  MapPin, Share2, ArrowUpRight,
+  MapPin, Share2, ArrowUpRight, ChevronRight, Zap
 } from "lucide-react";
+import Link from "next/link";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
+import { useTheme } from "@/components/providers/ThemeProvider";
+import { useMobile } from "@/lib/hooks";
 
 // ── Design tokens ───────────────────────────────────────────────────────────
 const C = {
@@ -105,81 +108,162 @@ const useCases = [
   },
 ];
 
-// ── Card component (matching scalepods.co exactly) ───────────────────────────
+// ── Card component (Premium Glassmorphic Version) ───────────────────────────
 function UseCaseCard({ title, desc, icons, index }: {
   title: string; desc: string;
   icons: React.ElementType[]; index: number;
 }) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+  const isMobile = useMobile(768);
   const [Icon1, Icon2] = icons;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.45, delay: (index % 3) * 0.08 }}
-      className="use-case-card"
+      whileHover={isMobile ? undefined : { 
+        y: -10, 
+        transition: { duration: 0.3, ease: "easeOut" } 
+      }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+      style={{
+        position: "relative",
+        background: isDark 
+          ? "rgba(10, 15, 30, 0.4)" 
+          : "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.7) 100%)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        border: isDark 
+          ? "1px solid rgba(255, 255, 255, 0.08)" 
+          : "1px solid rgba(15, 23, 42, 0.08)",
+        borderRadius: "24px",
+        padding: "32px 24px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+        cursor: "pointer",
+        overflow: "hidden",
+        boxShadow: isDark
+          ? "0 20px 40px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05)"
+          : "0 20px 30px -10px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)",
+        transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+      }}
+      className="use-case-card group"
     >
-      {/* Inner dark panel — the "screen" / stage area */}
+      {/* Dynamic Hover Glow (Dark Mode only) */}
+      {isDark && (
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: "radial-gradient(circle at center, rgba(177, 217, 151, 0.05) 0%, transparent 70%)",
+          }}
+        />
+      )}
+
+      {/* Top stage area for icons */}
       <div style={{
-        background: "var(--color-bg-card-alt)",
+        position: "relative",
+        width: "100%",
+        height: "120px",
+        background: isDark 
+          ? "rgba(0, 0, 0, 0.2)" 
+          : "rgba(15, 23, 42, 0.02)",
         borderRadius: "16px",
-        padding: "36px 24px",
-        marginBottom: "28px",
+        marginBottom: "24px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        gap: "14px",
-        minHeight: "110px",
-        border: "1px solid var(--color-border-faint)",
+        gap: "16px",
+        border: isDark 
+          ? "1px solid rgba(255, 255, 255, 0.03)" 
+          : "1px solid rgba(15, 23, 42, 0.03)",
+        overflow: "hidden",
       }}>
-        {/* Icon box 1 */}
-        <div style={{
-          width: "60px", height: "60px",
-          background: "rgba(var(--color-bg-card-rgb), 0.5)",
-          border: "1px solid var(--color-border)",
-          borderRadius: "12px",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0,
-        }}>
-          <Icon1 style={{ width: "26px", height: "26px", color: "var(--color-green)", strokeWidth: 1.5 }} />
-        </div>
+        {/* Subtle grid background for the stage */}
+        <div className="absolute inset-0 opacity-[0.03]" 
+          style={{ 
+            backgroundImage: "radial-gradient(var(--color-green) 0.5px, transparent 0.5px)",
+            backgroundSize: "12px 12px"
+          }} 
+        />
 
-        {/* Icon box 2 */}
-        <div style={{
-          width: "60px", height: "60px",
-          background: "rgba(var(--color-bg-card-rgb), 0.5)",
-          border: "1px solid var(--color-border)",
-          borderRadius: "12px",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0,
-        }}>
-          <Icon2 style={{ width: "26px", height: "26px", color: "var(--color-green)", strokeWidth: 1.5 }} />
-        </div>
+        {[Icon1, Icon2].map((Icon, idx) => (
+          <motion.div
+            key={idx}
+            className="icon-box"
+            whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -5 : 5 }}
+            style={{
+              position: "relative",
+              width: "64px",
+              height: "64px",
+              background: isDark 
+                ? "rgba(15, 23, 42, 0.6)" 
+                : "rgba(255, 255, 255, 0.95)",
+              border: isDark 
+                ? "1px solid rgba(177, 217, 151, 0.2)" 
+                : "1px solid rgba(15, 23, 42, 0.1)",
+              borderRadius: "14px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2,
+              boxShadow: isDark
+                ? "0 10px 20px -5px rgba(0, 0, 0, 0.5)"
+                : "0 8px 16px -4px rgba(15, 23, 42, 0.06)",
+              transition: "all 0.3s ease",
+            }}
+          >
+            {/* Interaction Glow behind icon */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background: isDark 
+                  ? "radial-gradient(circle, rgba(177, 217, 151, 0.2) 0%, transparent 70%)"
+                  : "radial-gradient(circle, rgba(177, 217, 151, 0.1) 0%, transparent 70%)",
+                borderRadius: "inherit",
+              }}
+            />
+            <Icon style={{ 
+              width: "28px", 
+              height: "28px", 
+              color: isDark ? "#B1D997" : "#0f172a", 
+              strokeWidth: 1.5,
+              position: "relative",
+              zIndex: 3
+            }} />
+          </motion.div>
+        ))}
       </div>
 
       {/* Title */}
       <h3 style={{
-        fontFamily: "var(--font-inter), sans-serif",
+        fontFamily: F.inter,
         fontSize: "20px",
-        fontWeight: 600,
-        color: "var(--color-blue-mid)",
-        marginBottom: "10px",
+        fontWeight: 700,
+        color: isDark ? "#FFFFFF" : "#0f172a",
+        marginBottom: "12px",
         lineHeight: 1.3,
-        textAlign: "center",
+        transition: "color 0.3s ease",
       }}>
         {title}
       </h3>
 
       {/* Description */}
       <p style={{
-        fontFamily: "var(--font-inter), sans-serif",
+        fontFamily: F.inter,
         fontSize: "15px",
-        color: "var(--color-text-body)",
-        lineHeight: 1.65,
-        textAlign: "center",
+        color: isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(15, 23, 42, 0.7)",
+        lineHeight: 1.6,
+        margin: 0,
       }}>
         {desc}
       </p>
+
+      {/* Subtle hover indicator dot */}
+      <div className="mt-6 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--color-green)" }} />
+      </div>
     </motion.div>
   );
 }
@@ -187,11 +271,13 @@ function UseCaseCard({ title, desc, icons, index }: {
 
 // ── Main Use Cases Page ──────────────────────────────────────────────────────
 export default function UseCasesPage() {
+  const isMobile = useMobile(768);
+  
   return (
     <main style={{ background: C.bgPage, minHeight: "100vh" }}>
 
       {/* ── HEADER + GRID ─────────────────────────────────────────────── */}
-      <section style={{ padding: "120px 32px 96px" }}>
+      <section style={{ padding: isMobile ? "80px 20px 60px" : "120px 32px 96px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
 
           {/* Page header */}
@@ -210,11 +296,11 @@ export default function UseCasesPage() {
             </p>
           </div>
 
-          {/* 3-column grid */}
+          {/* Responsive grid */}
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "20px",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(360px, 1fr))",
+            gap: "24px",
           }}>
             {useCases.map((uc, i) => (
               <UseCaseCard key={uc.title} {...uc} index={i} />

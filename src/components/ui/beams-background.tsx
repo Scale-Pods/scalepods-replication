@@ -27,7 +27,8 @@ interface Beam {
 function createBeam(width: number, height: number): Beam {
     const angle = -35 + Math.random() * 10;
     // We'll alternate between the brand's green (H100) and blue (H210)
-    const brandHues = [100, 210];
+    const brandHues = [96, 210];
+
     const hue = brandHues[Math.floor(Math.random() * brandHues.length)] + (Math.random() * 20 - 10);
     
     return {
@@ -108,7 +109,8 @@ export function BeamsBackground({
             beam.width = 100 + Math.random() * 100;
             beam.speed = 1.0 + Math.random() * 1.2;
             // Alternate hues on reset as well
-            const brandHues = [100, 210];
+            const brandHues = [96, 210];
+
             beam.hue = brandHues[index % brandHues.length] + (Math.random() * 20 - 10);
             beam.opacity = 0.2 + Math.random() * 0.1;
             // Fixed length relative to viewport
@@ -214,6 +216,7 @@ export function BeamsBackground({
                     style={{
                         background: resolvedTheme === "dark" ? "rgba(4, 7, 13, 0.05)" : "rgba(255, 255, 255, 0.05)",
                         backdropFilter: "blur(20px)", 
+                        WebkitBackdropFilter: "blur(20px)",
                     }}
                     animate={{
                         opacity: [0.05, 0.15, 0.05],

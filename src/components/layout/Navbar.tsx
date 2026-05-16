@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Moon, Sun, Monitor } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { useRouter, usePathname } from "next/navigation";
 
 const ThemeToggle = memo(() => {
 
@@ -102,19 +103,19 @@ const navLinks = [
 ];
 
 const globalSections = [
-  { label: "Key Features", id: "ai-workflow" },
-  { label: "Sales Automation", id: "sales-automation" },
-  { label: "HR Workflow Automation", id: "hr-workflow" },
-  { label: "Operations Workflow", id: "operations-workflow" },
-  { label: "Marketing Automation", id: "marketing-workflow" },
-  { label: "Custom AI Workflow", id: "custom-ai" },
-  { label: "Enterprise Differentiation", id: "enterprise" },
-  { label: "Operational Lifecycle", id: "lifecycle" },
-  { label: "Why Choose Us", id: "why-choose-us" },
-  { label: "Services", id: "services" },
-  { label: "Reviews", id: "reviews" },
-  { label: "Features", id: "features" },
-  { label: "Contact us", id: "footer" },
+  { label: "Hero Section: Plug and Play Pods", id: "hero-plug-play" },
+  { label: "Key Features: Immersive View", id: "immersive-features" },
+  { label: "Sales Pod: CRM Intelligence", id: "sales-pod" },
+  { label: "HR: Operational Workflow", id: "hr-workflow" },
+  { label: "Operations: Procurement & Compliance", id: "ops-showcase" },
+  { label: "Marketing: AI Outreach", id: "marketing-showcase" },
+  { label: "Custom Workflow: Deep AI Logic", id: "custom-ai" },
+  { label: "Impact: Measurable Growth", id: "impact-showcase" },
+  { label: "Why Choose: Brand Advantages", id: "why-choose" },
+  { label: "Process: Orchestration Lifecycle", id: "process-showcase" },
+  { label: "Case Studies: Transformation Proof", id: "case-studies" },
+  { label: "Knowledge: AI Engine Q&A", id: "knowledge-showcase" },
+  { label: "Final CTA: Deploy Intelligence", id: "final-cta" },
 ];
 
 const Navbar = memo(() => {
@@ -123,6 +124,8 @@ const Navbar = memo(() => {
   const [globalExpanded, setGlobalExpanded] = useState(false);
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Throttled scroll listener
   useEffect(() => {
@@ -151,13 +154,20 @@ const Navbar = memo(() => {
     setGlobalExpanded(prev => !prev);
   }, []);
 
-  const handleSectionNav = useCallback((id: string) => {
-    setMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleSectionNav = (id: string) => {
+    // If we are already on the Global page (/gcc)
+    if (pathname === "/gcc") {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setMenuOpen(false);
+      }
+    } else {
+      // If we are on another page, navigate to /gcc with hash
+      router.push(`/gcc#${id}`);
+      setMenuOpen(false);
     }
-  }, []);
+  };
 
   // Close menu on ESC key
   useEffect(() => {

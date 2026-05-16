@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
+
 const C = {
   green: "var(--color-green)",
   greenBright: "var(--color-green)",
@@ -270,6 +271,7 @@ const workflowSlides = [
 export const ImmersiveFeatures = memo(() => {
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const handleCardClick = useCallback((id: string) => {
     const element = document.getElementById(id);
@@ -281,23 +283,24 @@ export const ImmersiveFeatures = memo(() => {
 
   return (
     <section 
-      id="ai-workflow"
+      id="immersive-features"
       className="immersive-features-section"
       style={{ 
-        padding: isMobile ? "60px 16px 60px" : "24px 32px 40px",
-        paddingBottom: isMobile ? "60px" : "40px",
+        padding: isMobile ? "40px 16px" : "12px 32px 60px",
         position: "relative", 
         overflow: "hidden",
         background: "transparent",
-        minHeight: isMobile ? "auto" : "100vh",
-
+        minHeight: isMobile ? "auto" : "90vh",
         display: "flex",
         alignItems: "center",
         touchAction: "pan-y",
         WebkitOverflowScrolling: "touch"
-
       }}
     >
+      <div id="revenue-tracking" style={{ position: "absolute", top: 0 }} />
+      <div id="financial-reports" style={{ position: "absolute", top: 0 }} />
+      <div id="category-analysis" style={{ position: "absolute", top: 0 }} />
+
 
 
 
@@ -310,14 +313,14 @@ export const ImmersiveFeatures = memo(() => {
           show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.05 : 0.08, delayChildren: 0.1 } }
         }}
         style={{
-          maxWidth: "1320px",
+          maxWidth: "1280px",
           margin: "0 auto",
           position: "relative",
           zIndex: 1,
           width: "100%",
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-          gap: isMobile ? "32px" : "40px",
+          gridTemplateColumns: isMobile ? "1fr" : "0.85fr 1.15fr",
+          gap: isMobile ? "24px" : "40px",
           alignItems: "center",
           transform: "translate3d(0,0,0)",
           willChange: "opacity"
@@ -363,12 +366,12 @@ export const ImmersiveFeatures = memo(() => {
           <h1
             style={{
               fontFamily: F.inter,
-              fontSize: "clamp(28px, 3.8vw, 42px)",
+              fontSize: "clamp(26px, 3.2vw, 38px)",
               fontWeight: 800,
               color: C.txtBright,
-              lineHeight: 1.1,
+              lineHeight: 1.15,
               marginBottom: "8px",
-              letterSpacing: "-0.04em",
+              letterSpacing: "-0.03em",
               maxWidth: "600px",
               margin: "0 auto 8px"
             }}
@@ -382,17 +385,17 @@ export const ImmersiveFeatures = memo(() => {
           <p
             style={{
               fontFamily: F.inter,
-              fontSize: "clamp(13px, 1.5vw, 15px)",
+              fontSize: "clamp(12px, 1.4vw, 14px)",
               color: C.txtBody,
-              lineHeight: 1.5,
+              lineHeight: 1.6,
               marginBottom: "12px",
               letterSpacing: "-0.01em",
-              opacity: 0.8,
-              maxWidth: "520px",
+              opacity: 0.75,
+              maxWidth: "480px",
               textAlign: "center"
             }}
           >
-            ScalePods provides a modular ecosystem of automated systems that work together to accelerate growth and eliminate manual overhead.
+            ScalePods provides a modular ecosystem of automated systems that work together to accelerate growth.
           </p>
 
           {/* Feature Cards */}
@@ -447,28 +450,45 @@ export const ImmersiveFeatures = memo(() => {
 
           <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "4px" }}>
             <Link href="/contact" style={{ textDecoration: "none" }}>
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: `0 8px 25px rgba(172, 215, 145, 0.3)` }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 style={{
-                  padding: "8px 28px",
-                  background: C.green,
-                  color: "#000",
-                  border: "none",
-                  borderRadius: "100px",
+                  padding: "16px 36px",
+                  // Background Logic
+                  background: isDark
+                    ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                    : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                  
+                  // Theme Adaptive Colors
+                  color: isDark ? "#B1D997" : "#0f172a",
+                  
+                  // Glass & Border
+                  backdropFilter: isDark ? "blur(12px)" : "none",
+                  WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                  border: isDark 
+                    ? "1px solid rgba(177, 217, 151, 0.4)" 
+                    : "1px solid rgba(177, 217, 151, 0.3)",
+                  
+                  borderRadius: "12px",
                   fontSize: "13px",
                   fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
                   cursor: "pointer",
-                  boxShadow: "var(--btn-shadow)",
+                  
+                  // Depth & Shadows
+                  boxShadow: isDark 
+                    ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                    : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  
+                  transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)"
                 }}
               >
                 Start Your Pilot <ArrowRight size={14} />
-              </motion.button>
+              </button>
             </Link>
           </div>
+
         </div>
 
         {/* Right Column: 3D Carousel (Order 2 on Desktop & Mobile) */}
@@ -497,14 +517,17 @@ export const ImmersiveFeatures = memo(() => {
           }}
         >
 
-          <div style={{ width: "100%", height: "100%", position: "relative" }}>
+          <div style={{ 
+            width: "100%", 
+            height: "100%", 
+            position: "relative",
+            paddingRight: isMobile ? "0" : "20px", // Safe space for chatbot
+            paddingBottom: isMobile ? "40px" : "0"
+          }}>
             <ThreeDCarousel 
               items={workflowSlides} 
               autoRotate={true}
-              rotateInterval={2000}
-
-              captionOffset={40}
-
+              rotateInterval={3000}
             />
           </div>
         </motion.div>

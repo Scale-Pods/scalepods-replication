@@ -101,7 +101,7 @@ export const ImpactShowcase = () => {
 
   return (
     <section 
-      id="enterprise"
+      id="impact-showcase"
       className="impact-section"
       style={{ 
         position: "relative",

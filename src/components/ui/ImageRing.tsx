@@ -142,6 +142,7 @@ export const ImageRing: React.FC<ImageRingProps> = ({
                   position: "relative",
                   background: "rgba(8, 10, 14, 0.95)",
                   backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
                   transition: "all 0.3s ease",
                 }}
               >

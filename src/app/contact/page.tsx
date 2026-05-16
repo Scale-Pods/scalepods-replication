@@ -25,6 +25,8 @@ import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import { useTheme } from "@/components/providers/ThemeProvider";
+
 
 // ── Design tokens (matching site) ──────────────────────────────────────────
 const C = {
@@ -250,6 +252,9 @@ function FaqAccordion() {
 // ── Main Contact Page ───────────────────────────────────────────────────────
 export default function ContactPage() {
   const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   const [form, setForm] = useState({
     name: "", email: "", phone: "", source: "", message: "", countryCode: "+971", customCode: "", customSource: ""
   });
@@ -713,103 +718,61 @@ export default function ContactPage() {
                     {/* Submit Button with lamp glow */}
                     <div style={{ position: "relative", marginTop: "8px" }}>
                       {/* Internal lamp glow for the button */}
-                      <div style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -6px)",
-                        width: "80%",
-                        height: "40px",
-                        background: "radial-gradient(ellipse at center, rgba(141, 199, 99, 0.15) 0%, transparent 70%)",
-                        pointerEvents: "none",
-                        zIndex: 0
-                      }} />
-                      <motion.button
+
+                      <button
                         type="submit"
                         disabled={loading}
-                        initial="rest"
-                        whileHover="hover"
-                        animate="rest"
                         style={{
                           position: "relative",
                           zIndex: 1,
                           width: "100%",
-                          padding: "12px 24px",
-                          background: "var(--color-green)",
-                          border: "1px solid var(--color-green)",
+                          padding: "16px 36px",
+                          // Background Logic
+                          background: isDark
+                            ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                            : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                          
+                          // Theme Adaptive Colors
+                          color: isDark ? "#B1D997" : "#0f172a",
+                          
+                          // Glass & Border
+                          backdropFilter: isDark ? "blur(12px)" : "none",
+                          WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                          border: isDark 
+                            ? "1px solid rgba(177, 217, 151, 0.4)" 
+                            : "1px solid rgba(177, 217, 151, 0.3)",
+                          
                           borderRadius: "12px",
-                          color: "#000",
-
                           fontSize: "15px",
-                          fontWeight: 600,
+                          fontWeight: 700,
                           cursor: loading ? "not-allowed" : "pointer",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           gap: "8px",
-                          WebkitBackdropFilter: "blur(12px)",
-                          backdropFilter: "blur(12px)",
-                          overflow: "hidden",
-                          transition: "all 0.3s ease"
+                          
+                          // Depth & Shadows
+                          boxShadow: isDark 
+                            ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                            : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                          
+                          transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)"
                         }}
                       >
-                        <div
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            pointerEvents: "none",
-                          }}
-                        />
 
-                        {/* Soft lamp wash — spreads on hover */}
-                        <motion.div
-                          variants={{
-                            rest: { opacity: 0.16, width: "140px", height: "50px" },
-                            hover: { opacity: 0.36, width: "260px", height: "80px" },
-                          }}
-                          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                          style={{
-                            position: "absolute",
-                            left: "50%",
-                            bottom: "-30px",
-                            transform: "translateX(-50%)",
-                            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
-                            pointerEvents: "none",
-                          }}
-                        />
-                        {/* Bottom lamp line — breathing pulse animation always on */}
-                        <motion.div
-                          animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
-                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                          style={{
-                            position: "absolute",
-                            bottom: 0,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            height: "1.5px",
-                            background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
-                            boxShadow: "0px 0px 12px 2px rgba(255,255,255,0.6)",
-                            pointerEvents: "none",
-                          }}
-                        />
                         {loading ? (
                           <>
-                            <motion.div
-                              animate={{ rotate: 360 }}
-                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                            >
-                              <Loader2 style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
-                            </motion.div>
-                            <span style={{ position: "relative", zIndex: 2 }}>Submitting...</span>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            <span>Sending...</span>
                           </>
                         ) : (
                           <>
-                            <Send size={18} style={{ position: "relative", zIndex: 2 }} />
-                            <span style={{ position: "relative", zIndex: 2 }}>Send Message</span>
+                            <span>Send Message</span>
+                            <Send style={{ width: "16px", height: "16px" }} />
                           </>
                         )}
-                      </motion.button>
+                      </button>
+
                     </div>
                   </form>
                 )}
@@ -900,64 +863,67 @@ export default function ContactPage() {
 
                 {/* GlowingButton-style link */}
                 <div style={{ position: "relative", display: "inline-block" }}>
-                  <div style={{
-                    position: "absolute", top: "50%", left: "50%",
-                    transform: "translate(-50%, -10px)",
-                    width: "240px", height: "120px",
-                    background: "radial-gradient(ellipse at center, rgba(255,255,255,0.09) 0%, transparent 65%)",
-                    zIndex: 0, pointerEvents: "none",
-                  }} />
-                  <motion.a
+                  <motion.div
+                    animate={{
+                      opacity: isDark ? [0.2, 0.4, 0.2] : [0.1, 0.2, 0.1],
+                    }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      inset: "-8px",
+                      background: "rgba(177, 217, 151, 0.25)",
+                      filter: "blur(14px)",
+                      borderRadius: "16px",
+                      zIndex: 0,
+                      pointerEvents: "none"
+                    }}
+                  />
+                  <a
                     href="https://wa.me/917680974640?text=Hi%20ScalePods!%20I%20have%20a%20question%20about%20your%20workflow%20automation%20services."
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover="hover"
-                    initial="rest"
-                    animate="rest"
                     style={{
-                      position: "relative", zIndex: 1,
-                      display: "inline-flex", alignItems: "center", gap: "6px",
-                      fontFamily: F.inter, fontSize: "14px", fontWeight: 600, color: "#000",
-                      background: "var(--color-green)", border: "1px solid var(--color-green)",
-                      borderRadius: "10px", padding: "11px 24px",
-
-                      textDecoration: "none", overflow: "hidden",
+                      position: "relative",
+                      zIndex: 1,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      fontFamily: F.inter,
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      letterSpacing: "-0.01em",
+                      textDecoration: "none",
+                      
+                      // Theme Adaptive Colors
+                      color: isDark ? "#B1D997" : "#0f172a",
+                      
+                      // Background Logic
+                      background: isDark
+                        ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                        : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                      
+                      // Glass & Border
+                      backdropFilter: isDark ? "blur(12px)" : "none",
+                      WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                      border: isDark 
+                        ? "1px solid rgba(177, 217, 151, 0.4)" 
+                        : "1px solid rgba(177, 217, 151, 0.3)",
+                      
+                      borderRadius: "10px",
+                      padding: "12px 28px",
+                      cursor: "pointer",
+                      
+                      // Depth & Shadows
+                      boxShadow: isDark 
+                        ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                        : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                      
+                      transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
                     }}
                   >
-                    {/* Soft lamp wash — spreads on hover */}
-                    <motion.div
-                      variants={{
-                        rest: { opacity: 0.16, width: "120px", height: "40px" },
-                        hover: { opacity: 0.36, width: "220px", height: "60px" },
-                      }}
-                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                      style={{
-                        position: "absolute",
-                        left: "50%",
-                        bottom: "-25px",
-                        transform: "translateX(-50%)",
-                        background: "radial-gradient(ellipse at center, rgba(255,255,255,0.35) 0%, transparent 70%)",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    {/* Bottom lamp line — breathing pulse animation always on */}
-                    <motion.div
-                      animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        height: "1.5px",
-                        background: "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255,255,255,0) 100%)",
-                        boxShadow: "0px 0px 10px 1px rgba(255,255,255,0.5)",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    <ArrowUpRight style={{ width: "14px", height: "14px", position: "relative", zIndex: 2 }} />
+                    <ArrowUpRight style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
                     <span style={{ position: "relative", zIndex: 2 }}>Ask A Question</span>
-                  </motion.a>
+                  </a>
                 </div>
               </motion.div>
 

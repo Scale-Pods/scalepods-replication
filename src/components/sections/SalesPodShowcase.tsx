@@ -121,10 +121,11 @@ export const SalesPodShowcase = memo(() => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <section 
-      id="sales-automation"
+      id="sales-pod"
       className="salespod-section"
       style={{ 
         position: "relative",
@@ -135,6 +136,8 @@ export const SalesPodShowcase = memo(() => {
         WebkitOverflowScrolling: "touch"
       }}
     >
+      <div id="crm-intelligence" style={{ position: "absolute", top: 0 }} />
+
       <style jsx>{`
         .salespod-section {
           padding: 64px 32px 72px;
@@ -313,58 +316,68 @@ export const SalesPodShowcase = memo(() => {
             <button 
               onClick={() => setIsModalOpen(true)}
               style={{
-                padding: "14px 32px",
-                background: C.green,
-                color: "#000",
-                border: "none",
+                padding: "16px 36px",
+                // Background Logic
+                background: isDark
+                  ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+                  : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                
+                // Theme Adaptive Colors
+                color: isDark ? "#B1D997" : "#0f172a",
+                
+                // Glass & Border
+                backdropFilter: isDark ? "blur(12px)" : "none",
+                WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                border: isDark 
+                  ? "1px solid rgba(177, 217, 151, 0.4)" 
+                  : "1px solid rgba(177, 217, 151, 0.3)",
+                
                 borderRadius: "12px",
-                fontSize: "14px",
+                fontSize: "15px",
                 fontWeight: 700,
                 display: "flex",
                 alignItems: "center",
                 gap: "10px",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
-                width: "fit-content",
-                transform: "translate3d(0,0,0)",
-                willChange: "transform, background"
+                
+                // Depth & Shadows
+                boxShadow: isDark 
+                  ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                  : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                
+                transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                width: "fit-content"
               }}
-              className="salespod-cta"
             >
               Download Sales Guide <Download size={18} />
             </button>
 
-            <motion.button
+            <button
               onClick={() => setIsPreviewOpen(!isPreviewOpen)}
-              whileHover={isMobile ? undefined : { scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
               style={{
                 padding: "12px 24px",
-                background: "var(--color-glass-bg)", 
-                backdropFilter: "blur(16px)",
-                border: "1px solid var(--color-glass-border)",
+                background: "rgba(177, 217, 151, 0.05)", 
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(177, 217, 151, 0.2)",
                 borderRadius: "12px",
-                color: C.green,
+                color: isDark ? "#B1D997" : "#0f172a",
                 fontSize: "13px",
                 fontWeight: 600,
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
                 cursor: "pointer",
-                transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
-                width: "fit-content",
-                transform: "translate3d(0,0,0)",
-                willChange: "transform"
+                transition: "all 0.3s ease",
+                width: "fit-content"
               }}
-
-              className="explore-trigger"
             >
               {isPreviewOpen ? (
                 <><ChevronUp size={14} /> Back to Live Dashboard</>
               ) : (
                 <><ChevronDown size={14} /> Explore Real Product Interface</>
               )}
-            </motion.button>
+            </button>
+
           </div>
         </motion.div>
 

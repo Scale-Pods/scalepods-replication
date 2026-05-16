@@ -218,8 +218,11 @@ export default function Hero() {
         <motion.div variants={fadeUp(0.5)} initial="initial" animate="animate"
           style={{ position: "relative", marginBottom: "24px", display: "inline-block" }}>
           <HeroButton href="/contact">
-            Book A Free Call <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "4px" }} />
+            Book A Free Call 
+            <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "4px" }} />
           </HeroButton>
+
+
         </motion.div>
 
         {/* Social Icons */}
@@ -295,74 +298,78 @@ export default function Hero() {
   );
 }
 
-// ── Hero CTA Button with lamp-glow hover effect ────────────────────────────────
 function HeroButton({ href, children }: { href: string; children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
-  
+  const isDark = resolvedTheme === 'dark';
+
   return (
     <Link href={href} style={{ textDecoration: "none", display: "inline-block" }}>
-      <motion.div
-        whileHover="hover"
-        initial="rest"
-        animate="rest"
-        style={{
-          position: "relative",
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "6px",
-          fontFamily: "var(--font-inter), Inter, sans-serif",
-          fontSize: "14px",
-          fontWeight: 600,
-          color: "#000",
-          background: "var(--color-green)",
-          WebkitBackdropFilter: "blur(10px)",
-          backdropFilter: "blur(10px)",
-          border: "1px solid var(--color-green)",
-          borderRadius: "12px",
-          padding: "12px 24px",
-          overflow: "hidden",
-          cursor: "pointer",
-          boxShadow: "0 4px 20px rgba(var(--color-green-rgb), 0.3)",
-
-          transition: "box-shadow 0.3s ease, transform 0.3s ease",
-        }}
-      >
-        {/* Soft lamp wash — spreads on hover */}
+      <div style={{ position: "relative" }}>
+        {/* Ambient Glow behind button (using #B1D997) */}
         <motion.div
-          variants={{
-            rest: { opacity: 0.16, width: "140px", height: "52px" },
-            hover: { opacity: 0.36, width: "280px", height: "84px" },
+          animate={{
+            opacity: isDark ? [0.2, 0.4, 0.2] : [0.1, 0.2, 0.1],
           }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: "-28px",
-            transform: "translateX(-50%)",
-            background: "radial-gradient(ellipse at center, var(--color-green) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
-        />
-        {/* Bottom lamp line — breathing pulse animation always on */}
-        <motion.div
-          animate={{ opacity: [0.5, 1, 0.5], width: ["40%", "70%", "40%"] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           style={{
             position: "absolute",
-            bottom: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            height: "1.5px",
-            background: "radial-gradient(50% 50% at 50% 50%, var(--color-text-bright) 0%, rgba(255,255,255,0) 100%)",
-            boxShadow: "0px 0px 12px 2px var(--color-green)",
-            pointerEvents: "none",
-            opacity: resolvedTheme === 'light' ? 0.6 : 1
+            inset: "-8px",
+            background: "rgba(177, 217, 151, 0.25)",
+            filter: "blur(14px)",
+            borderRadius: "16px",
+            zIndex: 0,
+            pointerEvents: "none"
           }}
         />
-        <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", gap: "5px" }}>
-          {children}
-        </span>
-      </motion.div>
+
+        <div
+          style={{
+            position: "relative",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
+            fontFamily: "var(--font-inter), Inter, sans-serif",
+            fontSize: "15px",
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+            
+            // Theme Adaptive Colors (#B1D997 for dark mode text)
+            color: isDark ? "#B1D997" : "#0f172a",
+            
+            // Background Logic (Gradient using #B1D997)
+            background: isDark
+              ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
+              : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+            
+            // Glass & Border (#B1D997 glow)
+            backdropFilter: isDark ? "blur(12px)" : "none",
+            WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+            border: isDark 
+              ? "1px solid rgba(177, 217, 151, 0.4)" 
+              : "1px solid rgba(177, 217, 151, 0.3)",
+            
+            borderRadius: "12px",
+            padding: "16px 36px",
+            cursor: "pointer",
+            
+            // Depth & Shadows
+            boxShadow: isDark 
+              ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+              : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+            
+            zIndex: 1,
+            transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+          }}
+        >
+          <span 
+            style={{ position: "relative", zIndex: 3, display: "flex", alignItems: "center", gap: "8px" }}
+          >
+            {children}
+          </span>
+        </div>
+      </div>
     </Link>
   );
 }
+
+

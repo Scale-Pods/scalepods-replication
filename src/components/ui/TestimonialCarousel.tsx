@@ -1,10 +1,9 @@
-"use client";
-
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useMobile } from "@/lib/hooks";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const C = {
   bgCard: "var(--color-bg-card)",
@@ -30,31 +29,31 @@ export const reviewsData = [
   {
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
-    quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction.”",
+    quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction. What stood out most was how quickly the team understood our workflow and customized the automation around it. The implementation felt seamless from day one, and the support throughout the process was proactive and reliable. Scalepods helped us simplify operations without slowing the team down.”",
     image: "/reviews/Anuj Ruia.jpeg"
   },
   {
     name: "Tejesh Lohiya",
     title: "Analytics Manager at Orchestra",
-    quote: "“Huge time-saver. Data is better organized. The insights we get now are actionable and fast.”",
+    quote: "“Huge time-saver. Data is better organized. The insights we get now are actionable and fast. Their automation systems reduced a lot of repetitive reporting work and improved visibility across our internal dashboards. The transition was smooth, and the team was responsive whenever adjustments were needed. It genuinely feels like we now operate with better clarity and speed.”",
     image: "/reviews/Tejesh Lohiya.jpeg"
   },
   {
     name: "Sharan Lekhi",
     title: "Founder at Krafty Animations",
-    quote: "“Game-changer. Automation flows run flawlessly. Our team now focuses only on what really matters.”",
+    quote: "“Game-changer. Automation flows run flawlessly. Our team now focuses only on what really matters. Scalepods helped us streamline communication, reduce manual coordination, and improve overall execution speed. The workflows are reliable, easy to manage, and built with real operational understanding. It’s one of the few systems we adopted that immediately started saving us valuable time.”",
     image: "/reviews/Sharan Lekhi.jpeg"
   },
   {
     name: "Shreyansh Jaiswal",
     title: "Founder at HobbyFi",
-    quote: "“Smooth setup. Their system replaced three tools. We saw improvements in just the first week.”",
+    quote: "“Smooth setup. Their system replaced three tools. We saw improvements in just the first week. The onboarding process was quick, the automation logic was easy to understand, and everything integrated well with our existing workflow. Scalepods made the transition feel effortless while improving response times and reducing operational overhead across multiple tasks.”",
     image: "/reviews/Shreyansh Jaiswal.avif"
   },
   {
     name: "Dhairya Shah",
     title: "Partner & CEO at Break The Code",
-    quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control.”",
+    quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control. The automation setup was thoughtfully structured and aligned well with our team’s daily operations. What impressed us most was the balance between flexibility and reliability. Scalepods delivered a system that feels efficient, scalable, and genuinely useful in day-to-day execution.”",
     image: "/reviews/Dhairya Shah.avif"
   }
 ];
@@ -63,6 +62,8 @@ export default function TestimonialCarousel() {
   const [active, setActive] = useState(0);
   const isMobile = useMobile(768);
   const { resolvedTheme } = useTheme();
+  const carouselRef = useRef(null);
+  const isInView = useInView(carouselRef, { once: false, amount: 0.2 });
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % reviewsData.length);
@@ -72,11 +73,12 @@ export default function TestimonialCarousel() {
     setActive((prev) => (prev - 1 + reviewsData.length) % reviewsData.length);
   }, []);
 
-  // Autoplay
+  // Autoplay — ONLY starts when section is in view
   useEffect(() => {
-    const timer = setInterval(next, 6000);
+    if (!isInView) return;
+    const timer = setInterval(next, 7000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, isInView]);
 
   const handleDragEnd = (e: any, { offset, velocity }: any) => {
     if (offset.x > 50) {
@@ -103,7 +105,7 @@ export default function TestimonialCarousel() {
     let filter = "none";
     let pointerEvents: "auto" | "none" = "none";
 
-    const xOffset = isMobile ? 60 : 320; // responsive spacing
+    const xOffset = isMobile ? 60 : 360; 
 
     if (isCenter) {
       x = 0;
@@ -115,44 +117,57 @@ export default function TestimonialCarousel() {
       x = -xOffset;
       scale = 0.85;
       opacity = 0.6;
-      filter = "grayscale(1) brightness(0.8) blur(3px)";
+      filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
     } else if (isRight) {
       x = xOffset;
       scale = 0.85;
       opacity = 0.6;
-      filter = "grayscale(1) brightness(0.8) blur(3px)";
+      filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
     } else {
-      // Hidden behind
-      x = diff < 0 ? -xOffset * 1.5 : xOffset * 1.5;
+      x = diff < 0 ? -xOffset * 1.6 : xOffset * 1.6;
       scale = 0.7;
       opacity = 0;
-      filter = "grayscale(1) blur(6px)";
+      filter = "grayscale(1) blur(8px)";
     }
 
     return { x, scale, opacity, zIndex, filter, pointerEvents, isCenter };
   };
 
   return (
-    <div className="relative w-full max-w-full overflow-hidden flex flex-col items-center justify-center py-4">
-      <div className="relative flex justify-center items-center w-full min-h-[380px]" style={{ perspective: 1000 }}>
+    <div ref={carouselRef} className="relative w-full max-w-full flex flex-col items-center justify-center py-8">
+      
+      {/* ── Desktop Navigation Arrows ── */}
+      {!isMobile && (
+        <>
+          <div style={{ position: "absolute", left: "40px", top: "50%", transform: "translateY(-50%)", zIndex: 100 }}>
+            <ArrowBtn dir="left" onClick={prev} />
+          </div>
+          <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", zIndex: 100 }}>
+            <ArrowBtn dir="right" onClick={next} />
+          </div>
+        </>
+      )}
+
+      <div className="relative flex justify-center items-center w-full min-h-[340px]" style={{ perspective: 1200 }}>
         <AnimatePresence initial={false}>
           {reviewsData.map((review, i) => {
             const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
 
             return (
               <motion.div
-                key={i}
+                key={review.name}
                 initial={false}
                 animate={{
-                  x,
+                  x: `calc(-50% + ${x}px)`,
+                  y: "-50%",
                   scale,
                   opacity,
                   zIndex,
                   filter,
                 }}
                 transition={{
-                  duration: 0.6,
-                  ease: [0.32, 0.72, 0, 1], // cinematic smooth ease
+                  duration: 0.7,
+                  ease: [0.32, 0.72, 0, 1],
                 }}
                 drag={isCenter ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
@@ -168,51 +183,87 @@ export default function TestimonialCarousel() {
                   position: "absolute",
                   pointerEvents: pointerEvents as any,
                   cursor: isCenter ? "grab" : "pointer",
-                  width: "100%",
-                  maxWidth: "500px",
-                  // Card base style
-                  background: C.bgCard,
-                  border: `1.5px solid ${C.border}`,
+                  width: "90%",
+                  maxWidth: "520px",
+                  top: "50%",
+                  left: "50%",
+                  // Exact Height Strategy
+                  minHeight: isMobile ? "380px" : "320px",
+                  maxHeight: isMobile ? "380px" : "320px",
+                  background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: isCenter 
+                    ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
+                    : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
                   borderRadius: "28px",
-                  padding: "32px",
+                  padding: isMobile ? "24px" : "20px 24px 12px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "24px",
-                  minHeight: "340px",
-                  // Highlight logic
-                  boxShadow: isCenter && resolvedTheme === 'dark'
-                    ? "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(132, 204, 22, 0.12)"
-                    : isCenter && resolvedTheme === 'light'
-                    ? "0 20px 40px rgba(0,0,0,0.08)"
+                  gap: "10px",
+                  // Premium 3D Depth
+                  boxShadow: isCenter 
+                    ? resolvedTheme === 'dark'
+                      ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                      : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
                     : "0 10px 30px rgba(0,0,0,0.05)",
-                  borderColor: isCenter 
-                    ? `rgba(132, 204, 22, ${resolvedTheme === 'dark' ? '0.3' : '0.15'})` 
-                    : C.border,
                 }}
                 className="transform-gpu"
               >
+                {/* Subtle Background Glow for Center Card */}
+                {isCenter && (
+                  <div style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "80%",
+                    height: "40%",
+                    background: resolvedTheme === 'dark'
+                      ? "radial-gradient(circle, rgba(177, 217, 151, 0.08) 0%, transparent 80%)"
+                      : "radial-gradient(circle, rgba(177, 217, 151, 0.05) 0%, transparent 80%)",
+                    zIndex: -1,
+                    pointerEvents: "none"
+                  }} />
+                )}
+
                 <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  <div style={{ position: "relative", width: "56px", height: "56px", borderRadius: "14px", overflow: "hidden", border: `1px solid ${C.border}`, flexShrink: 0 }}>
-                    <Image src={review.image} alt={review.name} fill className="object-cover" sizes="56px" />
+                  <div style={{ 
+                    position: "relative", 
+                    width: isMobile ? "44px" : "48px", 
+                    height: isMobile ? "44px" : "48px", 
+                    borderRadius: "12px", 
+                    overflow: "hidden", 
+                    border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                    flexShrink: 0 
+                  }}>
+                    <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid }}>{review.name}</span>
-                    <span style={{ fontFamily: F.inter, fontSize: "13px", color: C.green, marginTop: "2px", fontWeight: 500 }}>{review.title}</span>
+                    <span style={{ fontFamily: F.inter, fontSize: isMobile ? "15px" : "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
+                    <span style={{ 
+                      fontFamily: F.inter, 
+                      fontSize: isMobile ? "10px" : "11px", 
+                      color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                      marginTop: "1px", 
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.02em"
+                    }}>{review.title}</span>
                   </div>
                 </div>
 
-                <div style={{ width: "100%", height: "1px", background: "var(--color-border)" }} />
+                <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
 
-                <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+                <div style={{ flex: 1, display: "flex", alignItems: "flex-start", overflow: "hidden" }}>
                   <p style={{
-                    fontFamily: F.inter, fontSize: "15px", color: C.txtBody, lineHeight: 1.7, margin: 0,
-                    fontWeight: 450,
-                    // Equal height strategy: Line clamp for extreme cases, but generally min-height and flex-1 handles it
-                    display: "-webkit-box",
-                    WebkitLineClamp: 7,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis"
+                    fontFamily: F.inter, 
+                    fontSize: isMobile ? "13px" : "14px", 
+                    color: C.txtBody, 
+                    lineHeight: 1.5, 
+                    margin: 0,
+                    fontWeight: 400,
+                    opacity: 0.9,
                   }}>
                     {review.quote}
                   </p>
@@ -223,8 +274,9 @@ export default function TestimonialCarousel() {
         </AnimatePresence>
       </div>
 
+
       {/* Pagination dots */}
-      <div className="flex gap-3 mt-8">
+      <div className="flex gap-2.5 mt-8">
         {reviewsData.map((_, i) => (
           <button
             key={i}
@@ -233,7 +285,7 @@ export default function TestimonialCarousel() {
             style={{
               width: active === i ? "24px" : "8px",
               height: "8px",
-              background: active === i ? C.blueMid : "var(--color-border)",
+              background: active === i ? "rgba(177, 217, 151, 0.8)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
             }}
             aria-label={`Go to slide ${i + 1}`}
           />
@@ -242,3 +294,33 @@ export default function TestimonialCarousel() {
     </div>
   );
 }
+
+function ArrowBtn({ dir, onClick }: { dir: 'left' | 'right', onClick: () => void }) {
+  const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1, background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)" }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      style={{
+        width: isMobile ? "44px" : "56px",
+        height: isMobile ? "44px" : "56px",
+        borderRadius: "50%",
+        background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)",
+        backdropFilter: "blur(12px)",
+        border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "var(--color-text-bright)",
+        cursor: "pointer",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+        zIndex: 50,
+      }}
+    >
+      {dir === 'left' ? <ChevronLeft size={isMobile ? 20 : 28} /> : <ChevronRight size={isMobile ? 20 : 28} />}
+    </motion.button>
+  );
+}
+

@@ -24,11 +24,12 @@ const placeholderImages: Record<string, string> = {
 };
 
 export default async function BlogPage() {
-  // 1. Fetch from Supabase
+  // 1. Fetch from Supabase (Filter out 2026 posts)
   const { data: dbPosts, error } = await supabase
     .from("website_content")
     .select("*")
     .eq("status", "published")
+    .lt("published_at", "2026-01-01") // Only show posts before 2026
     .order("published_at", { ascending: false });
 
   if (error) console.error("[BlogPage] Supabase error:", error);
@@ -49,7 +50,11 @@ export default async function BlogPage() {
   }));
 
   // 3. Merge with static posts (filter out duplicates by slug)
-  const allPosts = [...dynamicPosts, ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))];
+  // 4. Final filter to ensure ONLY 2025 (or explicitly NOT 2026) posts are shown
+  const allPosts = [
+    ...dynamicPosts, 
+    ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))
+  ].filter(post => !post.date.includes("2026"));
 
   return (
     <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>

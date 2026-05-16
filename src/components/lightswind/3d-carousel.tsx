@@ -137,11 +137,11 @@ export const ThreeDCarousel = React.memo(({
 
   return (
     <div 
-      className="relative w-full flex flex-col items-center"
+      className="relative w-full flex flex-col items-center select-none"
       onPointerDown={() => setIsInteracting(true)}
       onPointerUp={() => setIsInteracting(false)}
       onPointerLeave={() => { if (isInteracting) setIsInteracting(false); }}
-      style={{ background: "transparent", overflow: "visible", touchAction: "pan-y" }}
+      style={{ background: "transparent", overflow: "visible", touchAction: "pan-y", zIndex: 1 }}
     >
 
       <div className="relative w-full flex flex-col items-center max-w-[900px] mx-auto">
@@ -162,170 +162,159 @@ export const ThreeDCarousel = React.memo(({
                 initial={false}
                 animate={{ 
                   opacity: isActive ? 1 : 0,
-                  scale: isActive ? 1 : 0.98,
-                  x: isActive ? 0 : (index < currentIndex ? -20 : 20),
+                  scale: isActive ? 1 : 0.95,
+                  x: isActive ? 0 : (index < currentIndex ? -30 : 30),
                   pointerEvents: isActive ? "auto" : "none",
-                  visibility: isActive ? "visible" : "hidden"
+                  visibility: isActive ? "visible" : "hidden",
+                  filter: isActive ? "blur(0px)" : "blur(10px)"
                 }}
                 transition={{ 
-                  duration: isMobile ? 0.35 : 0.5, 
+                  duration: isMobile ? 0.4 : 0.6, 
                   ease: [0.23, 1, 0.32, 1] 
                 }}
-                onDragStart={() => setIsInteracting(true)}
-                onDragEnd={handleDragEnd}
-                drag={isMobile && isActive ? "x" : false}
-
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.1}
-                className="absolute inset-0 w-full flex flex-col items-center"
+                className="absolute inset-0 w-full flex items-center justify-center"
                 style={{ 
-                  willChange: "transform, opacity",
+                  willChange: "transform, opacity, filter",
                   zIndex: isActive ? 20 : 10,
-                  position: isActive ? "relative" : "absolute",
-                  top: 0,
-                  left: 0
                 }}
-
-
-
               >
-                {/* Hero Dashboard Viewport - Clean & Contained */}
+                {/* ── Unified Premium Showcase Panel ── */}
                 <div 
-                  className="carousel-viewport relative w-full flex items-center justify-center"
+                  className="relative flex flex-col overflow-hidden"
                   style={{
-                    borderRadius: "28px",
                     width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transform: "translate3d(0,0,0)",
-                    willChange: "transform",
-                    background: "transparent",
-                    border: "none",
-                    boxShadow: "none",
-                    overflow: "visible"
+                    maxWidth: "840px",
+                    height: "auto",
+                    background: isDark 
+                      ? "linear-gradient(135deg, rgba(10, 15, 30, 0.7) 0%, rgba(5, 8, 22, 0.85) 100%)" 
+                      : "linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 250, 230, 0.6) 100%)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    border: `1px solid ${isDark ? "rgba(177, 217, 151, 0.12)" : "rgba(177, 217, 151, 0.25)"}`,
+                    borderRadius: "32px",
+                    padding: isMobile ? "12px" : "20px",
+                    boxShadow: isDark 
+                      ? "0 40px 80px -20px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(177, 217, 151, 0.03)"
+                      : "0 30px 60px -15px rgba(177, 217, 151, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.4)",
+                    transform: "translate3d(0,0,0)"
                   }}
-
                 >
-                  <div className="relative w-full h-full flex items-center justify-center p-3 md:p-6 min-h-[220px] md:min-h-[320px] lg:min-h-[420px]">
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.title}
-                      fill
-                      className="object-contain"
-                      style={{ 
-                        objectPosition: "center",
-                      }}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 900px"
-                      priority={isActive}
-                      loading={isActive ? "eager" : "lazy"}
-                    />
-                  </div>
-                </div>
+                  {/* Subtle Top Shine */}
+                  <div style={{
+                    position: "absolute", top: 0, left: "15%", right: "15%", height: "1px",
+                    background: isDark 
+                      ? "linear-gradient(90deg, transparent, rgba(177, 217, 151, 0.3), transparent)"
+                      : "linear-gradient(90deg, transparent, rgba(177, 217, 151, 0.5), transparent)",
+                    zIndex: 10
+                  }} />
 
-                {/* Navigation & Caption Block - Clean Spacing & Alignment */}
-                <div 
-                  className="relative w-full flex items-center justify-center px-4 mt-2 md:mt-4"
-                >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  
-                  {/* Left Button - Beside Caption */}
-                  {!isMobile && isActive && (
-                    <button
-                      onClick={prevSlide}
-                      className="absolute left-0 w-[50px] h-[50px] rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 group z-50"
-                      style={{
-                        background: "rgba(255,255,255,0.92)",
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        backdropFilter: "blur(14px)",
-                        WebkitBackdropFilter: "blur(14px)",
-                        color: "#0F172A",
-                        boxShadow: "0 4px 12px rgba(15,23,42,0.08)",
-                        transform: !isMobile ? `translateY(-${captionOffset * 0.6}px)` : "none"
-                      }}
-                    >
-                      <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
-                    </button>
-
-
-                  )}
-
-                  {/* Restored Text Content Layout */}
+                  {/* Image Showcase Zone */}
                   <div 
-                    className="flex flex-col items-center text-center max-w-[540px] px-14 md:px-0"
-                    style={{ transform: !isMobile ? `translateY(-${captionOffset}px)` : "none" }}
+                    className="relative w-full overflow-hidden"
+                    style={{
+                      borderRadius: "20px",
+                      background: isDark ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.3)",
+                      aspectRatio: isMobile ? "16/10" : "16/9.5",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      position: "relative",
+                      border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.02)"}`,
+                    }}
                   >
+                    <div style={{ position: "relative", width: "95%", height: "95%" }}>
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.title}
+                        fill
+                        className="object-contain"
+                        style={{ 
+                          objectPosition: "center",
+                          filter: isDark ? "drop-shadow(0 20px 40px rgba(0,0,0,0.5))" : "drop-shadow(0 15px 30px rgba(0,0,0,0.05))"
+                        }}
+                        sizes="(max-width: 768px) 100vw, 900px"
+                        priority={isActive}
+                      />
+                    </div>
 
-                    <span 
-                      className="uppercase block mb-4 mx-auto"
-                      style={{ 
-                        color: isDark ? "var(--color-green)" : "#84CC16",
-                        fontSize: isDark ? "11px" : "12px",
-                        fontWeight: 900,
-                        letterSpacing: "0.45em",
-                        textShadow: isDark ? "none" : "0 0 12px rgba(132,204,22,0.15)",
-                        background: "transparent",
-                        width: "fit-content",
-                        lineHeight: "1"
-                      }}
-                    >
+                    {/* Left/Right Arrows - Embedded in Image Zone */}
+                    {!isMobile && (
+                      <>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+                          className="absolute left-4 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md z-50 group"
+                        >
+                          <ChevronLeft size={20} color={isDark ? "#fff" : "#000"} className="group-hover:-translate-x-0.5 transition-transform" />
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+                          className="absolute right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md z-50 group"
+                        >
+                          <ChevronRight size={20} color={isDark ? "#fff" : "#000"} className="group-hover:translate-x-0.5 transition-transform" />
+                        </button>
+                      </>
+                    )}
+                  </div>
 
-                      {item.systemLabel || "ScalePods System"}
-                    </span>
+                  {/* Caption Zone */}
+                  <div 
+                    className="flex flex-col items-center text-center w-full mt-4 pb-2"
+                    style={{ padding: isMobile ? "0 8px" : "0 40px" }}
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      <div style={{ height: "1px", width: "20px", background: isDark ? "rgba(177, 217, 151, 0.4)" : "rgba(177, 217, 151, 0.6)" }} />
+                      <span style={{ 
+                        color: isDark ? "var(--color-green)" : "#74B34B",
+                        fontSize: "10px",
+                        fontWeight: 800,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase"
+                      }}>
+                        {item.systemLabel || "System Module"}
+                      </span>
+                      <div style={{ height: "1px", width: "20px", background: isDark ? "rgba(177, 217, 151, 0.4)" : "rgba(177, 217, 151, 0.6)" }} />
+                    </div>
+
                     <h3 
-                      className="text-xl md:text-3xl font-extrabold tracking-tight mb-3"
-                      style={{ color: isDark ? "#FFFFFF" : "#0F172A" }}
+                      style={{ 
+                        fontSize: isMobile ? "20px" : "24px", 
+                        fontWeight: 800, 
+                        color: isDark ? "#fff" : "#0f172a",
+                        marginBottom: "6px",
+                        letterSpacing: "-0.02em"
+                      }}
                     >
                       {item.heading || item.title}
                     </h3>
-                    {item.subtitle && (
-                      <p 
-                        className="text-[12px] md:text-sm font-bold mb-4 opacity-90"
-                        style={{ color: isDark ? "var(--color-green)" : "#475467" }}
-                      >{item.subtitle}</p>
-                    )}
+                    
                     <p 
-                      className="text-[12px] md:text-[15px] leading-relaxed opacity-80"
-                      style={{ color: isDark ? "#B8C7D9" : "#667085", maxWidth: "600px" }}
+                      style={{ 
+                        fontSize: isMobile ? "13px" : "14.5px", 
+                        lineHeight: 1.5, 
+                        color: isDark ? "rgba(255,255,255,0.7)" : "#475467",
+                        maxWidth: "600px",
+                        margin: 0
+                      }}
                     >
                       {item.description}
                     </p>
+
+                    {/* Indicator Dots - Inside Card */}
+                    <div className="flex gap-2 mt-4">
+                      {items.map((_, i) => (
+                        <div 
+                          key={i} 
+                          style={{ 
+                            width: i === currentIndex ? "20px" : "6px",
+                            height: "6px",
+                            borderRadius: "10px",
+                            background: i === currentIndex ? "var(--color-green)" : (isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.1)"),
+                            transition: "all 0.3s ease"
+                          }} 
+                        />
+                      ))}
+                    </div>
                   </div>
-
-
-                  {/* Right Button - Beside Caption */}
-                  {!isMobile && isActive && (
-                    <button
-                      onClick={nextSlide}
-                      className="absolute right-0 w-[50px] h-[50px] rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 group z-50"
-                      style={{
-                        background: "rgba(255,255,255,0.92)",
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        backdropFilter: "blur(14px)",
-                        WebkitBackdropFilter: "blur(14px)",
-                        color: "#0F172A",
-                        boxShadow: "0 4px 12px rgba(15,23,42,0.08)",
-                        transform: !isMobile ? `translateY(-${captionOffset * 0.6}px)` : "none"
-                      }}
-                    >
-                      <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
-                    </button>
-
-
-                  )}
                 </div>
               </motion.div>
             );
@@ -335,81 +324,40 @@ export const ThreeDCarousel = React.memo(({
 
       <style jsx>{`
         .carousel-viewport {
-          height: 520px;
+          height: auto;
           min-height: 480px;
-          max-height: 560px;
         }
 
-
-
-
-        @media (max-width: 1440px) {
-          .carousel-viewport {
-            height: 480px;
-          }
-        }
         @media (max-width: 1024px) {
           .carousel-viewport {
-            height: 420px;
+            min-height: 400px;
           }
         }
         @media (max-width: 768px) {
           .carousel-viewport {
-            height: 320px;
+            min-height: 300px;
           }
         }
-
-
-
       `}</style>
 
 
-      {/* Mobile Indicator Row */}
+      {/* Mobile Control Row (if needed outside card) */}
       {isMobile && (
-        <div className="flex gap-6 items-center mt-6" style={{ touchAction: "none" }}>
+        <div className="flex gap-4 items-center mt-4">
           <button
             onClick={prevSlide}
-            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
-            style={{
-              background: "rgba(255,255,255,0.92)",
-              border: "1px solid rgba(15,23,42,0.08)",
-              backdropFilter: "blur(14px)",
-              color: "#0F172A",
-              boxShadow: "0 4px 12px rgba(15,23,42,0.08)",
-              transform: "translate3d(0,0,0)",
-              willChange: "transform"
-            }}
+            className="w-10 h-10 rounded-full flex items-center justify-center active:scale-90 transition-transform bg-white/10 border border-white/10 backdrop-blur-md"
+            style={{ color: isDark ? "#fff" : "#000" }}
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={20} />
           </button>
-          <div className="flex gap-2">
-            {items.map((_, i) => (
-              <div 
-                key={i} 
-                className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-5' : 'w-1'}`} 
-                style={{ 
-                  background: i === currentIndex ? "var(--color-green)" : (isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"),
-                  transform: "translate3d(0,0,0)"
-                }} 
-              />
-            ))}
-          </div>
           <button
             onClick={nextSlide}
-            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
-            style={{
-              background: "rgba(255,255,255,0.92)",
-              border: "1px solid rgba(15,23,42,0.08)",
-              backdropFilter: "blur(14px)",
-              color: "#0F172A",
-              boxShadow: "0 4px 12px rgba(15,23,42,0.08)",
-              transform: "translate3d(0,0,0)",
-              willChange: "transform"
-            }}
+            className="w-10 h-10 rounded-full flex items-center justify-center active:scale-90 transition-transform bg-white/10 border border-white/10 backdrop-blur-md"
+            style={{ color: isDark ? "#fff" : "#000" }}
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={20} />
           </button>
-
         </div>
       )}
 
