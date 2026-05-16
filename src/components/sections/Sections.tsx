@@ -120,12 +120,14 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
       <div style={{
         position: "relative",
         display: "flex", alignItems: "center", gap: "8px",
-        fontFamily: F.inter, fontSize: "15px", fontWeight: 600, color: "var(--color-green)",
-        background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
-        border: `1px solid var(--color-border)`,
+        fontFamily: F.inter, fontSize: "15px", fontWeight: 600, color: "#000",
+        background: "var(--color-green)",
+        border: `1px solid var(--color-green)`,
         borderRadius: "12px", padding: "14px 32px",
         overflow: "hidden",
+        boxShadow: "0 4px 20px rgba(var(--color-green-rgb), 0.3)",
       }}>
+
         {/* Soft lamp wash that spreads towards edges on hover */}
         <motion.div
           variants={{
@@ -148,24 +150,7 @@ export function GlowingButton({ href, children }: { href: string; children: Reac
           {children}
         </span>
 
-        {/* Intense bottom spotlight glow */}
-        <motion.div
-          variants={{ rest: { opacity: 0.75, width: "45%" }, hover: { opacity: 1, width: "85%" } }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: "absolute", bottom: "-4px", left: "50%", transform: "translateX(-50%)", x: "-50%",
-            height: "8px", background: "var(--color-text-bright)", filter: "blur(6px)", borderRadius: "50%"
-          }}
-        />
-        {/* Sharp bottom edge light */}
-        <motion.div
-          variants={{ rest: { opacity: 1, width: "30%" }, hover: { opacity: 1, width: "70%" } }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", x: "-50%",
-            height: "1.5px", background: "var(--color-text-bright)"
-          }}
-        />
+
       </div>
     </motion.a>
   );
@@ -1239,9 +1224,10 @@ export function Comparison() {
       {/* Evaluate CTA */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: "32px" }}>
         <GlowingButton href="/contact">
-          <span style={{ color: C.green }}>Evaluate Your Funnel</span> <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "6px", color: C.green }} />
+          <span>Evaluate Your Funnel</span> <ArrowUpRight style={{ width: "15px", height: "15px", marginLeft: "6px" }} />
         </GlowingButton>
       </div>
+
     </Section>
   );
 }
@@ -2288,9 +2274,11 @@ export function FinalCTA() {
         {/* Glowing Button */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "48px" }}>
           <GlowingButton href="/contact">
-            <span style={{ color: C.green }}>Book A Free Call</span> <ArrowUpRight style={{ width: "16px", height: "16px", marginLeft: "6px", color: C.green }} />
+            <span>Book A Free Call</span> <ArrowUpRight style={{ width: "16px", height: "16px", marginLeft: "6px" }} />
           </GlowingButton>
         </div>
+
+
 
         {/* Social Line */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "32px", marginBottom: "32px", color: "var(--color-blue-bright)" }}>

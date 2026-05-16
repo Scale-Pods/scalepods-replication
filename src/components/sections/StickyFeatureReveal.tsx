@@ -109,9 +109,10 @@ export const StickyFeatureReveal = () => {
                                         fontFamily: F.inter,
                                         fontSize: "15px",
                                         fontWeight: 600,
-                                        color: "#FFFFFF",
-                                        background: "rgba(8,10,16,0.8)",
-                                        border: "1px solid rgba(255,255,255,0.1)",
+                                        color: "#000",
+                                        background: "#ACD791",
+                                        border: "none",
+
                                         borderRadius: "12px",
                                         padding: "14px 32px",
                                         cursor: "pointer",
@@ -119,7 +120,8 @@ export const StickyFeatureReveal = () => {
                                         boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
                                     }}
                                 >
-                                    <Download size={18} className="text-[#ACD791]" />
+                                    <Download size={18} className="text-black" />
+
                                     <span>Download the Feature Guide</span>
                                 </button>
                             </motion.div>

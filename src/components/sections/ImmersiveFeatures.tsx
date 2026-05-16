@@ -284,15 +284,18 @@ export const ImmersiveFeatures = memo(() => {
       id="ai-workflow"
       className="immersive-features-section"
       style={{ 
-        padding: isMobile ? "60px 16px 40px" : "24px 32px 32px",
+        padding: isMobile ? "60px 16px 60px" : "24px 32px 40px",
+        paddingBottom: isMobile ? "60px" : "40px",
         position: "relative", 
         overflow: "hidden",
         background: "transparent",
-        minHeight: isMobile ? "auto" : "calc(100vh - 80px)",
+        minHeight: isMobile ? "auto" : "100vh",
+
         display: "flex",
         alignItems: "center",
         touchAction: "pan-y",
         WebkitOverflowScrolling: "touch"
+
       }}
     >
 
@@ -478,13 +481,19 @@ export const ImmersiveFeatures = memo(() => {
             position: "relative",
             width: "100%",
             height: "auto",
-            minHeight: isMobile ? "400px" : "500px",
+            minHeight: isMobile ? "400px" : "540px",
+
+
+
+            paddingTop: isMobile ? "0" : "0",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             overflow: "visible",
             top: isMobile ? "0" : "-10px",
             willChange: "transform, opacity"
+
+
           }}
         >
 
@@ -492,7 +501,10 @@ export const ImmersiveFeatures = memo(() => {
             <ThreeDCarousel 
               items={workflowSlides} 
               autoRotate={true}
-              rotateInterval={5000}
+              rotateInterval={2000}
+
+              captionOffset={40}
+
             />
           </div>
         </motion.div>

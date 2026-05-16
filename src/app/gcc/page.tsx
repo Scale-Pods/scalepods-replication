@@ -416,9 +416,9 @@ export default function UAEPage() {
                     fontFamily: F.inter,
                     fontSize: "14px",
                     fontWeight: 600,
-                    color: resolvedTheme === 'light' ? "#000" : "var(--color-text-bright)",
-                    background: resolvedTheme === 'light' ? C.green : "var(--color-bg-card-alt)",
-                    border: resolvedTheme === 'light' ? "none" : "1px solid var(--color-border)",
+                    color: "#000",
+                    background: C.green,
+                    border: "none",
                     borderRadius: "12px",
                     padding: "14px 36px",
                     cursor: "pointer",
@@ -429,11 +429,13 @@ export default function UAEPage() {
                     justifyContent: "center",
                     whiteSpace: "nowrap",
                     transition: "all 0.3s ease",
-                    boxShadow: resolvedTheme === 'light' ? "0 4px 20px rgba(var(--color-green-rgb), 0.3)" : "none"
+                    boxShadow: "0 4px 20px rgba(var(--color-green-rgb), 0.3)"
+
                   }}
 
                 >
-                  <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2, color: C.green }} />
+                  <Download style={{ width: "14px", height: "14px", position: "relative", zIndex: 2, color: "#000" }} />
+
                   <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
                 </button>
               </div>
@@ -682,10 +684,11 @@ export default function UAEPage() {
                         zIndex: 1,
                         width: "100%",
                         padding: "12px 24px",
-                        background: "var(--color-bg-card)",
+                        background: "var(--color-green)",
                         border: "1px solid var(--color-green)",
                         borderRadius: "12px",
-                        color: "var(--color-text-bright)",
+                        color: "#000",
+
                         fontSize: "14px",
                         fontWeight: 600,
                         cursor: loading ? "not-allowed" : "pointer",

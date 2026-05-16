@@ -313,16 +313,17 @@ function HeroButton({ href, children }: { href: string; children: React.ReactNod
           fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: "14px",
           fontWeight: 600,
-          color: resolvedTheme === 'dark' ? "var(--color-green)" : "#111111",
-          background: resolvedTheme === 'dark' ? "var(--color-bg-card)" : "#ffffff",
+          color: "#000",
+          background: "var(--color-green)",
           WebkitBackdropFilter: "blur(10px)",
           backdropFilter: "blur(10px)",
-          border: resolvedTheme === 'dark' ? "1px solid var(--color-border)" : "1px solid rgba(0,0,0,0.08)",
+          border: "1px solid var(--color-green)",
           borderRadius: "12px",
           padding: "12px 24px",
           overflow: "hidden",
           cursor: "pointer",
-          boxShadow: resolvedTheme === 'dark' ? undefined : "0 4px 20px rgba(0,0,0,0.06)",
+          boxShadow: "0 4px 20px rgba(var(--color-green-rgb), 0.3)",
+
           transition: "box-shadow 0.3s ease, transform 0.3s ease",
         }}
       >

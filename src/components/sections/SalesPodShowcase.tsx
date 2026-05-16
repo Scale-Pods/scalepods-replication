@@ -372,7 +372,10 @@ export const SalesPodShowcase = memo(() => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          minHeight: isMobile ? (isPreviewOpen ? "600px" : "540px") : "520px",
+          minHeight: isMobile ? (isPreviewOpen ? "600px" : "540px") : "540px",
+          paddingTop: isMobile ? "0" : "0",
+
+
           height: "auto",
           order: 2,
           transition: "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)",

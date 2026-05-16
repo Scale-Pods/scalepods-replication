@@ -735,10 +735,11 @@ export default function ContactPage() {
                           zIndex: 1,
                           width: "100%",
                           padding: "12px 24px",
-                          background: "var(--color-bg-card)",
+                          background: "var(--color-green)",
                           border: "1px solid var(--color-green)",
                           borderRadius: "12px",
-                          color: "var(--color-text-bright)",
+                          color: "#000",
+
                           fontSize: "15px",
                           fontWeight: 600,
                           cursor: loading ? "not-allowed" : "pointer",
@@ -756,10 +757,10 @@ export default function ContactPage() {
                           style={{
                             position: "absolute",
                             inset: 0,
-                            boxShadow: "inset 0px -16px 30px -14px rgba(255,255,255,0.32)",
                             pointerEvents: "none",
                           }}
                         />
+
                         {/* Soft lamp wash — spreads on hover */}
                         <motion.div
                           variants={{
@@ -916,9 +917,10 @@ export default function ContactPage() {
                     style={{
                       position: "relative", zIndex: 1,
                       display: "inline-flex", alignItems: "center", gap: "6px",
-                      fontFamily: F.inter, fontSize: "14px", fontWeight: 600, color: C.green,
-                      background: C.bgInput, border: "1px solid rgba(172, 215, 145, 0.35)",
+                      fontFamily: F.inter, fontSize: "14px", fontWeight: 600, color: "#000",
+                      background: "var(--color-green)", border: "1px solid var(--color-green)",
                       borderRadius: "10px", padding: "11px 24px",
+
                       textDecoration: "none", overflow: "hidden",
                     }}
                   >

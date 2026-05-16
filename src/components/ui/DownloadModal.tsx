@@ -255,12 +255,13 @@ export default function DownloadModal({
                         zIndex: 1,
                         width: "100%",
                         padding: "12px 24px",
-                        background: "var(--color-bg-card-alt)",
+                        background: "var(--color-green)",
                         border: "1px solid var(--color-green)",
                         borderRadius: "12px",
-                        color: "var(--color-text-bright)",
+                        color: "#000",
                         fontSize: "15px",
                         fontWeight: 600,
+
                         cursor: loading ? "not-allowed" : "pointer",
                         display: "flex",
                         alignItems: "center",
@@ -278,14 +279,7 @@ export default function DownloadModal({
                         boxShadow: "inset 0px -16px 30px -14px rgba(var(--color-green-rgb), 0.1)",
                         pointerEvents: "none"
                       }} />
-                      <div style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: "10%",
-                        right: "10%",
-                        height: "1px",
-                        background: "var(--color-green)",
-                      }} />
+
                       {loading ? (
                         <>
                           <Loader2 className="animate-spin" size={18} />

@@ -148,7 +148,10 @@ export const HRShowcase = memo(() => {
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          minHeight: isMobile ? (isPreviewOpen ? "600px" : "540px") : "520px",
+          minHeight: isMobile ? (isPreviewOpen ? "600px" : "540px") : "540px",
+          paddingTop: isMobile ? "0" : "0",
+
+
           height: "auto",
           perspective: "1200px",
           order: isMobile ? 2 : 1,
