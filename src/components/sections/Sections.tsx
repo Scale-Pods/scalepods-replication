@@ -595,7 +595,7 @@ export function DataAnalysis() {
             { text: "find" },
             { text: "what" },
             { text: "to" },
-            { text: "automate,", italic: true, accentColor: "#ACD791" },
+            { text: "automate", italic: true, accentColor: "#ACD791" },
             { text: "who" },
             { text: "your" },
             { text: "users" },
@@ -616,7 +616,7 @@ export function DataAnalysis() {
             { text: "and" },
             { text: "launch" },
             { text: "custom", italic: true, accentColor: "#ACD791" },
-            { text: "solutions.\"", italic: true, accentColor: "#ACD791" },
+            { text: "solutions.", italic: true, accentColor: "#ACD791" },
           ]}
           fontFamily={F.inter}
           fontSize={isMobile ? "22px" : "clamp(18px, 2.5vw, 30px)"}
