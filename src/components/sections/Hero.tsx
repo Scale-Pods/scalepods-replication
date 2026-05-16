@@ -7,6 +7,8 @@ import { InstagramIcon, LinkedinIcon } from "@/components/Icons";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import Link from "next/link";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { useMobile } from "@/lib/hooks";
+
 
 const fadeUp = (delay = 0): Variants => ({
   initial: { opacity: 0, y: 16, filter: "blur(6px)" },
@@ -30,6 +32,8 @@ const scaleIn = (delay = 0): Variants => ({
 
 export default function Hero() {
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(768);
+
   
   return (
     <section
@@ -70,7 +74,7 @@ export default function Hero() {
       {/* ── CONTENT ── */}
       <div
         className="relative z-[3] flex flex-col items-center text-center px-6 max-w-5xl mx-auto w-full"
-        style={{ paddingTop: "160px", paddingBottom: "80px" }}
+        style={{ paddingTop: isMobile ? "100px" : "160px", paddingBottom: isMobile ? "60px" : "80px" }}
       >
         {/* App Icon Box — slightly larger, glow rings removed per user request */}
         <motion.div variants={scaleIn(0.05)} initial="initial" animate="animate"
@@ -196,12 +200,12 @@ export default function Hero() {
           className="hero-subtext"
           style={{
             fontFamily: "var(--font-inter), Inter, sans-serif",
-            fontSize: "15px",
+            fontSize: isMobile ? "14px" : "15px",
             fontWeight: 400,
             lineHeight: 1.6,
             maxWidth: "720px",
             marginBottom: "28px",
-            whiteSpace: "nowrap",
+            whiteSpace: "normal",
             color: resolvedTheme === 'dark' ? undefined : "#475569",
             backgroundImage: resolvedTheme === 'dark'
               ? "linear-gradient(90deg, #7f90a6 0%, #FFFFFF 50%, #7f90a6 100%)"
@@ -213,6 +217,7 @@ export default function Hero() {
         >
           We build smart workflows that automate the repetitive, reduce overheads and keep teams lean.
         </motion.p>
+
 
         {/* CTA Button — lamp glow on hover (matches reference) */}
         <motion.div variants={fadeUp(0.5)} initial="initial" animate="animate"

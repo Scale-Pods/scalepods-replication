@@ -29,6 +29,19 @@ const instrumentSerif = localFont({
 });
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F8FAF7" },
+    { media: "(prefers-color-scheme: dark)", color: "#04070D" },
+  ],
+};
+
 
 export const metadata: Metadata = {
   title: "ScalePods – New Gen AI Automation Partner",

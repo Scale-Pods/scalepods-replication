@@ -560,6 +560,10 @@ export function DataAnalysis() {
         justifyContent: "center",
         textAlign: "center",
         minHeight: isMobile ? "auto" : "600px",
+        padding: isMobile ? "80px 24px" : "100px 32px",
+        width: "100%",
+        maxWidth: "100vw",
+        overflow: "hidden"
       }}>
       <style>{`
         @keyframes marquee {

@@ -105,7 +105,7 @@ export default function TestimonialCarousel() {
     let filter = "none";
     let pointerEvents: "auto" | "none" = "none";
 
-    const xOffset = isMobile ? 60 : 360; 
+    const xOffset = isMobile ? 25 : 360; 
 
     if (isCenter) {
       x = 0;
@@ -115,13 +115,13 @@ export default function TestimonialCarousel() {
       pointerEvents = "auto";
     } else if (isLeft) {
       x = -xOffset;
-      scale = 0.85;
-      opacity = 0.6;
+      scale = isMobile ? 0.8 : 0.85;
+      opacity = isMobile ? 0 : 0.6;
       filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
     } else if (isRight) {
       x = xOffset;
-      scale = 0.85;
-      opacity = 0.6;
+      scale = isMobile ? 0.8 : 0.85;
+      opacity = isMobile ? 0 : 0.6;
       filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
     } else {
       x = diff < 0 ? -xOffset * 1.6 : xOffset * 1.6;
