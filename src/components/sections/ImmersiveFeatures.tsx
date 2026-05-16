@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { memo, useCallback } from "react";
+
 import { motion } from "framer-motion";
 import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
 import { ChevronRight, ArrowRight, Zap, Users, Settings, PenTool, Layers } from "lucide-react";
@@ -32,12 +33,13 @@ const G = {
 };
 
 const features = [
-  { id: "sales-pod-showcase", title: "Sales Automation", desc: "Automated lead scraping & outreach.", outcome: "3x More Booked Demos", icon: <Zap size={14} /> },
-  { id: "hr-section", title: "HR Automation", desc: "AI screening & instant shortlists.", outcome: "50% Faster Time-to-Hire", icon: <Users size={14} /> },
-  { id: "ops-section", title: "Ops Automation", desc: "24/7 AI agents for order flows.", outcome: "70% Less Manual Follow-up", icon: <Settings size={14} /> },
-  { id: "marketing-section", title: "Marketing Automation", desc: "AI content & auto-scheduling.", outcome: "Scalable Content Engine", icon: <PenTool size={14} /> },
-  { id: "custom-workflows", title: "Custom Workflows", desc: "Tailored AI financial & operational systems.", outcome: "Full Process Autonomy", icon: <Layers size={14} /> },
+  { id: "sales-automation", title: "Sales Automation", desc: "Automated lead scraping & outreach.", outcome: "3x More Booked Demos", icon: <Zap size={14} /> },
+  { id: "hr-workflow", title: "HR Automation", desc: "AI screening & instant shortlists.", outcome: "50% Faster Time-to-Hire", icon: <Users size={14} /> },
+  { id: "operations-workflow", title: "Ops Automation", desc: "24/7 AI agents for order flows.", outcome: "70% Less Manual Follow-up", icon: <Settings size={14} /> },
+  { id: "marketing-workflow", title: "Marketing Automation", desc: "AI content & auto-scheduling.", outcome: "Scalable Content Engine", icon: <PenTool size={14} /> },
+  { id: "custom-ai", title: "Custom Workflows", desc: "Tailored AI financial & operational systems.", outcome: "Full Process Autonomy", icon: <Layers size={14} /> },
 ];
+
 
 const workflowSlides = [
   // --- EXPENSE TRACKER (START) ---
@@ -265,16 +267,17 @@ const workflowSlides = [
   },
 ];
 
-export const ImmersiveFeatures = () => {
+export const ImmersiveFeatures = memo(() => {
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
 
-  const handleCardClick = (id: string) => {
+  const handleCardClick = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  };
+  }, []);
+
 
   return (
     <section 
@@ -287,9 +290,12 @@ export const ImmersiveFeatures = () => {
         background: "transparent",
         minHeight: isMobile ? "auto" : "calc(100vh - 80px)",
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        touchAction: "pan-y",
+        WebkitOverflowScrolling: "touch"
       }}
     >
+
 
 
       <motion.div
@@ -298,7 +304,7 @@ export const ImmersiveFeatures = () => {
         viewport={{ once: true, margin: "-100px" }}
         variants={{
           hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
+          show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.05 : 0.08, delayChildren: 0.1 } }
         }}
         style={{
           maxWidth: "1320px",
@@ -309,8 +315,11 @@ export const ImmersiveFeatures = () => {
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
           gap: isMobile ? "32px" : "40px",
-          alignItems: "center"
+          alignItems: "center",
+          transform: "translate3d(0,0,0)",
+          willChange: "opacity"
         }}
+
       >
         {/* Left Column: Content */}
         <div style={{ 
@@ -397,15 +406,16 @@ export const ImmersiveFeatures = () => {
                 key={idx}
                 variants={{
                   hidden: { opacity: 0, x: -15 },
-                  show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                  show: { opacity: 1, x: 0, transition: { duration: isMobile ? 0.3 : 0.4, ease: "easeOut" } }
                 }}
                 onClick={() => handleCardClick(feat.id)}
-                whileHover={{ x: 6, background: "var(--color-glass-bg)", backdropFilter: "blur(18px)" }}
+                whileHover={isMobile ? undefined : { x: 6, background: "var(--color-glass-bg)", backdropFilter: "blur(18px)" }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   padding: "6px 14px",
                   background: "var(--color-glass-bg)",
-                  backdropFilter: "blur(18px)",
-                  WebkitBackdropFilter: "blur(18px)",
+                  backdropFilter: isMobile ? "blur(8px)" : "blur(18px)",
+                  WebkitBackdropFilter: isMobile ? "blur(8px)" : "blur(18px)",
                   border: "1px solid var(--color-glass-border)",
                   boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
                   borderRadius: "12px",
@@ -414,9 +424,12 @@ export const ImmersiveFeatures = () => {
                   justifyContent: "space-between",
                   cursor: "pointer",
                   transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                  transform: "translate3d(0,0,0)",
+                  willChange: "transform, background"
                 }}
                 className="feature-card"
               >
+
                 <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                   <div style={{ color: C.green, opacity: 0.8 }}>{feat.icon}</div>
                   <div>
@@ -493,4 +506,7 @@ export const ImmersiveFeatures = () => {
       `}</style>
     </section>
   );
-};
+});
+
+ImmersiveFeatures.displayName = "ImmersiveFeatures";
+

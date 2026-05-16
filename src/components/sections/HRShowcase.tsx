@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
+
 import { motion } from "framer-motion";
 import { 
   Users, 
@@ -98,18 +99,11 @@ const hrCarouselImages = [
 
 const StatIconSize = 14;
 
-export const HRShowcase = () => {
+export const HRShowcase = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
-
-  const handleCardClick = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
 
   return (
     <section 
@@ -119,9 +113,12 @@ export const HRShowcase = () => {
         position: "relative",
         overflow: "visible",
         background: "transparent",
-        minHeight: "auto"
+        minHeight: "auto",
+        touchAction: "pan-y",
+        WebkitOverflowScrolling: "touch"
       }}
     >
+
       <style jsx>{`
         .hr-section {
           padding: 64px 32px 72px;
@@ -549,4 +546,7 @@ export const HRShowcase = () => {
       />
     </section>
   );
-};
+});
+
+HRShowcase.displayName = "HRShowcase";
+

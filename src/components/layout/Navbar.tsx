@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Moon, Sun, Monitor } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
@@ -116,41 +117,62 @@ const globalSections = [
   { label: "Contact us", id: "footer" },
 ];
 
-export default function Navbar() {
+const Navbar = memo(() => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [globalExpanded, setGlobalExpanded] = useState(false);
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
 
+  // Throttled scroll listener
   useEffect(() => {
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+
     const onScroll = () => {
-      setScrolled(window.scrollY > 10);
+      lastKnownScrollPosition = window.scrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(lastKnownScrollPosition > 10);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const toggleGlobal = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setGlobalExpanded(prev => !prev);
+  }, []);
+
+  const handleSectionNav = useCallback((id: string) => {
+    setMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   // Close menu on ESC key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
+      if (e.key === "Escape") closeMenu();
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
+  }, [closeMenu]);
 
   // Lock body scroll when menu is open
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
-
 
   return (
     <>
@@ -158,7 +180,7 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: isMobile ? 0.35 : 0.5, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50"
         style={{
           height: "70px",
@@ -169,6 +191,8 @@ export default function Navbar() {
           backdropFilter: "blur(20px)",
           borderBottom: scrolled ? "1px solid var(--nav-border)" : "none",
           transition: "all 0.3s ease",
+          willChange: "transform, opacity, background",
+          transform: "translate3d(0,0,0)"
         }}
       >
         <div style={{
@@ -184,8 +208,7 @@ export default function Navbar() {
         }}>
           {/* Logo Area */}
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "70px" }}>
-              {/* Cropped logo: 2193×377px natural ratio ≈5.8:1 — fills 160px wide at 28px tall */}
+            <Link href="/" prefetch={true} style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "70px" }}>
               <div style={{ position: "relative", width: "160px", height: "28px", flexShrink: 0 }}>
                 <Image
                   src="/scalepods-navbar-logo.png"
@@ -198,6 +221,7 @@ export default function Navbar() {
                     objectPosition: "left center",
                     transition: "filter 0.3s ease",
                     filter: resolvedTheme === "dark" ? "invert(1)" : "none",
+                    willChange: "filter"
                   }}
                 />
               </div>
@@ -219,6 +243,7 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
+                prefetch={true}
                 style={{
                   fontSize: "13.5px",
                   fontWeight: 500,
@@ -244,9 +269,6 @@ export default function Navbar() {
 
           {/* Right Area: Theme Toggle + Menu Trigger */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-
-
-            {/* Global Menu Trigger (Hamburger) - Visible on All Sizes */}
             <button
               onClick={() => setMenuOpen(true)}
               style={{
@@ -262,6 +284,8 @@ export default function Navbar() {
                 transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
                 backdropFilter: "blur(8px)",
                 WebkitBackdropFilter: "blur(8px)",
+                transform: "translate3d(0,0,0)",
+                willChange: "transform"
               }}
               className="hover:scale-105 active:scale-95 group"
               aria-label="Open navigation menu"
@@ -283,7 +307,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              onClick={() => setMenuOpen(false)}
+              onClick={closeMenu}
               style={{
                 position: "fixed",
                 inset: 0,
@@ -291,6 +315,7 @@ export default function Navbar() {
                 background: "rgba(0,0,0,0.4)",
                 WebkitBackdropFilter: "blur(4px)",
                 backdropFilter: "blur(4px)",
+                touchAction: "none"
               }}
             />
 
@@ -300,7 +325,7 @@ export default function Navbar() {
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: isMobile ? 0.35 : 0.4, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                   position: "fixed",
                   top: 0,
@@ -316,6 +341,8 @@ export default function Navbar() {
                   flexDirection: "column",
                   boxShadow: resolvedTheme === 'dark' ? "-10px 0 30px rgba(0,0,0,0.5)" : "-10px 0 30px rgba(0,0,0,0.05)",
                   overflow: "hidden",
+                  transform: "translate3d(0,0,0)",
+                  willChange: "transform"
                 }}
               >
                 {/* Header inside Sidebar */}
@@ -339,7 +366,7 @@ export default function Navbar() {
                     Navigation
                   </span>
                   <button
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                     style={{
                       background: "rgba(255,255,255,0.06)",
                       border: "1px solid var(--color-border)",
@@ -367,6 +394,7 @@ export default function Navbar() {
                   flexGrow: 1, 
                   padding: "10px 0",
                   overflowY: "auto",
+                  WebkitOverflowScrolling: "touch"
                 }}>
                   {navLinks.map((link, i) => {
                     if (link.label === "Global") {
@@ -375,7 +403,8 @@ export default function Navbar() {
                           <div style={{ display: "flex", alignItems: "center" }}>
                             <Link
                               href={link.href}
-                              onClick={() => setMenuOpen(false)}
+                              prefetch={true}
+                              onClick={closeMenu}
                               style={{
                                 flexGrow: 1,
                                 display: "flex",
@@ -392,11 +421,7 @@ export default function Navbar() {
                               {link.label}
                             </Link>
                             <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setGlobalExpanded(!globalExpanded);
-                              }}
+                              onClick={toggleGlobal}
                               style={{
                                 background: "rgba(255,255,255,0.03)",
                                 border: "none",
@@ -433,22 +458,7 @@ export default function Navbar() {
                                 {globalSections.map((sec) => (
                                   <button
                                     key={sec.id}
-                                    onClick={() => {
-                                      setMenuOpen(false);
-                                      // Smooth scroll to section
-                                      const el = document.getElementById(sec.id);
-                                      if (el) {
-                                        const offset = 80;
-                                        const bodyRect = document.body.getBoundingClientRect().top;
-                                        const elementRect = el.getBoundingClientRect().top;
-                                        const elementPosition = elementRect - bodyRect;
-                                        const offsetPosition = elementPosition - offset;
-                                        window.scrollTo({
-                                          top: offsetPosition,
-                                          behavior: "smooth"
-                                        });
-                                      }
-                                    }}
+                                    onClick={() => handleSectionNav(sec.id)}
                                     style={{
                                       display: "block",
                                       width: "100%",
@@ -481,7 +491,8 @@ export default function Navbar() {
                       >
                         <Link
                           href={link.href}
-                          onClick={() => setMenuOpen(false)}
+                          prefetch={true}
+                          onClick={closeMenu}
                           style={{
                             display: "flex",
                             alignItems: "center",
@@ -569,9 +580,14 @@ export default function Navbar() {
                   </div>
                 </div>
               </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </>
-    );
-  }
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+});
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;
+

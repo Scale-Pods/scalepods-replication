@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
+
 import { motion } from "framer-motion";
 import { 
   Puzzle, 
@@ -93,7 +94,7 @@ const customCarouselImages = [
   },
 ];
 
-export const CustomWorkflowShowcase = () => {
+export const CustomWorkflowShowcase = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const isMobile = useMobile(1023);
@@ -107,9 +108,12 @@ export const CustomWorkflowShowcase = () => {
         position: "relative",
         overflow: "visible",
         background: "transparent",
-        minHeight: "auto"
+        minHeight: "auto",
+        touchAction: "pan-y",
+        WebkitOverflowScrolling: "touch"
       }}
     >
+
       <style jsx>{`
         .custom-section {
           padding: 64px 32px 72px;
@@ -559,4 +563,7 @@ export const CustomWorkflowShowcase = () => {
       />
     </section>
   );
-};
+});
+
+CustomWorkflowShowcase.displayName = "CustomWorkflowShowcase";
+

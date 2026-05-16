@@ -321,16 +321,18 @@ export const ThreeDCarousel = React.memo(({
 
       {/* Mobile Indicator Row */}
       {isMobile && (
-        <div className="flex gap-6 items-center mt-6">
+        <div className="flex gap-6 items-center mt-6" style={{ touchAction: "none" }}>
           <button
             onClick={prevSlide}
-            className="w-11 h-11 rounded-full flex items-center justify-center"
+            className="w-11 h-11 rounded-full flex items-center justify-center active:scale-90 transition-transform"
             style={{
               background: "rgba(255,255,255,0.92)",
               border: "1px solid rgba(15,23,42,0.08)",
               backdropFilter: "blur(14px)",
               color: "#0F172A",
               boxShadow: "0 8px 24px rgba(15,23,42,0.08)",
+              transform: "translate3d(0,0,0)",
+              willChange: "transform"
             }}
           >
             <ChevronLeft size={22} />
@@ -340,25 +342,31 @@ export const ThreeDCarousel = React.memo(({
               <div 
                 key={i} 
                 className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-5' : 'w-1'}`} 
-                style={{ background: i === currentIndex ? "var(--color-green)" : (isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)") }}
+                style={{ 
+                  background: i === currentIndex ? "var(--color-green)" : (isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"),
+                  transform: "translate3d(0,0,0)"
+                }} 
               />
             ))}
           </div>
           <button
             onClick={nextSlide}
-            className="w-11 h-11 rounded-full flex items-center justify-center"
+            className="w-11 h-11 rounded-full flex items-center justify-center active:scale-90 transition-transform"
             style={{
               background: "rgba(255,255,255,0.92)",
               border: "1px solid rgba(15,23,42,0.08)",
               backdropFilter: "blur(14px)",
               color: "#0F172A",
               boxShadow: "0 8px 24px rgba(15,23,42,0.08)",
+              transform: "translate3d(0,0,0)",
+              willChange: "transform"
             }}
           >
             <ChevronRight size={22} />
           </button>
         </div>
       )}
+
     </div>
   );
 });

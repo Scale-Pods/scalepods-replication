@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
+
 import { motion } from "framer-motion";
 import { 
   BarChart3, 
@@ -115,11 +116,12 @@ const salesCarouselImages = [
 
 const StatIconSize = 14;
 
-export const SalesPodShowcase = () => {
+export const SalesPodShowcase = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
+
   return (
     <section 
       id="sales-automation"
@@ -128,7 +130,9 @@ export const SalesPodShowcase = () => {
         position: "relative",
         overflow: "visible",
         background: "transparent",
-        minHeight: "auto"
+        minHeight: "auto",
+        touchAction: "pan-y",
+        WebkitOverflowScrolling: "touch"
       }}
     >
       <style jsx>{`
@@ -156,10 +160,10 @@ export const SalesPodShowcase = () => {
           width: "100%",
           height: "160%",
           background: `linear-gradient(135deg, transparent 20%, rgba(var(--color-green-rgb), 0.15) 50%, transparent 80%)`,
-          filter: isMobile ? "blur(80px)" : "blur(140px)",
+          filter: isMobile ? "blur(60px)" : "blur(140px)",
           zIndex: 0,
           pointerEvents: "none",
-          transform: "rotate(-10deg)",
+          transform: "rotate(-10deg) translate3d(0,0,0)",
           willChange: "transform, opacity"
         }} 
       />
@@ -174,22 +178,26 @@ export const SalesPodShowcase = () => {
         alignItems: "center",
         position: "relative",
         zIndex: 1,
-        transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
+        transition: "gap 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+        transform: "translate3d(0,0,0)",
+        willChange: "transform"
       }} className="salespod-grid">
         
         {/* Left Side: Content (Order 1 on Desktop & Mobile) */}
         <motion.div
-          initial={{ opacity: 0, x: isMobile ? -30 : -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, x: isMobile ? 0 : -30, y: isMobile ? 20 : 0 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: isMobile ? 0.6 : 0.8, ease: "easeOut" }}
           style={{ 
             position: "relative", 
             order: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            textAlign: "center"
+            textAlign: "center",
+            transform: "translate3d(0,0,0)",
+            willChange: "transform, opacity"
           }}
         >
           <div style={{
@@ -317,7 +325,9 @@ export const SalesPodShowcase = () => {
                 gap: "10px",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
-                width: "fit-content"
+                width: "fit-content",
+                transform: "translate3d(0,0,0)",
+                willChange: "transform, background"
               }}
               className="salespod-cta"
             >
@@ -326,7 +336,7 @@ export const SalesPodShowcase = () => {
 
             <motion.button
               onClick={() => setIsPreviewOpen(!isPreviewOpen)}
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={isMobile ? undefined : { scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               style={{
                 padding: "12px 24px",
@@ -342,7 +352,9 @@ export const SalesPodShowcase = () => {
                 gap: "8px",
                 cursor: "pointer",
                 transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
-                width: "fit-content"
+                width: "fit-content",
+                transform: "translate3d(0,0,0)",
+                willChange: "transform"
               }}
 
               className="explore-trigger"
@@ -364,7 +376,9 @@ export const SalesPodShowcase = () => {
           height: "auto",
           order: 2,
           transition: "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
-          overflow: "visible"
+          overflow: "visible",
+          transform: "translate3d(0,0,0)",
+          willChange: "transform"
         }}>
           <AnimatePresence mode="wait">
             {!isPreviewOpen ? (
@@ -379,7 +393,7 @@ export const SalesPodShowcase = () => {
                   transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] }
                 }}
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                style={{ width: "100%", height: "100%" }}
+                style={{ width: "100%", height: "100%", transform: "translate3d(0,0,0)", willChange: "transform, opacity" }}
               >
                 <div style={{
                   background: "var(--color-glass-bg)",
@@ -387,8 +401,8 @@ export const SalesPodShowcase = () => {
                   borderRadius: "28px",
                   padding: isMobile ? "20px" : "32px",
                   boxShadow: "var(--card-shadow), var(--card-shadow-inset)",
-                  backdropFilter: "blur(18px)",
-                  WebkitBackdropFilter: "blur(18px)",
+                  backdropFilter: isMobile ? "blur(8px)" : "blur(18px)",
+                  WebkitBackdropFilter: isMobile ? "blur(8px)" : "blur(18px)",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column"
@@ -433,11 +447,12 @@ export const SalesPodShowcase = () => {
                         justifyContent: "space-between",
                         padding: "14px 20px",
                         background: "rgba(var(--color-text-bright-rgb), 0.03)",
-                        backdropFilter: "blur(8px)",
-                        WebkitBackdropFilter: "blur(8px)",
+                        backdropFilter: isMobile ? "blur(4px)" : "blur(8px)",
+                        WebkitBackdropFilter: isMobile ? "blur(4px)" : "blur(8px)",
                         borderRadius: "16px",
                         border: "1px solid var(--color-border-faint)",
-                        boxShadow: "var(--internal-shadow-inset)" }}>
+                        boxShadow: "var(--internal-shadow-inset)",
+                        transform: "translate3d(0,0,0)" }}>
                         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
                           <div style={{ 
                             width: "32px", 
@@ -467,13 +482,14 @@ export const SalesPodShowcase = () => {
                   <div style={{ 
                     padding: "20px", 
                     background: "rgba(var(--color-text-bright-rgb), 0.02)",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
+                    backdropFilter: isMobile ? "blur(4px)" : "blur(8px)",
+                    WebkitBackdropFilter: isMobile ? "blur(4px)" : "blur(8px)",
                     borderRadius: "20px", 
                     border: "1px solid var(--color-border-faint)",
                     boxShadow: "var(--internal-shadow-inset)",
                     position: "relative",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    transform: "translate3d(0,0,0)"
                   }}>
                     <div style={{ display: "flex", justifyItems: "space-between", alignItems: "center", marginBottom: "12px" }}>
                       <span style={{ fontSize: "12px", fontWeight: 600, color: C.txtBright }}>Pipeline Flux</span>
@@ -486,7 +502,7 @@ export const SalesPodShowcase = () => {
                           initial={{ height: 0 }}
                           whileInView={{ height: `${h}%` }}
                           viewport={{ once: true }}
-                          transition={{ delay: i * 0.1, duration: 1 }}
+                          transition={{ delay: isMobile ? i * 0.05 : i * 0.1, duration: isMobile ? 0.6 : 1 }}
                           style={{ flex: 1, background: C.blue, borderRadius: "2px", opacity: i === 6 ? 1 : 0.4 }} 
                         />
                       ))}
@@ -495,7 +511,7 @@ export const SalesPodShowcase = () => {
                   </div>
 
                   <motion.div 
-                    animate={{ rotate: [0, 5, 0], y: [0, -10, 0] }}
+                    animate={isMobile ? { y: [0, -5, 0] } : { rotate: [0, 5, 0], y: [0, -10, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                       position: "absolute",
@@ -510,10 +526,11 @@ export const SalesPodShowcase = () => {
                       alignItems: "center",
                       gap: isMobile ? "10px" : "14px",
                       zIndex: 10,
-                      backdropFilter: "blur(24px)",
-                      WebkitBackdropFilter: "blur(24px)",
+                      backdropFilter: isMobile ? "blur(12px)" : "blur(24px)",
+                      WebkitBackdropFilter: isMobile ? "blur(12px)" : "blur(24px)",
                       scale: isMobile ? 0.9 : 1,
-                      willChange: "transform, opacity"
+                      willChange: "transform, opacity",
+                      transform: "translate3d(0,0,0)"
                     }}
                   >
                     <div style={{ position: "relative" }}>
@@ -538,7 +555,9 @@ export const SalesPodShowcase = () => {
                 transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
                 style={{ 
                   width: "100%", zIndex: 5,
-                  display: "flex", flexDirection: "column", alignItems: "center"
+                  display: "flex", flexDirection: "column", alignItems: "center",
+                  transform: "translate3d(0,0,0)",
+                  willChange: "transform, opacity"
                 }}
               >
                 <ThreeDCarousel items={salesCarouselImages} autoRotate={true} />
@@ -579,4 +598,7 @@ export const SalesPodShowcase = () => {
       />
     </section>
   );
-};
+});
+
+SalesPodShowcase.displayName = "SalesPodShowcase";
+

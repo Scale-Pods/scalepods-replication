@@ -126,6 +126,17 @@ export default function UAEPage() {
   const isMobile = useMobile(900);
   const { resolvedTheme } = useTheme();
 
+  useEffect(() => {
+    // Prefetch global page assets
+    if (typeof window !== "undefined") {
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = "/gcc";
+      document.head.appendChild(link);
+    }
+  }, []);
+
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
@@ -340,11 +351,13 @@ export default function UAEPage() {
           {/* Left: headline + bullets */}
           <motion.div
             className="plug-play-left"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : -30, y: isMobile ? 20 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: isMobile ? 0.45 : 0.55 }}
+            style={{ transform: "translate3d(0,0,0)", willChange: "transform, opacity" }}
           >
+
             {/* ... Content remains as refactored ... */}
             <h2 className="hero-title-accent">
               Plug - and - Play Pods
@@ -430,11 +443,13 @@ export default function UAEPage() {
           {/* Right: stat + form — always below left text on mobile */}
           <motion.div
             className="plug-play-right"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : 30, y: isMobile ? 20 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: isMobile ? 0.45 : 0.55, delay: isMobile ? 0 : 0.1 }}
+            style={{ transform: "translate3d(0,0,0)", willChange: "transform, opacity" }}
           >
+
             {/* Stat headline */}
             <div style={{ marginBottom: "20px", textAlign: "center" }}>
               <p

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
+
 import { motion } from "framer-motion";
 import { 
   BarChart3, 
@@ -134,7 +135,7 @@ const marketingCarouselImages = [
 
 const StatIconSize = 14;
 
-export const MarketingShowcase = () => {
+export const MarketingShowcase = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const isMobile = useMobile(1023);
@@ -148,9 +149,12 @@ export const MarketingShowcase = () => {
         position: "relative",
         overflow: "visible",
         background: "transparent",
-        minHeight: "auto"
+        minHeight: "auto",
+        touchAction: "pan-y",
+        WebkitOverflowScrolling: "touch"
       }}
     >
+
       <style jsx>{`
         .marketing-section {
           padding: 64px 32px 72px;
@@ -600,4 +604,7 @@ export const MarketingShowcase = () => {
       />
     </section>
   );
-};
+});
+
+MarketingShowcase.displayName = "MarketingShowcase";
+
