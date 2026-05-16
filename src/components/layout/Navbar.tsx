@@ -209,7 +209,7 @@ const Navbar = memo(() => {
           maxWidth: "1280px",
           margin: "0 auto",
           width: "100%",
-          paddingLeft: "20px",
+          paddingLeft: "12px",
           paddingRight: "20px",
           display: "flex",
           alignItems: "center",
