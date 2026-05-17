@@ -422,7 +422,7 @@ export const FinalCTASection = () => {
                  className="object-contain"
                  style={{
                    width: isMobile ? "90%" : "100%",
-                   height: "auto",
+                   height: "auto", aspectRatio: "1 / 1",
                    maxWidth: "700px",
                    filter: `drop-shadow(0 0 20px ${C.green}20)`
                  }}

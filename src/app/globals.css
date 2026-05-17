@@ -182,6 +182,9 @@
   box-sizing: border-box; 
   margin: 0; 
   padding: 0; 
+}
+
+html, body, header, footer, nav, button, input, textarea, select, .card, .glass-card, [data-theme-transition] {
   transition: var(--theme-transition);
 }
 

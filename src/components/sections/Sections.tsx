@@ -732,12 +732,9 @@ export function DataAnalysis() {
                       alignItems: "center",
                       justifyContent: "center",
                     }}>
-                      <Image
+                      <img
                         src={brand.src}
                         alt={brand.alt}
-                        width={120}
-                        height={32}
-                        priority
                         style={{
                           height: "100%",
                           width: "auto",
@@ -784,11 +781,9 @@ export function DataAnalysis() {
                         cursor: "pointer"
                       }}
                     >
-                      <Image
+                      <img
                         src={brand.src}
                         alt={brand.alt}
-                        width={140}
-                        height={48}
                         style={{
                           height: "100%",
                           width: "auto",

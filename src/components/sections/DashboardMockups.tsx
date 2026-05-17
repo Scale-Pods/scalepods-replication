@@ -93,7 +93,7 @@ export const SalesDashboardMockup = () => {
     <div style={{
       width: "100%",
       height: "100%",
-      background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
       color: "var(--color-text-bright)",
       fontFamily: F.inter,
       display: "flex",
@@ -202,7 +202,7 @@ export const MarketingDashboardMockup = () => {
     <div style={{
       width: "100%",
       height: "100%",
-      background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
       color: "var(--color-text-bright)",
       fontFamily: F.inter,
       padding: "20px",

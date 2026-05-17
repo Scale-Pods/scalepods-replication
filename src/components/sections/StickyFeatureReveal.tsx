@@ -12,12 +12,12 @@ const F = {
 };
 
 const C = {
-    green: "#ACD791",
-    blue: "#6DB6FF",
-    txtBright: "#E4E9F2",
-    txtBody: "#B8C7D9",
-    bgCard: "#080A10",
-    border: "rgba(255,255,255,0.07)",
+    green: "var(--color-green)",
+    blue: "var(--color-blue-mid)",
+    txtBright: "var(--color-text-bright)",
+    txtBody: "var(--color-text-body)",
+    bgCard: "var(--color-bg-card)",
+    border: "var(--color-border)",
 };
 
 interface Feature {
@@ -132,7 +132,7 @@ export const StickyFeatureReveal = () => {
                             <div className="relative aspect-[16/10] w-full max-w-[750px] mx-auto">
                                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-2xl blur-[120px] -z-10" />
                                 
-                                <div className="relative w-full h-full rounded-2xl border border-white/10 overflow-hidden bg-[#04070D] shadow-2xl">
+                                <div className="relative w-full h-full rounded-2xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-bg-page)] shadow-2xl">
                                     <AnimatePresence mode="wait">
                                         {hrFeatures.map((feature, index) => (
                                             <MockupWrapper 
