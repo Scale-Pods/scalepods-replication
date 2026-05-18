@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Plug & Play AI Workflow Pods | ScalePods Global",
     description: "Modular AI infrastructure designed for the next generation of business scale.",
-    url: "https://scalepods.co/gcc",
+    url: "https://scalepods.co/global",
     siteName: "ScalePods",
     images: [
       {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GCCLayout({
+export default function GlobalLayout({
   children,
 }: {
   children: React.ReactNode;

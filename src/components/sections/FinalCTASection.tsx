@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic';
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
-const CobeGlobe = dynamic(() => import("@/components/gcc/CobeGlobe").then(mod => mod.CobeGlobe), { ssr: false });
+const CobeGlobe = dynamic(() => import("@/components/global/CobeGlobe").then(mod => mod.CobeGlobe), { ssr: false });
 
 
 const C = {

@@ -100,7 +100,7 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "Use Cases", href: "/use-cases" },
-  { label: "Global", href: "/gcc" },
+  { label: "Global", href: "/global" },
 ];
 
 const globalSections = [
@@ -159,7 +159,7 @@ const Navbar = memo(() => {
 
   const handleSectionNav = useCallback((id: string) => {
     // If we are already on the Global page (/gcc)
-    if (pathname === "/gcc") {
+    if (pathname === "/global") {
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -199,7 +199,7 @@ const Navbar = memo(() => {
 
   // Aggressively prefetch major routes after homepage hydration
   useEffect(() => {
-    router.prefetch("/gcc");
+    router.prefetch("/global");
     router.prefetch("/use-cases");
     router.prefetch("/blog");
     router.prefetch("/contact");

@@ -107,8 +107,8 @@ const Field = memo(function Field({ label, children }: { label: string; children
 });
 
 
-// ── Main UAE Page ─────────────────────────────────────────────────────────────
-export default function UAEPage() {
+// ── Main Global Page ─────────────────────────────────────────────────────────────
+export default function GlobalPage() {
   const [form, setForm] = useState({ 
     name: "", 
     email: "", 
@@ -141,7 +141,7 @@ export default function UAEPage() {
     if (typeof window !== "undefined") {
       const link = document.createElement("link");
       link.rel = "prefetch";
-      link.href = "/gcc";
+      link.href = "/global";
       document.head.appendChild(link);
     }
   }, []);
@@ -189,7 +189,7 @@ export default function UAEPage() {
         phone: `${dialCode} ${form.phone}`, 
         company_name: form.company,
         business_requirement: form.requirement,
-        source_page: "gcc" 
+        source_page: "global" 
       }]);
 
     setLoading(false);
