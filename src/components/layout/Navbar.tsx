@@ -123,6 +123,7 @@ const Navbar = memo(() => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [globalExpanded, setGlobalExpanded] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
   const router = useRouter();
@@ -131,14 +132,15 @@ const Navbar = memo(() => {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   const isLinkActive = useCallback((href: string) => {
-    if (href === "/") {
-      return pathname === "/";
+    if (pathname !== "/") {
+      return pathname === href || pathname?.startsWith(href);
     }
-    if (href.startsWith("/#")) {
-      return pathname === "/";
-    }
-    return pathname === href || pathname?.startsWith(href);
-  }, [pathname]);
+    // On homepage, track scroll sections
+    if (href === "/") return activeSection === "hero";
+    if (href === "/#services") return activeSection === "services";
+    if (href === "/#process") return activeSection === "process";
+    return false;
+  }, [pathname, activeSection]);
 
   const handleLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     closeMenu();
@@ -148,6 +150,13 @@ const Navbar = memo(() => {
         top: 0,
         behavior: "smooth",
       });
+    } else if (href.startsWith("/#") && pathname === "/") {
+      e.preventDefault();
+      const id = href.replace("/#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }, [pathname, closeMenu]);
 
@@ -158,7 +167,7 @@ const Navbar = memo(() => {
   }, []);
 
   const handleSectionNav = useCallback((id: string) => {
-    // If we are already on the Global page (/gcc)
+    // If we are already on the Global page (/global)
     if (pathname === "/global") {
       const element = document.getElementById(id);
       if (element) {
@@ -166,8 +175,8 @@ const Navbar = memo(() => {
         setMenuOpen(false);
       }
     } else {
-      // If we are on another page, navigate to /gcc with hash
-      router.push(`/gcc#${id}`);
+      // If we are on another page, navigate to /global with hash
+      router.push(`/global#${id}`);
       setMenuOpen(false);
     }
   }, [pathname, router]);
@@ -196,6 +205,62 @@ const Navbar = memo(() => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Dynamic active section scroll tracking using IntersectionObserver
+  useEffect(() => {
+    if (pathname !== "/") {
+      if (pathname === "/blog" || pathname?.startsWith("/blog")) {
+        setActiveSection("blog");
+      } else if (pathname === "/contact" || pathname?.startsWith("/contact")) {
+        setActiveSection("contact");
+      } else if (pathname === "/use-cases" || pathname?.startsWith("/use-cases")) {
+        setActiveSection("use-cases");
+      } else if (pathname === "/global" || pathname?.startsWith("/global")) {
+        setActiveSection("global");
+      } else {
+        setActiveSection("");
+      }
+      return;
+    }
+
+    const sectionIds = ["hero", "services", "process"];
+    const elements = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    if (elements.length === 0) {
+      setActiveSection("hero");
+      return;
+    }
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-45% 0px -45% 0px", // Strict center focus to avoid overlapping triggers
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    elements.forEach(el => observer.observe(el));
+
+    // Instant fallback when scrolling to the very top (safeguard)
+    const handleScrollFallback = () => {
+      if (window.scrollY < 80) {
+        setActiveSection("hero");
+      }
+    };
+    window.addEventListener("scroll", handleScrollFallback, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScrollFallback);
+    };
+  }, [pathname]);
 
   // Aggressively prefetch major routes after homepage hydration
   useEffect(() => {
@@ -301,26 +366,43 @@ const Navbar = memo(() => {
                   prefetch={true}
                   onClick={(e) => handleLinkClick(e, link.href)}
                   style={{
+                    position: "relative",
                     fontSize: "13.5px",
                     fontWeight: 500,
                     color: active ? "var(--color-text-bright)" : "var(--color-text-muted)",
-                    background: active ? "rgba(255, 255, 255, 0.05)" : "transparent",
                     textDecoration: "none",
                     padding: "5px 14px",
                     borderRadius: "24px",
-                    transition: "color 0.2s, background 0.2s",
+                    transition: "color 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
                     whiteSpace: "nowrap",
                     fontFamily: "Inter, sans-serif",
+                    zIndex: 1,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = "var(--color-text-bright)";
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.color = active ? "var(--color-text-bright)" : "var(--color-text-muted)";
-                    e.currentTarget.style.background = active ? "rgba(255, 255, 255, 0.05)" : "transparent";
                   }}
                 >
+                  {active && (
+                    <motion.div
+                      layoutId="desktop-active-nav-pill"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "rgba(255, 255, 255, 0.05)",
+                        borderRadius: "24px",
+                        zIndex: -1,
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30
+                      }}
+                    />
+                  )}
                   {link.label}
                 </Link>
               );
@@ -461,7 +543,24 @@ const Navbar = memo(() => {
                       const active = isLinkActive(link.href);
                       return (
                         <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
-                          <div style={{ display: "flex", alignItems: "center" }}>
+                          <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+                            {active && (
+                              <motion.div
+                                layoutId="mobile-active-nav-bg"
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  background: "rgba(255, 255, 255, 0.03)",
+                                  borderLeft: "2px solid var(--color-blue-bright)",
+                                  zIndex: 0,
+                                }}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 380,
+                                  damping: 30
+                                }}
+                              />
+                            )}
                             <Link
                               href={link.href}
                               prefetch={true}
@@ -476,20 +575,15 @@ const Navbar = memo(() => {
                                 textDecoration: "none",
                                 padding: "16px 24px",
                                 fontFamily: "Inter, sans-serif",
-                                transition: "all 0.2s ease",
-                                borderLeft: "2px solid transparent",
-                                borderLeftColor: active ? "var(--color-blue-bright)" : "transparent",
-                                background: active ? "rgba(255,255,255,0.03)" : "transparent",
+                                transition: "color 0.25s ease",
+                                position: "relative",
+                                zIndex: 1,
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.color = "var(--color-text-bright)";
-                                e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                                e.currentTarget.style.borderLeftColor = "var(--color-blue-bright)";
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.color = active ? "var(--color-text-bright)" : "var(--color-text-body)";
-                                e.currentTarget.style.background = active ? "rgba(255,255,255,0.03)" : "transparent";
-                                e.currentTarget.style.borderLeftColor = active ? "var(--color-blue-bright)" : "transparent";
                               }}
                             >
                               {link.label}
@@ -497,7 +591,7 @@ const Navbar = memo(() => {
                             <button
                               onClick={toggleGlobal}
                               style={{
-                                background: "rgba(255,255,255,0.03)",
+                                background: "transparent",
                                 border: "none",
                                 borderLeft: "1px solid var(--color-border-faint)",
                                 height: "52px",
@@ -507,6 +601,8 @@ const Navbar = memo(() => {
                                 justifyContent: "center",
                                 cursor: "pointer",
                                 color: "var(--color-text-faint)",
+                                position: "relative",
+                                zIndex: 1,
                               }}
                             >
                               <ChevronDown 
@@ -577,6 +673,7 @@ const Navbar = memo(() => {
                           prefetch={true}
                           onClick={(e) => handleLinkClick(e, link.href)}
                           style={{
+                            position: "relative",
                             display: "flex",
                             alignItems: "center",
                             fontSize: "15px",
@@ -585,22 +682,33 @@ const Navbar = memo(() => {
                             textDecoration: "none",
                             padding: "16px 24px",
                             fontFamily: "Inter, sans-serif",
-                            transition: "all 0.2s ease",
-                            borderLeft: "2px solid transparent",
-                            borderLeftColor: active ? "var(--color-blue-bright)" : "transparent",
-                            background: active ? "rgba(255,255,255,0.03)" : "transparent",
+                            transition: "color 0.25s ease",
+                            zIndex: 1,
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.color = "var(--color-text-bright)";
-                            e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                            e.currentTarget.style.borderLeftColor = "var(--color-blue-bright)";
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.color = active ? "var(--color-text-bright)" : "var(--color-text-body)";
-                            e.currentTarget.style.background = active ? "rgba(255,255,255,0.03)" : "transparent";
-                            e.currentTarget.style.borderLeftColor = active ? "var(--color-blue-bright)" : "transparent";
                           }}
                         >
+                          {active && (
+                            <motion.div
+                              layoutId="mobile-active-nav-bg"
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                background: "rgba(255, 255, 255, 0.03)",
+                                borderLeft: "2px solid var(--color-blue-bright)",
+                                zIndex: -1,
+                              }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 380,
+                                damping: 30
+                              }}
+                            />
+                          )}
                           {link.label}
                         </Link>
                       </motion.div>

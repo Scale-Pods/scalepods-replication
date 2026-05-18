@@ -37,6 +37,7 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "var(--color-bg-page)" }}
     >
