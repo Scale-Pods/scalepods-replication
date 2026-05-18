@@ -322,7 +322,7 @@ export const CustomWorkflowShowcase = memo(() => {
                 width: "fit-content"
               }}
             >
-              Download Solution Guide <Download size={18} />
+              Download Free Solution Guide <Download size={18} />
             </button>
 
             <button
@@ -577,7 +577,7 @@ export const CustomWorkflowShowcase = memo(() => {
         onClose={() => setIsModalOpen(false)}
         zipFile="/downloads/custom-guide.pdf"
         zipName="custom-guide.pdf"
-        title="Download Custom Solution Guide"
+        title="Download Free Custom Solution Guide"
       />
     </section>
   );

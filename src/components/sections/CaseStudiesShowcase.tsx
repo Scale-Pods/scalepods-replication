@@ -9,7 +9,6 @@ import {
   Target, 
   MessageCircle, 
   Layout,
-  ArrowRight,
   ShieldCheck,
   CheckCircle2
 } from "lucide-react";
@@ -273,21 +272,7 @@ export const CaseStudiesShowcase = () => {
                       <div style={{ fontSize: "9px", color: C.txtBody, opacity: 0.4, textTransform: "uppercase", marginBottom: "2px" }}>Workflow Impact</div>
                       <div style={{ fontSize: "20px", fontWeight: 800, color: C.txtBright, lineHeight: 1.1 }}>{cs.impact}</div>
                    </div>
-                   <motion.div 
-                     animate={{ x: hoveredIndex === i ? 4 : 0 }}
-                     style={{ 
-                       width: "32px", 
-                       height: "32px", 
-                       borderRadius: "50%", 
-                       background: "rgba(255,255,255,0.03)", 
-                       display: "flex", 
-                       alignItems: "center", 
-                       justifyContent: "center",
-                       color: hoveredIndex === i ? C.green : C.txtBody
-                     }}
-                   >
-                     <ArrowRight size={14} />
-                   </motion.div>
+
                 </div>
               </div>
             </motion.div>

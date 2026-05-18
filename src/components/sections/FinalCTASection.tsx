@@ -12,10 +12,12 @@ import {
   Sparkles,
   Command
 } from "lucide-react";
-import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
+
+const CobeGlobe = dynamic(() => import("@/components/gcc/CobeGlobe").then(mod => mod.CobeGlobe), { ssr: false });
 
 
 const C = {
@@ -382,53 +384,18 @@ export const FinalCTASection = () => {
                transform: "translate(-50px, 50px)"
              }} />
 
-             {/* ── THE STATIC CINEMATIC GLOBE ── */}
-             <motion.div 
-               animate={{ 
-                 y: [0, -8, 0],
-               }}
-               transition={{ 
-                 duration: 6, 
-                 repeat: Infinity, 
-                 ease: "easeInOut" 
-               }}
-               className="relative z-10 w-full h-full flex items-center justify-center"
+             {/* ── COBE ANIMATED GLOBE (replaces static Earth.png) ── */}
+             <div
                style={{
-                 filter: `drop-shadow(0 0 30px ${C.green}33)`
+                 position: "relative",
+                 zIndex: 10,
+                 display: "flex",
+                 alignItems: "center",
+                 justifyContent: "center",
                }}
              >
-               {/* Radial Glow behind image specifically */}
-               <motion.div 
-                 animate={{ 
-                   opacity: [0.6, 1, 0.6],
-                   scale: [1, 1.05, 1]
-                 }}
-                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                 style={{
-                   position: "absolute",
-                   width: "100%",
-                   height: "100%",
-                   background: `radial-gradient(circle, rgba(163, 230, 53, 0.12) 0%, transparent 65%)`,
-                   zIndex: -1,
-                   pointerEvents: "none"
-                 }}
-               />
-
-               <Image 
-                 src="/images/Earth.png"
-                 alt="Global AI Infrastructure"
-                 width={700}
-                 height={700}
-                 className="object-contain"
-                 style={{
-                   width: isMobile ? "90%" : "100%",
-                   height: "auto", aspectRatio: "1 / 1",
-                   maxWidth: "700px",
-                   filter: `drop-shadow(0 0 20px ${C.green}20)`
-                 }}
-                 priority
-               />
-             </motion.div>
+               <CobeGlobe size={isMobile ? 320 : 560} />
+             </div>
 
              {/* Overlay Cinematic Elements: Interacting Beams */}
              <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 15, overflow: "hidden" }}>

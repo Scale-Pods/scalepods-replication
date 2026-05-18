@@ -58,6 +58,7 @@
   --color-blue-light: #94D1FF;
   --color-teal: #00CED1;
   --color-green: #B1D997;
+  --color-green-text: #B1D997;
 
   --color-blue-glow: rgba(0, 128, 255, 0.1);
 
@@ -113,6 +114,7 @@
   --color-blue-mid: #0080FF;
   --color-blue-light: #3182CE;
   --color-green: #B1D997;
+  --color-green-text: #8FBC6A;
 
 
   --color-blue-glow: rgba(0, 128, 255, 0.06);
@@ -170,6 +172,7 @@
   --color-blue-light:    var(--color-blue-light);
   --color-teal:          var(--color-teal);
   --color-green:         var(--color-green);
+  --color-green-text:    var(--color-green-text);
 
   /* ── Typography ── */
   --font-sans: 'Inter', 'Satoshi', ui-sans-serif, system-ui, sans-serif;
@@ -700,3 +703,39 @@ img, video, canvas, svg {
     padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   ADAPTIVE GREEN TEXT SYSTEM
+   Enhances contrast, weight, and legibility in Light Mode ONLY.
+   ══════════════════════════════════════════════════════════ */
+.green-text-adaptive,
+.hero-title-accent,
+[style*="color: var(--color-green)"],
+[style*="color:var(--color-green)"],
+[style*="color: var(--color-green-bright)"],
+[style*="color:var(--color-green-bright)"] {
+  color: var(--color-green-text) !important;
+}
+
+[data-theme="light"] .green-text-adaptive,
+[data-theme="light"] .hero-title-accent,
+[data-theme="light"] [style*="color: var(--color-green)"],
+[data-theme="light"] [style*="color:var(--color-green)"],
+[data-theme="light"] [style*="color: var(--color-green-bright)"],
+[data-theme="light"] [style*="color:var(--color-green-bright)"] {
+  letter-spacing: 0.01em !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Bump the font-weight of thin/italic accents specifically in Light Mode */
+[data-theme="light"] em,
+[data-theme="light"] span[style*="font-style: italic"],
+[data-theme="light"] span[style*="font-style:italic"],
+[data-theme="light"] [style*="font-family: var(--font-instrument)"],
+[data-theme="light"] [style*="font-family:var(--font-instrument)"],
+[data-theme="light"] [style*="font-family: var(--font-serif)"],
+[data-theme="light"] [style*="font-family:var(--font-serif)"] {
+  font-weight: 550 !important;
+}
+
+

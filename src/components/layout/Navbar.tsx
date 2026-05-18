@@ -169,6 +169,21 @@ const Navbar = memo(() => {
     }
   };
 
+  const handleMobileLink = useCallback((href: string) => {
+    setMenuOpen(false);
+    router.push(href);
+  }, [router]);
+
+  // Aggressively prefetch on mobile after homepage hydration
+  useEffect(() => {
+    if (isMobile) {
+      router.prefetch("/gcc");
+      router.prefetch("/use-cases");
+      router.prefetch("/blog");
+      router.prefetch("/contact");
+    }
+  }, [isMobile, router]);
+
   // Close menu on ESC key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -323,15 +338,15 @@ const Navbar = memo(() => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: isMobile ? 0.1 : 0.3 }}
               onClick={closeMenu}
               style={{
                 position: "fixed",
                 inset: 0,
                 zIndex: 90,
                 background: "rgba(0,0,0,0.4)",
-                WebkitBackdropFilter: "blur(4px)",
-                backdropFilter: "blur(4px)",
+                WebkitBackdropFilter: isMobile ? "none" : "blur(4px)",
+                backdropFilter: isMobile ? "none" : "blur(4px)",
                 touchAction: "none"
               }}
             />
@@ -342,7 +357,7 @@ const Navbar = memo(() => {
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
-                transition={{ duration: isMobile ? 0.35 : 0.4, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: isMobile ? 0.15 : 0.4, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                   position: "fixed",
                   top: 0,
@@ -351,12 +366,12 @@ const Navbar = memo(() => {
                   width: "min(380px, 85%)",
                   zIndex: 100,
                   background: "var(--color-bg-card)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: isMobile ? "none" : "blur(20px)",
+                  backdropFilter: isMobile ? "none" : "blur(20px)",
                   borderLeft: "1px solid var(--color-border)",
                   display: "flex",
                   flexDirection: "column",
-                  boxShadow: resolvedTheme === 'dark' ? "-10px 0 30px rgba(0,0,0,0.5)" : "-10px 0 30px rgba(0,0,0,0.05)",
+                  boxShadow: isMobile ? "none" : (resolvedTheme === 'dark' ? "-10px 0 30px rgba(0,0,0,0.5)" : "-10px 0 30px rgba(0,0,0,0.05)"),
                   overflow: "hidden",
                   transform: "translate3d(0,0,0)",
                   willChange: "transform"
@@ -421,7 +436,21 @@ const Navbar = memo(() => {
                             <Link
                               href={link.href}
                               prefetch={true}
-                              onClick={closeMenu}
+                              onClick={(e) => {
+                                if (isMobile) {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handleMobileLink(link.href);
+                                } else {
+                                  closeMenu();
+                                }
+                              }}
+                              onPointerDown={(e) => {
+                                if (isMobile) {
+                                  e.stopPropagation();
+                                  handleMobileLink(link.href);
+                                }
+                              }}
                               style={{
                                 flexGrow: 1,
                                 display: "flex",
@@ -475,7 +504,15 @@ const Navbar = memo(() => {
                                 {globalSections.map((sec) => (
                                   <button
                                     key={sec.id}
-                                    onClick={() => handleSectionNav(sec.id)}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      handleSectionNav(sec.id);
+                                    }}
+                                    onPointerDown={(e) => {
+                                      e.stopPropagation();
+                                      handleSectionNav(sec.id);
+                                    }}
                                     style={{
                                       display: "block",
                                       width: "100%",
@@ -502,14 +539,28 @@ const Navbar = memo(() => {
                     return (
                       <motion.div
                         key={link.label}
-                        initial={{ opacity: 0, x: 10 }}
+                        initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.04 + 0.1 }}
+                        transition={{ delay: isMobile ? 0 : i * 0.04 + 0.1 }}
                       >
                         <Link
                           href={link.href}
                           prefetch={true}
-                          onClick={closeMenu}
+                          onClick={(e) => {
+                            if (isMobile) {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              handleMobileLink(link.href);
+                            } else {
+                              closeMenu();
+                            }
+                          }}
+                          onPointerDown={(e) => {
+                            if (isMobile) {
+                              e.stopPropagation();
+                              handleMobileLink(link.href);
+                            }
+                          }}
                           style={{
                             display: "flex",
                             alignItems: "center",

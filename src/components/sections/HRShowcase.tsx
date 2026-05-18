@@ -500,7 +500,7 @@ export const HRShowcase = memo(() => {
                 width: "fit-content"
               }}
             >
-              Download HR Guide <Download size={18} />
+              Download Free HR Guide <Download size={18} />
             </button>
 
             <button
@@ -560,7 +560,7 @@ export const HRShowcase = memo(() => {
         onClose={() => setIsModalOpen(false)}
         zipFile="/downloads/hr-guide.pdf"
         zipName="hr-guide.pdf"
-        title="Download HR Workflow Guide"
+        title="Download Free HR Workflow Guide"
       />
     </section>
   );

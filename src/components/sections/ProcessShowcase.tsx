@@ -9,8 +9,7 @@ import {
   TrendingUp,
   Cpu,
   Zap,
-  Activity, 
-  ArrowRight
+  Activity
 } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
 
@@ -327,9 +326,7 @@ export const ProcessShowcase = () => {
                   </div>
                 </div>
 
-                <div style={{ alignSelf: "center", opacity: hoveredIndex === i ? 1 : 0, transform: hoveredIndex === i ? "translateX(0)" : "translateX(-10px)", transition: "all 0.4s ease" }}>
-                   <ArrowRight size={20} color={stage.color} />
-                </div>
+
               </div>
 
               {/* Status Pulse */}

@@ -359,7 +359,7 @@ export const OpsShowcase = memo(() => {
                 width: "fit-content"
               }}
             >
-              Download Operations Guide <Download size={18} />
+              Download Free Operations Guide <Download size={18} />
             </button>
 
             <button
@@ -614,7 +614,7 @@ export const OpsShowcase = memo(() => {
         onClose={() => setIsModalOpen(false)}
         zipFile="/downloads/ops-guide.pdf"
         zipName="ops-guide.pdf"
-        title="Download Operations Workflow Guide"
+        title="Download Free Operations Workflow Guide"
       />
     </section>
   );

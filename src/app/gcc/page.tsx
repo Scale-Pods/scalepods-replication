@@ -14,18 +14,18 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 import { BeamsBackground } from "@/components/ui/beams-background";
 
 // ── Dynamic Imports for Below-the-Fold Sections ─────────────────────────────
-const ImmersiveFeatures = dynamic(() => import("@/components/sections/ImmersiveFeatures").then(mod => mod.ImmersiveFeatures), { ssr: true });
-const SalesPodShowcase = dynamic(() => import("@/components/sections/SalesPodShowcase").then(mod => mod.SalesPodShowcase), { ssr: true });
-const HRShowcase = dynamic(() => import("@/components/sections/HRShowcase").then(mod => mod.HRShowcase), { ssr: true });
-const OpsShowcase = dynamic(() => import("@/components/sections/OpsShowcase").then(mod => mod.OpsShowcase), { ssr: true });
-const MarketingShowcase = dynamic(() => import("@/components/sections/MarketingShowcase").then(mod => mod.MarketingShowcase), { ssr: true });
-const CustomWorkflowShowcase = dynamic(() => import("@/components/sections/CustomWorkflowShowcase").then(mod => mod.CustomWorkflowShowcase), { ssr: true });
-const ImpactShowcase = dynamic(() => import("@/components/sections/ImpactShowcase").then(mod => mod.ImpactShowcase), { ssr: true });
-const WhyChooseShowcase = dynamic(() => import("@/components/sections/WhyChooseShowcase").then(mod => mod.WhyChooseShowcase), { ssr: true });
-const ProcessShowcase = dynamic(() => import("@/components/sections/ProcessShowcase").then(mod => mod.ProcessShowcase), { ssr: true });
-const CaseStudiesShowcase = dynamic(() => import("@/components/sections/CaseStudiesShowcase").then(mod => mod.CaseStudiesShowcase), { ssr: true });
-const KnowledgeShowcase = dynamic(() => import("@/components/sections/KnowledgeShowcase").then(mod => mod.KnowledgeShowcase), { ssr: true });
-const FinalCTASection = dynamic(() => import("@/components/sections/FinalCTASection").then(mod => mod.FinalCTASection), { ssr: true });
+const ImmersiveFeatures = dynamic(() => import("@/components/sections/ImmersiveFeatures").then(mod => mod.ImmersiveFeatures), { ssr: false });
+const SalesPodShowcase = dynamic(() => import("@/components/sections/SalesPodShowcase").then(mod => mod.SalesPodShowcase), { ssr: false });
+const HRShowcase = dynamic(() => import("@/components/sections/HRShowcase").then(mod => mod.HRShowcase), { ssr: false });
+const OpsShowcase = dynamic(() => import("@/components/sections/OpsShowcase").then(mod => mod.OpsShowcase), { ssr: false });
+const MarketingShowcase = dynamic(() => import("@/components/sections/MarketingShowcase").then(mod => mod.MarketingShowcase), { ssr: false });
+const CustomWorkflowShowcase = dynamic(() => import("@/components/sections/CustomWorkflowShowcase").then(mod => mod.CustomWorkflowShowcase), { ssr: false });
+const ImpactShowcase = dynamic(() => import("@/components/sections/ImpactShowcase").then(mod => mod.ImpactShowcase), { ssr: false });
+const WhyChooseShowcase = dynamic(() => import("@/components/sections/WhyChooseShowcase").then(mod => mod.WhyChooseShowcase), { ssr: false });
+const ProcessShowcase = dynamic(() => import("@/components/sections/ProcessShowcase").then(mod => mod.ProcessShowcase), { ssr: false });
+const CaseStudiesShowcase = dynamic(() => import("@/components/sections/CaseStudiesShowcase").then(mod => mod.CaseStudiesShowcase), { ssr: false });
+const KnowledgeShowcase = dynamic(() => import("@/components/sections/KnowledgeShowcase").then(mod => mod.KnowledgeShowcase), { ssr: false });
+const FinalCTASection = dynamic(() => import("@/components/sections/FinalCTASection").then(mod => mod.FinalCTASection), { ssr: false });
 
 // import { StickyFeatureReveal } from "@/components/sections/StickyFeatureReveal"; // Retired for card-based layout
 
@@ -134,6 +134,21 @@ export default function UAEPage() {
       link.rel = "prefetch";
       link.href = "/gcc";
       document.head.appendChild(link);
+    }
+  }, []);
+
+  // Support direct anchor linking with dynamic dynamic imports
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash;
+      const id = hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 400);
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -460,7 +475,7 @@ export default function UAEPage() {
                   }}
                 >
                   <Download style={{ width: "16px", height: "16px", position: "relative", zIndex: 2 }} />
-                  <span style={{ position: "relative", zIndex: 2 }}>Download the Feature Guide</span>
+                  <span style={{ position: "relative", zIndex: 2 }}>Download the Free Feature Guide</span>
                 </button>
               </div>
             </div>
@@ -486,7 +501,7 @@ export default function UAEPage() {
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "15px",
+                  fontSize: "17px",
                   fontWeight: 700,
                   color: C.txtBright,
                   lineHeight: 1.4,
@@ -499,7 +514,7 @@ export default function UAEPage() {
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "22px",
+                  fontSize: "25px",
                   fontWeight: 800,
                   color: C.txtBright,
                   lineHeight: 1.3,

@@ -757,6 +757,39 @@ export function DataAnalysis() {
               <div className={`marquee-track-v4 ${isPaused ? 'paused-v3' : ''}`}>
                 {[...brands, ...brands, ...brands].map((brand: any, i) => {
                   const isHovered = hoveredIndex === i;
+                  const isAnyHovered = hoveredIndex !== null;
+                  
+                  // Adaptive CSS Filters for Brand Logos
+                  let logoFilter = "";
+                  let logoTransform = "scale(1)";
+                  
+                  const isSpecialLogo = brand.alt === "HobbyFi" || brand.alt === "Break The Code";
+
+                  if (isHovered) {
+                    // Hovered state: original brand colors + premium glow
+                    logoFilter = resolvedTheme === "dark"
+                      ? "drop-shadow(0 0 12px rgba(177, 217, 151, 0.45))"
+                      : "drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))";
+                    logoTransform = "scale(1.08)";
+                  } else {
+                    // Default adaptive states
+                    if (isSpecialLogo) {
+                      // Special case for embedded background/image-style logos
+                      if (resolvedTheme === "dark") {
+                        logoFilter = "brightness(1.15) contrast(1.08)";
+                      } else {
+                        logoFilter = "brightness(0.92) contrast(1.05)";
+                      }
+                    } else {
+                      // Standard transparent/text-based logos
+                      if (resolvedTheme === "dark") {
+                        logoFilter = "brightness(0) invert(1)";
+                      } else {
+                        logoFilter = "brightness(0)";
+                      }
+                    }
+                  }
+
                   return (
                     <div
                       key={`${brand.alt}-${i}`}
@@ -776,9 +809,10 @@ export function DataAnalysis() {
                         minWidth: "140px",
                         height: "48px",
                         transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                        transform: isHovered ? "scale(1.1)" : "scale(1)",
-                        opacity: isHovered ? 1 : 0.6,
-                        cursor: "pointer"
+                        transform: logoTransform,
+                        opacity: isHovered ? 1 : (isAnyHovered ? 0.35 : 0.65),
+                        cursor: "pointer",
+                        willChange: "transform, opacity"
                       }}
                     >
                       <img
@@ -791,12 +825,9 @@ export function DataAnalysis() {
                           pointerEvents: "none",
                           userSelect: "none",
                           background: "transparent",
-                          transition: "all 0.4s ease",
-                          filter: isHovered 
-                            ? "none" 
-                            : (resolvedTheme === "dark" 
-                              ? (brand.darkModeFilter || "brightness(0) invert(1) grayscale(1)") 
-                              : (brand.lightModeFilter || "grayscale(100%)"))
+                          transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                          filter: logoFilter,
+                          willChange: "filter"
                         }}
                       />
                     </div>
@@ -1008,7 +1039,7 @@ const benefitCards = [
               y: hovered ? [100, 85, 100] : [130, 115, 130] 
             }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            x="15" width="36" rx="8" fill="url(#gradBar)"
+            x="15" y="130" width="36" height="40" rx="8" fill="url(#gradBar)"
             style={{ willChange: "height, y" }}
           />
           <motion.rect
@@ -1017,7 +1048,7 @@ const benefitCards = [
               y: hovered ? [65, 50, 65] : [110, 95, 110] 
             }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            x="65" width="36" rx="8" fill="url(#gradBar)"
+            x="65" y="110" width="36" height="60" rx="8" fill="url(#gradBar)"
             style={{ willChange: "height, y" }}
           />
           <motion.rect
@@ -1026,7 +1057,7 @@ const benefitCards = [
               y: hovered ? [30, 15, 30] : [90, 75, 90] 
             }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            x="115" width="36" rx="8" fill="url(#gradBar)"
+            x="115" y="90" width="36" height="80" rx="8" fill="url(#gradBar)"
             style={{ willChange: "height, y" }}
           />
           <motion.rect
@@ -1035,7 +1066,7 @@ const benefitCards = [
               y: hovered ? [85, 70, 85] : [120, 105, 120] 
             }}
             transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-            x="165" width="36" rx="8" fill="url(#gradBar)"
+            x="165" y="120" width="36" height="50" rx="8" fill="url(#gradBar)"
             style={{ willChange: "height, y" }}
           />
         </svg>

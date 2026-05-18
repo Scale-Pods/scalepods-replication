@@ -122,7 +122,7 @@ export const StickyFeatureReveal = () => {
                                 >
                                     <Download size={18} className="text-black" />
 
-                                    <span>Download the Feature Guide</span>
+                                    <span>Download the Free Feature Guide</span>
                                 </button>
                             </motion.div>
                         </div>

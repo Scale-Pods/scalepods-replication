@@ -56,7 +56,9 @@ export default function Hero() {
           height: "100%",
           objectFit: "cover",
           transform: "translate(-50%, -50%)",
-          filter: "saturate(0.72) hue-rotate(-12deg) brightness(0.82) contrast(1.08)",
+          filter: resolvedTheme === 'dark'
+            ? "saturate(0.8) brightness(0.55) contrast(1.05) hue-rotate(-8deg)"
+            : "saturate(0.35) brightness(1.08) contrast(0.88) hue-rotate(-12deg)",
           opacity: 1,
           willChange: "transform",
           backfaceVisibility: "hidden",
@@ -86,10 +88,10 @@ export default function Hero() {
             zIndex: 1,
             pointerEvents: "none",
             background: resolvedTheme === 'dark'
-              ? "linear-gradient(180deg, rgba(2,6,14,0.78) 0%, rgba(4,8,18,0.72) 35%, rgba(6,10,20,0.74) 70%, rgba(2,5,12,0.84) 100%)"
-              : "linear-gradient(180deg, rgba(236,241,247,0.82) 0%, rgba(228,234,241,0.74) 35%, rgba(220,228,236,0.70) 70%, rgba(214,223,233,0.82) 100%)",
-            backdropFilter: resolvedTheme === 'dark' ? "blur(2px)" : "blur(1.5px)",
-            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(2px)" : "blur(1.5px)",
+              ? "linear-gradient(180deg, rgba(4, 8, 18, 0.8) 0%, rgba(4, 8, 18, 0.72) 35%, rgba(4, 8, 18, 0.76) 70%, rgba(4, 8, 18, 0.85) 100%)"
+              : "linear-gradient(180deg, rgba(245, 247, 250, 0.62) 0%, rgba(236, 239, 243, 0.52) 100%)",
+            backdropFilter: resolvedTheme === 'dark' ? "blur(3px)" : "blur(2px)",
+            WebkitBackdropFilter: resolvedTheme === 'dark' ? "blur(3px)" : "blur(2px)",
           }}
         />
       )}
@@ -101,7 +103,9 @@ export default function Hero() {
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            background: "rgba(20, 28, 40, 0.12)",
+            background: resolvedTheme === 'dark'
+              ? "rgba(10, 20, 36, 0.15)"
+              : "rgba(220, 225, 235, 0.12)",
             mixBlendMode: "color",
             pointerEvents: "none"
           }}
@@ -140,11 +144,10 @@ export default function Hero() {
             alignItems: "center",
             justifyContent: "center",
           }}>
-            {/* Sky-blue radial glow halo — dark only */}
             <div style={{
               position: "absolute",
-              width: isMobile ? "160px" : "220px",
-              height: isMobile ? "160px" : "220px",
+              width: isMobile ? "160px" : "190px",
+              height: isMobile ? "160px" : "190px",
               borderRadius: "50%",
               background: resolvedTheme === 'dark'
                 ? "radial-gradient(circle at center, rgba(109, 182, 255, 0.4) 0%, transparent 70%)"
@@ -156,19 +159,19 @@ export default function Hero() {
             {/* Main icon box */}
             <div style={{
               position: "relative",
-              width: isMobile ? "90px" : "120px",
-              height: isMobile ? "90px" : "120px",
-              borderRadius: isMobile ? "18px" : "24px",
+              width: isMobile ? "90px" : "100px",
+              height: isMobile ? "90px" : "100px",
+              borderRadius: isMobile ? "18px" : "22px",
               background: resolvedTheme === 'dark' ? "var(--color-bg-card)" : "rgba(255,255,255,0.95)",
               border: resolvedTheme === 'dark' ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.08)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               boxShadow: resolvedTheme === 'dark'
-                ? `0 0 ${isMobile ? '20px' : '40px'} -5px rgba(109, 182, 255, 0.7)`
+                ? `0 0 ${isMobile ? '20px' : '36px'} -5px rgba(109, 182, 255, 0.7)`
                 : "0 12px 40px rgba(15,23,42,0.12)",
               zIndex: 1,
-              padding: isMobile ? "12px" : "16px",
+              padding: isMobile ? "12px" : "14px",
             }}>
               <Image
                 src="/scalepods-logo.png"
@@ -176,7 +179,7 @@ export default function Hero() {
                 width={108}
                 height={108}
                 style={{
-                  width: isMobile ? "62px" : "84px",
+                  width: isMobile ? "62px" : "70px",
                   height: "auto",
                   objectFit: "contain",
                   filter: resolvedTheme === 'dark' ? "invert(1)" : "none",
