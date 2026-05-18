@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, memo, useCallback } from "react";
-
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect, memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   BarChart3, 
   Target, 
@@ -11,16 +10,15 @@ import {
   CheckCircle2, 
   ArrowRight, 
   Sparkles,
-  Layers,
   Zap,
   Layout,
   Download,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Layers
 } from "lucide-react";
 import DownloadModal from "@/components/ui/DownloadModal";
-import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
-import { AnimatePresence } from "framer-motion";
+import { FloatingPreviewCarouselWrapper } from "@/components/ui/FloatingPreviewCarouselWrapper";
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
@@ -115,6 +113,9 @@ const salesCarouselImages = [
 ];
 
 const StatIconSize = 14;
+
+// Removed local SalesCarouselWrapper since it's now in FloatingPreviewCarouselWrapper
+
 
 export const SalesPodShowcase = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -576,7 +577,11 @@ export const SalesPodShowcase = memo(() => {
                   willChange: "transform, opacity"
                 }}
               >
-                <ThreeDCarousel items={salesCarouselImages} autoRotate={true} />
+                <FloatingPreviewCarouselWrapper 
+                  items={salesCarouselImages}
+                  autoRotate={true}
+                  rotateInterval={3500}
+                />
               </motion.div>
             )}
           </AnimatePresence>

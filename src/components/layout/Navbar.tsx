@@ -94,6 +94,7 @@ const ThemeToggle = memo(() => {
 });
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/#services" },
   { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
@@ -127,6 +128,55 @@ const Navbar = memo(() => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  const isLinkActive = useCallback((href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    if (href.startsWith("/#")) {
+      return pathname === "/";
+    }
+    return pathname === href || pathname?.startsWith(href);
+  }, [pathname]);
+
+  const handleLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    closeMenu();
+    if (href === "/" && pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [pathname, closeMenu]);
+
+  const toggleGlobal = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setGlobalExpanded(prev => !prev);
+  }, []);
+
+  const handleSectionNav = useCallback((id: string) => {
+    // If we are already on the Global page (/gcc)
+    if (pathname === "/gcc") {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setMenuOpen(false);
+      }
+    } else {
+      // If we are on another page, navigate to /gcc with hash
+      router.push(`/gcc#${id}`);
+      setMenuOpen(false);
+    }
+  }, [pathname, router]);
+
+  const handleMobileLink = useCallback((href: string) => {
+    setMenuOpen(false);
+    router.push(href);
+  }, [router]);
+
   // Throttled scroll listener
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -146,33 +196,6 @@ const Navbar = memo(() => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
-  const toggleGlobal = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setGlobalExpanded(prev => !prev);
-  }, []);
-
-  const handleSectionNav = (id: string) => {
-    // If we are already on the Global page (/gcc)
-    if (pathname === "/gcc") {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        setMenuOpen(false);
-      }
-    } else {
-      // If we are on another page, navigate to /gcc with hash
-      router.push(`/gcc#${id}`);
-      setMenuOpen(false);
-    }
-  };
-
-  const handleMobileLink = useCallback((href: string) => {
-    setMenuOpen(false);
-    router.push(href);
-  }, [router]);
 
   // Aggressively prefetch major routes after homepage hydration
   useEffect(() => {
@@ -269,32 +292,39 @@ const Navbar = memo(() => {
               gap: "4px",
             }}
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                prefetch={true}
-                style={{
-                  fontSize: "13.5px",
-                  fontWeight: 500,
-                  color: "var(--color-text-muted)",
-                  textDecoration: "none",
-                  padding: "5px 14px",
-                  borderRadius: "24px",
-                  transition: "color 0.2s, background 0.2s",
-                  whiteSpace: "nowrap",
-                  fontFamily: "Inter, sans-serif",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--color-text-bright)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--color-text-muted)";
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = isLinkActive(link.href);
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  prefetch={true}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  style={{
+                    fontSize: "13.5px",
+                    fontWeight: 500,
+                    color: active ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                    background: active ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                    textDecoration: "none",
+                    padding: "5px 14px",
+                    borderRadius: "24px",
+                    transition: "color 0.2s, background 0.2s",
+                    whiteSpace: "nowrap",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "var(--color-text-bright)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = active ? "var(--color-text-bright)" : "var(--color-text-muted)";
+                    e.currentTarget.style.background = active ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right Area: Theme Toggle + Menu Trigger */}
@@ -428,6 +458,7 @@ const Navbar = memo(() => {
                 }}>
                   {navLinks.map((link, i) => {
                     if (link.label === "Global") {
+                      const active = isLinkActive(link.href);
                       return (
                         <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
                           <div style={{ display: "flex", alignItems: "center" }}>
@@ -441,11 +472,24 @@ const Navbar = memo(() => {
                                 alignItems: "center",
                                 fontSize: "15px",
                                 fontWeight: 500,
-                                color: "var(--color-text-body)",
+                                color: active ? "var(--color-text-bright)" : "var(--color-text-body)",
                                 textDecoration: "none",
                                 padding: "16px 24px",
                                 fontFamily: "Inter, sans-serif",
                                 transition: "all 0.2s ease",
+                                borderLeft: "2px solid transparent",
+                                borderLeftColor: active ? "var(--color-blue-bright)" : "transparent",
+                                background: active ? "rgba(255,255,255,0.03)" : "transparent",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.color = "var(--color-text-bright)";
+                                e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                                e.currentTarget.style.borderLeftColor = "var(--color-blue-bright)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.color = active ? "var(--color-text-bright)" : "var(--color-text-body)";
+                                e.currentTarget.style.background = active ? "rgba(255,255,255,0.03)" : "transparent";
+                                e.currentTarget.style.borderLeftColor = active ? "var(--color-blue-bright)" : "transparent";
                               }}
                             >
                               {link.label}
@@ -520,6 +564,7 @@ const Navbar = memo(() => {
                       );
                     }
 
+                    const active = isLinkActive(link.href);
                     return (
                       <motion.div
                         key={link.label}
@@ -530,18 +575,20 @@ const Navbar = memo(() => {
                         <Link
                           href={link.href}
                           prefetch={true}
-                          onClick={closeMenu}
+                          onClick={(e) => handleLinkClick(e, link.href)}
                           style={{
                             display: "flex",
                             alignItems: "center",
                             fontSize: "15px",
                             fontWeight: 500,
-                            color: "var(--color-text-body)",
+                            color: active ? "var(--color-text-bright)" : "var(--color-text-body)",
                             textDecoration: "none",
                             padding: "16px 24px",
                             fontFamily: "Inter, sans-serif",
                             transition: "all 0.2s ease",
                             borderLeft: "2px solid transparent",
+                            borderLeftColor: active ? "var(--color-blue-bright)" : "transparent",
+                            background: active ? "rgba(255,255,255,0.03)" : "transparent",
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.color = "var(--color-text-bright)";
@@ -549,9 +596,9 @@ const Navbar = memo(() => {
                             e.currentTarget.style.borderLeftColor = "var(--color-blue-bright)";
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.color = "var(--color-text-body)";
-                            e.currentTarget.style.background = "transparent";
-                            e.currentTarget.style.borderLeftColor = "transparent";
+                            e.currentTarget.style.color = active ? "var(--color-text-bright)" : "var(--color-text-body)";
+                            e.currentTarget.style.background = active ? "rgba(255,255,255,0.03)" : "transparent";
+                            e.currentTarget.style.borderLeftColor = active ? "var(--color-blue-bright)" : "transparent";
                           }}
                         >
                           {link.label}

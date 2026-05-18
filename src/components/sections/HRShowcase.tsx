@@ -19,7 +19,7 @@ import {
   ChevronUp
 } from "lucide-react";
 import DownloadModal from "@/components/ui/DownloadModal";
-import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
+import { FloatingPreviewCarouselWrapper } from "@/components/ui/FloatingPreviewCarouselWrapper";
 import { AnimatePresence } from "framer-motion";
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -83,7 +83,7 @@ const hrCarouselImages = [
     heading: "AI Skill-Mapping Engine",
     subtitle: "Deep-stack candidate analysis and scoring.",
     description: "Autonomous screening and cultural fit analysis using proprietary AI logic.",
-    imageUrl: "/images/showcase/hr/Screenshot 2026-05-18 153113.png",
+    imageUrl: "/images/showcase/hr/hr-2 new.png",
     systemLabel: "TALENT INTELLIGENCE"
   },
   { 
@@ -334,7 +334,7 @@ export const HRShowcase = memo(() => {
                   display: "flex", flexDirection: "column", alignItems: "center"
                 }}
               >
-                <ThreeDCarousel items={hrCarouselImages} autoRotate={true} />
+                <FloatingPreviewCarouselWrapper items={hrCarouselImages} autoRotate={true} />
               </motion.div>
             )}
           </AnimatePresence>

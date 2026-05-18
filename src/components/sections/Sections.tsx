@@ -653,6 +653,19 @@ export function DataAnalysis() {
         </p>
 
         {/* Trusted Brands Marquee */}
+        <svg width="0" height="0" style={{ position: "absolute", pointerEvents: "none" }}>
+          <defs>
+            <filter id="remove-white-bg" colorInterpolationFilters="sRGB">
+              <feColorMatrix in="SourceGraphic" type="matrix" values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                -2.5 -2.5 -2.5 0 7.2
+              " result="chroma" />
+              <feComposite in="chroma" in2="SourceGraphic" operator="in" />
+            </filter>
+          </defs>
+        </svg>
         <div 
           data-scroll-observed="1"
           style={{
@@ -743,8 +756,8 @@ export function DataAnalysis() {
                           pointerEvents: "none",
                           userSelect: "none",
                           filter: resolvedTheme === "dark" 
-                            ? (brand.darkModeFilter || "none") 
-                            : (brand.lightModeFilter || "none")
+                            ? ((brand.alt === "HobbyFi" || brand.alt === "Break The Code") ? "url(#remove-white-bg) grayscale(1) brightness(0) invert(1)" : "brightness(0) invert(1)") 
+                            : ((brand.alt === "HobbyFi" || brand.alt === "Break The Code") ? "url(#remove-white-bg) grayscale(1) brightness(0)" : (brand.alt === "Krafty" ? "brightness(0.25)" : "brightness(0)"))
                         }}
                       />
                     </div>
@@ -764,29 +777,20 @@ export function DataAnalysis() {
                   let logoTransform = "scale(1)";
                   
                   const isSpecialLogo = brand.alt === "HobbyFi" || brand.alt === "Break The Code";
+                  const baseFilter = isSpecialLogo ? "url(#remove-white-bg) " : "";
 
                   if (isHovered) {
                     // Hovered state: original brand colors + premium glow
-                    logoFilter = resolvedTheme === "dark"
+                    logoFilter = baseFilter + (resolvedTheme === "dark"
                       ? "drop-shadow(0 0 12px rgba(177, 217, 151, 0.45))"
-                      : "drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))";
+                      : "drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))");
                     logoTransform = "scale(1.08)";
                   } else {
-                    // Default adaptive states
-                    if (isSpecialLogo) {
-                      // Special case for embedded background/image-style logos
-                      if (resolvedTheme === "dark") {
-                        logoFilter = "brightness(1.15) contrast(1.08)";
-                      } else {
-                        logoFilter = "brightness(0.92) contrast(1.05)";
-                      }
+                    // Default adaptive states: STRICTLY MONOCHROME
+                    if (resolvedTheme === "dark") {
+                      logoFilter = baseFilter + "grayscale(1) brightness(0) invert(1)";
                     } else {
-                      // Standard transparent/text-based logos
-                      if (resolvedTheme === "dark") {
-                        logoFilter = "brightness(0) invert(1)";
-                      } else {
-                        logoFilter = "brightness(0)";
-                      }
+                      logoFilter = baseFilter + (brand.alt === "Krafty" ? "brightness(0.25)" : "grayscale(1) brightness(0)");
                     }
                   }
 

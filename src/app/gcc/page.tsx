@@ -510,26 +510,16 @@ export default function UAEPage() {
               <p
                 style={{
                   fontFamily: F.inter,
-                  fontSize: "17px",
-                  fontWeight: 700,
+                  fontSize: "25px",
+                  fontWeight: 800,
                   color: C.txtBright,
                   lineHeight: 1.4,
                   marginBottom: "4px",
                 }}
               >
                 Improve Workflow{" "}
-                <em style={{ fontFamily: F.accent, fontStyle: "italic", color: C.green }}>Efficiency by</em>
-              </p>
-              <p
-                style={{
-                  fontFamily: F.inter,
-                  fontSize: "25px",
-                  fontWeight: 800,
-                  color: C.txtBright,
-                  lineHeight: 1.3,
-                }}
-              >
-                <span style={{ fontFamily: F.serif, fontStyle: "italic", color: C.green }}>30%</span>{" "}
+                <span style={{ fontFamily: F.accent, fontStyle: "italic", color: C.green, fontWeight: 900 }}>Efficiency by 30%</span>
+                <br />
                 and Eliminate Bottlenecks
               </p>
             </div>

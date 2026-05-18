@@ -3,7 +3,7 @@
 import React, { memo, useCallback } from "react";
 
 import { motion } from "framer-motion";
-import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
+import { FloatingPreviewCarouselWrapper } from "@/components/ui/FloatingPreviewCarouselWrapper";
 import { ChevronRight, ArrowRight, Zap, Users, Settings, PenTool, Layers } from "lucide-react";
 import Link from "next/link";
 import { useMobile } from "@/lib/hooks";
@@ -532,7 +532,7 @@ export const ImmersiveFeatures = memo(() => {
             paddingRight: isMobile ? "0" : "20px", // Safe space for chatbot
             paddingBottom: isMobile ? "40px" : "0"
           }}>
-            <ThreeDCarousel 
+            <FloatingPreviewCarouselWrapper 
               items={workflowSlides} 
               autoRotate={true}
               rotateInterval={3000}

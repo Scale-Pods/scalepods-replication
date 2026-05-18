@@ -19,7 +19,7 @@ import {
   ChevronUp
 } from "lucide-react";
 import DownloadModal from "@/components/ui/DownloadModal";
-import { ThreeDCarousel } from "@/components/lightswind/3d-carousel";
+import { FloatingPreviewCarouselWrapper } from "@/components/ui/FloatingPreviewCarouselWrapper";
 import { AnimatePresence } from "framer-motion";
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -393,7 +393,7 @@ export const MarketingShowcase = memo(() => {
                   display: "flex", flexDirection: "column", alignItems: "center"
                 }}
               >
-                <ThreeDCarousel items={marketingCarouselImages} autoRotate={true} />
+                <FloatingPreviewCarouselWrapper items={marketingCarouselImages} autoRotate={true} />
               </motion.div>
             )}
           </AnimatePresence>

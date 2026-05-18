@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
-interface CarouselItem {
+export interface CarouselItem {
   id: number;
   title: string;
   description: string;
@@ -24,6 +24,10 @@ interface ThreeDCarouselProps {
   tightLayout?: boolean;
   cardScale?: number;
   captionOffset?: number;
+  /** Externally controlled pause — parent can set true on hover/focus without touching internal drag state */
+  externalPaused?: boolean;
+  /** Called with the active item when the image zone is clicked — used by SalesCarouselWrapper for floating preview */
+  onImageClick?: (item: CarouselItem) => void;
 }
 
 
@@ -70,10 +74,11 @@ export const ThreeDCarousel = React.memo(({
   items,
   autoRotate = true,
   rotateInterval = 2000,
-
   tightLayout = false,
   cardScale = 1,
   captionOffset = 0,
+  externalPaused = false,
+  onImageClick,
 }: ThreeDCarouselProps) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -115,13 +120,15 @@ export const ThreeDCarousel = React.memo(({
   }, []);
 
   useEffect(() => {
-    if (autoRotate && !isInteracting && isTabActive) {
+    if (autoRotate && !isInteracting && !externalPaused && isTabActive) {
       timerRef.current = setInterval(nextSlide, rotateInterval);
+    } else {
+      if (timerRef.current) clearInterval(timerRef.current);
     }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [autoRotate, isInteracting, isTabActive, nextSlide, rotateInterval]);
+  }, [autoRotate, isInteracting, externalPaused, isTabActive, nextSlide, rotateInterval]);
 
 
   const handleDragEnd = useCallback((event: any, info: any) => {
@@ -212,6 +219,7 @@ export const ThreeDCarousel = React.memo(({
                   {/* Image Showcase Zone */}
                   <div 
                     className="relative w-full overflow-hidden"
+                    onClick={onImageClick && isActive ? (e) => { e.stopPropagation(); onImageClick(item); } : undefined}
                     style={{
                       borderRadius: "20px",
                       background: isDark ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.3)",
@@ -221,6 +229,7 @@ export const ThreeDCarousel = React.memo(({
                       justifyContent: "center",
                       position: "relative",
                       border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.02)"}`,
+                      cursor: onImageClick && isActive ? "zoom-in" : "default",
                     }}
                   >
                     <div style={{ position: "relative", width: "95%", height: "95%" }}>
