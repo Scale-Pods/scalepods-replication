@@ -213,12 +213,13 @@ function Section({ id, children }: { id?: string; children: React.ReactNode }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 export function Services() {
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(1023);
   return (
     <section id="services" style={{ 
       position: "relative", 
       background: C.bgPage, 
-      padding: "clamp(24px, 3vw, 32px) clamp(20px, 3vw, 24px)",
-      minHeight: "100vh",
+      padding: isMobile ? "80px 20px" : "140px 24px",
+      minHeight: isMobile ? "auto" : "100vh",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center"
@@ -241,7 +242,7 @@ export function Services() {
         <Sub>Everything you need to automate operations, boost productivity</Sub>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-3 w-full">
 
         {/* 1 – Automate Repetitive Tasks (1col) */}
         <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
@@ -567,7 +568,7 @@ export function DataAnalysis() {
         justifyContent: "center",
         textAlign: "center",
         minHeight: isMobile ? "auto" : "600px",
-        padding: isMobile ? "80px 24px" : "100px 32px",
+        padding: isMobile ? "24px 12px 16px" : "100px 32px",
         width: "100%",
         maxWidth: "100vw",
         overflow: "hidden"
@@ -1617,6 +1618,7 @@ const Step3WaveChart = memo(function Step3WaveChart() {
 export function Process() {
   const [activeTab, setActiveTab] = useState(0);
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(1023);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1629,8 +1631,8 @@ export function Process() {
     <section id="process" style={{ 
       position: "relative", 
       background: C.bgPage, 
-      padding: "clamp(32px, 4vw, 48px) clamp(20px, 3vw, 24px)",
-      minHeight: "100vh",
+      padding: isMobile ? "80px 20px" : "140px 24px",
+      minHeight: isMobile ? "auto" : "100vh",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center"
@@ -1945,8 +1947,8 @@ export function CaseStudies() {
     <section id="clients" style={{ 
       position: "relative", 
       background: C.bgPage, 
-      padding: isMobile ? "64px 16px 40px" : "72px 32px 48px",
-      minHeight: "100vh",
+      padding: isMobile ? "80px 20px" : "140px 24px",
+      minHeight: isMobile ? "auto" : "100vh",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -2569,7 +2571,7 @@ export function FinalCTA() {
     <section id="contact" style={{ 
       position: "relative", 
       background: C.bgPage, 
-      padding: isMobile ? "80px 24px" : "160px 24px", 
+      padding: isMobile ? "96px 20px 80px" : "160px 24px", 
       textAlign: "center", 
       overflow: "hidden" 
     }}>

@@ -85,11 +85,11 @@ export const CaseStudiesShowcase = () => {
     >
       <style jsx>{`
         .case-studies-section {
-          padding: 48px 32px 56px;
+          padding: 140px 32px 140px;
         }
         @media (max-width: 1024px) {
           .case-studies-section {
-            padding: 40px 16px 56px;
+            padding: 80px 20px 80px;
           }
         }
       `}</style>
