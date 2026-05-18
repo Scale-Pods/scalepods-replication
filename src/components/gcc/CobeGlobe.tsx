@@ -30,6 +30,7 @@ export function CobeGlobe({ size = 600, className, style }: CobeGlobeProps) {
   const isInteractingRef = useRef(false);   // true while dragging OR inertia active
   const lastXRef         = useRef(0);
   const resumeTimerRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isVisibleRef     = useRef(true);
 
   // ── Cursor visual — useState OK: only fires on pointerdown/up ────────────
   const [grabbing, setGrabbing] = useState(false);
@@ -39,6 +40,22 @@ export function CobeGlobe({ size = 600, className, style }: CobeGlobeProps) {
 
   // Detect mobile once at mount
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  // ── Pause rendering when offscreen ────────────────────────────────────────
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(canvas);
+    return () => observer.disconnect();
+  }, []);
 
   // ── Globe initialisation ──────────────────────────────────────────────────
   const initGlobe = useCallback(() => {
@@ -55,9 +72,10 @@ export function CobeGlobe({ size = 600, className, style }: CobeGlobeProps) {
       globeRef.current = null;
     }
 
+    // Mobile resolution optimization
     const dpr = isMobile
-      ? Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.5)
-      : Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 2);
+      ? 1.0
+      : Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.8);
 
     const canvasSize = size * dpr;
 
@@ -75,7 +93,7 @@ export function CobeGlobe({ size = 600, className, style }: CobeGlobeProps) {
       dark:             isDark ? 1 : 0,
       diffuse:          isDark ? 1.4 : 2.0,
       scale:            1,
-      mapSamples:       isMobile ? 10000 : 16000,
+      mapSamples:       isMobile ? 5000 : 13000,
       mapBrightness:    isDark ? 5 : 8,
       baseColor,
       markerColor,
@@ -103,6 +121,12 @@ export function CobeGlobe({ size = 600, className, style }: CobeGlobeProps) {
 
     // ── Animation loop ───────────────────────────────────────────────────────
     function frame() {
+      // Pause updates completely when globe is out of view
+      if (!isVisibleRef.current) {
+        rafRef.current = requestAnimationFrame(frame);
+        return;
+      }
+
       if (isInteractingRef.current) {
         // Drag active: velocity is set live by onPointerMove
         phiRef.current += velocityRef.current;

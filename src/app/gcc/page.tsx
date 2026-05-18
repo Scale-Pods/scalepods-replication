@@ -123,9 +123,18 @@ export default function UAEPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [showBelowFold, setShowBelowFold] = useState(false);
   const isMobile = useMobile(900);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
+
+  useEffect(() => {
+    // Unblock the main thread during initial paint and route navigation
+    const timer = setTimeout(() => {
+      setShowBelowFold(true);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     // Prefetch global page assets
@@ -799,32 +808,35 @@ export default function UAEPage() {
         />
       </section>
 
+      {showBelowFold && (
+        <>
+          {/* ── IMMERSIVE PRODUCT SHOWCASE SECTION ───────────────────────────── */}
+          <ImmersiveFeatures />
 
-      {/* ── IMMERSIVE PRODUCT SHOWCASE SECTION ───────────────────────────── */}
-      <ImmersiveFeatures />
+          {/* ── SALES POD FLAGSHIP SHOWCASE ──────────────────────────────────── */}
+          <SalesPodShowcase />
 
-      {/* ── SALES POD FLAGSHIP SHOWCASE ──────────────────────────────────── */}
-      <SalesPodShowcase />
+          {/* ── HR AUTOMATION / HIRING OS SHOWCASE ────────────────────────────── */}
+          <HRShowcase />
 
-      {/* ── HR AUTOMATION / HIRING OS SHOWCASE ────────────────────────────── */}
-      <HRShowcase />
+          {/* ── OPERATIONS & SUPPORT COMMAND CENTER SHOWCASE ──────────────────── */}
+          <OpsShowcase />
 
-      {/* ── OPERATIONS & SUPPORT COMMAND CENTER SHOWCASE ──────────────────── */}
-      <OpsShowcase />
+          {/* ── MARKETING AUTOMATION SHOWCASE ────────────────────────────────── */}
+          <MarketingShowcase />
 
-      {/* ── MARKETING AUTOMATION SHOWCASE ────────────────────────────────── */}
-      <MarketingShowcase />
+          {/* ── CUSTOM AI WORKFLOW SOLUTIONS SHOWCASE ────────────────────────── */}
+          <CustomWorkflowShowcase />
 
-      {/* ── CUSTOM AI WORKFLOW SOLUTIONS SHOWCASE ────────────────────────── */}
-      <CustomWorkflowShowcase />
-
-      {/* ── BUSINESS OUTCOMES / IMPACT METRICS SHOWCASE ─────────────────── */}
-      <ImpactShowcase />
-      <WhyChooseShowcase />
-      <ProcessShowcase />
-      <CaseStudiesShowcase />
-      <KnowledgeShowcase />
-      <FinalCTASection />
+          {/* ── BUSINESS OUTCOMES / IMPACT METRICS SHOWCASE ─────────────────── */}
+          <ImpactShowcase />
+          <WhyChooseShowcase />
+          <ProcessShowcase />
+          <CaseStudiesShowcase />
+          <KnowledgeShowcase />
+          <FinalCTASection />
+        </>
+      )}
 
       </BeamsBackground>
       <DownloadModal isOpen={isDownloadModalOpen} onClose={() => setIsDownloadModalOpen(false)} />

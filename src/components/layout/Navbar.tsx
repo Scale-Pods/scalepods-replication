@@ -174,15 +174,13 @@ const Navbar = memo(() => {
     router.push(href);
   }, [router]);
 
-  // Aggressively prefetch on mobile after homepage hydration
+  // Aggressively prefetch major routes after homepage hydration
   useEffect(() => {
-    if (isMobile) {
-      router.prefetch("/gcc");
-      router.prefetch("/use-cases");
-      router.prefetch("/blog");
-      router.prefetch("/contact");
-    }
-  }, [isMobile, router]);
+    router.prefetch("/gcc");
+    router.prefetch("/use-cases");
+    router.prefetch("/blog");
+    router.prefetch("/contact");
+  }, [router]);
 
   // Close menu on ESC key
   useEffect(() => {
@@ -436,21 +434,7 @@ const Navbar = memo(() => {
                             <Link
                               href={link.href}
                               prefetch={true}
-                              onClick={(e) => {
-                                if (isMobile) {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handleMobileLink(link.href);
-                                } else {
-                                  closeMenu();
-                                }
-                              }}
-                              onPointerDown={(e) => {
-                                if (isMobile) {
-                                  e.stopPropagation();
-                                  handleMobileLink(link.href);
-                                }
-                              }}
+                              onClick={closeMenu}
                               style={{
                                 flexGrow: 1,
                                 display: "flex",
@@ -546,21 +530,7 @@ const Navbar = memo(() => {
                         <Link
                           href={link.href}
                           prefetch={true}
-                          onClick={(e) => {
-                            if (isMobile) {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              handleMobileLink(link.href);
-                            } else {
-                              closeMenu();
-                            }
-                          }}
-                          onPointerDown={(e) => {
-                            if (isMobile) {
-                              e.stopPropagation();
-                              handleMobileLink(link.href);
-                            }
-                          }}
+                          onClick={closeMenu}
                           style={{
                             display: "flex",
                             alignItems: "center",

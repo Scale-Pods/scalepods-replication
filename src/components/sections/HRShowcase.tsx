@@ -79,11 +79,11 @@ const hrCarouselImages = [
   },
   { 
     id: 2, 
-    title: "Candidate Intelligence", 
+    title: "HR Talent Intelligence Dashboard", 
     heading: "AI Skill-Mapping Engine",
     subtitle: "Deep-stack candidate analysis and scoring.",
     description: "Autonomous screening and cultural fit analysis using proprietary AI logic.",
-    imageUrl: "/images/showcase/hr/hr-2.png",
+    imageUrl: "/images/showcase/hr/Screenshot 2026-05-18 153113.png",
     systemLabel: "TALENT INTELLIGENCE"
   },
   { 

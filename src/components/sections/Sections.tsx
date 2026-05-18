@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, memo, useMemo, useCallback } from "react";
+import { useState, useEffect, memo, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, animate } from "framer-motion";
 import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap, ChevronLeft, ChevronRight } from "lucide-react";
@@ -911,6 +911,153 @@ const BenefitCard = memo(function BenefitCard({ card, i }: { card: any, i: numbe
   );
 });
 
+const AIStrategyGrowthGraph = memo(function AIStrategyGrowthGraph({ hovered, resolvedTheme }: { hovered: boolean; resolvedTheme?: string }) {
+  const [phase, setPhase] = useState(0);
+  const requestRef = useRef<number | null>(null);
+  
+  useEffect(() => {
+    let lastTime = performance.now();
+    const animate = (time: number) => {
+      const delta = (time - lastTime) / 1000;
+      lastTime = time;
+      
+      // Auto-play infinite wave propagation, slightly accelerated on hover for kinetic feedback
+      setPhase((prev) => prev + (hovered ? 2.0 : 1.0) * delta);
+      requestRef.current = requestAnimationFrame(animate);
+    };
+    
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, [hovered]);
+
+  const startX = 10;
+  const endX = 230;
+  const step = 4;
+  const points: [number, number][] = [];
+  
+  for (let x = startX; x <= endX; x += step) {
+    const progress = (x - startX) / (endX - startX);
+    // Math wave mapping: climbs from y=120 down to y=40 organically with stable endpoints
+    const baseY = 120 - progress * 80;
+    const wave = Math.sin(progress * Math.PI * 2.5 - phase) * 8 * Math.sin(progress * Math.PI);
+    points.push([x, baseY + wave]);
+  }
+  
+  const linePath = `M ${points.map(([x, y]) => `${x},${y}`).join(" L ")}`;
+  const areaPath = `${linePath} L ${endX},150 L ${startX},150 Z`;
+
+  // Track dynamic nodes moving directly along the wave curvature
+  const getNodePos = (progress: number): [number, number] => {
+    const x = startX + progress * (endX - startX);
+    const baseY = 120 - progress * 80;
+    const wave = Math.sin(progress * Math.PI * 2.5 - phase) * 8 * Math.sin(progress * Math.PI);
+    return [x, baseY + wave];
+  };
+
+  const node1 = getNodePos(0.25);
+  const node2 = getNodePos(0.65);
+  const node3 = getNodePos(1.0); // Perfect peak node (remains mathematically anchored at x=230, y=40)
+
+  const isDark = resolvedTheme === "dark";
+  const lineColor = isDark ? "#38BDF8" : "#2563EB"; // Neon cyan/blue vs deep vibrant cobalt
+  const accentColor = isDark ? "#ACD791" : "#8FBC6A"; // Premium brand green (adaptive)
+  const gridColor = isDark ? "rgba(228, 233, 242, 0.06)" : "rgba(15, 23, 42, 0.05)";
+
+  return (
+    <svg 
+      width="100%" 
+      height="100%" 
+      viewBox="0 0 240 160" 
+      preserveAspectRatio="xMidYMid meet"
+      style={{ 
+        overflow: "visible",
+        width: "240px",
+        height: "160px"
+      }}
+    >
+      <defs>
+        {/* Futuristic glowing dropshadow */}
+        <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        
+        {/* Soft background wave fill gradient */}
+        <linearGradient id="chartAreaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={lineColor} stopOpacity={isDark ? 0.28 : 0.18} />
+          <stop offset="100%" stopColor={lineColor} stopOpacity={0} />
+        </linearGradient>
+
+        {/* Multi-stop glowing line path gradient */}
+        <linearGradient id="chartLineGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={lineColor} />
+          <stop offset="50%" stopColor="#818CF8" />
+          <stop offset="100%" stopColor={accentColor} />
+        </linearGradient>
+      </defs>
+
+      {/* Cyber Grid Coordinates */}
+      <g stroke={gridColor} strokeWidth="1" strokeDasharray="3 3">
+        <line x1="10" y1="40" x2="230" y2="40" />
+        <line x1="10" y1="80" x2="230" y2="80" />
+        <line x1="10" y1="120" x2="230" y2="120" />
+        <line x1="65" y1="20" x2="65" y2="150" />
+        <line x1="120" y1="20" x2="120" y2="150" />
+        <line x1="175" y1="20" x2="175" y2="150" />
+      </g>
+
+      {/* Base X-Axis line */}
+      <line x1="10" y1="150" x2="230" y2="150" stroke={gridColor} strokeWidth="1.5" />
+
+      {/* Shaded dynamic gradient area under curve */}
+      <path d={areaPath} fill="url(#chartAreaGrad)" />
+
+      {/* Hardware-accelerated dynamic main line */}
+      <path 
+        d={linePath} 
+        fill="none" 
+        stroke="url(#chartLineGrad)" 
+        strokeWidth="3.5" 
+        strokeLinecap="round"
+        style={{
+          filter: hovered ? "url(#neonGlow)" : "none",
+          transition: "filter 0.3s ease"
+        }}
+      />
+
+      {/* Multi-frequency pulsing data tracking nodes */}
+      {/* Node 1 (Low freq pulse) */}
+      <g transform={`translate(${node1[0]}, ${node1[1]})`}>
+        <circle r="7" fill={lineColor} opacity="0.3">
+          <animate attributeName="r" values="5;10;5" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <circle r="4" fill="url(#chartLineGrad)" stroke={isDark ? "#04070D" : "#FFF"} strokeWidth="1.5" />
+      </g>
+
+      {/* Node 2 (Medium freq pulse) */}
+      <g transform={`translate(${node2[0]}, ${node2[1]})`}>
+        <circle r="7" fill="#818CF8" opacity="0.3">
+          <animate attributeName="r" values="5;10;5" dur="2.5s" repeatCount="indefinite" />
+        </circle>
+        <circle r="4" fill="url(#chartLineGrad)" stroke={isDark ? "#04070D" : "#FFF"} strokeWidth="1.5" />
+      </g>
+
+      {/* Node 3 (High freq pulse at stable peak endpoint) */}
+      <g transform={`translate(${node3[0]}, ${node3[1]})`}>
+        <circle r="9" fill={accentColor} opacity="0.25">
+          <animate attributeName="r" values="5;13;5" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <circle r="4" fill={accentColor} stroke={isDark ? "#04070D" : "#FFF"} strokeWidth="2" />
+      </g>
+    </svg>
+  );
+});
+
 const benefitCards = [
   {
     title: "Real-Time Intelligence",
@@ -1030,47 +1177,8 @@ const benefitCards = [
     title: "AI Strategy & Growth",
     desc: "Get expert guidance to implement AI solutions that drive business growth",
     Icon: function Bars({ hovered }: { hovered: boolean }) {
-      return (
-        <svg width="250" height="200" viewBox="0 0 220 200">
-          <defs><linearGradient id="gradBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="rgba(var(--color-text-bright-rgb), 0.15)" /><stop offset="100%" stopColor="rgba(var(--color-text-bright-rgb), 0.02)" /></linearGradient></defs>
-          <motion.rect
-            animate={{ 
-              height: hovered ? [70, 85, 70] : [40, 55, 40], 
-              y: hovered ? [100, 85, 100] : [130, 115, 130] 
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            x="15" y="130" width="36" height="40" rx="8" fill="url(#gradBar)"
-            style={{ willChange: "height, y" }}
-          />
-          <motion.rect
-            animate={{ 
-              height: hovered ? [105, 120, 105] : [60, 75, 60], 
-              y: hovered ? [65, 50, 65] : [110, 95, 110] 
-            }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            x="65" y="110" width="36" height="60" rx="8" fill="url(#gradBar)"
-            style={{ willChange: "height, y" }}
-          />
-          <motion.rect
-            animate={{ 
-              height: hovered ? [140, 155, 140] : [80, 95, 80], 
-              y: hovered ? [30, 15, 30] : [90, 75, 90] 
-            }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            x="115" y="90" width="36" height="80" rx="8" fill="url(#gradBar)"
-            style={{ willChange: "height, y" }}
-          />
-          <motion.rect
-            animate={{ 
-              height: hovered ? [85, 100, 85] : [50, 65, 50], 
-              y: hovered ? [85, 70, 85] : [120, 105, 120] 
-            }}
-            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-            x="165" y="120" width="36" height="50" rx="8" fill="url(#gradBar)"
-            style={{ willChange: "height, y" }}
-          />
-        </svg>
-      );
+      const { resolvedTheme } = useTheme();
+      return <AIStrategyGrowthGraph hovered={hovered} resolvedTheme={resolvedTheme} />;
     }
   },
   {
@@ -1394,6 +1502,114 @@ const processSteps = [
   }
 ];
 
+const Step3WaveChart = memo(function Step3WaveChart() {
+  const [phase, setPhase] = useState(0);
+  const requestRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    let lastTime = performance.now();
+    const animate = (time: number) => {
+      const delta = (time - lastTime) / 1000;
+      lastTime = time;
+      
+      // Infinite propagation of wave phase shift
+      setPhase((prev) => prev + 1.2 * delta);
+      requestRef.current = requestAnimationFrame(animate);
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, []);
+
+  const startX = 0;
+  const endX = 200;
+  const step = 4;
+  const points: [number, number][] = [];
+
+  for (let x = startX; x <= endX; x += step) {
+    const progress = x / endX;
+    
+    // Baseline climbs smoothly from y=75 to y=40
+    const baseY = 75 - progress * 35;
+    
+    // Smooth undulations that organically dampen to exactly 0 at margins
+    // to prevent clipping or spilling outside the card container bounds
+    const wave = Math.sin(progress * Math.PI * 3 - phase) * 12 * Math.sin(progress * Math.PI);
+    points.push([x, baseY + wave]);
+  }
+
+  const linePath = `M ${points.map(([x, y]) => `${x},${y}`).join(" L ")}`;
+  const areaPath = `${linePath} L ${endX},100 L ${startX},100 Z`;
+
+  return (
+    <div style={{
+      position: "relative",
+      width: "100%",
+      height: "100%",
+      overflow: "hidden",
+      borderRadius: "inherit",
+      display: "flex",
+      alignItems: "flex-end"
+    }}>
+      {/* Subtle data dashboard grids */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        opacity: 0.12,
+        backgroundImage: "linear-gradient(rgba(109, 182, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(109, 182, 255, 0.1) 1px, transparent 1px)",
+        backgroundSize: "20px 20px",
+        pointerEvents: "none"
+      }} />
+
+      <svg 
+        width="100%" 
+        height="100%" 
+        viewBox="0 0 200 100" 
+        preserveAspectRatio="xMidYMid slice" 
+        style={{ 
+          position: "absolute", 
+          bottom: 0,
+          left: 0,
+          right: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          willChange: "transform"
+        }}
+      >
+        <defs>
+          <linearGradient id="chartGradStep3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(109, 182, 255, 0.25)" />
+            <stop offset="100%" stopColor="rgba(109, 182, 255, 0)" />
+          </linearGradient>
+          <filter id="neonGlowStep3" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Dynamic shaded curve fill */}
+        <path d={areaPath} fill="url(#chartGradStep3)" />
+
+        {/* Dynamic primary glowing wave */}
+        <path 
+          d={linePath} 
+          fill="none" 
+          stroke="#6DB6FF" 
+          strokeWidth="2.5" 
+          strokeLinecap="round"
+          style={{ filter: "url(#neonGlowStep3)" }}
+        />
+      </svg>
+    </div>
+  );
+});
+
 export function Process() {
   const [activeTab, setActiveTab] = useState(0);
   const { resolvedTheme } = useTheme();
@@ -1567,26 +1783,18 @@ export function Process() {
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "hidden", borderRadius: "12px" }}
                 >
-                  {/* Glowing Line Chart Area */}
-                  <div style={{ position: "relative", height: "160px", marginBottom: "20px", display: "flex", alignItems: "flex-end", overflow: "hidden", borderRadius: "8px" }}>
-                    <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="rgba(var(--color-blue-mid-rgb), 0.2)" />
-                          <stop offset="100%" stopColor="rgba(var(--color-blue-mid-rgb), 0)" />
-                        </linearGradient>
-                      </defs>
-                      <motion.path
-                        initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }}
-                        d="M 0 80 C 20 80 30 20 50 30 C 70 40 80 90 100 70 C 120 50 130 10 150 40 C 170 70 180 80 200 60"
-                        fill="none" stroke="#6DB6FF" strokeWidth="2" strokeLinecap="round"
-                      />
-                      <motion.path
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
-                        d="M 0 80 C 20 80 30 20 50 30 C 70 40 80 90 100 70 C 120 50 130 10 150 40 C 170 70 180 80 200 60 L 200 100 L 0 100 Z"
-                        fill="url(#chartGrad)"
-                      />
-                    </svg>
+                  {/* Dedicated Wrapper Container for Wave Chart */}
+                  <div style={{ 
+                    position: "relative", 
+                    width: "100%", 
+                    height: "160px", 
+                    marginBottom: "20px", 
+                    overflow: "hidden", 
+                    borderRadius: "12px", 
+                    border: "1px solid var(--color-border-faint)",
+                    background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.01)" : "rgba(15, 23, 42, 0.01)"
+                  }}>
+                    <Step3WaveChart />
                   </div>
 
                   {/* Floating Growth Tracker Card */}
