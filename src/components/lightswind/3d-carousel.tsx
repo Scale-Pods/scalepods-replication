@@ -73,7 +73,7 @@ const DEFAULT_ITEMS: CarouselItem[] = [
 export const ThreeDCarousel = React.memo(({
   items,
   autoRotate = true,
-  rotateInterval = 2000,
+  rotateInterval = 3500,
   tightLayout = false,
   cardScale = 1,
   captionOffset = 0,
@@ -166,6 +166,11 @@ export const ThreeDCarousel = React.memo(({
             return (
               <motion.div
                 key={item.id}
+                drag={isMobile ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={isMobile ? 0.2 : 0}
+                onDragStart={() => setIsInteracting(true)}
+                onDragEnd={handleDragEnd}
                 initial={false}
                 animate={{ 
                   opacity: isActive ? 1 : 0,

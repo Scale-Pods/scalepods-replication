@@ -535,7 +535,6 @@ export const ImmersiveFeatures = memo(() => {
             <FloatingPreviewCarouselWrapper 
               items={workflowSlides} 
               autoRotate={true}
-              rotateInterval={3000}
             />
           </div>
         </motion.div>

@@ -580,7 +580,6 @@ export const SalesPodShowcase = memo(() => {
                 <FloatingPreviewCarouselWrapper 
                   items={salesCarouselImages}
                   autoRotate={true}
-                  rotateInterval={3500}
                 />
               </motion.div>
             )}
