@@ -128,7 +128,14 @@ export default function TestimonialCarousel() {
   };
 
   return (
-    <div ref={carouselRef} className="relative w-full max-w-full flex flex-col items-center justify-center py-8">
+    <div 
+      ref={carouselRef} 
+      className="relative w-full max-w-full flex flex-col items-center justify-center py-8"
+      style={{
+        overflow: isMobile ? "hidden" : "visible",
+        position: "relative"
+      }}
+    >
       
       {/* ── Desktop Navigation Arrows ── */}
       {!isMobile && (
@@ -142,7 +149,19 @@ export default function TestimonialCarousel() {
         </>
       )}
 
-      <div className="relative flex justify-center items-center w-full" style={{ perspective: 1200, minHeight: isMobile ? "440px" : "340px" }}>
+      <div 
+        className="relative flex justify-center items-center w-full" 
+        style={{ 
+          perspective: 1200, 
+          minHeight: isMobile ? "420px" : "340px", 
+          height: isMobile ? "auto" : undefined,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: isMobile ? "hidden" : "visible",
+          position: "relative"
+        }}
+      >
         <AnimatePresence initial={false}>
           {reviewsData.map((review, i) => {
             const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
@@ -177,8 +196,9 @@ export default function TestimonialCarousel() {
                   position: "absolute",
                   pointerEvents: pointerEvents as any,
                   cursor: isCenter ? "grab" : "pointer",
-                  width: "90%",
-                  maxWidth: "520px",
+                  width: isMobile ? "92%" : "90%",
+                  maxWidth: isMobile ? "360px" : "520px",
+                  marginInline: isMobile ? "auto" : undefined,
                   top: "50%",
                   left: "50%",
                   // Adaptive Height Strategy
@@ -270,7 +290,14 @@ export default function TestimonialCarousel() {
 
 
       {/* Pagination dots */}
-      <div className="flex gap-2.5 mt-8">
+      <div 
+        className="flex gap-2.5 justify-center" 
+        style={{ 
+          marginTop: isMobile ? "20px" : "32px",
+          width: "100%",
+          alignItems: "center"
+        }}
+      >
         {reviewsData.map((_, i) => (
           <button
             key={i}
