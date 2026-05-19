@@ -2436,7 +2436,7 @@ export function Reviews() {
       style={{ 
         position: "relative", 
         background: C.bgPage, 
-        padding: "140px 24px",
+        padding: isMobile ? "72px 24px" : "140px 24px",
         minHeight: isMobile ? "auto" : "100vh",
         display: "flex",
         flexDirection: "column",

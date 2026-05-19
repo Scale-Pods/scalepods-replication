@@ -130,10 +130,16 @@ export default function TestimonialCarousel() {
   return (
     <div 
       ref={carouselRef} 
-      className="relative w-full max-w-full flex flex-col items-center justify-center py-8"
+      className="relative w-full max-w-full"
       style={{
         overflow: isMobile ? "hidden" : "visible",
-        position: "relative"
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: isMobile ? "0px" : "32px",
+        paddingBottom: isMobile ? "0px" : "32px",
       }}
     >
       
@@ -150,36 +156,39 @@ export default function TestimonialCarousel() {
       )}
 
       <div 
-        className="relative flex justify-center items-center w-full" 
+        className="relative w-full" 
         style={{ 
           perspective: 1200, 
-          minHeight: isMobile ? "420px" : "340px", 
+          minHeight: isMobile ? "auto" : "340px", 
           height: isMobile ? "auto" : undefined,
+          width: "100%",
           display: "flex",
-          alignItems: "center",
           justifyContent: "center",
-          overflow: isMobile ? "hidden" : "visible",
-          position: "relative"
+          alignItems: "center",
+          position: "relative",
+          overflow: isMobile ? "hidden" : "visible"
         }}
       >
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} mode={isMobile ? "wait" : undefined}>
           {reviewsData.map((review, i) => {
+            if (isMobile && i !== active) return null;
             const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
 
             return (
               <motion.div
                 key={review.name}
-                initial={false}
+                initial={isMobile ? { opacity: 0, x: 50 } : false}
                 animate={{
-                  x: `calc(-50% + ${x}px)`,
-                  y: "-50%",
-                  scale,
-                  opacity,
+                  x: isMobile ? 0 : `calc(-50% + ${x}px)`,
+                  y: isMobile ? 0 : "-50%",
+                  scale: isMobile ? 1 : scale,
+                  opacity: isMobile ? 1 : opacity,
                   zIndex,
-                  filter,
+                  filter: isMobile ? "none" : filter,
                 }}
+                exit={isMobile ? { opacity: 0, x: -50 } : undefined}
                 transition={{
-                  duration: 0.7,
+                  duration: 0.4,
                   ease: [0.32, 0.72, 0, 1],
                 }}
                 drag={isCenter ? "x" : false}
@@ -193,16 +202,16 @@ export default function TestimonialCarousel() {
                   }
                 }}
                 style={{
-                  position: "absolute",
+                  position: isMobile ? "relative" : "absolute",
                   pointerEvents: pointerEvents as any,
                   cursor: isCenter ? "grab" : "pointer",
                   width: isMobile ? "92%" : "90%",
                   maxWidth: isMobile ? "360px" : "520px",
                   marginInline: isMobile ? "auto" : undefined,
-                  top: "50%",
-                  left: "50%",
+                  top: isMobile ? "auto" : "50%",
+                  left: isMobile ? "auto" : "50%",
                   // Adaptive Height Strategy
-                  minHeight: isMobile ? "360px" : "200px",
+                  minHeight: isMobile ? "auto" : "200px",
                   background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(20px)",
                   WebkitBackdropFilter: "blur(20px)",
