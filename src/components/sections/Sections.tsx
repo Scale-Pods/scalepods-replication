@@ -562,8 +562,6 @@ const brands = [
   { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
   { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
   { src: "/brands/suphalmedia.avif", alt: "Suphal Media", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/orchestra.png", alt: "Orchestra", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/squareyards-logo-new.png", alt: "Square Yards", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
 ];
 
 export function DataAnalysis() {
