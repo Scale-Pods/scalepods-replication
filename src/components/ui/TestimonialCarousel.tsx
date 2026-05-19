@@ -211,7 +211,8 @@ export default function TestimonialCarousel() {
                   top: isMobile ? "auto" : "50%",
                   left: isMobile ? "auto" : "50%",
                   // Adaptive Height Strategy
-                  minHeight: isMobile ? "auto" : "200px",
+                  minHeight: isMobile ? "280px" : "200px",
+                  height: "auto",
                   background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(20px)",
                   WebkitBackdropFilter: "blur(20px)",
@@ -219,10 +220,10 @@ export default function TestimonialCarousel() {
                     ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
                     : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
                   borderRadius: "28px",
-                  padding: isMobile ? "24px" : "32px 24px",
+                  padding: isMobile ? "28px 24px" : "32px 24px",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
+                  justifyContent: isMobile ? "flex-start" : "center",
                   gap: "16px",
                   // Premium 3D Depth
                   boxShadow: isCenter 
@@ -278,7 +279,7 @@ export default function TestimonialCarousel() {
 
                 <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
 
-                <div style={{ display: "flex", alignItems: "flex-start", overflow: "hidden" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
                   <p style={{
                     fontFamily: F.inter, 
                     fontSize: isMobile ? "13px" : "14px", 
