@@ -211,7 +211,7 @@ export default function TestimonialCarousel() {
                   top: isMobile ? "auto" : "50%",
                   left: isMobile ? "auto" : "50%",
                   // Adaptive Height Strategy
-                  minHeight: isMobile ? "280px" : "200px",
+                  minHeight: isMobile ? "300px" : "200px",
                   height: "auto",
                   background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(20px)",
@@ -220,10 +220,10 @@ export default function TestimonialCarousel() {
                     ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
                     : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
                   borderRadius: "28px",
-                  padding: isMobile ? "20px 24px 24px 24px" : "32px 24px",
+                  overflow: "hidden",
+                  padding: isMobile ? "28px 24px" : "32px 24px",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: isMobile ? "center" : "stretch",
                   justifyContent: isMobile ? "flex-start" : "center",
                   gap: "16px",
                   // Premium 3D Depth
@@ -252,14 +252,7 @@ export default function TestimonialCarousel() {
                   }} />
                 )}
 
-                <div style={{ 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: isMobile ? "center" : "flex-start",
-                  gap: "16px",
-                  marginBottom: isMobile ? "18px" : "0px",
-                  width: "100%"
-                }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                   <div style={{ 
                     position: "relative", 
                     width: isMobile ? "44px" : "48px", 
@@ -271,7 +264,7 @@ export default function TestimonialCarousel() {
                   }}>
                     <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: isMobile ? "center" : "flex-start" }}>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
                     <span style={{ fontFamily: F.inter, fontSize: isMobile ? "15px" : "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
                     <span style={{ 
                       fontFamily: F.inter, 
@@ -285,32 +278,20 @@ export default function TestimonialCarousel() {
                   </div>
                 </div>
 
-                <div style={{ 
-                  width: "100%", 
-                  height: "1px", 
-                  background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
-                  display: isMobile ? "none" : "block"
-                }} />
+                <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
 
-                <div style={{ 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center", 
-                  width: "100%",
-                  maxWidth: isMobile ? "92%" : "100%",
-                  margin: isMobile ? "0 auto" : undefined
-                }}>
+                <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
                   <p style={{
                     fontFamily: F.inter, 
                     fontSize: isMobile ? "13px" : "14px", 
                     color: C.txtBody, 
-                    lineHeight: isMobile ? 1.7 : 1.5, 
+                    lineHeight: 1.65, 
                     margin: 0,
                     fontWeight: 400,
                     opacity: 0.9,
-                    textAlign: isMobile ? "justify" : "left",
-                    textAlignLast: isMobile ? "center" : "left",
-                    letterSpacing: isMobile ? "0.01em" : undefined,
+                    textAlign: "left",
+                    wordBreak: "break-word",
+                    overflow: "hidden"
                   }}>
                     {review.quote}
                   </p>
