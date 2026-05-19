@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Use Cases & Automation Solutions | ScalePods",
+  title: "ScalePods — Growth, Automated.",
   description: "Explore how ScalePods automates complex business processes. From Exhibition Automation to AI Voice Agents, see our technology in action across multiple industries.",
   openGraph: {
-    title: "AI Use Cases & Automation Solutions | ScalePods",
+    title: "ScalePods — Growth, Automated.",
     description: "Real-world AI automation examples for modern businesses.",
     url: "https://scalepods.co/use-cases",
     siteName: "ScalePods",

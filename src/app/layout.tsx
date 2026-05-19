@@ -45,12 +45,17 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://scalepods.co"),
-  title: "ScalePods – New Gen AI Automation Partner",
+  title: "ScalePods — Growth, Automated.",
   description:
     "We build smart workflows that automate the repetitive, reduce overheads, and keep teams lean.",
   keywords: ["AI automation", "workflow automation", "AI agents", "ScalePods"],
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
-    title: "ScalePods – New Gen AI Automation Partner",
+    title: "ScalePods — Growth, Automated.",
     description: "Automate the Busywork. Unlock Growth.",
     url: "https://scalepods.co",
     siteName: "ScalePods",

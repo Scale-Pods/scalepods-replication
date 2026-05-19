@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 export const revalidate = 0; // Force dynamic fetching for real-time updates
 
 export const metadata: Metadata = {
-  title: "Blog – ScalePods",
+  title: "ScalePods — Growth, Automated.",
   description: "Latest news, articles, and resources from ScalePods on AI automation and workflows.",
 };
 
