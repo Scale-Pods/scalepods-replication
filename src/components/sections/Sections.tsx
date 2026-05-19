@@ -2505,7 +2505,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(1); // Default second one open like mock
 
   return (
-    <Section id="faq">
+    <Section id="faq" style={{ marginTop: isMobile ? "150px" : "0px" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
