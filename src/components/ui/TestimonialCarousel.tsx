@@ -142,7 +142,7 @@ export default function TestimonialCarousel() {
         </>
       )}
 
-      <div className="relative flex justify-center items-center w-full min-h-[340px]" style={{ perspective: 1200 }}>
+      <div className="relative flex justify-center items-center w-full" style={{ perspective: 1200, minHeight: isMobile ? "440px" : "340px" }}>
         <AnimatePresence initial={false}>
           {reviewsData.map((review, i) => {
             const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
@@ -182,7 +182,7 @@ export default function TestimonialCarousel() {
                   top: "50%",
                   left: "50%",
                   // Adaptive Height Strategy
-                  minHeight: isMobile ? "240px" : "200px",
+                  minHeight: isMobile ? "360px" : "200px",
                   background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(20px)",
                   WebkitBackdropFilter: "blur(20px)",

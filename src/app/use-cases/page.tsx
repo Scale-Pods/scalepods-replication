@@ -468,10 +468,10 @@ export default function UseCasesPage() {
 
           {/* Email */}
           <a
-            href="mailto:Info@scalepods.co"
+            href="mailto:info@scalepods.co"
             style={{ fontFamily: F.inter, fontSize: "16px", color: C.txtBright, textDecoration: "none" }}
           >
-            Info@scalepods.co
+            info@scalepods.co
           </a>
         </div>
       </section>

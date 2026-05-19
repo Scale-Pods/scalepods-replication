@@ -383,13 +383,13 @@ export default function ContactPage() {
                     Facing technical challenges or product concerns? We&apos;re here to assist
                   </p>
                   <a
-                    href="mailto:Info@scalepods.co"
+                    href="mailto:info@scalepods.co"
                     style={{
                       fontFamily: F.inter, fontSize: "13px", color: C.txtBody,
                       textDecoration: "underline", textUnderlineOffset: "3px",
                     }}
                   >
-                    Info@scalepods.co
+                    info@scalepods.co
                   </a>
                 </div>
 

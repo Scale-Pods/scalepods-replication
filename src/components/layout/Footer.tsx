@@ -168,7 +168,7 @@ export default function Footer() {
           <div>
             <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Connect</h4>
             <a
-              href="mailto:Info@scalepods.co"
+              href="mailto:info@scalepods.co"
               style={{ 
                 display: "block", 
                 fontSize: "15px", 
@@ -178,7 +178,7 @@ export default function Footer() {
                 marginBottom: "8px"
               }}
             >
-              Info@scalepods.co
+              info@scalepods.co
             </a>
 
           </div>

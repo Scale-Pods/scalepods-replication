@@ -738,4 +738,32 @@ img, video, canvas, svg {
   font-weight: 550 !important;
 }
 
+/* ── REUSABLE MOBILE & TABLET SECTION SPACING SYSTEM ── */
+.mobile-section-spacing {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 767px) {
+  .mobile-section-spacing {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    min-height: auto !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-section-spacing {
+    padding-top: 88px !important;
+    padding-bottom: 88px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    min-height: auto !important;
+  }
+}
+
 

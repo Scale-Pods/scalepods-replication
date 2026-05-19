@@ -758,7 +758,7 @@ const Navbar = memo(() => {
                       Facing technical challenges? We&apos;re here to assist.
                     </p>
                     <a
-                      href="mailto:Info@scalepods.co"
+                      href="mailto:info@scalepods.co"
                       style={{
                         fontSize: "13px",
                         color: "var(--color-text-bright)",
@@ -768,7 +768,7 @@ const Navbar = memo(() => {
                         display: "block",
                       }}
                     >
-                      Info@scalepods.co
+                      info@scalepods.co
                     </a>
                   </div>
                 </div>

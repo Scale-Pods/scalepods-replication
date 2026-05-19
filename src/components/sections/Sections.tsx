@@ -58,9 +58,16 @@ const fup = (delay = 0) => ({
 
 // ── Shared components ─────────────────────────────────────────────────────────
 const Label = memo(function Label({ icon, text }: { icon: string; text: string }) {
+  const isMobile = useMobile(767);
   return (
     <ScrollReveal>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+      <div style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "center", 
+        gap: "8px", 
+        marginBottom: isMobile ? "20px" : "16px" 
+      }}>
         <span style={{ fontSize: "13px" }}>{icon}</span>
         <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.17em", textTransform: "uppercase" as const, color: C.txtMuted }}>
           {text}
@@ -92,11 +99,16 @@ const H2 = memo(function H2({ plain, italic, style = {} }: { plain: string; ital
 });
 
 const Sub = memo(function Sub({ children, style = {} }: { children: string; style?: React.CSSProperties }) {
+  const isMobile = useMobile(767);
   return (
     <ScrollReveal delay={0.1}>
       <p style={{
         fontFamily: F.inter, fontSize: "15px", fontWeight: 400, color: C.txtBody,
-        lineHeight: 1.65, textAlign: "center", maxWidth: "520px", margin: "0 auto 12px",
+        lineHeight: 1.65, textAlign: "center", maxWidth: "520px", 
+        marginTop: "0px",
+        marginRight: "auto",
+        marginBottom: isMobile ? "32px" : "12px",
+        marginLeft: "auto",
         ...style
       }}>{children}</p>
     </ScrollReveal>
@@ -192,15 +204,21 @@ export const SectionGlow = memo(function SectionGlow() {
 });
 
 // Section wrapper — 96px top/bottom padding
-function Section({ id, children }: { id?: string; children: React.ReactNode }) {
-  const isMobile = useMobile(768);
+function Section({ id, children, style = {} }: { id?: string; children: React.ReactNode; style?: React.CSSProperties }) {
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(768);
   return (
-    <section id={id} style={{ 
-      position: "relative", 
-      background: C.bgPage, 
-      padding: isMobile ? "80px 20px" : "140px 24px" 
-    }}>
+    <section 
+      id={id} 
+      className="mobile-section-spacing"
+      style={{ 
+        position: "relative", 
+        background: C.bgPage, 
+        padding: "140px 24px",
+        marginTop: isMobile ? "75px" : "0px",
+        ...style
+      }}
+    >
       <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         {children}
       </div>
@@ -215,15 +233,20 @@ export function Services() {
   const { resolvedTheme } = useTheme();
   const isMobile = useMobile(1023);
   return (
-    <section id="services" style={{ 
-      position: "relative", 
-      background: C.bgPage, 
-      padding: isMobile ? "80px 20px" : "140px 24px",
-      minHeight: isMobile ? "auto" : "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center"
-    }}>
+    <section 
+      id="services" 
+      className="mobile-section-spacing"
+      style={{ 
+        position: "relative", 
+        background: C.bgPage, 
+        padding: "140px 24px",
+        minHeight: isMobile ? "auto" : "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        marginTop: isMobile ? "75px" : "0px"
+      }}
+    >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
         <div style={{
@@ -1233,7 +1256,12 @@ const benefitCards = [
 export function Benefits() {
   const isMobile = useMobile(768);
   return (
-    <Section id="benefits">
+    <Section 
+      id="benefits" 
+      style={{
+        marginTop: isMobile ? "75px" : "0px"
+      }}
+    >
       <Label icon="✦" text="BENEFITS" />
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Automate growth with intelligence and speed</Sub>
@@ -1241,7 +1269,7 @@ export function Benefits() {
       <div style={{
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-        gap: "24px",
+        gap: isMobile ? "32px" : "24px",
         marginTop: "48px"
       }}>
         {benefitCards.map((card, i) => (
@@ -1328,7 +1356,7 @@ export function Features() {
       <div style={{ 
         display: "grid", 
         gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
-        gap: isMobile ? "16px" : "10px", 
+        gap: isMobile ? "32px" : "10px", 
         maxWidth: "1050px", 
         margin: "0 auto",
         width: "100%"
@@ -1628,15 +1656,20 @@ export function Process() {
   }, []);
 
   return (
-    <section id="process" style={{ 
-      position: "relative", 
-      background: C.bgPage, 
-      padding: isMobile ? "80px 20px" : "140px 24px",
-      minHeight: isMobile ? "auto" : "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center"
-    }}>
+    <section 
+      id="process" 
+      className="mobile-section-spacing"
+      style={{ 
+        position: "relative", 
+        background: C.bgPage, 
+        padding: "140px 24px",
+        minHeight: isMobile ? "auto" : "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        marginTop: isMobile ? "75px" : "0px"
+      }}
+    >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
         <div style={{
@@ -1944,16 +1977,21 @@ export function CaseStudies() {
   const activeStudy = caseStudiesData[activeIndex];
 
   return (
-    <section id="clients" style={{ 
-      position: "relative", 
-      background: C.bgPage, 
-      padding: isMobile ? "80px 20px" : "140px 24px",
-      minHeight: isMobile ? "auto" : "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      overflow: "hidden"
-    }}>
+    <section 
+      id="clients" 
+      className="mobile-section-spacing"
+      style={{ 
+        position: "relative", 
+        background: C.bgPage, 
+        padding: "140px 24px",
+        minHeight: isMobile ? "auto" : "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        overflow: "hidden",
+        marginTop: isMobile ? "75px" : "0px"
+      }}
+    >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
         
         {/* Header Section */}
@@ -2392,15 +2430,20 @@ export function Reviews() {
   const isMobile = useMobile(768);
   const { resolvedTheme } = useTheme();
   return (
-    <section id="reviews" style={{ 
-      position: "relative", 
-      background: C.bgPage, 
-      padding: isMobile ? "40px 20px" : "60px 24px",
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center"
-    }}>
+    <section 
+      id="reviews" 
+      className="mobile-section-spacing"
+      style={{ 
+        position: "relative", 
+        background: C.bgPage, 
+        padding: "140px 24px",
+        minHeight: isMobile ? "auto" : "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        marginTop: isMobile ? "75px" : "0px"
+      }}
+    >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
         <div style={{
@@ -2568,13 +2611,18 @@ export function FinalCTA() {
   const { resolvedTheme } = useTheme();
   const isMobile = useMobile(768);
   return (
-    <section id="contact" style={{ 
-      position: "relative", 
-      background: C.bgPage, 
-      padding: isMobile ? "96px 20px 80px" : "160px 24px", 
-      textAlign: "center", 
-      overflow: "hidden" 
-    }}>
+    <section 
+      id="contact" 
+      className="mobile-section-spacing"
+      style={{ 
+        position: "relative", 
+        background: C.bgPage, 
+        padding: "160px 24px", 
+        textAlign: "center", 
+        overflow: "hidden",
+        marginTop: isMobile ? "110px" : "0px"
+      }}
+    >
 
       {/* Ambient Button Radial Glow (Under Particles) */}
       <div style={{
@@ -2660,8 +2708,21 @@ export function FinalCTA() {
         </div>
 
         {/* Email Address */}
-        <a href="mailto:Info@scalepods.co" style={{ fontFamily: F.inter, fontSize: "16px", color: C.txtBright, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = C.blueOn} onMouseLeave={e => e.currentTarget.style.color = C.txtBright}>
-          Info@scalepods.co
+        <a 
+          href="mailto:info@scalepods.co" 
+          style={{ 
+            fontFamily: F.inter, 
+            fontSize: "16px", 
+            color: C.txtBright, 
+            textDecoration: "none", 
+            transition: "color 0.2s",
+            display: "inline-block",
+            marginBottom: isMobile ? "150px" : "40px"
+          }} 
+          onMouseEnter={e => e.currentTarget.style.color = C.blueOn} 
+          onMouseLeave={e => e.currentTarget.style.color = C.txtBright}
+        >
+          info@scalepods.co
         </a>
       </div>
     </section>
