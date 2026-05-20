@@ -49,12 +49,14 @@ export default async function BlogPage() {
     sections: [] // We'll handle body content in the slug page
   }));
 
-  // 3. Merge with static posts (filter out duplicates by slug)
-  // 4. Final filter to ensure ONLY 2025 (or explicitly NOT 2026) posts are shown
   const allPosts = [
     ...dynamicPosts, 
     ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))
-  ].filter(post => !post.date.includes("2026"));
+  ].filter(post => 
+    !post.date.includes("2026") || 
+    post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
+    post.slug === "sales-workflow-automation-complete-guide-2026"
+  );
 
   return (
     <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>
