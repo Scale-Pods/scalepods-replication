@@ -150,6 +150,8 @@ export default async function ArticlePage({ params }: Props) {
     displayData = { ...sPost, image: sPost.image };
   }
 
+  const firstImageSectionIndex = displayData.sections.findIndex((s: any) => s.image);
+
   return (
     <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "64px", paddingBottom: "120px", color: "var(--color-text-body)" }}>
       <style>{`
@@ -166,6 +168,22 @@ export default async function ArticlePage({ params }: Props) {
           }
           .premium-blog-highlight {
             padding: 14px 18px !important;
+          }
+        }
+        @media (min-width: 1024px) {
+          .wide-blog-image-container {
+            width: calc(100% + 120px) !important;
+            margin-left: -60px !important;
+            margin-right: -60px !important;
+            max-width: none !important;
+          }
+        }
+        @media (min-width: 1200px) {
+          .wide-blog-image-container {
+            width: calc(100% + 200px) !important;
+            margin-left: -100px !important;
+            margin-right: -100px !important;
+            max-width: none !important;
           }
         }
       `}</style>
@@ -228,86 +246,92 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Article Body */}
         <div style={{ display: "flex", flexDirection: "column", gap: "56px" }}>
-          {displayData.sections.map((section: any, i: number) => (
-            <div key={i} className="fade-up" style={{ display: "flex", flexDirection: "column" }}>
-              {section.heading && (
-                <h2 style={{
-                  fontFamily: "var(--font-inter), sans-serif", fontSize: "24px", fontWeight: 700,
-                  color: "var(--color-text-bright)", marginBottom: "18px", lineHeight: 1.3,
-                  letterSpacing: "-0.01em"
-                }}>
-                  {section.heading}
-                </h2>
-              )}
-              {renderBodyContent(section.body, !!(section.image || section.cta))}
-
-              {/* Section Inline Image */}
-              {section.image && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", marginTop: "12px", marginBottom: "24px" }}>
-                  <div style={{
-                    width: "100%", borderRadius: "12px", overflow: "hidden",
-                    border: "1px solid var(--color-border)",
-                    boxShadow: "var(--shadow-sm)"
+          {displayData.sections.map((section: any, i: number) => {
+            const isFirstInlineImage = i === firstImageSectionIndex;
+            return (
+              <div key={i} className="fade-up" style={{ display: "flex", flexDirection: "column" }}>
+                {section.heading && (
+                  <h2 style={{
+                    fontFamily: "var(--font-inter), sans-serif", fontSize: "24px", fontWeight: 700,
+                    color: "var(--color-text-bright)", marginBottom: "18px", lineHeight: 1.3,
+                    letterSpacing: "-0.01em"
                   }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={section.image}
-                      alt={section.imageCaption || section.heading}
-                      style={{ width: "100%", height: "auto", objectFit: "cover", display: "block" }}
-                    />
-                  </div>
-                  {section.imageCaption && (
-                    <span style={{
-                      fontFamily: "var(--font-inter), sans-serif", fontSize: "13px",
-                      color: "var(--color-text-muted)", textAlign: "center", fontStyle: "italic"
-                    }}>
-                      {section.imageCaption}
-                    </span>
-                  )}
-                </div>
-              )}
+                    {section.heading}
+                  </h2>
+                )}
+                {renderBodyContent(section.body, !!(section.image || section.cta))}
 
-              {/* Section CTA Button (Horizontally Centered) */}
-              {section.cta && (
-                <div style={{ marginTop: "24px", marginBottom: "24px", display: "flex", justifyContent: "center", width: "100%" }}>
-                  <a
-                    href={section.cta.link}
-                    download={section.cta.isDownload}
-                    className="blog-section-cta-btn"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      padding: "12px 24px",
-                      borderRadius: "8px",
-                      background: "linear-gradient(135deg, var(--color-blue-mid) 0%, #1e40af 100%)",
-                      color: "#ffffff",
-                      fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)",
-                      transition: "all 0.2s ease"
-                    }}
+                {/* Section Inline Image */}
+                {section.image && (
+                  <div 
+                    className={isFirstInlineImage ? "wide-blog-image-container" : ""}
+                    style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", marginTop: "12px", marginBottom: "24px" }}
                   >
-                    <span>{section.cta.text}</span>
-                    {section.cta.isDownload ? (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                      </svg>
-                    ) : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
+                    <div style={{
+                      width: "100%", borderRadius: "12px", overflow: "hidden",
+                      border: "1px solid var(--color-border)",
+                      boxShadow: "var(--shadow-sm)"
+                    }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={section.image}
+                        alt={section.imageCaption || section.heading}
+                        style={{ width: "100%", height: "auto", objectFit: "cover", display: "block" }}
+                      />
+                    </div>
+                    {section.imageCaption && (
+                      <span style={{
+                        fontFamily: "var(--font-inter), sans-serif", fontSize: "13px",
+                        color: "var(--color-text-muted)", textAlign: "center", fontStyle: "italic"
+                      }}>
+                        {section.imageCaption}
+                      </span>
                     )}
-                  </a>
-                </div>
-              )}
-            </div>
-          ))}
+                  </div>
+                )}
+
+                {/* Section CTA Button (Horizontally Centered) */}
+                {section.cta && (
+                  <div style={{ marginTop: "24px", marginBottom: "24px", display: "flex", justifyContent: "center", width: "100%" }}>
+                    <a
+                      href={section.cta.link}
+                      download={section.cta.isDownload}
+                      className="blog-section-cta-btn"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        padding: "12px 24px",
+                        borderRadius: "8px",
+                        background: "linear-gradient(135deg, var(--color-blue-mid) 0%, #1e40af 100%)",
+                        color: "#ffffff",
+                        fontFamily: "var(--font-inter), sans-serif",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)",
+                        transition: "all 0.2s ease"
+                      }}
+                    >
+                      <span>{section.cta.text}</span>
+                      {section.cta.isDownload ? (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="7 10 12 15 17 10"></polyline>
+                          <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                      ) : (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      )}
+                    </a>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* FAQ Accordion Section */}
