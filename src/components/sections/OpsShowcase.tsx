@@ -615,6 +615,7 @@ export const OpsShowcase = memo(() => {
         zipFile="/downloads/ops-guide.pdf"
         zipName="ops-guide.pdf"
         title="Download Free Operations Workflow Guide"
+        workflowType="operations_workflow"
       />
     </section>
   );

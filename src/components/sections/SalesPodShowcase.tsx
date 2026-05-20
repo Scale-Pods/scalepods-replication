@@ -615,6 +615,7 @@ export const SalesPodShowcase = memo(() => {
         zipFile="/downloads/sales-guide.pdf"
         zipName="sales-guide.pdf"
         title="Download Free Sales Workflow Guide"
+        workflowType="sales_workflow"
       />
     </section>
   );

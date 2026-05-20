@@ -621,6 +621,7 @@ export const MarketingShowcase = memo(() => {
         zipFile="/downloads/marketing-guide.pdf"
         zipName="marketing-guide.pdf"
         title="Download Free Marketing Workflow Guide"
+        workflowType="marketing_workflow"
       />
     </section>
   );

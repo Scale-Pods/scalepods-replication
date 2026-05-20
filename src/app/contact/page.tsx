@@ -20,7 +20,7 @@ import {
   HelpCircle,
   ArrowUpRight
 } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { submitLead } from "@/lib/leadService";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -292,22 +292,32 @@ export default function ContactPage() {
     const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
     const finalSource = form.source === "Other" ? form.customSource : form.source;
 
-    const { error: dbError } = await supabase
-      .from("contact_submissions")
-      .insert([
-        {
-          full_name: form.name,
-          email: form.email,
-          phone: `${dialCode} ${form.phone}`,
-          source: finalSource,
-          message: form.message,
-        },
-      ]);
+    // const { error: dbError } = await supabase
+    //   .from("contact_submissions")
+    //   .insert([
+    //     {
+    //       full_name: form.name,
+    //       email: form.email,
+    //       phone: `${dialCode} ${form.phone}`,
+    //       source: finalSource,
+    //       message: form.message,
+    //     },
+    //   ]);
+
+    const result = await submitLead({
+      formType: "contact_sales",
+      sourcePage: "/contact",
+      name: form.name,
+      email: form.email,
+      phone: `${dialCode} ${form.phone}`,
+      message: form.message,
+      metadata: { leadSource: finalSource },
+    });
 
     setLoading(false);
 
-    if (dbError) {
-      setError("Something went wrong. Please try again or email us directly.");
+    if (!result.success) {
+      setError(result.error || "Something went wrong. Please try again or email us directly.");
     } else {
       setSubmitted(true);
     }

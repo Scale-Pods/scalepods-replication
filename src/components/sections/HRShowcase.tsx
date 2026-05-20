@@ -561,6 +561,7 @@ export const HRShowcase = memo(() => {
         zipFile="/downloads/hr-guide.pdf"
         zipName="hr-guide.pdf"
         title="Download Free HR Workflow Guide"
+        workflowType="hr_workflow"
       />
     </section>
   );

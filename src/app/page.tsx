@@ -19,8 +19,8 @@ export default function Home() {
     <main style={{ position: "relative" }}>
       <Hero />
       <DataAnalysis />
-      <Benefits />
       <Services />
+      <Benefits />
       <Reviews />
       <Features />
       <Process />

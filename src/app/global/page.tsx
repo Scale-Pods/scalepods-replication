@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle, ArrowUpRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabase";
+import { submitLead } from "@/lib/leadService";
 import DownloadModal from "@/components/ui/DownloadModal";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
@@ -181,20 +182,30 @@ export default function GlobalPage() {
 
     const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
 
-    const { error: dbError } = await supabase
-      .from("contact_submissions")
-      .insert([{ 
-        full_name: form.name, 
-        email: form.email, 
-        phone: `${dialCode} ${form.phone}`, 
-        company_name: form.company,
-        business_requirement: form.requirement,
-        source_page: "global" 
-      }]);
+    // const { error: dbError } = await supabase
+    //   .from("contact_submissions")
+    //   .insert([{ 
+    //     full_name: form.name, 
+    //     email: form.email, 
+    //     phone: `${dialCode} ${form.phone}`, 
+    //     company_name: form.company,
+    //     business_requirement: form.requirement,
+    //     source_page: "global" 
+    //   }]);
+
+    const result = await submitLead({
+      formType: "global_inquiry",
+      sourcePage: "/global",
+      name: form.name,
+      email: form.email,
+      phone: `${dialCode} ${form.phone}`,
+      company: form.company,
+      message: form.requirement,
+    });
 
     setLoading(false);
-    if (dbError) {
-      setError("Something went wrong. Please try again.");
+    if (!result.success) {
+      setError(result.error || "Something went wrong. Please try again.");
     } else {
       setSubmitted(true);
     }

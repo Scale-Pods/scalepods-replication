@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Download, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { submitLead, WorkflowType } from "@/lib/leadService";
 
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
@@ -47,12 +48,14 @@ export default function DownloadModal({
   zipFile = "/downloads/sales-guide.pdf",
   zipName = "sales-guide.pdf",
   title = "Get the Feature Guide",
+  workflowType = null,
 }: {
   isOpen: boolean;
   onClose: () => void;
   zipFile?: string;
   zipName?: string;
   title?: string;
+  workflowType?: WorkflowType;
 }) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
@@ -79,20 +82,29 @@ export default function DownloadModal({
       return;
     }
 
-    // Save to download_leads table
-    const { error: dbError } = await supabase
-      .from("download_leads")
-      .insert([{ 
-        full_name: form.name, 
-        contact_number: form.phone, 
-        email: form.email 
-      }]);
+    // const { error: dbError } = await supabase
+    //   .from("download_leads")
+    //   .insert([{ 
+    //     full_name: form.name, 
+    //     contact_number: form.phone, 
+    //     email: form.email 
+    //   }]);
+
+    const result = await submitLead({
+      formType: "guide_download",
+      workflowType: workflowType,
+      sourcePage: window.location.pathname,
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      metadata: { guideName: zipName },
+    });
 
     setLoading(false);
 
-    if (dbError) {
-      console.error(dbError);
-      setError("Something went wrong. Please try again.");
+    if (!result.success) {
+      console.error(result.error);
+      setError(result.error || "Something went wrong. Please try again.");
     } else {
       setSubmitted(true);
       // Trigger download
