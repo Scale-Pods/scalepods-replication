@@ -767,3 +767,59 @@ img, video, canvas, svg {
 }
 
 
+
+
+/* ----------------------------------------------------------
+   SERVICES SECTION � LIGHT MODE DEPTH REFINEMENT
+   Scoped ONLY to [data-theme="light"] #services.
+   Dark mode is 100% unaffected.
+   ---------------------------------------------------------- */
+[data-theme="light"] #services {
+  /* Surface hierarchy: tinted off-white replaces flat white-on-white */
+  --color-glass-bg:     rgba(248, 250, 252, 0.94);
+
+  /* Border contrast: crisp visible inner borders */
+  --color-glass-border: rgba(15, 23, 42, 0.10);
+  --color-border:       rgba(15, 23, 42, 0.10);
+
+  /* Card outer shadow: layered ambient lift */
+  --card-shadow:        0 1px 2px rgba(15, 23, 42, 0.04),
+                        0 8px 24px rgba(15, 23, 42, 0.08);
+
+  /* Card inner highlight: crisp top-edge line */
+  --card-shadow-inset:  inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  /* Internal panel inset */
+  --internal-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.80),
+                            0 2px 6px rgba(15, 23, 42, 0.05);
+
+  /* Input / search bar surface */
+  --color-bg-input: #FFFFFF;
+}
+
+/* Task-row items � lifted shadow for visible depth */
+[data-theme="light"] #services [style*="background: var(--color-glass-bg)"] {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04),
+              0 4px 10px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Floating icon badges in Automated Workflows card */
+[data-theme="light"] #services [style*="border-radius: 8px"],
+[data-theme="light"] #services [style*="borderRadius: 8px"] {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Ambient radial � soft blue brand wash instead of dark transparent */
+[data-theme="light"] #services [style*="rgba(var(--color-blue-mid-rgb), 0.08)"] {
+  background: radial-gradient(
+    circle,
+    rgba(0, 128, 255, 0.06) 0%,
+    transparent 70%
+  ) !important;
+}
+
+/* Stacked background panels in Real-Time Intelligence card */
+[data-theme="light"] #services [style*="opacity: 0.5"],
+[data-theme="light"] #services [style*="opacity: 0.8"] {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}

@@ -265,60 +265,76 @@ export function Services() {
         <Sub>Everything you need to automate operations, boost productivity</Sub>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-3 w-full">
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-3 w-full">
 
         {/* 1 – Automate Repetitive Tasks (1col) */}
-        <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+        <motion.div {...fup(0)} initial="rest" whileHover="hover" style={{ ...card, padding: "12px", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
           {/* Vertical Infinite Scroller Visual */}
-          <div style={{ position: "relative", height: "100px", marginBottom: "12px", display: "flex", flexDirection: "column", justifyContent: "center", borderRadius: "12px", overflow: "hidden", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)" }}>
+          <div style={{ position: "relative", height: "140px", marginBottom: "16px", display: "flex", flexDirection: "column", justifyContent: "center", borderRadius: "16px", overflow: "hidden", background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.01)" : "rgba(15, 23, 42, 0.02)", border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.04)" : "1px solid rgba(15, 23, 42, 0.06)", backdropFilter: "blur(16px)" }}>
             {/* Top/Bottom Fade & Blur Mask */}
             <div style={{
               position: "absolute", inset: 0, zIndex: 5,
-              background: `linear-gradient(to bottom, var(--color-bg-card) 0%, transparent 35%, transparent 65%, var(--color-bg-card) 100%)`,
+              background: `linear-gradient(to bottom, var(--color-bg-card) 0%, transparent 25%, transparent 75%, var(--color-bg-card) 100%)`,
               pointerEvents: "none"
             }} />
             <div style={{
               position: "absolute", inset: 0, zIndex: 4,
-              backdropFilter: "blur(2.5px)",
-              maskImage: "linear-gradient(to bottom, black 0%, transparent 35%, transparent 65%, black 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 35%, transparent 65%, black 100%)",
+              backdropFilter: "blur(2px)",
+              maskImage: "linear-gradient(to bottom, black 0%, transparent 25%, transparent 75%, black 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 25%, transparent 75%, black 100%)",
               pointerEvents: "none"
             }} />
 
             <motion.div
               animate={{ y: [0, "-50%"] }}
-              transition={{ duration: 25, ease: "linear", repeat: Infinity }}
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+              transition={{ duration: 28, ease: "linear", repeat: Infinity }}
+              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
             >
               {[0, 1].map((set) => (
                 <div key={set} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   {[
-                    { text: "Social media post", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ACD791" strokeWidth="2"><path d="M20 6L9 17L4 12" /></svg>, status: "done" },
-                    { text: "Employee Tracking", icon: <Users style={{ width: "14px", color: "#6DB6FF" }} />, status: "spin" },
-                    { text: "Lead Generation", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6DB6FF" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>, status: "spin" },
-                    { text: "Invoice Processing", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8E95A3" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 15h0M2 9.5h20" /></svg>, status: "done" },
-                    { text: "Payment reminder", icon: <Clock style={{ width: "14px", color: "#8E95A3" }} />, status: "done" },
-                    { text: "Customer Support AI", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6DB6FF" strokeWidth="2"><path d="M12 8V4M8 4h8M12 16v4M8 20h8M5 11h2M17 11h2M9 11h0M15 11h0" /></svg>, status: "spin" },
-                    { text: "Cost Management", icon: <span style={{ color: "#8E95A3", fontWeight: 700, fontSize: "14px" }}>$</span>, status: "pending" },
-                    { text: "Inventory Sync", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ACD791" strokeWidth="2"><path d="M11 20l-7-7 7-7M20 12H4M13 4l7 7-7 7" /></svg>, status: "done" },
-                    { text: "Data Enrichment", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ACD791" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>, status: "done" },
-                    { text: "Email Sequencing", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6DB6FF" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><path d="M22 6l-10 7L2 6" /></svg>, status: "spin" },
-                    { text: "Report Generation", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8E95A3" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>, status: "done" },
-                    { text: "Document Parsing", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8E95A3" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>, status: "pending" },
+                    { text: "Social media auto-post", cat: "Marketing", color: "#B1D997", status: "done" },
+                    { text: "CRM Lead enrichment", cat: "Sales", color: "#6DB6FF", status: "spin" },
+                    { text: "Auto-Invoice parsing", cat: "Finance", color: "#FF8F6D", status: "done" },
+                    { text: "Support Ticket routing", cat: "Operations", color: "#B39DFF", status: "spin" },
+                    { text: "Customer sentiment check", cat: "Success", color: "#6DB6FF", status: "pending" },
+                    { text: "Data sync to warehouse", cat: "DataHub", color: "#B1D997", status: "done" },
                   ].map((it, i) => (
                     <div key={i} style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
-                      padding: "6px 10px", borderRadius: "8px",
-                      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
-                      boxShadow: resolvedTheme === 'dark' ? "0 4px 12px rgba(0,0,0,0.2)" : "0 4px 8px rgba(0,0,0,0.05)",
-                      margin: "0 10px"
+                      padding: "8px 12px", borderRadius: "10px",
+                      background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.03)" : "#FFFFFF",
+                      border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(15, 23, 42, 0.08)",
+                      boxShadow: resolvedTheme === 'dark' ? "0 4px 12px rgba(0,0,0,0.15)" : "0 4px 10px rgba(15,23,42,0.04)",
+                      margin: "0 12px"
                     }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: F.inter, fontSize: "11px", color: C.txtBody }}>
-                        {it.icon} {it.text}
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: it.color, display: "inline-block" }} />
+                        <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                          <span style={{ fontFamily: F.inter, fontSize: "10.5px", fontWeight: 550, color: C.txtBright }}>{it.text}</span>
+                          <span style={{ fontFamily: F.inter, fontSize: "8px", color: C.txtMuted }}>{it.cat}</span>
+                        </div>
                       </div>
-                      {it.status === "done" && <Check style={{ width: "12px", height: "12px", color: "#ACD791" }} />}
-                      {it.status === "spin" && <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1.5px solid var(--color-blue-mid)", borderTopColor: "transparent" }} />}
-                      {it.status === "pending" && <div style={{ width: "10px", height: "10px", border: "1.5px solid var(--color-border)", borderRadius: "50%" }} />}
+                      
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        {it.status === "done" && (
+                          <div style={{ background: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.1)" : "rgba(143, 188, 106, 0.1)", padding: "2px 6px", borderRadius: "6px", display: "flex", alignItems: "center", gap: "3px" }}>
+                            <Check style={{ width: "9px", height: "9px", color: resolvedTheme === 'dark' ? "#B1D997" : "#8FBC6A" }} />
+                            <span style={{ fontFamily: F.inter, fontSize: "8px", fontWeight: 600, color: resolvedTheme === 'dark' ? "#B1D997" : "#8FBC6A" }}>Active</span>
+                          </div>
+                        )}
+                        {it.status === "spin" && (
+                          <div style={{ background: resolvedTheme === 'dark' ? "rgba(109, 182, 255, 0.1)" : "rgba(0, 106, 220, 0.07)", padding: "2px 6px", borderRadius: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
+                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} style={{ width: "8px", height: "8px", borderRadius: "50%", border: "1.5px solid var(--color-blue-mid)", borderTopColor: "transparent" }} />
+                            <span style={{ fontFamily: F.inter, fontSize: "8px", fontWeight: 600, color: C.blueMid }}>Running</span>
+                          </div>
+                        )}
+                        {it.status === "pending" && (
+                          <div style={{ background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(15, 23, 42, 0.04)", padding: "2px 6px", borderRadius: "6px", display: "flex", alignItems: "center" }}>
+                            <span style={{ fontFamily: F.inter, fontSize: "8px", fontWeight: 600, color: C.txtMuted }}>Idle</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -338,45 +354,93 @@ export function Services() {
         </motion.div>
 
         {/* 2 – Automated Workflows (2cols Wide) - SIDE BY SIDE LAYOUT */}
-        <motion.div {...fup(0.1)} initial="rest" whileHover="hover" className="md:col-span-2 flex flex-col md:flex-row items-center gap-4 relative overflow-hidden" style={{ ...card, padding: "10px" }}>
+        <motion.div {...fup(0.1)} initial="rest" whileHover="hover" className="md:col-span-2 flex flex-col md:flex-row items-center gap-4 relative overflow-hidden" style={{ ...card, padding: "12px" }}>
           <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(var(--color-blue-mid-rgb), 0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
-          <div style={{ position: "relative", flex: 1.2, height: "100px", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
-            <div style={{ position: "relative", width: "240px", height: "120px", transform: "scale(0.75)" }}>
+          <div style={{ position: "relative", flex: 1.2, height: "140px", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+            <div style={{ position: "relative", width: "240px", height: "120px", transform: "scale(0.85)" }}>
  
-              {/* Central Glowing Star */}
-              <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "50px", height: "50px", borderRadius: "50%", border: "1px solid var(--color-border)", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 0 40px rgba(var(--color-blue-mid-rgb), 0.2)`, zIndex: 20 }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Connection Pipelines Grid Lines */}
+              <svg width="240" height="120" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+                <path d="M 24 24 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 84 14 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 174 19 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 224 54 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 194 104 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 114 114 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+                <path d="M 34 94 L 120 60" stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"} strokeWidth="1" strokeDasharray="3 3" />
+              </svg>
+
+              {/* Central Glowing AI Star Node */}
+              <div style={{
+                position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+                width: "48px", height: "48px", borderRadius: "50%",
+                border: resolvedTheme === 'dark' ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(15,23,42,0.15)",
+                background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.05)" : "#FFFFFF",
+                backdropFilter: "blur(16px)", display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: resolvedTheme === 'dark' ? "0 0 30px rgba(109,182,255,0.25)" : "0 8px 24px rgba(0, 106, 220, 0.12), 0 0 15px rgba(0, 106, 220, 0.05)",
+                zIndex: 20
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" fill="#ACD791" stroke="#ACD791" strokeWidth="2" />
                 </svg>
               </div>
  
-              {/* Data Flow Packets */}
-              {[...Array(6)].map((_, i) => (
+              {/* Animated Data Packets */}
+              {[...Array(7)].map((_, i) => {
+                const positions = [
+                  { x: 10, y: 10 }, { x: 70, y: 0 }, { x: 160, y: 5 },
+                  { x: 210, y: 40 }, { x: 180, y: 90 }, { x: 100, y: 100 }, { x: 20, y: 80 }
+                ];
+                const pos = positions[i] || { x: 0, y: 0 };
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 0, y: 0 }}
+                    animate={{
+                      opacity: [0, 1, 0],
+                      x: [pos.x - 120, 0],
+                      y: [pos.y - 60, 0],
+                    }}
+                    transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.35, ease: "linear" }}
+                    style={{
+                      position: "absolute", top: "50%", left: "50%",
+                      width: "4px", height: "4px",
+                      background: resolvedTheme === 'dark' ? "#ACD791" : "#8FBC6A",
+                      borderRadius: "50%",
+                      boxShadow: resolvedTheme === 'dark' ? "0 0 6px #ACD791" : "0 0 4px #8FBC6A",
+                      zIndex: 15
+                    }}
+                  />
+                );
+              })}
+ 
+              {/* Elegant Interactive Floating Platform Nodes */}
+              {[
+                { x: 10, y: 10, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.034l4.71 6.225 5.5-6.225zm-4.66 17.513h1.833L7.084 4.126H5.117l8.467 15.637z" /></svg> },
+                { x: 70, y: 0, icon: <svg width="13" height="13" viewBox="0 0 38 38"><path d="M11.4 0a5.7 5.7 0 000 11.4 5.7 5.7 0 000-11.4zM0 11.4a5.7 5.7 0 005.7 5.7c3.1 0 5.7-2.6 5.7-5.7H0zm5.7 5.7a5.7 5.7 0 000 11.4 5.7 5.7 0 000-11.4zM11.4 22.8a5.7 5.7 0 00-5.7 5.7c0 3.1 2.6 5.7 5.7 5.7s5.7-2.6 5.7-5.7h-5.7zm5.7-11.4a5.7 5.7 0 005.7 5.7H22.8c3.1 0 5.7-2.6 5.7-5.7s-2.6-5.7-5.7-5.7z" fill="currentColor" /></svg> },
+                { x: 160, y: 5, icon: <svg width="12" height="12" viewBox="0 0 100 100"><path d="M10 10v80h80V10H10zm11 11h58v58H21V21zm9 8v29l32-15V14l-32 15z" fill="currentColor" /></svg> },
+                { x: 210, y: 40, icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.06 13.5H8.94V8.5h6.12v1.85h-3.9v1.44h3.69v1.61h-3.69v1.4h3.9v1.7z" /></svg> },
+                { x: 180, y: 90, icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" /></svg> },
+                { x: 100, y: 100, icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
+                { x: 20, y: 80, icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><path d="M9 9h.01" /><path d="M15 9h.01" /></svg> },
+              ].map((pos, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: 0, y: 0 }}
-                  animate={{
-                    opacity: [0, 1, 0],
-                    x: [Math.cos(i * 60 * Math.PI / 180) * 90, 0],
-                    y: [Math.sin(i * 60 * Math.PI / 180) * 60, 0],
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 4 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    position: "absolute", top: pos.y, left: pos.x,
+                    width: "32px", height: "32px", borderRadius: "10px",
+                    background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.03)" : "#FFFFFF",
+                    border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(15, 23, 42, 0.12)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    backdropFilter: "blur(4px)",
+                    boxShadow: resolvedTheme === 'dark' ? "0 4px 10px rgba(0,0,0,0.3)" : "0 4px 12px rgba(15, 23, 42, 0.08)",
+                    color: resolvedTheme === 'dark' ? "#D5DBE6" : "#0F172A",
+                    zIndex: 10
                   }}
-                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.4, ease: "linear" }}
-                  style={{ position: "absolute", top: "50%", left: "50%", width: "3px", height: "3px", background: "var(--color-text-bright)", borderRadius: "50%", boxShadow: `0 0 6px var(--color-text-bright)`, zIndex: 15 }}
-                />
-              ))}
- 
-              {/* Verified Brand Logos */}
-              {[
-                { x: 10, y: 10, color: "#fff", icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.034l4.71 6.225 5.5-6.225zm-4.66 17.513h1.833L7.084 4.126H5.117l8.467 15.637z" /></svg> },
-                { x: 70, y: 0, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 38 38"><path d="M11.4 0a5.7 5.7 0 000 11.4 5.7 5.7 0 000-11.4zM0 11.4a5.7 5.7 0 005.7 5.7c3.1 0 5.7-2.6 5.7-5.7H0zm5.7 5.7a5.7 5.7 0 000 11.4 5.7 5.7 0 000-11.4zM11.4 22.8a5.7 5.7 0 00-5.7 5.7c0 3.1 2.6 5.7 5.7 5.7s5.7-2.6 5.7-5.7h-5.7zm5.7-11.4a5.7 5.7 0 005.7 5.7H22.8c3.1 0 5.7-2.6 5.7-5.7s-2.6-5.7-5.7-5.7z" fill="currentColor" /></svg> },
-                { x: 160, y: 5, color: "#fff", icon: <svg width="12" height="12" viewBox="0 0 100 100"><path d="M10 10v80h80V10H10zm11 11h58v58H21V21zm9 8v29l32-15V14l-32 15z" fill="currentColor" /></svg> },
-                { x: 210, y: 40, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.06 13.5H8.94V8.5h6.12v1.85h-3.9v1.44h3.69v1.61h-3.69v1.4h3.9v1.7z" /></svg> },
-                { x: 180, y: 90, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" /></svg> },
-                { x: 100, y: 100, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
-                { x: 20, y: 80, color: "#fff", icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><path d="M9 9h.01" /><path d="M15 9h.01" /></svg> },
-              ].map((pos, i) => (
-                <motion.div key={i} animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5 + i * 0.2, repeat: Infinity, ease: "easeInOut" }} style={{ position: "absolute", top: pos.y, left: pos.x, width: "28px", height: "28px", borderRadius: "8px", background: "var(--color-glass-bg)", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center", WebkitBackdropFilter: "blur(2px)", backdropFilter: "blur(2px)", color: pos.color }}>
+                >
                   {pos.icon}
                 </motion.div>
               ))}
@@ -391,46 +455,63 @@ export function Services() {
         </motion.div>
 
         {/* 3 – Real-Time Intelligence (1col) */}
-        <motion.div {...fup(0.2)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px" }}>
-          <div style={{ position: "relative", width: "100%", height: "100px", marginBottom: "12px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <motion.div {...fup(0.2)} initial="rest" whileHover="hover" style={{ ...card, padding: "12px" }}>
+          <div style={{ position: "relative", width: "100%", height: "140px", marginBottom: "16px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             {/* Background Stacks */}
-            <div style={{ position: "absolute", top: "5px", width: "90%", height: "90px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "12px", border: "1px solid var(--color-border)", transform: "translateY(-8px) scale(0.95)", zIndex: 0, opacity: 0.5 }} />
-            <div style={{ position: "absolute", top: "15px", width: "90%", height: "90px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "12px", border: "1px solid var(--color-border)", transform: "translateY(-4px) scale(0.98)", zIndex: 1, opacity: 0.8 }} />
+            <div style={{ position: "absolute", top: "10px", width: "88%", height: "120px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "16px", border: "1px solid var(--color-border)", transform: "translateY(-10px) scale(0.94)", zIndex: 0, opacity: 0.4 }} />
+            <div style={{ position: "absolute", top: "20px", width: "88%", height: "120px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderRadius: "16px", border: "1px solid var(--color-border)", transform: "translateY(-5px) scale(0.97)", zIndex: 1, opacity: 0.7 }} />
 
             {/* Main Visual Container */}
             <motion.div
-              style={{ position: "relative", width: "90%", height: "90px", background: C.bgCard, borderRadius: "12px", border: `1px solid ${C.border}`, boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.05)", zIndex: 2, padding: "8px", overflow: "hidden" }}
+              style={{
+                position: "relative", width: "88%", height: "120px",
+                background: resolvedTheme === 'dark' ? C.bgCard : "#FFFFFF",
+                borderRadius: "16px",
+                border: resolvedTheme === 'dark' ? `1px solid ${C.border}` : "1px solid rgba(15, 23, 42, 0.1)",
+                boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 24px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
+                zIndex: 2, padding: "10px", overflow: "hidden"
+              }}
             >
-              {/* Search Bar */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "var(--color-bg-input)", border: "1px solid var(--color-border)", borderRadius: "20px", padding: "2px 2px 2px 8px", marginBottom: "8px" }}>
-                <span style={{ fontFamily: F.inter, fontSize: "9px", color: "#4A5064" }}>Research anything...</span>
-                <div style={{ background: "linear-gradient(135deg, #ACD791 0%, #8FB37A 100%)", padding: "2px 8px", borderRadius: "18px", fontFamily: F.inter, fontSize: "8px", fontWeight: 600, color: C.bgCard }}>Research</div>
+              {/* Premium Command Search Bar */}
+              <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                background: resolvedTheme === 'dark' ? "var(--color-bg-input)" : "#F8FAFC",
+                border: resolvedTheme === 'dark' ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.08)",
+                borderRadius: "8px", padding: "4px 6px", marginBottom: "8px"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <Search style={{ width: "9px", height: "9px", color: resolvedTheme === 'dark' ? "#8E95A3" : "#64748B" }} />
+                  <span style={{ fontFamily: F.inter, fontSize: "9px", color: resolvedTheme === 'dark' ? "#8E95A3" : "#64748B", fontWeight: 450 }}>Research market channels...</span>
+                </div>
+                <span style={{ fontFamily: F.inter, fontSize: "8px", color: C.txtMuted, background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(15, 23, 42, 0.05)", padding: "1px 4px", borderRadius: "3px" }}>⌘K</span>
               </div>
 
-              {/* Insight Cards */}
+              {/* High-Contrast Interactive Insight Rows */}
               <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                 {[
-                  { text: "Software & App Industry", delay: 0 },
-                  { text: "UX & UI Design Industry", delay: 0.1, x: 12 },
-                  { text: "High Converting Customer", delay: 0.2 },
+                  { text: "Software & SaaS Industry", val: "+14.6%", cat: "High Match", color: "#6DB6FF" },
+                  { text: "Enterprise Workflow Audit", val: "Verified", cat: "Ops", color: "#ACD791" },
+                  { text: "AI Automation Readiness", val: "Ready", cat: "Strategy", color: "#B39DFF" },
                 ].map((it, i) => (
                   <motion.div
                     key={i}
-                    variants={{ rest: { x: 0 }, hover: { x: it.x || 0 } }}
-                    transition={{ delay: it.delay, duration: 0.4 }}
+                    variants={{ rest: { x: 0 }, hover: { x: 6 } }}
+                    transition={{ delay: i * 0.05, duration: 0.35 }}
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
-                      background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)",
-                      borderRadius: "6px", padding: "2px 6px"
+                      background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.02)" : "#F8FAFC",
+                      border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.04)" : "1px solid rgba(15, 23, 42, 0.06)",
+                      borderRadius: "6px", padding: "4px 8px"
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <div style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Users style={{ width: "6px", height: "6px", color: "var(--color-text-bright)" }} />
-                      </div>
-                      <span style={{ fontFamily: F.inter, fontSize: "7.5px", color: "var(--color-text-bright)", opacity: 0.8 }}>{it.text}</span>
+                      <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: it.color }} />
+                      <span style={{ fontFamily: F.inter, fontSize: "8.5px", fontWeight: 550, color: C.txtBright }}>{it.text}</span>
                     </div>
-                    <TrendingUp style={{ width: "8px", height: "8px", color: C.txtFaint }} />
+                    <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                      <span style={{ fontFamily: F.inter, fontSize: "7.5px", color: C.txtMuted }}>{it.cat}</span>
+                      <span style={{ fontFamily: F.inter, fontSize: "8px", fontWeight: 600, color: it.color }}>{it.val}</span>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -443,54 +524,86 @@ export function Services() {
         </motion.div>
 
         {/* 4 – Custom AI Agent (1col) */}
-        <motion.div {...fup(0.3)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px" }}>
-          <div style={{ position: "relative", height: "100px", marginBottom: "12px", display: "flex", flexDirection: "column", borderRadius: "12px", overflow: "hidden", border: `1px solid ${C.border}`, background: C.bgCard, boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.05)" }}>
-            {/* Window Header */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 10px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", borderBottom: `1px solid var(--color-border)` }}>
-              <div style={{ display: "flex", gap: "6px" }}>
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FF5F56", opacity: 0.8 }} />
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FFBD2E", opacity: 0.8 }} />
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27C93F", opacity: 0.8 }} />
+        <motion.div {...fup(0.3)} initial="rest" whileHover="hover" style={{ ...card, padding: "12px" }}>
+          <div style={{ position: "relative", height: "140px", marginBottom: "16px", display: "flex", flexDirection: "column", borderRadius: "16px", overflow: "hidden", border: resolvedTheme === 'dark' ? `1px solid ${C.border}` : "1px solid rgba(15, 23, 42, 0.1)", background: resolvedTheme === 'dark' ? C.bgCard : "#FFFFFF", boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 24px rgba(15, 23, 42, 0.05)" }}>
+            {/* VS Code/Arc Mac-style Window Header */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.01)" : "#F8FAFC", borderBottom: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(15, 23, 42, 0.08)" }}>
+              <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+                <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FF5F56" }} />
+                <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FFBD2E" }} />
+                <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#27C93F" }} />
               </div>
 
-              {/* Centered Search Bar */}
-              <div style={{ flex: 1, margin: "0 15px", height: "18px", background: "var(--color-bg-input)", borderRadius: "10px", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 8px" }}>
-                <Search style={{ width: "10px", height: "10px", color: C.txtFaint }} />
+              {/* Clean Active Editor Tabs */}
+              <div style={{ display: "flex", gap: "4px", margin: "0 10px", flex: 1 }}>
+                <div style={{
+                  background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.04)" : "#FFFFFF",
+                  borderTop: resolvedTheme === 'dark' ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(15,23,42,0.08)",
+                  borderLeft: resolvedTheme === 'dark' ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(15,23,42,0.08)",
+                  borderRight: resolvedTheme === 'dark' ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(15,23,42,0.08)",
+                  borderBottom: "none",
+                  borderRadius: "5px 5px 0 0",
+                  padding: "2px 8px",
+                  fontFamily: F.inter,
+                  fontSize: "8px",
+                  fontWeight: 600,
+                  color: C.txtBright,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px"
+                }}>
+                  <Bot style={{ width: "8px", height: "8px", color: "var(--color-blue-mid)" }} />
+                  agent.py
+                </div>
+                <div style={{ fontFamily: F.inter, fontSize: "8px", color: C.txtMuted, padding: "2px 4px", opacity: 0.6 }}>config.yml</div>
               </div>
 
-              <div style={{ background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)", borderRadius: "6px", padding: "3px 8px", fontSize: "10px", color: C.txtMuted, fontFamily: F.inter, fontWeight: 500, display: "flex", alignItems: "center", gap: "4px" }}>
-                Code <code style={{ fontSize: "11px" }}>{`</>`}</code>
+              <div style={{ background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.04)" : "rgba(15, 23, 42, 0.05)", border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(15, 23, 42, 0.08)", borderRadius: "4px", padding: "2px 6px", fontSize: "8px", color: C.txtMuted, fontFamily: F.inter, fontWeight: 500 }}>
+                Python
               </div>
             </div>
 
-            {/* Code Content */}
-            <div style={{ position: "relative", flex: 1, overflow: "hidden", padding: "6px 0" }}>
-              <div style={{ position: "absolute", inset: 0, zIndex: 5, background: `linear-gradient(to bottom, ${C.bgCard} 0%, transparent 20%, transparent 80%, ${C.bgCard} 100%)`, pointerEvents: "none" }} />
+            {/* Code Content Editor */}
+            <div style={{ position: "relative", flex: 1, overflow: "hidden", padding: "8px 0", background: resolvedTheme === 'dark' ? "#0A0D14" : "#FAFBFD" }}>
+              <div style={{ position: "absolute", inset: 0, zIndex: 5, background: `linear-gradient(to bottom, transparent 40%, ${resolvedTheme === 'dark' ? '#0A0D14' : '#FAFBFD'} 100%)`, pointerEvents: "none" }} />
 
               <motion.div
-                animate={{ y: [0, -220] }}
-                transition={{ duration: 15, ease: "linear", repeat: Infinity }}
-                style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+                animate={{ y: [0, -180] }}
+                transition={{ duration: 16, ease: "linear", repeat: Infinity }}
+                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
               >
                 {[0, 1].map((set) => (
-                  <div key={set} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <div key={set} style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                     {[
-                      { l: 1, c: `self.activation_limit =`, v: `activation_limit` },
-                      { l: 2, c: `self.current_mode = "idle"`, v: `` },
-                      { l: 3, c: ``, v: `` },
-                      { l: 4, c: `def evaluate_task(self, workload_value):`, v: ``, indent: true },
-                      { l: 5, c: `if workload_value >`, v: ``, indent: true },
-                      { l: 6, c: `self.activation_limit:`, v: ``, indent: true },
-                      { l: 7, c: `self.current_mode = "engaged"`, v: ``, indent: true },
+                      { l: 1, c: "# Auto-initialize scheduler agent", t: "comment" },
+                      { l: 2, c: "self.activation_limit =", v: "24", t: "normal" },
+                      { l: 3, c: "self.current_mode = ", v: '"active_routing"', t: "normal" },
+                      { l: 4, c: "def evaluate_incoming_leads(self, count):", t: "def" },
+                      { l: 5, c: "if count > self.activation_limit:", t: "keyword", indent: true },
+                      { l: 6, c: "self.dispatch_agent(mode='scale')", t: "normal", indent: true },
+                      { l: 7, c: "return self.current_mode", t: "keyword", indent: true },
                     ].map((line, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "0 10px" }}>
-                        <div style={{ minWidth: "14px", height: "14px", borderRadius: "50%", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "8px", color: C.txtFaint, fontFamily: "monospace" }}>
+                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "0 12px" }}>
+                        <div style={{ minWidth: "12px", fontFamily: "monospace", fontSize: "8px", color: resolvedTheme === 'dark' ? "#3E4451" : "#94A3B8", textAlign: "right" }}>
                           {line.l}
                         </div>
-                        <div style={{ fontFamily: "monospace", fontSize: "10px", lineHeight: "1.5", color: "#8E95A3", whiteSpace: "pre" }}>
+                        <div style={{ fontFamily: "monospace", fontSize: "9px", lineHeight: "1.4", color: resolvedTheme === 'dark' ? "#ABB2BF" : "#383A42", whiteSpace: "pre" }}>
                           {line.indent && "  "}
-                          <span style={{ color: "#abb2bf" }}>{line.c}</span>
-                          {line.v && <span style={{ color: "#e5c07b" }}> {line.v}</span>}
+                          {line.t === "comment" && <span style={{ color: "#5C6370", fontStyle: "italic" }}>{line.c}</span>}
+                          {line.t === "def" && (
+                            <>
+                              <span style={{ color: resolvedTheme === 'dark' ? "#C678DD" : "#A626A2", fontWeight: 600 }}>def </span>
+                              <span style={{ color: resolvedTheme === 'dark' ? "#61AFEF" : "#4078F2" }}>{line.c.substring(4)}</span>
+                            </>
+                          )}
+                          {line.t === "keyword" && (
+                            <>
+                              <span style={{ color: resolvedTheme === 'dark' ? "#C678DD" : "#A626A2", fontWeight: 600 }}>{line.c.split(" ")[0]} </span>
+                              <span>{line.c.substring(line.c.split(" ")[0].length + 1)}</span>
+                            </>
+                          )}
+                          {line.t === "normal" && <span>{line.c}</span>}
+                          {line.v && <span style={{ color: resolvedTheme === 'dark' ? "#98C379" : "#50A14F" }}>{line.v}</span>}
                         </div>
                       </div>
                     ))}
@@ -506,30 +619,37 @@ export function Services() {
         </motion.div>
 
         {/* 5 – AI Strategy Consulting (1col) */}
-        <motion.div {...fup(0.4)} initial="rest" whileHover="hover" style={{ ...card, padding: "10px" }}>
-          <div style={{ position: "relative", height: "100px", marginBottom: "12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ transform: "scale(0.8)", transformOrigin: "center" }}>
-              <svg width="220" height="150" viewBox="0 0 220 150">
+        <motion.div {...fup(0.4)} initial="rest" whileHover="hover" style={{ ...card, padding: "12px" }}>
+          <div style={{ position: "relative", height: "140px", marginBottom: "16px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ transform: "scale(0.95)", transformOrigin: "center" }}>
+              <svg width="220" height="130" viewBox="0 0 220 130">
               <motion.path
-                d="M110 75 L40 30 M110 75 L60 120 M110 75 L170 40 M110 75 L190 100"
-                stroke="var(--color-border)" strokeWidth="1.5" strokeDasharray="5 5"
-                variants={{ rest: { strokeDashoffset: [0, -20] } }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                d="M110 65 L40 25 M110 65 L60 110 M110 65 L170 30 M110 65 L190 90"
+                stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.1)"} strokeWidth="1.5" strokeDasharray="4 4"
+                variants={{ rest: { strokeDashoffset: [0, -20] } }} transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
               />
-              <circle cx="40" cy="30" r="16" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" />
-              <rect x="34" y="24" width="3" height="12" fill="#545B7D" rx="1" />
-              <rect x="40" y="20" width="3" height="16" fill="var(--color-text-muted)" rx="1" />
-              <rect x="46" y="28" width="3" height="8" fill="#545B7D" rx="1" />
 
-              <circle cx="60" cy="120" r="10" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" />
-              <circle cx="170" cy="40" r="8" fill="var(--color-bg-card-alt)" stroke="var(--color-border)" />
+              {/* Dynamic Connecting Lines Backdrops */}
+              <circle cx="40" cy="25" r="16" fill={resolvedTheme === 'dark' ? C.bgCard : "#FFFFFF"} stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.12)"} strokeWidth="1.5" style={{ filter: resolvedTheme === 'dark' ? "none" : "drop-shadow(0 2px 6px rgba(0,0,0,0.04))" }} />
+              <rect x="34" y="19" width="3" height="12" fill="#545B7D" rx="1" />
+              <rect x="40" y="15" width="3" height="16" fill="var(--color-text-muted)" rx="1" />
+              <rect x="46" y="23" width="3" height="8" fill="#545B7D" rx="1" />
+
+              <circle cx="60" cy="110" r="12" fill={resolvedTheme === 'dark' ? C.bgCard : "#FFFFFF"} stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.12)"} strokeWidth="1.5" style={{ filter: resolvedTheme === 'dark' ? "none" : "drop-shadow(0 2px 6px rgba(0,0,0,0.04))" }} />
+              <circle cx="60" cy="110" r="4" fill="#6DB6FF" />
+
+              <circle cx="170" cy="30" r="10" fill={resolvedTheme === 'dark' ? C.bgCard : "#FFFFFF"} stroke={resolvedTheme === 'dark' ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.12)"} strokeWidth="1.5" />
+              <circle cx="170" cy="30" r="3" fill="#B1D997" />
 
               <motion.circle
-                cx="190" cy="100" r="18" fill="rgba(172,215,145,0.08)" stroke="rgba(172,215,145,0.3)"
-                variants={{ rest: { scale: [1, 1.15, 1], opacity: [0.8, 1, 0.8] } }} transition={{ duration: 3, repeat: Infinity }}
+                cx="190" cy="90" r="18" fill="rgba(172,215,145,0.08)" stroke="rgba(172,215,145,0.3)"
+                variants={{ rest: { scale: [1, 1.12, 1], opacity: [0.8, 1, 0.8] } }} transition={{ duration: 3, repeat: Infinity }}
               />
-              <path d="M190 92L193.37 98.83L200.9 99.92L195.45 105.23L196.74 112.72L190 109.18L183.26 112.72L184.55 105.23L179.1 99.92L186.63 98.83L190 92Z" fill="#ACD791" />
+              <path d="M190 82L193.37 88.83L200.9 89.92L195.45 95.23L196.74 102.72L190 99.18L183.26 102.72L184.55 95.23L179.1 89.92L186.63 88.83L190 82Z" fill="#ACD791" />
 
-              <motion.circle cx="110" cy="75" r="5" fill="#6DB6FF" variants={{ rest: { scale: [1, 1.4, 1], filter: ["blur(0px)", "blur(2px)", "blur(0px)"] } }} transition={{ duration: 2.5, repeat: Infinity }} />
+              {/* Pulsing Central Hub Node */}
+              <motion.circle cx="110" cy="65" r="7" fill="#6DB6FF" variants={{ rest: { scale: [1, 1.3, 1], filter: ["blur(0px)", "blur(1.5px)", "blur(0px)"] } }} transition={{ duration: 2.5, repeat: Infinity }} />
+              <circle cx="110" cy="65" r="4" fill="#FFFFFF" />
             </svg>
             </div>
           </div>
