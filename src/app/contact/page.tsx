@@ -21,6 +21,7 @@ import {
   ArrowUpRight
 } from "lucide-react";
 import { submitLead } from "@/lib/leadService";
+import Turnstile from "@/components/ui/Turnstile";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -256,13 +257,14 @@ export default function ContactPage() {
   const isDark = resolvedTheme === 'dark';
 
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", source: "", message: "", countryCode: "+971", customCode: "", customSource: ""
+    name: "", email: "", phone: "", source: "", message: "", countryCode: "+971", customCode: "", customSource: "", website: ""
   });
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [showSourcePicker, setShowSourcePicker] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -272,6 +274,17 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Cooldown verification (30 seconds for contact_sales)
+    const lastSubmit = localStorage.getItem("scalepods_cooldown_contact_sales");
+    if (lastSubmit) {
+      const timeDiff = Date.now() - parseInt(lastSubmit, 10);
+      if (timeDiff < 30000) {
+        setError("Please wait before submitting again.");
+        setLoading(false);
+        return;
+      }
+    }
 
     // Strict Email Verification
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -289,20 +302,15 @@ export default function ContactPage() {
       return;
     }
 
+    // Turnstile check
+    if (!turnstileToken) {
+      setError("Please complete the security verification.");
+      setLoading(false);
+      return;
+    }
+
     const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
     const finalSource = form.source === "Other" ? form.customSource : form.source;
-
-    // const { error: dbError } = await supabase
-    //   .from("contact_submissions")
-    //   .insert([
-    //     {
-    //       full_name: form.name,
-    //       email: form.email,
-    //       phone: `${dialCode} ${form.phone}`,
-    //       source: finalSource,
-    //       message: form.message,
-    //     },
-    //   ]);
 
     const result = await submitLead({
       formType: "contact_sales",
@@ -312,6 +320,8 @@ export default function ContactPage() {
       phone: `${dialCode} ${form.phone}`,
       message: form.message,
       metadata: { leadSource: finalSource },
+      website: form.website,
+      turnstileToken: turnstileToken,
     });
 
     setLoading(false);
@@ -319,6 +329,7 @@ export default function ContactPage() {
     if (!result.success) {
       setError(result.error || "Something went wrong. Please try again or email us directly.");
     } else {
+      localStorage.setItem("scalepods_cooldown_contact_sales", Date.now().toString());
       setSubmitted(true);
     }
   }
@@ -711,6 +722,25 @@ export default function ContactPage() {
                       />
                     </Field>
 
+                    {/* Honeypot field (hidden from humans) */}
+                    <div style={{ display: "none", position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                      <input
+                        type="text"
+                        name="website"
+                        value={form.website || ""}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
+
+                    {/* Turnstile verification widget */}
+                    <Turnstile 
+                      onVerify={(token) => setTurnstileToken(token)} 
+                      onExpire={() => setTurnstileToken(null)}
+                      onError={() => setTurnstileToken(null)}
+                    />
+
                     {/* Error message */}
                     {error && (
                       <p style={{
@@ -731,7 +761,7 @@ export default function ContactPage() {
 
                       <button
                         type="submit"
-                        disabled={loading}
+                        disabled={loading || !turnstileToken}
                         style={{
                           position: "relative",
                           zIndex: 1,

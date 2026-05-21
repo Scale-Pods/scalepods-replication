@@ -7,6 +7,7 @@ import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabase";
 import { submitLead } from "@/lib/leadService";
+import Turnstile from "@/components/ui/Turnstile";
 import DownloadModal from "@/components/ui/DownloadModal";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
@@ -117,12 +118,14 @@ export default function GlobalPage() {
     company: "", 
     requirement: "",
     countryCode: "+971",
-    customCode: ""
+    customCode: "",
+    website: ""
   });
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [showBelowFold, setShowBelowFold] = useState(false);
   const isMobile = useMobile(900);
@@ -172,6 +175,17 @@ export default function GlobalPage() {
     setLoading(true);
     setError(null);
 
+    // Cooldown verification (30 seconds for global_inquiry)
+    const lastSubmit = localStorage.getItem("scalepods_cooldown_global_inquiry");
+    if (lastSubmit) {
+      const timeDiff = Date.now() - parseInt(lastSubmit, 10);
+      if (timeDiff < 30000) {
+        setError("Please wait before submitting again.");
+        setLoading(false);
+        return;
+      }
+    }
+
     // Strict Email Verification
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(form.email)) {
@@ -180,18 +194,14 @@ export default function GlobalPage() {
       return;
     }
 
-    const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
+    // Turnstile check
+    if (!turnstileToken) {
+      setError("Please complete the security verification.");
+      setLoading(false);
+      return;
+    }
 
-    // const { error: dbError } = await supabase
-    //   .from("contact_submissions")
-    //   .insert([{ 
-    //     full_name: form.name, 
-    //     email: form.email, 
-    //     phone: `${dialCode} ${form.phone}`, 
-    //     company_name: form.company,
-    //     business_requirement: form.requirement,
-    //     source_page: "global" 
-    //   }]);
+    const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
 
     const result = await submitLead({
       formType: "global_inquiry",
@@ -201,12 +211,15 @@ export default function GlobalPage() {
       phone: `${dialCode} ${form.phone}`,
       company: form.company,
       message: form.requirement,
+      website: form.website,
+      turnstileToken: turnstileToken,
     });
 
     setLoading(false);
     if (!result.success) {
       setError(result.error || "Something went wrong. Please try again.");
     } else {
+      localStorage.setItem("scalepods_cooldown_global_inquiry", Date.now().toString());
       setSubmitted(true);
     }
   }
@@ -698,6 +711,25 @@ export default function GlobalPage() {
                     />
                   </Field>
 
+                  {/* Honeypot field (hidden from humans) */}
+                  <div style={{ display: "none", position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website || ""}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  {/* Turnstile verification widget */}
+                  <Turnstile 
+                    onVerify={(token) => setTurnstileToken(token)} 
+                    onExpire={() => setTurnstileToken(null)}
+                    onError={() => setTurnstileToken(null)}
+                  />
+
                   {error && (
                     <p style={{
                       fontFamily: F.inter, fontSize: "12px",
@@ -728,7 +760,7 @@ export default function GlobalPage() {
                     }} />
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={loading || !turnstileToken}
                       style={{
                         position: "relative",
                         zIndex: 1,

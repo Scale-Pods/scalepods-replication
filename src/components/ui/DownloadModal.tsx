@@ -6,6 +6,7 @@ import { X, Download, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { submitLead, WorkflowType } from "@/lib/leadService";
+import Turnstile from "@/components/ui/Turnstile";
 
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
@@ -59,10 +60,11 @@ export default function DownloadModal({
 }) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
-  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", website: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -74,6 +76,17 @@ export default function DownloadModal({
     setLoading(true);
     setError(null);
 
+    // Cooldown verification (15 seconds for guide_download)
+    const lastSubmit = localStorage.getItem("scalepods_cooldown_guide_download");
+    if (lastSubmit) {
+      const timeDiff = Date.now() - parseInt(lastSubmit, 10);
+      if (timeDiff < 15000) {
+        setError("Please wait before submitting again.");
+        setLoading(false);
+        return;
+      }
+    }
+
     // Strict Email Verification
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(form.email)) {
@@ -82,13 +95,12 @@ export default function DownloadModal({
       return;
     }
 
-    // const { error: dbError } = await supabase
-    //   .from("download_leads")
-    //   .insert([{ 
-    //     full_name: form.name, 
-    //     contact_number: form.phone, 
-    //     email: form.email 
-    //   }]);
+    // Turnstile check
+    if (!turnstileToken) {
+      setError("Please complete the security verification.");
+      setLoading(false);
+      return;
+    }
 
     const result = await submitLead({
       formType: "guide_download",
@@ -98,6 +110,8 @@ export default function DownloadModal({
       email: form.email,
       phone: form.phone,
       metadata: { guideName: zipName },
+      website: form.website,
+      turnstileToken: turnstileToken,
     });
 
     setLoading(false);
@@ -106,6 +120,7 @@ export default function DownloadModal({
       console.error(result.error);
       setError(result.error || "Something went wrong. Please try again.");
     } else {
+      localStorage.setItem("scalepods_cooldown_guide_download", Date.now().toString());
       setSubmitted(true);
       // Trigger download
       const link = document.createElement("a");
@@ -118,7 +133,8 @@ export default function DownloadModal({
       // Auto close after 3 seconds
       setTimeout(() => {
         setSubmitted(false);
-        setForm({ name: "", phone: "", email: "" });
+        setForm({ name: "", phone: "", email: "", website: "" });
+        setTurnstileToken(null);
         onClose();
       }, 3000);
     }
@@ -246,6 +262,25 @@ export default function DownloadModal({
                     />
                   </div>
 
+                  {/* Honeypot field (hidden from humans) */}
+                  <div style={{ display: "none", position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website || ""}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  {/* Turnstile verification widget */}
+                  <Turnstile 
+                    onVerify={(token) => setTurnstileToken(token)} 
+                    onExpire={() => setTurnstileToken(null)}
+                    onError={() => setTurnstileToken(null)}
+                  />
+
                   {error && (
                     <p style={{ color: "var(--color-error, #ff6b6b)", fontSize: "13px", marginBottom: "16px", textAlign: "center" }}>
                       {error}
@@ -266,7 +301,7 @@ export default function DownloadModal({
                     }} />
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={loading || !turnstileToken}
                       style={{
                         position: "relative",
                         zIndex: 1,

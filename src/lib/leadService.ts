@@ -16,9 +16,17 @@ export interface LeadPayload {
   company?: string;
   message?: string;
   metadata?: Record<string, any>;
+  website?: string;
+  turnstileToken?: string;
 }
 
 export async function submitLead(data: LeadPayload) {
+  // Silent Honeypot Reject
+  if (data.website && data.website.trim() !== "") {
+    console.warn("[Spam Protection] Honeypot field filled. Silently rejecting request.");
+    return { success: true };
+  }
+
   const payload = {
     ...data,
     timestamp: new Date().toISOString(),
@@ -36,12 +44,16 @@ export async function submitLead(data: LeadPayload) {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error(`Webhook failed: ${response.statusText}`);
+      if (!response.ok) {
+        // Parse error response if possible to show to user
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.message || `Webhook failed: ${response.statusText}`);
+      }
     }
     
     return { success: true };
-  } catch (error) {
+  } catch (error: any) {
     console.error("[Lead Service] Submission failed:", error);
-    return { success: false, error: "Submission failed. Please try again." };
+    return { success: false, error: error.message || "Submission failed. Please try again." };
   }
 }
