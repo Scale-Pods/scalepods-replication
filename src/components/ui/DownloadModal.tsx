@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Download, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { submitLead, WorkflowType } from "@/lib/leadService";
-import Turnstile from "@/components/ui/Turnstile";
+
 
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ export default function DownloadModal({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
 
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -95,12 +95,7 @@ export default function DownloadModal({
       return;
     }
 
-    // Turnstile check
-    if (!turnstileToken) {
-      setError("Please complete the security verification.");
-      setLoading(false);
-      return;
-    }
+
 
     const result = await submitLead({
       formType: "guide_download",
@@ -111,7 +106,6 @@ export default function DownloadModal({
       phone: form.phone,
       metadata: { guideName: zipName },
       website: form.website,
-      turnstileToken: turnstileToken,
     });
 
     setLoading(false);
@@ -134,15 +128,16 @@ export default function DownloadModal({
       setTimeout(() => {
         setSubmitted(false);
         setForm({ name: "", phone: "", email: "", website: "" });
-        setTurnstileToken(null);
         onClose();
       }, 3000);
     }
   }
 
   return (
-    <AnimatePresence>
-      {isOpen && (
+    <>
+
+      <AnimatePresence>
+        {isOpen && (
         <div style={{
           position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
           zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center",
@@ -274,38 +269,27 @@ export default function DownloadModal({
                     />
                   </div>
 
-                  {/* Turnstile verification widget */}
-                  <Turnstile 
-                    onVerify={(token) => setTurnstileToken(token)} 
-                    onExpire={() => setTurnstileToken(null)}
-                    onError={() => setTurnstileToken(null)}
-                  />
 
-                  {error && (
-                    <p style={{ color: "var(--color-error, #ff6b6b)", fontSize: "13px", marginBottom: "16px", textAlign: "center" }}>
-                      {error}
-                    </p>
-                  )}
+
+                  {/* Error message — min-height reserved to prevent CTA shift */}
+                  <div style={{ minHeight: "36px", marginBottom: "8px" }}>
+                    {error && (
+                      <p style={{ color: "var(--color-error, #ff6b6b)", fontSize: "13px", margin: 0, textAlign: "center" }}>
+                        {error}
+                      </p>
+                    )}
+                  </div>
 
                   <div style={{ position: "relative", width: "100%" }}>
-                    <div style={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -6px)",
-                      width: "80%",
-                      height: "40px",
-                      background: "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.15) 0%, transparent 70%)",
-                      pointerEvents: "none",
-                      zIndex: 0
-                    }} />
                     <button
                       type="submit"
-                      disabled={loading || !turnstileToken}
+                      disabled={loading}
                       style={{
                         position: "relative",
                         zIndex: 1,
                         width: "100%",
+                        height: "52px",
+                        padding: "0 36px",
                         display: "inline-flex",
                         alignItems: "center",
                         gap: "10px",
@@ -313,53 +297,41 @@ export default function DownloadModal({
                         fontSize: "15px",
                         fontWeight: 700,
                         letterSpacing: "-0.01em",
-                        
-                        // Theme Adaptive Colors (#B1D997 for dark mode text)
                         color: isDark ? "#B1D997" : "#0f172a",
-                        
-                        // Background Logic (Gradient using #B1D997)
                         background: isDark
                           ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
                           : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
-                        
-                        // Glass & Border (#B1D997 glow)
                         backdropFilter: isDark ? "blur(12px)" : "none",
                         WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
                         border: isDark 
                           ? "1px solid rgba(177, 217, 151, 0.4)" 
                           : "1px solid rgba(177, 217, 151, 0.3)",
-                        
                         borderRadius: "12px",
-                        padding: "16px 36px",
                         cursor: loading ? "not-allowed" : "pointer",
-                        opacity: loading ? 0.8 : 1,
-                        
-                        // Depth & Shadows
+                        opacity: loading ? 0.75 : 1,
                         boxShadow: isDark 
                           ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
                           : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
-                        
                         justifyContent: "center",
                         whiteSpace: "nowrap",
-                        transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                        transition: "opacity 0.2s ease, box-shadow 0.3s ease",
                       }}
                     >
                       {loading ? (
                         <motion.div
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          style={{ display: "flex", alignItems: "center" }}
+                          style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
                         >
                           <Loader2 size={16} />
                         </motion.div>
                       ) : (
-                        <Download size={16} />
+                        <Download size={16} style={{ flexShrink: 0 }} />
                       )}
                       <span style={{ position: "relative", zIndex: 2 }}>
-                        {loading ? "Processing..." : "Download Now"}
+                        {loading ? "Processing…" : "Download Now"}
                       </span>
                     </button>
-
                   </div>
                   <p style={{
                     fontSize: "12px", color: C.txtMuted, textAlign: "center",
@@ -374,5 +346,6 @@ export default function DownloadModal({
         </div>
       )}
     </AnimatePresence>
+  </>
   );
 }

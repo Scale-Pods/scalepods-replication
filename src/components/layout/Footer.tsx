@@ -97,6 +97,15 @@ export default function Footer() {
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" />
                     </svg>
                   )
+                },
+                { 
+                  href: "https://wa.me/919867271848?text=Hi%20ScalePods!%20I'm%20interested%20in%20discussing%20custom%20workflow%20automation%20solutions%20for%20my%20business.", 
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 11.5A8.5 8.5 0 0 1 13.5 20c-1.3 0-2.6-.3-3.8-.9L4 21l2-5.5A8.5 8.5 0 1 1 22 11.5z" />
+                      <path d="M9 8.5c.2-.4.6-.7 1.1-.5l1.5.6c.3.1.4.5.3.8l-.5.9c.7.8 1.4 1.5 2.2 2.2l.9-.5c.3-.1.7 0 .8.3l.6 1.5c.2.5-.1.9-.5 1.1-.9.4-2.1.2-3.3-.6S9 11.2 9 8.5z" />
+                    </svg>
+                  )
                 }
               ].map((social, i) => (
                 <a
@@ -107,9 +116,11 @@ export default function Footer() {
                   style={{
                     width: "40px", height: "40px", borderRadius: "12px",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "var(--color-text-bright)", background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text-bright)", 
+                    background: resolvedTheme === 'dark' ? "rgba(15, 23, 42, 0.6)" : "var(--color-bg-card-alt)",
+                    border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.16)" : "1px solid rgba(15, 23, 42, 0.12)",
                     textDecoration: "none", transition: "all 0.3s ease",
+                    boxShadow: resolvedTheme === 'dark' ? "0 4px 12px rgba(0,0,0,0.2)" : "0 4px 12px rgba(15,23,42,0.02)",
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.background = "var(--color-border)";
@@ -197,7 +208,7 @@ export default function Footer() {
           }}
         >
           <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
-            © 2025 ScalePods AI Infrastructure. All rights reserved.
+            © 2026 ScalePods AI Infrastructure. All rights reserved.
           </span>
           <div style={{ display: "flex", gap: "24px" }}>
              <span style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em" }}>Built for the future</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -21,7 +21,7 @@ import {
   ArrowUpRight
 } from "lucide-react";
 import { submitLead } from "@/lib/leadService";
-import Turnstile from "@/components/ui/Turnstile";
+
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -264,7 +264,7 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -302,12 +302,7 @@ export default function ContactPage() {
       return;
     }
 
-    // Turnstile check
-    if (!turnstileToken) {
-      setError("Please complete the security verification.");
-      setLoading(false);
-      return;
-    }
+
 
     const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
     const finalSource = form.source === "Other" ? form.customSource : form.source;
@@ -321,7 +316,6 @@ export default function ContactPage() {
       message: form.message,
       metadata: { leadSource: finalSource },
       website: form.website,
-      turnstileToken: turnstileToken,
     });
 
     setLoading(false);
@@ -734,54 +728,45 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    {/* Turnstile verification widget */}
-                    <Turnstile 
-                      onVerify={(token) => setTurnstileToken(token)} 
-                      onExpire={() => setTurnstileToken(null)}
-                      onError={() => setTurnstileToken(null)}
-                    />
 
-                    {/* Error message */}
-                    {error && (
-                      <p style={{
-                        fontFamily: F.inter, fontSize: "13px",
-                        color: "#F87171", marginBottom: "12px",
-                        padding: "10px 14px",
-                        background: "rgba(248,113,113,0.08)",
-                        border: "1px solid rgba(248,113,113,0.2)",
-                        borderRadius: "8px",
-                      }}>
-                        {error}
-                      </p>
-                    )}
 
-                    {/* Submit Button with lamp glow */}
+                    {/* Error message — min-height reserved to prevent CTA shift */}
+                    <div style={{ minHeight: "44px", marginBottom: "4px" }}>
+                      {error && (
+                        <p style={{
+                          fontFamily: F.inter, fontSize: "13px",
+                          color: "#F87171", margin: 0,
+                          padding: "10px 14px",
+                          background: "rgba(248,113,113,0.08)",
+                          border: "1px solid rgba(248,113,113,0.2)",
+                          borderRadius: "8px",
+                        }}>
+                          {error}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Submit Button — fixed height, opacity communicates state */}
                     <div style={{ position: "relative", marginTop: "8px" }}>
-                      {/* Internal lamp glow for the button */}
-
                       <button
                         type="submit"
-                        disabled={loading || !turnstileToken}
+                        disabled={loading}
                         style={{
                           position: "relative",
                           zIndex: 1,
                           width: "100%",
-                          padding: "16px 36px",
-                          // Background Logic
+                          // Fixed height so button never shifts during loading
+                          height: "52px",
+                          padding: "0 36px",
                           background: isDark
                             ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
                             : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
-                          
-                          // Theme Adaptive Colors
                           color: isDark ? "#B1D997" : "#0f172a",
-                          
-                          // Glass & Border
                           backdropFilter: isDark ? "blur(12px)" : "none",
                           WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
-                          border: isDark 
-                            ? "1px solid rgba(177, 217, 151, 0.4)" 
+                          border: isDark
+                            ? "1px solid rgba(177, 217, 151, 0.4)"
                             : "1px solid rgba(177, 217, 151, 0.3)",
-                          
                           borderRadius: "12px",
                           fontSize: "15px",
                           fontWeight: 700,
@@ -790,29 +775,35 @@ export default function ContactPage() {
                           alignItems: "center",
                           justifyContent: "center",
                           gap: "8px",
-                          
-                          // Depth & Shadows
-                          boxShadow: isDark 
-                            ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                          opacity: loading ? 0.75 : 1,
+                          boxShadow: isDark
+                            ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)"
                             : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
-                          
-                          transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)"
+                          transition: "opacity 0.2s ease, box-shadow 0.3s ease",
                         }}
                       >
-
-                        {loading ? (
-                          <>
-                            <Loader2 className="w-5 h-5 animate-spin" />
-                            <span>Sending...</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>Send Message</span>
-                            <Send style={{ width: "16px", height: "16px" }} />
-                          </>
-                        )}
+                        {/* Spinner — always rendered, visible only during loading */}
+                        <span style={{
+                          display: "inline-flex",
+                          width: "16px",
+                          height: "16px",
+                          flexShrink: 0,
+                          opacity: loading ? 1 : 0,
+                          transition: "opacity 0.2s ease",
+                          position: "absolute",
+                          left: "calc(50% - 54px)",
+                        }}>
+                          <Loader2 size={16} style={{ animation: loading ? "spin 0.75s linear infinite" : "none" }} />
+                        </span>
+                        <span style={{ transition: "opacity 0.2s ease", opacity: loading ? 0.7 : 1 }}>
+                          {loading ? "Sending…" : "Send Message"}
+                        </span>
+                        <Send style={{
+                          width: "16px", height: "16px", flexShrink: 0,
+                          opacity: loading ? 0 : 1,
+                          transition: "opacity 0.2s ease",
+                        }} />
                       </button>
-
                     </div>
                   </form>
                 )}

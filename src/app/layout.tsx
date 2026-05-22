@@ -69,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+
         <Script
           id="theme-script"
           strategy="beforeInteractive"
@@ -164,7 +165,16 @@ export default function RootLayout({
             }
 
             function init() {
-              document.querySelectorAll('section').forEach(applyToSection);
+              if (window.location.pathname !== '/') {
+                return;
+              }
+              if (window.requestAnimationFrame) {
+                window.requestAnimationFrame(function() {
+                  document.querySelectorAll('section').forEach(applyToSection);
+                });
+              } else {
+                document.querySelectorAll('section').forEach(applyToSection);
+              }
             }
 
             if (document.readyState === 'loading') {
@@ -177,7 +187,13 @@ export default function RootLayout({
             var pushState = history.pushState;
             history.pushState = function() {
               pushState.apply(history, arguments);
-              setTimeout(init, 300);
+              if (window.requestAnimationFrame) {
+                window.requestAnimationFrame(function() {
+                  setTimeout(init, 300);
+                });
+              } else {
+                setTimeout(init, 300);
+              }
             };
           })();
         `}</Script>

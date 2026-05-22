@@ -17,7 +17,6 @@ export interface LeadPayload {
   message?: string;
   metadata?: Record<string, any>;
   website?: string;
-  turnstileToken?: string;
 }
 
 export async function submitLead(data: LeadPayload) {

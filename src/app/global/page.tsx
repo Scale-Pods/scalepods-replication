@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle, ArrowUpRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabase";
 import { submitLead } from "@/lib/leadService";
-import Turnstile from "@/components/ui/Turnstile";
+
 import DownloadModal from "@/components/ui/DownloadModal";
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
@@ -128,6 +128,11 @@ export default function GlobalPage() {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [showBelowFold, setShowBelowFold] = useState(false);
+
+  // Stable Turnstile callbacks — memoised so Turnstile never remounts on parent re-render
+  const handleTurnstileVerify = useCallback((token: string) => setTurnstileToken(token), []);
+  const handleTurnstileExpire = useCallback(() => setTurnstileToken(null), []);
+  const handleTurnstileError  = useCallback(() => setTurnstileToken(null), []);
   const isMobile = useMobile(900);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
@@ -141,8 +146,8 @@ export default function GlobalPage() {
   }, []);
 
   useEffect(() => {
-    // Prefetch global page assets
-    if (typeof window !== "undefined") {
+    // Prefetch global page assets (production only)
+    if (process.env.NODE_ENV === "production" && typeof window !== "undefined") {
       const link = document.createElement("link");
       link.rel = "prefetch";
       link.href = "/global";
@@ -194,12 +199,7 @@ export default function GlobalPage() {
       return;
     }
 
-    // Turnstile check
-    if (!turnstileToken) {
-      setError("Please complete the security verification.");
-      setLoading(false);
-      return;
-    }
+
 
     const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
 
@@ -212,7 +212,6 @@ export default function GlobalPage() {
       company: form.company,
       message: form.requirement,
       website: form.website,
-      turnstileToken: turnstileToken,
     });
 
     setLoading(false);
@@ -724,96 +723,73 @@ export default function GlobalPage() {
                   </div>
 
                   {/* Turnstile verification widget */}
-                  <Turnstile 
-                    onVerify={(token) => setTurnstileToken(token)} 
-                    onExpire={() => setTurnstileToken(null)}
-                    onError={() => setTurnstileToken(null)}
-                  />
 
-                  {error && (
-                    <p style={{
-                      fontFamily: F.inter, fontSize: "12px",
-                      color: "#F87171", marginBottom: "8px",
-                      padding: "8px 12px",
-                      background: "rgba(248,113,113,0.08)",
-                      border: "1px solid rgba(248,113,113,0.2)",
-                      borderRadius: "8px",
-                    }}>
-                      {error}
-                    </p>
-                  )}
 
-                  {/* Submit Button with lamp glow (matching contact page) */}
+                  {/* Error message — min-height reserved to prevent CTA shift */}
+                  <div style={{ minHeight: "40px", marginBottom: "4px" }}>
+                    {error && (
+                      <p style={{
+                        fontFamily: F.inter, fontSize: "12px",
+                        color: "#F87171", margin: 0,
+                        padding: "8px 12px",
+                        background: "rgba(248,113,113,0.08)",
+                        border: "1px solid rgba(248,113,113,0.2)",
+                        borderRadius: "8px",
+                      }}>
+                        {error}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Submit Button — fixed height, opacity communicates state */}
                   <div style={{ position: "relative", marginTop: "8px" }}>
-                    <div style={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -6px)",
-                      width: "80%",
-                      height: "40px",
-                      background: resolvedTheme === 'dark' 
-                        ? "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.15) 0%, transparent 70%)"
-                        : "radial-gradient(ellipse at center, rgba(var(--color-green-rgb), 0.05) 0%, transparent 70%)",
-                      pointerEvents: "none",
-                      zIndex: 0
-                    }} />
                     <button
                       type="submit"
-                      disabled={loading || !turnstileToken}
+                      disabled={loading}
                       style={{
                         position: "relative",
                         zIndex: 1,
                         width: "100%",
+                        height: "52px",
+                        padding: "0 36px",
                         display: "inline-flex",
                         alignItems: "center",
+                        justifyContent: "center",
                         gap: "10px",
                         fontFamily: F.inter,
                         fontSize: "15px",
                         fontWeight: 700,
                         letterSpacing: "-0.01em",
-                        
-                        // Theme Adaptive Colors (#B1D997 for dark mode text)
                         color: isDark ? "#B1D997" : "#0f172a",
-                        
-                        // Background Logic (Gradient using #B1D997)
                         background: isDark
                           ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
                           : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
-                        
-                        // Glass & Border (#B1D997 glow)
                         backdropFilter: isDark ? "blur(12px)" : "none",
                         WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
-                        border: isDark 
-                          ? "1px solid rgba(177, 217, 151, 0.4)" 
+                        border: isDark
+                          ? "1px solid rgba(177, 217, 151, 0.4)"
                           : "1px solid rgba(177, 217, 151, 0.3)",
-                        
                         borderRadius: "12px",
-                        padding: "16px 36px",
                         cursor: loading ? "not-allowed" : "pointer",
-                        opacity: loading ? 0.8 : 1,
-                        
-                        // Depth & Shadows
-                        boxShadow: isDark 
-                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
+                        opacity: loading ? 0.75 : 1,
+                        boxShadow: isDark
+                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)"
                           : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
-                        
-                        justifyContent: "center",
                         whiteSpace: "nowrap",
-                        transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                        transition: "opacity 0.2s ease, box-shadow 0.3s ease",
                       }}
                     >
                       {loading ? (
                         <motion.div
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          style={{ display: "flex", alignItems: "center" }}
+                          style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
                         >
                           <Loader2 size={16} />
                         </motion.div>
                       ) : null}
                       <span style={{ position: "relative", zIndex: 2 }}>
-                        {loading ? "Booking..." : "Book AI Strategy Call"}
+                        {loading ? "Booking…" : "Book AI Strategy Call"}
                       </span>
                     </button>
                   </div>

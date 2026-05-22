@@ -128,6 +128,7 @@ const Navbar = memo(() => {
   const { resolvedTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  const isProd = process.env.NODE_ENV === "production";
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
@@ -262,13 +263,15 @@ const Navbar = memo(() => {
     };
   }, [pathname]);
 
-  // Aggressively prefetch major routes after homepage hydration
+  // Aggressively prefetch major routes after homepage hydration (production only)
   useEffect(() => {
-    router.prefetch("/global");
-    router.prefetch("/use-cases");
-    router.prefetch("/blog");
-    router.prefetch("/contact");
-  }, [router]);
+    if (isProd) {
+      router.prefetch("/global");
+      router.prefetch("/use-cases");
+      router.prefetch("/blog");
+      router.prefetch("/contact");
+    }
+  }, [router, isProd]);
 
   // Close menu on ESC key
   useEffect(() => {
@@ -319,7 +322,7 @@ const Navbar = memo(() => {
         }}>
           {/* Logo Area */}
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <Link href="/" prefetch={true} style={{ 
+            <Link href="/" prefetch={isProd} style={{ 
               display: "flex", 
               alignItems: "center", 
               flexShrink: 0, 
@@ -363,7 +366,7 @@ const Navbar = memo(() => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  prefetch={true}
+                  prefetch={isProd}
                   onClick={(e) => handleLinkClick(e, link.href)}
                   style={{
                     position: "relative",
@@ -563,7 +566,7 @@ const Navbar = memo(() => {
                             )}
                             <Link
                               href={link.href}
-                              prefetch={true}
+                              prefetch={isProd}
                               onClick={closeMenu}
                               style={{
                                 flexGrow: 1,
@@ -670,7 +673,7 @@ const Navbar = memo(() => {
                       >
                         <Link
                           href={link.href}
-                          prefetch={true}
+                          prefetch={isProd}
                           onClick={(e) => handleLinkClick(e, link.href)}
                           style={{
                             position: "relative",
