@@ -61,6 +61,9 @@ export const metadata: Metadata = {
     siteName: "ScalePods",
     type: "website",
   },
+  verification: {
+    google: "8aOPEFl4dWIxTJhXRiL12CxEUluEWB2sWfejshT_d8k",
+  },
 };
 
 export default function RootLayout({
