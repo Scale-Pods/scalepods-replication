@@ -9,6 +9,7 @@ interface AnimatedGradientBackgroundProps {
     className?: string;
     children?: React.ReactNode;
     intensity?: "subtle" | "medium" | "strong";
+    hues?: number[];
 }
 
 interface Beam {
@@ -24,10 +25,10 @@ interface Beam {
     pulseSpeed: number;
 }
 
-function createBeam(width: number, height: number): Beam {
+function createBeam(width: number, height: number, customHues?: number[]): Beam {
     const angle = -35 + Math.random() * 10;
     // We'll alternate between the brand's green (H100) and blue (H210)
-    const brandHues = [96, 210];
+    const brandHues = customHues || [96, 210];
 
     const hue = brandHues[Math.floor(Math.random() * brandHues.length)] + (Math.random() * 20 - 10);
     
@@ -49,6 +50,7 @@ export function BeamsBackground({
     className,
     children,
     intensity = "strong",
+    hues,
 }: AnimatedGradientBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
@@ -85,7 +87,7 @@ export function BeamsBackground({
             const baseCount = isMobileRef.current ? 8 : MINIMUM_BEAMS;
             const totalBeams = baseCount * 1.5;
             beamsRef.current = Array.from({ length: totalBeams }, () =>
-                createBeam(width, height)
+                createBeam(width, height, hues)
             );
         };
 
@@ -109,7 +111,7 @@ export function BeamsBackground({
             beam.width = 100 + Math.random() * 100;
             beam.speed = 1.0 + Math.random() * 1.2;
             // Alternate hues on reset as well
-            const brandHues = [96, 210];
+            const brandHues = hues || [96, 210];
 
             beam.hue = brandHues[index % brandHues.length] + (Math.random() * 20 - 10);
             beam.opacity = 0.2 + Math.random() * 0.1;
@@ -193,7 +195,7 @@ export function BeamsBackground({
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, [intensity, resolvedTheme]);
+    }, [intensity, resolvedTheme, hues]);
 
     return (
         <div
@@ -207,7 +209,7 @@ export function BeamsBackground({
                 <canvas
                     ref={canvasRef}
                     className="absolute inset-0"
-                    style={{ filter: "blur(40px)", opacity: 0.6 }}
+                    style={{ filter: "blur(64px)", opacity: 0.85 }}
                 />
 
 

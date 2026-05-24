@@ -50,6 +50,8 @@ export default function DownloadModal({
   zipName = "sales-guide.pdf",
   title = "Get the Feature Guide",
   workflowType = null,
+  sourceType,
+  sourceName,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -57,6 +59,8 @@ export default function DownloadModal({
   zipName?: string;
   title?: string;
   workflowType?: WorkflowType;
+  sourceType?: string;
+  sourceName?: string;
 }) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
@@ -104,7 +108,11 @@ export default function DownloadModal({
       name: form.name,
       email: form.email,
       phone: form.phone,
-      metadata: { guideName: zipName },
+      metadata: { 
+        guideName: zipName,
+        source_type: sourceType,
+        source_name: sourceName,
+      },
       website: form.website,
     });
 

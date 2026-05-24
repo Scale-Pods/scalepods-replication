@@ -102,7 +102,7 @@ export default async function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", display: "flex", flexDirection: "column", height: "100%" }}
               >
                 <div className="blog-card" style={{ 
                   background: "var(--color-bg-card)", 
@@ -110,9 +110,12 @@ export default async function BlogPage() {
                   borderRadius: "16px",
                   overflow: "hidden",
                   transition: "transform 0.2s ease, border-color 0.2s ease",
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
                 }}>
                   {/* Card Content */}
-                  <div style={{ padding: "28px 28px 20px" }}>
+                  <div style={{ padding: "28px 28px 20px", flex: 1, display: "flex", flexDirection: "column" }}>
                     {/* Category + Date */}
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
                       <span style={{

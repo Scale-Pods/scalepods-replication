@@ -133,17 +133,15 @@ export const StickyFeatureReveal = () => {
                                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-2xl blur-[120px] -z-10" />
                                 
                                 <div className="relative w-full h-full rounded-2xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-bg-page)] shadow-2xl">
-                                    <AnimatePresence mode="wait">
-                                        {hrFeatures.map((feature, index) => (
-                                            <MockupWrapper 
-                                                key={index}
-                                                index={index}
-                                                activeIndex={activeIndex}
-                                            >
-                                                {feature.mockup}
-                                            </MockupWrapper>
-                                        ))}
-                                    </AnimatePresence>
+                                    {hrFeatures.map((feature, index) => (
+                                        <MockupWrapper 
+                                            key={index}
+                                            index={index}
+                                            activeIndex={activeIndex}
+                                        >
+                                            {feature.mockup}
+                                        </MockupWrapper>
+                                    ))}
                                 </div>
                             </div>
                         </div>

@@ -1843,7 +1843,7 @@ export function Process() {
             <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "300px", height: "300px", background: "radial-gradient(circle, rgba(var(--color-blue-mid-rgb), 0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
             <AnimatePresence mode="wait">
-              {activeTab === 0 && (
+              {activeTab === 0 ? (
                 <motion.div
                   key="step1"
                   initial={{ opacity: 0, y: 30 }}
@@ -1896,9 +1896,7 @@ export function Process() {
                     </div>
                   </motion.div>
                 </motion.div>
-              )}
-
-              {activeTab === 1 && (
+              ) : activeTab === 1 ? (
                 <motion.div
                   key="step2"
                   initial={{ opacity: 0, y: 30 }}
@@ -1929,9 +1927,7 @@ export function Process() {
                     </div>
                   </motion.div>
                 </motion.div>
-              )}
-
-              {activeTab === 2 && (
+              ) : (
                 <motion.div
                   key="step3"
                   initial={{ opacity: 0, y: 30 }}

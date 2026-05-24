@@ -244,65 +244,69 @@ export const KnowledgeShowcase = () => {
             justifyContent: "center"
           }}>
              <AnimatePresence mode="wait">
-               {knowledgeItems.filter(i => i.id === activeId).map((item) => (
-                 <motion.div
-                   key={item.id}
-                   initial={{ opacity: 0, x: 20 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   exit={{ opacity: 0, x: -20 }}
-                   transition={{ duration: 0.3 }}
-                 >
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                       <div style={{ 
-                         width: "8px", 
-                         height: "8px", 
-                         borderRadius: "50%", 
-                         background: C.green,
-                         boxShadow: `0 0 10px ${C.green}`
-                       }} />
-                       <span style={{ fontSize: "10px", fontWeight: 800, color: C.green, textTransform: "uppercase", letterSpacing: "0.1em" }}>Verified Capability</span>
-                    </div>
+               {(() => {
+                 const item = knowledgeItems.find(i => i.id === activeId);
+                 if (!item) return null;
+                 return (
+                   <motion.div
+                     key={item.id}
+                     initial={{ opacity: 0, x: 20 }}
+                     animate={{ opacity: 1, x: 0 }}
+                     exit={{ opacity: 0, x: -20 }}
+                     transition={{ duration: 0.3 }}
+                   >
+                     <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                        <div style={{ 
+                          width: "8px", 
+                          height: "8px", 
+                          borderRadius: "50%", 
+                          background: C.green,
+                          boxShadow: `0 0 10px ${C.green}`
+                        }} />
+                        <span style={{ fontSize: "10px", fontWeight: 800, color: C.green, textTransform: "uppercase", letterSpacing: "0.1em" }}>Verified Capability</span>
+                     </div>
 
-                    <h3 style={{ 
-                      fontSize: "22px", 
-                      fontWeight: 800, 
-                      color: C.txtBright, 
-                      marginBottom: "16px",
-                      lineHeight: 1.2
-                    }}>
-                      {item.question}
-                    </h3>
+                     <h3 style={{ 
+                       fontSize: "22px", 
+                       fontWeight: 800, 
+                       color: C.txtBright, 
+                       marginBottom: "16px",
+                       lineHeight: 1.2
+                     }}>
+                       {item.question}
+                     </h3>
 
-                    <p style={{ 
-                      fontSize: "15px", 
-                      color: C.txtBody, 
-                      lineHeight: 1.6, 
-                      marginBottom: "24px",
-                      opacity: 0.8
-                    }}>
-                      {item.answer}
-                    </p>
+                     <p style={{ 
+                       fontSize: "15px", 
+                       color: C.txtBody, 
+                       lineHeight: 1.6, 
+                       marginBottom: "24px",
+                       opacity: 0.8
+                     }}>
+                       {item.answer}
+                     </p>
 
-                    <div style={{ display: "flex", gap: "8px" }}>
-                       {item.tags.map((tag, idx) => (
-                         <span 
-                           key={idx}
-                           style={{
-                             fontSize: "10px",
-                             fontWeight: 700,
-                             padding: "4px 10px",
-                             background: "rgba(172, 215, 145, 0.05)",
-                             border: "1px solid rgba(172, 215, 145, 0.1)",
-                             borderRadius: "100px",
-                             color: C.green
-                           }}
-                         >
-                           {tag}
-                         </span>
-                       ))}
-                    </div>
-                 </motion.div>
-               ))}
+                     <div style={{ display: "flex", gap: "8px" }}>
+                        {item.tags.map((tag, idx) => (
+                          <span 
+                            key={idx}
+                            style={{
+                              fontSize: "10px",
+                              fontWeight: 700,
+                              padding: "4px 10px",
+                              background: "rgba(172, 215, 145, 0.05)",
+                              border: "1px solid rgba(172, 215, 145, 0.1)",
+                              borderRadius: "100px",
+                              color: C.green
+                            }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                     </div>
+                   </motion.div>
+                 );
+               })()}
              </AnimatePresence>
 
              {/* Atmospheric Corner Glow */}

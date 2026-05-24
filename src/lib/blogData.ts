@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
         body: "AI SDR automation refers to using artificial intelligence to handle repetitive presales activities such as prospecting, outreach, follow-ups, and lead qualification. Instead of relying on manual research and messaging, AI systems can learn from your ideal customer profile (ICP), find the right prospects, and engage them using personalized messages.",
         cta: {
           text: "Download the Feature Guide",
-          link: "/downloads/Scalepods-Feature Guides.zip",
+          link: "/downloads/AI-Powered-Outbound-Sales-Automation.pdf",
           isDownload: true
         }
       },
