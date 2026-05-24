@@ -90,7 +90,7 @@ export const blogPosts: BlogPost[] = [
         body: "While most businesses struggle to stitch together multiple tools for prospecting, outreach, and follow-ups, ScalePods takes a completely different approach. At ScalePods, we build AI Sales Enablement Pods, self-contained systems that combine human intelligence and AI automation into a single, outcome-driven engine.\n\nInstead of juggling different vendors or platforms, you get one integrated Pod that handles prospect research, personalized outreach, automated follow-ups, voice engagement, and scheduling, all connected to your CRM and analytics dashboards.\n\nWhy Choose ScalePods’ AI Sales Enablement Pods:\n• Plug-and-play model: Launch in weeks, not months. ScalePods’ AI Sales Enablement Pods come pre-built with tested workflows, CRM integrations, and automation systems, allowing teams to go live in just a few weeks. You skip the long setup cycles of traditional SDR teams and start generating meetings almost immediately.\n• Human + AI synergy: Real SDRs guided by automation. Each Pod blends advanced AI automation with trained remote SDRs who bring human judgment and personalization to every conversation. This ensures efficiency without losing the authenticity that drives real engagement and conversions.\n• Outcome-driven: Guaranteed meetings, not just messages. We don’t measure success by emails sent, we focus on outcomes. Every AI Sales Enablement Pod is SLA-backed, delivering qualified meetings and predictable pipeline growth instead of vanity metrics.",
         cta: {
           text: "Build My Sales Pod",
-          link: "/contact"
+          link: "/global"
         }
       }
     ],
@@ -169,7 +169,7 @@ export const blogPosts: BlogPost[] = [
         imageCaption: "ScalePods Fits Into This Picture",
         cta: {
           text: "Get Workflow Audit",
-          link: "/contact"
+          link: "/global"
         }
       }
     ],

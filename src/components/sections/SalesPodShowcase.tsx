@@ -350,7 +350,7 @@ export const SalesPodShowcase = memo(() => {
                 width: "fit-content"
               }}
             >
-              Download Free Sales Guide <Download size={18} />
+              Download Free feature Guide <Download size={18} />
             </button>
 
             <button
@@ -612,9 +612,9 @@ export const SalesPodShowcase = memo(() => {
       <DownloadModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)}
-        zipFile="/downloads/sales-guide.pdf"
-        zipName="sales-guide.pdf"
-        title="Download Free Sales Workflow Guide"
+        zipFile="/downloads/AI-Powered-Outbound-Sales-Automation.pdf"
+        zipName="AI-Powered-Outbound-Sales-Automation.pdf"
+        title="Download Free feature Guide"
         workflowType="sales_workflow"
       />
     </section>
