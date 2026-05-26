@@ -384,7 +384,7 @@ const capabilitiesData = [
     eyebrow: "Lead Sourcing",
     title: "Lead Generation With AI",
     desc: "SalesPod identifies, filters, and delivers high-quality leads tailored to your ICP.",
-    video: "/sales/1.mp4",
+    video: "/videos/salespod/1.mp4",
     points: [
       {
         title: "Understand Your ICP",
@@ -405,7 +405,7 @@ const capabilitiesData = [
     eyebrow: "Outreach & Delivery",
     title: "Multi-Channel Outreach That Scales Personalization",
     desc: "Reach prospects across channels with messaging tailored to your audience.",
-    video: "/sales/2.mp4",
+    video: "/videos/salespod/2.mp4",
     points: [
       {
         title: "Launch Outreach Across Multiple Channels",
@@ -426,7 +426,7 @@ const capabilitiesData = [
     eyebrow: "Intent Tracking",
     title: "Intelligent Lead Nurturing That Tracks Intent",
     desc: "SalesPod follows every conversation and identifies the right time to involve your sales team.",
-    video: "/sales/3.mp4",
+    video: "/videos/salespod/3.mp4",
     points: [
       {
         title: "Monitor Conversations Across Channels",
@@ -447,7 +447,7 @@ const capabilitiesData = [
     eyebrow: "CRM Sync & Analytics",
     title: "Automated CRM Updates and Smarter Lead Scoring",
     desc: "Reduce manual work while prioritizing the leads most likely to convert.",
-    video: "/sales/4.mp4",
+    video: "/videos/salespod/4.mp4",
     points: [
       {
         title: "Auto-Update CRM Entries",
@@ -468,7 +468,7 @@ const capabilitiesData = [
     eyebrow: "Performance Insights",
     title: "Intelligent Dashboards for Better Sales Decisions",
     desc: "Turn sales activity into actionable insights and measurable outcomes.",
-    video: "/sales/5.mp4",
+    video: "/videos/salespod/5.mp4",
     points: [
       {
         title: "Capture Data Across the Sales Journey",
