@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { 
   ChevronDown, 
+  ChevronLeft,
+  ChevronRight,
   Loader2, 
   CheckCircle2, 
   ArrowUpRight,
@@ -14,7 +17,9 @@ import {
   RefreshCw,
   Sliders,
   Database,
-  Inbox
+  Inbox,
+  Volume2,
+  VolumeX
 } from "lucide-react";
 import { submitLead } from "@/lib/leadService";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -340,6 +345,822 @@ function PipelineViz() {
   );
 }
 
+const salespodReviews = [
+  {
+    name: "Vinay Kumar",
+    title: "Managing Director at LOTUS MANOR REAL ESTATE L.L.C, DUBAI.",
+    quote: "“We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right and the timeline is tight.”",
+    image: "/reviews/Vinay Kumar.webp"
+  },
+  {
+    name: "Anuj Ruia",
+    title: "Co-Founder at BECO",
+    quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction. What stood out most was how quickly the team understood our workflow and customized the automation around it. The implementation felt seamless from day one, and the support throughout the process was proactive and reliable. Scalepods helped us simplify operations without slowing the team down.”",
+    image: "/reviews/Anuj Ruia.jpeg"
+  },
+  {
+    name: "Sharan Lekhi",
+    title: "Founder at Krafty Animations",
+    quote: "“Game-changer. Automation flows run flawlessly. Our team focuses only on what really matters. Scalepods helped us streamline communication, reduce manual coordination, and improve overall execution speed. The workflows are reliable, easy to manage, and built with real operational understanding. It’s one of the few systems we adopted that immediately started saving us valuable time.”",
+    image: "/reviews/Sharan Lekhi.jpeg"
+  },
+  {
+    name: "Shreyansh Jaiswal",
+    title: "Founder at HobbyFi",
+    quote: "“Smooth setup. Replaced three tools. We saw improvements in just the first week. The onboarding process was quick, the automation logic was easy to understand, and everything integrated well with our existing workflow. Scalepods made the transition feel effortless while improving response times and reducing operational overhead across multiple tasks.”",
+    image: "/reviews/Shreyansh Jaiswal.avif"
+  },
+  {
+    name: "Dhairya Shah",
+    title: "Partner & CEO at Break The Code",
+    quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control. The automation setup was thoughtfully structured and aligned well with our team’s daily operations. What impressed us most was the balance between flexibility and reliability. Scalepods delivered a system that feels efficient, scalable, and genuinely useful in day-to-day execution.”",
+    image: "/reviews/Dhairya Shah.avif"
+  }
+];
+
+const capabilitiesData = [
+  {
+    chapter: "Chapter 01",
+    eyebrow: "Lead Sourcing",
+    title: "Lead Generation With AI",
+    desc: "SalesPod identifies, filters, and delivers high-quality leads tailored to your ICP.",
+    video: "/sales/1.mp4",
+    points: [
+      {
+        title: "Understand Your ICP",
+        body: "Define your ideal customer based on industry, company size, geography, buying signals, and decision-makers."
+      },
+      {
+        title: "Scrape Relevant Leads Across the Internet",
+        body: "Continuously scans LinkedIn, business databases, and public sources to identify matching prospects."
+      },
+      {
+        title: "Generate Sales-Ready Leads",
+        body: "Filters, enriches, and organizes lead data for immediate outreach."
+      }
+    ]
+  },
+  {
+    chapter: "Chapter 02",
+    eyebrow: "Outreach & Delivery",
+    title: "Multi-Channel Outreach That Scales Personalization",
+    desc: "Reach prospects across channels with messaging tailored to your audience.",
+    video: "/sales/2.mp4",
+    points: [
+      {
+        title: "Launch Outreach Across Multiple Channels",
+        body: "Connect through Email, AI Voice Calls, LinkedIn, WhatsApp, and more."
+      },
+      {
+        title: "Customize Messaging for Every Audience",
+        body: "Set your tone, messaging flow, and campaign strategy based on your ICP."
+      },
+      {
+        title: "Train AI Agents to Match Your Style",
+        body: "AI agents adapt to your communication style, language, and conversation patterns."
+      }
+    ]
+  },
+  {
+    chapter: "Chapter 03",
+    eyebrow: "Intent Tracking",
+    title: "Intelligent Lead Nurturing That Tracks Intent",
+    desc: "SalesPod follows every conversation and identifies the right time to involve your sales team.",
+    video: "/sales/3.mp4",
+    points: [
+      {
+        title: "Monitor Conversations Across Channels",
+        body: "Tracks emails, calls, LinkedIn messages, WhatsApp chats, and more in real time."
+      },
+      {
+        title: "Follow Up Based on Buyer Behavior",
+        body: "Sends contextual follow-ups based on engagement stage and customer responses."
+      },
+      {
+        title: "Handoff High-Intent Leads Instantly",
+        body: "Routes qualified opportunities to your sales team with full conversation context."
+      }
+    ]
+  },
+  {
+    chapter: "Chapter 04",
+    eyebrow: "CRM Sync & Analytics",
+    title: "Automated CRM Updates and Smarter Lead Scoring",
+    desc: "Reduce manual work while prioritizing the leads most likely to convert.",
+    video: "/sales/4.mp4",
+    points: [
+      {
+        title: "Auto-Update CRM Entries",
+        body: "Syncs interactions, responses, and lead activity automatically into your CRM."
+      },
+      {
+        title: "Analyze Buyer Sentiment",
+        body: "Understands tone, hesitation, engagement, and intent across conversations."
+      },
+      {
+        title: "Score Leads Based on Intent",
+        body: "Ranks leads dynamically using engagement quality and buying signals."
+      }
+    ]
+  },
+  {
+    chapter: "Chapter 05",
+    eyebrow: "Performance Insights",
+    title: "Intelligent Dashboards for Better Sales Decisions",
+    desc: "Turn sales activity into actionable insights and measurable outcomes.",
+    video: "/sales/5.mp4",
+    points: [
+      {
+        title: "Capture Data Across the Sales Journey",
+        body: "Tracks outreach, engagement, conversions, and pipeline activity in one place."
+      },
+      {
+        title: "Analyze Campaign Performance Automatically",
+        body: "Measures what’s working across channels, messaging, and outreach flows."
+      },
+      {
+        title: "Break Down Insights by KPIs",
+        body: "Monitor metrics like response rates, meetings booked, conversions, and ROI."
+      }
+    ]
+  }
+];
+
+interface CapabilityVideoPlayerProps {
+  src: string;
+}
+
+function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLInputElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [duration, setDuration] = useState(0);
+  const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
+
+  const lastClickTimeRef = useRef(0);
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const seekTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const newMuted = !isMuted;
+    videoRef.current.muted = newMuted;
+    setIsMuted(newMuted);
+  };
+
+  const handleVideoClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const now = Date.now();
+    const delta = now - lastClickTimeRef.current;
+
+    if (delta < 300) {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+        clickTimeoutRef.current = null;
+      }
+
+      if (videoRef.current && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const isLeftSide = clickX < rect.width / 2;
+
+        if (isLeftSide) {
+          videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 5);
+          triggerSeekIndicator("rewind");
+        } else {
+          videoRef.current.currentTime = Math.min(videoRef.current.duration || 0, videoRef.current.currentTime + 5);
+          triggerSeekIndicator("forward");
+        }
+        updateProgressDOM();
+      }
+      lastClickTimeRef.current = 0;
+    } else {
+      lastClickTimeRef.current = now;
+      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = setTimeout(() => {
+        togglePlay();
+        clickTimeoutRef.current = null;
+      }, 250);
+    }
+  };
+
+  const triggerSeekIndicator = (type: "rewind" | "forward") => {
+    setSeekType(type);
+    if (seekTimeoutRef.current) clearTimeout(seekTimeoutRef.current);
+    seekTimeoutRef.current = setTimeout(() => {
+      setSeekType(null);
+      seekTimeoutRef.current = null;
+    }, 600);
+  };
+
+  const updateProgressDOM = useCallback(() => {
+    const video = videoRef.current;
+    const timeline = timelineRef.current;
+    if (!video || !timeline) return;
+
+    const cur = video.currentTime;
+    const dur = video.duration || 1;
+    const percentage = (cur / dur) * 100;
+
+    timeline.value = cur.toString();
+    timeline.style.background = `linear-gradient(to right, var(--sp-accent) 0%, var(--sp-accent) ${percentage}%, rgba(255, 255, 255, 0.25) ${percentage}%, rgba(255, 255, 255, 0.25) 100%)`;
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (isPlaying) {
+            // Always reset to beginning (0:00) when section becomes active
+            video.currentTime = 0;
+            updateProgressDOM();
+
+            // Autoplay with audio enabled automatically
+            video.muted = false;
+            setIsMuted(false);
+            video.play().catch(() => {
+              // Fallback to muted autoplay if browser blocks audio autoplay
+              video.muted = true;
+              setIsMuted(true);
+              video.play().catch(() => {});
+            });
+          }
+        } else {
+          video.pause();
+          video.muted = true;
+          setIsMuted(true);
+        }
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.unobserve(video);
+    };
+  }, [isPlaying, updateProgressDOM]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let animationFrameId: number;
+
+    const loop = () => {
+      updateProgressDOM();
+      if (!video.paused) {
+        animationFrameId = requestAnimationFrame(loop);
+      }
+    };
+
+    const handlePlay = () => {
+      animationFrameId = requestAnimationFrame(loop);
+    };
+
+    const handlePause = () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("timeupdate", updateProgressDOM);
+
+    if (!video.paused) {
+      handlePlay();
+    } else {
+      updateProgressDOM();
+    }
+
+    return () => {
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("timeupdate", updateProgressDOM);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [updateProgressDOM]);
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      setDuration(videoRef.current.duration);
+      updateProgressDOM();
+    }
+  };
+
+  const handleTimelineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      const val = parseFloat(e.target.value);
+      videoRef.current.currentTime = val;
+      updateProgressDOM();
+    }
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      className="sp-capability-video-wrapper" 
+      onClick={handleVideoClick} 
+      style={{ cursor: "pointer", position: "relative" }}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        muted={isMuted}
+        loop
+        playsInline
+        preload="metadata"
+        className="sp-capability-video"
+        onLoadedMetadata={handleLoadedMetadata}
+        onDurationChange={handleLoadedMetadata}
+      />
+
+      {/* Play Overlay indicator */}
+      {!isPlaying && (
+        <div 
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.35)",
+            backdropFilter: "blur(2px)",
+            WebkitBackdropFilter: "blur(2px)",
+            pointerEvents: "none",
+            transition: "opacity 0.2s ease"
+          }}
+        >
+          <div 
+            style={{
+              width: "56px",
+              height: "56px",
+              borderRadius: "50%",
+              background: "rgba(255, 255, 255, 0.15)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
+            }}
+          >
+            <Play size={20} style={{ color: "#ffffff", fill: "#ffffff", marginLeft: "2px" }} />
+          </div>
+        </div>
+      )}
+
+      {/* Double Tap Seek Indicator Overlay */}
+      {seekType && (
+        <div 
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            zIndex: 11
+          }}
+        >
+          <div 
+            style={{
+              padding: "12px 20px",
+              borderRadius: "20px",
+              background: "rgba(0, 0, 0, 0.65)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "4px",
+              color: "#ffffff",
+              fontSize: "12px",
+              fontWeight: 700,
+              animation: "sp-fade-in-out 0.6s forwards",
+              border: "1px solid rgba(255, 255, 255, 0.1)"
+            }}
+          >
+            {seekType === "rewind" ? (
+              <>
+                <div style={{ display: "flex", gap: "2px" }}>
+                  <ChevronLeft size={16} />
+                  <ChevronLeft size={16} />
+                </div>
+                <span>-5s</span>
+              </>
+            ) : (
+              <>
+                <div style={{ display: "flex", gap: "2px" }}>
+                  <ChevronRight size={16} />
+                  <ChevronRight size={16} />
+                </div>
+                <span>+5s</span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Hover-based Timeline Progress Bar */}
+      <div 
+        className="sp-video-timeline-container"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "absolute",
+          bottom: "18px",
+          left: "16px",
+          right: "64px",
+          display: "flex",
+          alignItems: "center",
+          zIndex: 10,
+        }}
+      >
+        <input 
+          ref={timelineRef}
+          type="range"
+          min={0}
+          max={duration || 1}
+          step={0.01}
+          defaultValue={0}
+          onChange={handleTimelineChange}
+          className="sp-video-timeline"
+        />
+      </div>
+
+      {/* Mute/Unmute Overlay Button */}
+      <button
+        onClick={toggleMute}
+        style={{
+          position: "absolute",
+          bottom: "12px",
+          right: "12px",
+          width: "36px",
+          height: "36px",
+          borderRadius: "50%",
+          background: "rgba(10, 15, 30, 0.65)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#ffffff",
+          cursor: "pointer",
+          transition: "background 0.2s, transform 0.2s",
+          zIndex: 10,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(10, 15, 30, 0.85)";
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(10, 15, 30, 0.65)";
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+        title={isMuted ? "Unmute" : "Mute"}
+      >
+        {isMuted ? (
+          <VolumeX size={16} style={{ opacity: 0.85 }} />
+        ) : (
+          <Volume2 size={16} style={{ opacity: 0.85 }} />
+        )}
+      </button>
+    </div>
+  );
+}
+
+function SalespodTestimonialCarousel() {
+  const [active, setActive] = useState(0);
+  const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    if (!carouselRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(carouselRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const next = useCallback(() => {
+    setActive((prev) => (prev + 1) % salespodReviews.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setActive((prev) => (prev - 1 + salespodReviews.length) % salespodReviews.length);
+  }, []);
+
+  // Autoplay
+  useEffect(() => {
+    if (!isInView) return;
+    const timer = setInterval(next, 7000);
+    return () => clearInterval(timer);
+  }, [next, isInView]);
+
+  const handleDragEnd = (e: any, { offset }: any) => {
+    if (offset.x > 50) {
+      prev();
+    } else if (offset.x < -50) {
+      next();
+    }
+  };
+
+  const getCardStyles = (index: number) => {
+    const total = salespodReviews.length;
+    let diff = (index - active) % total;
+    if (diff < -Math.floor(total / 2)) diff += total;
+    if (diff > Math.floor(total / 2)) diff -= total;
+
+    const isCenter = diff === 0;
+    const isLeft = diff === -1;
+    const isRight = diff === 1;
+
+    let x = 0;
+    let scale = 1;
+    let opacity = 1;
+    let zIndex = total - Math.abs(diff);
+    let filter = "none";
+    let pointerEvents: "auto" | "none" = "none";
+
+    const xOffset = isMobile ? 25 : 360; 
+
+    if (isCenter) {
+      x = 0;
+      scale = 1;
+      opacity = 1;
+      filter = "grayscale(0) brightness(1) blur(0px)";
+      pointerEvents = "auto";
+    } else if (isLeft) {
+      x = -xOffset;
+      scale = isMobile ? 0.8 : 0.85;
+      opacity = isMobile ? 0 : 0.6;
+      filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
+    } else if (isRight) {
+      x = xOffset;
+      scale = isMobile ? 0.8 : 0.85;
+      opacity = isMobile ? 0 : 0.6;
+      filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
+    } else {
+      x = diff < 0 ? -xOffset * 1.6 : xOffset * 1.6;
+      scale = 0.7;
+      opacity = 0;
+      filter = "grayscale(1) blur(8px)";
+    }
+
+    return { x, scale, opacity, zIndex, filter, pointerEvents, isCenter };
+  };
+
+  return (
+    <div 
+      ref={carouselRef} 
+      className="relative w-full max-w-full"
+      style={{
+        overflow: isMobile ? "hidden" : "visible",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: isMobile ? "0px" : "32px",
+        paddingBottom: isMobile ? "0px" : "32px",
+      }}
+    >
+      
+      {/* Navigation Arrows */}
+      {!isMobile && (
+        <>
+          <div style={{ position: "absolute", left: "40px", top: "50%", transform: "translateY(-50%)", zIndex: 100 }}>
+            <ArrowBtn dir="left" onClick={prev} />
+          </div>
+          <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", zIndex: 100 }}>
+            <ArrowBtn dir="right" onClick={next} />
+          </div>
+        </>
+      )}
+
+      <div 
+        className="relative w-full" 
+        style={{ 
+          perspective: 1200, 
+          minHeight: isMobile ? "auto" : "340px", 
+          height: isMobile ? "auto" : undefined,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
+          overflow: isMobile ? "hidden" : "visible"
+        }}
+      >
+        <AnimatePresence initial={false} mode={isMobile ? "wait" : undefined}>
+          {salespodReviews.map((review, i) => {
+            if (isMobile && i !== active) return null;
+            const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
+
+            return (
+              <motion.div
+                key={review.name}
+                initial={isMobile ? { opacity: 0, x: 50 } : false}
+                animate={{
+                  x: isMobile ? 0 : `calc(-50% + ${x}px)`,
+                  y: isMobile ? 0 : "-50%",
+                  scale: isMobile ? 1 : scale,
+                  opacity: isMobile ? 1 : opacity,
+                  zIndex,
+                  filter: isMobile ? "none" : filter,
+                }}
+                exit={isMobile ? { opacity: 0, x: -50 } : undefined}
+                transition={{
+                  duration: 0.4,
+                  ease: [0.32, 0.72, 0, 1],
+                }}
+                drag={isCenter ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                onClick={() => {
+                  if (!isCenter) {
+                    if (x < 0) prev();
+                    else next();
+                  }
+                }}
+                style={{
+                  position: isMobile ? "relative" : "absolute",
+                  pointerEvents: pointerEvents as any,
+                  cursor: isCenter ? "grab" : "pointer",
+                  width: isMobile ? "92%" : "90%",
+                  maxWidth: isMobile ? "360px" : "520px",
+                  marginInline: isMobile ? "auto" : undefined,
+                  top: isMobile ? "auto" : "50%",
+                  left: isMobile ? "auto" : "50%",
+                  minHeight: isMobile ? "300px" : "200px",
+                  height: "auto",
+                  background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: isCenter 
+                    ? "1px solid rgba(var(--sp-accent-rgb), 0.5)"
+                    : "1px solid rgba(var(--sp-accent-rgb), 0.1)",
+                  borderRadius: "28px",
+                  overflow: "hidden",
+                  padding: isMobile ? "28px 24px" : "32px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: isMobile ? "flex-start" : "center",
+                  gap: "16px",
+                  boxShadow: isCenter 
+                    ? resolvedTheme === 'dark'
+                      ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                      : "0 25px 50px -12px rgba(var(--sp-accent-rgb), 0.15), 0 0 20px rgba(var(--sp-accent-rgb), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                    : "0 10px 30px rgba(0,0,0,0.05)",
+                }}
+                className="transform-gpu"
+              >
+                {isCenter && (
+                  <div style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "80%",
+                    height: "40%",
+                    background: resolvedTheme === 'dark'
+                      ? "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.08) 0%, transparent 80%)"
+                      : "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.05) 0%, transparent 80%)",
+                    zIndex: -1,
+                    pointerEvents: "none"
+                  }} />
+                )}
+
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  <div style={{ 
+                    position: "relative", 
+                    width: isMobile ? "44px" : "48px", 
+                    height: isMobile ? "44px" : "48px", 
+                    borderRadius: "12px", 
+                    overflow: "hidden", 
+                    border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                    flexShrink: 0 
+                  }}>
+                    <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: isMobile ? "15px" : "16px", fontWeight: 700, color: "var(--color-text-bright)" }}>{review.name}</span>
+                    <span style={{ 
+                      fontFamily: "var(--font-sans), sans-serif", 
+                      fontSize: isMobile ? "10px" : "11px", 
+                      color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb), 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                      marginTop: "1px", 
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.02em"
+                    }}>{review.title}</span>
+                  </div>
+                </div>
+
+                <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                  <p style={{
+                    fontFamily: "var(--font-sans), sans-serif", 
+                    fontSize: isMobile ? "13px" : "14px", 
+                    color: "var(--color-text-body)", 
+                    lineHeight: 1.65, 
+                    margin: 0,
+                    fontWeight: 400,
+                    opacity: 0.9,
+                    textAlign: "left",
+                    wordBreak: "break-word",
+                    overflow: "hidden"
+                  }}>
+                    {review.quote}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+
+      {/* Pagination dots */}
+      <div 
+        className="flex gap-2.5 justify-center" 
+        style={{ 
+          marginTop: isMobile ? "20px" : "32px",
+          width: "100%",
+          alignItems: "center"
+        }}
+      >
+        {salespodReviews.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className="transition-all duration-300 rounded-full"
+            style={{
+              width: active === i ? "24px" : "8px",
+              height: "8px",
+              background: active === i ? "rgba(var(--sp-accent-rgb), 0.8)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+            }}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ArrowBtn({ dir, onClick }: { dir: 'left' | 'right', onClick: () => void }) {
+  const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1, background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)" }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      style={{
+        width: isMobile ? "44px" : "56px",
+        height: isMobile ? "44px" : "56px",
+        borderRadius: "50%",
+        background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)",
+        backdropFilter: "blur(12px)",
+        border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "var(--color-text-bright)",
+        cursor: "pointer",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+        zIndex: 50,
+      }}
+    >
+      {dir === 'left' ? <ChevronLeft size={isMobile ? 20 : 28} /> : <ChevronRight size={isMobile ? 20 : 28} />}
+    </motion.button>
+  );
+}
+
 export default function SalesPodPage() {
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
@@ -525,15 +1346,17 @@ export default function SalesPodPage() {
 
             {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: isMobile ? "center" : "left" }}>
-              The <span style={{ color: "var(--sp-accent)", fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>AI-powered</span> Engine <br />
-              for High-Performance <br />
+              The <span style={{ color: "var(--sp-accent)", fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>AI-powered</span> Engine{" "}
+              <br className="sp-hero-br" />
+              for High-Performance{" "}
+              <br className="sp-hero-br" />
               Sales Teams.
             </h1>
 
             {/* Subtext */}
-            <p className="sp-hero-desc" style={{ textAlign: isMobile ? "center" : "left", marginBottom: "20px" }}>
+            <p className="sp-hero-desc" style={{ textAlign: isMobile ? "center" : "left", marginBottom: "16px" }}>
               Deploy autonomous Sales Pods that source, screen, and engage your ideal customers.
-              <br /><br />
+              <br />
               Scale your revenue without scaling your headcount.
             </p>
 
@@ -541,10 +1364,10 @@ export default function SalesPodPage() {
             <div style={{
               display: "grid",
               gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-              gap: "12px",
+              gap: "12px 24px",
               marginBottom: "28px",
               width: "100%",
-              maxWidth: "520px"
+              maxWidth: "580px"
             }}>
               {[
                 "Autonomous Lead Sourcing",
@@ -552,9 +1375,9 @@ export default function SalesPodPage() {
                 "Multi-Channel Outreach",
                 "CRM Synchronization"
               ].map((bullet, idx) => (
-                <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: isMobile ? "center" : "flex-start" }}>
-                  <CheckCircle2 size={14} style={{ color: "var(--sp-accent)", flexShrink: 0 }} />
-                  <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-text-bright)" }}>
+                <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: isMobile ? "center" : "flex-start" }}>
+                  <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0 }} />
+                  <span style={{ fontSize: "13.5px", fontWeight: 500, color: "var(--color-text-bright)" }}>
                     {bullet}
                   </span>
                 </div>
@@ -670,7 +1493,7 @@ export default function SalesPodPage() {
                 <form onSubmit={handleSubmit} className="sp-form-row">
                   
                   {/* Card Title Header */}
-                  <div style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "12px", marginBottom: "4px" }}>
+                  <div style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "8px", marginBottom: "0px" }}>
                     <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>
                       Configure Your Outbound Pod
                     </h2>
@@ -680,7 +1503,7 @@ export default function SalesPodPage() {
                   </div>
 
                   {/* Input: Name */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">
                       Full Name *
                     </label>
@@ -695,7 +1518,7 @@ export default function SalesPodPage() {
                   </div>
 
                   {/* Input: Email */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">
                       Work Email *
                     </label>
@@ -711,7 +1534,7 @@ export default function SalesPodPage() {
                   </div>
 
                   {/* Input: Company */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">
                       Company Domain *
                     </label>
@@ -726,7 +1549,7 @@ export default function SalesPodPage() {
                   </div>
 
                   {/* Dropdown Selection: Outbound Goal */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px", position: "relative" }} ref={goalPickerRef}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px", position: "relative" }} ref={goalPickerRef}>
                     <label className="sp-form-label">
                       Primary Outbound Goal
                     </label>
@@ -788,7 +1611,7 @@ export default function SalesPodPage() {
                   </div>
 
                   {/* Input: Phone Number */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">
                       Phone Number
                     </label>
@@ -800,7 +1623,7 @@ export default function SalesPodPage() {
                           type="button"
                           onClick={() => setShowCountryPicker(!showCountryPicker)}
                           className="sp-dropdown-btn"
-                          style={{ width: "auto", minWidth: "90px", padding: "10px 14px", gap: "6px" }}
+                          style={{ width: "auto", minWidth: "90px", gap: "6px" }}
                         >
                           <span style={{ fontSize: "15px" }}>
                             {countries.find(c => c.code === form.countryCode)?.flag || "🌐"}
@@ -962,7 +1785,7 @@ export default function SalesPodPage() {
                         {loading ? "Configuring pod..." : "Configure Outbound Pod"}
                       </span>
                     </button>
-                    <p style={{ fontSize: "11px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "12px", marginBottom: 0 }}>
+                    <p style={{ fontSize: "11px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px", marginBottom: 0 }}>
                       Your data is secure. No spam. Ever.
                     </p>
                   </div>
@@ -970,34 +1793,6 @@ export default function SalesPodPage() {
                 </form>
               )}
             </div>
-          </motion.div>
-
-          {/* ── METRICS STRIP: FOOTER INTEL FOR HERO ── */}
-          <motion.div
-            variants={fadeUp(0.3, isMobile)}
-            initial="initial"
-            animate="animate"
-            className="sp-metrics-strip"
-            style={{ 
-              justifyContent: isMobile ? "center" : "flex-start", 
-              alignItems: "center", 
-              gap: isMobile ? "16px" : "56px" 
-            }}
-          >
-            {[
-              { label: "DATA SCHEMA", value: "Verified Target Accounts" },
-              { label: "OUTBOUND CHANNELS", value: "Email & LinkedIn Dual-Loop" },
-              { label: "INTEGRATION", value: "CRM Lead Automation" }
-            ].map((spec, idx) => (
-              <div key={idx} style={{ display: "flex", flexDirection: "column", gap: "2px", textAlign: isMobile ? "center" : "left" }}>
-                <span style={{ fontSize: "10px", fontWeight: 700, color: "var(--sp-accent)", letterSpacing: "0.08em" }}>
-                  {spec.label}
-                </span>
-                <span style={{ fontSize: "13px", color: "var(--color-text-bright)", fontWeight: 500 }}>
-                  {spec.value}
-                </span>
-              </div>
-            ))}
           </motion.div>
 
         </div>
@@ -1291,24 +2086,7 @@ export default function SalesPodPage() {
           </div>
         </div>
 
-        {/* Bottom Feature Indicators Footer */}
-        <div className="sp-demo-indicators-footer">
-          {[
-            { name: "Autonomous Outreach", desc: "Outbound sequences triggered dynamically by intent crawlers." },
-            { name: "AI Lead Qualification", desc: "ICP match screening and score generation per lead profile." },
-            { name: "CRM Synchronization", desc: "Bidirectional logging mapping leads into Salesforce/HubSpot." },
-            { name: "Omnichannel Execution", desc: "Coordinating touchpoints seamlessly across Email & LinkedIn." }
-          ].map((feat, idx) => (
-            <div key={idx} className="sp-demo-indicator-card">
-              <h4 style={{ fontSize: "13.5px", fontWeight: 600, color: "var(--color-text-bright)", margin: "0 0 6px 0" }}>
-                {feat.name}
-              </h4>
-              <p style={{ fontSize: "11.5px", color: "var(--color-text-body)", margin: 0, lineHeight: "1.4" }}>
-                {feat.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+
 
       </div>
 
@@ -1342,8 +2120,51 @@ export default function SalesPodPage() {
           </p>
         </div>
 
-        {/* Core Metrics Banner */}
-        <div className="sp-engine-metrics-bar">
+        {/* Alternating Feature Chapters */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {capabilitiesData.map((cap, idx) => {
+            const isAlt = idx % 2 === 1;
+            return (
+              <div 
+                key={idx} 
+                className={`sp-capability-section ${isAlt ? "alt" : ""}`}
+              >
+                {/* Content Block */}
+                <div className="sp-capability-content">
+                  <span className="sp-capability-eyebrow">
+                    {cap.chapter} // {cap.eyebrow}
+                  </span>
+                  <h3 className="sp-capability-title">
+                    {cap.title}
+                  </h3>
+                  <p className="sp-capability-desc">
+                    {cap.desc}
+                  </p>
+                  
+                  <div className="sp-capability-points">
+                    {cap.points.map((pt, pIdx) => (
+                      <div key={pIdx} className="sp-capability-point-item">
+                        <div className="sp-capability-point-dot" />
+                        <div>
+                          <h4 className="sp-capability-point-title">{pt.title}</h4>
+                          <p className="sp-capability-point-body">{pt.body}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Media/Video Block */}
+                <div className="sp-capability-media">
+                  <CapabilityVideoPlayer src={cap.video} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* BOTTOM STATS ROW */}
+        <div className="sp-engine-metrics-bar" style={{ marginTop: "56px", marginBottom: "0px" }}>
           <div className="sp-engine-metric-item">
             <div className="sp-engine-metric-val">3×</div>
             <div className="sp-engine-metric-label">More touchpoints</div>
@@ -1353,197 +2174,15 @@ export default function SalesPodPage() {
             <div className="sp-engine-metric-label">Manual follow-ups</div>
           </div>
           <div className="sp-engine-metric-item">
-            <div className="sp-engine-metric-val">&lt; 5min</div>
+            <div className="sp-engine-metric-val">&lt; 3sec</div>
             <div className="sp-engine-metric-label">First response time</div>
-          </div>
-        </div>
-
-        {/* FOLD 4: Lead Generation + Prospect Intelligence */}
-        <div className="sp-engine-stage-grid">
-          <div className="sp-engine-stage-header">
-            <span className="sp-engine-stage-label">Chapter 01 // Lead Sourcing</span>
-            <h3 className="sp-engine-stage-title">Lead Generation With AI</h3>
-            <p className="sp-engine-stage-desc">
-              SalesPod identifies, filters, and delivers high-quality leads tailored to your ICP.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <div className="sp-engine-chapter-card">
-              <span className="sp-engine-chapter-num">01 / PROFILE SPECIFICATION</span>
-              <h4 className="sp-engine-chapter-title">Understand Your ICP</h4>
-              <p className="sp-engine-chapter-body">
-                Define your ideal customer based on industry, company size, geography, buying signals, and decision-makers.
-              </p>
-            </div>
-            <div className="sp-engine-chapter-card">
-              <span className="sp-engine-chapter-num">02 / INTERNET-WIDE SCOUTING</span>
-              <h4 className="sp-engine-chapter-title">Scrape Relevant Leads Across the Internet</h4>
-              <p className="sp-engine-chapter-body">
-                Continuously scans LinkedIn, business databases, and public sources to identify matching prospects.
-              </p>
-            </div>
-            <div className="sp-engine-chapter-card">
-              <span className="sp-engine-chapter-num">03 / PIPELINE HYDRATION</span>
-              <h4 className="sp-engine-chapter-title">Generate Sales-Ready Leads</h4>
-              <p className="sp-engine-chapter-body">
-                Filters, enriches, and organizes lead data for immediate outreach.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* FOLD 5: Multi-Channel Outreach + Lead Nurturing */}
-        <div className="sp-engine-stage-grid">
-          <div className="sp-engine-stage-header">
-            <span className="sp-engine-stage-label">Chapter 02 // Engagement Hub</span>
-            <h3 className="sp-engine-stage-title">Multi-Channel Outreach &amp; Lead Nurturing</h3>
-            <p className="sp-engine-stage-desc">
-              Reach prospects across multiple channels with personalized, style-matching messaging that maps directly to customer intent and responses.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
-            
-            {/* Outreach Sub-grid */}
-            <div>
-              <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--sp-accent)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>
-                Multi-Channel Outreach That Scales Personalization
-              </h4>
-              <div className="sp-engine-flex-columns">
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">04 / DISPATCH CHANNELS</span>
-                  <h4 className="sp-engine-chapter-title">Launch Outreach Across Multiple Channels</h4>
-                  <p className="sp-engine-chapter-body">
-                    Connect through Email, AI Voice Calls, LinkedIn, WhatsApp, and more.
-                  </p>
-                </div>
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">05 / AUDIENCE SEGMENTS</span>
-                  <h4 className="sp-engine-chapter-title">Customize Messaging for Every Audience</h4>
-                  <p className="sp-engine-chapter-body">
-                    Set your tone, messaging flow, and campaign strategy based on your ICP.
-                  </p>
-                </div>
-              </div>
-              <div className="sp-engine-chapter-card" style={{ marginTop: "16px" }}>
-                <span className="sp-engine-chapter-num">06 / STYLE REPLICATION</span>
-                <h4 className="sp-engine-chapter-title">Train AI Agents to Match Your Style</h4>
-                <p className="sp-engine-chapter-body">
-                  AI agents adapt to your communication style, language, and conversation patterns.
-                </p>
-              </div>
-            </div>
-
-            {/* Nurturing Sub-grid */}
-            <div>
-              <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--sp-accent)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>
-                Intelligent Lead Nurturing That Tracks Intent
-              </h4>
-              <div className="sp-engine-flex-columns">
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">07 / TELEMETRY AUDIT</span>
-                  <h4 className="sp-engine-chapter-title">Monitor Conversations Across Channels</h4>
-                  <p className="sp-engine-chapter-body">
-                    Tracks emails, calls, LinkedIn messages, WhatsApp chats, and more in real time.
-                  </p>
-                </div>
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">08 / CONTEXTUAL RESPONSES</span>
-                  <h4 className="sp-engine-chapter-title">Follow Up Based on Buyer Behavior</h4>
-                  <p className="sp-engine-chapter-body">
-                    Sends contextual follow-ups based on engagement stage and customer responses.
-                  </p>
-                </div>
-              </div>
-              <div className="sp-engine-chapter-card" style={{ marginTop: "16px" }}>
-                <span className="sp-engine-chapter-num">09 / HUMAN IN THE LOOP</span>
-                <h4 className="sp-engine-chapter-title">Handoff High-Intent Leads Instantly</h4>
-                <p className="sp-engine-chapter-body">
-                  Routes qualified opportunities to your sales team with full conversation context.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* FOLD 6: CRM Automation + Analytics */}
-        <div className="sp-engine-stage-grid" style={{ borderBottom: "none" }}>
-          <div className="sp-engine-stage-header">
-            <span className="sp-engine-stage-label">Chapter 03 // Pipeline Intelligence</span>
-            <h3 className="sp-engine-stage-title">CRM Automation &amp; Intelligent Dashboards</h3>
-            <p className="sp-engine-stage-desc">
-              Reduce manual data entry and get precise outbound performance telemetry synced bidirectional with your operational stack.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
-            
-            {/* CRM Updates Sub-grid */}
-            <div>
-              <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--sp-accent)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>
-                Automated CRM Updates and Smarter Lead Scoring
-              </h4>
-              <div className="sp-engine-flex-columns">
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">10 / TELEMETRY WRITER</span>
-                  <h4 className="sp-engine-chapter-title">Auto-Update CRM Entries</h4>
-                  <p className="sp-engine-chapter-body">
-                    Syncs interactions, responses, and lead activity automatically into your CRM.
-                  </p>
-                </div>
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">11 / NLP SCANNING</span>
-                  <h4 className="sp-engine-chapter-title">Analyze Buyer Sentiment</h4>
-                  <p className="sp-engine-chapter-body">
-                    Understands tone, hesitation, engagement, and intent across conversations.
-                  </p>
-                </div>
-              </div>
-              <div className="sp-engine-chapter-card" style={{ marginTop: "16px" }}>
-                <span className="sp-engine-chapter-num">12 / INTENT RANKING</span>
-                <h4 className="sp-engine-chapter-title">Score Leads Based on Intent</h4>
-                <p className="sp-engine-chapter-body">
-                  Ranks leads dynamically using engagement quality and buying signals.
-                </p>
-              </div>
-            </div>
-
-            {/* Dashboards Sub-grid */}
-            <div>
-              <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--sp-accent)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>
-                Intelligent Dashboards for Better Sales Decisions
-              </h4>
-              <div className="sp-engine-flex-columns">
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">13 / DATA ARCHIVE</span>
-                  <h4 className="sp-engine-chapter-title">Capture Data Across the Sales Journey</h4>
-                  <p className="sp-engine-chapter-body">
-                    Tracks outreach, engagement, conversions, and pipeline activity in one place.
-                  </p>
-                </div>
-                <div className="sp-engine-chapter-card">
-                  <span className="sp-engine-chapter-num">14 / AUTO AUDITING</span>
-                  <h4 className="sp-engine-chapter-title">Analyze Campaign Performance Automatically</h4>
-                  <p className="sp-engine-chapter-body">
-                    Measures what’s working across channels, messaging, and outreach flows.
-                  </p>
-                </div>
-              </div>
-              <div className="sp-engine-chapter-card" style={{ marginTop: "16px" }}>
-                <span className="sp-engine-chapter-num">15 / PERFORMANCE TARGETS</span>
-                <h4 className="sp-engine-chapter-title">Break Down Insights by KPIs</h4>
-                <p className="sp-engine-chapter-body">
-                  Monitor metrics like response rates, meetings booked, conversions, and ROI.
-                </p>
-              </div>
-            </div>
-
           </div>
         </div>
 
       </div>
 
       {/* ── FOLD 7: STATS & BENEFITS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative" }}>
+      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}>
         
         {/* Intro Section Label */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -1564,11 +2203,11 @@ export default function SalesPodPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Smarter, faster, and more scalable outbound.
+            Built to Move Leads Faster Through Your Pipeline
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Outbound performance at the speed of autonomous agent fleets.
+            SalesPod combines AI-powered lead generation, multi-channel outreach, and intelligent nurturing to help sales teams scale conversations without scaling manual effort.
           </p>
         </div>
 
@@ -1583,7 +2222,7 @@ export default function SalesPodPage() {
             <div className="sp-stat-num">3s</div>
             <div className="sp-stat-desc">
               <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>First Contact</strong>
-              Lead enters. Outreach fires. Nobody had to touch anything.
+              Lead enters. Outreach begins automatically across channels.
             </div>
           </motion.div>
 
@@ -1595,7 +2234,7 @@ export default function SalesPodPage() {
             <div className="sp-stat-num">3×</div>
             <div className="sp-stat-desc">
               <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>More Replies</strong>
-              Three channels running together beat one every time.
+              Multi-channel outreach consistently outperforms single-channel campaigns.
             </div>
           </motion.div>
 
@@ -1607,7 +2246,7 @@ export default function SalesPodPage() {
             <div className="sp-stat-num">60%</div>
             <div className="sp-stat-desc">
               <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Less Manual Work</strong>
-              Reps only pick up threads that are already warm.
+              Sales reps focus only on leads that show real engagement and intent.
             </div>
           </motion.div>
 
@@ -1619,78 +2258,65 @@ export default function SalesPodPage() {
             <div className="sp-stat-num">40%</div>
             <div className="sp-stat-desc">
               <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>More Meetings Booked</strong>
-              from the same leads your team already had.
+              Convert more opportunities from the leads your team already has.
             </div>
           </motion.div>
 
         </div>
 
-        {/* BENEFITS SECTION */}
-        <div className="sp-benefits-strips-wrapper">
+        {/* WHY SALES TEAMS USE SALESPOS GRID CONTAINER */}
+        <div className="sp-why-use-wrapper">
+          <h3 className="sp-why-use-title">Why Sales Teams Use SalesPod</h3>
           
-          <div className="sp-benefit-strip">
-            <div className="sp-benefit-dot" />
-            <div className="sp-benefit-text">
-              Leads that already fit your ICP <span className="sp-benefit-sub">· 100% qualified</span>
+          <div className="sp-why-use-grid">
+            <div className="sp-why-use-item">
+              <h4 className="sp-why-use-item-title">ICP-Matched Leads</h4>
+              <p className="sp-why-use-item-desc">Qualified leads tailored to your target audience and buying intent.</p>
+            </div>
+            <div className="sp-why-use-item">
+              <h4 className="sp-why-use-item-title">Multi-Channel Outreach</h4>
+              <p className="sp-why-use-item-desc">Email, LinkedIn, AI Voice Calls, WhatsApp, and more — in one sequence.</p>
+            </div>
+            <div className="sp-why-use-item">
+              <h4 className="sp-why-use-item-title">Smarter Sales Handoffs</h4>
+              <p className="sp-why-use-item-desc">Sales teams step in only when leads are warm and conversation-ready.</p>
+            </div>
+            <div className="sp-why-use-item">
+              <h4 className="sp-why-use-item-title">Intent-Driven Prioritization</h4>
+              <p className="sp-why-use-item-desc">Identify high-intent prospects before your team makes the call.</p>
             </div>
           </div>
 
-          <div className="sp-benefit-strip">
-            <div className="sp-benefit-dot" />
-            <div className="sp-benefit-text">
-              All three channels. One sequence. <span className="sp-benefit-sub">· Max reply rates</span>
-            </div>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
+            <button 
+              className="sp-stats-cta-btn"
+              onClick={() => {
+                const el = document.getElementById("salespod-lead-form");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              <span>Download the Feature Guide</span>
+              <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
+            </button>
           </div>
-
-          <div className="sp-benefit-strip">
-            <div className="sp-benefit-dot" />
-            <div className="sp-benefit-text">
-              Rep steps in at the right moment <span className="sp-benefit-sub">· Zero cold handoffs</span>
-            </div>
-          </div>
-
-          <div className="sp-benefit-strip">
-            <div className="sp-benefit-dot" />
-            <div className="sp-benefit-text">
-              Know who's ready before you call <span className="sp-benefit-sub">· Automated data</span>
-            </div>
-          </div>
-
-        </div>
-
-        {/* BOTTOM LINE STATEMENT & CTA */}
-        <div className="sp-stats-bottom-bar">
-          <p className="sp-bottom-line-text">
-            The leads were always there. <span className="sp-bottom-line-italic">SalesPod is why they finally convert.</span>
-          </p>
-          <button 
-            className="sp-stats-cta-btn"
-            onClick={() => {
-              const el = document.getElementById("salespod-lead-form");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-          >
-            <span>See it in action</span>
-            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
-          </button>
         </div>
 
       </div>
 
       {/* ── FOLD 8: WHY SCALEPODS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "20px", paddingBottom: "20px" }}>
         
         {/* Section Heading & Subtext */}
-        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
+        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "16px" }}>
           <div className="sp-hero-eyebrow">
             <span style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "8px",
+              gap: "6px",
               fontFamily: "var(--font-sans), sans-serif",
-              fontSize: "11px",
+              fontSize: "10px",
               fontWeight: 600,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
@@ -1700,79 +2326,74 @@ export default function SalesPodPage() {
             </span>
           </div>
 
-          <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            What changes when you stop doing this manually
+          <h2 className="sp-hero-title" style={{ fontSize: "clamp(20px, 2.5vw, 28px)", lineHeight: "1.15", marginBottom: "6px" }}>
+            Manual vs Automated Sales Workflow
           </h2>
 
-          <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Not a feature list. The actual difference between a system and a spreadsheet.
+          <p className="sp-hero-desc" style={{ fontSize: "13px", lineHeight: "1.4", margin: "0 auto", color: "var(--color-text-muted)", maxWidth: "600px" }}>
+            Integrate Sales Automation in your workflow to drive exponential results.
           </p>
         </div>
 
         {/* Two-Column Comparison */}
         <div className="sp-comparison-layout">
           
-          {/* LEFT: Automated SalesPod Workflow */}
-          <div className="sp-comparison-col">
-            <div className="sp-comp-col-header">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#63A5E7] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#63A5E7]"></span>
-              </span>
-              <span>Automated SalesPod Workflow</span>
-            </div>
-
-            {[
-              "High-intent ICP lead lists populate automatically via continuous web scraping.",
-              "Tailored campaigns launch simultaneously across email, LinkedIn, WhatsApp, and AI voice.",
-              "Reps step in exclusively when a lead shows clear, cross-channel buying intent.",
-              "The CRM updates itself in real time using precise lead scores based on human sentiment and hesitation.",
-              "Clear success metrics and exact ROI unlock inside one centralized dashboard."
-            ].map((text, idx) => (
-              <motion.div 
-                key={idx}
-                className="sp-comp-card sp-comp-card-active"
-                whileHover={{ x: 2 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <span className="sp-comp-num">0{idx + 1}</span>
-                <p className="sp-comp-body">{text}</p>
-              </motion.div>
-            ))}
+          {/* LEFT HEADER */}
+          <div className="sp-comp-col-header automated-header">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#63A5E7] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#63A5E7]"></span>
+            </span>
+            <span>Automated SalesPod Workflow</span>
           </div>
 
-          {/* RIGHT: Existing Manual System Workflow */}
-          <div className="sp-comparison-col">
-            <div className="sp-comp-col-header manual">
-              <span>Existing Manual System Workflow</span>
-            </div>
+          {/* LEFT CARDS */}
+          {[
+            "High-intent ICP lead lists populate automatically via continuous web scraping.",
+            "Tailored campaigns launch simultaneously across email, LinkedIn, WhatsApp, and AI voice.",
+            "Reps step in exclusively when a lead shows clear, cross-channel buying intent.",
+            "The CRM updates itself in real time using precise lead scores based on human sentiment and hesitation.",
+            "Clear success metrics and exact ROI unlock inside one centralized dashboard."
+          ].map((text, idx) => (
+            <motion.div 
+              key={`left-${idx}`}
+              className={`sp-comp-card sp-comp-card-active left-card-${idx}`}
+              whileHover={{ x: 2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <span className="sp-comp-num">0{idx + 1}</span>
+              <p className="sp-comp-body">{text}</p>
+            </motion.div>
+          ))}
 
-            {[
-              "Reps waste hours manually hunting for data from scratch.",
-              "Outreach stalls on basic emails that get easily ignored in crowded inboxes.",
-              "Hot opportunities freeze while reps manually hunt through scattered replies.",
-              "Pipeline data breaks down due to total reliance on what reps remember to log.",
-              "Growth opportunities vanish because nobody knows which channel is actually working."
-            ].map((text, idx) => (
-              <div 
-                key={idx}
-                className="sp-comp-card sp-comp-card-manual"
-              >
-                <span className="sp-comp-num">0{idx + 1}</span>
-                <p className="sp-comp-body">{text}</p>
-              </div>
-            ))}
+          {/* RIGHT HEADER */}
+          <div className="sp-comp-col-header manual manual-header">
+            <span>Existing Manual System Workflow</span>
           </div>
+
+          {/* RIGHT CARDS */}
+          {[
+            "Reps waste hours manually hunting for data from scratch.",
+            "Outreach stalls on basic emails that get easily ignored in crowded inboxes.",
+            "Hot opportunities freeze while reps manually hunt through scattered replies.",
+            "Pipeline data breaks down due to total reliance on what reps remember to log.",
+            "Growth opportunities vanish because nobody knows which channel is actually working."
+          ].map((text, idx) => (
+            <div 
+              key={`right-${idx}`}
+              className={`sp-comp-card sp-comp-card-manual right-card-${idx}`}
+            >
+              <span className="sp-comp-num">0{idx + 1}</span>
+              <p className="sp-comp-body">{text}</p>
+            </div>
+          ))}
 
         </div>
 
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
-          <p style={{ fontSize: "16px", fontWeight: 600, color: "var(--color-text-bright)", margin: "0 0 8px 0" }}>
-            Your team is good at selling.
-          </p>
-          <p style={{ fontSize: "14px", color: "var(--color-text-muted)", margin: "0 0 24px 0" }}>
-            SalesPod makes sure they only talk to people who are ready.
+          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
+            Your team is good at selling. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>SalesPod makes sure they only talk to people who are ready.</span>
           </p>
           <button 
             className="sp-comp-bottom-btn"
@@ -1784,7 +2405,7 @@ export default function SalesPodPage() {
             }}
           >
             <span>See how it works</span>
-            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
+            <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
           </button>
         </div>
 
@@ -1839,7 +2460,7 @@ export default function SalesPodPage() {
       <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
         
         {/* Section Heading */}
-        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
+        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "28px" }}>
           <div className="sp-hero-eyebrow">
             <span style={{
               display: "inline-flex",
@@ -1861,51 +2482,9 @@ export default function SalesPodPage() {
           </h2>
         </div>
 
-        {/* Testimonial Cards Grid */}
-        <div className="sp-voices-grid">
-          
-          {/* Card 1 */}
-          <div className="sp-voice-card">
-            <p className="sp-voice-feedback">
-              "Fast, accurate, and blends into daily operations without friction. Felt like a senior team member rather than a tool."
-            </p>
-            <div className="sp-voice-meta">
-              <div className="sp-voice-avatar">AR</div>
-              <div className="sp-voice-author">
-                <span className="sp-voice-name">Anuj Ruia</span>
-                <span className="sp-voice-title">Co-Founder, BECO</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="sp-voice-card">
-            <p className="sp-voice-feedback">
-              "Game-changer. Flows run flawlessly. Our team focuses only on what moves revenue — everything else just happens."
-            </p>
-            <div className="sp-voice-meta">
-              <div className="sp-voice-avatar">SL</div>
-              <div className="sp-voice-author">
-                <span className="sp-voice-name">Sharan Lekhi</span>
-                <span className="sp-voice-title">Founder, Krafty Animations</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="sp-voice-card">
-            <p className="sp-voice-feedback">
-              "Smooth setup. Replaced three tools in one go. Improvements showed in the very first week."
-            </p>
-            <div className="sp-voice-meta">
-              <div className="sp-voice-avatar">SJ</div>
-              <div className="sp-voice-author">
-                <span className="sp-voice-name">Shreyansh Jaiswal</span>
-                <span className="sp-voice-title">Founder, HobbyFi</span>
-              </div>
-            </div>
-          </div>
-
+        {/* Testimonial Carousel */}
+        <div style={{ marginTop: "12px" }}>
+          <SalespodTestimonialCarousel />
         </div>
 
       </div>
