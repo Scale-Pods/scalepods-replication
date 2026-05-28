@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import type { MetricItem } from "@/types/analytics";
 import EmptyState from "@/components/admin/shared/EmptyState";
 import { BarChart2 } from "lucide-react";
@@ -7,16 +8,17 @@ import { BarChart2 } from "lucide-react";
 interface HBarChartProps {
   data: MetricItem[];
   color?: string;
-  /** max items to render */
   limit?: number;
 }
 
-export default function HBarChart({ data, color = "var(--accent)", limit = 6 }: HBarChartProps) {
+function HBarChart({ data, color = "var(--accent)", limit = 6 }: HBarChartProps) {
   const rows = data.slice(0, limit);
   const max = rows.reduce((m, r) => Math.max(m, r.value), 1);
 
   if (rows.length === 0) {
-    return <EmptyState icon={<BarChart2 size={18} />} title="No data" description="No breakdown available." />;
+    return (
+      <EmptyState icon={<BarChart2 size={18} />} title="No data" description="No breakdown available." />
+    );
   }
 
   return (
@@ -25,7 +27,6 @@ export default function HBarChart({ data, color = "var(--accent)", limit = 6 }: 
         const pct = Math.round((item.value / max) * 100);
         return (
           <div key={`${item.name}-${i}`}>
-            {/* Label + value row */}
             <div
               style={{
                 display: "flex",
@@ -60,7 +61,6 @@ export default function HBarChart({ data, color = "var(--accent)", limit = 6 }: 
                 {item.value.toLocaleString()}
               </span>
             </div>
-            {/* Bar track */}
             <div
               style={{
                 height: "5px",
@@ -75,7 +75,7 @@ export default function HBarChart({ data, color = "var(--accent)", limit = 6 }: 
                   width: `${pct}%`,
                   borderRadius: "999px",
                   background: color,
-                  opacity: i === 0 ? 1 : 0.75 - i * 0.08,
+                  opacity: i === 0 ? 1 : Math.max(0.3, 0.9 - i * 0.1),
                   transition: "width 0.6s cubic-bezier(0.16,1,0.3,1)",
                 }}
               />
@@ -86,3 +86,5 @@ export default function HBarChart({ data, color = "var(--accent)", limit = 6 }: 
     </div>
   );
 }
+
+export default memo(HBarChart);

@@ -27,6 +27,10 @@ export default function SectionCard({
         border: "1px solid var(--border)",
         borderRadius: "12px",
         overflow: "hidden",
+        // minWidth: 0 is essential when SectionCard is a direct grid/flex child
+        // containing recharts — without it, the grid item can exceed its column
+        // width and recharts measures a negative container dimension
+        minWidth: 0,
       }}
     >
       {(title || action) && (

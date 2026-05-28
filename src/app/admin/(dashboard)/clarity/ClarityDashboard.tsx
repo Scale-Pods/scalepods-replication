@@ -1,10 +1,11 @@
 "use client";
 
+import { useMemo, memo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Users, MousePointer2, Timer, Globe, Monitor, Wifi } from "lucide-react";
+import { Users, MousePointer2, Timer, Globe } from "lucide-react";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { useTrend } from "@/hooks/useTrend";
-import type { OverviewData, TrendData } from "@/types/analytics";
+import type { OverviewData, TrendData, MetricItem } from "@/types/analytics";
 import KpiCard from "@/components/admin/shared/KpiCard";
 import SectionCard from "@/components/admin/shared/SectionCard";
 import LastSyncBadge from "@/components/admin/shared/LastSyncBadge";
@@ -13,7 +14,7 @@ import TrendChart from "@/components/admin/charts/TrendChart";
 import HBarChart from "@/components/admin/charts/HBarChart";
 import DonutChart from "@/components/admin/charts/DonutChart";
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatDuration(secs: number): string {
   if (secs <= 0) return "N/A";
@@ -24,6 +25,13 @@ function formatDuration(secs: number): string {
 function formatScrollDepth(depth: number): string {
   if (depth <= 0) return "N/A";
   return `${depth}%`;
+}
+
+/** Dev traffic source names that should be hidden in the UI */
+const DEV_SOURCES = new Set(["localhost", "127.0.0.1"]);
+
+function filterDevSources(items: MetricItem[]): MetricItem[] {
+  return items.filter((s) => !DEV_SOURCES.has(s.name.toLowerCase()));
 }
 
 /** Strip dev/admin paths from the pages breakdown */
@@ -38,16 +46,14 @@ function filterPages(
   );
 }
 
-// ── Date range pill button ────────────────────────────────────────────────────
+// ── Sub-components (memoised) ─────────────────────────────────────────────────
 
-function RangeButton({
+const RangeButton = memo(function RangeButton({
   label,
-  value,
   active,
   onClick,
 }: {
   label: string;
-  value: string;
   active: boolean;
   onClick: () => void;
 }) {
@@ -55,7 +61,7 @@ function RangeButton({
     <button
       onClick={onClick}
       style={{
-        padding: "5px 12px",
+        padding: "5px 14px",
         borderRadius: "6px",
         fontSize: "12px",
         fontWeight: active ? 600 : 500,
@@ -63,19 +69,23 @@ function RangeButton({
         background: active ? "var(--accent-dim)" : "transparent",
         color: active ? "var(--accent)" : "var(--text-secondary)",
         cursor: "pointer",
-        transition: "all 0.15s",
+        transition: "background 0.15s, color 0.15s, border-color 0.15s",
         letterSpacing: "0.01em",
+        userSelect: "none",
       }}
     >
       {label}
     </button>
   );
-}
+});
 
-// ── Top Pages table ───────────────────────────────────────────────────────────
-
-function PagesTable({ pages }: { pages: { path: string; views: number }[] }) {
+const PagesTable = memo(function PagesTable({
+  pages,
+}: {
+  pages: { path: string; views: number }[];
+}) {
   const filtered = filterPages(pages);
+
   if (filtered.length === 0) {
     return (
       <EmptyState
@@ -85,16 +95,12 @@ function PagesTable({ pages }: { pages: { path: string; views: number }[] }) {
       />
     );
   }
+
   const max = filtered[0].views;
+
   return (
     <div style={{ overflowX: "auto" }}>
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          fontSize: "13px",
-        }}
-      >
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
         <thead>
           <tr>
             <th
@@ -133,12 +139,13 @@ function PagesTable({ pages }: { pages: { path: string; views: number }[] }) {
             <tr
               key={`${page.path}-${i}`}
               style={{
-                borderBottom: i < filtered.length - 1 ? "1px solid var(--border-subtle)" : "none",
+                borderBottom:
+                  i < filtered.length - 1 ? "1px solid var(--border-subtle)" : "none",
               }}
             >
               <td style={{ padding: "11px 12px 11px 0", verticalAlign: "middle" }}>
-                {/* Progress bar behind path */}
                 <div style={{ position: "relative" }}>
+                  {/* Subtle background progress bar */}
                   <div
                     style={{
                       position: "absolute",
@@ -188,9 +195,44 @@ function PagesTable({ pages }: { pages: { path: string; views: number }[] }) {
       </table>
     </div>
   );
+});
+
+// ── Trend loading skeleton ────────────────────────────────────────────────────
+
+function TrendSkeleton() {
+  return (
+    <div
+      style={{
+        height: "220px",
+        borderRadius: "8px",
+        background: "var(--bg-card-hover)",
+        animation: "adm-pulse 1.5s ease-in-out infinite",
+      }}
+    />
+  );
 }
 
-// ── Main dashboard component ──────────────────────────────────────────────────
+// ── Error banner ──────────────────────────────────────────────────────────────
+
+function ErrorBanner({ message }: { message: string }) {
+  return (
+    <div
+      style={{
+        padding: "12px 16px",
+        borderRadius: "8px",
+        background: "rgba(239,68,68,0.08)",
+        border: "1px solid rgba(239,68,68,0.2)",
+        color: "var(--red)",
+        fontSize: "13px",
+        fontWeight: 500,
+      }}
+    >
+      {message}
+    </div>
+  );
+}
+
+// ── Main dashboard ────────────────────────────────────────────────────────────
 
 interface Props {
   initialOverview: OverviewData | null;
@@ -203,7 +245,6 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
   const router = useRouter();
   const pathname = usePathname();
 
-  // Range lives in URL — client picks it up live
   const range = searchParams.get("range") ?? initialRange ?? "30d";
 
   function setRange(r: string) {
@@ -212,14 +253,31 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
     router.push(`${pathname}?${p.toString()}`);
   }
 
-  // SWR — fallback to server-prefetched data, then refresh every 5 min
-  const { data: overview, isLoading: loadingOverview, isValidating } = useAnalytics(
-    range,
-    initialOverview ?? undefined
-  );
-  const { data: trend, isLoading: loadingTrend } = useTrend(range, initialTrend ?? undefined);
+  const {
+    data: overview,
+    isLoading: loadingOverview,
+    isValidating,
+    error: overviewError,
+  } = useAnalytics(range, initialOverview ?? undefined);
+
+  const {
+    data: trend,
+    isLoading: loadingTrend,
+    error: trendError,
+  } = useTrend(range, initialTrend ?? undefined);
 
   const loading = loadingOverview && !overview;
+
+  // ── Memoised derived data (prevents re-computation on every render) ──────────
+  const filteredSources = useMemo(
+    () => filterDevSources(overview?.sources ?? []),
+    [overview?.sources]
+  );
+
+  const filteredPages = useMemo(
+    () => filterPages(overview?.pages ?? []),
+    [overview?.pages]
+  );
 
   return (
     <div
@@ -232,6 +290,15 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
         gap: "24px",
       }}
     >
+      {/* Pulse keyframe — defined once here, not duplicated in children */}
+      <style>{`
+        @keyframes adm-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        @media (max-width: 900px) { .aud-grid { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 640px) {
+          .kpi-grid, .aud-grid, .trf-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+
       {/* ── Page header ── */}
       <div
         style={{
@@ -243,7 +310,14 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
         }}
       >
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              marginBottom: "4px",
+            }}
+          >
             <span
               style={{
                 fontSize: "11px",
@@ -279,40 +353,54 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
           >
             Clarity Analytics
           </h1>
-          <p style={{ fontSize: "13px", color: "var(--text-muted)", margin: "4px 0 0" }}>
+          <p
+            style={{
+              fontSize: "13px",
+              color: "var(--text-muted)",
+              margin: "4px 0 0",
+            }}
+          >
             Session behaviour, traffic sources, and audience breakdown.
           </p>
         </div>
 
-        {/* Controls row */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-          {/* Range pills */}
+        {/* Controls */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            flexWrap: "wrap",
+          }}
+        >
           <div style={{ display: "flex", gap: "4px" }}>
             {(["7d", "30d", "90d"] as const).map((r) => (
               <RangeButton
                 key={r}
                 label={r === "7d" ? "7D" : r === "30d" ? "30D" : "90D"}
-                value={r}
                 active={range === r}
                 onClick={() => setRange(r)}
               />
             ))}
           </div>
-          {/* Sync badge */}
           {overview?.lastSync && (
             <LastSyncBadge timestamp={overview.lastSync} isValidating={isValidating} />
           )}
         </div>
       </div>
 
+      {/* Error banners (non-blocking — stale data still shown) */}
+      {overviewError && (
+        <ErrorBanner message="Could not refresh analytics data. Showing last cached values." />
+      )}
+      {trendError && (
+        <ErrorBanner message="Could not refresh trend data. Showing last cached values." />
+      )}
+
       {/* ── KPI row ── */}
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "12px",
-        }}
         className="kpi-grid"
+        style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "12px" }}
       >
         <KpiCard
           label="Total Sessions"
@@ -346,28 +434,16 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
         subtitle={`Daily session activity · ${range.toUpperCase()} window`}
       >
         {loadingTrend && !trend ? (
-          <div
-            style={{
-              height: "220px",
-              background: "var(--bg-card-hover)",
-              borderRadius: "8px",
-              animation: "pulse 1.5s ease-in-out infinite",
-            }}
-          />
+          <TrendSkeleton />
         ) : (
           <TrendChart data={trend?.data ?? []} range={range} />
         )}
-        <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }`}</style>
       </SectionCard>
 
       {/* ── Audience breakdown ── */}
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1.4fr 1fr",
-          gap: "12px",
-        }}
-        className="audience-grid"
+        className="aud-grid"
+        style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 1fr", gap: "12px" }}
       >
         <SectionCard title="Devices" subtitle="PC vs Mobile split">
           <DonutChart data={overview?.devices ?? []} label="sessions" />
@@ -384,19 +460,18 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
 
       {/* ── Traffic sources ── */}
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "12px",
-        }}
-        className="traffic-grid"
+        className="trf-grid"
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}
       >
         <SectionCard title="Channels" subtitle="How visitors arrive">
           <HBarChart data={overview?.channels ?? []} color="var(--emerald)" />
         </SectionCard>
 
-        <SectionCard title="Traffic Sources" subtitle="Referring sources">
-          <HBarChart data={overview?.sources ?? []} color="var(--amber)" />
+        <SectionCard
+          title="Traffic Sources"
+          subtitle="Referring sources · dev traffic excluded"
+        >
+          <HBarChart data={filteredSources} color="var(--amber)" />
         </SectionCard>
       </div>
 
@@ -420,22 +495,6 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
       >
         <PagesTable pages={overview?.pages ?? []} />
       </SectionCard>
-
-      {/* ── Responsive overrides ── */}
-      <style>{`
-        @media (max-width: 900px) {
-          .audience-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        @media (max-width: 640px) {
-          .kpi-grid,
-          .audience-grid,
-          .traffic-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

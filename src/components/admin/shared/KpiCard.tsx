@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 
 interface KpiCardProps {
   label: string;
@@ -11,7 +11,7 @@ interface KpiCardProps {
   loading?: boolean;
 }
 
-export default function KpiCard({
+function KpiCard({
   label,
   value,
   sub,
@@ -151,3 +151,5 @@ export default function KpiCard({
     </div>
   );
 }
+
+export default memo(KpiCard);
