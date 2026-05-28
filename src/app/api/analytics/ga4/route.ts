@@ -6,7 +6,13 @@ export const revalidate = 600;
 
 export async function GET(req: NextRequest) {
   const range = req.nextUrl.searchParams.get("range") ?? "30d";
-  const days  = range === "7d" ? 7 : range === "90d" ? 90 : 30;
+  const start = req.nextUrl.searchParams.get("start");
+  const end   = req.nextUrl.searchParams.get("end");
+
+  let days = range === "7d" ? 7 : range === "90d" ? 90 : 30;
+  if (range === "custom" && start && end) {
+    days = Math.max(1, Math.ceil((new Date(end).getTime() - new Date(start).getTime()) / 86_400_000));
+  }
 
   try {
     const data = await GA4Provider.getOverview(days);

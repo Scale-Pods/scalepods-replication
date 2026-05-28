@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import Sidebar from "./Sidebar";
+import { AdminThemeProvider } from "./ThemeProvider";
 
 interface AdminShellProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export default function AdminShell({ children }: AdminShellProps) {
   }, [pathname]);
 
   return (
+    <AdminThemeProvider>
     <div
       data-layout="admin"
       style={{
@@ -145,5 +147,6 @@ export default function AdminShell({ children }: AdminShellProps) {
         }
       `}</style>
     </div>
+    </AdminThemeProvider>
   );
 }

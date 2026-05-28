@@ -10,6 +10,7 @@ import KpiCard from "@/components/admin/shared/KpiCard";
 import SectionCard from "@/components/admin/shared/SectionCard";
 import LastSyncBadge from "@/components/admin/shared/LastSyncBadge";
 import EmptyState from "@/components/admin/shared/EmptyState";
+import RangeControls, { type RangeValue } from "@/components/admin/shared/RangeControls";
 import TrendChart from "@/components/admin/charts/TrendChart";
 import HBarChart from "@/components/admin/charts/HBarChart";
 import DonutChart from "@/components/admin/charts/DonutChart";
@@ -47,37 +48,6 @@ function filterPages(
 }
 
 // ── Sub-components (memoised) ─────────────────────────────────────────────────
-
-const RangeButton = memo(function RangeButton({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "5px 14px",
-        borderRadius: "6px",
-        fontSize: "12px",
-        fontWeight: active ? 600 : 500,
-        border: active ? "1px solid var(--accent)44" : "1px solid var(--border)",
-        background: active ? "var(--accent-dim)" : "transparent",
-        color: active ? "var(--accent)" : "var(--text-secondary)",
-        cursor: "pointer",
-        transition: "background 0.15s, color 0.15s, border-color 0.15s",
-        letterSpacing: "0.01em",
-        userSelect: "none",
-      }}
-    >
-      {label}
-    </button>
-  );
-});
 
 const PagesTable = memo(function PagesTable({
   pages,
@@ -245,15 +215,31 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
 
   // Initialise from URL so direct links / back-button work, then own the state
   // locally so range changes are instant (no server re-render).
-  const [range, setRangeState] = useState<string>(
-    () => searchParams.get("range") ?? initialRange ?? "30d"
+  const [rangeVal, setRangeVal] = useState<RangeValue>(
+    () => ({ preset: (searchParams.get("range") as RangeValue["preset"]) ?? (initialRange as RangeValue["preset"]) ?? "30d" })
   );
 
-  function setRange(r: string) {
-    setRangeState(r);
-    // Keep URL in sync for shareability without triggering App Router navigation.
+  // Derive SWR key from range value
+  const apiRange = rangeVal.custom
+    ? `custom&start=${rangeVal.custom.start}&end=${rangeVal.custom.end}`
+    : (rangeVal.preset ?? "30d");
+
+  // Label for subtitle
+  const rangeLabel = rangeVal.custom
+    ? `${rangeVal.custom.start} → ${rangeVal.custom.end}`
+    : (rangeVal.preset ?? "30d").toUpperCase();
+
+  function handleRangeChange(r: RangeValue) {
+    setRangeVal(r);
     const p = new URLSearchParams(window.location.search);
-    p.set("range", r);
+    if (r.custom) {
+      p.set("range", "custom");
+      p.set("start", r.custom.start);
+      p.set("end", r.custom.end);
+    } else {
+      p.set("range", r.preset ?? "30d");
+      p.delete("start"); p.delete("end");
+    }
     window.history.pushState(null, "", `${window.location.pathname}?${p.toString()}`);
   }
 
@@ -262,13 +248,13 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
     isLoading: loadingOverview,
     isValidating,
     error: overviewError,
-  } = useAnalytics(range, initialOverview ?? undefined);
+  } = useAnalytics(apiRange, initialOverview ?? undefined);
 
   const {
     data: trend,
     isLoading: loadingTrend,
     error: trendError,
-  } = useTrend(range, initialTrend ?? undefined);
+  } = useTrend(apiRange, initialTrend ?? undefined);
 
   const loading = loadingOverview && !overview;
 
@@ -369,24 +355,8 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
         </div>
 
         {/* Controls */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            flexWrap: "wrap",
-          }}
-        >
-          <div style={{ display: "flex", gap: "4px" }}>
-            {(["7d", "30d", "90d"] as const).map((r) => (
-              <RangeButton
-                key={r}
-                label={r === "7d" ? "7D" : r === "30d" ? "30D" : "90D"}
-                active={range === r}
-                onClick={() => setRange(r)}
-              />
-            ))}
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <RangeControls range={rangeVal} onChange={handleRangeChange} />
           {overview?.lastSync && (
             <LastSyncBadge timestamp={overview.lastSync} isValidating={isValidating} />
           )}
@@ -435,12 +405,12 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
       {/* ── Session trend ── */}
       <SectionCard
         title="Sessions Over Time"
-        subtitle={`Daily session activity · ${range.toUpperCase()} window`}
+        subtitle={`Daily session activity · ${rangeLabel} window`}
       >
         {loadingTrend && !trend ? (
           <TrendSkeleton />
         ) : (
-          <TrendChart data={trend?.data ?? []} range={range} />
+          <TrendChart data={trend?.data ?? []} range={rangeVal.preset ?? "custom"} />
         )}
       </SectionCard>
 

@@ -10,6 +10,7 @@ import KpiCard from "@/components/admin/shared/KpiCard";
 import SectionCard from "@/components/admin/shared/SectionCard";
 import LastSyncBadge from "@/components/admin/shared/LastSyncBadge";
 import EmptyState from "@/components/admin/shared/EmptyState";
+import RangeControls, { type RangeValue } from "@/components/admin/shared/RangeControls";
 import HBarChart from "@/components/admin/charts/HBarChart";
 import DonutChart from "@/components/admin/charts/DonutChart";
 import GSCTrendChart from "@/components/admin/charts/GSCTrendChart";
@@ -27,27 +28,6 @@ function formatCtr(ctr: number): string {
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
-
-const RangeButton = memo(function RangeButton({
-  label, active, onClick,
-}: { label: string; active: boolean; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "5px 14px", borderRadius: "6px", fontSize: "12px",
-        fontWeight: active ? 600 : 500,
-        border: active ? "1px solid var(--accent)44" : "1px solid var(--border)",
-        background: active ? "var(--accent-dim)" : "transparent",
-        color: active ? "var(--accent)" : "var(--text-secondary)",
-        cursor: "pointer", transition: "background 0.15s, color 0.15s",
-        letterSpacing: "0.01em", userSelect: "none",
-      }}
-    >
-      {label}
-    </button>
-  );
-});
 
 // Queries table — shows keyword, clicks, impressions, CTR, position
 const QueriesTable = memo(function QueriesTable({ queries }: { queries: GSCQueryItem[] }) {
@@ -160,19 +140,28 @@ interface Props {
 export default function GSCDashboard({ initialOverview, initialTrend, initialRange }: Props) {
   const searchParams = useSearchParams();
 
-  const [range, setRangeState] = useState<string>(
-    () => searchParams.get("range") ?? initialRange ?? "30d"
+  const [rangeVal, setRangeVal] = useState<RangeValue>(
+    () => ({ preset: (searchParams.get("range") as RangeValue["preset"]) ?? (initialRange as RangeValue["preset"]) ?? "30d" })
   );
 
-  function setRange(r: string) {
-    setRangeState(r);
+  const apiRange = rangeVal.custom
+    ? `custom&start=${rangeVal.custom.start}&end=${rangeVal.custom.end}`
+    : (rangeVal.preset ?? "30d");
+
+  const rangeLabel = rangeVal.custom
+    ? `${rangeVal.custom.start} → ${rangeVal.custom.end}`
+    : (rangeVal.preset ?? "30d").toUpperCase();
+
+  function handleRangeChange(r: RangeValue) {
+    setRangeVal(r);
     const p = new URLSearchParams(window.location.search);
-    p.set("range", r);
+    if (r.custom) { p.set("range","custom"); p.set("start",r.custom.start); p.set("end",r.custom.end); }
+    else { p.set("range", r.preset ?? "30d"); p.delete("start"); p.delete("end"); }
     window.history.pushState(null, "", `${window.location.pathname}?${p.toString()}`);
   }
 
-  const { data: overview, isLoading: loadingOverview, isValidating, error: overviewError } = useGSC(range, initialOverview ?? undefined);
-  const { data: trend,    isLoading: loadingTrend,    error: trendError }                  = useGSCTrend(range, initialTrend ?? undefined);
+  const { data: overview, isLoading: loadingOverview, isValidating, error: overviewError } = useGSC(apiRange, initialOverview ?? undefined);
+  const { data: trend,    isLoading: loadingTrend,    error: trendError }                  = useGSCTrend(apiRange, initialTrend ?? undefined);
 
   const loading = loadingOverview && !overview;
 
@@ -208,11 +197,7 @@ export default function GSCDashboard({ initialOverview, initialTrend, initialRan
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-          <div style={{ display: "flex", gap: "4px" }}>
-            {(["7d", "30d", "90d"] as const).map((r) => (
-              <RangeButton key={r} label={r === "7d" ? "7D" : r === "30d" ? "30D" : "90D"} active={range === r} onClick={() => setRange(r)} />
-            ))}
-          </div>
+          <RangeControls range={rangeVal} onChange={handleRangeChange} />
           {overview?.lastFetch && (
             <LastSyncBadge timestamp={overview.lastFetch} isValidating={isValidating} />
           )}
@@ -232,8 +217,8 @@ export default function GSCDashboard({ initialOverview, initialTrend, initialRan
       </div>
 
       {/* ── Click trend ── */}
-      <SectionCard title="Clicks & Impressions Over Time" subtitle={`Daily organic search performance · ${range.toUpperCase()} window`}>
-        {loadingTrend && !trend ? <TrendSkeleton /> : <GSCTrendChart data={trend?.data ?? []} range={range} />}
+      <SectionCard title="Clicks & Impressions Over Time" subtitle={`Daily organic search performance · ${rangeLabel} window`}>
+        {loadingTrend && !trend ? <TrendSkeleton /> : <GSCTrendChart data={trend?.data ?? []} range={rangeVal.preset ?? "custom"} />}
       </SectionCard>
 
       {/* ── Devices + Countries ── */}
