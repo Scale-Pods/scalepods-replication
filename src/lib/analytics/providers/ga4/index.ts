@@ -6,6 +6,20 @@ import type {
   GA4TrendItem,
 } from "@/types/analytics";
 
+// ── In-memory data cache (5-min TTL, keyed by "overview:{days}" / "trend:{days}") ──
+
+interface CacheEntry<T> { value: T; expiresAt: number }
+const _dataCache = new Map<string, CacheEntry<unknown>>();
+const DATA_TTL = 5 * 60_000; // 5 minutes
+
+function getCached<T>(key: string): T | null {
+  const e = _dataCache.get(key);
+  return e && Date.now() < e.expiresAt ? (e.value as T) : null;
+}
+function setCached<T>(key: string, value: T): void {
+  _dataCache.set(key, { value, expiresAt: Date.now() + DATA_TTL });
+}
+
 // ── Auth ──────────────────────────────────────────────────────────────────────
 
 let cachedToken: { value: string; expiresAt: number } | null = null;
@@ -54,21 +68,28 @@ interface ReportRequest {
 
 async function runReport(body: ReportRequest) {
   const token = await getAccessToken();
-  const res = await fetch(`${BASE}:runReport`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8_000);
+  try {
+    const res = await fetch(`${BASE}:runReport`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
 
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`GA4 runReport failed (${res.status}): ${err}`);
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`GA4 runReport failed (${res.status}): ${err}`);
+    }
+
+    return res.json();
+  } finally {
+    clearTimeout(timeout);
   }
-
-  return res.json();
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -117,6 +138,10 @@ function toMetricItems(
 
 export const GA4Provider = {
   async getOverview(rangeDays: number): Promise<GA4OverviewData> {
+    const cacheKey = `overview:${rangeDays}`;
+    const cached = getCached<GA4OverviewData>(cacheKey);
+    if (cached) return cached;
+
     const dr = dateRange(rangeDays);
 
     // Run all dimension reports in parallel
@@ -221,7 +246,7 @@ export const GA4Provider = {
       )
       .slice(0, 15);
 
-    return {
+    const result: GA4OverviewData = {
       sessions,
       activeUsers,
       newUsers,
@@ -236,9 +261,15 @@ export const GA4Provider = {
       sources:   toMetricItems(extractRows(sources)),
       lastFetch: new Date().toISOString(),
     };
+    setCached(cacheKey, result);
+    return result;
   },
 
   async getTrend(rangeDays: number): Promise<GA4TrendData> {
+    const cacheKey = `trend:${rangeDays}`;
+    const cached = getCached<GA4TrendData>(cacheKey);
+    if (cached) return cached;
+
     const dr = dateRange(rangeDays);
 
     const report = await runReport({
@@ -260,6 +291,8 @@ export const GA4Provider = {
       };
     });
 
-    return { data, count: data.length };
+    const result: GA4TrendData = { data, count: data.length };
+    setCached(cacheKey, result);
+    return result;
   },
 };

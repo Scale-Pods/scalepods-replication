@@ -7,6 +7,20 @@ import type {
   MetricItem,
 } from "@/types/analytics";
 
+// ── In-memory data cache (5-min TTL) ─────────────────────────────────────────
+
+interface CacheEntry<T> { value: T; expiresAt: number }
+const _dataCache = new Map<string, CacheEntry<unknown>>();
+const DATA_TTL = 5 * 60_000;
+
+function getCached<T>(key: string): T | null {
+  const e = _dataCache.get(key);
+  return e && Date.now() < e.expiresAt ? (e.value as T) : null;
+}
+function setCached<T>(key: string, value: T): void {
+  _dataCache.set(key, { value, expiresAt: Date.now() + DATA_TTL });
+}
+
 // GSC reuses the same OAuth2 credentials as GA4
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GSC_BASE  = "https://www.googleapis.com/webmasters/v3";
@@ -64,25 +78,31 @@ async function searchAnalytics(
   body: Record<string, unknown>
 ): Promise<{ rows?: SearchAnalyticsRow[] }> {
   const encoded = encodeURIComponent(siteUrl);
-  const res = await fetch(
-    `${GSC_BASE}/sites/${encoded}/searchAnalytics/query`,
-    {
-      method: "POST",
-      headers: {
-        Authorization:  `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-      cache: "no-store",
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8_000);
+  try {
+    const res = await fetch(
+      `${GSC_BASE}/sites/${encoded}/searchAnalytics/query`,
+      {
+        method: "POST",
+        headers: {
+          Authorization:  `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`GSC API ${res.status}: ${err}`);
     }
-  );
 
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`GSC API ${res.status}: ${err}`);
+    return res.json();
+  } finally {
+    clearTimeout(timeout);
   }
-
-  return res.json();
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -103,6 +123,10 @@ function dateRange(rangeDays: number): { startDate: string; endDate: string } {
 
 export const GSCProvider = {
   async getOverview(rangeDays: number): Promise<GSCOverviewData> {
+    const cacheKey = `overview:${rangeDays}`;
+    const cached = getCached<GSCOverviewData>(cacheKey);
+    if (cached) return cached;
+
     const siteUrl = process.env.GSC_SITE_URL ?? "https://scalepods.co";
     const token   = await getAccessToken();
     const dr      = dateRange(rangeDays);
@@ -186,7 +210,7 @@ export const GSCProvider = {
       value: Math.round(r.clicks),
     }));
 
-    return {
+    const result: GSCOverviewData = {
       clicks:      totalClicks,
       impressions: totalImpressions,
       ctr:         avgCtr,
@@ -197,9 +221,15 @@ export const GSCProvider = {
       devices:     topDevices,
       lastFetch:   new Date().toISOString(),
     };
+    setCached(cacheKey, result);
+    return result;
   },
 
   async getTrend(rangeDays: number): Promise<GSCTrendData> {
+    const cacheKey = `trend:${rangeDays}`;
+    const cached = getCached<GSCTrendData>(cacheKey);
+    if (cached) return cached;
+
     const siteUrl = process.env.GSC_SITE_URL ?? "https://scalepods.co";
     const token   = await getAccessToken();
     const dr      = dateRange(rangeDays);
@@ -218,6 +248,8 @@ export const GSCProvider = {
       impressions: Math.round(r.impressions),
     }));
 
-    return { data, count: data.length };
+    const result: GSCTrendData = { data, count: data.length };
+    setCached(cacheKey, result);
+    return result;
   },
 };

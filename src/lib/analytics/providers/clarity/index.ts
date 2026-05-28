@@ -1,6 +1,18 @@
 import { createClient } from "@supabase/supabase-js";
 import { OverviewData, TrendData } from "@/types/analytics";
 
+// ── In-memory data cache (5-min TTL) ─────────────────────────────────────────
+interface CacheEntry<T> { value: T; expiresAt: number }
+const _dataCache = new Map<string, CacheEntry<unknown>>();
+const DATA_TTL = 5 * 60_000;
+function getCached<T>(key: string): T | null {
+  const e = _dataCache.get(key);
+  return e && Date.now() < e.expiresAt ? (e.value as T) : null;
+}
+function setCached<T>(key: string, value: T): void {
+  _dataCache.set(key, { value, expiresAt: Date.now() + DATA_TTL });
+}
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -111,6 +123,10 @@ function processSnapshots(rows: any[]): OverviewData {
 
 export const ClarityProvider = {
   async getOverview(rangeDays: number): Promise<OverviewData> {
+    const cacheKey = `overview:${rangeDays}`;
+    const cached = getCached<OverviewData>(cacheKey);
+    if (cached) return cached;
+
     const since = new Date();
     since.setDate(since.getDate() - rangeDays);
 
@@ -124,21 +140,28 @@ export const ClarityProvider = {
       throw new Error(`Clarity fetch failed: ${error.message}`);
     }
 
+    let result: OverviewData;
     if (!data || data.length === 0) {
-      // Fallback: if no rows match the range window, get the latest rows as default
       const { data: fallbackData } = await supabase
         .from("clarity_analytics_cache")
         .select("id, dimension, raw_data, total_sessions, fetch_timestamp")
         .order("fetch_timestamp", { ascending: false })
         .limit(20);
 
-      return processSnapshots(fallbackData ?? []);
+      result = processSnapshots(fallbackData ?? []);
+    } else {
+      result = processSnapshots(data);
     }
 
-    return processSnapshots(data);
+    setCached(cacheKey, result);
+    return result;
   },
 
   async getTrend(rangeDays: number): Promise<TrendData> {
+    const cacheKey = `trend:${rangeDays}`;
+    const cached = getCached<TrendData>(cacheKey);
+    if (cached) return cached;
+
     const since = new Date();
     since.setDate(since.getDate() - rangeDays);
 
@@ -152,7 +175,6 @@ export const ClarityProvider = {
       throw new Error(`Clarity trend fetch failed: ${error.message}`);
     }
 
-    // Aggregate by hour or day depending on duration
     const byHour: Record<string, number> = {};
     for (const row of data ?? []) {
       const timeKey = row.fetch_timestamp.slice(0, 13) + ":00:00Z";
@@ -163,9 +185,8 @@ export const ClarityProvider = {
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([time, sessions]) => ({ time, sessions }));
 
-    return {
-      data: trend,
-      count: trend.length
-    };
+    const result: TrendData = { data: trend, count: trend.length };
+    setCached(cacheKey, result);
+    return result;
   }
 };

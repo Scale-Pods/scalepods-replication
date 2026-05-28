@@ -60,7 +60,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
             alt="ScalePods"
             width={110}
             height={28}
-            style={{ objectFit: "contain", height: "28px", width: "auto" }}
+            style={{ objectFit: "contain", maxWidth: "110px", height: "auto" }}
             priority
           />
         </Link>
