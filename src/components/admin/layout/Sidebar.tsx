@@ -46,22 +46,31 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* ── Header: logo + close ── */}
       <div
         style={{
-          padding: "18px 20px 16px",
+          height: "64px",
+          minHeight: "64px",
+          padding: "0 20px",
           borderBottom: "1px solid var(--border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexShrink: 0,
         }}
       >
         <Link href="/admin/clarity" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
-          {/* width=0/height=0 + sizes is the Next.js recommended pattern for CSS-controlled size */}
+          {/* Single logo source — invert in dark mode so black logo becomes white */}
           <Image
-            src={theme === "light" ? "/scalepods-navbar-logo.png" : "/scalepods-logo.png"}
+            src="/scalepods-navbar-logo.png"
             alt="ScalePods"
             width={0}
             height={0}
-            sizes="110px"
-            style={{ width: "110px", height: "auto", display: "block" }}
+            sizes="120px"
+            style={{
+              width: "120px",
+              height: "auto",
+              display: "block",
+              filter: theme === "dark" ? "invert(1)" : "none",
+              transition: "filter 0.2s",
+            }}
             priority
           />
         </Link>

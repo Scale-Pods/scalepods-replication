@@ -110,12 +110,12 @@ export default function AdminLogin() {
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
             <Image
-              src="/scalepods-logo.png"
+              src="/scalepods-navbar-logo.png"
               alt="ScalePods"
               width={0}
               height={0}
               sizes="140px"
-              style={{ width: "140px", height: "auto", display: "block" }}
+              style={{ width: "140px", height: "auto", display: "block", filter: "invert(1)" }}
               priority
             />
           </div>
