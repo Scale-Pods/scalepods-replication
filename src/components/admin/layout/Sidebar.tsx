@@ -53,14 +53,15 @@ export default function Sidebar({ onClose }: SidebarProps) {
           justifyContent: "space-between",
         }}
       >
-        <Link href="/admin/clarity" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "8px" }}>
-          {/* Show the correct logo variant per theme */}
+        <Link href="/admin/clarity" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+          {/* width=0/height=0 + sizes is the Next.js recommended pattern for CSS-controlled size */}
           <Image
             src={theme === "light" ? "/scalepods-logo.png" : "/scalepods-navbar-logo.png"}
             alt="ScalePods"
-            width={110}
-            height={28}
-            style={{ objectFit: "contain", maxWidth: "110px", height: "auto" }}
+            width={0}
+            height={0}
+            sizes="110px"
+            style={{ width: "110px", height: "auto", display: "block" }}
             priority
           />
         </Link>
