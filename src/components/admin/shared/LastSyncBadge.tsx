@@ -17,7 +17,7 @@ function timeAgo(iso: string): string {
 }
 
 export default function LastSyncBadge({ timestamp, isValidating }: LastSyncBadgeProps) {
-  const [label, setLabel] = useState(timeAgo(timestamp));
+  const [label, setLabel] = useState("");
 
   useEffect(() => {
     setLabel(timeAgo(timestamp));

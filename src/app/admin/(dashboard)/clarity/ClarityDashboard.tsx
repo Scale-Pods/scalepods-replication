@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, memo } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useMemo, memo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Users, MousePointer2, Timer, Globe } from "lucide-react";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { useTrend } from "@/hooks/useTrend";
@@ -242,15 +242,19 @@ interface Props {
 
 export default function ClarityDashboard({ initialOverview, initialTrend, initialRange }: Props) {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
-  const range = searchParams.get("range") ?? initialRange ?? "30d";
+  // Initialise from URL so direct links / back-button work, then own the state
+  // locally so range changes are instant (no server re-render).
+  const [range, setRangeState] = useState<string>(
+    () => searchParams.get("range") ?? initialRange ?? "30d"
+  );
 
   function setRange(r: string) {
-    const p = new URLSearchParams(searchParams.toString());
+    setRangeState(r);
+    // Keep URL in sync for shareability without triggering App Router navigation.
+    const p = new URLSearchParams(window.location.search);
     p.set("range", r);
-    router.push(`${pathname}?${p.toString()}`);
+    window.history.pushState(null, "", `${window.location.pathname}?${p.toString()}`);
   }
 
   const {
