@@ -1,19 +1,100 @@
-export default function ClarityPage() {
+import { Suspense } from "react";
+import { ClarityProvider } from "@/lib/analytics/providers/clarity";
+import ClarityDashboard from "./ClarityDashboard";
+import type { OverviewData, TrendData } from "@/types/analytics";
+
+interface Props {
+  searchParams: Promise<{ range?: string }>;
+}
+
+// Skeleton shown during the initial server fetch
+function DashboardSkeleton() {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 gap-4">
-      <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "rgba(99,102,241,0.1)" }}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-          <line x1="3" y1="9" x2="21" y2="9" />
-          <line x1="9" y1="21" x2="9" y2="9" />
-        </svg>
+    <div
+      style={{
+        padding: "28px 28px 48px",
+        maxWidth: "1200px",
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column",
+        gap: "24px",
+      }}
+    >
+      {/* Header skeleton */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div
+          style={{
+            height: "11px",
+            width: "160px",
+            borderRadius: "6px",
+            background: "var(--border)",
+            animation: "pulse 1.5s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            height: "22px",
+            width: "220px",
+            borderRadius: "6px",
+            background: "var(--border)",
+            animation: "pulse 1.5s ease-in-out infinite",
+          }}
+        />
       </div>
-      <h1 className="text-xl font-bold" style={{ color: "#f9fafb" }}>
-        Microsoft Clarity
-      </h1>
-      <p className="text-sm max-w-md" style={{ color: "#6b7280" }}>
-        Clarity analytics dashboard is being rebuilt. Data collection continues in the background via Supabase.
-      </p>
+      {/* KPI skeleton row */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            style={{
+              height: "120px",
+              borderRadius: "12px",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              animation: "pulse 1.5s ease-in-out infinite",
+            }}
+          />
+        ))}
+      </div>
+      {/* Chart skeleton */}
+      <div
+        style={{
+          height: "300px",
+          borderRadius: "12px",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
+          animation: "pulse 1.5s ease-in-out infinite",
+        }}
+      />
+      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }`}</style>
     </div>
+  );
+}
+
+async function ClarityPageInner({ range }: { range: string }) {
+  const days = range === "7d" ? 7 : range === "90d" ? 90 : 30;
+
+  // Server-side prefetch — feeds SWR fallbackData for zero-flash initial render
+  const [overview, trend] = await Promise.all([
+    ClarityProvider.getOverview(days).catch((): OverviewData | null => null),
+    ClarityProvider.getTrend(days).catch((): TrendData | null => null),
+  ]);
+
+  return (
+    <ClarityDashboard
+      initialOverview={overview}
+      initialTrend={trend}
+      initialRange={range}
+    />
+  );
+}
+
+export default async function ClarityPage({ searchParams }: Props) {
+  const { range = "30d" } = await searchParams;
+
+  return (
+    <Suspense fallback={<DashboardSkeleton />}>
+      <ClarityPageInner range={range} />
+    </Suspense>
   );
 }
