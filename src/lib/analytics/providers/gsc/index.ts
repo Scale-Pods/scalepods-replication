@@ -1,15 +1,223 @@
-import { OverviewData, TrendData } from "@/types/analytics";
+import type {
+  GSCOverviewData,
+  GSCTrendData,
+  GSCTrendItem,
+  GSCQueryItem,
+  GSCPageItem,
+  MetricItem,
+} from "@/types/analytics";
 
-/**
- * Placeholder provider for Google Search Console (GSC).
- * Kept disabled until Google Webmaster integrations are finalized.
- */
+// GSC reuses the same OAuth2 credentials as GA4
+const TOKEN_URL = "https://oauth2.googleapis.com/token";
+const GSC_BASE  = "https://www.googleapis.com/webmasters/v3";
+
+// ── Auth (shared token cache) ─────────────────────────────────────────────────
+
+let cachedToken: { value: string; expiresAt: number } | null = null;
+
+async function getAccessToken(): Promise<string> {
+  if (cachedToken && Date.now() < cachedToken.expiresAt - 60_000) {
+    return cachedToken.value;
+  }
+
+  const res = await fetch(TOKEN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id:     process.env.GA4_CLIENT_ID!,
+      client_secret: process.env.GA4_CLIENT_SECRET!,
+      refresh_token: process.env.GA4_REFRESH_TOKEN!,
+      grant_type:    "refresh_token",
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GSC token refresh failed: ${err}`);
+  }
+
+  const json = await res.json();
+  if (!json.access_token) {
+    throw new Error(`GSC token exchange returned no access_token: ${JSON.stringify(json)}`);
+  }
+
+  cachedToken = {
+    value:     json.access_token,
+    expiresAt: Date.now() + (json.expires_in ?? 3600) * 1000,
+  };
+  return cachedToken.value;
+}
+
+// ── GSC Search Analytics API ──────────────────────────────────────────────────
+
+interface SearchAnalyticsRow {
+  keys: string[];
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+async function searchAnalytics(
+  token: string,
+  siteUrl: string,
+  body: Record<string, unknown>
+): Promise<{ rows?: SearchAnalyticsRow[] }> {
+  const encoded = encodeURIComponent(siteUrl);
+  const res = await fetch(
+    `${GSC_BASE}/sites/${encoded}/searchAnalytics/query`,
+    {
+      method: "POST",
+      headers: {
+        Authorization:  `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GSC API ${res.status}: ${err}`);
+  }
+
+  return res.json();
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function dateRange(rangeDays: number): { startDate: string; endDate: string } {
+  const end   = new Date();
+  const start = new Date();
+  // GSC data typically lags by ~2 days
+  end.setDate(end.getDate() - 2);
+  start.setDate(start.getDate() - rangeDays - 2);
+  return {
+    startDate: start.toISOString().slice(0, 10),
+    endDate:   end.toISOString().slice(0, 10),
+  };
+}
+
+// ── Provider ──────────────────────────────────────────────────────────────────
+
 export const GSCProvider = {
-  async getOverview(rangeDays: number): Promise<OverviewData> {
-    throw new Error("GSC provider is not configured.");
+  async getOverview(rangeDays: number): Promise<GSCOverviewData> {
+    const siteUrl = process.env.GSC_SITE_URL ?? "https://scalepods.co";
+    const token   = await getAccessToken();
+    const dr      = dateRange(rangeDays);
+
+    const base = { startDate: dr.startDate, endDate: dr.endDate, rowLimit: 25 };
+
+    // All five dimension queries in parallel
+    const [totals, queries, pages, countries, devices] = await Promise.all([
+      // Totals — no dimension
+      searchAnalytics(token, siteUrl, {
+        ...base,
+        dimensions: [],
+      }),
+      // By query
+      searchAnalytics(token, siteUrl, {
+        ...base,
+        dimensions: ["query"],
+        orderBy: [{ fieldName: "clicks", sortOrder: "DESCENDING" }],
+      }),
+      // By page
+      searchAnalytics(token, siteUrl, {
+        ...base,
+        dimensions: ["page"],
+        orderBy: [{ fieldName: "clicks", sortOrder: "DESCENDING" }],
+      }),
+      // By country
+      searchAnalytics(token, siteUrl, {
+        ...base,
+        dimensions: ["country"],
+        orderBy: [{ fieldName: "clicks", sortOrder: "DESCENDING" }],
+        rowLimit: 10,
+      }),
+      // By device
+      searchAnalytics(token, siteUrl, {
+        ...base,
+        dimensions: ["device"],
+        orderBy: [{ fieldName: "clicks", sortOrder: "DESCENDING" }],
+      }),
+    ]);
+
+    // Parse totals
+    const t = totals.rows?.[0];
+    const totalClicks      = Math.round(t?.clicks      ?? 0);
+    const totalImpressions = Math.round(t?.impressions ?? 0);
+    const avgCtr           = Math.round((t?.ctr ?? 0) * 100 * 10) / 10; // e.g. 3.2
+    const avgPosition      = Math.round((t?.position ?? 0) * 10) / 10;  // e.g. 4.7
+
+    // Top queries
+    const topQueries: GSCQueryItem[] = (queries.rows ?? []).slice(0, 20).map((r) => ({
+      query:       r.keys[0] ?? "",
+      clicks:      Math.round(r.clicks),
+      impressions: Math.round(r.impressions),
+      ctr:         Math.round(r.ctr * 100 * 10) / 10,
+      position:    Math.round(r.position * 10) / 10,
+    }));
+
+    // Top pages — strip domain, keep path only
+    const topPages: GSCPageItem[] = (pages.rows ?? []).slice(0, 15).map((r) => {
+      let page = r.keys[0] ?? "/";
+      try { page = new URL(page).pathname; } catch { /* keep raw */ }
+      return {
+        page,
+        clicks:      Math.round(r.clicks),
+        impressions: Math.round(r.impressions),
+        ctr:         Math.round(r.ctr * 100 * 10) / 10,
+        position:    Math.round(r.position * 10) / 10,
+      };
+    });
+
+    // Countries
+    const topCountries: MetricItem[] = (countries.rows ?? []).slice(0, 10).map((r) => ({
+      name:  r.keys[0] ?? "Unknown",
+      value: Math.round(r.clicks),
+    }));
+
+    // Devices
+    const topDevices: MetricItem[] = (devices.rows ?? []).map((r) => ({
+      name:  r.keys[0]
+               ? r.keys[0].charAt(0).toUpperCase() + r.keys[0].slice(1).toLowerCase()
+               : "Unknown",
+      value: Math.round(r.clicks),
+    }));
+
+    return {
+      clicks:      totalClicks,
+      impressions: totalImpressions,
+      ctr:         avgCtr,
+      avgPosition,
+      topQueries,
+      topPages,
+      countries:   topCountries,
+      devices:     topDevices,
+      lastFetch:   new Date().toISOString(),
+    };
   },
 
-  async getTrend(rangeDays: number): Promise<TrendData> {
-    throw new Error("GSC provider is not configured.");
-  }
+  async getTrend(rangeDays: number): Promise<GSCTrendData> {
+    const siteUrl = process.env.GSC_SITE_URL ?? "https://scalepods.co";
+    const token   = await getAccessToken();
+    const dr      = dateRange(rangeDays);
+
+    const report = await searchAnalytics(token, siteUrl, {
+      startDate:  dr.startDate,
+      endDate:    dr.endDate,
+      dimensions: ["date"],
+      orderBy:    [{ fieldName: "date", sortOrder: "ASCENDING" }],
+      rowLimit:   100,
+    });
+
+    const data: GSCTrendItem[] = (report.rows ?? []).map((r) => ({
+      date:        r.keys[0] ?? "",
+      clicks:      Math.round(r.clicks),
+      impressions: Math.round(r.impressions),
+    }));
+
+    return { data, count: data.length };
+  },
 };

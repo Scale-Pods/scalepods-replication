@@ -67,3 +67,44 @@ export interface GA4TrendData {
   data: GA4TrendItem[];
   count: number;
 }
+
+// ── Google Search Console ─────────────────────────────────────────────────────
+
+export interface GSCOverviewData {
+  clicks: number;
+  impressions: number;
+  ctr: number;           // 0–100
+  avgPosition: number;   // 1 = top
+  topQueries: GSCQueryItem[];
+  topPages: GSCPageItem[];
+  countries: MetricItem[];
+  devices: MetricItem[];
+  lastFetch: string;
+}
+
+export interface GSCQueryItem {
+  query: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;         // 0–100
+  position: number;
+}
+
+export interface GSCPageItem {
+  page: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+export interface GSCTrendItem {
+  date: string;        // "YYYY-MM-DD"
+  clicks: number;
+  impressions: number;
+}
+
+export interface GSCTrendData {
+  data: GSCTrendItem[];
+  count: number;
+}
