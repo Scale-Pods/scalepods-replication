@@ -38,3 +38,32 @@ export interface AnalyticsProvider {
   getOverview(rangeDays: number): Promise<OverviewData>;
   getTrend(rangeDays: number): Promise<TrendData>;
 }
+
+// ── Google Analytics 4 ────────────────────────────────────────────────────────
+
+export interface GA4OverviewData {
+  sessions: number;
+  activeUsers: number;
+  newUsers: number;
+  avgSessionDuration: number; // seconds
+  bounceRate: number;         // 0–100
+  browsers: MetricItem[];
+  devices: MetricItem[];
+  os: MetricItem[];
+  countries: MetricItem[];
+  pages: PageMetricItem[];
+  channels: MetricItem[];
+  sources: MetricItem[];
+  lastFetch: string;
+}
+
+export interface GA4TrendItem {
+  date: string;      // "YYYY-MM-DD"
+  sessions: number;
+  pageviews: number;
+}
+
+export interface GA4TrendData {
+  data: GA4TrendItem[];
+  count: number;
+}

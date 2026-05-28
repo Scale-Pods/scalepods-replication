@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR from "swr";
-import type { GA4TrendData } from "@/lib/analytics/providers/ga4";
+import type { GA4TrendData } from "@/types/analytics";
 
 const fetcher = (url: string) =>
   fetch(url).then((r) => {

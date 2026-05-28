@@ -4,7 +4,7 @@ import { memo, useMemo } from "react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
-import type { GA4TrendItem } from "@/lib/analytics/providers/ga4";
+import type { GA4TrendItem } from "@/types/analytics";
 import EmptyState from "@/components/admin/shared/EmptyState";
 import { BarChart2 } from "lucide-react";
 import { useIsClient } from "@/hooks/useIsClient";

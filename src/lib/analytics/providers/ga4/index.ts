@@ -1,33 +1,10 @@
-import type { MetricItem, PageMetricItem } from "@/types/analytics";
-
-// ── Types ─────────────────────────────────────────────────────────────────────
-
-export interface GA4OverviewData {
-  sessions: number;
-  activeUsers: number;
-  newUsers: number;
-  avgSessionDuration: number; // seconds
-  bounceRate: number;         // 0–100
-  browsers: MetricItem[];
-  devices: MetricItem[];
-  os: MetricItem[];
-  countries: MetricItem[];
-  pages: PageMetricItem[];
-  channels: MetricItem[];
-  sources: MetricItem[];
-  lastFetch: string;
-}
-
-export interface GA4TrendItem {
-  date: string;   // "YYYY-MM-DD"
-  sessions: number;
-  pageviews: number;
-}
-
-export interface GA4TrendData {
-  data: GA4TrendItem[];
-  count: number;
-}
+import type {
+  MetricItem,
+  PageMetricItem,
+  GA4OverviewData,
+  GA4TrendData,
+  GA4TrendItem,
+} from "@/types/analytics";
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Users, Globe, Timer, TrendingDown, BarChart2 } from "lucide-react";
 import { useGA4 } from "@/hooks/useGA4";
 import { useGA4Trend } from "@/hooks/useGA4Trend";
-import type { GA4OverviewData, GA4TrendData } from "@/lib/analytics/providers/ga4";
+import type { GA4OverviewData, GA4TrendData } from "@/types/analytics";
 import KpiCard from "@/components/admin/shared/KpiCard";
 import SectionCard from "@/components/admin/shared/SectionCard";
 import LastSyncBadge from "@/components/admin/shared/LastSyncBadge";

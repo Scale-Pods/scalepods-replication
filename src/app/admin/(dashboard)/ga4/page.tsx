@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { GA4Provider } from "@/lib/analytics/providers/ga4";
-import type { GA4OverviewData, GA4TrendData } from "@/lib/analytics/providers/ga4";
+import type { GA4OverviewData, GA4TrendData } from "@/types/analytics";
 import GA4Dashboard from "./GA4Dashboard";
 
 export const dynamic = "force-dynamic";
