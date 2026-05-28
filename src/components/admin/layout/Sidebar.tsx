@@ -56,7 +56,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
         <Link href="/admin/clarity" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
           {/* width=0/height=0 + sizes is the Next.js recommended pattern for CSS-controlled size */}
           <Image
-            src={theme === "light" ? "/scalepods-logo.png" : "/scalepods-navbar-logo.png"}
+            src={theme === "light" ? "/scalepods-navbar-logo.png" : "/scalepods-logo.png"}
             alt="ScalePods"
             width={0}
             height={0}

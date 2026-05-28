@@ -110,7 +110,7 @@ export default function AdminLogin() {
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
             <Image
-              src="/scalepods-navbar-logo.png"
+              src="/scalepods-logo.png"
               alt="ScalePods"
               width={0}
               height={0}
