@@ -13,10 +13,14 @@ const footerLinks = [
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const isMobile = useMobile(1024);
   const { resolvedTheme } = useTheme();
+  const pathname = usePathname();
+  
+  if (pathname?.startsWith("/admin")) return null;
   
   return (
     <footer

@@ -88,6 +88,32 @@
   --blue-glow-40: rgba(109, 182, 255, 0.4);
   /* ── Theme transition for the * selector ── */
   --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease;
+
+  /* Clarity Admin Dashboard Design Tokens */
+  --bg-page:        #030712;   /* outermost page background */
+  --bg-sidebar:     #07090f;   /* sidebar background */
+  --bg-card:        #0d1117;   /* card surface */
+  --bg-card-hover:  #111827;   /* card on hover */
+  --bg-input:       #111827;   /* input / dropdown background */
+  --border:         #1f2937;   /* standard border */
+  --border-subtle:  #111827;   /* very faint divider */
+  --text-primary:   #f9fafb;   /* headings, important values */
+  --text-secondary: #9ca3af;   /* body text, labels */
+  --text-muted:     #4b5563;   /* placeholders, timestamps */
+  --accent:         #6366f1;   /* indigo — primary CTA, active nav */
+  --accent-dim:     #1e1b4b;   /* accent background tint */
+  --accent-glow:    rgba(99,102,241,0.15);
+  --emerald:        #10b981;   /* positive / up / success */
+  --red:            #ef4444;   /* negative / down / error */
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.5);
+  --shadow-lg:      0 20px 60px rgba(0,0,0,0.6);
+
+  /* Semantic color palette (additional) */
+  --amber:    #f59e0b;   /* warnings, medium */
+  --blue:     #3b82f6;   /* informational, clicks */
+  --purple:   #8b5cf6;   /* sessions, engagement */
+  --cyan:     #06b6d4;   /* heatmap, scroll depth */
+  --orange:   #f97316;   /* rage clicks, frustration */
 }
 
 [data-theme="light"] {
@@ -98,6 +124,31 @@
   --color-glass-border: rgba(255, 255, 255, 0.65);
   --color-bg-dark: #F1F5F9;
   --color-bg-input: #FFFFFF;
+
+  /* Clarity Admin Dashboard Design Tokens - Light */
+  --bg-page:        #f1f5f9;
+  --bg-sidebar:     #ffffff;
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #f8fafc;
+  --bg-input:       #f8fafc;
+  --border:         #e2e8f0;
+  --border-subtle:  #f1f5f9;
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --accent:         #4f46e5;
+  --accent-dim:     #eef2ff;
+  --accent-glow:    rgba(79,70,229,0.08);
+  --emerald:        #059669;
+  --red:            #dc2626;
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg:      0 20px 60px rgba(0,0,0,0.12);
+
+  --amber:    #f59e0b;
+  --blue:     #3b82f6;
+  --purple:   #8b5cf6;
+  --cyan:     #06b6d4;
+  --orange:   #f97316;
 
   /* Premium Light Mode Typography */
   --color-text-bright: #0B1020;
@@ -823,3 +874,17 @@ img, video, canvas, svg {
 [data-theme="light"] #services [style*="opacity: 0.8"] {
   border-color: rgba(15, 23, 42, 0.08) !important;
 }
+
+/* ── Admin dashboard transition helpers (scoped — does NOT affect public site) ── */
+[data-layout="admin"] nav,
+[data-layout="admin"] aside,
+[data-layout="admin"] input,
+[data-layout="admin"] button,
+[data-layout="admin"] table,
+[data-layout="admin"] tr,
+[data-layout="admin"] td,
+[data-layout="admin"] th {
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+}
+
+

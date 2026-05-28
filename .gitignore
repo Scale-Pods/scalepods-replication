@@ -47,3 +47,7 @@ next-env.d.ts
 
 # temp assets
 Blogs-*/
+
+# Non-source planning artifacts and media
+/Admin/
+/Sales/

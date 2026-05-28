@@ -128,6 +128,7 @@ const Navbar = memo(() => {
   const { resolvedTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
   const isProd = process.env.NODE_ENV === "production";
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
