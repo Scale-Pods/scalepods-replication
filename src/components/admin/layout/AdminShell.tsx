@@ -10,14 +10,33 @@ interface AdminShellProps {
   children: React.ReactNode;
 }
 
+const COLLAPSE_KEY = "admin-sidebar-collapsed";
+
 export default function AdminShell({ children }: AdminShellProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen]       = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const pathname = usePathname();
 
-  // Close sidebar on route change (mobile)
+  // Restore collapsed state from localStorage (client-only)
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(COLLAPSE_KEY);
+      if (stored === "true") setSidebarCollapsed(true);
+    } catch {}
+  }, []);
+
+  // Close mobile drawer on route change
   useEffect(() => {
     setSidebarOpen(false);
   }, [pathname]);
+
+  function toggleCollapse() {
+    setSidebarCollapsed((prev) => {
+      const next = !prev;
+      try { localStorage.setItem(COLLAPSE_KEY, String(next)); } catch {}
+      return next;
+    });
+  }
 
   return (
     <AdminThemeProvider>
@@ -34,13 +53,13 @@ export default function AdminShell({ children }: AdminShellProps) {
     >
       {/* ── Desktop sidebar ── */}
       <div
-        style={{
-          display: "none",
-          height: "100%",
-        }}
+        style={{ display: "none", height: "100%" }}
         className="admin-sidebar-desktop"
       >
-        <Sidebar />
+        <Sidebar
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={toggleCollapse}
+        />
       </div>
 
       {/* ── Mobile sidebar overlay ── */}
@@ -50,24 +69,18 @@ export default function AdminShell({ children }: AdminShellProps) {
           <div
             onClick={() => setSidebarOpen(false)}
             style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(0,0,0,0.6)",
-              zIndex: 40,
+              position: "fixed", inset: 0,
+              background: "rgba(0,0,0,0.6)", zIndex: 40,
             }}
           />
-          {/* Drawer */}
+          {/* Drawer — always fully expanded on mobile */}
           <div
             style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              height: "100%",
-              zIndex: 50,
-              display: "flex",
+              position: "fixed", top: 0, left: 0,
+              height: "100%", zIndex: 50, display: "flex",
             }}
           >
-            <Sidebar onClose={() => setSidebarOpen(false)} />
+            <Sidebar onClose={() => setSidebarOpen(false)} collapsed={false} />
           </div>
         </>
       )}
@@ -75,62 +88,37 @@ export default function AdminShell({ children }: AdminShellProps) {
       {/* ── Main content column ── */}
       <div
         style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          minWidth: 0,
-          overflow: "hidden",
+          flex: 1, display: "flex", flexDirection: "column",
+          minWidth: 0, overflow: "hidden",
         }}
       >
         {/* Mobile topbar strip */}
         <div
           className="admin-mobile-topbar"
           style={{
-            display: "none",
-            alignItems: "center",
-            gap: "12px",
-            padding: "12px 16px",
-            background: "var(--bg-sidebar)",
-            borderBottom: "1px solid var(--border)",
-            flexShrink: 0,
+            display: "none", alignItems: "center", gap: "12px",
+            padding: "12px 16px", background: "var(--bg-sidebar)",
+            borderBottom: "1px solid var(--border)", flexShrink: 0,
           }}
         >
           <button
             onClick={() => setSidebarOpen(true)}
             style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "var(--text-secondary)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "6px",
-              borderRadius: "6px",
+              background: "none", border: "none", cursor: "pointer",
+              color: "var(--text-secondary)", display: "flex",
+              alignItems: "center", justifyContent: "center",
+              padding: "6px", borderRadius: "6px",
             }}
           >
             <Menu size={18} />
           </button>
-          <span
-            style={{
-              fontSize: "14px",
-              fontWeight: 600,
-              color: "var(--text-primary)",
-              letterSpacing: "-0.01em",
-            }}
-          >
+          <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>
             ScalePods Vault
           </span>
         </div>
 
         {/* Scrollable page content */}
-        <main
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            overflowX: "hidden",
-          }}
-        >
+        <main style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
           {children}
         </main>
       </div>

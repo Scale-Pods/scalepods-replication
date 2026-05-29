@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   Sparkles, Plus, Trash2, Download, FileText, Send,
-  RotateCcw, MessageSquare, Clock, ChevronRight,
+  RotateCcw, MessageSquare, Clock, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -140,6 +140,8 @@ ${(session.messages ?? []).map(m => `
 
 // ── Main component ────────────────────────────────────────────────────────────
 
+const AI_LIST_COLLAPSE_KEY = "ai-session-list-collapsed";
+
 export default function AIDashboard() {
   const [sessions, setSessions]       = useState<Session[]>([]);
   const [activeId, setActiveId]       = useState<string | null>(null);
@@ -149,6 +151,7 @@ export default function AIDashboard() {
   const [loading, setLoading]         = useState(false);
   const [loadingSessions, setLoadingSessions] = useState(true);
   const [rangeDays, setRangeDays]     = useState(30);
+  const [listCollapsed, setListCollapsed] = useState(false);
 
   const bottomRef   = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -162,6 +165,21 @@ export default function AIDashboard() {
   }, []);
 
   useEffect(() => { loadSessions(); }, [loadSessions]);
+
+  // Restore AI list collapse state
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(AI_LIST_COLLAPSE_KEY) === "true") setListCollapsed(true);
+    } catch {}
+  }, []);
+
+  function toggleListCollapse() {
+    setListCollapsed((prev) => {
+      const next = !prev;
+      try { localStorage.setItem(AI_LIST_COLLAPSE_KEY, String(next)); } catch {}
+      return next;
+    });
+  }
 
   // Auto-scroll
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [active?.messages, streamingMsg]);
@@ -302,94 +320,169 @@ export default function AIDashboard() {
 
       {/* ══ Left sidebar — session list ══════════════════════════════════════ */}
       <div className="ai-sidebar" style={{
-        width: "260px", minWidth: "260px", borderRight: "1px solid var(--border)",
-        background: "var(--bg-sidebar)", display: "flex", flexDirection: "column", overflow: "hidden",
+        width: listCollapsed ? "52px" : "260px",
+        minWidth: listCollapsed ? "52px" : "260px",
+        borderRight: "1px solid var(--border)",
+        background: "var(--bg-sidebar)",
+        display: "flex", flexDirection: "column", overflow: "hidden",
+        transition: "width 0.22s cubic-bezier(.4,0,.2,1), min-width 0.22s cubic-bezier(.4,0,.2,1)",
       }}>
         {/* Header */}
-        <div style={{ padding: "16px 14px 12px", borderBottom: "1px solid var(--border)", flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <div style={{
+          padding: listCollapsed ? "0 10px" : "16px 14px 12px",
+          borderBottom: "1px solid var(--border)", flexShrink: 0,
+          height: listCollapsed ? "64px" : "auto",
+          display: "flex", flexDirection: listCollapsed ? "column" : "column",
+          justifyContent: listCollapsed ? "center" : "flex-start",
+          alignItems: listCollapsed ? "center" : "stretch",
+          gap: listCollapsed ? "8px" : "0",
+          transition: "padding 0.22s",
+        }}>
+          {/* Collapsed header: icon + toggle */}
+          {listCollapsed ? (
+            <>
               <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "linear-gradient(135deg,var(--accent),var(--purple))", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Sparkles size={14} color="#fff" />
               </div>
-              <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)" }}>AI Assistant</span>
-            </div>
+              <button
+                onClick={toggleListCollapse}
+                title="Expand session list"
+                style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "4px", display: "flex", borderRadius: "6px" }}
+              >
+                <PanelLeftOpen size={15} />
+              </button>
+            </>
+          ) : (
+            <>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "linear-gradient(135deg,var(--accent),var(--purple))", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Sparkles size={14} color="#fff" />
+                  </div>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)", whiteSpace: "nowrap" }}>AI Assistant</span>
+                </div>
+                <div style={{ display: "flex", gap: "4px" }}>
+                  {/* Collapse toggle */}
+                  <button
+                    onClick={toggleListCollapse}
+                    title="Collapse session list"
+                    style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "4px", display: "flex", borderRadius: "6px" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+                  >
+                    <PanelLeftClose size={15} />
+                  </button>
+                  {/* New chat */}
+                  <button
+                    onClick={newSession}
+                    title="New chat"
+                    style={{ background: "var(--accent-dim)", border: "1px solid var(--accent)33", borderRadius: "7px", padding: "5px", cursor: "pointer", color: "var(--accent)", display: "flex" }}
+                  >
+                    <Plus size={14} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Range selector */}
+              <div style={{ display: "flex", gap: "4px" }}>
+                {[7, 30, 90].map((d) => (
+                  <button key={d} className="ai-range-btn" onClick={() => setRangeDays(d)} style={{
+                    flex: 1, padding: "4px 0", borderRadius: "6px", fontSize: "11px", fontWeight: 600,
+                    border: rangeDays === d ? "1px solid var(--accent)44" : "1px solid var(--border)",
+                    background: rangeDays === d ? "var(--accent-dim)" : "transparent",
+                    color: rangeDays === d ? "var(--accent)" : "var(--text-muted)",
+                    cursor: "pointer", transition: "all .15s",
+                  }}>{d}D</button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Session list — hidden when collapsed, show icon-only indicators */}
+        {listCollapsed ? (
+          /* Collapsed: show new-chat button + dot indicators for sessions */
+          <div style={{ flex: 1, overflowY: "auto", padding: "10px 0", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
             <button
               onClick={newSession}
               title="New chat"
-              style={{ background: "var(--accent-dim)", border: "1px solid var(--accent)33", borderRadius: "7px", padding: "5px", cursor: "pointer", color: "var(--accent)", display: "flex" }}
+              style={{ width: "32px", height: "32px", borderRadius: "8px", background: "var(--accent-dim)", border: "1px solid var(--accent)33", cursor: "pointer", color: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
             >
               <Plus size={14} />
             </button>
-          </div>
-
-          {/* Range selector */}
-          <div style={{ display: "flex", gap: "4px" }}>
-            {[7, 30, 90].map((d) => (
-              <button key={d} className="ai-range-btn" onClick={() => setRangeDays(d)} style={{
-                flex: 1, padding: "4px 0", borderRadius: "6px", fontSize: "11px", fontWeight: 600,
-                border: rangeDays === d ? "1px solid var(--accent)44" : "1px solid var(--border)",
-                background: rangeDays === d ? "var(--accent-dim)" : "transparent",
-                color: rangeDays === d ? "var(--accent)" : "var(--text-muted)",
-                cursor: "pointer", transition: "all .15s",
-              }}>{d}D</button>
+            <div style={{ width: "24px", height: "1px", background: "var(--border)", margin: "2px 0" }} />
+            {sessions.slice(0, 12).map((s) => (
+              <button
+                key={s.id}
+                onClick={() => { openSession(s.id); }}
+                title={s.title}
+                style={{
+                  width: "32px", height: "32px", borderRadius: "8px", border: "none", cursor: "pointer",
+                  background: activeId === s.id ? "var(--accent-dim)" : "transparent",
+                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) => { if (activeId !== s.id) (e.currentTarget as HTMLButtonElement).style.background = "var(--bg-card-hover)"; }}
+                onMouseLeave={(e) => { if (activeId !== s.id) (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
+              >
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: activeId === s.id ? "var(--accent)" : "var(--text-muted)", transition: "background .15s" }} />
+              </button>
             ))}
           </div>
-        </div>
-
-        {/* Session list */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "8px 8px" }}>
-          {loadingSessions && (
-            <div style={{ padding: "20px", textAlign: "center" }}>
-              {[1,2,3].map(i => <div key={i} style={{ height: "52px", borderRadius: "8px", background: "var(--bg-card-hover)", marginBottom: "6px", animation: "adm-pulse 1.5s ease infinite" }} />)}
-            </div>
-          )}
-
-          {!loadingSessions && sessions.length === 0 && (
-            <div style={{ padding: "32px 12px", textAlign: "center" }}>
-              <MessageSquare size={28} style={{ color: "var(--text-muted)", marginBottom: "8px" }} />
-              <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>No chats yet.<br />Click + to start.</p>
-            </div>
-          )}
-
-          {sessions.map((s) => (
-            <div
-              key={s.id}
-              className="ai-sess-item"
-              onClick={() => openSession(s.id)}
-              style={{
-                padding: "10px 10px", borderRadius: "8px", cursor: "pointer", marginBottom: "2px",
-                background: activeId === s.id ? "var(--accent-dim)" : "transparent",
-                border: activeId === s.id ? "1px solid var(--accent)22" : "1px solid transparent",
-                position: "relative", transition: "background .15s",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "4px" }}>
-                <p style={{
-                  fontSize: "12px", fontWeight: activeId === s.id ? 600 : 500,
-                  color: activeId === s.id ? "var(--accent)" : "var(--text-secondary)",
-                  margin: 0, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis",
-                  display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
-                }}>
-                  {s.title}
-                </p>
-                <button
-                  className="ai-sess-del"
-                  onClick={(e) => deleteSession(s.id, e)}
-                  style={{ opacity: 0, background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "2px", flexShrink: 0, display: "flex", transition: "opacity .15s" }}
-                >
-                  <Trash2 size={12} />
-                </button>
+        ) : (
+          <div style={{ flex: 1, overflowY: "auto", padding: "8px 8px" }}>
+            {loadingSessions && (
+              <div style={{ padding: "20px", textAlign: "center" }}>
+                {[1,2,3].map(i => <div key={i} style={{ height: "52px", borderRadius: "8px", background: "var(--bg-card-hover)", marginBottom: "6px", animation: "adm-pulse 1.5s ease infinite" }} />)}
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "4px", marginTop: "4px" }}>
-                <Clock size={10} style={{ color: "var(--text-muted)" }} />
-                <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>{timeAgo(s.updated_at)}</span>
-                <span style={{ fontSize: "10px", color: "var(--border)", margin: "0 2px" }}>·</span>
-                <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>{s.range_days}d</span>
+            )}
+
+            {!loadingSessions && sessions.length === 0 && (
+              <div style={{ padding: "32px 12px", textAlign: "center" }}>
+                <MessageSquare size={28} style={{ color: "var(--text-muted)", marginBottom: "8px" }} />
+                <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>No chats yet.<br />Click + to start.</p>
               </div>
-            </div>
-          ))}
-        </div>
+            )}
+
+            {sessions.map((s) => (
+              <div
+                key={s.id}
+                className="ai-sess-item"
+                onClick={() => openSession(s.id)}
+                style={{
+                  padding: "10px 10px", borderRadius: "8px", cursor: "pointer", marginBottom: "2px",
+                  background: activeId === s.id ? "var(--accent-dim)" : "transparent",
+                  border: activeId === s.id ? "1px solid var(--accent)22" : "1px solid transparent",
+                  position: "relative", transition: "background .15s",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "4px" }}>
+                  <p style={{
+                    fontSize: "12px", fontWeight: activeId === s.id ? 600 : 500,
+                    color: activeId === s.id ? "var(--accent)" : "var(--text-secondary)",
+                    margin: 0, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis",
+                    display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
+                  }}>
+                    {s.title}
+                  </p>
+                  <button
+                    className="ai-sess-del"
+                    onClick={(e) => deleteSession(s.id, e)}
+                    style={{ opacity: 0, background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "2px", flexShrink: 0, display: "flex", transition: "opacity .15s" }}
+                  >
+                    <Trash2 size={12} />
+                  </button>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "4px", marginTop: "4px" }}>
+                  <Clock size={10} style={{ color: "var(--text-muted)" }} />
+                  <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>{timeAgo(s.updated_at)}</span>
+                  <span style={{ fontSize: "10px", color: "var(--border)", margin: "0 2px" }}>·</span>
+                  <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>{s.range_days}d</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ══ Right panel — chat ════════════════════════════════════════════════ */}
