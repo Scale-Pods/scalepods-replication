@@ -57,7 +57,27 @@ Good: "Sessions increased by 20%, driven primarily by organic search. The blog p
 - Recommendations: always prioritize actions that generate more leads
 
 ## Tone
-Respond like a senior growth analyst briefing a founder. Be direct, specific, and actionable. Avoid vague statements. When data is limited, say so and explain what additional tracking would help.`;
+Respond like a senior growth analyst briefing a founder. Be direct, specific, and actionable. Avoid vague statements. When data is limited, say so and explain what additional tracking would help.
+
+## ScalePods Page Directory
+Use this to map colloquial page names users mention to actual URL paths:
+- "home", "homepage", "main page", "landing page" → /
+- "gcc page", "global page", "gcc/global", "gcc global" → /gcc
+- "UAE page", "dubai page" → /uae
+- "contact page", "contact us" → /contact
+- "about page", "about us" → /about
+- "blog", "articles", "posts" → /blog or /resources
+- "services page", "what we do" → /services or /solutions
+- "pricing page" → /pricing
+- "demo page", "book a demo", "request demo" → /demo or /contact
+When a user refers to a page by a casual name, always translate it to the URL path and look it up in the data.
+
+## Handling Time Range Questions
+The snapshot covers the selected range (default 30 days). A dedicated "Last 7 days" page breakdown is always included regardless of selected range.
+- If a user asks about "last week" or "last 7 days" → use the "Last 7 Days Page Views" section in the data
+- If a user asks about "last month" or "last 30 days" → use the main per-page engagement table
+- If a user asks for a custom date range (e.g., "April 1st to today") → explain you have the last 30 days only, then give the closest available data and suggest they check GA4 directly for historical ranges
+- Never say "no data" if the page appears anywhere in the data tables — always give what you have and note the time range it covers`;
 
 // ── Extra GA4 queries run only for AI context ─────────────────────────────────
 
@@ -111,7 +131,13 @@ async function ga4Extra(rangeDays: number) {
 
   const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  const [dayOfWeek, hourOfDay, pageEngagement, sourceMedium] = await Promise.all([
+  // Always fetch last 7 days page data regardless of main range
+  const dr7 = {
+    startDate: (() => { const d = new Date(); d.setDate(d.getDate() - 7); return d.toISOString().slice(0, 10); })(),
+    endDate:   new Date().toISOString().slice(0, 10),
+  };
+
+  const [dayOfWeek, hourOfDay, pageEngagement, sourceMedium, pages7d] = await Promise.all([
     // Sessions by day of week (0=Sun … 6=Sat)
     run({
       dateRanges: [dr],
@@ -149,9 +175,18 @@ async function ga4Extra(rangeDays: number) {
       orderBys:   [{ metric: { metricName: "sessions" }, desc: true }],
       limit: 15,
     }),
+
+    // Last 7 days: page views + active users (always, regardless of main range)
+    run({
+      dateRanges: [{ startDate: dr7.startDate, endDate: dr7.endDate }],
+      dimensions: [{ name: "pagePath" }],
+      metrics:    [{ name: "screenPageViews" }, { name: "activeUsers" }],
+      orderBys:   [{ metric: { metricName: "screenPageViews" }, desc: true }],
+      limit: 20,
+    }),
   ]);
 
-  return { dayOfWeek, hourOfDay, pageEngagement, sourceMedium, DAY_NAMES };
+  return { dayOfWeek, hourOfDay, pageEngagement, sourceMedium, pages7d, DAY_NAMES };
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -258,7 +293,7 @@ async function buildDataContext(rangeDays: number): Promise<string> {
 
   // ── GA4 Extra: Day/Hour/Page-Engagement/Source-Medium ────────────────────
   if (extra.status === "fulfilled" && extra.value) {
-    const { dayOfWeek, hourOfDay, pageEngagement, sourceMedium, DAY_NAMES } = extra.value;
+    const { dayOfWeek, hourOfDay, pageEngagement, sourceMedium, pages7d, DAY_NAMES } = extra.value;
 
     if (dayOfWeek?.rows?.length) {
       lines.push(`\nSessions by Day of Week:`);
@@ -306,6 +341,22 @@ async function buildDataContext(rangeDays: number): Promise<string> {
         const bounce = parseFloat(row.metricValues[1].value);
         lines.push(`  - ${sm}: ${num(sess)} sessions | bounce ${pct(bounce)}`);
       });
+    }
+
+    if (pages7d?.rows?.length) {
+      lines.push(`\nLast 7 Days — Page Views & Unique Visitors (use this for "last week" questions):`);
+      pages7d.rows
+        .filter((row: any) => {
+          const path = row.dimensionValues[0].value;
+          return !path.startsWith("/admin") && path !== "(not set)";
+        })
+        .slice(0, 20)
+        .forEach((row: any) => {
+          const path        = row.dimensionValues[0].value;
+          const views       = Math.round(parseFloat(row.metricValues[0].value));
+          const uniqueUsers = Math.round(parseFloat(row.metricValues[1].value));
+          lines.push(`  - ${path}: ${num(views)} views | ${num(uniqueUsers)} unique visitors`);
+        });
     }
   }
 
