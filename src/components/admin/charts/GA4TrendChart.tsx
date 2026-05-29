@@ -46,10 +46,11 @@ function formatXLabel(date: string, range: string): string {
 }
 
 function GA4TrendChartInner({ data, range }: GA4TrendChartProps) {
-  const chartData = useMemo(
-    () => data.map((d) => ({ ...d, label: formatXLabel(d.date, range) })),
-    [data, range]
-  );
+  const chartData = useMemo(() => {
+    // Always sort by date ascending (YYYY-MM-DD strings sort lexicographically)
+    const sorted = [...data].sort((a, b) => a.date.localeCompare(b.date));
+    return sorted.map((d) => ({ ...d, label: formatXLabel(d.date, range) }));
+  }, [data, range]);
 
   if (chartData.length === 0) {
     return (
@@ -57,8 +58,8 @@ function GA4TrendChartInner({ data, range }: GA4TrendChartProps) {
     );
   }
 
-  // Tick density based on range
-  const tickInterval = range === "7d" ? 0 : range === "30d" ? 4 : 13;
+  // Tick density: show ~7-8 ticks regardless of range length
+  const tickInterval = range === "7d" ? 0 : Math.max(1, Math.floor(chartData.length / 7));
 
   return (
     <div style={{ width: "100%", minWidth: 0 }}>

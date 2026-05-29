@@ -56,7 +56,7 @@ function GSCTrendChartInner({ data, range }: GSCTrendChartProps) {
     return <EmptyState icon={<BarChart2 size={18} />} title="No trend data" description="Daily data will appear once GSC syncs." />;
   }
 
-  const tickInterval = range === "7d" ? 0 : range === "30d" ? 4 : 13;
+  const tickInterval = range === "7d" ? 0 : Math.max(1, Math.floor(chartData.length / 7));
 
   return (
     <div style={{ width: "100%", minWidth: 0 }}>
