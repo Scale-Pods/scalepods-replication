@@ -150,7 +150,7 @@ export default function AIDashboard() {
   const [input, setInput]             = useState("");
   const [loading, setLoading]         = useState(false);
   const [loadingSessions, setLoadingSessions] = useState(true);
-  const [rangeDays, setRangeDays]     = useState(30);
+  const [rangeDays]                   = useState(30);
   const [listCollapsed, setListCollapsed] = useState(false);
 
   const bottomRef   = useRef<HTMLDivElement>(null);
@@ -314,7 +314,6 @@ export default function AIDashboard() {
         .ai-sess-item:hover .ai-sess-del { opacity:1 !important; }
         .ai-quick:hover       { background: var(--accent-dim) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
         .ai-send:hover:not(:disabled) { opacity:.85; }
-        .ai-range-btn:hover   { background: var(--bg-card-hover) !important; }
         @media(max-width:768px){ .ai-sidebar{ display:none !important; } }
       `}</style>
 
@@ -383,18 +382,6 @@ export default function AIDashboard() {
                 </div>
               </div>
 
-              {/* Range selector */}
-              <div style={{ display: "flex", gap: "4px" }}>
-                {[7, 30, 90].map((d) => (
-                  <button key={d} className="ai-range-btn" onClick={() => setRangeDays(d)} style={{
-                    flex: 1, padding: "4px 0", borderRadius: "6px", fontSize: "11px", fontWeight: 600,
-                    border: rangeDays === d ? "1px solid var(--accent)44" : "1px solid var(--border)",
-                    background: rangeDays === d ? "var(--accent-dim)" : "transparent",
-                    color: rangeDays === d ? "var(--accent)" : "var(--text-muted)",
-                    cursor: "pointer", transition: "all .15s",
-                  }}>{d}D</button>
-                ))}
-              </div>
             </>
           )}
         </div>
