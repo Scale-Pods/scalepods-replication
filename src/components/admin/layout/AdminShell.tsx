@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { AdminThemeProvider } from "./ThemeProvider";
-import ChatWidget from "@/components/admin/chat/ChatWidget";
 
 interface AdminShellProps {
   children: React.ReactNode;
@@ -135,9 +134,6 @@ export default function AdminShell({ children }: AdminShellProps) {
           {children}
         </main>
       </div>
-
-      {/* ── AI Chat Widget ── */}
-      <ChatWidget />
 
       {/* Responsive styles */}
       <style>{`

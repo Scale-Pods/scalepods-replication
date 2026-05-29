@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
-import { Activity, BarChart2, Search, LogOut, Sun, Moon } from "lucide-react";
+import { Activity, BarChart2, Search, Sparkles, LogOut, Sun, Moon } from "lucide-react";
 import { useAdminTheme } from "./ThemeProvider";
 
 interface SidebarProps {
@@ -16,6 +16,8 @@ const NAV = [
   { label: "Google Analytics",  href: "/admin/ga4",     icon: BarChart2 },
   { label: "Search Console",    href: "/admin/gsc",     icon: Search },
 ];
+
+const AI_NAV = { label: "AI Assistant", href: "/admin/ai", icon: Sparkles };
 
 export default function Sidebar({ onClose }: SidebarProps) {
   const pathname  = usePathname();
@@ -109,23 +111,15 @@ export default function Sidebar({ onClose }: SidebarProps) {
               key={item.href}
               href={item.href}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "8px 10px",
-                borderRadius: "8px",
-                textDecoration: "none",
+                display: "flex", alignItems: "center", gap: "10px", padding: "8px 10px",
+                borderRadius: "8px", textDecoration: "none",
                 background: isActive ? "var(--accent-dim)" : "transparent",
                 border: isActive ? "1px solid var(--accent)22" : "1px solid transparent",
                 color: isActive ? "var(--accent)" : "var(--text-secondary)",
                 transition: "background 0.15s",
               }}
-              onMouseEnter={(e) => {
-                if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-card-hover)";
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-              }}
+              onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-card-hover)"; }}
+              onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
             >
               <Icon size={15} style={{ flexShrink: 0 }} />
               <span style={{ fontSize: "13px", fontWeight: isActive ? 600 : 500, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -134,6 +128,38 @@ export default function Sidebar({ onClose }: SidebarProps) {
             </Link>
           );
         })}
+
+        {/* ── AI Assistant ── */}
+        <div style={{ fontSize: "10px", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", padding: "10px 10px 6px", marginTop: "4px" }}>
+          Intelligence
+        </div>
+        {(() => {
+          const Icon = AI_NAV.icon;
+          const isActive = pathname?.startsWith(AI_NAV.href);
+          return (
+            <Link
+              href={AI_NAV.href}
+              style={{
+                display: "flex", alignItems: "center", gap: "10px", padding: "8px 10px",
+                borderRadius: "8px", textDecoration: "none",
+                background: isActive ? "linear-gradient(135deg, var(--accent-dim), rgba(139,92,246,0.12))" : "transparent",
+                border: isActive ? "1px solid var(--accent)33" : "1px solid transparent",
+                color: isActive ? "var(--accent)" : "var(--text-secondary)",
+                transition: "background 0.15s",
+              }}
+              onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-card-hover)"; }}
+              onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
+            >
+              <Icon size={15} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: "13px", fontWeight: isActive ? 600 : 500, flex: 1 }}>
+                {AI_NAV.label}
+              </span>
+              {!isActive && (
+                <span style={{ fontSize: "9px", fontWeight: 700, padding: "2px 6px", borderRadius: "100px", background: "linear-gradient(135deg,var(--accent),var(--purple))", color: "#fff", letterSpacing: "0.05em" }}>NEW</span>
+              )}
+            </Link>
+          );
+        })()}
       </nav>
 
       {/* ── Footer: theme toggle + logout ── */}
