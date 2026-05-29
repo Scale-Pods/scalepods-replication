@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { GA4Provider }     from "@/lib/analytics/providers/ga4";
 import { GSCProvider }     from "@/lib/analytics/providers/gsc";
 import { ClarityProvider } from "@/lib/analytics/providers/clarity";
 
 export const dynamic = "force-dynamic";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+// Instantiated lazily so build-time evaluation doesn't require the key
+let _client: OpenAI | null = null;
+function getClient() {
+  if (!_client) _client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return _client;
+}
 
 // ── System context (role + business objective) ────────────────────────────────
 
@@ -188,13 +193,15 @@ export async function POST(req: NextRequest) {
     const dataContext = await buildDataContext(rangeDays);
     const systemPrompt = SYSTEM_BASE + dataContext;
 
-    // Stream from Claude
-    const stream = await client.messages.create({
-      model:      "claude-sonnet-4-5",
-      max_tokens: 1024,
-      system:     systemPrompt,
-      messages,
-      stream:     true,
+    // Stream from OpenAI gpt-4o
+    const stream = await getClient().chat.completions.create({
+      model:       "gpt-4o",
+      max_tokens:  1024,
+      stream:      true,
+      messages: [
+        { role: "system", content: systemPrompt },
+        ...messages,
+      ],
     });
 
     // Return as a streaming text response
@@ -202,13 +209,9 @@ export async function POST(req: NextRequest) {
       async start(controller) {
         const encoder = new TextEncoder();
         try {
-          for await (const event of stream) {
-            if (
-              event.type === "content_block_delta" &&
-              event.delta.type === "text_delta"
-            ) {
-              controller.enqueue(encoder.encode(event.delta.text));
-            }
+          for await (const chunk of stream) {
+            const text = chunk.choices[0]?.delta?.content ?? "";
+            if (text) controller.enqueue(encoder.encode(text));
           }
         } finally {
           controller.close();

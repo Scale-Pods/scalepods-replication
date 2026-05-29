@@ -471,7 +471,7 @@ export default function ChatWidget() {
               </button>
             </div>
             <p style={{ fontSize: "10px", color: "var(--text-muted)", margin: "6px 0 0", textAlign: "center" }}>
-              Shift+Enter for new line · Powered by Claude AI
+              Shift+Enter for new line · Powered by GPT-4o
             </p>
           </div>
         </div>
