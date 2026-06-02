@@ -21,6 +21,7 @@ import {
   ArrowUpRight
 } from "lucide-react";
 import { submitLead } from "@/lib/leadService";
+import { useCountryDetection } from "@/lib/country";
 
 import { useMobile } from "@/lib/hooks";
 import Navbar from "@/components/layout/Navbar";
@@ -257,13 +258,19 @@ export default function ContactPage() {
   const isDark = resolvedTheme === 'dark';
 
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", source: "", message: "", countryCode: "+971", customCode: "", customSource: "", website: ""
+    name: "", email: "", phone: "", source: "", message: "", countryCode: "+91", customCode: "", customSource: "", website: ""
   });
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [showSourcePicker, setShowSourcePicker] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useCountryDetection(
+    countries,
+    useCallback((code: string) => setForm(prev => ({ ...prev, countryCode: code })), []),
+    useCallback((code: string) => setForm(prev => ({ ...prev, customCode: code })), [])
+  );
 
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -614,7 +621,7 @@ export default function ContactPage() {
                             value={form.phone}
                             onChange={handleChange}
                             placeholder="Enter contact number"
-                            style={inputStyle}
+                            style={{ ...inputStyle, flex: 1, minWidth: 0 }}
                             required
                           />
                         </div>

@@ -2,10 +2,26 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, CheckCircle, Loader2 } from "lucide-react";
+import { X, Download, CheckCircle, Loader2, ChevronDown } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { submitLead, WorkflowType } from "@/lib/leadService";
+import { useCountryDetection } from "@/lib/country";
+
+const countries = [
+  { name: "UAE", code: "+971", flag: "🇦🇪" },
+  { name: "USA", code: "+1", flag: "🇺🇸" },
+  { name: "UK", code: "+44", flag: "🇬🇧" },
+  { name: "India", code: "+91", flag: "🇮🇳" },
+  { name: "Saudi Arabia", code: "+966", flag: "🇸🇦" },
+  { name: "Qatar", code: "+974", flag: "🇶🇦" },
+  { name: "Canada", code: "+1", flag: "🇨🇦" },
+  { name: "Australia", code: "+61", flag: "🇦🇺" },
+  { name: "Germany", code: "+49", flag: "🇩🇪" },
+  { name: "France", code: "+33", flag: "🇫🇷" },
+  { name: "Japan", code: "+81", flag: "🇯🇵" },
+  { name: "Other", code: "Custom", flag: "🌐" },
+];
 
 
 
@@ -64,12 +80,17 @@ export default function DownloadModal({
 }) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
-  const [form, setForm] = useState({ name: "", phone: "", email: "", website: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", countryCode: "+91", customCode: "", website: "" });
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
+  useCountryDetection(
+    countries,
+    useCallback((code: string) => setForm(prev => ({ ...prev, countryCode: code })), []),
+    useCallback((code: string) => setForm(prev => ({ ...prev, customCode: code })), [])
+  );
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -99,7 +120,7 @@ export default function DownloadModal({
       return;
     }
 
-
+    const dialCode = form.countryCode === "Custom" ? form.customCode : form.countryCode;
 
     const result = await submitLead({
       formType: "guide_download",
@@ -107,7 +128,7 @@ export default function DownloadModal({
       sourcePage: window.location.pathname,
       name: form.name,
       email: form.email,
-      phone: form.phone,
+      phone: `${dialCode} ${form.phone}`,
       metadata: { 
         guideName: zipName,
         source_type: sourceType,
@@ -135,7 +156,7 @@ export default function DownloadModal({
       // Auto close after 3 seconds
       setTimeout(() => {
         setSubmitted(false);
-        setForm({ name: "", phone: "", email: "", website: "" });
+        setForm({ name: "", phone: "", email: "", countryCode: "+91", customCode: "", website: "" });
         onClose();
       }, 3000);
     }
@@ -254,15 +275,105 @@ export default function DownloadModal({
 
                   <div style={{ marginBottom: "18px" }}>
                     <label style={labelStyle}>Phone Number</label>
-                    <input
-                      name="phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="Enter with Country Code"
-                      style={inputStyle}
-                      required
-                    />
+                    <div style={{ display: "flex", gap: "8px", position: "relative" }}>
+                      <div style={{ position: "relative" }}>
+                        <button
+                          type="button"
+                          onClick={() => setShowCountryPicker(!showCountryPicker)}
+                          style={{
+                            ...inputStyle,
+                            width: "auto",
+                            minWidth: "95px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "6px",
+                            cursor: "pointer",
+                            padding: "10px 14px",
+                          }}
+                        >
+                          <span style={{ fontSize: "16px" }}>
+                            {countries.find(c => c.code === form.countryCode)?.flag || "🌐"}
+                          </span>
+                          <span style={{ fontSize: "13px", color: C.txtBright }}>
+                            {form.countryCode === "Custom" ? "..." : form.countryCode}
+                          </span>
+                          <ChevronDown size={14} style={{ opacity: 0.5 }} />
+                        </button>
+
+                        <AnimatePresence>
+                          {showCountryPicker && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              style={{
+                                position: "absolute",
+                                top: "100%",
+                                left: 0,
+                                marginTop: "4px",
+                                background: "var(--color-bg-card)",
+                                border: `1px solid var(--color-border)`,
+                                borderRadius: "10px",
+                                width: "180px",
+                                maxHeight: "150px",
+                                overflowY: "auto",
+                                zIndex: 100,
+                                padding: "4px",
+                                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.5)",
+                                WebkitBackdropFilter: "blur(12px)",
+                                backdropFilter: "blur(12px)",
+                              }}
+                            >
+                              {countries.map((c, idx) => (
+                                <div
+                                  key={idx}
+                                  onClick={() => {
+                                    setForm(prev => ({ ...prev, countryCode: c.code }));
+                                    setShowCountryPicker(false);
+                                  }}
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "8px",
+                                    padding: "6px 10px",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                    background: form.countryCode === c.code ? "rgba(255,255,255,0.05)" : "transparent",
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
+                                  onMouseLeave={(e) => e.currentTarget.style.background = form.countryCode === c.code ? "rgba(255,255,255,0.05)" : "transparent"}
+                                >
+                                  <span style={{ fontSize: "14px" }}>{c.flag}</span>
+                                  <span style={{ fontSize: "12px", color: C.txtBright }}>{c.name}</span>
+                                </div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {form.countryCode === "Custom" ? (
+                        <input
+                          name="customCode"
+                          value={form.customCode}
+                          onChange={handleChange}
+                          placeholder="+91"
+                          style={{ ...inputStyle, width: "70px" }}
+                          required
+                        />
+                      ) : null}
+
+                      <input
+                        name="phone"
+                        type="tel"
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="Enter contact number"
+                        style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                        required
+                      />
+                    </div>
                   </div>
 
                   {/* Honeypot field (hidden from humans) */}

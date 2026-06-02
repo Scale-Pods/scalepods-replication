@@ -22,6 +22,7 @@ import {
   VolumeX
 } from "lucide-react";
 import { submitLead } from "@/lib/leadService";
+import { useCountryDetection } from "@/lib/country";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useMobile } from "@/lib/hooks";
 import { BeamsBackground } from "@/components/ui/beams-background";
@@ -1171,7 +1172,7 @@ export default function SalesPodPage() {
     email: "",
     company: "",
     phone: "",
-    countryCode: "+971",
+    countryCode: "+91",
     customCode: "",
     goal: "Fully Autonomous Pipeline",
     website: "", // Honeypot
@@ -1185,6 +1186,12 @@ export default function SalesPodPage() {
   const [error, setError] = useState<string | null>(null);
   const [activeDemoTab, setActiveDemoTab] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
+  useCountryDetection(
+    countries,
+    useCallback((code: string) => setForm(prev => ({ ...prev, countryCode: code })), []),
+    useCallback((code: string) => setForm(prev => ({ ...prev, customCode: code })), [])
+  );
 
   // Status updates during loading
   const [loadingStatus, setLoadingStatus] = useState("Initializing connection...");

@@ -7,6 +7,7 @@ import { ChevronRight, Download, Loader2, HelpCircle, ChevronDown, MessageCircle
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabase";
 import { submitLead } from "@/lib/leadService";
+import { useCountryDetection } from "@/lib/country";
 
 import DownloadModal from "@/components/ui/DownloadModal";
 import { useMobile } from "@/lib/hooks";
@@ -117,7 +118,7 @@ export default function GlobalPage() {
     phone: "", 
     company: "", 
     requirement: "",
-    countryCode: "+971",
+    countryCode: "+91",
     customCode: "",
     website: ""
   });
@@ -128,6 +129,12 @@ export default function GlobalPage() {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [showBelowFold, setShowBelowFold] = useState(false);
+
+  useCountryDetection(
+    countries,
+    useCallback((code: string) => setForm(prev => ({ ...prev, countryCode: code })), []),
+    useCallback((code: string) => setForm(prev => ({ ...prev, customCode: code })), [])
+  );
 
   // Stable Turnstile callbacks — memoised so Turnstile never remounts on parent re-render
   const handleTurnstileVerify = useCallback((token: string) => setTurnstileToken(token), []);
@@ -605,75 +612,87 @@ export default function GlobalPage() {
 
                   <div className="phone-row">
                     <Field label="Phone Number">
-                      <div style={{ position: "relative" }}>
-                        <button
-                          type="button"
-                          onClick={() => setShowCountryPicker(!showCountryPicker)}
-                          style={{
-                            ...inputStyle,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "4px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <span style={{ fontSize: "14px" }}>
-                            {countries.find(c => c.code === form.countryCode)?.flag || "🌐"}
-                          </span>
-                          <span style={{ fontSize: "12px", color: C.txtBright }}>
-                            {form.countryCode === "Custom" ? "..." : form.countryCode}
-                          </span>
-                          <ChevronDown size={12} style={{ opacity: 0.5 }} />
-                        </button>
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <div style={{ position: "relative", flex: 1, minWidth: 0 }}>
+                          <button
+                            type="button"
+                            onClick={() => setShowCountryPicker(!showCountryPicker)}
+                            style={{
+                              ...inputStyle,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              gap: "4px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <span style={{ fontSize: "14px" }}>
+                              {countries.find(c => c.code === form.countryCode)?.flag || "🌐"}
+                            </span>
+                            <span style={{ fontSize: "12px", color: C.txtBright }}>
+                              {form.countryCode === "Custom" ? "..." : form.countryCode}
+                            </span>
+                            <ChevronDown size={12} style={{ opacity: 0.5 }} />
+                          </button>
 
-                        <AnimatePresence>
-                          {showCountryPicker && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 10 }}
-                              style={{
-                                position: "absolute",
-                                top: "100%",
-                                left: 0,
-                                marginTop: "4px",
-                                background: "var(--color-bg-card)",
-                                border: `1px solid ${C.border}`,
-                                borderRadius: "10px",
-                                width: "180px",
-                                maxHeight: "150px",
-                                overflowY: "auto",
-                                zIndex: 100,
-                                padding: "4px",
-                                boxShadow: "var(--shadow-md)",
-                                backdropFilter: "blur(12px)",
-                              }}
-                            >
-                              {countries.map((c, idx) => (
-                                <div
-                                  key={idx}
-                                  onClick={() => {
-                                    setForm(prev => ({ ...prev, countryCode: c.code }));
-                                    setShowCountryPicker(false);
-                                  }}
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "8px",
-                                    padding: "6px 10px",
-                                    borderRadius: "6px",
-                                    cursor: "pointer",
-                                    background: form.countryCode === c.code ? "rgba(255,255,255,0.05)" : "transparent",
-                                  }}
-                                >
-                                  <span style={{ fontSize: "14px" }}>{c.flag}</span>
-                                  <span style={{ fontSize: "12px", color: C.txtBright }}>{c.name}</span>
-                                </div>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                          <AnimatePresence>
+                            {showCountryPicker && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                style={{
+                                  position: "absolute",
+                                  top: "100%",
+                                  left: 0,
+                                  marginTop: "4px",
+                                  background: "var(--color-bg-card)",
+                                  border: `1px solid ${C.border}`,
+                                  borderRadius: "10px",
+                                  width: "180px",
+                                  maxHeight: "150px",
+                                  overflowY: "auto",
+                                  zIndex: 100,
+                                  padding: "4px",
+                                  boxShadow: "var(--shadow-md)",
+                                  backdropFilter: "blur(12px)",
+                                }}
+                              >
+                                {countries.map((c, idx) => (
+                                  <div
+                                    key={idx}
+                                    onClick={() => {
+                                      setForm(prev => ({ ...prev, countryCode: c.code }));
+                                      setShowCountryPicker(false);
+                                    }}
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: "8px",
+                                      padding: "6px 10px",
+                                      borderRadius: "6px",
+                                      cursor: "pointer",
+                                      background: form.countryCode === c.code ? "rgba(255,255,255,0.05)" : "transparent",
+                                    }}
+                                  >
+                                    <span style={{ fontSize: "14px" }}>{c.flag}</span>
+                                    <span style={{ fontSize: "12px", color: C.txtBright }}>{c.name}</span>
+                                  </div>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                        {form.countryCode === "Custom" && (
+                          <input
+                            name="customCode"
+                            value={form.customCode}
+                            onChange={handleChange}
+                            placeholder="+91"
+                            style={{ ...inputStyle, width: "65px", padding: "10px 8px" }}
+                            required
+                          />
+                        )}
                       </div>
                     </Field>
                     <div className="phone-input-col">
