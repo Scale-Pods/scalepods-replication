@@ -26,6 +26,8 @@ import { useCountryDetection } from "@/lib/country";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useMobile } from "@/lib/hooks";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import DownloadModal from "@/components/ui/DownloadModal";
+import AuditModal from "@/components/ui/AuditModal";
 import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -48,6 +50,9 @@ const outboundGoals = [
   "Outbound Cold Email Engine",
   "Hyper-Intent Data Scraping",
 ];
+
+const CALENDLY_URL = "https://calendly.com/raunak-scalepods/discovery-call-from-salespod-landing-page";
+
 
 // Motion Variants (Framer Motion)
 const fadeUp = (delay = 0, isMobile = false) => ({
@@ -592,15 +597,10 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             video.currentTime = 0;
             updateProgressDOM();
 
-            // Autoplay with audio enabled automatically
-            video.muted = false;
-            setIsMuted(false);
-            video.play().catch(() => {
-              // Fallback to muted autoplay if browser blocks audio autoplay
-              video.muted = true;
-              setIsMuted(true);
-              video.play().catch(() => {});
-            });
+            // Autoplay with audio muted by default
+            video.muted = true;
+            setIsMuted(true);
+            video.play().catch(() => {});
           }
         } else {
           video.pause();
@@ -689,6 +689,374 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         playsInline
         preload="metadata"
         className="sp-capability-video"
+        onLoadedMetadata={handleLoadedMetadata}
+        onDurationChange={handleLoadedMetadata}
+      />
+
+      {/* Play Overlay indicator */}
+      {!isPlaying && (
+        <div 
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.35)",
+            backdropFilter: "blur(2px)",
+            WebkitBackdropFilter: "blur(2px)",
+            pointerEvents: "none",
+            transition: "opacity 0.2s ease"
+          }}
+        >
+          <div 
+            style={{
+              width: "56px",
+              height: "56px",
+              borderRadius: "50%",
+              background: "rgba(255, 255, 255, 0.15)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
+            }}
+          >
+            <Play size={20} style={{ color: "#ffffff", fill: "#ffffff", marginLeft: "2px" }} />
+          </div>
+        </div>
+      )}
+
+      {/* Double Tap Seek Indicator Overlay */}
+      {seekType && (
+        <div 
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            zIndex: 11
+          }}
+        >
+          <div 
+            style={{
+              padding: "12px 20px",
+              borderRadius: "20px",
+              background: "rgba(0, 0, 0, 0.65)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "4px",
+              color: "#ffffff",
+              fontSize: "12px",
+              fontWeight: 700,
+              animation: "sp-fade-in-out 0.6s forwards",
+              border: "1px solid rgba(255, 255, 255, 0.1)"
+            }}
+          >
+            {seekType === "rewind" ? (
+              <>
+                <div style={{ display: "flex", gap: "2px" }}>
+                  <ChevronLeft size={16} />
+                  <ChevronLeft size={16} />
+                </div>
+                <span>-5s</span>
+              </>
+            ) : (
+              <>
+                <div style={{ display: "flex", gap: "2px" }}>
+                  <ChevronRight size={16} />
+                  <ChevronRight size={16} />
+                </div>
+                <span>+5s</span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Hover-based Timeline Progress Bar */}
+      <div 
+        className="sp-video-timeline-container"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "absolute",
+          bottom: "18px",
+          left: "16px",
+          right: "64px",
+          display: "flex",
+          alignItems: "center",
+          zIndex: 10,
+        }}
+      >
+        <input 
+          ref={timelineRef}
+          type="range"
+          min={0}
+          max={duration || 1}
+          step={0.01}
+          defaultValue={0}
+          onChange={handleTimelineChange}
+          className="sp-video-timeline"
+        />
+      </div>
+
+      {/* Mute/Unmute Overlay Button */}
+      <button
+        onClick={toggleMute}
+        style={{
+          position: "absolute",
+          bottom: "12px",
+          right: "12px",
+          width: "36px",
+          height: "36px",
+          borderRadius: "50%",
+          background: "rgba(10, 15, 30, 0.65)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#ffffff",
+          cursor: "pointer",
+          transition: "background 0.2s, transform 0.2s",
+          zIndex: 10,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(10, 15, 30, 0.85)";
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(10, 15, 30, 0.65)";
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+        title={isMuted ? "Unmute" : "Mute"}
+      >
+        {isMuted ? (
+          <VolumeX size={16} style={{ opacity: 0.85 }} />
+        ) : (
+          <Volume2 size={16} style={{ opacity: 0.85 }} />
+        )}
+      </button>
+    </div>
+  );
+}
+
+function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLInputElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [duration, setDuration] = useState(0);
+  const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
+
+  const lastClickTimeRef = useRef(0);
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const seekTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const newMuted = !isMuted;
+    videoRef.current.muted = newMuted;
+    setIsMuted(newMuted);
+  };
+
+  const handleVideoClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const now = Date.now();
+    const delta = now - lastClickTimeRef.current;
+
+    if (delta < 300) {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+        clickTimeoutRef.current = null;
+      }
+
+      if (videoRef.current && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const isLeftSide = clickX < rect.width / 2;
+
+        if (isLeftSide) {
+          videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 5);
+          triggerSeekIndicator("rewind");
+        } else {
+          videoRef.current.currentTime = Math.min(videoRef.current.duration || 0, videoRef.current.currentTime + 5);
+          triggerSeekIndicator("forward");
+        }
+        updateProgressDOM();
+      }
+      lastClickTimeRef.current = 0;
+    } else {
+      lastClickTimeRef.current = now;
+      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = setTimeout(() => {
+        togglePlay();
+        clickTimeoutRef.current = null;
+      }, 250);
+    }
+  };
+
+  const triggerSeekIndicator = (type: "rewind" | "forward") => {
+    setSeekType(type);
+    if (seekTimeoutRef.current) clearTimeout(seekTimeoutRef.current);
+    seekTimeoutRef.current = setTimeout(() => {
+      setSeekType(null);
+      seekTimeoutRef.current = null;
+    }, 600);
+  };
+
+  const updateProgressDOM = useCallback(() => {
+    const video = videoRef.current;
+    const timeline = timelineRef.current;
+    if (!video || !timeline) return;
+
+    const cur = video.currentTime;
+    const dur = video.duration || 1;
+    const percentage = (cur / dur) * 100;
+
+    timeline.value = cur.toString();
+    timeline.style.background = `linear-gradient(to right, var(--sp-accent) 0%, var(--sp-accent) ${percentage}%, rgba(255, 255, 255, 0.25) ${percentage}%, rgba(255, 255, 255, 0.25) 100%)`;
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (isPlaying) {
+            // Always reset to beginning (0:00) when section becomes active
+            video.currentTime = 0;
+            updateProgressDOM();
+
+            // Autoplay with audio muted by default
+            video.muted = true;
+            setIsMuted(true);
+            video.play().catch(() => {});
+          }
+        } else {
+          video.pause();
+          video.muted = true;
+          setIsMuted(true);
+        }
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.unobserve(video);
+    };
+  }, [isPlaying, updateProgressDOM]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let animationFrameId: number;
+
+    const loop = () => {
+      updateProgressDOM();
+      if (!video.paused) {
+        animationFrameId = requestAnimationFrame(loop);
+      }
+    };
+
+    const handlePlay = () => {
+      animationFrameId = requestAnimationFrame(loop);
+    };
+
+    const handlePause = () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("timeupdate", updateProgressDOM);
+
+    if (!video.paused) {
+      handlePlay();
+    } else {
+      updateProgressDOM();
+    }
+
+    return () => {
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("timeupdate", updateProgressDOM);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [updateProgressDOM]);
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      setDuration(videoRef.current.duration);
+      updateProgressDOM();
+    }
+  };
+
+  const handleTimelineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      const val = parseFloat(e.target.value);
+      videoRef.current.currentTime = val;
+      updateProgressDOM();
+    }
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      className="sp-capability-video-wrapper" 
+      onClick={handleVideoClick} 
+      style={{ 
+        cursor: "pointer", 
+        position: "relative",
+        border: "none",
+        borderRadius: "0px",
+        boxShadow: "none",
+        background: "transparent",
+        width: "100%",
+        height: "100%",
+        display: "block",
+        aspectRatio: "16/9"
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        muted={isMuted}
+        loop
+        playsInline
+        preload="metadata"
+        className="sp-capability-video"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block"
+        }}
         onLoadedMetadata={handleLoadedMetadata}
         onDurationChange={handleLoadedMetadata}
       />
@@ -1184,8 +1552,36 @@ export default function SalesPodPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [activeDemoTab, setActiveDemoTab] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
+  const [auditModalTitle, setAuditModalTitle] = useState("Get a Free Workflow Audit");
+  const [auditModalSourceName, setAuditModalSourceName] = useState("Sales Workflow Automation Solution Page");
+
+  // Load Calendly assets dynamically for premium popup scheduling
+  useEffect(() => {
+    // 1. Add Calendly widget CSS
+    const link = document.createElement("link");
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // 2. Add Calendly widget JS
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Clean up on unmount
+      if (document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   useCountryDetection(
     countries,
@@ -1278,7 +1674,7 @@ export default function SalesPodPage() {
     const apiPromise = submitLead({
       formType: "contact_sales",
       workflowType: "sales_workflow",
-      sourcePage: "/salespod",
+      sourcePage: "/solution/sales-workflow-automation",
       name: form.name,
       email: form.email,
       phone: form.phone ? `${dialCode} ${form.phone}` : undefined,
@@ -1287,7 +1683,7 @@ export default function SalesPodPage() {
       website: form.website,
       metadata: {
         goal: form.goal,
-        platform: "SalesPod Landing Page",
+        platform: "Sales Workflow Automation Solution Page",
         workflow: "sales_workflow"
       }
     });
@@ -1321,7 +1717,7 @@ export default function SalesPodPage() {
             className="sp-hero-left"
           >
             {/* Soft Blinking Brand-Native Eyebrow */}
-            <div className="sp-hero-eyebrow">
+            <div className="sp-hero-eyebrow" style={{ display: "flex", justifyContent: "center", width: "100%" }}>
               <span style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -1352,29 +1748,33 @@ export default function SalesPodPage() {
             </div>
 
             {/* Content Heading */}
-            <h1 className="sp-hero-title" style={{ textAlign: isMobile ? "center" : "left" }}>
+            <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
               The <span style={{ color: "var(--sp-accent)", fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>AI-powered</span> Engine{" "}
-              <br className="sp-hero-br" />
+              <br className="sp-hero-desk-br" />
               for High-Performance{" "}
               <br className="sp-hero-br" />
               Sales Teams.
             </h1>
 
             {/* Subtext */}
-            <p className="sp-hero-desc" style={{ textAlign: isMobile ? "center" : "left", marginBottom: "16px" }}>
-              Deploy autonomous Sales Pods that source, screen, and engage your ideal customers.
-              <br />
-              Scale your revenue without scaling your headcount.
-            </p>
+            <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
+              <p style={{ margin: 0 }}>
+                Deploy autonomous Sales Pods that source, screen, and engage your ideal customers.
+              </p>
+              <p style={{ margin: "8px 0 0 0", opacity: 0.85 }}>
+                Scale your revenue without scaling your headcount.
+              </p>
+            </div>
 
             {/* Supporting Bullet Indicators */}
             <div style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-              gap: "12px 24px",
-              marginBottom: "28px",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+              gap: isMobile ? "12px" : "14px 40px",
+              marginBottom: "32px",
               width: "100%",
-              maxWidth: "580px"
+              maxWidth: "540px",
+              marginInline: "auto"
             }}>
               {[
                 "Autonomous Lead Sourcing",
@@ -1382,40 +1782,35 @@ export default function SalesPodPage() {
                 "Multi-Channel Outreach",
                 "CRM Synchronization"
               ].map((bullet, idx) => (
-                <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: isMobile ? "center" : "flex-start" }}>
+                <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
                   <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0 }} />
-                  <span style={{ fontSize: "13.5px", fontWeight: 500, color: "var(--color-text-bright)" }}>
+                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)", letterSpacing: "-0.01em" }}>
                     {bullet}
                   </span>
                 </div>
               ))}
             </div>
 
-            {/* Clean CTA Link */}
-            <a
-              href="#deployment-form"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("deployment-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
-              }}
-              style={{
-                fontFamily: "var(--font-sans), sans-serif",
-                fontSize: "13.5px",
-                fontWeight: 600,
-                color: "var(--sp-accent)",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
-                borderBottom: "1px solid var(--sp-accent)",
-                paddingBottom: "2px",
-                transition: "opacity 0.2s"
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = "0.85"}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
-            >
-              Book a Free Outbound Audit →
-            </a>
+            {/* Clean CTA Button */}
+            <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "12px" }}>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                href="#deployment-form"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("deployment-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                }}
+                className="sp-hero-cta-btn"
+                style={{
+                  width: "fit-content",
+                  minWidth: "250px",
+                }}
+              >
+                Book a Free Outbound Audit →
+              </motion.a>
+            </div>
           </motion.div>
 
           {/* ── RIGHT SIDE: SOFT PREMIUM LEAD CAPTURE CARD ── */}
@@ -1766,23 +2161,16 @@ export default function SalesPodPage() {
 
                   {/* Soft Premium Submit Button */}
                   <div style={{ position: "relative", marginTop: "4px" }}>
-                    <button
+                    <motion.button
+                      whileHover={{ y: -2, scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
                       type="submit"
                       disabled={loading}
                       className="sp-submit-btn"
                       style={{
-                        background: resolvedTheme === 'dark'
-                          ? "linear-gradient(135deg, #05081c 0%, #0e1526 100%)"
-                          : "linear-gradient(135deg, #E0EEFD 0%, #63A5E7 100%)", // Brand blue gradient
-                        color: resolvedTheme === 'dark' ? "var(--sp-accent)" : "#0b1020", // Muted charcoal for contrast
-                        border: resolvedTheme === 'dark' 
-                          ? "1px solid rgba(99, 165, 231, 0.35)" 
-                          : "1px solid rgba(99, 165, 231, 0.2)",
                         cursor: loading ? "not-allowed" : "pointer",
                         opacity: loading ? 0.75 : 1,
-                        boxShadow: resolvedTheme === 'dark'
-                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 0 15px rgba(99, 165, 231, 0.12)"
-                          : "0 8px 20px -4px rgba(99, 165, 231, 0.15)",
                       }}
                     >
                       {loading ? (
@@ -1791,7 +2179,7 @@ export default function SalesPodPage() {
                       <span>
                         {loading ? "Configuring pod..." : "Configure Outbound Pod"}
                       </span>
-                    </button>
+                    </motion.button>
                     <p style={{ fontSize: "11px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px", marginBottom: 0 }}>
                       Your data is secure. No spam. Ever.
                     </p>
@@ -1880,10 +2268,10 @@ export default function SalesPodPage() {
 
 
       {/* ── FOLD 3: PRODUCT DEMO ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <div className="sp-section-wrapper sp-demo-section" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
         
         {/* Top Header */}
-        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "40px" }}>
+        <div className="sp-demo-header" style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
           <div className="sp-hero-eyebrow">
             <span style={{
               display: "inline-flex",
@@ -1909,185 +2297,11 @@ export default function SalesPodPage() {
         <div className="sp-demo-wrapper">
           <div className="sp-demo-window">
             
-            {/* Header / Titlebar */}
-            <div className="sp-demo-titlebar">
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <div style={{ display: "flex", gap: "6px" }}>
-                  <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ef4444", opacity: 0.8 }} />
-                  <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#fbbf24", opacity: 0.8 }} />
-                  <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#10b981", opacity: 0.8 }} />
-                </div>
-                <span style={{ fontSize: "11px", color: "var(--color-text-muted)", marginLeft: "12px", fontFamily: "var(--font-sans)", letterSpacing: "0.05em" }}>
-                  salespod-control-panel-v1.4
-                </span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#63A5E7] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#63A5E7]"></span>
-                </span>
-                <span style={{ fontSize: "11px", color: "var(--sp-accent)", fontWeight: 600 }}>SYSTEM ACTIVE</span>
-              </div>
-            </div>
 
-            {/* Interactive Demo Selector Tabs */}
-            <div className="sp-demo-tabs">
-              {[
-                { label: "Autonomous Outreach", icon: <Globe size={14} /> },
-                { label: "AI Lead Qualification", icon: <Cpu size={14} /> },
-                { label: "CRM Synchronization", icon: <Database size={14} /> },
-                { label: "Omnichannel Execution", icon: <Layers size={14} /> }
-              ].map((tab, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveDemoTab(idx)}
-                  className={`sp-demo-tab-btn ${activeDemoTab === idx ? "active" : ""}`}
-                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
-                >
-                  {tab.icon}
-                  <span>{tab.label}</span>
-                </button>
-              ))}
-            </div>
 
-            {/* Content Panel Area */}
-            <div className="sp-demo-content-panel">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeDemoTab}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                  style={{ width: "100%", height: "100%" }}
-                >
-                  {activeDemoTab === 0 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "12px", color: "var(--sp-accent)", fontWeight: 700 }}>LIVE INGESTION TUNNEL</span>
-                        <span style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Targeting active decision makers</span>
-                      </div>
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "20px" }}>
-                        <div style={{ background: "rgba(var(--color-text-bright-rgb), 0.015)", padding: "16px", borderRadius: "10px", border: "1px solid var(--color-border-faint)" }}>
-                          <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Active Intent Trigger</div>
-                          <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginTop: "4px" }}>"Searching for cloud infrastructure migration scaling solutions"</div>
-                          <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
-                            <span style={{ fontSize: "10px", background: "rgba(var(--sp-accent-rgb), 0.08)", color: "var(--sp-accent)", padding: "2px 6px", borderRadius: "4px" }}>G2 Crowd</span>
-                            <span style={{ fontSize: "10px", background: "rgba(var(--sp-accent-rgb), 0.08)", color: "var(--sp-accent)", padding: "2px 6px", borderRadius: "4px" }}>GitHub Tech Stack Scan</span>
-                          </div>
-                        </div>
-                        <div style={{ background: "rgba(var(--color-text-bright-rgb), 0.015)", padding: "16px", borderRadius: "10px", border: "1px solid var(--color-border-faint)" }}>
-                          <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Enriched Outbound Contact</div>
-                          <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginTop: "4px" }}>Sarah Jenkins, VP of Ops at Vercel</div>
-                          <div style={{ fontSize: "12px", color: "var(--color-text-muted)", marginTop: "4px" }}>sarah.jenkins@vercel.com (Verified 100%)</div>
-                          <div style={{ fontSize: "12px", color: "#10b981", fontWeight: 500, marginTop: "8px", display: "flex", alignItems: "center", gap: "4px" }}>
-                            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
-                            Ready for automated dispatch
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeDemoTab === 1 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "12px", color: "var(--sp-accent)", fontWeight: 700 }}>AI LEAD INTELLIGENCE METRIC</span>
-                        <span style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Continuous profile evaluation scoring</span>
-                      </div>
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.2fr 0.8fr", gap: "24px" }}>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <span style={{ fontSize: "13px", color: "var(--color-text-bright)", fontWeight: 500 }}>ICP Match Percentage</span>
-                            <span style={{ fontSize: "13px", color: "var(--sp-accent)", fontWeight: 700 }}>98.2%</span>
-                          </div>
-                          <div style={{ width: "100%", height: "6px", background: "var(--color-border-faint)", borderRadius: "3px", overflow: "hidden" }}>
-                            <div style={{ width: "98.2%", height: "100%", background: "var(--sp-accent)" }} />
-                          </div>
-                          <p style={{ fontSize: "12.5px", color: "var(--color-text-body)", lineHeight: "1.5", marginTop: "8px" }}>
-                            SalesPod evaluated hiring velocity, technologies detected, and recent funding events to score Vercel as a high-fit enterprise prospect.
-                          </p>
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "8px", background: "rgba(var(--color-text-bright-rgb), 0.015)", padding: "16px", borderRadius: "10px", border: "1px solid var(--color-border-faint)" }}>
-                          <span style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>SCORING ENGINE ATTRIBUTES</span>
-                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", borderBottom: "1px solid var(--color-border-faint)", paddingBottom: "6px", marginTop: "4px" }}>
-                            <span style={{ color: "var(--color-text-body)" }}>Enterprise Segment</span>
-                            <span style={{ color: "var(--color-text-bright)", fontWeight: 600 }}>MATCHED</span>
-                          </div>
-                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", borderBottom: "1px solid var(--color-border-faint)", paddingBottom: "6px" }}>
-                            <span style={{ color: "var(--color-text-body)" }}>Outbound Goal Alignment</span>
-                            <span style={{ color: "var(--color-text-bright)", fontWeight: 600 }}>OPTIMAL</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeDemoTab === 2 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "12px", color: "var(--sp-accent)", fontWeight: 700 }}>CRM CONTEXT HANDSHAKE</span>
-                        <span style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Bidirectional pipeline telemetry synchronization</span>
-                      </div>
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "20px" }}>
-                        <div style={{ background: "rgba(8, 10, 14, 0.3)", padding: "16px", borderRadius: "10px", border: "1px solid var(--color-border-faint)" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--color-border-faint)", paddingBottom: "8px" }}>
-                            <span style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-bright)" }}>HubSpot Sync Node</span>
-                            <span style={{ fontSize: "10px", background: "rgba(16, 185, 129, 0.1)", color: "#10b981", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>ONLINE</span>
-                          </div>
-                          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px", fontSize: "11.5px" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                              <span style={{ color: "var(--color-text-muted)" }}>Last Sync:</span>
-                              <span style={{ color: "var(--color-text-bright)" }}>Just now</span>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                              <span style={{ color: "var(--color-text-muted)" }}>Fields Synced:</span>
-                              <span style={{ color: "var(--color-text-bright)" }}>Lead Score, Contact Owner, Email Logs</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div style={{ background: "rgba(8, 10, 14, 0.3)", padding: "16px", borderRadius: "10px", border: "1px solid var(--color-border-faint)" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--color-border-faint)", paddingBottom: "8px" }}>
-                            <span style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--color-text-bright)" }}>Salesforce Sync Node</span>
-                            <span style={{ fontSize: "10px", background: "rgba(16, 185, 129, 0.1)", color: "#10b981", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>ONLINE</span>
-                          </div>
-                          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px", fontSize: "11.5px" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                              <span style={{ color: "var(--color-text-muted)" }}>Database ID:</span>
-                              <span style={{ color: "var(--color-text-bright)" }}>SF-892-Vercel</span>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                              <span style={{ color: "var(--color-text-muted)" }}>Outbound Handshake:</span>
-                              <span style={{ color: "var(--color-text-bright)" }}>Successful Log Creation</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeDemoTab === 3 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "12px", color: "var(--sp-accent)", fontWeight: 700 }}>EMAIL & LINKEDIN PERSONALIZATION OUTBOX</span>
-                        <span style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Multi-channel execution sequence</span>
-                      </div>
-                      <div style={{ background: "rgba(var(--color-text-bright-rgb), 0.015)", padding: "20px", borderRadius: "12px", border: "1px solid var(--color-border-faint)" }}>
-                        <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
-                          <span style={{ fontSize: "11px", background: "rgba(var(--sp-accent-rgb), 0.08)", color: "var(--sp-accent)", padding: "2px 8px", borderRadius: "4px", fontWeight: 600 }}>EMAIL STAGE 1</span>
-                          <span style={{ fontSize: "11px", background: "rgba(var(--sp-accent-rgb), 0.08)", color: "var(--sp-accent)", padding: "2px 8px", borderRadius: "4px", fontWeight: 600 }}>LINKEDIN INTRO</span>
-                        </div>
-                        <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", borderBottom: "1px solid var(--color-border-faint)", paddingBottom: "10px" }}>
-                          Subject: Optimizing Outbound Orchestration Loops at Vercel
-                        </div>
-                        <div style={{ fontSize: "12.5px", color: "var(--color-text-body)", lineHeight: "1.6", marginTop: "12px" }}>
-                          "Hi Sarah, noticed Vercel is scaling operations for enterprise accounts. Standardized prospecting teams often struggle with the bandwidth required for real-time intent checks. We built SalesPod to run enrichment crawlers that identify key divisions and draft custom pain hooks directly inside AWS. Would you be open to auditing your team's current outbound execution latency?"
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
+            {/* Full-bleed Product Demo Video Player */}
+            <div style={{ width: "100%", overflow: "hidden" }}>
+              <ProductDemoVideoPlayer src="/videos/Product_demo_fold 3.mp4" />
             </div>
 
           </div>
@@ -2295,18 +2509,18 @@ export default function SalesPodPage() {
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
-            <button 
+            <motion.button 
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
               className="sp-stats-cta-btn"
               onClick={() => {
-                const el = document.getElementById("salespod-lead-form");
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
+                setIsDownloadModalOpen(true);
               }}
             >
               <span>Download the Feature Guide</span>
               <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -2402,18 +2616,20 @@ export default function SalesPodPage() {
           <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
             Your team is good at selling. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>SalesPod makes sure they only talk to people who are ready.</span>
           </p>
-          <button 
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-comp-bottom-btn"
             onClick={() => {
-              const el = document.getElementById("salespod-lead-form");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
-              }
+              setAuditModalTitle("See How SalesPod Works");
+              setAuditModalSourceName("Sales Workflow Automation - Strategic Comparison");
+              setIsAuditModalOpen(true);
             }}
           >
             <span>See how it works</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
-          </button>
+          </motion.button>
         </div>
 
       </div>
@@ -2448,18 +2664,20 @@ export default function SalesPodPage() {
             SalesPod builds and runs the full outreach system for you, so your team wakes up to conversations, not cold queues.
           </p>
 
-          <button 
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-final-cta-btn"
             onClick={() => {
-              const el = document.getElementById("salespod-lead-form");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
-              }
+              setAuditModalTitle("Get a Free Funnel Analysis");
+              setAuditModalSourceName("Sales Workflow Automation - Final CTA");
+              setIsAuditModalOpen(true);
             }}
           >
             <span>Get Full Funnel Analysis</span>
             <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -2591,20 +2809,46 @@ export default function SalesPodPage() {
         <div className="sp-faq-bottom-cta">
           <h4 className="sp-faq-bottom-title">Still unsure if this fits your team?</h4>
           <p className="sp-faq-bottom-sub">One call is enough to know.</p>
-          <button
+          <motion.button
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-faq-bottom-btn"
             onClick={() => {
-              const el = document.getElementById("salespod-lead-form");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
+              if (typeof window !== "undefined" && (window as any).Calendly) {
+                (window as any).Calendly.initPopupWidget({
+                  url: CALENDLY_URL
+                });
+              } else {
+                // Fallback direct redirection if script hasn't loaded yet
+                window.open(CALENDLY_URL, "_blank");
               }
             }}
           >
             <span>Book a Call</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
-          </button>
+          </motion.button>
         </div>
       </div>
+
+      <DownloadModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
+        zipFile="/downloads/AI-Powered-Outbound-Sales-Automation.pdf"
+        zipName="AI-Powered-Outbound-Sales-Automation.pdf"
+        title="Download the Free Feature Guide"
+        workflowType="sales_workflow"
+        sourceType="landing_page"
+        sourceName="Sales Workflow Automation Solution Page"
+      />
+
+      <AuditModal
+        isOpen={isAuditModalOpen}
+        onClose={() => setIsAuditModalOpen(false)}
+        title={auditModalTitle}
+        sourceName={auditModalSourceName}
+        isSalesPod={true}
+      />
 
     </BeamsBackground>
   );

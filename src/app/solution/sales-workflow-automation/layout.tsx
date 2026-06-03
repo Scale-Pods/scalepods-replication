@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SalesPod — Autonomous AI Sales Infrastructure | ScalePods",
+  title: "Sales Workflow Automation | ScalePods",
   description:
     "Deploy autonomous sales infrastructure for high-velocity pipelines. Automate lead sourcing, hyper-personalized outreach, and omnichannel execution with zero manual overhead.",
   keywords: [
@@ -11,17 +11,21 @@ export const metadata: Metadata = {
     "ScalePods salespod",
     "AI outbound infrastructure",
     "cold email automation",
+    "sales workflow automation",
   ],
+  alternates: {
+    canonical: "https://www.scalepods.co/solution/sales-workflow-automation",
+  },
   openGraph: {
-    title: "SalesPod — Autonomous AI Sales Infrastructure | ScalePods",
+    title: "Sales Workflow Automation | ScalePods",
     description: "Automate outbound prospecting and personalized outreach at scale.",
-    url: "https://scalepods.co/salespod",
+    url: "https://www.scalepods.co/solution/sales-workflow-automation",
     siteName: "ScalePods",
     type: "website",
   },
 };
 
-export default function SalesPodLayout({
+export default function SalesWorkflowAutomationLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Download, CheckCircle, Loader2, ChevronDown } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -85,6 +86,10 @@ export default function DownloadModal({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useCountryDetection(
     countries,
@@ -162,11 +167,11 @@ export default function DownloadModal({
     }
   }
 
-  return (
-    <>
+  if (!mounted) return null;
 
-      <AnimatePresence>
-        {isOpen && (
+  return createPortal(
+    <AnimatePresence>
+      {isOpen && (
         <div style={{
           position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
           zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center",
@@ -464,7 +469,7 @@ export default function DownloadModal({
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
-  </>
+    </AnimatePresence>,
+    document.body
   );
 }

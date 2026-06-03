@@ -17,6 +17,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/salespod',
+        destination: '/solution/sales-workflow-automation',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
