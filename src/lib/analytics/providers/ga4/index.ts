@@ -20,7 +20,7 @@ function setCached<T>(key: string, value: T): void {
   _dataCache.set(key, { value, expiresAt: Date.now() + DATA_TTL });
 }
 
-// ── Auth ──────────────────────────────────────────────────────────────────────
+// ── Auth (Service Account) ────────────────────────────────────────────────────
 
 let cachedToken: { value: string; expiresAt: number } | null = null;
 
@@ -29,14 +29,38 @@ async function getAccessToken(): Promise<string> {
     return cachedToken.value;
   }
 
+  // Create JWT for service account
+  const header = { alg: "RS256", typ: "JWT" };
+  const iat = Math.floor(Date.now() / 1000);
+  const payload = {
+    iss:   process.env.GA4_SERVICE_ACCOUNT_EMAIL!,
+    scope: [
+      "https://www.googleapis.com/auth/analytics.readonly",
+      "https://www.googleapis.com/auth/webmasters.readonly"
+    ].join(" "),
+    aud:   "https://oauth2.googleapis.com/token",
+    exp:   iat + 3600,
+    iat,
+  };
+
+  // Encode and sign JWT
+  const headerB64 = Buffer.from(JSON.stringify(header)).toString("base64url");
+  const payloadB64 = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const msg = `${headerB64}.${payloadB64}`;
+
+  // Sign with private key
+  const crypto = await import("crypto");
+  const privateKey = process.env.GA4_PRIVATE_KEY!.replace(/\\n/g, "\n");
+  const signature = crypto.createSign("sha256").update(msg).sign(privateKey, "base64url");
+  const jwt = `${msg}.${signature}`;
+
+  // Exchange JWT for access token
   const res = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
-      client_id:     process.env.GA4_CLIENT_ID!,
-      client_secret: process.env.GA4_CLIENT_SECRET!,
-      refresh_token: process.env.GA4_REFRESH_TOKEN!,
-      grant_type:    "refresh_token",
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion:  jwt,
     }),
   });
 
