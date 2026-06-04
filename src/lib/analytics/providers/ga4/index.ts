@@ -44,18 +44,20 @@ async function getAccessToken(): Promise<string> {
   };
 
   // Encode and sign JWT
-  const headerB64 = Buffer.from(JSON.stringify(header)).toString("base64url");
-  const payloadB64 = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const base64url = (buf: Buffer) => buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  const headerB64 = base64url(Buffer.from(JSON.stringify(header)));
+  const payloadB64 = base64url(Buffer.from(JSON.stringify(payload)));
   const msg = `${headerB64}.${payloadB64}`;
 
   // Sign with private key
   const crypto = await import("crypto");
   let privateKey = process.env.GA4_PRIVATE_KEY!;
-  // Handle both literal \n and actual newlines
+  // Handle literal \n in env vars
   if (!privateKey.includes("\n")) {
     privateKey = privateKey.replace(/\\n/g, "\n");
   }
-  const signature = crypto.createSign("sha256").update(msg).sign(privateKey, "base64url");
+  const signatureBytes = crypto.createSign("sha256").update(msg).sign(privateKey);
+  const signature = base64url(signatureBytes);
   const jwt = `${msg}.${signature}`;
 
   // Exchange JWT for access token
