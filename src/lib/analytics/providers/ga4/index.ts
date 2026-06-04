@@ -50,7 +50,11 @@ async function getAccessToken(): Promise<string> {
 
   // Sign with private key
   const crypto = await import("crypto");
-  const privateKey = process.env.GA4_PRIVATE_KEY!.replace(/\\n/g, "\n");
+  let privateKey = process.env.GA4_PRIVATE_KEY!;
+  // Handle both literal \n and actual newlines
+  if (!privateKey.includes("\n")) {
+    privateKey = privateKey.replace(/\\n/g, "\n");
+  }
   const signature = crypto.createSign("sha256").update(msg).sign(privateKey, "base64url");
   const jwt = `${msg}.${signature}`;
 
