@@ -29,11 +29,16 @@ async function getAccessToken(): Promise<string> {
     return cachedToken.value;
   }
 
+  // Decode service account JSON from base64
+  const serviceAccountJson = JSON.parse(
+    Buffer.from(process.env.GA4_SERVICE_ACCOUNT_JSON!, "base64").toString("utf8")
+  );
+
   // Create JWT for service account
   const header = { alg: "RS256", typ: "JWT" };
   const iat = Math.floor(Date.now() / 1000);
   const payload = {
-    iss:   process.env.GA4_SERVICE_ACCOUNT_EMAIL!,
+    iss:   serviceAccountJson.client_email,
     scope: [
       "https://www.googleapis.com/auth/analytics.readonly",
       "https://www.googleapis.com/auth/webmasters.readonly"
@@ -49,13 +54,9 @@ async function getAccessToken(): Promise<string> {
   const payloadB64 = base64url(Buffer.from(JSON.stringify(payload)));
   const msg = `${headerB64}.${payloadB64}`;
 
-  // Sign with private key
+  // Sign with private key from service account JSON
   const crypto = await import("crypto");
-  let privateKey = process.env.GA4_PRIVATE_KEY!;
-  // Handle literal \n in env vars
-  if (!privateKey.includes("\n")) {
-    privateKey = privateKey.replace(/\\n/g, "\n");
-  }
+  const privateKey = serviceAccountJson.private_key;
   const signatureBytes = crypto.createSign("sha256").update(msg).sign(privateKey);
   const signature = base64url(signatureBytes);
   const jwt = `${msg}.${signature}`;
