@@ -371,6 +371,27 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
         <ErrorBanner message="Could not refresh trend data. Showing last cached values." />
       )}
 
+      {/* Clarity data availability banner */}
+      <div
+        style={{
+          padding: "12px 14px",
+          background: "rgba(249, 115, 22, 0.08)",
+          border: "1px solid rgba(249, 115, 22, 0.3)",
+          borderRadius: "8px",
+          fontSize: "13px",
+          color: "var(--text-secondary)",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+        }}
+      >
+        <span style={{ fontSize: "16px" }}>⚠️</span>
+        <span>
+          Clarity data available from <strong>May 5, 2026</strong> ({31} days collected)
+          {rangeVal === "90d" && <span style={{ marginLeft: "8px", fontWeight: 600 }}>— Only 31 days available</span>}
+        </span>
+      </div>
+
       {/* ── KPI row ── */}
       <div
         className="kpi-grid"
