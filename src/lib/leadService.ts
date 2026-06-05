@@ -35,7 +35,6 @@ export async function submitLead(data: LeadPayload) {
     const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL;
     if (!webhookUrl) {
       console.warn("NEXT_PUBLIC_N8N_WEBHOOK_URL is not defined.");
-      // Fallback behavior if webhook is missing could be implemented here
     } else {
       const response = await fetch(webhookUrl, {
         method: "POST",
@@ -44,12 +43,21 @@ export async function submitLead(data: LeadPayload) {
       });
 
       if (!response.ok) {
-        // Parse error response if possible to show to user
         const errJson = await response.json().catch(() => ({}));
         throw new Error(errJson.message || `Webhook failed: ${response.statusText}`);
       }
     }
-    
+
+    // Sync lead to HubSpot via n8n
+    const hubspotWebhook = process.env.NEXT_PUBLIC_N8N_HUBSPOT_WEBHOOK_URL;
+    if (hubspotWebhook) {
+      fetch(hubspotWebhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    }
+
     return { success: true };
   } catch (error: any) {
     console.error("[Lead Service] Submission failed:", error);
