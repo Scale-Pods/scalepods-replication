@@ -130,6 +130,20 @@ export default function RootLayout({
           />
         </noscript>
 
+        {/* Google Analytics 4 */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-MKXW098PHJ"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MKXW098PHJ');
+          `}
+        </Script>
+
         <ThemeProvider>
           <ClarityProvider />
           <Navbar />
