@@ -756,6 +756,7 @@ export default function ContactPage() {
                     {/* Submit Button — fixed height, opacity communicates state */}
                     <div style={{ position: "relative", marginTop: "8px" }}>
                       <button
+                        id="contact-form-submit"
                         type="submit"
                         disabled={loading}
                         style={{
