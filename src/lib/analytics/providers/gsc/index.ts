@@ -25,7 +25,7 @@ function setCached<T>(key: string, value: T): void {
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GSC_BASE  = "https://www.googleapis.com/webmasters/v3";
 
-// ── Auth (shared token cache) ─────────────────────────────────────────────────
+// ── Auth (Service Account JWT) ──────────────────────────────────────────────────
 
 let cachedToken: { value: string; expiresAt: number } | null = null;
 
@@ -34,14 +34,45 @@ async function getAccessToken(): Promise<string> {
     return cachedToken.value;
   }
 
+  // Decode service account JSON from base64
+  const serviceAccountJson = JSON.parse(
+    Buffer.from(process.env.GA4_SERVICE_ACCOUNT_JSON!, "base64").toString("utf8")
+  );
+
+  // Create JWT for service account
+  const header = { alg: "RS256", typ: "JWT" };
+  const iat = Math.floor(Date.now() / 1000);
+  const payload = {
+    iss:   serviceAccountJson.client_email,
+    scope: [
+      "https://www.googleapis.com/auth/analytics.readonly",
+      "https://www.googleapis.com/auth/webmasters.readonly"
+    ].join(" "),
+    aud:   "https://oauth2.googleapis.com/token",
+    exp:   iat + 3600,
+    iat,
+  };
+
+  // Encode and sign JWT
+  const base64url = (buf: Buffer) => buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  const headerB64 = base64url(Buffer.from(JSON.stringify(header)));
+  const payloadB64 = base64url(Buffer.from(JSON.stringify(payload)));
+  const msg = `${headerB64}.${payloadB64}`;
+
+  // Sign with private key
+  const crypto = await import("crypto");
+  const privateKey = serviceAccountJson.private_key;
+  const signatureBytes = crypto.createSign("sha256").update(msg).sign(privateKey);
+  const signature = base64url(signatureBytes);
+  const jwt = `${msg}.${signature}`;
+
+  // Exchange JWT for access token
   const res = await fetch(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
-      client_id:     process.env.GA4_CLIENT_ID!,
-      client_secret: process.env.GA4_CLIENT_SECRET!,
-      refresh_token: process.env.GA4_REFRESH_TOKEN!,
-      grant_type:    "refresh_token",
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion:  jwt,
     }),
   });
 
