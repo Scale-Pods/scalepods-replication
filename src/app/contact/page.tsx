@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -272,6 +272,18 @@ export default function ContactPage() {
     useCallback((code: string) => setForm(prev => ({ ...prev, customCode: code })), [])
   );
 
+  // Track "Message Sent" event in GTM & GA4
+  useEffect(() => {
+    if (submitted) {
+      if (typeof window !== "undefined" && window.dataLayer) {
+        window.dataLayer.push({
+          event: "message_sent",
+          event_category: "contact_form",
+          event_label: "contact_page",
+        });
+      }
+    }
+  }, [submitted]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
