@@ -32,16 +32,7 @@ function toSortedArray(
 }
 
 function processSnapshots(rows: any[]): OverviewData {
-  // Keep only the latest row per unique dimension
-  const seen = new Set<string>();
-  const latest: any[] = [];
-  for (const row of rows) {
-    if (!seen.has(row.dimension)) {
-      seen.add(row.dimension);
-      latest.push(row);
-    }
-  }
-
+  // Aggregate all rows in the range (don't just take the latest)
   let maxSessions = 0;
   let totalScrollSum = 0;
   let scrollCount = 0;
@@ -52,7 +43,7 @@ function processSnapshots(rows: any[]): OverviewData {
     browser: {}, country: {}, device: {}, os: {}, source: {}, channel: {}, url: {},
   };
 
-  for (const row of latest) {
+  for (const row of rows) {
     if (row.total_sessions > maxSessions) maxSessions = row.total_sessions;
 
     const rawData = Array.isArray(row.raw_data)
@@ -117,7 +108,7 @@ function processSnapshots(rows: any[]): OverviewData {
     pages:     toSortedArray(agg.url, "path", "views") as any,
     channels:  toSortedArray(agg.channel) as any,
     sources:   toSortedArray(agg.source)  as any,
-    lastSync: latest[0]?.fetch_timestamp ?? new Date().toISOString(),
+    lastSync: rows[0]?.fetch_timestamp ?? new Date().toISOString(),
   };
 }
 
