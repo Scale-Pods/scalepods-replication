@@ -388,7 +388,7 @@ export default function ClarityDashboard({ initialOverview, initialTrend, initia
         <span style={{ fontSize: "16px" }}>⚠️</span>
         <span>
           Clarity data available from <strong>May 5, 2026</strong> (31 days collected)
-          {rangeVal === "90d" && <span style={{ marginLeft: "8px", fontWeight: 600 }}>— Only 31 days available</span>}
+          {rangeVal.preset === "90d" && <span style={{ marginLeft: "8px", fontWeight: 600 }}>— Only 31 days available</span>}
         </span>
       </div>
 
