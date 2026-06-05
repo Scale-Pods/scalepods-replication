@@ -275,8 +275,9 @@ export default function ContactPage() {
   // Track "Message Sent" event in GTM & GA4
   useEffect(() => {
     if (submitted) {
-      if (typeof window !== "undefined" && window.dataLayer) {
-        window.dataLayer.push({
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      if (w.dataLayer) {
+        w.dataLayer.push({
           event: "message_sent",
           event_category: "contact_form",
           event_label: "contact_page",
