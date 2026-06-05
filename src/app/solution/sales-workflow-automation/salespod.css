@@ -105,13 +105,13 @@
   padding-top: 0;
 }
 
-/* Polished input elements matching standard ScalePods inputs */
 .sp-input-field {
   width: 100%;
+  height: 44px;
   background: var(--color-bg-input);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 0 14px;
   font-family: var(--font-sans), sans-serif;
   font-size: 13.5px;
   color: var(--color-text-bright);
@@ -133,10 +133,11 @@
 /* Dropdown Selector Button styling */
 .sp-dropdown-btn {
   width: 100%;
+  height: 44px;
   background: var(--color-bg-input);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 0 14px;
   font-family: var(--font-sans), sans-serif;
   font-size: 13.5px;
   color: var(--color-text-bright);
@@ -145,6 +146,7 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -284,7 +286,7 @@
 
 .sp-hero-title {
   font-family: var(--font-sans), sans-serif;
-  font-size: clamp(38px, 4.4vw, 56px); /* Optimized from clamp(40px, 4.8vw, 62px) */
+  font-size: clamp(28px, 4.4vw, 56px); /* Optimized from clamp(40px, 4.8vw, 62px) */
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.03em;
@@ -350,12 +352,14 @@
     gap: 8px;
   }
   .sp-input-field {
-    padding: 8px 12px;
+    height: 44px;
+    padding: 0 12px;
     font-size: 13px;
     border-radius: 6px;
   }
   .sp-dropdown-btn {
-    padding: 8px 12px;
+    height: 44px;
+    padding: 0 12px;
     font-size: 13px;
     border-radius: 6px;
   }
@@ -363,7 +367,7 @@
     font-size: 11px;
   }
   .sp-submit-btn {
-    height: 38px;
+    height: 44px;
     font-size: 13px;
     border-radius: 8px;
   }
@@ -409,6 +413,16 @@
   .sp-form-card {
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .sp-hero-title {
+    font-size: 23px !important;
+    line-height: 1.25 !important;
+    max-width: 330px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 
@@ -1155,7 +1169,7 @@
 }
 
 .sp-capability-title {
-  font-size: clamp(26px, 2.8vw, 34px);
+  font-size: clamp(20px, 2.8vw, 34px);
   font-weight: 700;
   color: var(--color-text-bright);
   line-height: 1.2;
@@ -1270,7 +1284,7 @@
 }
 
 .sp-stat-num {
-  font-size: clamp(38px, 4vw, 54px);
+  font-size: clamp(28px, 4vw, 54px);
   font-weight: 800;
   color: var(--color-text-bright);
   line-height: 1;
@@ -1641,7 +1655,7 @@
 
 .sp-final-cta-title {
   font-family: var(--font-sans), sans-serif;
-  font-size: clamp(36px, 4.5vw, 56px);
+  font-size: clamp(26px, 4.5vw, 56px);
   font-weight: 700;
   line-height: 1.15;
   color: var(--color-text-bright);
@@ -1934,4 +1948,73 @@
   15% { opacity: 1; transform: scale(1); }
   85% { opacity: 1; transform: scale(1); }
   100% { opacity: 0; transform: scale(0.95); }
+}
+
+@media (max-width: 1023px) {
+  .sp-video-timeline-container {
+    opacity: 1 !important;
+  }
+}
+
+/* ── PREMIUM MOBILE FORM POLISH ── */
+@media (max-width: 767px) {
+  /* Ensure parent container padding allows full-width card with safe margins */
+  .sp-hero-wrapper {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .sp-hero-grid {
+    gap: 32px !important;
+  }
+
+  /* Center the form card and let it expand cleanly to container width */
+  .sp-form-card {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 24px 20px !important; /* Consistent premium spacing */
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Spacing between fields */
+  .sp-form-row {
+    gap: 16px !important; /* Touch-friendly spacing */
+  }
+
+  /* Form header padding & margins */
+  .sp-form-card form > div:first-child {
+    padding-bottom: 12px !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Labels spacing */
+  .sp-form-label {
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+  }
+
+  /* Text inputs, dropdowns, and buttons height/font sizing for easy touch & preventing iOS auto-zoom */
+  .sp-input-field,
+  .sp-dropdown-btn {
+    height: 48px !important;
+    font-size: 16px !important; /* Prevents auto-zoom on iOS browsers */
+    border-radius: 8px !important;
+    padding: 0 14px !important;
+  }
+
+  .sp-dropdown-menu {
+    border-radius: 8px !important;
+    max-height: 220px !important;
+  }
+
+  /* Submit button optimization */
+  .sp-submit-btn {
+    height: 48px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+  }
 }

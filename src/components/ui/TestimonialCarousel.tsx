@@ -169,74 +169,58 @@ export default function TestimonialCarousel() {
           overflow: isMobile ? "hidden" : "visible"
         }}
       >
-        <AnimatePresence initial={false} mode={isMobile ? "wait" : undefined}>
-          {reviewsData.map((review, i) => {
-            if (isMobile && i !== active) return null;
-            const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
-
-            return (
-              <motion.div
-                key={review.name}
-                initial={isMobile ? { opacity: 0, x: 50 } : false}
-                animate={{
-                  x: isMobile ? 0 : `calc(-50% + ${x}px)`,
-                  y: isMobile ? 0 : "-50%",
-                  scale: isMobile ? 1 : scale,
-                  opacity: isMobile ? 1 : opacity,
-                  zIndex,
-                  filter: isMobile ? "none" : filter,
-                }}
-                exit={isMobile ? { opacity: 0, x: -50 } : undefined}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.32, 0.72, 0, 1],
-                }}
-                drag={isCenter ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={handleDragEnd}
-                onClick={() => {
-                  if (!isCenter) {
-                    if (x < 0) prev();
-                    else next();
-                  }
-                }}
-                style={{
-                  position: isMobile ? "relative" : "absolute",
-                  pointerEvents: pointerEvents as any,
-                  cursor: isCenter ? "grab" : "pointer",
-                  width: isMobile ? "92%" : "90%",
-                  maxWidth: isMobile ? "360px" : "520px",
-                  marginInline: isMobile ? "auto" : undefined,
-                  top: isMobile ? "auto" : "50%",
-                  left: isMobile ? "auto" : "50%",
-                  // Adaptive Height Strategy
-                  minHeight: isMobile ? "300px" : "200px",
-                  height: "auto",
-                  background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: isCenter 
-                    ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
-                    : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
-                  borderRadius: "28px",
-                  overflow: "hidden",
-                  padding: isMobile ? "28px 24px" : "32px 24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: isMobile ? "flex-start" : "center",
-                  gap: "16px",
-                  // Premium 3D Depth
-                  boxShadow: isCenter 
-                    ? resolvedTheme === 'dark'
+        {isMobile ? (
+          <AnimatePresence initial={false} mode="wait">
+            {(() => {
+              const review = reviewsData[active];
+              const { zIndex } = getCardStyles(active);
+              return (
+                <motion.div
+                  key={review.name}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    opacity: 1,
+                    zIndex,
+                    filter: "none",
+                  }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1],
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
+                  style={{
+                    position: "relative",
+                    pointerEvents: "auto",
+                    cursor: "grab",
+                    width: "92%",
+                    maxWidth: "360px",
+                    marginInline: "auto",
+                    minHeight: "300px",
+                    height: "auto",
+                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`,
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    padding: "28px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    gap: "16px",
+                    boxShadow: resolvedTheme === 'dark'
                       ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
-                      : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
-                    : "0 10px 30px rgba(0,0,0,0.05)",
-                }}
-                className="transform-gpu"
-              >
-                {/* Subtle Background Glow for Center Card */}
-                {isCenter && (
+                      : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                  className="transform-gpu"
+                >
                   <div style={{
                     position: "absolute",
                     top: "0",
@@ -250,56 +234,182 @@ export default function TestimonialCarousel() {
                     zIndex: -1,
                     pointerEvents: "none"
                   }} />
-                )}
 
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  <div style={{ 
-                    position: "relative", 
-                    width: isMobile ? "44px" : "48px", 
-                    height: isMobile ? "44px" : "48px", 
-                    borderRadius: "12px", 
-                    overflow: "hidden", 
-                    border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
-                    flexShrink: 0 
-                  }}>
-                    <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ 
+                      position: "relative", 
+                      width: "44px", 
+                      height: "44px", 
+                      borderRadius: "12px", 
+                      overflow: "hidden", 
+                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                      flexShrink: 0 
+                    }}>
+                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontFamily: F.inter, fontSize: "15px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
+                      <span style={{ 
+                        fontFamily: F.inter, 
+                        fontSize: "10px", 
+                        color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        marginTop: "1px", 
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.02em"
+                      }}>{review.title}</span>
+                    </div>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span style={{ fontFamily: F.inter, fontSize: isMobile ? "15px" : "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
-                    <span style={{ 
+
+                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                    <p style={{
                       fontFamily: F.inter, 
-                      fontSize: isMobile ? "10px" : "11px", 
-                      color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
-                      marginTop: "1px", 
-                      fontWeight: 500,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.02em"
-                    }}>{review.title}</span>
+                      fontSize: "13px", 
+                      color: C.txtBody, 
+                      lineHeight: 1.65, 
+                      margin: 0,
+                      fontWeight: 400,
+                      opacity: 0.9,
+                      textAlign: "left",
+                      wordBreak: "break-word",
+                      overflow: "hidden"
+                    }}>
+                      {review.quote}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
+        ) : (
+          <AnimatePresence initial={false}>
+            {reviewsData.map((review, i) => {
+              const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
 
-                <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+              return (
+                <motion.div
+                  key={review.name}
+                  initial={false}
+                  animate={{
+                    x: `calc(-50% + ${x}px)`,
+                    y: "-50%",
+                    scale,
+                    opacity,
+                    zIndex,
+                    filter,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1],
+                  }}
+                  drag={isCenter ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
+                  onClick={() => {
+                    if (!isCenter) {
+                      if (x < 0) prev();
+                      else next();
+                    }
+                  }}
+                  style={{
+                    position: "absolute",
+                    pointerEvents: pointerEvents as any,
+                    cursor: isCenter ? "grab" : "pointer",
+                    width: "90%",
+                    maxWidth: "520px",
+                    top: "50%",
+                    left: "50%",
+                    minHeight: "200px",
+                    height: "auto",
+                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: isCenter 
+                      ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
+                      : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    padding: "32px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gap: "16px",
+                    boxShadow: isCenter 
+                      ? resolvedTheme === 'dark'
+                        ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                        : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                      : "0 10px 30px rgba(0,0,0,0.05)",
+                  }}
+                  className="transform-gpu"
+                >
+                  {isCenter && (
+                    <div style={{
+                      position: "absolute",
+                      top: "0",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "80%",
+                      height: "40%",
+                      background: resolvedTheme === 'dark'
+                        ? "radial-gradient(circle, rgba(177, 217, 151, 0.08) 0%, transparent 80%)"
+                        : "radial-gradient(circle, rgba(177, 217, 151, 0.05) 0%, transparent 80%)",
+                      zIndex: -1,
+                      pointerEvents: "none"
+                    }} />
+                  )}
 
-                <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
-                  <p style={{
-                    fontFamily: F.inter, 
-                    fontSize: isMobile ? "13px" : "14px", 
-                    color: C.txtBody, 
-                    lineHeight: 1.65, 
-                    margin: 0,
-                    fontWeight: 400,
-                    opacity: 0.9,
-                    textAlign: "left",
-                    wordBreak: "break-word",
-                    overflow: "hidden"
-                  }}>
-                    {review.quote}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ 
+                      position: "relative", 
+                      width: "48px", 
+                      height: "48px", 
+                      borderRadius: "12px", 
+                      overflow: "hidden", 
+                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                      flexShrink: 0 
+                    }}>
+                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
+                      <span style={{ 
+                        fontFamily: F.inter, 
+                        fontSize: "11px", 
+                        color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        marginTop: "1px", 
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.02em"
+                      }}>{review.title}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                    <p style={{
+                      fontFamily: F.inter, 
+                      fontSize: "14px", 
+                      color: C.txtBody, 
+                      lineHeight: 1.65, 
+                      margin: 0,
+                      fontWeight: 400,
+                      opacity: 0.9,
+                      textAlign: "left",
+                      wordBreak: "break-word",
+                      overflow: "hidden"
+                    }}>
+                      {review.quote}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        )}
       </div>
 
 

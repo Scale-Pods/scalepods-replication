@@ -28,6 +28,7 @@ import { useMobile } from "@/lib/hooks";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import DownloadModal from "@/components/ui/DownloadModal";
 import AuditModal from "@/components/ui/AuditModal";
+import CalendlyModal from "@/components/ui/CalendlyModal";
 import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -812,8 +813,8 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           position: "absolute",
           bottom: "12px",
           right: "12px",
-          width: "36px",
-          height: "36px",
+          width: "44px",
+          height: "44px",
           borderRadius: "50%",
           background: "rgba(10, 15, 30, 0.65)",
           backdropFilter: "blur(8px)",
@@ -838,9 +839,9 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         title={isMuted ? "Unmute" : "Mute"}
       >
         {isMuted ? (
-          <VolumeX size={16} style={{ opacity: 0.85 }} />
+          <VolumeX size={20} style={{ opacity: 0.85 }} />
         ) : (
-          <Volume2 size={16} style={{ opacity: 0.85 }} />
+          <Volume2 size={20} style={{ opacity: 0.85 }} />
         )}
       </button>
     </div>
@@ -1180,8 +1181,8 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           position: "absolute",
           bottom: "12px",
           right: "12px",
-          width: "36px",
-          height: "36px",
+          width: "44px",
+          height: "44px",
           borderRadius: "50%",
           background: "rgba(10, 15, 30, 0.65)",
           backdropFilter: "blur(8px)",
@@ -1206,9 +1207,9 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         title={isMuted ? "Unmute" : "Mute"}
       >
         {isMuted ? (
-          <VolumeX size={16} style={{ opacity: 0.85 }} />
+          <VolumeX size={20} style={{ opacity: 0.85 }} />
         ) : (
-          <Volume2 size={16} style={{ opacity: 0.85 }} />
+          <Volume2 size={20} style={{ opacity: 0.85 }} />
         )}
       </button>
     </div>
@@ -1344,71 +1345,58 @@ function SalespodTestimonialCarousel() {
           overflow: isMobile ? "hidden" : "visible"
         }}
       >
-        <AnimatePresence initial={false} mode={isMobile ? "wait" : undefined}>
-          {salespodReviews.map((review, i) => {
-            if (isMobile && i !== active) return null;
-            const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
-
-            return (
-              <motion.div
-                key={review.name}
-                initial={isMobile ? { opacity: 0, x: 50 } : false}
-                animate={{
-                  x: isMobile ? 0 : `calc(-50% + ${x}px)`,
-                  y: isMobile ? 0 : "-50%",
-                  scale: isMobile ? 1 : scale,
-                  opacity: isMobile ? 1 : opacity,
-                  zIndex,
-                  filter: isMobile ? "none" : filter,
-                }}
-                exit={isMobile ? { opacity: 0, x: -50 } : undefined}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.32, 0.72, 0, 1],
-                }}
-                drag={isCenter ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={handleDragEnd}
-                onClick={() => {
-                  if (!isCenter) {
-                    if (x < 0) prev();
-                    else next();
-                  }
-                }}
-                style={{
-                  position: isMobile ? "relative" : "absolute",
-                  pointerEvents: pointerEvents as any,
-                  cursor: isCenter ? "grab" : "pointer",
-                  width: isMobile ? "92%" : "90%",
-                  maxWidth: isMobile ? "360px" : "520px",
-                  marginInline: isMobile ? "auto" : undefined,
-                  top: isMobile ? "auto" : "50%",
-                  left: isMobile ? "auto" : "50%",
-                  minHeight: isMobile ? "300px" : "200px",
-                  height: "auto",
-                  background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: isCenter 
-                    ? "1px solid rgba(var(--sp-accent-rgb), 0.5)"
-                    : "1px solid rgba(var(--sp-accent-rgb), 0.1)",
-                  borderRadius: "28px",
-                  overflow: "hidden",
-                  padding: isMobile ? "28px 24px" : "32px 24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: isMobile ? "flex-start" : "center",
-                  gap: "16px",
-                  boxShadow: isCenter 
-                    ? resolvedTheme === 'dark'
+        {isMobile ? (
+          <AnimatePresence initial={false} mode="wait">
+            {(() => {
+              const review = salespodReviews[active];
+              const { zIndex } = getCardStyles(active);
+              return (
+                <motion.div
+                  key={review.name}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    opacity: 1,
+                    zIndex,
+                    filter: "none",
+                  }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1],
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
+                  style={{
+                    position: "relative",
+                    pointerEvents: "auto",
+                    cursor: "grab",
+                    width: "92%",
+                    maxWidth: "360px",
+                    marginInline: "auto",
+                    height: "auto",
+                    minHeight: "300px",
+                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: "1px solid rgba(var(--sp-accent-rgb), 0.5)",
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    padding: "28px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    gap: "16px",
+                    boxShadow: resolvedTheme === 'dark'
                       ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
-                      : "0 25px 50px -12px rgba(var(--sp-accent-rgb), 0.15), 0 0 20px rgba(var(--sp-accent-rgb), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
-                    : "0 10px 30px rgba(0,0,0,0.05)",
-                }}
-                className="transform-gpu"
-              >
-                {isCenter && (
+                      : "0 25px 50px -12px rgba(var(--sp-accent-rgb), 0.15), 0 0 20px rgba(var(--sp-accent-rgb), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                  className="transform-gpu"
+                >
                   <div style={{
                     position: "absolute",
                     top: "0",
@@ -1422,79 +1410,220 @@ function SalespodTestimonialCarousel() {
                     zIndex: -1,
                     pointerEvents: "none"
                   }} />
-                )}
 
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  <div style={{ 
-                    position: "relative", 
-                    width: isMobile ? "44px" : "48px", 
-                    height: isMobile ? "44px" : "48px", 
-                    borderRadius: "12px", 
-                    overflow: "hidden", 
-                    border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
-                    flexShrink: 0 
-                  }}>
-                    <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ 
+                      position: "relative", 
+                      width: "44px", 
+                      height: "44px", 
+                      borderRadius: "12px", 
+                      overflow: "hidden", 
+                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                      flexShrink: 0 
+                    }}>
+                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>{review.name}</span>
+                      <span style={{ 
+                        fontFamily: "var(--font-sans), sans-serif", 
+                        fontSize: "10px", 
+                        color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb), 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        marginTop: "1px", 
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.02em"
+                      }}>{review.title}</span>
+                    </div>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: isMobile ? "15px" : "16px", fontWeight: 700, color: "var(--color-text-bright)" }}>{review.name}</span>
-                    <span style={{ 
+
+                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                    <p style={{
                       fontFamily: "var(--font-sans), sans-serif", 
-                      fontSize: isMobile ? "10px" : "11px", 
-                      color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb), 0.8)" : "rgba(0, 0, 0, 0.6)", 
-                      marginTop: "1px", 
-                      fontWeight: 500,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.02em"
-                    }}>{review.title}</span>
+                      fontSize: "13px", 
+                      color: "var(--color-text-body)", 
+                      lineHeight: 1.65, 
+                      margin: 0,
+                      fontWeight: 400,
+                      opacity: 0.9,
+                      textAlign: "left",
+                      wordBreak: "break-word",
+                      overflow: "hidden"
+                    }}>
+                      {review.quote}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
+        ) : (
+          <AnimatePresence initial={false}>
+            {salespodReviews.map((review, i) => {
+              const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
 
-                <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+              return (
+                <motion.div
+                  key={review.name}
+                  initial={false}
+                  animate={{
+                    x: `calc(-50% + ${x}px)`,
+                    y: "-50%",
+                    scale,
+                    opacity,
+                    zIndex,
+                    filter,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1],
+                  }}
+                  drag={isCenter ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
+                  onClick={() => {
+                    if (!isCenter) {
+                      if (x < 0) prev();
+                      else next();
+                    }
+                  }}
+                  style={{
+                    position: "absolute",
+                    pointerEvents: pointerEvents as any,
+                    cursor: isCenter ? "grab" : "pointer",
+                    width: "90%",
+                    maxWidth: "520px",
+                    top: "50%",
+                    left: "50%",
+                    minHeight: "200px",
+                    height: "auto",
+                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: isCenter 
+                      ? "1px solid rgba(var(--sp-accent-rgb), 0.5)"
+                      : "1px solid rgba(var(--sp-accent-rgb), 0.1)",
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    padding: "32px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gap: "16px",
+                    boxShadow: isCenter 
+                      ? resolvedTheme === 'dark'
+                        ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                        : "0 25px 50px -12px rgba(var(--sp-accent-rgb), 0.15), 0 0 20px rgba(var(--sp-accent-rgb), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                      : "0 10px 30px rgba(0,0,0,0.05)",
+                  }}
+                  className="transform-gpu"
+                >
+                  {isCenter && (
+                    <div style={{
+                      position: "absolute",
+                      top: "0",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "80%",
+                      height: "40%",
+                      background: resolvedTheme === 'dark'
+                        ? "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.08) 0%, transparent 80%)"
+                        : "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.05) 0%, transparent 80%)",
+                      zIndex: -1,
+                      pointerEvents: "none"
+                    }} />
+                  )}
 
-                <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
-                  <p style={{
-                    fontFamily: "var(--font-sans), sans-serif", 
-                    fontSize: isMobile ? "13px" : "14px", 
-                    color: "var(--color-text-body)", 
-                    lineHeight: 1.65, 
-                    margin: 0,
-                    fontWeight: 400,
-                    opacity: 0.9,
-                    textAlign: "left",
-                    wordBreak: "break-word",
-                    overflow: "hidden"
-                  }}>
-                    {review.quote}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ 
+                      position: "relative", 
+                      width: "48px", 
+                      height: "48px", 
+                      borderRadius: "12px", 
+                      overflow: "hidden", 
+                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                      flexShrink: 0 
+                    }}>
+                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)" }}>{review.name}</span>
+                      <span style={{ 
+                        fontFamily: "var(--font-sans), sans-serif", 
+                        fontSize: "11px", 
+                        color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb), 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        marginTop: "1px", 
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.02em"
+                      }}>{review.title}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                    <p style={{
+                      fontFamily: "var(--font-sans), sans-serif", 
+                      fontSize: "14px", 
+                      color: "var(--color-text-body)", 
+                      lineHeight: 1.65, 
+                      margin: 0,
+                      fontWeight: 400,
+                      opacity: 0.9,
+                      textAlign: "left",
+                      wordBreak: "break-word",
+                      overflow: "hidden"
+                    }}>
+                      {review.quote}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        )}
       </div>
 
       {/* Pagination dots */}
       <div 
-        className="flex gap-2.5 justify-center" 
+        className="flex justify-center" 
         style={{ 
           marginTop: isMobile ? "20px" : "32px",
           width: "100%",
-          alignItems: "center"
+          alignItems: "center",
+          gap: "4px"
         }}
       >
         {salespodReviews.map((_, i) => (
           <button
             key={i}
             onClick={() => setActive(i)}
-            className="transition-all duration-300 rounded-full"
+            className="transition-all duration-300 flex items-center justify-center"
             style={{
-              width: active === i ? "24px" : "8px",
-              height: "8px",
-              background: active === i ? "rgba(var(--sp-accent-rgb), 0.8)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+              width: active === i ? "32px" : "24px",
+              height: "44px", // Proper touch target height
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0
             }}
             aria-label={`Go to slide ${i + 1}`}
-          />
+          >
+            <span
+              style={{
+                width: active === i ? "24px" : "8px",
+                height: "8px",
+                borderRadius: "4px",
+                background: active === i ? "rgba(var(--sp-accent-rgb), 0.8)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+                display: "block",
+                transition: "all 0.3s ease"
+              }}
+            />
+          </button>
         ))}
       </div>
     </div>
@@ -1555,31 +1684,25 @@ export default function SalesPodPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [auditModalTitle, setAuditModalTitle] = useState("Get a Free Workflow Audit");
   const [auditModalSourceName, setAuditModalSourceName] = useState("Sales Workflow Automation Solution Page");
 
-  // Load Calendly assets dynamically for premium popup scheduling
+  // Preconnect to Calendly domains in the background to optimize iframe load performance
   useEffect(() => {
-    // 1. Add Calendly widget CSS
-    const link = document.createElement("link");
-    link.href = "https://assets.calendly.com/assets/external/widget.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
+    const p1 = document.createElement("link");
+    p1.rel = "preconnect";
+    p1.href = "https://calendly.com";
+    document.head.appendChild(p1);
 
-    // 2. Add Calendly widget JS
-    const script = document.createElement("script");
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    document.body.appendChild(script);
+    const p2 = document.createElement("link");
+    p2.rel = "preconnect";
+    p2.href = "https://assets.calendly.com";
+    document.head.appendChild(p2);
 
     return () => {
-      // Clean up on unmount
-      if (document.head.contains(link)) {
-        document.head.removeChild(link);
-      }
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+      if (document.head.contains(p1)) document.head.removeChild(p1);
+      if (document.head.contains(p2)) document.head.removeChild(p2);
     };
   }, []);
 
@@ -2246,7 +2369,7 @@ export default function SalesPodPage() {
           
           <div className="sp-metric-block">
             <div className="sp-metric-number">500+</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Leads Automated</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>CRM Automated</div>
             <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>across active client accounts</div>
           </div>
 
@@ -2814,16 +2937,7 @@ export default function SalesPodPage() {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-faq-bottom-btn"
-            onClick={() => {
-              if (typeof window !== "undefined" && (window as any).Calendly) {
-                (window as any).Calendly.initPopupWidget({
-                  url: CALENDLY_URL
-                });
-              } else {
-                // Fallback direct redirection if script hasn't loaded yet
-                window.open(CALENDLY_URL, "_blank");
-              }
-            }}
+            onClick={() => setIsCalendlyModalOpen(true)}
           >
             <span>Book a Call</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
@@ -2848,6 +2962,12 @@ export default function SalesPodPage() {
         title={auditModalTitle}
         sourceName={auditModalSourceName}
         isSalesPod={true}
+      />
+
+      <CalendlyModal
+        isOpen={isCalendlyModalOpen}
+        onClose={() => setIsCalendlyModalOpen(false)}
+        url={CALENDLY_URL}
       />
 
     </BeamsBackground>
