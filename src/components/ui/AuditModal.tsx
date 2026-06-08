@@ -422,6 +422,7 @@ export default function AuditModal({
 
                   <div style={{ position: "relative", width: "100%" }}>
                     <button
+                      id="lead-form-submit"
                       type="submit"
                       disabled={loading}
                       style={{

@@ -406,6 +406,7 @@ export default function DownloadModal({
 
                   <div style={{ position: "relative", width: "100%" }}>
                     <button
+                      id="lead-form-submit"
                       type="submit"
                       disabled={loading}
                       style={{
