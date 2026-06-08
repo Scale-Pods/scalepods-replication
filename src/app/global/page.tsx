@@ -557,7 +557,7 @@ export default function GlobalPage() {
             {/* Form card */}
             <div className="form-card">
               {submitted ? (
-                <div style={{ textAlign: "center", padding: "32px 0" }}>
+                <div id="lead-form-success" style={{ textAlign: "center", padding: "32px 0" }}>
                   <div
                     style={{
                       width: "52px",

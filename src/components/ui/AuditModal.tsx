@@ -213,7 +213,7 @@ export default function AuditModal({
             </button>
 
             {submitted ? (
-              <div style={{ textAlign: "center", padding: "20px 0" }}>
+              <div id="lead-form-success" style={{ textAlign: "center", padding: "20px 0" }}>
                 <CheckCircle size={48} color={C.green} style={{ margin: "0 auto 16px" }} />
                 <h3 style={{ fontSize: "20px", fontWeight: 600, color: C.txtBright, marginBottom: "8px" }}>
                   Request Received!

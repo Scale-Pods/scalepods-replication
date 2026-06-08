@@ -1945,7 +1945,7 @@ export default function SalesPodPage() {
 
               {submitted ? (
                 // Success Presentation
-                <div style={{ textAlign: "center", padding: "20px 0" }}>
+                <div id="lead-form-success" style={{ textAlign: "center", padding: "20px 0" }}>
                   <div 
                     style={{
                       width: "56px",

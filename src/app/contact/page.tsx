@@ -491,7 +491,7 @@ export default function ContactPage() {
                 </div>
 
                 {submitted ? (
-                  <div id="contact-form-success" style={{ textAlign: "center", padding: "40px 0" }}>
+                  <div id="lead-form-success" style={{ textAlign: "center", padding: "40px 0" }}>
                     <div style={{
                       width: "56px", height: "56px", borderRadius: "50%",
                       background: "rgba(172,215,145,0.1)", border: "1px solid rgba(172,215,145,0.2)",
