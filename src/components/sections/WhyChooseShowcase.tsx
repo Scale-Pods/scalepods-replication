@@ -17,116 +17,7 @@ import {
 import { useMobile } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
-// Curated set of brand logos from the main landing page
-const marqueeLogos = [
-  { name: "Passionfruit", url: "/brands/passsionfruit.avif", isBlack: true },
-  { name: "PropertyGeld", url: "/brands/propertygeld.png", isBlack: true },
-  { name: "ZV Steels", url: "/brands/zv_steels_logo.webp", isBlack: true },
-  { name: "Lotus Manor", url: "/brands/lotus-manor.webp", isBlack: true },
-  { name: "BECO", url: "/brands/BECO.avif" },
-  { name: "Gammacode", url: "/brands/gammacode.webp", isBlack: true },
-  { name: "Krafty", url: "/brands/krafty-logo-white.png" },
-  { name: "HobbyFi", url: "/brands/hobbyfi_logo.jpg", whiteBg: true },
-  { name: "Break The Code", url: "/brands/Break-the-code.avif", whiteBg: true },
-  { name: "Suphal Media", url: "/brands/suphalmedia.avif", isBlack: true },
-];
-
-const LogoMarquee = () => {
-  const [isPaused, setIsPaused] = React.useState(false);
-  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
-  const isMobile = useMobile(768);
-  const { resolvedTheme } = useTheme();
-
-  return (
-    <div 
-      data-scroll-observed="1"
-      style={{ 
-        position: "relative",
-        width: "100%",
-        overflow: "hidden",
-        padding: isMobile ? "10px 0" : "30px 0",
-        zIndex: 10,
-        maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-        WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-        opacity: 1,
-        transform: "none"
-      }}
-    >
-      <div style={{
-        display: "flex",
-        width: "max-content",
-        animationName: "marquee-v3-gcc",
-        animationDuration: "35s",
-        animationTimingFunction: "linear",
-        animationIterationCount: "infinite",
-        animationPlayState: isPaused ? 'paused' : 'running',
-        willChange: "transform"
-      }}>
-
-        {[...marqueeLogos, ...marqueeLogos, ...marqueeLogos, ...marqueeLogos].map((logo, idx) => {
-          const isHovered = hoveredIndex === idx;
-
-          let logoFilter = "none";
-          if (resolvedTheme === "dark") {
-             // Dark theme: invert black logos or those with white backgrounds to be white
-             logoFilter = isHovered 
-                ? (logo.whiteBg || logo.isBlack ? "invert(1) brightness(1.2)" : "none") 
-                : (logo.whiteBg || logo.isBlack ? "invert(1) grayscale(100%) opacity(0.7)" : "grayscale(100%) opacity(0.5)");
-          } else {
-             // Light theme: keep logos as they are, but grayscale if not hovered
-             logoFilter = isHovered
-                ? "none"
-                : "grayscale(100%) opacity(0.5)";
-          }
-
-          return (
-            <div
-              key={idx}
-              onMouseEnter={() => {
-                setHoveredIndex(idx);
-                setIsPaused(true);
-              }}
-              onMouseLeave={() => {
-                setHoveredIndex(null);
-                setIsPaused(false);
-              }}
-              onTouchStart={() => {
-                setHoveredIndex(idx);
-                setIsPaused(true);
-              }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: isMobile ? "0 20px" : "0 40px",
-                opacity: isHovered ? 1 : 0.6,
-                height: isMobile ? "28px" : "44px",
-                transition: "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
-                cursor: "pointer",
-                transform: isHovered ? "scale(1.1)" : "scale(1)",
-                flexShrink: 0,
-                mixBlendMode: resolvedTheme === 'dark' ? 'screen' : 'multiply'
-              }}
-            >
-              <img 
-                src={logo.url} 
-                alt={logo.name} 
-                style={{ 
-                  height: "100%", 
-                  width: "auto", 
-                  maxWidth: isMobile ? "100px" : "160px",
-                  objectFit: "contain",
-                  transition: "all 0.4s ease",
-                  filter: logoFilter
-                }} 
-              />
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+import { BrandsMarquee } from "./Sections";
 
 const C = {
   green: "var(--color-green)",
@@ -384,18 +275,7 @@ export const WhyChooseShowcase = () => {
             Trusted by thousands of companies and investors all over the world
           </motion.p>
 
-          <div 
-            style={{ 
-              position: "relative",
-              width: "100%",
-              height: isMobile ? "60px" : "120px",
-              display: "flex",
-              alignItems: "center",
-              overflow: "visible"
-            }}
-          >
-            <LogoMarquee />
-          </div>
+          <BrandsMarquee />
         </div>
       </div>
 

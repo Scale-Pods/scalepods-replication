@@ -19,41 +19,192 @@ const F = {
   serif: "var(--font-instrument), 'Instrument Serif', Georgia, serif",
 };
 
-export const reviewsData = [
+export interface ReviewItem {
+  name: string;
+  title: string;
+  location: string;
+  countryCode: string; // "ae", "in", "us"
+  quote: string;
+  image: string;
+  expanded?: boolean; // Reusable property for long reviews
+}
+
+export const reviewsData: ReviewItem[] = [
   {
     name: "Vinay Kumar",
-    title: "Managing Director at LOTUS MANOR REAL ESTATE L.L.C, DUBAI.",
+    title: "Managing Director at Lotus Manor",
+    location: "Dubai, UAE",
+    countryCode: "ae",
     quote: "“We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right and the timeline is tight.”",
     image: "/reviews/Vinay Kumar.webp"
   },
   {
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
+    location: "Mumbai, India",
+    countryCode: "in",
     quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction. What stood out most was how quickly the team understood our workflow and customized the automation around it. The implementation felt seamless from day one, and the support throughout the process was proactive and reliable. Scalepods helped us simplify operations without slowing the team down.”",
     image: "/reviews/Anuj Ruia.jpeg"
   },
   {
     name: "Sharan Lekhi",
     title: "Founder at Krafty Animations",
+    location: "Mumbai, India",
+    countryCode: "in",
     quote: "“Game-changer. Automation flows run flawlessly. Our team now focuses only on what really matters. Scalepods helped us streamline communication, reduce manual coordination, and improve overall execution speed. The workflows are reliable, easy to manage, and built with real operational understanding. It’s one of the few systems we adopted that immediately started saving us valuable time.”",
     image: "/reviews/Sharan Lekhi.jpeg"
   },
   {
     name: "Shreyansh Jaiswal",
     title: "Founder at HobbyFi",
+    location: "Bangalore, India",
+    countryCode: "in",
     quote: "“Smooth setup. Their system replaced three tools. We saw improvements in just the first week. The onboarding process was quick, the automation logic was easy to understand, and everything integrated well with our existing workflow. Scalepods made the transition feel effortless while improving response times and reducing operational overhead across multiple tasks.”",
     image: "/reviews/Shreyansh Jaiswal.avif"
   },
   {
     name: "Dhairya Shah",
     title: "Partner & CEO at Break The Code",
+    location: "Ahmedabad, India",
+    countryCode: "in",
     quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control. The automation setup was thoughtfully structured and aligned well with our team’s daily operations. What impressed us most was the balance between flexibility and reliability. Scalepods delivered a system that feels efficient, scalable, and genuinely useful in day-to-day execution.”",
     image: "/reviews/Dhairya Shah.avif"
+  },
+  {
+    name: "Luis Guilherme",
+    title: "Founder at Guileo AI",
+    location: "New York, USA",
+    countryCode: "us",
+    quote: "“Working with Adnan on our Restaurant Management System was an outstanding experience from start to finish. He delivered a project with the kind of professionalism and dedication you rarely find — clear communication throughout, zero surprises, and results that exceeded expectations.\n\nWhat truly set Adnan apart was his commitment to quality. Every detail was handled with care, and he approached every challenge with a solution-oriented mindset rather than making excuses.\n\nHe kept us informed at every stage, was fully accountable for outcomes, and always showed up ready to deliver.\n\nThe system he built is rock-solid, well-structured, and exactly what we envisioned. It's clear this is someone who takes pride in their craft.\n\nHighly recommended — without reservation. We're already planning our next collaboration, and I look forward to a long-term partnership. If you're looking for a developer who combines technical excellence with genuine reliability, Adnan is your person.\n\n10/10 — Would hire again and again.”",
+    image: "/reviews/Luis Guilherme.gif",
+    expanded: true // Explicitly marked as using the expandable review UI
   }
 ];
 
+// Reusable Testimonial Text component with Expandable review UI enhancement
+interface TestimonialTextProps {
+  quote: string;
+  isMobile: boolean;
+  resolvedTheme: string;
+  isExpanded: boolean;
+  setIsExpanded: (val: boolean) => void;
+  canExpand: boolean;
+}
+
+const TestimonialText: React.FC<TestimonialTextProps> = ({ 
+  quote, 
+  isMobile, 
+  resolvedTheme, 
+  isExpanded, 
+  setIsExpanded,
+  canExpand
+}) => {
+  if (!canExpand) {
+    return (
+      <p style={{
+        fontFamily: F.inter, 
+        fontSize: isMobile ? "13px" : "14px", 
+        color: C.txtBody, 
+        lineHeight: 1.65, 
+        margin: 0,
+        fontWeight: 400,
+        opacity: 0.9,
+        textAlign: "left",
+        wordBreak: "break-word"
+      }}>
+        {quote}
+      </p>
+    );
+  }
+
+  // Increased collapsedHeight by 40-60px to show 2-3 additional lines of text naturally
+  const collapsedHeight = isMobile ? 120 : 160;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      <motion.div
+        animate={{ height: isExpanded ? "auto" : collapsedHeight }}
+        transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          width: "100%"
+        }}
+      >
+        <p style={{
+          fontFamily: F.inter, 
+          fontSize: isMobile ? "13px" : "14px", 
+          color: C.txtBody, 
+          lineHeight: 1.65, 
+          margin: 0,
+          fontWeight: 400,
+          opacity: 0.9,
+          textAlign: "left",
+          wordBreak: "break-word",
+          whiteSpace: "pre-line"
+        }}>
+          {quote}
+        </p>
+        
+        <AnimatePresence>
+          {!isExpanded && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "36px",
+                background: resolvedTheme === 'dark'
+                  ? "linear-gradient(to top, rgba(10, 15, 30, 0.95) 0%, rgba(10, 15, 30, 0) 100%)"
+                  : "linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 100%)",
+                pointerEvents: "none"
+              }}
+            />
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsExpanded(!isExpanded);
+        }}
+        style={{
+          background: "none",
+          border: "none",
+          padding: 0,
+          marginTop: "12px",
+          fontFamily: F.inter,
+          fontSize: "12px",
+          fontWeight: 600,
+          color: "var(--color-green)",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: "4px",
+          alignSelf: "flex-start",
+          outline: "none"
+        }}
+      >
+        <motion.span
+          style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
+          whileHover={{ x: isExpanded ? 0 : 2 }}
+        >
+          {isExpanded ? "Collapse Review" : "Read More →"}
+        </motion.span>
+      </button>
+    </div>
+  );
+};
+
 export default function TestimonialCarousel() {
   const [active, setActive] = useState(0);
+  const [isCenterExpanded, setIsCenterExpanded] = useState(false);
   const isMobile = useMobile(768);
   const { resolvedTheme } = useTheme();
   const carouselRef = useRef(null);
@@ -61,18 +212,20 @@ export default function TestimonialCarousel() {
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % reviewsData.length);
+    setIsCenterExpanded(false);
   }, []);
 
   const prev = useCallback(() => {
     setActive((prev) => (prev - 1 + reviewsData.length) % reviewsData.length);
+    setIsCenterExpanded(false);
   }, []);
 
-  // Autoplay — ONLY starts when section is in view
+  // Autoplay — ONLY starts when section is in view and not expanded
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || isCenterExpanded) return;
     const timer = setInterval(next, 7000);
     return () => clearInterval(timer);
-  }, [next, isInView]);
+  }, [next, isInView, isCenterExpanded]);
 
   const handleDragEnd = (e: any, { offset, velocity }: any) => {
     if (offset.x > 50) {
@@ -159,14 +312,16 @@ export default function TestimonialCarousel() {
         className="relative w-full" 
         style={{ 
           perspective: 1200, 
-          minHeight: isMobile ? "auto" : "340px", 
+          // Adjusted wrapper minHeight to fit the taller base cards nicely
+          minHeight: isMobile ? "auto" : (isCenterExpanded ? "640px" : "440px"), 
           height: isMobile ? "auto" : undefined,
           width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           position: "relative",
-          overflow: isMobile ? "hidden" : "visible"
+          overflow: isMobile ? "hidden" : "visible",
+          transition: "min-height 0.4s cubic-bezier(0.32, 0.72, 0, 1)"
         }}
       >
         {isMobile ? (
@@ -174,6 +329,9 @@ export default function TestimonialCarousel() {
             {(() => {
               const review = reviewsData[active];
               const { zIndex } = getCardStyles(active);
+              // Adjusted character threshold from 240 to 420 since the collapsed container now holds 2-3 extra lines
+              const canExpand = review.expanded !== false && (review.expanded === true || review.quote.length > 420);
+
               return (
                 <motion.div
                   key={review.name}
@@ -202,7 +360,8 @@ export default function TestimonialCarousel() {
                     width: "92%",
                     maxWidth: "360px",
                     marginInline: "auto",
-                    minHeight: "300px",
+                    // Increased mobile card min-height by 60px to allow breathing room and prevent overflow
+                    minHeight: "360px",
                     height: "auto",
                     background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                     backdropFilter: "blur(20px)",
@@ -210,7 +369,8 @@ export default function TestimonialCarousel() {
                     border: `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`,
                     borderRadius: "28px",
                     overflow: "hidden",
-                    padding: "28px 24px",
+                    // Increased mobile card padding for vertical breathing room
+                    padding: "36px 24px",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
@@ -245,7 +405,14 @@ export default function TestimonialCarousel() {
                       border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
                       flexShrink: 0 
                     }}>
-                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                      <Image 
+                        src={review.image} 
+                        alt={review.name} 
+                        fill 
+                        className="object-cover" 
+                        sizes="64px"
+                        unoptimized={review.image.endsWith(".gif")}
+                      />
                     </div>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <span style={{ fontFamily: F.inter, fontSize: "15px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
@@ -258,26 +425,38 @@ export default function TestimonialCarousel() {
                         textTransform: "uppercase",
                         letterSpacing: "0.02em"
                       }}>{review.title}</span>
+                      {/* Location and Flag (Mobile) */}
+                      <div style={{ 
+                        fontFamily: F.inter, 
+                        fontSize: "12px", 
+                        color: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.65)", 
+                        marginTop: "4px", 
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontWeight: 500
+                      }}>
+                        <img 
+                          src={`https://flagcdn.com/${review.countryCode}.svg`} 
+                          style={{ width: "16px", height: "12px", borderRadius: "1.5px", objectFit: "cover", display: "inline-block" }} 
+                          alt={review.location} 
+                        />
+                        <span>{review.location}</span>
+                      </div>
                     </div>
                   </div>
 
                   <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
 
-                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
-                    <p style={{
-                      fontFamily: F.inter, 
-                      fontSize: "13px", 
-                      color: C.txtBody, 
-                      lineHeight: 1.65, 
-                      margin: 0,
-                      fontWeight: 400,
-                      opacity: 0.9,
-                      textAlign: "left",
-                      wordBreak: "break-word",
-                      overflow: "hidden"
-                    }}>
-                      {review.quote}
-                    </p>
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
+                    <TestimonialText
+                      quote={review.quote}
+                      isMobile={true}
+                      resolvedTheme={resolvedTheme || "dark"}
+                      isExpanded={isCenterExpanded}
+                      setIsExpanded={setIsCenterExpanded}
+                      canExpand={canExpand}
+                    />
                   </div>
                 </motion.div>
               );
@@ -287,6 +466,8 @@ export default function TestimonialCarousel() {
           <AnimatePresence initial={false}>
             {reviewsData.map((review, i) => {
               const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
+              // Adjusted character threshold from 240 to 420 since the collapsed container now holds 2-3 extra lines
+              const canExpand = review.expanded !== false && (review.expanded === true || review.quote.length > 420);
 
               return (
                 <motion.div
@@ -322,7 +503,8 @@ export default function TestimonialCarousel() {
                     maxWidth: "520px",
                     top: "50%",
                     left: "50%",
-                    minHeight: "200px",
+                    // Increased desktop base card height by 160px (approx 100px base + padding differences) for a more spacious layout
+                    minHeight: "380px",
                     height: "auto",
                     background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                     backdropFilter: "blur(20px)",
@@ -332,11 +514,12 @@ export default function TestimonialCarousel() {
                       : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
                     borderRadius: "28px",
                     overflow: "hidden",
-                    padding: "32px 24px",
+                    // Increased padding for desktop from 32px 24px to 40px 32px
+                    padding: "40px 32px",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
-                    gap: "16px",
+                    justifyContent: "flex-start",
+                    gap: "18px",
                     boxShadow: isCenter 
                       ? resolvedTheme === 'dark'
                         ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
@@ -371,7 +554,14 @@ export default function TestimonialCarousel() {
                       border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
                       flexShrink: 0 
                     }}>
-                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                      <Image 
+                        src={review.image} 
+                        alt={review.name} 
+                        fill 
+                        className="object-cover" 
+                        sizes="64px"
+                        unoptimized={review.image.endsWith(".gif")}
+                      />
                     </div>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <span style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
@@ -384,26 +574,38 @@ export default function TestimonialCarousel() {
                         textTransform: "uppercase",
                         letterSpacing: "0.02em"
                       }}>{review.title}</span>
+                      {/* Location and Flag (Desktop) */}
+                      <div style={{ 
+                        fontFamily: F.inter, 
+                        fontSize: "12px", 
+                        color: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.65)", 
+                        marginTop: "4px", 
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontWeight: 500
+                      }}>
+                        <img 
+                          src={`https://flagcdn.com/${review.countryCode}.svg`} 
+                          style={{ width: "16px", height: "12px", borderRadius: "1.5px", objectFit: "cover", display: "inline-block" }} 
+                          alt={review.location} 
+                        />
+                        <span>{review.location}</span>
+                      </div>
                     </div>
                   </div>
 
                   <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
 
-                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
-                    <p style={{
-                      fontFamily: F.inter, 
-                      fontSize: "14px", 
-                      color: C.txtBody, 
-                      lineHeight: 1.65, 
-                      margin: 0,
-                      fontWeight: 400,
-                      opacity: 0.9,
-                      textAlign: "left",
-                      wordBreak: "break-word",
-                      overflow: "hidden"
-                    }}>
-                      {review.quote}
-                    </p>
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
+                    <TestimonialText
+                      quote={review.quote}
+                      isMobile={false}
+                      resolvedTheme={resolvedTheme || "dark"}
+                      isExpanded={isCenter ? isCenterExpanded : false}
+                      setIsExpanded={setIsCenterExpanded}
+                      canExpand={canExpand}
+                    />
                   </div>
                 </motion.div>
               );
@@ -425,7 +627,10 @@ export default function TestimonialCarousel() {
         {reviewsData.map((_, i) => (
           <button
             key={i}
-            onClick={() => setActive(i)}
+            onClick={() => {
+              setActive(i);
+              setIsCenterExpanded(false);
+            }}
             className="transition-all duration-300 rounded-full"
             style={{
               width: active === i ? "24px" : "8px",
@@ -468,4 +673,3 @@ function ArrowBtn({ dir, onClick }: { dir: 'left' | 'right', onClick: () => void
     </motion.button>
   );
 }
-

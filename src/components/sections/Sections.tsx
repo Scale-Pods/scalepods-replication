@@ -672,19 +672,65 @@ export function Services() {
 // DATA ANALYSIS — tall section with big centered text
 // ═══════════════════════════════════════════════════════════════════════════════
 const brands = [
-  { src: "/brands/BECO.avif", alt: "BECO", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/gammacode.webp", alt: "Gammacode", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/krafty-logo-white.png", alt: "Krafty", darkModeFilter: "none", lightModeFilter: "brightness(0)" },
-  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi", darkModeFilter: "invert(1)", lightModeFilter: "none" },
-  { src: "/brands/Break-the-code.avif", alt: "Break The Code", darkModeFilter: "invert(1)", lightModeFilter: "none" },
-  { src: "/brands/passsionfruit.avif", alt: "Passionfruit", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/propertygeld.png", alt: "PropertyGeld", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
-  { src: "/brands/suphalmedia.avif", alt: "Suphal Media", darkModeFilter: "invert(1) brightness(1.2)", lightModeFilter: "none" },
+  { src: "/brands/BECO.avif", alt: "BECO", type: "transparent", scale: 0.9 },
+  { src: "/brands/gammacode.webp", alt: "Gammacode", type: "transparent", scale: 0.9 },
+  { src: "/brands/krafty-logo-white.png", alt: "Krafty", type: "transparent-white", scale: 0.9 },
+  { src: "/brands/hobbyfi_logo.jpg", alt: "HobbyFi", type: "white-bg", scale: 1.35 },
+  { src: "/brands/Break-the-code.avif", alt: "Break The Code", type: "white-bg", scale: 1.35 },
+  { src: "/brands/passsionfruit.avif", alt: "Passionfruit", type: "transparent", scale: 1.0 },
+  { src: "/brands/propertygeld.png", alt: "PropertyGeld", type: "transparent", scale: 0.95 },
+  { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", type: "transparent", scale: 0.8 },
+  { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", type: "transparent", scale: 1.25 },
+  { src: "/brands/suphalmedia.avif", alt: "Suphal Media", type: "transparent", scale: 1.0 },
+  { src: "/brands/victory-energy.svg", alt: "Victory Energy", type: "transparent-white", scale: 1.25 },
+  { src: "/brands/eequals_logo.webp", alt: "eEquals", type: "transparent", scale: 1.4 },
+  { src: "/brands/aspen-real-estate.jpg", alt: "Aspen Real Estate", type: "white-bg", scale: 2.2 },
+  { src: "/brands/naples-homes.jpg", alt: "Naples Homes", type: "dark-bg", scale: 1.6 },
+  { src: "/brands/bennett-realty-solutions.jpg", alt: "Bennett Realty Solutions", type: "white-bg", scale: 2.0 },
+  { src: "/brands/guileo-ai.png", alt: "Guileo AI", type: "transparent", scale: 1.35 },
 ];
 
-export function DataAnalysis() {
+const getLogoFilter = (brand: any, resolvedTheme: string, isHovered: boolean) => {
+  const isDark = resolvedTheme === "dark";
+  
+  if (isHovered) {
+    const baseFilter = brand.type === "white-bg" 
+      ? "url(#remove-white-bg) " 
+      : brand.type === "dark-bg" 
+        ? "invert(1) url(#remove-white-bg) invert(1) " 
+        : "";
+    
+    // For transparent white logo in light mode, force solid black on hover so it doesn't render white-on-white.
+    if (brand.type === "transparent-white" && !isDark) {
+      return "brightness(0) drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))";
+    }
+
+    return baseFilter + (isDark 
+      ? "drop-shadow(0 0 12px rgba(177, 217, 151, 0.45))" 
+      : "drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))");
+  }
+
+  // Default monochrome states
+  if (brand.type === "white-bg") {
+    return isDark 
+      ? "url(#remove-white-bg) grayscale(1) brightness(0) invert(1)" 
+      : "url(#remove-white-bg) grayscale(1) brightness(0)";
+  }
+  
+  if (brand.type === "dark-bg") {
+    return isDark 
+      ? "invert(1) url(#remove-white-bg) grayscale(1) brightness(1)" 
+      : "invert(1) url(#remove-white-bg) grayscale(1) brightness(0)";
+  }
+  
+  if (brand.type === "transparent-white") {
+    return isDark ? "none" : "brightness(0)";
+  }
+  
+  return isDark ? "brightness(0) invert(1)" : "brightness(0)";
+};
+
+export function BrandsMarquee() {
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
   const [isPaused, setIsPaused] = useState(false);
@@ -700,6 +746,186 @@ export function DataAnalysis() {
       return () => clearTimeout(timer);
     }
   }, [isPaused, isMobile]);
+
+  return (
+    <>
+      <svg width="0" height="0" style={{ position: "absolute", pointerEvents: "none" }}>
+        <defs>
+          <filter id="remove-white-bg" colorInterpolationFilters="sRGB">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              -2.5 -2.5 -2.5 0 7.2
+            " result="chroma" />
+            <feComposite in="chroma" in2="SourceGraphic" operator="in" />
+          </filter>
+        </defs>
+      </svg>
+      <div 
+        data-scroll-observed="1"
+        style={{
+          position: "relative",
+          width: "100%",
+          overflow: "hidden",
+          marginTop: isMobile ? "20px" : "40px",
+          padding: isMobile ? "20px 0" : "40px 0",
+          zIndex: 10,
+          maskImage: isMobile ? "none" : "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
+          WebkitMaskImage: isMobile ? "none" : "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
+          opacity: 1,
+          transform: "none"
+        }}
+      >
+        <style>{`
+          .marquee-wrapper-v4 {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+          }
+          .marquee-track-v4 {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            gap: 56px;
+            animation: marquee-v4 30s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
+            contain: content;
+          }
+          .paused-v3 {
+            animation-play-state: paused !important;
+          }
+          /* Swiper Custom Styles for Continuous Motion */
+          .mobile-swiper .swiper-wrapper {
+            transition-timing-function: linear !important;
+          }
+          @keyframes marquee-v4 {
+            from { transform: translate3d(0,0,0); }
+            to { transform: translate3d(-33.333%,0,0); }
+          }
+        `}</style>
+
+        {isMobile ? (
+          <div className="marquee-wrapper-v4 mobile-swiper" style={{ marginTop: "20px" }}>
+            <Swiper
+              modules={[Autoplay, FreeMode]}
+              slidesPerView="auto"
+              loop={true}
+              freeMode={{
+                enabled: true,
+                momentum: false,
+                momentumBounce: false,
+                sticky: false
+              }}
+              allowTouchMove={false}
+              speed={2200}
+              autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+                waitForTransition: true
+              }}
+              style={{ 
+                width: "100%", 
+                height: "44px", 
+                willChange: "transform",
+                transform: "translate3d(0,0,0)",
+                backfaceVisibility: "hidden"
+              }}
+            >
+              {[...brands, ...brands, ...brands].map((brand: any, i) => (
+                <SwiperSlide 
+                  key={`mobile-${brand.alt}-${i}`} 
+                  style={{ width: "auto", display: "flex", alignItems: "center", padding: "0 20px" }}
+                >
+                  <div style={{
+                    height: "32px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}>
+                    <img
+                      src={brand.src}
+                      alt={brand.alt}
+                      style={{
+                        height: `${32 * (brand.scale || 1)}px`,
+                        width: "auto",
+                        objectFit: "contain",
+                        background: "transparent",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                        filter: getLogoFilter(brand, resolvedTheme || "dark", false),
+                      }}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ) : (
+          <div className="marquee-wrapper-v4">
+            <div className={`marquee-track-v4 ${isPaused ? 'paused-v3' : ''}`}>
+              {[...brands, ...brands, ...brands].map((brand: any, i) => {
+                const isHovered = hoveredIndex === i;
+                const isAnyHovered = hoveredIndex !== null;
+                
+                // Adaptive CSS Filters for Brand Logos
+                const logoFilter = getLogoFilter(brand, resolvedTheme || "dark", isHovered);
+                const logoTransform = isHovered ? "scale(1.08)" : "scale(1)";
+
+                return (
+                  <div
+                    key={`${brand.alt}-${i}`}
+                    onMouseEnter={() => {
+                      setHoveredIndex(i);
+                      setIsPaused(true);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredIndex(null);
+                      setIsPaused(false);
+                    }}
+                    style={{
+                      flexShrink: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minWidth: "140px",
+                      height: "54px",
+                      transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                      transform: logoTransform,
+                      opacity: isHovered ? 1 : (isAnyHovered ? 0.35 : 0.65),
+                      cursor: "pointer",
+                      willChange: "transform, opacity"
+                    }}
+                  >
+                    <img
+                      src={brand.src}
+                      alt={brand.alt}
+                      style={{
+                        height: `${54 * (brand.scale || 1)}px`,
+                        width: "auto",
+                        objectFit: "contain",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                        background: "transparent",
+                        transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                        filter: logoFilter,
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+export function DataAnalysis() {
+  const isMobile = useMobile(1023);
   return (
     <Section id="data-analysis">
       <div style={{ 
@@ -714,12 +940,7 @@ export function DataAnalysis() {
         maxWidth: "100vw",
         overflow: "hidden"
       }}>
-      <style>{`
-        @keyframes marquee-v4 {
-          from { transform: translate3d(0,0,0); }
-          to { transform: translate3d(-33.333%,0,0); }
-        }
-      `}</style>
+
 
       {/* Badge matching live site */}
       <div style={{
@@ -793,196 +1014,7 @@ export function DataAnalysis() {
         }}>
           Trusted by thousands of companies and investors all over the world
         </p>
-
-        {/* Trusted Brands Marquee */}
-        <svg width="0" height="0" style={{ position: "absolute", pointerEvents: "none" }}>
-          <defs>
-            <filter id="remove-white-bg" colorInterpolationFilters="sRGB">
-              <feColorMatrix in="SourceGraphic" type="matrix" values="
-                1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                -2.5 -2.5 -2.5 0 7.2
-              " result="chroma" />
-              <feComposite in="chroma" in2="SourceGraphic" operator="in" />
-            </filter>
-          </defs>
-        </svg>
-        <div 
-          data-scroll-observed="1"
-          style={{
-            position: "relative",
-            width: "100%",
-            overflow: "hidden",
-            marginTop: isMobile ? "20px" : "40px",
-            padding: isMobile ? "20px 0" : "40px 0",
-            zIndex: 10,
-            maskImage: isMobile ? "none" : "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
-            WebkitMaskImage: isMobile ? "none" : "linear-gradient(to right, transparent, var(--color-bg-page) 15%, var(--color-bg-page) 85%, transparent)",
-            opacity: 1,
-            transform: "none"
-          }}
-        >
-          <style>{`
-            .marquee-wrapper-v4 {
-              width: 100%;
-              overflow: hidden;
-              position: relative;
-            }
-            .marquee-track-v4 {
-              display: flex;
-              align-items: center;
-              width: max-content;
-              gap: 56px;
-              animation: marquee-v4 30s linear infinite;
-              will-change: transform;
-              backface-visibility: hidden;
-              contain: content;
-            }
-            .paused-v3 {
-              animation-play-state: paused !important;
-            }
-            /* Swiper Custom Styles for Continuous Motion */
-            .mobile-swiper .swiper-wrapper {
-              transition-timing-function: linear !important;
-            }
-          `}</style>
-
-          {isMobile ? (
-            <div className="marquee-wrapper-v4 mobile-swiper" style={{ marginTop: "20px" }}>
-              <Swiper
-                modules={[Autoplay, FreeMode]}
-                slidesPerView="auto"
-                loop={true}
-                freeMode={{
-                  enabled: true,
-                  momentum: false,
-                  momentumBounce: false,
-                  sticky: false
-                }}
-                allowTouchMove={false}
-                speed={2200}
-                autoplay={{
-                  delay: 0,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: false,
-                  waitForTransition: true
-                }}
-                style={{ 
-                  width: "100%", 
-                  height: "40px", 
-                  willChange: "transform",
-                  transform: "translate3d(0,0,0)",
-                  backfaceVisibility: "hidden"
-                }}
-              >
-                {[...brands, ...brands, ...brands].map((brand: any, i) => (
-                  <SwiperSlide 
-                    key={`mobile-${brand.alt}-${i}`} 
-                    style={{ width: "auto", display: "flex", alignItems: "center", padding: "0 20px" }}
-                  >
-                    <div style={{
-                      height: "28px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}>
-                      <img
-                        src={brand.src}
-                        alt={brand.alt}
-                        style={{
-                          height: "100%",
-                          width: "auto",
-                          objectFit: "contain",
-                          background: "transparent",
-                          pointerEvents: "none",
-                          userSelect: "none",
-                          filter: resolvedTheme === "dark" 
-                            ? ((brand.alt === "HobbyFi" || brand.alt === "Break The Code") ? "url(#remove-white-bg) grayscale(1) brightness(0) invert(1)" : "brightness(0) invert(1)") 
-                            : ((brand.alt === "HobbyFi" || brand.alt === "Break The Code") ? "url(#remove-white-bg) grayscale(1) brightness(0)" : (brand.alt === "Krafty" ? "brightness(0.25)" : "brightness(0)"))
-                        }}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          ) : (
-            <div className="marquee-wrapper-v4">
-              <div className={`marquee-track-v4 ${isPaused ? 'paused-v3' : ''}`}>
-                {[...brands, ...brands, ...brands].map((brand: any, i) => {
-                  const isHovered = hoveredIndex === i;
-                  const isAnyHovered = hoveredIndex !== null;
-                  
-                  // Adaptive CSS Filters for Brand Logos
-                  let logoFilter = "";
-                  let logoTransform = "scale(1)";
-                  
-                  const isSpecialLogo = brand.alt === "HobbyFi" || brand.alt === "Break The Code";
-                  const baseFilter = isSpecialLogo ? "url(#remove-white-bg) " : "";
-
-                  if (isHovered) {
-                    // Hovered state: original brand colors + premium glow
-                    logoFilter = baseFilter + (resolvedTheme === "dark"
-                      ? "drop-shadow(0 0 12px rgba(177, 217, 151, 0.45))"
-                      : "drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))");
-                    logoTransform = "scale(1.08)";
-                  } else {
-                    // Default adaptive states: STRICTLY MONOCHROME
-                    if (resolvedTheme === "dark") {
-                      logoFilter = baseFilter + "grayscale(1) brightness(0) invert(1)";
-                    } else {
-                      logoFilter = baseFilter + (brand.alt === "Krafty" ? "brightness(0.25)" : "grayscale(1) brightness(0)");
-                    }
-                  }
-
-                  return (
-                    <div
-                      key={`${brand.alt}-${i}`}
-                      onMouseEnter={() => {
-                        setHoveredIndex(i);
-                        setIsPaused(true);
-                      }}
-                      onMouseLeave={() => {
-                        setHoveredIndex(null);
-                        setIsPaused(false);
-                      }}
-                      style={{
-                        flexShrink: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        minWidth: "140px",
-                        height: "48px",
-                        transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                        transform: logoTransform,
-                        opacity: isHovered ? 1 : (isAnyHovered ? 0.35 : 0.65),
-                        cursor: "pointer",
-                        willChange: "transform, opacity"
-                      }}
-                    >
-                      <img
-                        src={brand.src}
-                        alt={brand.alt}
-                        style={{
-                          height: "100%",
-                          width: "auto",
-                          objectFit: "contain",
-                          pointerEvents: "none",
-                          userSelect: "none",
-                          background: "transparent",
-                          transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                          filter: logoFilter,
-                          willChange: "filter"
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
+        <BrandsMarquee />
       </div>
     </div>
     </Section>
