@@ -145,6 +145,9 @@ export default function AuditModal({
     } else {
       localStorage.setItem("scalepods_cooldown_audit_request", Date.now().toString());
       setSubmitted(true);
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "lead_form_success", form_type: "contact_sales", source_page: "audit_modal" });
 
       // Auto close after 3 seconds
       setTimeout(() => {

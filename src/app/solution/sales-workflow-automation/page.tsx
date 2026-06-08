@@ -1807,6 +1807,9 @@ export default function SalesPodPage() {
     } else {
       localStorage.setItem("scalepods_cooldown_salespod", Date.now().toString());
       setSubmitted(true);
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "lead_form_success", form_type: "contact_sales", source_page: "/solution/sales-workflow-automation" });
     }
   };
 

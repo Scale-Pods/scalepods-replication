@@ -150,6 +150,9 @@ export default function DownloadModal({
     } else {
       localStorage.setItem("scalepods_cooldown_guide_download", Date.now().toString());
       setSubmitted(true);
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "lead_form_success", form_type: "guide_download", source_page: "download_modal" });
       // Trigger download
       const link = document.createElement("a");
       link.href = zipFile;

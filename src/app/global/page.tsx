@@ -227,6 +227,9 @@ export default function GlobalPage() {
     } else {
       localStorage.setItem("scalepods_cooldown_global_inquiry", Date.now().toString());
       setSubmitted(true);
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "lead_form_success", form_type: "global_inquiry", source_page: "/global" });
     }
   }
 
