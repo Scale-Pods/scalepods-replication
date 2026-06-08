@@ -31,6 +31,7 @@ import dynamic from "next/dynamic";
 const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { ssr: false });
 const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
 const CalendlyModal = dynamic(() => import("@/components/ui/CalendlyModal"), { ssr: false });
+import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
 import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -358,30 +359,40 @@ const salespodReviews = [
   {
     name: "Vinay Kumar",
     title: "Managing Director at LOTUS MANOR REAL ESTATE L.L.C, DUBAI.",
+    location: "Dubai, UAE",
+    countryCode: "ae",
     quote: "“We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right and the timeline is tight.”",
     image: "/reviews/Vinay Kumar.webp"
   },
   {
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
+    location: "Mumbai, India",
+    countryCode: "in",
     quote: "“Truly impressive. The AI assistant is fast, accurate, and blends into our daily ops without friction. What stood out most was how quickly the team understood our workflow and customized the automation around it. The implementation felt seamless from day one, and the support throughout the process was proactive and reliable. Scalepods helped us simplify operations without slowing the team down.”",
     image: "/reviews/Anuj Ruia.jpeg"
   },
   {
     name: "Sharan Lekhi",
     title: "Founder at Krafty Animations",
+    location: "Mumbai, India",
+    countryCode: "in",
     quote: "“Game-changer. Automation flows run flawlessly. Our team focuses only on what really matters. Scalepods helped us streamline communication, reduce manual coordination, and improve overall execution speed. The workflows are reliable, easy to manage, and built with real operational understanding. It’s one of the few systems we adopted that immediately started saving us valuable time.”",
     image: "/reviews/Sharan Lekhi.jpeg"
   },
   {
     name: "Shreyansh Jaiswal",
     title: "Founder at HobbyFi",
+    location: "Bangalore, India",
+    countryCode: "in",
     quote: "“Smooth setup. Replaced three tools. We saw improvements in just the first week. The onboarding process was quick, the automation logic was easy to understand, and everything integrated well with our existing workflow. Scalepods made the transition feel effortless while improving response times and reducing operational overhead across multiple tasks.”",
     image: "/reviews/Shreyansh Jaiswal.avif"
   },
   {
     name: "Dhairya Shah",
     title: "Partner & CEO at Break The Code",
+    location: "Ahmedabad, India",
+    countryCode: "in",
     quote: "“Very intuitive. No fluff, just performance. Our internal processes finally feel under control. The automation setup was thoughtfully structured and aligned well with our team’s daily operations. What impressed us most was the balance between flexibility and reliability. Scalepods delivered a system that feels efficient, scalable, and genuinely useful in day-to-day execution.”",
     image: "/reviews/Dhairya Shah.avif"
   }
@@ -1265,91 +1276,19 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
 }
 
 function SalespodTestimonialCarousel() {
+  return <TestimonialCarousel reviews={salespodReviews} />;
+}
+
+function DummySalespodTestimonialCarousel() {
   const [active, setActive] = useState(0);
   const isMobile = useMobile(768);
   const { resolvedTheme } = useTheme();
+  const next = () => {};
+  const prev = () => {};
+  const handleDragEnd = () => {};
+  const getCardStyles = (index: number) => ({ x: 0, scale: 1, opacity: 1, zIndex: 1, filter: "none", pointerEvents: "none" as const, isCenter: true });
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    if (!carouselRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(carouselRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const next = useCallback(() => {
-    setActive((prev) => (prev + 1) % salespodReviews.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setActive((prev) => (prev - 1 + salespodReviews.length) % salespodReviews.length);
-  }, []);
-
-  // Autoplay
-  useEffect(() => {
-    if (!isInView) return;
-    const timer = setInterval(next, 7000);
-    return () => clearInterval(timer);
-  }, [next, isInView]);
-
-  const handleDragEnd = (e: any, { offset }: any) => {
-    if (offset.x > 50) {
-      prev();
-    } else if (offset.x < -50) {
-      next();
-    }
-  };
-
-  const getCardStyles = (index: number) => {
-    const total = salespodReviews.length;
-    let diff = (index - active) % total;
-    if (diff < -Math.floor(total / 2)) diff += total;
-    if (diff > Math.floor(total / 2)) diff -= total;
-
-    const isCenter = diff === 0;
-    const isLeft = diff === -1;
-    const isRight = diff === 1;
-
-    let x = 0;
-    let scale = 1;
-    let opacity = 1;
-    let zIndex = total - Math.abs(diff);
-    let filter = "none";
-    let pointerEvents: "auto" | "none" = "none";
-
-    const xOffset = isMobile ? 25 : 360; 
-
-    if (isCenter) {
-      x = 0;
-      scale = 1;
-      opacity = 1;
-      filter = "grayscale(0) brightness(1) blur(0px)";
-      pointerEvents = "auto";
-    } else if (isLeft) {
-      x = -xOffset;
-      scale = isMobile ? 0.8 : 0.85;
-      opacity = isMobile ? 0 : 0.6;
-      filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
-    } else if (isRight) {
-      x = xOffset;
-      scale = isMobile ? 0.8 : 0.85;
-      opacity = isMobile ? 0 : 0.6;
-      filter = resolvedTheme === 'dark' ? "grayscale(0.5) brightness(0.7) blur(2px)" : "grayscale(0.3) brightness(0.95) blur(2px)";
-    } else {
-      x = diff < 0 ? -xOffset * 1.6 : xOffset * 1.6;
-      scale = 0.7;
-      opacity = 0;
-      filter = "grayscale(1) blur(8px)";
-    }
-
-    return { x, scale, opacity, zIndex, filter, pointerEvents, isCenter };
-  };
+  const isInView = false;
 
   return (
     <div 

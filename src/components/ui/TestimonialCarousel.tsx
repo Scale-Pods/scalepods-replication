@@ -202,7 +202,8 @@ const TestimonialText: React.FC<TestimonialTextProps> = ({
   );
 };
 
-export default function TestimonialCarousel() {
+export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[] } = {}) {
+  const data = reviews || reviewsData;
   const [active, setActive] = useState(0);
   const [isCenterExpanded, setIsCenterExpanded] = useState(false);
   const isMobile = useMobile(768);
@@ -211,14 +212,14 @@ export default function TestimonialCarousel() {
   const isInView = useInView(carouselRef, { once: false, amount: 0.2 });
 
   const next = useCallback(() => {
-    setActive((prev) => (prev + 1) % reviewsData.length);
+    setActive((prev) => (prev + 1) % data.length);
     setIsCenterExpanded(false);
-  }, []);
+  }, [data.length]);
 
   const prev = useCallback(() => {
-    setActive((prev) => (prev - 1 + reviewsData.length) % reviewsData.length);
+    setActive((prev) => (prev - 1 + data.length) % data.length);
     setIsCenterExpanded(false);
-  }, []);
+  }, [data.length]);
 
   // Autoplay — ONLY starts when section is in view and not expanded
   useEffect(() => {
@@ -236,7 +237,7 @@ export default function TestimonialCarousel() {
   };
 
   const getCardStyles = (index: number) => {
-    const total = reviewsData.length;
+    const total = data.length;
     let diff = (index - active) % total;
     if (diff < -Math.floor(total / 2)) diff += total;
     if (diff > Math.floor(total / 2)) diff -= total;
@@ -327,7 +328,8 @@ export default function TestimonialCarousel() {
         {isMobile ? (
           <AnimatePresence initial={false} mode="wait">
             {(() => {
-              const review = reviewsData[active];
+              if (data.length === 0) return null;
+              const review = data[active];
               const { zIndex } = getCardStyles(active);
               // Adjusted character threshold from 240 to 420 since the collapsed container now holds 2-3 extra lines
               const canExpand = review.expanded !== false && (review.expanded === true || review.quote.length > 420);
@@ -464,7 +466,7 @@ export default function TestimonialCarousel() {
           </AnimatePresence>
         ) : (
           <AnimatePresence initial={false}>
-            {reviewsData.map((review, i) => {
+            {data.map((review, i) => {
               const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
               // Adjusted character threshold from 240 to 420 since the collapsed container now holds 2-3 extra lines
               const canExpand = review.expanded !== false && (review.expanded === true || review.quote.length > 420);
@@ -624,7 +626,7 @@ export default function TestimonialCarousel() {
           alignItems: "center"
         }}
       >
-        {reviewsData.map((_, i) => (
+        {data.map((_, i) => (
           <button
             key={i}
             onClick={() => {
