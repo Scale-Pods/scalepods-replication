@@ -2275,7 +2275,6 @@ export default function SalesPodPage() {
                       whileHover={{ y: -2, scale: 1.01 }}
                       whileTap={{ scale: 0.99 }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      id="lead-form-submit"
                       type="submit"
                       disabled={loading}
                       className="sp-submit-btn"
