@@ -29,10 +29,10 @@ export default function CalendlyModal({ isOpen, onClose, url }: CalendlyModalPro
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    // BACKGROUND INITIALIZATION: Warm up the Calendly iframe 1.5 seconds after page hydration
+    // BACKGROUND INITIALIZATION: Warm up the Calendly iframe 4.5 seconds after page hydration
     const timer = setTimeout(() => {
       setShouldLoadIframe(true);
-    }, 1500);
+    }, 4500);
 
     return () => {
       window.removeEventListener("resize", checkMobile);

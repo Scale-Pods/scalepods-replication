@@ -436,65 +436,70 @@ const Navbar = memo(() => {
 
                     <AnimatePresence>
                       {solutionsOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                          transition={{ duration: 0.15, ease: "easeOut" }}
+                        <div
                           style={{
                             position: "absolute",
                             top: "100%",
                             left: "50%",
                             transform: "translateX(-50%)",
                             marginTop: "8px",
-                            background: "var(--color-bg-card)",
-                            border: "1px solid var(--color-border)",
-                            borderRadius: "16px",
-                            padding: "8px",
-                            minWidth: "240px",
-                            boxShadow: resolvedTheme === 'dark' 
-                              ? "0 20px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05)" 
-                              : "0 15px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
-                            backdropFilter: "blur(24px)",
-                            WebkitBackdropFilter: "blur(24px)",
                             zIndex: 100,
                           }}
                         >
-                          {solutions.map((sol) => {
-                            const isSolActive = pathname === sol.href;
-                            return (
-                              <Link
-                                key={sol.label}
-                                href={sol.href}
-                                prefetch={isProd}
-                                onClick={() => setSolutionsOpen(false)}
-                                style={{
-                                  display: "block",
-                                  padding: "10px 14px",
-                                  borderRadius: "10px",
-                                  fontSize: "13px",
-                                  fontWeight: 500,
-                                  color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)",
-                                  background: isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
-                                  textDecoration: "none",
-                                  transition: "all 0.2s ease",
-                                  fontFamily: "Inter, sans-serif",
-                                  textAlign: "left"
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
-                                  e.currentTarget.style.color = "var(--color-text-bright)";
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.background = isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent";
-                                  e.currentTarget.style.color = isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)";
-                                }}
-                              >
-                                {sol.label}
-                              </Link>
-                            );
-                          })}
-                        </motion.div>
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
+                            style={{
+                              background: "var(--color-bg-card)",
+                              border: "1px solid var(--color-border)",
+                              borderRadius: "16px",
+                              padding: "8px",
+                              minWidth: "240px",
+                              boxShadow: resolvedTheme === 'dark' 
+                                ? "0 20px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05)" 
+                                : "0 15px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                              backdropFilter: "blur(24px)",
+                              WebkitBackdropFilter: "blur(24px)",
+                            }}
+                          >
+                            {solutions.map((sol) => {
+                              const isSolActive = pathname === sol.href;
+                              return (
+                                <Link
+                                  key={sol.label}
+                                  href={sol.href}
+                                  prefetch={isProd}
+                                  onClick={() => setSolutionsOpen(false)}
+                                  style={{
+                                    display: "block",
+                                    padding: "10px 14px",
+                                    borderRadius: "10px",
+                                    fontSize: "13px",
+                                    fontWeight: 500,
+                                    color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)",
+                                    background: isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                                    textDecoration: "none",
+                                    transition: "all 0.2s ease",
+                                    fontFamily: "Inter, sans-serif",
+                                    textAlign: "left"
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                                    e.currentTarget.style.color = "var(--color-text-bright)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                    e.currentTarget.style.color = isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)";
+                                  }}
+                                >
+                                  {sol.label}
+                                </Link>
+                              );
+                            })}
+                          </motion.div>
+                        </div>
                       )}
                     </AnimatePresence>
                   </div>

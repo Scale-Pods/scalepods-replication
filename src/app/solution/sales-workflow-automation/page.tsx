@@ -26,9 +26,11 @@ import { useCountryDetection } from "@/lib/country";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useMobile } from "@/lib/hooks";
 import { BeamsBackground } from "@/components/ui/beams-background";
-import DownloadModal from "@/components/ui/DownloadModal";
-import AuditModal from "@/components/ui/AuditModal";
-import CalendlyModal from "@/components/ui/CalendlyModal";
+import dynamic from "next/dynamic";
+
+const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { ssr: false });
+const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
+const CalendlyModal = dynamic(() => import("@/components/ui/CalendlyModal"), { ssr: false });
 import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -505,6 +507,29 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const loadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          loadObserver.disconnect();
+        }
+      },
+      {
+        rootMargin: "300px",
+      }
+    );
+
+    loadObserver.observe(container);
+    return () => {
+      loadObserver.disconnect();
+    };
+  }, []);
 
   const lastClickTimeRef = useRef(0);
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -588,7 +613,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -618,11 +643,11 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     return () => {
       observer.unobserve(video);
     };
-  }, [isPlaying, updateProgressDOM]);
+  }, [isPlaying, updateProgressDOM, shouldLoad]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     let animationFrameId: number;
 
@@ -657,7 +682,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       video.removeEventListener("timeupdate", updateProgressDOM);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [updateProgressDOM]);
+  }, [updateProgressDOM, shouldLoad]);
 
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
@@ -683,7 +708,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     >
       <video
         ref={videoRef}
-        src={src}
+        src={shouldLoad ? src : undefined}
         autoPlay
         muted={isMuted}
         loop
@@ -856,6 +881,29 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const loadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          loadObserver.disconnect();
+        }
+      },
+      {
+        rootMargin: "300px",
+      }
+    );
+
+    loadObserver.observe(container);
+    return () => {
+      loadObserver.disconnect();
+    };
+  }, []);
 
   const lastClickTimeRef = useRef(0);
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -939,7 +987,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -969,11 +1017,11 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     return () => {
       observer.unobserve(video);
     };
-  }, [isPlaying, updateProgressDOM]);
+  }, [isPlaying, updateProgressDOM, shouldLoad]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     let animationFrameId: number;
 
@@ -1008,7 +1056,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       video.removeEventListener("timeupdate", updateProgressDOM);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [updateProgressDOM]);
+  }, [updateProgressDOM, shouldLoad]);
 
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
@@ -1045,7 +1093,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     >
       <video
         ref={videoRef}
-        src={src}
+        src={shouldLoad ? src : undefined}
         autoPlay
         muted={isMuted}
         loop
