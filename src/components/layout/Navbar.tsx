@@ -99,8 +99,12 @@ const navLinks = [
   { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
-  { label: "Use Cases", href: "/use-cases" },
+  { label: "Solutions", dropdown: true, href: "/solution" },
   { label: "Global", href: "/global" },
+];
+
+const solutions = [
+  { label: "Sales Workflow Automation", href: "/solution/sales-workflow-automation" },
 ];
 
 const globalSections = [
@@ -123,6 +127,8 @@ const Navbar = memo(() => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [globalExpanded, setGlobalExpanded] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [solutionsExpanded, setSolutionsExpanded] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
@@ -215,8 +221,8 @@ const Navbar = memo(() => {
         setActiveSection("blog");
       } else if (pathname === "/contact" || pathname?.startsWith("/contact")) {
         setActiveSection("contact");
-      } else if (pathname === "/use-cases" || pathname?.startsWith("/use-cases")) {
-        setActiveSection("use-cases");
+      } else if (pathname?.startsWith("/solution")) {
+        setActiveSection("solution");
       } else if (pathname === "/global" || pathname?.startsWith("/global")) {
         setActiveSection("global");
       } else {
@@ -264,11 +270,18 @@ const Navbar = memo(() => {
     };
   }, [pathname]);
 
+  // Auto-expand Solutions accordion on mobile when visiting solutions page
+  useEffect(() => {
+    if (pathname?.startsWith("/solution")) {
+      setSolutionsExpanded(true);
+    }
+  }, [pathname]);
+
   // Aggressively prefetch major routes after homepage hydration (production only)
   useEffect(() => {
     if (isProd) {
       router.prefetch("/global");
-      router.prefetch("/use-cases");
+      router.prefetch("/solution/sales-workflow-automation");
       router.prefetch("/blog");
       router.prefetch("/contact");
     }
@@ -362,13 +375,139 @@ const Navbar = memo(() => {
             }}
           >
             {navLinks.map((link) => {
-              const active = isLinkActive(link.href);
+              if (link.dropdown) {
+                const active = pathname?.startsWith("/solution");
+                return (
+                  <div
+                    key={link.label}
+                    onMouseEnter={() => setSolutionsOpen(true)}
+                    onMouseLeave={() => setSolutionsOpen(false)}
+                    style={{ position: "relative" }}
+                  >
+                    <button
+                      onClick={() => setSolutionsOpen(prev => !prev)}
+                      style={{
+                        position: "relative",
+                        fontSize: "13.5px",
+                        fontWeight: 500,
+                        color: active || solutionsOpen ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                        background: "transparent",
+                        border: "none",
+                        padding: "5px 14px",
+                        borderRadius: "24px",
+                        cursor: "pointer",
+                        transition: "color 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+                        whiteSpace: "nowrap",
+                        fontFamily: "Inter, sans-serif",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        zIndex: 1,
+                      }}
+                    >
+                      {active && (
+                        <motion.div
+                          layoutId="desktop-active-nav-pill"
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            background: "rgba(255, 255, 255, 0.05)",
+                            borderRadius: "24px",
+                            zIndex: -1,
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30
+                          }}
+                        />
+                      )}
+                      Solutions
+                      <ChevronDown 
+                        size={12} 
+                        style={{ 
+                          transform: solutionsOpen ? "rotate(180deg)" : "rotate(0deg)", 
+                          transition: "transform 0.2s ease",
+                          opacity: 0.8
+                        }} 
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {solutionsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            marginTop: "8px",
+                            background: "var(--color-bg-card)",
+                            border: "1px solid var(--color-border)",
+                            borderRadius: "16px",
+                            padding: "8px",
+                            minWidth: "240px",
+                            boxShadow: resolvedTheme === 'dark' 
+                              ? "0 20px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05)" 
+                              : "0 15px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                            backdropFilter: "blur(24px)",
+                            WebkitBackdropFilter: "blur(24px)",
+                            zIndex: 100,
+                          }}
+                        >
+                          {solutions.map((sol) => {
+                            const isSolActive = pathname === sol.href;
+                            return (
+                              <Link
+                                key={sol.label}
+                                href={sol.href}
+                                prefetch={isProd}
+                                onClick={() => setSolutionsOpen(false)}
+                                style={{
+                                  display: "block",
+                                  padding: "10px 14px",
+                                  borderRadius: "10px",
+                                  fontSize: "13px",
+                                  fontWeight: 500,
+                                  color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)",
+                                  background: isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                                  textDecoration: "none",
+                                  transition: "all 0.2s ease",
+                                  fontFamily: "Inter, sans-serif",
+                                  textAlign: "left"
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                                  e.currentTarget.style.color = "var(--color-text-bright)";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                  e.currentTarget.style.color = isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)";
+                                }}
+                              >
+                                {sol.label}
+                              </Link>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
+              const active = isLinkActive(link.href!);
               return (
                 <Link
                   key={link.label}
-                  href={link.href}
+                  href={link.href!}
                   prefetch={isProd}
-                  onClick={(e) => handleLinkClick(e, link.href)}
+                  onClick={(e) => handleLinkClick(e, link.href!)}
                   style={{
                     position: "relative",
                     fontSize: "13.5px",
@@ -543,8 +682,105 @@ const Navbar = memo(() => {
                   WebkitOverflowScrolling: "touch"
                 }}>
                   {navLinks.map((link, i) => {
+                    if (link.dropdown) {
+                      const active = pathname?.startsWith("/solution");
+                      return (
+                        <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
+                          <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+                            {active && (
+                              <motion.div
+                                layoutId="mobile-active-nav-bg"
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  background: "rgba(255, 255, 255, 0.03)",
+                                  borderLeft: "2px solid var(--color-blue-bright)",
+                                  zIndex: 0,
+                                }}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 380,
+                                  damping: 30
+                                }}
+                              />
+                            )}
+                            <button
+                              onClick={() => setSolutionsExpanded(prev => !prev)}
+                              style={{
+                                flexGrow: 1,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                fontSize: "15px",
+                                fontWeight: 500,
+                                color: active || solutionsExpanded ? "var(--color-text-bright)" : "var(--color-text-body)",
+                                background: "transparent",
+                                border: "none",
+                                padding: "16px 24px",
+                                fontFamily: "Inter, sans-serif",
+                                cursor: "pointer",
+                                position: "relative",
+                                zIndex: 1,
+                                width: "100%",
+                                textAlign: "left"
+                              }}
+                            >
+                              <span>{link.label}</span>
+                              <ChevronDown 
+                                style={{ 
+                                  width: "16px", 
+                                  height: "16px", 
+                                  transform: solutionsExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                                  transition: "transform 0.3s ease",
+                                  opacity: 0.6
+                                }} 
+                              />
+                            </button>
+                          </div>
+                          
+                          <AnimatePresence>
+                            {solutionsExpanded && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                style={{ overflow: "hidden", background: "rgba(255,255,255,0.02)" }}
+                              >
+                                {solutions.map((sol) => {
+                                  const isSolActive = pathname === sol.href;
+                                  return (
+                                    <Link
+                                      key={sol.label}
+                                      href={sol.href}
+                                      prefetch={isProd}
+                                      onClick={closeMenu}
+                                      style={{
+                                        display: "block",
+                                        padding: "12px 40px",
+                                        fontSize: "13px",
+                                        fontWeight: 500,
+                                        color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                        background: isSolActive ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                        border: "none",
+                                        fontFamily: "Inter, sans-serif",
+                                        textDecoration: "none",
+                                        textAlign: "left"
+                                      }}
+                                    >
+                                      • {sol.label}
+                                    </Link>
+                                  );
+                                })}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      );
+                    }
+
                     if (link.label === "Global") {
-                      const active = isLinkActive(link.href);
+                      const active = isLinkActive(link.href!);
                       return (
                         <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
                           <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
@@ -566,7 +802,7 @@ const Navbar = memo(() => {
                               />
                             )}
                             <Link
-                              href={link.href}
+                              href={link.href!}
                               prefetch={isProd}
                               onClick={closeMenu}
                               style={{
@@ -664,7 +900,7 @@ const Navbar = memo(() => {
                       );
                     }
 
-                    const active = isLinkActive(link.href);
+                    const active = isLinkActive(link.href!);
                     return (
                       <motion.div
                         key={link.label}
@@ -673,9 +909,9 @@ const Navbar = memo(() => {
                         transition={{ delay: isMobile ? 0 : i * 0.04 + 0.1 }}
                       >
                         <Link
-                          href={link.href}
+                          href={link.href!}
                           prefetch={isProd}
-                          onClick={(e) => handleLinkClick(e, link.href)}
+                          onClick={(e) => handleLinkClick(e, link.href!)}
                           style={{
                             position: "relative",
                             display: "flex",
