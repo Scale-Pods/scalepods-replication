@@ -108,3 +108,38 @@ export interface GSCTrendData {
   data: GSCTrendItem[];
   count: number;
 }
+
+// ── BigQuery GA4 Sessions (User-Level Data) ───────────────────────────────────
+
+export interface GA4Session {
+  user_pseudo_id: string;      // Anonymous user ID (consistent per device)
+  session_id: string;          // Unique session identifier
+  session_start_time: string;  // ISO timestamp
+  session_end_time: string;    // ISO timestamp
+  event_count: number;         // Total events in session
+  engagement_time_msec: number; // Time spent on site (milliseconds)
+  device_category: string;     // desktop | mobile | tablet
+  browser: string;             // Browser name
+  os: string;                  // Operating system
+  country: string;             // 2-letter country code
+  city: string;                // City name
+  session_source: string;      // google | direct | facebook | etc.
+  session_medium: string;      // organic | paid | social | referral | direct
+  page_location: string;       // First page URL
+  page_title: string;          // First page title
+}
+
+export interface SessionQueryParams {
+  startDate?: string;          // YYYY-MM-DD
+  endDate?: string;            // YYYY-MM-DD
+  limit?: number;              // Default: 1000
+  offset?: number;             // Default: 0
+  minSessionDuration?: number;  // Seconds (optional filter)
+  minEngagementScore?: number;  // 0-100 (optional filter)
+}
+
+export interface GA4SessionsResponse {
+  sessions: GA4Session[];
+  total: number;
+  lastSync: string;
+}
