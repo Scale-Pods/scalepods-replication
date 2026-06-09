@@ -528,6 +528,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -686,9 +687,16 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       cancelAnimationFrame(animationFrameId);
     };
 
+    const handleTimeUpdate = () => {
+      updateProgressDOM();
+      if (video.currentTime > 0) {
+        setIsVideoReady(true);
+      }
+    };
+
     video.addEventListener("play", handlePlay);
     video.addEventListener("pause", handlePause);
-    video.addEventListener("timeupdate", updateProgressDOM);
+    video.addEventListener("timeupdate", handleTimeUpdate);
 
     if (!video.paused) {
       handlePlay();
@@ -699,7 +707,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     return () => {
       video.removeEventListener("play", handlePlay);
       video.removeEventListener("pause", handlePause);
-      video.removeEventListener("timeupdate", updateProgressDOM);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
       cancelAnimationFrame(animationFrameId);
     };
   }, [updateProgressDOM, shouldLoad]);
@@ -724,7 +732,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       ref={containerRef}
       className="sp-capability-video-wrapper" 
       onClick={handleVideoClick} 
-      style={{ cursor: "pointer", position: "relative" }}
+      style={{ cursor: "pointer", position: "relative", overflow: "hidden" }}
     >
       <video
         ref={videoRef}
@@ -735,12 +743,61 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         playsInline
         preload="metadata"
         className="sp-capability-video"
+        style={{
+          opacity: isVideoReady ? 1 : 0,
+          transition: "opacity 0.35s ease-in-out",
+        }}
         onLoadedMetadata={handleLoadedMetadata}
         onDurationChange={handleLoadedMetadata}
+        onCanPlay={() => setIsVideoReady(true)}
+        onLoadedData={() => setIsVideoReady(true)}
+        onPlay={() => setIsVideoReady(true)}
       />
 
+      <AnimatePresence>
+        {!isVideoReady && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              background: `radial-gradient(circle at center, rgba(15, 22, 38, 0.95), rgba(7, 11, 19, 0.98)), url(${src.replace(/\.mp4$/, "-poster.webp")}) center/cover no-repeat`,
+              borderRadius: "inherit",
+              zIndex: 5,
+              gap: "16px",
+              pointerEvents: "none",
+            }}
+          >
+            {/* ScalePods Premium Branded Logo */}
+            <div style={{ position: "relative", width: "120px", height: "30px", opacity: 0.85 }}>
+              <Image
+                src="/scalepods-navbar-logo.png"
+                alt="ScalePods Logo"
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="120px"
+              />
+            </div>
+
+            {/* Spinner and Status Indicator */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255, 255, 255, 0.7)" }}>
+              <Loader2 className="animate-spin" size={16} style={{ color: "var(--sp-accent)" }} />
+              <span style={{ fontSize: "12px", fontWeight: 500, letterSpacing: "0.05em", fontFamily: "Inter, sans-serif" }}>
+                PREPARING EXPERIENCE...
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Play Overlay indicator */}
-      {!isPlaying && (
+      {isVideoReady && !isPlaying && (
         <div 
           style={{
             position: "absolute",
@@ -774,7 +831,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       )}
 
       {/* Double Tap Seek Indicator Overlay */}
-      {seekType && (
+      {isVideoReady && seekType && (
         <div 
           style={{
             position: "absolute",
@@ -826,69 +883,73 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       )}
 
       {/* Hover-based Timeline Progress Bar */}
-      <div 
-        className="sp-video-timeline-container"
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          position: "absolute",
-          bottom: "18px",
-          left: "16px",
-          right: "64px",
-          display: "flex",
-          alignItems: "center",
-          zIndex: 10,
-        }}
-      >
-        <input 
-          ref={timelineRef}
-          type="range"
-          min={0}
-          max={duration || 1}
-          step={0.01}
-          defaultValue={0}
-          onChange={handleTimelineChange}
-          className="sp-video-timeline"
-        />
-      </div>
+      {isVideoReady && (
+        <div 
+          className="sp-video-timeline-container"
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            position: "absolute",
+            bottom: "18px",
+            left: "16px",
+            right: "64px",
+            display: "flex",
+            alignItems: "center",
+            zIndex: 10,
+          }}
+        >
+          <input 
+            ref={timelineRef}
+            type="range"
+            min={0}
+            max={duration || 1}
+            step={0.01}
+            defaultValue={0}
+            onChange={handleTimelineChange}
+            className="sp-video-timeline"
+          />
+        </div>
+      )}
 
       {/* Mute/Unmute Overlay Button */}
-      <button
-        onClick={toggleMute}
-        style={{
-          position: "absolute",
-          bottom: "12px",
-          right: "12px",
-          width: "44px",
-          height: "44px",
-          borderRadius: "50%",
-          background: "rgba(10, 15, 30, 0.65)",
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#ffffff",
-          cursor: "pointer",
-          transition: "background 0.2s, transform 0.2s",
-          zIndex: 10,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(10, 15, 30, 0.85)";
-          e.currentTarget.style.transform = "scale(1.05)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(10, 15, 30, 0.65)";
-          e.currentTarget.style.transform = "scale(1)";
-        }}
-        title={isMuted ? "Unmute" : "Mute"}
-      >
-        {isMuted ? (
-          <VolumeX size={20} style={{ opacity: 0.85 }} />
-        ) : (
-          <Volume2 size={20} style={{ opacity: 0.85 }} />
-        )}
-      </button>
+      {isVideoReady && (
+        <button
+          onClick={toggleMute}
+          style={{
+            position: "absolute",
+            bottom: "12px",
+            right: "12px",
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            background: "rgba(10, 15, 30, 0.65)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#ffffff",
+            cursor: "pointer",
+            transition: "background 0.2s, transform 0.2s",
+            zIndex: 10,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(10, 15, 30, 0.85)";
+            e.currentTarget.style.transform = "scale(1.05)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(10, 15, 30, 0.65)";
+            e.currentTarget.style.transform = "scale(1)";
+          }}
+          title={isMuted ? "Unmute" : "Mute"}
+        >
+          {isMuted ? (
+            <VolumeX size={20} style={{ opacity: 0.85 }} />
+          ) : (
+            <Volume2 size={20} style={{ opacity: 0.85 }} />
+          )}
+        </button>
+      )}
     </div>
   );
 }
@@ -902,6 +963,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -1060,9 +1122,16 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       cancelAnimationFrame(animationFrameId);
     };
 
+    const handleTimeUpdate = () => {
+      updateProgressDOM();
+      if (video.currentTime > 0) {
+        setIsVideoReady(true);
+      }
+    };
+
     video.addEventListener("play", handlePlay);
     video.addEventListener("pause", handlePause);
-    video.addEventListener("timeupdate", updateProgressDOM);
+    video.addEventListener("timeupdate", handleTimeUpdate);
 
     if (!video.paused) {
       handlePlay();
@@ -1073,7 +1142,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     return () => {
       video.removeEventListener("play", handlePlay);
       video.removeEventListener("pause", handlePause);
-      video.removeEventListener("timeupdate", updateProgressDOM);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
       cancelAnimationFrame(animationFrameId);
     };
   }, [updateProgressDOM, shouldLoad]);
@@ -1108,7 +1177,8 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         width: "100%",
         height: "100%",
         display: "block",
-        aspectRatio: "16/9"
+        aspectRatio: "16/9",
+        overflow: "hidden"
       }}
     >
       <video
@@ -1124,14 +1194,61 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          display: "block"
+          display: "block",
+          opacity: isVideoReady ? 1 : 0,
+          transition: "opacity 0.35s ease-in-out",
         }}
         onLoadedMetadata={handleLoadedMetadata}
         onDurationChange={handleLoadedMetadata}
+        onCanPlay={() => setIsVideoReady(true)}
+        onLoadedData={() => setIsVideoReady(true)}
+        onPlay={() => setIsVideoReady(true)}
       />
 
+      <AnimatePresence>
+        {!isVideoReady && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              background: `radial-gradient(circle at center, rgba(15, 22, 38, 0.95), rgba(7, 11, 19, 0.98)), url(${src.replace(/\.mp4$/, "-poster.webp")}) center/cover no-repeat`,
+              borderRadius: "inherit",
+              zIndex: 5,
+              gap: "16px",
+              pointerEvents: "none",
+            }}
+          >
+            {/* ScalePods Premium Branded Logo */}
+            <div style={{ position: "relative", width: "120px", height: "30px", opacity: 0.85 }}>
+              <Image
+                src="/scalepods-navbar-logo.png"
+                alt="ScalePods Logo"
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="120px"
+              />
+            </div>
+
+            {/* Spinner and Status Indicator */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255, 255, 255, 0.7)" }}>
+              <Loader2 className="animate-spin" size={16} style={{ color: "var(--sp-accent)" }} />
+              <span style={{ fontSize: "12px", fontWeight: 500, letterSpacing: "0.05em", fontFamily: "Inter, sans-serif" }}>
+                PREPARING EXPERIENCE...
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Play Overlay indicator */}
-      {!isPlaying && (
+      {isVideoReady && !isPlaying && (
         <div 
           style={{
             position: "absolute",
@@ -1165,7 +1282,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       )}
 
       {/* Double Tap Seek Indicator Overlay */}
-      {seekType && (
+      {isVideoReady && seekType && (
         <div 
           style={{
             position: "absolute",
@@ -1217,69 +1334,73 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       )}
 
       {/* Hover-based Timeline Progress Bar */}
-      <div 
-        className="sp-video-timeline-container"
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          position: "absolute",
-          bottom: "18px",
-          left: "16px",
-          right: "64px",
-          display: "flex",
-          alignItems: "center",
-          zIndex: 10,
-        }}
-      >
-        <input 
-          ref={timelineRef}
-          type="range"
-          min={0}
-          max={duration || 1}
-          step={0.01}
-          defaultValue={0}
-          onChange={handleTimelineChange}
-          className="sp-video-timeline"
-        />
-      </div>
+      {isVideoReady && (
+        <div 
+          className="sp-video-timeline-container"
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            position: "absolute",
+            bottom: "18px",
+            left: "16px",
+            right: "64px",
+            display: "flex",
+            alignItems: "center",
+            zIndex: 10,
+          }}
+        >
+          <input 
+            ref={timelineRef}
+            type="range"
+            min={0}
+            max={duration || 1}
+            step={0.01}
+            defaultValue={0}
+            onChange={handleTimelineChange}
+            className="sp-video-timeline"
+          />
+        </div>
+      )}
 
       {/* Mute/Unmute Overlay Button */}
-      <button
-        onClick={toggleMute}
-        style={{
-          position: "absolute",
-          bottom: "12px",
-          right: "12px",
-          width: "44px",
-          height: "44px",
-          borderRadius: "50%",
-          background: "rgba(10, 15, 30, 0.65)",
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#ffffff",
-          cursor: "pointer",
-          transition: "background 0.2s, transform 0.2s",
-          zIndex: 10,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(10, 15, 30, 0.85)";
-          e.currentTarget.style.transform = "scale(1.05)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(10, 15, 30, 0.65)";
-          e.currentTarget.style.transform = "scale(1)";
-        }}
-        title={isMuted ? "Unmute" : "Mute"}
-      >
-        {isMuted ? (
-          <VolumeX size={20} style={{ opacity: 0.85 }} />
-        ) : (
-          <Volume2 size={20} style={{ opacity: 0.85 }} />
-        )}
-      </button>
+      {isVideoReady && (
+        <button
+          onClick={toggleMute}
+          style={{
+            position: "absolute",
+            bottom: "12px",
+            right: "12px",
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            background: "rgba(10, 15, 30, 0.65)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#ffffff",
+            cursor: "pointer",
+            transition: "background 0.2s, transform 0.2s",
+            zIndex: 10,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(10, 15, 30, 0.85)";
+            e.currentTarget.style.transform = "scale(1.05)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(10, 15, 30, 0.65)";
+            e.currentTarget.style.transform = "scale(1)";
+          }}
+          title={isMuted ? "Unmute" : "Mute"}
+        >
+          {isMuted ? (
+            <VolumeX size={20} style={{ opacity: 0.85 }} />
+          ) : (
+            <Volume2 size={20} style={{ opacity: 0.85 }} />
+          )}
+        </button>
+      )}
     </div>
   );
 }
