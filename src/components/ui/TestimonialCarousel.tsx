@@ -207,6 +207,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
   const [active, setActive] = useState(0);
   const [isCenterExpanded, setIsCenterExpanded] = useState(false);
   const isMobile = useMobile(768);
+  const isDesktop = !useMobile(1024);
   const { resolvedTheme } = useTheme();
   const carouselRef = useRef(null);
   const isInView = useInView(carouselRef, { once: false, amount: 0.2 });
@@ -476,8 +477,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                   key={review.name}
                   initial={false}
                   animate={{
-                    x: `calc(-50% + ${x}px)`,
-                    y: "-50%",
+                    x,
                     scale,
                     opacity,
                     zIndex,
@@ -487,128 +487,141 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                     duration: 0.4,
                     ease: [0.32, 0.72, 0, 1],
                   }}
-                  drag={isCenter ? "x" : false}
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.2}
-                  onDragEnd={handleDragEnd}
-                  onClick={() => {
-                    if (!isCenter) {
-                      if (x < 0) prev();
-                      else next();
-                    }
-                  }}
                   style={{
                     position: "absolute",
-                    pointerEvents: pointerEvents as any,
-                    cursor: isCenter ? "grab" : "pointer",
-                    width: "90%",
-                    maxWidth: "520px",
-                    top: "50%",
-                    left: "50%",
-                    // Increased desktop base card height by 160px (approx 100px base + padding differences) for a more spacious layout
-                    minHeight: "380px",
-                    height: "auto",
-                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    border: isCenter 
-                      ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
-                      : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
-                    borderRadius: "28px",
-                    overflow: "hidden",
-                    // Increased padding for desktop from 32px 24px to 40px 32px
-                    padding: "40px 32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    gap: "18px",
-                    boxShadow: isCenter 
-                      ? resolvedTheme === 'dark'
-                        ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
-                        : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
-                      : "0 10px 30px rgba(0,0,0,0.05)",
+                    left: 0,
+                    top: 0,
+                    width: "100%",
+                    height: "100%",
+                    pointerEvents: "none",
                   }}
-                  className="transform-gpu"
                 >
-                  {isCenter && (
-                    <div style={{
+                  <motion.div
+                    drag={isCenter && !isDesktop ? "x" : false}
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={handleDragEnd}
+                    onClick={() => {
+                      if (!isCenter) {
+                        if (x < 0) prev();
+                        else next();
+                      }
+                    }}
+                    style={{
                       position: "absolute",
-                      top: "0",
                       left: "50%",
-                      transform: "translateX(-50%)",
-                      width: "80%",
-                      height: "40%",
-                      background: resolvedTheme === 'dark'
-                        ? "radial-gradient(circle, rgba(177, 217, 151, 0.08) 0%, transparent 80%)"
-                        : "radial-gradient(circle, rgba(177, 217, 151, 0.05) 0%, transparent 80%)",
-                      zIndex: -1,
-                      pointerEvents: "none"
-                    }} />
-                  )}
+                      top: "50%",
+                      x: "-50%",
+                      y: "-50%",
+                      pointerEvents: pointerEvents as any,
+                      cursor: (isCenter && !isDesktop) ? "grab" : (isCenter ? "default" : "pointer"),
+                      width: "90%",
+                      maxWidth: "520px",
+                      // Increased desktop base card height by 160px (approx 100px base + padding differences) for a more spacious layout
+                      minHeight: "380px",
+                      height: "auto",
+                      background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                      backdropFilter: "blur(20px)",
+                      WebkitBackdropFilter: "blur(20px)",
+                      border: isCenter 
+                        ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
+                        : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
+                      borderRadius: "28px",
+                      overflow: "hidden",
+                      // Increased padding for desktop from 32px 24px to 40px 32px
+                      padding: "40px 32px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      gap: "18px",
+                      boxShadow: isCenter 
+                        ? resolvedTheme === 'dark'
+                          ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                          : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                        : "0 10px 30px rgba(0,0,0,0.05)",
+                    }}
+                    className="transform-gpu"
+                  >
+                    {isCenter && (
+                      <div style={{
+                        position: "absolute",
+                        top: "0",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "80%",
+                        height: "40%",
+                        background: resolvedTheme === 'dark'
+                          ? "radial-gradient(circle, rgba(177, 217, 151, 0.08) 0%, transparent 80%)"
+                          : "radial-gradient(circle, rgba(177, 217, 151, 0.05) 0%, transparent 80%)",
+                        zIndex: -1,
+                        pointerEvents: "none"
+                      }} />
+                    )}
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                    <div style={{ 
-                      position: "relative", 
-                      width: "48px", 
-                      height: "48px", 
-                      borderRadius: "12px", 
-                      overflow: "hidden", 
-                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
-                      flexShrink: 0 
-                    }}>
-                      <Image 
-                        src={review.image} 
-                        alt={review.name} 
-                        fill 
-                        className="object-cover" 
-                        sizes="64px"
-                        unoptimized={review.image.endsWith(".gif")}
-                      />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <span style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
-                      <span style={{ 
-                        fontFamily: F.inter, 
-                        fontSize: "11px", 
-                        color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
-                        marginTop: "1px", 
-                        fontWeight: 500,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.02em"
-                      }}>{review.title}</span>
-                      {/* Location and Flag (Desktop) */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                       <div style={{ 
-                        fontFamily: F.inter, 
-                        fontSize: "12px", 
-                        color: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.65)", 
-                        marginTop: "4px", 
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontWeight: 500
+                        position: "relative", 
+                        width: "48px", 
+                        height: "48px", 
+                        borderRadius: "12px", 
+                        overflow: "hidden", 
+                        border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                        flexShrink: 0 
                       }}>
-                        <img 
-                          src={`https://flagcdn.com/${review.countryCode}.svg`} 
-                          style={{ width: "16px", height: "12px", borderRadius: "1.5px", objectFit: "cover", display: "inline-block" }} 
-                          alt={review.location} 
+                        <Image 
+                          src={review.image} 
+                          alt={review.name} 
+                          fill 
+                          className="object-cover" 
+                          sizes="64px"
+                          unoptimized={review.image.endsWith(".gif")}
                         />
-                        <span>{review.location}</span>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span style={{ fontFamily: F.inter, fontSize: "16px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
+                        <span style={{ 
+                          fontFamily: F.inter, 
+                          fontSize: "11px", 
+                          color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                          marginTop: "1px", 
+                          fontWeight: 500,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.02em"
+                        }}>{review.title}</span>
+                        {/* Location and Flag (Desktop) */}
+                        <div style={{ 
+                          fontFamily: F.inter, 
+                          fontSize: "12px", 
+                          color: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.65)", 
+                          marginTop: "4px", 
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          fontWeight: 500
+                        }}>
+                          <img 
+                            src={`https://flagcdn.com/${review.countryCode}.svg`} 
+                            style={{ width: "16px", height: "12px", borderRadius: "1.5px", objectFit: "cover", display: "inline-block" }} 
+                            alt={review.location} 
+                          />
+                          <span>{review.location}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+                    <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
 
-                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
-                    <TestimonialText
-                      quote={review.quote}
-                      isMobile={false}
-                      resolvedTheme={resolvedTheme || "dark"}
-                      isExpanded={isCenter ? isCenterExpanded : false}
-                      setIsExpanded={setIsCenterExpanded}
-                      canExpand={canExpand}
-                    />
-                  </div>
+                    <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
+                      <TestimonialText
+                        quote={review.quote}
+                        isMobile={false}
+                        resolvedTheme={resolvedTheme || "dark"}
+                        isExpanded={isCenter ? isCenterExpanded : false}
+                        setIsExpanded={setIsCenterExpanded}
+                        canExpand={canExpand}
+                      />
+                    </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
