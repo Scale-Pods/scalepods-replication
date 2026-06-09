@@ -152,7 +152,9 @@ export default function DownloadModal({
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      w.dataLayer.push({ event: "lead_form_success", form_type: "guide_download", source_page: "download_modal" });
+      const event = { event: "lead_form_success", form_type: "guide_download", source_page: "download_modal" };
+      console.log("[GTM] Pushing lead_form_success event:", event);
+      w.dataLayer.push(event);
       // Trigger download
       const link = document.createElement("a");
       link.href = zipFile;
