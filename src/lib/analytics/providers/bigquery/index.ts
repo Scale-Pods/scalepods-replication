@@ -140,9 +140,10 @@ async function queryBigQuery(sql: string, projectId: string): Promise<any[]> {
 
 // ── BigQuery Provider ────────────────────────────────────────────────────────
 
-const PROJECT_ID = process.env.BIGQUERY_PROJECT_ID || process.env.GA4_SERVICE_ACCOUNT_JSON
-  ? JSON.parse(Buffer.from(process.env.GA4_SERVICE_ACCOUNT_JSON, "base64").toString()).project_id
-  : "";
+const PROJECT_ID = process.env.BIGQUERY_PROJECT_ID ||
+  (process.env.GA4_SERVICE_ACCOUNT_JSON
+    ? JSON.parse(Buffer.from(process.env.GA4_SERVICE_ACCOUNT_JSON, "base64").toString()).project_id
+    : "");
 
 const DATASET_ID = process.env.BIGQUERY_DATASET_ID || "analytics_scalepods";
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID || "512927379";
