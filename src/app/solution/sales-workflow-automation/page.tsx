@@ -32,6 +32,7 @@ const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { s
 const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
 const CalendlyModal = dynamic(() => import("@/components/ui/CalendlyModal"), { ssr: false });
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
+import { BrandsMarquee } from "@/components/sections/Sections";
 import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -2435,6 +2436,35 @@ export default function SalesPodPage() {
 
         </div>
 
+      </div>
+
+      {/* Brands Marquee */}
+      <div 
+        style={{
+          width: "100%",
+          maxWidth: "1200px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingLeft: isMobile ? "16px" : "32px",
+          paddingRight: isMobile ? "16px" : "32px",
+          marginTop: isMobile ? "24px" : "40px",
+          marginBottom: isMobile ? "48px" : "72px",
+          textAlign: "center",
+          zIndex: 1,
+          position: "relative"
+        }}
+      >
+        <p style={{
+          fontFamily: "var(--font-inter), Inter, sans-serif",
+          fontSize: isMobile ? "13px" : "15px",
+          color: "var(--color-text-muted)",
+          marginBottom: isMobile ? "24px" : "36px",
+          fontWeight: 400,
+          letterSpacing: "0.01em"
+        }}>
+          Trusted by thousands of companies and investors all over the world
+        </p>
+        <BrandsMarquee />
       </div>
 
       {/* ── FOLD 2: TRUST SIGNAL ── */}

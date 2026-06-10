@@ -682,7 +682,7 @@ const brands = [
   { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", type: "transparent", scale: 0.8 },
   { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", type: "transparent", scale: 1.25 },
   { src: "/brands/suphalmedia.avif", alt: "Suphal Media", type: "transparent", scale: 1.0 },
-  { src: "/brands/victory-energy.svg", alt: "Victory Energy", type: "transparent-white", scale: 1.25 },
+  { src: "/new logos/victory_energy_logo.png", alt: "Victory Energy", type: "transparent", scale: 1.25 },
   { src: "/brands/eequals_logo.webp", alt: "eEquals", type: "transparent", scale: 1.4 },
   { src: "/brands/aspen-real-estate.jpg", alt: "Aspen Real Estate", type: "white-bg", scale: 2.2 },
   { src: "/brands/naples-homes.jpg", alt: "Naples Homes", type: "dark-bg", scale: 1.6 },
