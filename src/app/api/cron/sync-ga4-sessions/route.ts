@@ -60,7 +60,9 @@ async function getAccessToken(): Promise<string> {
   return json.access_token;
 }
 
-// ── BigQuery: user-level session aggregation (correct GA4 schema) ─────────────
+// ── SQL builders ──────────────────────────────────────────────────────────────
+
+// One row per session (aggregated)
 function buildSessionsSql(lookbackDays: number): string {
   return `
     SELECT
@@ -88,6 +90,24 @@ function buildSessionsSql(lookbackDays: number): string {
   `;
 }
 
+// One row per individual event (the journey stream)
+function buildEventsSql(lookbackDays: number): string {
+  return `
+    SELECT
+      user_pseudo_id,
+      CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS STRING) AS session_id,
+      event_name,
+      FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%E3SZ', TIMESTAMP_MICROS(event_timestamp), 'UTC') AS event_timestamp,
+      (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location' LIMIT 1) AS page_location,
+      (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title' LIMIT 1) AS page_title
+    FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
+    WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
+      AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) IS NOT NULL
+    ORDER BY event_timestamp ASC
+    LIMIT 200000
+  `;
+}
+
 async function queryBigQuery(sql: string, token: string): Promise<any[]> {
   const res = await fetch(
     `https://www.googleapis.com/bigquery/v2/projects/${PROJECT_ID}/queries`,
@@ -101,7 +121,7 @@ async function queryBigQuery(sql: string, token: string): Promise<any[]> {
         query: sql,
         useLegacySql: false,
         timeoutMs: 45000,
-        maxResults: 50000,
+        maxResults: 200000,
       }),
     }
   );
@@ -134,17 +154,25 @@ export async function GET(request: NextRequest) {
 
   const startedAt = Date.now();
   try {
-    // Allow ?days=N override (default 3) for manual backfills
     const days = Math.min(
       Math.max(parseInt(request.nextUrl.searchParams.get("days") || "3", 10), 1),
       90
     );
+    // Allow skipping the (heavier) event stream sync with ?events=false
+    const syncEvents = request.nextUrl.searchParams.get("events") !== "false";
 
     const token = await getAccessToken();
-    const rows = await queryBigQuery(buildSessionsSql(days), token);
-
     const nowIso = new Date().toISOString();
-    const sessions = rows.map((r) => ({
+    const windowStartIso = new Date(Date.now() - days * 86400_000).toISOString();
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    // ── 1. Sessions (aggregated, idempotent upsert on session_id) ──────────────
+    const sessionRows = await queryBigQuery(buildSessionsSql(days), token);
+    const sessions = sessionRows.map((r) => ({
       session_id: String(r.session_id),
       user_pseudo_id: r.user_pseudo_id || "",
       session_start_time: r.session_start_time || nowIso,
@@ -163,35 +191,55 @@ export async function GET(request: NextRequest) {
       synced_at: nowIso,
     }));
 
-    if (sessions.length === 0) {
-      return NextResponse.json({
-        ok: true,
-        synced: 0,
-        message: "No sessions found in BigQuery for the lookback window",
-        durationMs: Date.now() - startedAt,
-      });
-    }
+    const validSessionIds = new Set(sessions.map((s) => s.session_id));
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
-
-    // Upsert in chunks to stay within payload limits
     const CHUNK = 500;
-    let upserted = 0;
+    let sessionsUpserted = 0;
     for (let i = 0; i < sessions.length; i += CHUNK) {
       const chunk = sessions.slice(i, i + CHUNK);
       const { error } = await supabase
         .from("ga4_sessions")
         .upsert(chunk, { onConflict: "session_id" });
-      if (error) throw new Error(`Supabase upsert failed: ${error.message}`);
-      upserted += chunk.length;
+      if (error) throw new Error(`Supabase sessions upsert failed: ${error.message}`);
+      sessionsUpserted += chunk.length;
+    }
+
+    // ── 2. Events (per-event journey stream) ───────────────────────────────────
+    let eventsInserted = 0;
+    if (syncEvents && sessions.length > 0) {
+      const eventRows = await queryBigQuery(buildEventsSql(days), token);
+
+      // Only keep events whose session exists (satisfies FK + keeps data aligned)
+      const events = eventRows
+        .filter((r) => r.session_id && validSessionIds.has(String(r.session_id)))
+        .map((r) => ({
+          session_id: String(r.session_id),
+          user_pseudo_id: r.user_pseudo_id || "",
+          event_name: r.event_name || "unknown",
+          event_timestamp: r.event_timestamp || nowIso,
+          page_location: r.page_location || null,
+          page_title: r.page_title || null,
+        }));
+
+      // Idempotent: clear this window's events, then re-insert fresh.
+      const { error: delErr } = await supabase
+        .from("ga4_events")
+        .delete()
+        .gte("event_timestamp", windowStartIso);
+      if (delErr) throw new Error(`Supabase events delete failed: ${delErr.message}`);
+
+      for (let i = 0; i < events.length; i += CHUNK) {
+        const chunk = events.slice(i, i + CHUNK);
+        const { error } = await supabase.from("ga4_events").insert(chunk);
+        if (error) throw new Error(`Supabase events insert failed: ${error.message}`);
+        eventsInserted += chunk.length;
+      }
     }
 
     return NextResponse.json({
       ok: true,
-      synced: upserted,
+      sessionsSynced: sessionsUpserted,
+      eventsSynced: eventsInserted,
       lookbackDays: days,
       durationMs: Date.now() - startedAt,
     });

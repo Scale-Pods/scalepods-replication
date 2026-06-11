@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback, Fragment } from "react";
 import {
   Users,
   MousePointerClick,
@@ -8,7 +8,14 @@ import {
   Smartphone,
   Monitor,
   Tablet,
-  Globe,
+  ChevronRight,
+  ChevronDown,
+  Eye,
+  MousePointer,
+  ArrowDownWideNarrow,
+  Flag,
+  LogIn,
+  Circle,
 } from "lucide-react";
 import { useGA4Sessions, type EnrichedSession } from "@/hooks/useGA4Sessions";
 import KpiCard from "@/components/admin/shared/KpiCard";
@@ -37,7 +44,20 @@ function fmtTime(iso: string): string {
   }
 }
 
-function pathOf(url: string): string {
+function fmtEventTime(iso: string): string {
+  try {
+    return new Date(iso).toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function pathOf(url: string | null): string {
+  if (!url) return "/";
   try {
     return new URL(url).pathname || "/";
   } catch {
@@ -58,13 +78,35 @@ function scoreColor(score: number): string {
   return "var(--text-muted)";
 }
 
+interface SessionEvent {
+  event_name: string;
+  event_timestamp: string;
+  page_location: string | null;
+  page_title: string | null;
+}
+
+function eventIcon(name: string) {
+  const size = 13;
+  if (name === "page_view") return <Eye size={size} />;
+  if (name === "scroll") return <ArrowDownWideNarrow size={size} />;
+  if (name.includes("click")) return <MousePointer size={size} />;
+  if (name === "session_start" || name === "first_visit") return <LogIn size={size} />;
+  if (name === "user_engagement") return <Timer size={size} />;
+  if (name === "form_submit" || name.includes("conversion")) return <Flag size={size} />;
+  return <Circle size={size} />;
+}
+
+function prettyEventName(name: string): string {
+  return name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 const RANGES = [
   { label: "7D", days: 7 },
   { label: "14D", days: 14 },
   { label: "30D", days: 30 },
 ];
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+// ── UI bits ───────────────────────────────────────────────────────────────────
 
 function Badge({ children, color }: { children: React.ReactNode; color?: string }) {
   return (
@@ -87,13 +129,146 @@ function Badge({ children, color }: { children: React.ReactNode; color?: string 
   );
 }
 
+// Per-session expanded journey timeline
+function JourneyTimeline({ state }: { state: EventState | undefined }) {
+  if (!state || state.loading) {
+    return (
+      <div style={{ padding: "16px 8px", color: "var(--text-muted)", fontSize: "12px" }}>
+        Loading journey…
+      </div>
+    );
+  }
+  if (state.error) {
+    return (
+      <div style={{ padding: "16px 8px", color: "var(--red)", fontSize: "12px" }}>
+        {state.error}
+      </div>
+    );
+  }
+  if (state.events.length === 0) {
+    return (
+      <div style={{ padding: "16px 8px", color: "var(--text-muted)", fontSize: "12px" }}>
+        No individual events stored for this session yet. They populate on the next sync.
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ padding: "8px 8px 14px 36px", display: "flex", flexDirection: "column", gap: "2px" }}>
+      {state.events.map((e, i) => (
+        <div
+          key={i}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "6px 0",
+            borderLeft: "2px solid var(--border)",
+            paddingLeft: "14px",
+            marginLeft: "6px",
+            position: "relative",
+          }}
+        >
+          <span
+            style={{
+              position: "absolute",
+              left: "-8px",
+              width: "14px",
+              height: "14px",
+              borderRadius: "50%",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--accent)",
+            }}
+          >
+            {eventIcon(e.event_name)}
+          </span>
+          <span
+            style={{
+              fontVariantNumeric: "tabular-nums",
+              color: "var(--text-muted)",
+              fontSize: "11px",
+              minWidth: "70px",
+            }}
+          >
+            {fmtEventTime(e.event_timestamp)}
+          </span>
+          <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-primary)", minWidth: "120px" }}>
+            {prettyEventName(e.event_name)}
+          </span>
+          <span
+            title={e.page_location ?? ""}
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: "11px",
+              color: "var(--text-secondary)",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {pathOf(e.page_location)}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+interface EventState {
+  loading: boolean;
+  events: SessionEvent[];
+  error?: string;
+}
+
 function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [eventMap, setEventMap] = useState<Record<string, EventState>>({});
+
+  const toggle = useCallback(
+    async (sessionId: string) => {
+      if (expanded === sessionId) {
+        setExpanded(null);
+        return;
+      }
+      setExpanded(sessionId);
+
+      if (!eventMap[sessionId]) {
+        setEventMap((m) => ({ ...m, [sessionId]: { loading: true, events: [] } }));
+        try {
+          const res = await fetch(
+            `/api/analytics/ga4-sessions/events?session_id=${encodeURIComponent(sessionId)}`
+          );
+          const json = await res.json();
+          if (!res.ok) throw new Error(json.error || "Failed to load");
+          setEventMap((m) => ({
+            ...m,
+            [sessionId]: { loading: false, events: json.events ?? [] },
+          }));
+        } catch (err) {
+          setEventMap((m) => ({
+            ...m,
+            [sessionId]: {
+              loading: false,
+              events: [],
+              error: err instanceof Error ? err.message : "Failed to load",
+            },
+          }));
+        }
+      }
+    },
+    [expanded, eventMap]
+  );
+
   if (sessions.length === 0) {
     return (
       <EmptyState
         icon={<Users size={18} />}
         title="No sessions yet"
-        description="User-level sessions appear here after the 3-hour sync from BigQuery runs."
+        description="User-level sessions appear here after the sync from BigQuery runs."
       />
     );
   }
@@ -118,9 +293,10 @@ function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
 
   return (
     <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "880px" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "920px" }}>
         <thead>
           <tr>
+            <th style={{ ...th, width: "28px" }}></th>
             <th style={th}>Time</th>
             <th style={th}>Device</th>
             <th style={th}>Location</th>
@@ -132,86 +308,118 @@ function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
           </tr>
         </thead>
         <tbody>
-          {sessions.map((s, i) => (
-            <tr
-              key={s.session_id || i}
-              style={{
-                borderBottom:
-                  i < sessions.length - 1 ? "1px solid var(--border-subtle)" : "none",
-              }}
-            >
-              <td style={{ ...td, whiteSpace: "nowrap", color: "var(--text-primary)" }}>
-                {fmtTime(s.session_start_time)}
-              </td>
-              <td style={td}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "7px" }}>
-                  <span style={{ color: "var(--text-muted)" }}>
-                    <DeviceIcon category={s.device_category} />
-                  </span>
-                  <span>
-                    {s.browser}
-                    <span style={{ color: "var(--text-muted)" }}> · {s.os}</span>
-                  </span>
-                </span>
-              </td>
-              <td style={td}>
-                {s.city && s.city !== "unknown" ? `${s.city}, ` : ""}
-                {s.country}
-              </td>
-              <td style={td}>
-                <Badge color={s.session_medium === "organic" ? "var(--green,#22c55e)" : undefined}>
-                  {s.session_source} / {s.session_medium}
-                </Badge>
-              </td>
-              <td style={{ ...td, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-                {s.event_count}
-              </td>
-              <td
-                style={{
-                  ...td,
-                  textAlign: "right",
-                  fontVariantNumeric: "tabular-nums",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {fmtDuration(Math.round(s.engagement_time_msec / 1000))}
-              </td>
-              <td style={{ ...td, textAlign: "right" }}>
-                <span
+          {sessions.map((s, i) => {
+            const isOpen = expanded === s.session_id;
+            return (
+              <Fragment key={s.session_id || i}>
+                <tr
+                  onClick={() => toggle(s.session_id)}
                   style={{
-                    display: "inline-block",
-                    minWidth: "34px",
-                    padding: "2px 8px",
-                    borderRadius: "6px",
-                    fontWeight: 700,
-                    fontSize: "12px",
-                    color: scoreColor(s.engagement_score),
-                    background: "var(--bg-card-hover)",
-                    fontVariantNumeric: "tabular-nums",
+                    borderBottom:
+                      isOpen || i < sessions.length - 1
+                        ? "1px solid var(--border-subtle)"
+                        : "none",
+                    cursor: "pointer",
+                    background: isOpen ? "var(--bg-card-hover)" : "transparent",
                   }}
                 >
-                  {s.engagement_score}
-                </span>
-              </td>
-              <td style={td}>
-                <span
-                  title={s.first_page_location}
-                  style={{
-                    fontFamily: "'Courier New', monospace",
-                    fontSize: "12px",
-                    color: "var(--text-secondary)",
-                    display: "block",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    maxWidth: "240px",
-                  }}
-                >
-                  {pathOf(s.first_page_location)}
-                </span>
-              </td>
-            </tr>
-          ))}
+                  <td style={{ ...td, color: "var(--text-muted)", paddingRight: 0 }}>
+                    {isOpen ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
+                  </td>
+                  <td style={{ ...td, whiteSpace: "nowrap", color: "var(--text-primary)" }}>
+                    {fmtTime(s.session_start_time)}
+                  </td>
+                  <td style={td}>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "7px" }}>
+                      <span style={{ color: "var(--text-muted)" }}>
+                        <DeviceIcon category={s.device_category} />
+                      </span>
+                      <span>
+                        {s.browser}
+                        <span style={{ color: "var(--text-muted)" }}> · {s.os}</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td style={td}>
+                    {s.city && s.city !== "unknown" ? `${s.city}, ` : ""}
+                    {s.country}
+                  </td>
+                  <td style={td}>
+                    <Badge
+                      color={s.session_medium === "organic" ? "var(--green,#22c55e)" : undefined}
+                    >
+                      {s.session_source} / {s.session_medium}
+                    </Badge>
+                  </td>
+                  <td style={{ ...td, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                    {s.event_count}
+                  </td>
+                  <td
+                    style={{
+                      ...td,
+                      textAlign: "right",
+                      fontVariantNumeric: "tabular-nums",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {fmtDuration(Math.round(s.engagement_time_msec / 1000))}
+                  </td>
+                  <td style={{ ...td, textAlign: "right" }}>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        minWidth: "34px",
+                        padding: "2px 8px",
+                        borderRadius: "6px",
+                        fontWeight: 700,
+                        fontSize: "12px",
+                        color: scoreColor(s.engagement_score),
+                        background: "var(--bg-card-hover)",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {s.engagement_score}
+                    </span>
+                  </td>
+                  <td style={td}>
+                    <span
+                      title={s.first_page_location}
+                      style={{
+                        fontFamily: "'Courier New', monospace",
+                        fontSize: "12px",
+                        color: "var(--text-secondary)",
+                        display: "block",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        maxWidth: "240px",
+                      }}
+                    >
+                      {pathOf(s.first_page_location)}
+                    </span>
+                  </td>
+                </tr>
+                {isOpen && (
+                  <tr>
+                    <td
+                      colSpan={9}
+                      style={{
+                        padding: 0,
+                        background: "var(--bg-card-hover)",
+                        borderBottom:
+                          i < sessions.length - 1 ? "1px solid var(--border-subtle)" : "none",
+                      }}
+                    >
+                      <div style={{ fontSize: "11px", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", padding: "12px 8px 0 36px" }}>
+                        Session Journey · user {s.user_pseudo_id}
+                      </div>
+                      <JourneyTimeline state={eventMap[s.session_id]} />
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -232,16 +440,13 @@ export default function SessionsDashboard() {
     const avgEngagement =
       sessions.length > 0
         ? Math.round(
-            sessions.reduce((sum, s) => sum + s.engagement_time_msec / 1000, 0) /
-              sessions.length
+            sessions.reduce((sum, s) => sum + s.engagement_time_msec / 1000, 0) / sessions.length
           )
         : 0;
     const mobilePct =
       sessions.length > 0
         ? Math.round(
-            (sessions.filter((s) => s.device_category === "mobile").length /
-              sessions.length) *
-              100
+            (sessions.filter((s) => s.device_category === "mobile").length / sessions.length) * 100
           )
         : 0;
     return { totalSessions, uniqueUsers, avgEngagement, mobilePct };
@@ -264,13 +469,22 @@ export default function SessionsDashboard() {
             User Sessions
           </h1>
           <p style={{ fontSize: "13px", color: "var(--text-muted)", margin: "4px 0 0" }}>
-            Individual session-level data from GA4 (via BigQuery) — device, geo, source &
-            engagement.
+            Individual session-level data from GA4 (via BigQuery) — click a row to see its full
+            event journey.
           </p>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {data?.lastSync && <LastSyncBadge timestamp={data.lastSync} isValidating={isLoading} />}
-          <div style={{ display: "flex", gap: "2px", background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "8px", padding: "2px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "2px",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              borderRadius: "8px",
+              padding: "2px",
+            }}
+          >
             {RANGES.map((r) => (
               <button
                 key={r.days}
