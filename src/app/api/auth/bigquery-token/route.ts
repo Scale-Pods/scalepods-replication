@@ -18,11 +18,18 @@ export async function GET() {
 
     let serviceAccount;
     try {
-      serviceAccount = JSON.parse(serviceAccountJson);
+      // Try parsing as JSON first
+      try {
+        serviceAccount = JSON.parse(serviceAccountJson);
+      } catch {
+        // If that fails, try base64 decode
+        const decoded = Buffer.from(serviceAccountJson, 'base64').toString('utf-8');
+        serviceAccount = JSON.parse(decoded);
+      }
     } catch (e) {
       console.error('[bigquery-token] ERROR: Failed to parse GA4_SERVICE_ACCOUNT_JSON', e);
       return NextResponse.json(
-        { error: 'Invalid GA4_SERVICE_ACCOUNT_JSON format' },
+        { error: 'Invalid GA4_SERVICE_ACCOUNT_JSON format (must be valid JSON or base64-encoded JSON)' },
         { status: 500 }
       );
     }
