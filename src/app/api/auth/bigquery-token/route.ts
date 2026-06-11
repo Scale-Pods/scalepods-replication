@@ -2,19 +2,30 @@ import { NextResponse } from 'next/server';
 import { createSign } from 'crypto';
 
 export const revalidate = 0; // No caching
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
 
 export async function GET() {
   try {
     // Get service account from environment
     const serviceAccountJson = process.env.GA4_SERVICE_ACCOUNT_JSON;
     if (!serviceAccountJson) {
+      console.error('[bigquery-token] ERROR: GA4_SERVICE_ACCOUNT_JSON not set');
       return NextResponse.json(
         { error: 'GA4_SERVICE_ACCOUNT_JSON not configured' },
         { status: 500 }
       );
     }
 
-    const serviceAccount = JSON.parse(serviceAccountJson);
+    let serviceAccount;
+    try {
+      serviceAccount = JSON.parse(serviceAccountJson);
+    } catch (e) {
+      console.error('[bigquery-token] ERROR: Failed to parse GA4_SERVICE_ACCOUNT_JSON', e);
+      return NextResponse.json(
+        { error: 'Invalid GA4_SERVICE_ACCOUNT_JSON format' },
+        { status: 500 }
+      );
+    }
 
     // Step 1: Create JWT
     const now = Math.floor(Date.now() / 1000);
