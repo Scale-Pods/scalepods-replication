@@ -304,6 +304,7 @@ function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
             <th style={{ ...th, textAlign: "right" }}>Events</th>
             <th style={{ ...th, textAlign: "right" }}>Engaged</th>
             <th style={{ ...th, textAlign: "right" }}>Score</th>
+            <th style={{ ...th, textAlign: "right" }}>Scroll</th>
             <th style={th}>Landing page</th>
           </tr>
         </thead>
@@ -381,6 +382,23 @@ function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
                       {s.engagement_score}
                     </span>
                   </td>
+                  <td style={{ ...td, textAlign: "right" }}>
+                    {s.clarity_scroll_depth != null ? (
+                      <span
+                        title={`Clarity avg scroll depth for this cohort: ${s.clarity_scroll_depth}%`}
+                        style={{ display: "inline-flex", flexDirection: "column", alignItems: "flex-end", gap: "2px" }}
+                      >
+                        <span style={{ fontSize: "12px", fontWeight: 600, fontVariantNumeric: "tabular-nums", color: "var(--text-primary)" }}>
+                          {Math.round(s.clarity_scroll_depth)}%
+                        </span>
+                        <span style={{ width: "48px", height: "3px", borderRadius: "2px", background: "var(--border)", display: "block", overflow: "hidden" }}>
+                          <span style={{ display: "block", height: "100%", width: `${Math.min(100, s.clarity_scroll_depth)}%`, background: "var(--accent)", borderRadius: "2px" }} />
+                        </span>
+                      </span>
+                    ) : (
+                      <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>—</span>
+                    )}
+                  </td>
                   <td style={td}>
                     <span
                       title={s.first_page_location}
@@ -402,7 +420,7 @@ function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
                 {isOpen && (
                   <tr>
                     <td
-                      colSpan={9}
+                      colSpan={10}
                       style={{
                         padding: 0,
                         background: "var(--bg-card-hover)",

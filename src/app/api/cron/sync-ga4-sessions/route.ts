@@ -141,6 +141,80 @@ async function queryBigQuery(sql: string, token: string): Promise<any[]> {
   });
 }
 
+// ── Clarity enrichment helpers ────────────────────────────────────────────────
+
+function mapDeviceToClarity(category: string): string {
+  if (category === "mobile") return "Mobile";
+  if (category === "tablet") return "Tablet";
+  return "PC"; // desktop + unknown → PC
+}
+
+function mapChannelToClarity(source: string, medium: string): string {
+  const m = (medium ?? "").toLowerCase();
+  const s = (source ?? "").toLowerCase();
+  if (m === "organic") return "OrganicSearch";
+  if (m === "referral") return "Referral";
+  if (m === "cpc" || m === "paid" || m === "ppc") return "Paid";
+  if (s === "(direct)" || m === "(none)" || m === "none") return "Direct";
+  return "Other";
+}
+
+function clarityKey(country: string, device: string, channel: string): string {
+  return `${(country ?? "").toLowerCase()}__${device}__${channel}`;
+}
+
+interface ClarityMetric {
+  scrollDepth: number | null;
+  activeRatio: number | null; // activeTime / totalTime
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function buildClarityLookup(supabase: any): Promise<Map<string, ClarityMetric>> {
+  const { data } = (await supabase
+    .from("clarity_analytics_cache")
+    .select("raw_data")
+    .eq("dimension", "Country_Device_Channel")
+    .order("fetch_timestamp", { ascending: false })
+    .limit(1)) as { data: Array<{ raw_data: unknown }> | null };
+
+  const lookup = new Map<string, ClarityMetric>();
+  if (!data?.length) return lookup;
+
+  // raw_data is stored as a JSONB string — parse it
+  let items: any[];
+  try {
+    const raw = data[0].raw_data;
+    items = typeof raw === "string" ? JSON.parse(raw) : raw;
+    if (!Array.isArray(items)) return lookup;
+  } catch {
+    return lookup;
+  }
+
+  // First pass: collect scroll depth per cohort
+  const scrollMap = new Map<string, number>();
+  const engagementMap = new Map<string, number>(); // activeRatio
+
+  for (const item of items) {
+    const key = clarityKey(item.Country, item.Device, item.Channel);
+    if (item.metric === "ScrollDepth" && item.averageScrollDepth != null) {
+      scrollMap.set(key, Number(item.averageScrollDepth));
+    }
+    if (item.metric === "EngagementTime") {
+      const total = Number(item.totalTime ?? 0);
+      const active = Number(item.activeTime ?? 0);
+      if (total > 0) engagementMap.set(key, Math.round((active / total) * 100));
+    }
+  }
+
+  for (const [key, scrollDepth] of scrollMap) {
+    lookup.set(key, {
+      scrollDepth,
+      activeRatio: engagementMap.get(key) ?? null,
+    });
+  }
+  return lookup;
+}
+
 // ── Handler ───────────────────────────────────────────────────────────────────
 export async function GET(request: NextRequest) {
   // Vercel Cron sends: Authorization: Bearer ${CRON_SECRET}
@@ -236,10 +310,46 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // ── 3. Clarity scroll depth enrichment ────────────────────────────────────
+    let clarityEnriched = 0;
+    const clarityLookup = await buildClarityLookup(supabase);
+    if (clarityLookup.size > 0) {
+      const clarityUpdates = sessions
+        .map((s) => {
+          const key = clarityKey(
+            s.country,
+            mapDeviceToClarity(s.device_category),
+            mapChannelToClarity(s.session_source, s.session_medium)
+          );
+          const metric = clarityLookup.get(key);
+          if (!metric) return null;
+          return {
+            session_id: s.session_id,
+            clarity_scroll_depth: metric.scrollDepth,
+            clarity_engagement_score: metric.activeRatio,
+          };
+        })
+        .filter(Boolean) as Array<{
+        session_id: string;
+        clarity_scroll_depth: number | null;
+        clarity_engagement_score: number | null;
+      }>;
+
+      for (let i = 0; i < clarityUpdates.length; i += CHUNK) {
+        const chunk = clarityUpdates.slice(i, i + CHUNK);
+        const { error } = await supabase
+          .from("ga4_sessions")
+          .upsert(chunk, { onConflict: "session_id" });
+        if (error) throw new Error(`Supabase clarity enrichment failed: ${error.message}`);
+        clarityEnriched += chunk.length;
+      }
+    }
+
     return NextResponse.json({
       ok: true,
       sessionsSynced: sessionsUpserted,
       eventsSynced: eventsInserted,
+      clarityEnriched,
       lookbackDays: days,
       durationMs: Date.now() - startedAt,
     });
