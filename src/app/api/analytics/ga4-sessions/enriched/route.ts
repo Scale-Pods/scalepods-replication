@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { BigQueryProvider } from "@/lib/analytics/providers/bigquery";
+
+export const dynamic = "force-dynamic";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -28,119 +29,124 @@ interface EnrichedSession {
   clarity_engagement_score?: number;
   engagement_score: number;
   behavior_summary: string;
-  intent_signals: Record<string, any>;
+  intent_signals: Record<string, unknown>;
+}
+
+function computeEngagementScore(engagementMsec: number, eventCount: number): number {
+  const score =
+    (engagementMsec / 60000) * 20 + // 20 pts per minute engaged
+    (eventCount / 50) * 20 + // 20 pts per 50 events
+    10; // base
+  return Math.min(100, Math.round(score));
+}
+
+function buildSummary(s: {
+  engagement_time_msec: number;
+  event_count: number;
+  first_page_location: string;
+}): string {
+  const totalSec = Math.round(s.engagement_time_msec / 1000);
+  const mins = Math.floor(totalSec / 60);
+  const secs = totalSec % 60;
+  const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+  let path = s.first_page_location;
+  try {
+    path = new URL(s.first_page_location).pathname || "/";
+  } catch {
+    /* keep as-is */
+  }
+  return `Spent ${timeStr} on site across ${s.event_count} events, landing on ${path}`;
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const days = parseInt(searchParams.get("days") || "7", 10);
-    const limit = Math.min(parseInt(searchParams.get("limit") || "100", 10), 1000);
-    const offset = parseInt(searchParams.get("offset") || "0", 10);
+    const sp = request.nextUrl.searchParams;
+    const days = Math.min(Math.max(parseInt(sp.get("days") || "7", 10), 1), 90);
+    const limit = Math.min(parseInt(sp.get("limit") || "100", 10), 1000);
+    const offset = Math.max(parseInt(sp.get("offset") || "0", 10), 0);
 
-    // Calculate date range
     const endDate = new Date();
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
+    const startISO = startDate.toISOString();
 
-    const startDateStr = startDate.toISOString().split("T")[0];
-    const endDateStr = endDate.toISOString().split("T")[0];
+    const { data, error, count } = await supabase
+      .from("ga4_sessions")
+      .select("*", { count: "exact" })
+      .gte("session_start_time", startISO)
+      .order("session_start_time", { ascending: false })
+      .range(offset, offset + limit - 1);
 
-    // Fetch from BigQuery
-    const { sessions } = await BigQueryProvider.getSessions({
-      startDate: startDateStr,
-      endDate: endDateStr,
-      limit,
-      offset,
-    });
+    if (error) throw new Error(error.message);
 
-    // Fetch Clarity data from Supabase for enrichment
-    const { data: claritySessions } = await supabase
-      .from("clarity_analytics_cache")
-      .select("*")
-      .gte("fetch_timestamp", startDate.toISOString())
-      .lte("fetch_timestamp", endDate.toISOString());
+    const rows = data ?? [];
 
-    // Build Clarity lookup map by approximate time
-    const clarityMap = new Map<string, any>();
-    (claritySessions || []).forEach((session) => {
-      const key = `${session.dimension}_${new Date(session.fetch_timestamp).toDateString()}`;
-      clarityMap.set(key, session);
-    });
-
-    // Enrich sessions with Clarity data and calculate engagement score
-    const enrichedSessions: EnrichedSession[] = sessions.map((session) => {
-      const clarityKey = `session_${new Date(session.session_start_time).toDateString()}`;
-      const clarityData = clarityMap.get(clarityKey);
-
-      // Calculate engagement score (0-100)
-      const engagementScore = Math.min(
-        100,
-        (session.engagement_time_msec / 60000) * 20 + // 20 points per minute
-          (session.event_count / 50) * 20 + // 20 points per 50 events
-          (clarityData?.raw_data?.[0]?.activeTime ? 30 : 0) + // 30 points if Clarity data exists
-          10 // Base score
+    const sessions: EnrichedSession[] = rows.map((s) => {
+      const engagementScore = computeEngagementScore(
+        s.engagement_time_msec ?? 0,
+        s.event_count ?? 0
       );
 
-      // Generate behavior summary
-      let behaviorSummary = `User spent ${Math.round(
-        session.engagement_time_msec / 1000 / 60
-      )}m on site`;
-      if (session.event_count > 0) {
-        behaviorSummary += `, ${session.event_count} events`;
-      }
-      if (session.page_location) {
-        behaviorSummary += `, first page: ${session.page_location}`;
-      }
-
-      // Extract intent signals
-      const intentSignals: Record<string, any> = {
-        high_engagement: session.engagement_time_msec > 300000, // > 5 min
-        multiple_page_views: session.event_count > 5,
-        mobile: session.device_category === "mobile",
-        traffic_source: session.session_source,
-        geographic_region: session.country,
+      const intentSignals: Record<string, unknown> = {
+        high_engagement: (s.engagement_time_msec ?? 0) > 120000, // > 2 min
+        multiple_page_views: (s.event_count ?? 0) > 5,
+        mobile: s.device_category === "mobile",
+        organic: s.session_medium === "organic",
+        traffic_source: s.session_source,
+        geographic_region: s.country,
       };
 
       return {
-        session_id: session.session_id,
-        user_pseudo_id: session.user_pseudo_id,
-        session_start_time: session.session_start_time,
-        session_end_time: session.session_end_time,
-        session_duration_seconds: Math.round(
-          (new Date(session.session_end_time).getTime() -
-            new Date(session.session_start_time).getTime()) /
-            1000
-        ),
-        event_count: session.event_count,
-        engagement_time_msec: session.engagement_time_msec,
-        device_category: session.device_category,
-        browser: session.browser,
-        os: session.os,
-        country: session.country,
-        city: session.city,
-        session_source: session.session_source,
-        session_medium: session.session_medium,
-        first_page_location: session.page_location,
-        first_page_title: session.page_title,
-        clarity_scroll_depth: clarityData?.raw_data?.[0]?.scrollDepth,
-        clarity_engagement_score: clarityData?.raw_data?.[0]?.engagementScore,
-        engagement_score: Math.round(engagementScore),
-        behavior_summary: behaviorSummary,
+        session_id: s.session_id,
+        user_pseudo_id: s.user_pseudo_id,
+        session_start_time: s.session_start_time,
+        session_end_time: s.session_end_time,
+        session_duration_seconds:
+          s.session_duration_seconds ??
+          Math.round(
+            (new Date(s.session_end_time).getTime() -
+              new Date(s.session_start_time).getTime()) /
+              1000
+          ),
+        event_count: s.event_count ?? 0,
+        engagement_time_msec: s.engagement_time_msec ?? 0,
+        device_category: s.device_category ?? "unknown",
+        browser: s.browser ?? "unknown",
+        os: s.os ?? "unknown",
+        country: s.country ?? "unknown",
+        city: s.city ?? "unknown",
+        session_source: s.session_source ?? "direct",
+        session_medium: s.session_medium ?? "direct",
+        first_page_location: s.first_page_location ?? "/",
+        first_page_title: s.first_page_title ?? "Unknown",
+        clarity_scroll_depth: s.clarity_scroll_depth ?? undefined,
+        clarity_engagement_score: s.clarity_engagement_score ?? undefined,
+        engagement_score: engagementScore,
+        behavior_summary: buildSummary(s),
         intent_signals: intentSignals,
       };
     });
 
+    // most recent sync timestamp across returned rows
+    const lastSync =
+      rows.reduce<string | null>(
+        (max, r) => (!max || (r.synced_at && r.synced_at > max) ? r.synced_at : max),
+        null
+      ) ?? new Date().toISOString();
+
     return NextResponse.json(
       {
-        sessions: enrichedSessions,
-        total: enrichedSessions.length,
-        lastSync: new Date().toISOString(),
-        dateRange: { start: startDateStr, end: endDateStr },
+        sessions,
+        total: count ?? sessions.length,
+        lastSync,
+        dateRange: {
+          start: startISO.split("T")[0],
+          end: endDate.toISOString().split("T")[0],
+        },
       },
       {
         headers: {
-          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+          "Cache-Control": "public, s-maxage=120, stale-while-revalidate=300",
         },
       }
     );
