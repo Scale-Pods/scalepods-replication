@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { createClient } from "@supabase/supabase-js";
 import { GA4Provider }     from "@/lib/analytics/providers/ga4";
 import { GSCProvider }     from "@/lib/analytics/providers/gsc";
 import { ClarityProvider } from "@/lib/analytics/providers/clarity";
@@ -45,15 +46,24 @@ NEVER just report numbers. Always explain:
 Bad: "Sessions increased by 20%."
 Good: "Sessions increased by 20%, driven primarily by organic search. The blog post on AI SDR workflows is attracting new visitors — consider adding a demo CTA at the bottom of that page to convert this traffic."
 
+## Your Data Sources
+You are given a live snapshot stitched together from FOUR systems. Know which to use:
+1. Google Analytics 4 (GA4) — aggregate traffic, channels, trends, day/hour, per-page engagement.
+2. Google Search Console (GSC) — search keywords, rankings/positions, impressions, CTR.
+3. Microsoft Clarity — UX behaviour signals: scroll depth, engagement time, rage/dead clicks.
+4. BigQuery User Sessions — INDIVIDUAL session-level & per-user data (the "User Sessions" explorer): each visitor's session quality score, device/geo/source, and their actual click-by-click journey (page-to-page navigation). Use this for "session quality", "what path do users take", "show me engaged vs bounce sessions", and individual-journey questions — GA4 only has aggregates, this has the per-session detail.
+
 ## What You Can Answer
-- Traffic analysis: sources, trends, drops, spikes
-- SEO: keyword opportunities, ranking improvements, CTR optimization
-- Content: which pages engage, which lose users, what to create next
-- Funnel: where users drop off, form abandonment, conversion paths
-- Campaigns: which channels/sources drive quality traffic vs bounces
-- Geography: which countries engage, which convert
-- UX signals: scroll depth, engagement time, bounce patterns
-- Timing: best days and hours to publish or run campaigns
+- Traffic analysis: sources, trends, drops, spikes (GA4)
+- SEO: keyword opportunities, ranking improvements, CTR optimization (GSC)
+- Content: which pages engage, which lose users, what to create next (GA4 + Clarity)
+- Funnel: where users drop off, form abandonment, conversion paths (BigQuery journeys + transitions)
+- Session quality: engaged vs bounce breakdown, engagement-score distribution (BigQuery Sessions)
+- User journeys: the most common page-to-page navigation paths real visitors take (BigQuery Sessions)
+- Campaigns: which channels/sources drive quality traffic vs bounces (GA4 + session quality)
+- Geography: which countries engage, which convert (all sources)
+- UX signals: scroll depth, engagement time, bounce patterns (Clarity)
+- Timing: best days and hours to publish or run campaigns (GA4)
 - Recommendations: always prioritize actions that generate more leads
 
 ## Tone
@@ -207,16 +217,184 @@ function dur(secs: number) {
   return `${Math.floor(secs / 60)}m ${Math.round(secs % 60)}s`;
 }
 
+function pathOf(url: string | null | undefined): string {
+  if (!url) return "/";
+  try { return new URL(url).pathname || "/"; } catch { return url; }
+}
+
+// ── BigQuery User-Session explorer context (Supabase: ga4_sessions / ga4_events) ─
+// This is the per-session, per-user data (the "User Sessions" page) — distinct
+// from the aggregate GA4 overview. It lets the AI reason about session QUALITY,
+// individual journeys, and engagement-score distribution.
+
+async function buildSessionContext(rangeDays: number): Promise<string | null> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+
+  const supabase = createClient(url, key);
+  const startISO = new Date(Date.now() - rangeDays * 86400_000).toISOString();
+
+  const [sessRes, evtRes] = await Promise.all([
+    supabase
+      .from("ga4_sessions")
+      .select(
+        "session_id, user_pseudo_id, session_start_time, event_count, engagement_time_msec, device_category, country, city, session_source, session_medium, first_page_location, clarity_scroll_depth"
+      )
+      .gte("session_start_time", startISO)
+      .order("session_start_time", { ascending: false })
+      .limit(2000),
+    supabase
+      .from("ga4_events")
+      .select("session_id, event_name, page_location, event_timestamp")
+      .gte("event_timestamp", startISO)
+      .order("event_timestamp", { ascending: true })
+      .limit(20000),
+  ]);
+
+  const sessions = sessRes.data ?? [];
+  if (sessions.length === 0) return null;
+
+  // Engagement score — same formula as the User Sessions page
+  const scoreOf = (engMsec: number, events: number) =>
+    Math.min(100, Math.round((engMsec / 60000) * 20 + (events / 50) * 20 + 10));
+
+  const total = sessions.length;
+  const uniqueUsers = new Set(sessions.map((s) => s.user_pseudo_id)).size;
+  const avgEvents = Math.round(sessions.reduce((a, s) => a + (s.event_count ?? 0), 0) / total);
+  const avgEngSec = Math.round(
+    sessions.reduce((a, s) => a + (s.engagement_time_msec ?? 0) / 1000, 0) / total
+  );
+
+  // Quality buckets
+  const buckets = { bounce: 0, low: 0, mid: 0, high: 0 };
+  const scored = sessions.map((s) => {
+    const sc = scoreOf(s.engagement_time_msec ?? 0, s.event_count ?? 0);
+    if (sc < 15) buckets.bounce++;
+    else if (sc < 40) buckets.low++;
+    else if (sc < 70) buckets.mid++;
+    else buckets.high++;
+    return { ...s, _score: sc };
+  });
+  const zeroEng = sessions.filter((s) => (s.engagement_time_msec ?? 0) === 0).length;
+
+  // Tally helper
+  const tally = (arr: string[]) => {
+    const m = new Map<string, number>();
+    arr.forEach((k) => m.set(k, (m.get(k) ?? 0) + 1));
+    return [...m.entries()].sort((a, b) => b[1] - a[1]);
+  };
+
+  const topLanding = tally(sessions.map((s) => pathOf(s.first_page_location))).slice(0, 10);
+  const topSrcMed = tally(
+    sessions.map((s) => `${s.session_source ?? "direct"} / ${s.session_medium ?? "direct"}`)
+  ).slice(0, 10);
+  const topCountry = tally(sessions.map((s) => s.country ?? "unknown")).slice(0, 8);
+  const devSplit = tally(sessions.map((s) => s.device_category ?? "unknown"));
+
+  // Most engaged individual sessions
+  const topSessions = [...scored].sort((a, b) => b._score - a._score).slice(0, 6);
+
+  // Journey analysis from events: page→page transitions + sample journeys
+  const events = evtRes.data ?? [];
+  const bySession = new Map<string, { name: string; path: string; ts: string }[]>();
+  for (const e of events) {
+    if (!e.session_id) continue;
+    const arr = bySession.get(e.session_id) ?? [];
+    arr.push({ name: e.event_name, path: pathOf(e.page_location), ts: e.event_timestamp });
+    bySession.set(e.session_id, arr);
+  }
+
+  const transitions = new Map<string, number>();
+  for (const arr of bySession.values()) {
+    // ordered, collapse consecutive duplicate paths
+    const seq: string[] = [];
+    for (const ev of arr) {
+      if (seq[seq.length - 1] !== ev.path) seq.push(ev.path);
+    }
+    for (let i = 0; i < seq.length - 1; i++) {
+      const k = `${seq[i]} → ${seq[i + 1]}`;
+      transitions.set(k, (transitions.get(k) ?? 0) + 1);
+    }
+  }
+  const topTransitions = [...transitions.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+
+  // Build sample journeys for the most engaged sessions
+  const sampleJourneys = topSessions.slice(0, 3).map((s) => {
+    const arr = bySession.get(s.session_id) ?? [];
+    const steps = arr
+      .map((e) => `${e.name}${e.path !== "/" ? `(${e.path})` : ""}`)
+      .slice(0, 15)
+      .join(" → ");
+    return { s, steps };
+  });
+
+  // ── Render ──────────────────────────────────────────────────────────────────
+  const L: string[] = [];
+  L.push("\n\n## BigQuery User Sessions (individual session-level data)\n");
+  L.push(
+    "This is per-session/per-user data (the 'User Sessions' explorer), sourced from the GA4 BigQuery export. Use it to judge session QUALITY and individual visitor behaviour — not just aggregate totals."
+  );
+  L.push(`\nSessions: ${num(total)} | Unique users: ${num(uniqueUsers)}`);
+  L.push(`Avg events/session: ${avgEvents} | Avg engaged time/session: ${dur(avgEngSec)}`);
+  L.push(
+    `Zero-engagement (likely bounce) sessions: ${num(zeroEng)} (${Math.round((zeroEng / total) * 100)}%)`
+  );
+
+  L.push(`\nSession quality (engagement score 0–100):`);
+  L.push(`  - Bounce (0–14): ${num(buckets.bounce)} sessions`);
+  L.push(`  - Low (15–39): ${num(buckets.low)} sessions`);
+  L.push(`  - Mid (40–69): ${num(buckets.mid)} sessions`);
+  L.push(`  - High (70–100): ${num(buckets.high)} sessions`);
+
+  L.push(`\nTop landing pages (by sessions):`);
+  topLanding.forEach(([p, c]) => L.push(`  - ${p}: ${num(c)} sessions`));
+
+  L.push(`\nSession source / medium:`);
+  topSrcMed.forEach(([sm, c]) => L.push(`  - ${sm}: ${num(c)} sessions`));
+
+  L.push(`\nSessions by country:`);
+  topCountry.forEach(([c, n]) => L.push(`  - ${c}: ${num(n)} sessions`));
+
+  L.push(`\nDevice split:`);
+  devSplit.forEach(([d, n]) => L.push(`  - ${d}: ${num(n)} sessions`));
+
+  if (topTransitions.length) {
+    L.push(`\nMost common page-to-page navigation (from real journeys):`);
+    topTransitions.forEach(([t, c]) => L.push(`  - ${t}: ${num(c)}×`));
+  }
+
+  L.push(`\nMost engaged individual sessions:`);
+  topSessions.forEach((s) => {
+    const loc = [s.city, s.country].filter((x) => x && x !== "unknown").join(", ") || "unknown";
+    L.push(
+      `  - score ${s._score} | ${s.device_category} | ${loc} | ${s.session_source}/${s.session_medium} | ${s.event_count} events | ${dur(
+        Math.round((s.engagement_time_msec ?? 0) / 1000)
+      )} engaged | landed ${pathOf(s.first_page_location)}`
+    );
+  });
+
+  if (sampleJourneys.length) {
+    L.push(`\nSample journeys (most engaged sessions, event sequence):`);
+    sampleJourneys.forEach(({ s, steps }, i) => {
+      L.push(`  ${i + 1}. [score ${s._score}, ${s.device_category}, ${s.country}] ${steps || "(no events captured)"}`);
+    });
+  }
+
+  return L.join("\n");
+}
+
 // ── Data snapshot builder ─────────────────────────────────────────────────────
 
 async function buildDataContext(rangeDays: number): Promise<string> {
-  const [ga4, ga4Trend, gsc, gscTrend, clarity, extra] = await Promise.allSettled([
+  const [ga4, ga4Trend, gsc, gscTrend, clarity, extra, sessionCtx] = await Promise.allSettled([
     GA4Provider.getOverview(rangeDays),
     GA4Provider.getTrend(rangeDays),
     GSCProvider.getOverview(rangeDays),
     GSCProvider.getTrend(rangeDays),
     ClarityProvider.getOverview(rangeDays),
     ga4Extra(rangeDays),
+    buildSessionContext(rangeDays),
   ]);
 
   const lines: string[] = [
@@ -459,6 +637,14 @@ async function buildDataContext(rangeDays: number): Promise<string> {
       lines.push(`  - ${ch.name}: ${num(ch.value)} sessions`));
   } else {
     lines.push("Clarity data unavailable at this time.");
+  }
+
+  // ── BigQuery User Sessions ────────────────────────────────────────────────
+  if (sessionCtx.status === "fulfilled" && sessionCtx.value) {
+    lines.push(sessionCtx.value);
+  } else {
+    lines.push("\n\n## BigQuery User Sessions\n");
+    lines.push("Session-level data unavailable at this time.");
   }
 
   lines.push("\n═══════════════════════════════════════════");
