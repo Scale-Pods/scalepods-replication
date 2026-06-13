@@ -62,12 +62,24 @@ async function getAccessToken(): Promise<string> {
 
 // ── SQL builders ──────────────────────────────────────────────────────────────
 
+// NOTE: ga_session_id is only unique PER USER, not globally. Two users can share
+// the same ga_session_id. The canonical GA4 session identity is therefore
+// user_pseudo_id + ga_session_id — we use that as the unique `session_id` so the
+// upsert conflict target is truly unique and per-session events never get mixed.
+
 // One row per session (aggregated)
 function buildSessionsSql(lookbackDays: number): string {
   return `
+    WITH base AS (
+      SELECT
+        *,
+        (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS ga_session_id
+      FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
+      WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
+    )
     SELECT
       user_pseudo_id,
-      CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS STRING) AS session_id,
+      CONCAT(user_pseudo_id, '.', CAST(ga_session_id AS STRING)) AS session_id,
       FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%SZ', TIMESTAMP_MICROS(MIN(event_timestamp)), 'UTC') AS session_start_time,
       FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%SZ', TIMESTAMP_MICROS(MAX(event_timestamp)), 'UTC') AS session_end_time,
       COUNT(*) AS event_count,
@@ -81,10 +93,9 @@ function buildSessionsSql(lookbackDays: number): string {
       ANY_VALUE(traffic_source.medium) AS session_medium,
       ANY_VALUE((SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location' LIMIT 1)) AS first_page_location,
       ANY_VALUE((SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title' LIMIT 1)) AS first_page_title
-    FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
-    WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
-    GROUP BY user_pseudo_id, session_id
-    HAVING session_id IS NOT NULL AND session_id != ''
+    FROM base
+    WHERE ga_session_id IS NOT NULL
+    GROUP BY user_pseudo_id, ga_session_id
     ORDER BY session_start_time DESC
     LIMIT 50000
   `;
@@ -93,16 +104,22 @@ function buildSessionsSql(lookbackDays: number): string {
 // One row per individual event (the journey stream)
 function buildEventsSql(lookbackDays: number): string {
   return `
+    WITH base AS (
+      SELECT
+        *,
+        (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS ga_session_id
+      FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
+      WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
+    )
     SELECT
       user_pseudo_id,
-      CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS STRING) AS session_id,
+      CONCAT(user_pseudo_id, '.', CAST(ga_session_id AS STRING)) AS session_id,
       event_name,
       FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%E3SZ', TIMESTAMP_MICROS(event_timestamp), 'UTC') AS event_timestamp,
       (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location' LIMIT 1) AS page_location,
       (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title' LIMIT 1) AS page_title
-    FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
-    WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
-      AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) IS NOT NULL
+    FROM base
+    WHERE ga_session_id IS NOT NULL
     ORDER BY event_timestamp ASC
     LIMIT 200000
   `;
