@@ -76,6 +76,13 @@ function buildSessionsSql(lookbackDays: number): string {
         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS ga_session_id
       FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
       WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
+      -- Dedupe: the events_* wildcard also matches events_intraday_*, so the same
+      -- event can appear in both the daily and intraday tables. Keep one copy.
+      QUALIFY ROW_NUMBER() OVER (
+        PARTITION BY user_pseudo_id, event_name, event_timestamp,
+          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1),
+          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'event_bundle_sequence_id' LIMIT 1)
+      ) = 1
     )
     SELECT
       user_pseudo_id,
@@ -110,6 +117,13 @@ function buildEventsSql(lookbackDays: number): string {
         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS ga_session_id
       FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
       WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
+      -- Dedupe: the events_* wildcard also matches events_intraday_*, so the same
+      -- event can appear in both the daily and intraday tables. Keep one copy.
+      QUALIFY ROW_NUMBER() OVER (
+        PARTITION BY user_pseudo_id, event_name, event_timestamp,
+          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1),
+          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'event_bundle_sequence_id' LIMIT 1)
+      ) = 1
     )
     SELECT
       user_pseudo_id,
