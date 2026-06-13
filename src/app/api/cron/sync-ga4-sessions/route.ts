@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 60; // allow up to 60s for BigQuery + upsert
+export const maxDuration = 300; // Vercel Pro max — needed for BigQuery sessions + events + Clarity enrichment
 
 // ── Config ───────────────────────────────────────────────────────────────────
 // NOTE: The GA4 data lives in the "scalepods-analytics" project, dataset
