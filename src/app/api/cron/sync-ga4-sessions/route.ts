@@ -262,25 +262,49 @@ export async function GET(request: NextRequest) {
     );
 
     // ── 1. Sessions (aggregated, idempotent upsert on session_id) ──────────────
+    // Build the Clarity cohort lookup up front so scroll depth can be merged into
+    // each session row — that way a single upsert writes complete rows (avoids a
+    // second partial upsert that would null out NOT NULL columns).
+    const clarityLookup = await buildClarityLookup(supabase);
+
     const sessionRows = await queryBigQuery(buildSessionsSql(days), token);
-    const sessions = sessionRows.map((r) => ({
-      session_id: String(r.session_id),
-      user_pseudo_id: r.user_pseudo_id || "",
-      session_start_time: r.session_start_time || nowIso,
-      session_end_time: r.session_end_time || nowIso,
-      event_count: parseInt(r.event_count || "0", 10),
-      engagement_time_msec: parseInt(r.engagement_time_msec || "0", 10),
-      device_category: r.device_category || "unknown",
-      browser: r.browser || "unknown",
-      os: r.os || "unknown",
-      country: r.country || "unknown",
-      city: r.city || "unknown",
-      session_source: r.session_source || "direct",
-      session_medium: r.session_medium || "direct",
-      first_page_location: r.first_page_location || "/",
-      first_page_title: r.first_page_title || "Unknown",
-      synced_at: nowIso,
-    }));
+    let clarityEnriched = 0;
+    const sessions = sessionRows.map((r) => {
+      const country = r.country || "unknown";
+      const device_category = r.device_category || "unknown";
+      const session_source = r.session_source || "direct";
+      const session_medium = r.session_medium || "direct";
+
+      const metric = clarityLookup.get(
+        clarityKey(
+          country,
+          mapDeviceToClarity(device_category),
+          mapChannelToClarity(session_source, session_medium)
+        )
+      );
+      if (metric) clarityEnriched += 1;
+
+      return {
+        session_id: String(r.session_id),
+        user_pseudo_id: r.user_pseudo_id || "",
+        session_start_time: r.session_start_time || nowIso,
+        session_end_time: r.session_end_time || nowIso,
+        event_count: parseInt(r.event_count || "0", 10),
+        engagement_time_msec: parseInt(r.engagement_time_msec || "0", 10),
+        device_category,
+        browser: r.browser || "unknown",
+        os: r.os || "unknown",
+        country,
+        city: r.city || "unknown",
+        session_source,
+        session_medium,
+        first_page_location: r.first_page_location || "/",
+        first_page_title: r.first_page_title || "Unknown",
+        clarity_scroll_depth: metric?.scrollDepth ?? null,
+        clarity_engagement_score: metric?.activeRatio ?? null,
+        synced_at: nowIso,
+      };
+    });
 
     const validSessionIds = new Set(sessions.map((s) => s.session_id));
 
@@ -324,41 +348,6 @@ export async function GET(request: NextRequest) {
         const { error } = await supabase.from("ga4_events").insert(chunk);
         if (error) throw new Error(`Supabase events insert failed: ${error.message}`);
         eventsInserted += chunk.length;
-      }
-    }
-
-    // ── 3. Clarity scroll depth enrichment ────────────────────────────────────
-    let clarityEnriched = 0;
-    const clarityLookup = await buildClarityLookup(supabase);
-    if (clarityLookup.size > 0) {
-      const clarityUpdates = sessions
-        .map((s) => {
-          const key = clarityKey(
-            s.country,
-            mapDeviceToClarity(s.device_category),
-            mapChannelToClarity(s.session_source, s.session_medium)
-          );
-          const metric = clarityLookup.get(key);
-          if (!metric) return null;
-          return {
-            session_id: s.session_id,
-            clarity_scroll_depth: metric.scrollDepth,
-            clarity_engagement_score: metric.activeRatio,
-          };
-        })
-        .filter(Boolean) as Array<{
-        session_id: string;
-        clarity_scroll_depth: number | null;
-        clarity_engagement_score: number | null;
-      }>;
-
-      for (let i = 0; i < clarityUpdates.length; i += CHUNK) {
-        const chunk = clarityUpdates.slice(i, i + CHUNK);
-        const { error } = await supabase
-          .from("ga4_sessions")
-          .upsert(chunk, { onConflict: "session_id" });
-        if (error) throw new Error(`Supabase clarity enrichment failed: ${error.message}`);
-        clarityEnriched += chunk.length;
       }
     }
 
