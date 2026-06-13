@@ -16,6 +16,7 @@ import {
   Flag,
   LogIn,
   Circle,
+  Info,
 } from "lucide-react";
 import { useGA4Sessions, type EnrichedSession } from "@/hooks/useGA4Sessions";
 import KpiCard from "@/components/admin/shared/KpiCard";
@@ -126,6 +127,74 @@ function Badge({ children, color }: { children: React.ReactNode; color?: string 
     >
       {children}
     </span>
+  );
+}
+
+// Plain-English explanation for each column header
+const COLUMN_INFO: Record<string, string> = {
+  Time: "When the session started — the visitor's first event in this session, from GA4.",
+  Device: "Browser and operating system, from GA4.",
+  Location: "City and country, from GA4's geo data (estimated from the visitor's IP).",
+  "Source / Medium":
+    "How the visitor arrived. e.g. direct/direct = typed your URL or used a bookmark; google/organic = a search result; (none) = GA4 couldn't attribute a source.",
+  Events:
+    "Total GA4 events fired in this session — page views, scrolls, clicks, etc. Click the row to see each one in order.",
+  Engaged:
+    "Active time the page was focused and being used (GA4 engagement time), not just how long the tab was open. 0s usually means a bounce.",
+  Score:
+    "0–100 engagement score = (engaged minutes × 20) + (events ÷ 50 × 20) + 10, capped at 100. Low ≈ a quick bounce; high ≈ a deep, involved visit.",
+  "Landing page": "The first page the visitor landed on in this session.",
+};
+
+// Hover info icon — uses position:fixed so it escapes the table's scroll container
+function InfoTip({ text }: { text: string }) {
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  return (
+    <>
+      <span
+        onMouseEnter={(e) => {
+          const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+          setPos({ x: r.left + r.width / 2, y: r.bottom + 6 });
+        }}
+        onMouseLeave={() => setPos(null)}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          marginLeft: "4px",
+          verticalAlign: "middle",
+          cursor: "help",
+        }}
+      >
+        <Info size={12} style={{ color: "var(--text-muted)" }} />
+      </span>
+      {pos && (
+        <div
+          style={{
+            position: "fixed",
+            left: pos.x,
+            top: pos.y,
+            transform: "translateX(-50%)",
+            width: "220px",
+            padding: "9px 11px",
+            borderRadius: "7px",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            color: "var(--text-secondary)",
+            fontSize: "11px",
+            fontWeight: 400,
+            lineHeight: 1.45,
+            textTransform: "none",
+            letterSpacing: "normal",
+            zIndex: 1000,
+            boxShadow: "0 6px 22px rgba(0,0,0,0.35)",
+            whiteSpace: "normal",
+            pointerEvents: "none",
+          }}
+        >
+          {text}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -297,14 +366,14 @@ function SessionsTable({ sessions }: { sessions: EnrichedSession[] }) {
         <thead>
           <tr>
             <th style={{ ...th, width: "28px" }}></th>
-            <th style={th}>Time</th>
-            <th style={th}>Device</th>
-            <th style={th}>Location</th>
-            <th style={th}>Source / Medium</th>
-            <th style={{ ...th, textAlign: "right" }}>Events</th>
-            <th style={{ ...th, textAlign: "right" }}>Engaged</th>
-            <th style={{ ...th, textAlign: "right" }}>Score</th>
-            <th style={th}>Landing page</th>
+            <th style={th}>Time<InfoTip text={COLUMN_INFO.Time} /></th>
+            <th style={th}>Device<InfoTip text={COLUMN_INFO.Device} /></th>
+            <th style={th}>Location<InfoTip text={COLUMN_INFO.Location} /></th>
+            <th style={th}>Source / Medium<InfoTip text={COLUMN_INFO["Source / Medium"]} /></th>
+            <th style={{ ...th, textAlign: "right" }}>Events<InfoTip text={COLUMN_INFO.Events} /></th>
+            <th style={{ ...th, textAlign: "right" }}>Engaged<InfoTip text={COLUMN_INFO.Engaged} /></th>
+            <th style={{ ...th, textAlign: "right" }}>Score<InfoTip text={COLUMN_INFO.Score} /></th>
+            <th style={th}>Landing page<InfoTip text={COLUMN_INFO["Landing page"]} /></th>
           </tr>
         </thead>
         <tbody>
