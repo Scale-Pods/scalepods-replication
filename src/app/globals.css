@@ -360,11 +360,13 @@ img, video, canvas, svg {
   border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
 }
 
-/* ── Light mode navbar links ── */
-[data-theme="light"] nav a {
+/* ── Light mode navbar links and buttons ── */
+[data-theme="light"] nav a,
+[data-theme="light"] nav button {
   color: #1e293b !important;
 }
-[data-theme="light"] nav a:hover {
+[data-theme="light"] nav a:hover,
+[data-theme="light"] nav button:hover {
   color: #84cc16 !important;
 }
 

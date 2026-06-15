@@ -404,6 +404,12 @@ const Navbar = memo(() => {
                         gap: "4px",
                         zIndex: 1,
                       }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "var(--color-text-bright)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = (active || solutionsOpen) ? "var(--color-text-bright)" : "var(--color-text-muted)";
+                      }}
                     >
                       {active && (
                         <motion.div
