@@ -76,12 +76,18 @@ function buildSessionsSql(lookbackDays: number): string {
         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS ga_session_id
       FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
       WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
-      -- Dedupe: the events_* wildcard also matches events_intraday_*, so the same
-      -- event can appear in both the daily and intraday tables. Keep one copy.
+      -- Dedupe ONLY true duplicates: the events_* wildcard also matches
+      -- events_intraday_*, so the same event can appear in both the daily and
+      -- intraday tables as a byte-identical copy. GA4 gives every event in one
+      -- upload batch the SAME event_timestamp, so distinct navigations (e.g. two
+      -- page_views to different URLs) can share a timestamp — they must NOT be
+      -- collapsed. We therefore include page_location + bundle id in the key so
+      -- only events identical in every identifying field are deduped.
       QUALIFY ROW_NUMBER() OVER (
         PARTITION BY user_pseudo_id, event_name, event_timestamp,
           (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1),
-          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'event_bundle_sequence_id' LIMIT 1)
+          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'event_bundle_sequence_id' LIMIT 1),
+          (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location' LIMIT 1)
       ) = 1
     )
     SELECT
@@ -117,12 +123,18 @@ function buildEventsSql(lookbackDays: number): string {
         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1) AS ga_session_id
       FROM \`${PROJECT_ID}.${DATASET_ID}.events_*\`
       WHERE _TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL ${lookbackDays} DAY))
-      -- Dedupe: the events_* wildcard also matches events_intraday_*, so the same
-      -- event can appear in both the daily and intraday tables. Keep one copy.
+      -- Dedupe ONLY true duplicates: the events_* wildcard also matches
+      -- events_intraday_*, so the same event can appear in both the daily and
+      -- intraday tables as a byte-identical copy. GA4 gives every event in one
+      -- upload batch the SAME event_timestamp, so distinct navigations (e.g. two
+      -- page_views to different URLs) can share a timestamp — they must NOT be
+      -- collapsed. We therefore include page_location + bundle id in the key so
+      -- only events identical in every identifying field are deduped.
       QUALIFY ROW_NUMBER() OVER (
         PARTITION BY user_pseudo_id, event_name, event_timestamp,
           (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id' LIMIT 1),
-          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'event_bundle_sequence_id' LIMIT 1)
+          (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'event_bundle_sequence_id' LIMIT 1),
+          (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location' LIMIT 1)
       ) = 1
     )
     SELECT
