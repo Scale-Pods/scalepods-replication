@@ -682,7 +682,7 @@ const brands = [
   { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", type: "transparent", scale: 0.8 },
   { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", type: "transparent", scale: 1.25 },
   { src: "/brands/suphalmedia.avif", alt: "Suphal Media", type: "transparent", scale: 1.0 },
-  { src: "/new logos/victory_energy_logo.png", alt: "Victory Energy", type: "transparent", scale: 1.25 },
+  { src: "/new logos/VE-Logo-Color.svg", alt: "Victory Energy", type: "victory-energy", scale: 1.25 },
   { src: "/brands/eequals_logo.webp", alt: "eEquals", type: "transparent", scale: 1.4 },
   { src: "/brands/aspen-real-estate.jpg", alt: "Aspen Real Estate", type: "white-bg", scale: 2.2 },
   { src: "/brands/naples-homes.jpg", alt: "Naples Homes", type: "dark-bg", scale: 1.6 },
@@ -693,6 +693,20 @@ const brands = [
 const getLogoFilter = (brand: any, resolvedTheme: string, isHovered: boolean) => {
   const isDark = resolvedTheme === "dark";
   
+  if (brand.type === "victory-energy") {
+    if (isDark) {
+      if (isHovered) {
+        return "invert(1) hue-rotate(180deg) drop-shadow(0 0 12px rgba(177, 217, 151, 0.45))";
+      }
+      return "invert(1) hue-rotate(180deg) grayscale(1) opacity(0.65)";
+    } else {
+      if (isHovered) {
+        return "drop-shadow(0 0 12px rgba(0, 0, 0, 0.15))";
+      }
+      return "grayscale(1) opacity(0.65)";
+    }
+  }
+
   if (isHovered) {
     const baseFilter = brand.type === "white-bg" 
       ? "url(#remove-white-bg) " 
