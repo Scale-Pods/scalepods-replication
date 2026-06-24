@@ -105,6 +105,7 @@ const navLinks = [
 
 const solutions = [
   { label: "Sales Workflow Automation", href: "/solution/sales-workflow-automation" },
+  { label: "HR Workflow Automation", href: "/solution/hr-workflow-automation" },
 ];
 
 const globalSections = [
@@ -282,6 +283,7 @@ const Navbar = memo(() => {
     if (isProd) {
       router.prefetch("/global");
       router.prefetch("/solution/sales-workflow-automation");
+      router.prefetch("/solution/hr-workflow-automation");
       router.prefetch("/blog");
       router.prefetch("/contact");
     }
