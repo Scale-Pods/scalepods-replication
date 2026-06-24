@@ -30,7 +30,6 @@ import dynamic from "next/dynamic";
 
 const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { ssr: false });
 const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
-const CalendlyModal = dynamic(() => import("@/components/ui/CalendlyModal"), { ssr: false });
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
 import { BrandsMarquee } from "@/components/sections/Sections";
 import "./salespod.css";
@@ -55,9 +54,6 @@ const outboundGoals = [
   "Outbound Cold Email Engine",
   "Hyper-Intent Data Scraping",
 ];
-
-const CALENDLY_URL = "https://calendly.com/raunak-scalepods/discovery-call-from-salespod-landing-page";
-
 
 // Motion Variants (Framer Motion)
 const fadeUp = (delay = 0, isMobile = false) => ({
@@ -1802,27 +1798,8 @@ export default function SalesPodPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
-  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [auditModalTitle, setAuditModalTitle] = useState("Get a Free Workflow Audit");
   const [auditModalSourceName, setAuditModalSourceName] = useState("Sales Workflow Automation Solution Page");
-
-  // Preconnect to Calendly domains in the background to optimize iframe load performance
-  useEffect(() => {
-    const p1 = document.createElement("link");
-    p1.rel = "preconnect";
-    p1.href = "https://calendly.com";
-    document.head.appendChild(p1);
-
-    const p2 = document.createElement("link");
-    p2.rel = "preconnect";
-    p2.href = "https://assets.calendly.com";
-    document.head.appendChild(p2);
-
-    return () => {
-      if (document.head.contains(p1)) document.head.removeChild(p1);
-      if (document.head.contains(p2)) document.head.removeChild(p2);
-    };
-  }, []);
 
   useCountryDetection(
     countries,
@@ -2037,14 +2014,14 @@ export default function SalesPodPage() {
 
             {/* Clean CTA Button */}
             <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "12px" }}>
-              <motion.a
+              <motion.button
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                href="#deployment-form"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("deployment-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                onClick={() => {
+                  setAuditModalTitle("Book a Free Outbound Audit");
+                  setAuditModalSourceName("Sales Workflow Automation - Hero CTA");
+                  setIsAuditModalOpen(true);
                 }}
                 className="sp-hero-cta-btn"
                 style={{
@@ -2053,7 +2030,7 @@ export default function SalesPodPage() {
                 }}
               >
                 Book a Free Outbound Audit →
-              </motion.a>
+              </motion.button>
             </div>
           </motion.div>
 
@@ -2468,7 +2445,14 @@ export default function SalesPodPage() {
       </div>
 
       {/* ── FOLD 2: TRUST SIGNAL ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Label / Intro */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
@@ -2537,11 +2521,18 @@ export default function SalesPodPage() {
 
         </div>
 
-      </div>
+      </motion.div>
 
 
       {/* ── FOLD 3: PRODUCT DEMO ── */}
-      <div className="sp-section-wrapper sp-demo-section" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper sp-demo-section"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Top Header */}
         <div className="sp-demo-header" style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
@@ -2582,10 +2573,17 @@ export default function SalesPodPage() {
 
 
 
-      </div>
+      </motion.div>
 
       {/* ── FOLDS 4, 5 & 6: WHAT SALESPOD DOES (Your AI-Powered Sales Engine) ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Intro Header */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -2625,11 +2623,8 @@ export default function SalesPodPage() {
               >
                 {/* Content Block */}
                 <div className="sp-capability-content">
-                  <span className="sp-capability-eyebrow">
-                    {cap.chapter} // {cap.eyebrow}
-                  </span>
-                  <h3 className="sp-capability-title">
-                    {cap.title}
+                  <h3 className="sp-capability-title" style={{ color: "var(--sp-accent)" }}>
+                    {idx + 1}. {cap.title}
                   </h3>
                   <p className="sp-capability-desc">
                     {cap.desc}
@@ -2673,10 +2668,17 @@ export default function SalesPodPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 7: STATS & BENEFITS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Intro Section Label */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -2758,6 +2760,23 @@ export default function SalesPodPage() {
 
         </div>
 
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            className="sp-stats-cta-btn"
+            onClick={() => {
+              setAuditModalTitle("Evaluate Your Sales Funnel");
+              setAuditModalSourceName("Sales Workflow Automation - Funnel CTA");
+              setIsAuditModalOpen(true);
+            }}
+          >
+            <span>Evaluate your funnel</span>
+            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
+          </motion.button>
+        </div>
+
         {/* WHY SALES TEAMS USE SALESPOS GRID CONTAINER */}
         <div className="sp-why-use-wrapper">
           <h3 className="sp-why-use-title">Why Sales Teams Use SalesPod</h3>
@@ -2797,10 +2816,17 @@ export default function SalesPodPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 8: WHY SCALEPODS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "20px", paddingBottom: "20px" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "20px", paddingBottom: "20px" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Heading & Subtext */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "16px" }}>
@@ -2905,7 +2931,7 @@ export default function SalesPodPage() {
           </motion.button>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 9: FINAL CALL TO ACTION ── */}
       <div className="sp-final-cta-wrapper">
@@ -2955,7 +2981,14 @@ export default function SalesPodPage() {
       </div>
 
       {/* ── FOLD 10: VOICES — CLIENT TESTIMONIALS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Heading */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "28px" }}>
@@ -2985,10 +3018,17 @@ export default function SalesPodPage() {
           <SalespodTestimonialCarousel />
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 11: QUESTIONS · BEFORE YOU DECIDE (FAQ) ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Heading */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -3087,13 +3127,13 @@ export default function SalesPodPage() {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-faq-bottom-btn"
-            onClick={() => setIsCalendlyModalOpen(true)}
+            onClick={() => window.open("https://calendar.app.google/DhM4emV5aoPSqpDt8", "_blank")}
           >
             <span>Book a Call</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
           </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       <DownloadModal
         isOpen={isDownloadModalOpen}
@@ -3114,11 +3154,6 @@ export default function SalesPodPage() {
         isSalesPod={true}
       />
 
-      <CalendlyModal
-        isOpen={isCalendlyModalOpen}
-        onClose={() => setIsCalendlyModalOpen(false)}
-        url={CALENDLY_URL}
-      />
 
     </BeamsBackground>
   );

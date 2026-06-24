@@ -231,7 +231,7 @@ export default function DownloadModal({
 
             {submitted ? (
               <div id="lead-form-success" style={{ textAlign: "center", padding: "20px 0" }}>
-                <CheckCircle size={48} color={C.green} style={{ margin: "0 auto 16px" }} />
+                <CheckCircle size={48} color="#63A5E7" style={{ margin: "0 auto 16px" }} />
                 <h3 style={{ fontSize: "20px", fontWeight: 600, color: C.txtBright, marginBottom: "8px" }}>
                   Download Started!
                 </h3>
@@ -243,11 +243,11 @@ export default function DownloadModal({
               <>
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <div style={{
-                    width: "40px", height: "40px", background: "rgba(var(--color-green-rgb), 0.1)",
+                    width: "40px", height: "40px", background: "rgba(99, 165, 231, 0.1)",
                     borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center",
                     margin: "0 auto 12px"
                   }}>
-                    <Download size={20} color={C.greenBright} />
+                    <Download size={20} color="#63A5E7" />
                   </div>
                   <h3 style={{ fontSize: "20px", fontWeight: 600, color: C.txtBright, marginBottom: "4px" }}>
                     {title}
@@ -426,21 +426,21 @@ export default function DownloadModal({
                         fontSize: "15px",
                         fontWeight: 700,
                         letterSpacing: "-0.01em",
-                        color: isDark ? "#B1D997" : "#0f172a",
+                        color: isDark ? "#63A5E7" : "#0f172a",
                         background: isDark
                           ? "linear-gradient(135deg, #050816 0%, #0b1020 100%)"
-                          : "linear-gradient(135deg, #B1D997 0%, #C5E4B2 50%, #D8EFCC 100%)",
+                          : "linear-gradient(135deg, #63A5E7 0%, #8EC3F7 50%, #B9DBFA 100%)",
                         backdropFilter: isDark ? "blur(12px)" : "none",
                         WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
                         border: isDark 
-                          ? "1px solid rgba(177, 217, 151, 0.4)" 
-                          : "1px solid rgba(177, 217, 151, 0.3)",
+                          ? "1px solid rgba(99, 165, 231, 0.4)" 
+                          : "1px solid rgba(99, 165, 231, 0.3)",
                         borderRadius: "12px",
                         cursor: loading ? "not-allowed" : "pointer",
                         opacity: loading ? 0.75 : 1,
                         boxShadow: isDark 
-                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(177, 217, 151, 0.15)" 
-                          : "0 10px 20px -5px rgba(177, 217, 151, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+                          ? "0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(99, 165, 231, 0.15)" 
+                          : "0 10px 20px -5px rgba(99, 165, 231, 0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
                         justifyContent: "center",
                         whiteSpace: "nowrap",
                         transition: "opacity 0.2s ease, box-shadow 0.3s ease",

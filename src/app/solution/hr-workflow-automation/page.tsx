@@ -22,7 +22,6 @@ import dynamic from "next/dynamic";
 
 const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { ssr: false });
 const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
-const CalendlyModal = dynamic(() => import("@/components/ui/CalendlyModal"), { ssr: false });
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
 import { BrandsMarquee } from "@/components/sections/Sections";
 import "./hrpod.css";
@@ -48,7 +47,7 @@ const hrGoals = [
   "Offer & Onboarding Automation",
 ];
 
-const CALENDLY_URL = "https://calendly.com/raunak-scalepods/discovery-call-from-salespod-landing-page";
+
 
 // Motion Variants (Framer Motion)
 const fadeUp = (delay = 0, isMobile = false) => ({
@@ -381,148 +380,176 @@ const salespodReviews = [
 const capabilitiesData = [
   {
     chapter: "Chapter 01",
-    eyebrow: "Talent Acquisition & Intake",
-    title: "Consolidated Candidate Sourcing & Pipeline Intake",
-    desc: "HRPod captures, aggregates, and organizes candidate applications from every channel into a unified pipeline.",
+    eyebrow: "Talent Acquisition & Candidate Intake",
+    title: "Talent Acquisition & Candidate Intake",
+    desc: "Capture and consolidate candidates from every channel into one centralized, clean pipeline before screening begins.",
     video: "/videos/hrpod/1.mp4",
     points: [
       {
         title: "Configure Hiring Campaigns",
-        body: "Launch structured hiring sprints with automated stages, timelines, and screening parameters."
+        body: "Launch campaigns instantly with automated timelines, stages, and recruiter assignments."
       },
       {
         title: "Consolidate Candidate Intake",
-        body: "Aggregate applicants from job boards, internal databases, referrals, and external agencies."
+        body: "Capture applicants from job boards, referrals, and agencies into a single unified pipeline."
       },
       {
-        title: "Centralize & Deduplicate Profiles",
-        body: "Clean candidate listings automatically by identifying, merging, and syncing overlapping entries."
+        title: "Centralize Applicant Data",
+        body: "Organize profiles, resumes, and source data automatically without manual entry."
+      },
+      {
+        title: "Eliminate Duplicate Profiles",
+        body: "Automatically merge duplicate entries to maintain a clean, actionable database."
       }
     ]
   },
   {
     chapter: "Chapter 02",
     eyebrow: "AI Resume Screening",
-    title: "AI Screening & Resume Candidate Intelligence",
-    desc: "Evaluate applications instantly against your hiring parameters using highly-precise semantic models.",
+    title: "AI Resume Screening & Candidate Intelligence",
+    desc: "Transform manual resume reviews into intelligent shortlisting with automated analysis, scoring, and role-fit recommendations.",
     video: "/videos/hrpod/2.mp4",
     points: [
       {
-        title: "Analyze Resumes Instantly",
-        body: "Evaluate core competencies, work history, education, and credentials against role descriptions."
+        title: "Analyze Resumes Automatically",
+        body: "Evaluate skills, experience, and role fit instantly using AI."
       },
       {
-        title: "Candidate Evaluation & Scoring",
-        body: "Provide a logical role-fit grade and profile summary highlighting matches and areas of concern."
+        title: "Score & Rank Candidates",
+        body: "Rank applicants automatically based on your predefined hiring criteria."
       },
       {
-        title: "Generate Interview Frameworks",
-        body: "Build customized, candidate-specific interview guides targeting highlighted skill sets and queries."
+        title: "Generate Intelligence Summaries",
+        body: "Build candidate profiles highlighting core strengths and risk factors before the first call."
+      },
+      {
+        title: "Prepare Interview Frameworks",
+        body: "Auto-generate role-specific interview questions for every evaluation stage."
       }
     ]
   },
   {
     chapter: "Chapter 03",
     eyebrow: "Interview Scheduling",
-    title: "Autonomous Interview Management & Coordination",
-    desc: "Remove the manual friction from schedule coordination. HRPod secures candidate slots in seconds.",
+    title: "Interview Management & Scheduling",
+    desc: "Remove the back-and-forth from scheduling entirely with automated coordination and seamless calendar synchronization.",
     video: "/videos/hrpod/3.mp4",
     points: [
       {
-        title: "Manage Custom Pipelines",
-        body: "Track applicant progression through user-friendly stages synchronized with your ATS data."
+        title: "Manage Recruitment Pipelines",
+        body: "Track candidates across customizable stages without manual spreadsheets."
       },
       {
-        title: "Automate Schedule Slots",
-        body: "Dispatch smart self-scheduling links that align dynamically with interviewer calendars."
+        title: "Automate Interview Scheduling",
+        body: "Dispatch self-booking links based on real-time interviewer availability."
       },
       {
-        title: "Auto-Coordinate Reminders",
-        body: "Send automatic calendar updates, details, and context guides for zero no-shows."
+        title: "Coordinate Stakeholders Automatically",
+        body: "Trigger calendar invites, reminders, and rescheduling automatically."
+      },
+      {
+        title: "Reduce Candidate No-Shows",
+        body: "Deploy automated follow-up sequences to maximize interview attendance."
       }
     ]
   },
   {
     chapter: "Chapter 04",
     eyebrow: "Evaluation & Approvals",
-    title: "Structured Evaluation & Shared Approvals",
-    desc: "Maintain a standard and compliant hiring decision workflow backed by objective digital scorecards.",
+    title: "Evaluation & Hiring Workflow",
+    desc: "Drive objective, fully documented hiring decisions based on unified evaluation criteria.",
     video: "/videos/hrpod/4.mp4",
     points: [
       {
-        title: "Streamline Multi-Round Pipelines",
-        body: "Establish sequential rounds with distinct interviewer focus areas and automated transitions."
+        title: "Streamline Multi-Round Interviews",
+        body: "Manage complex stages with standardized criteria and approval workflows."
       },
       {
-        title: "Capture Digital Scorecards",
-        body: "Synthesize team feedback in real time through structured, easy-to-use digital assessment forms."
+        title: "Collect Digital Feedback",
+        body: "Capture scorecards and recommendations through structured digital forms."
       },
       {
-        title: "Route Hierarchical Approvals",
-        body: "Dispatch automated validation requests through custom leadership and budget hierarchies."
+        title: "Route Approvals Seamlessly",
+        body: "Route approvals through custom hierarchies for complete accountability."
+      },
+      {
+        title: "Automate Hiring Decisions",
+        body: "Advance or reject candidates automatically based on aggregated feedback and scores."
       }
     ]
   },
   {
     chapter: "Chapter 05",
     eyebrow: "Offers & Onboarding",
-    title: "Accelerated Offers & Integrated Onboarding",
-    desc: "Transition candidates from interview success to day-one readiness with zero manual oversight.",
+    title: "Offer Management & Onboarding",
+    desc: "Secure top talent faster by automating offer creation, digital acceptances, and end-to-end onboarding compliance.",
     video: "/videos/hrpod/5.mp4",
     points: [
       {
-        title: "Draft Verified Offer Letters",
-        body: "Generate customized contracts instantly pulling parameters directly from approved scorecards."
+        title: "Generate Personalized Offers",
+        body: "Auto-draft customized offer letters based on approved compensation."
       },
       {
-        title: "Monitor Electronic Signatures",
-        body: "Deliver offers and trigger automated candidate alerts for pending signature submissions."
+        title: "Track Digital Acceptances",
+        body: "Dispatch offers electronically and track digital signatures in real time."
       },
       {
-        title: "Launch Automated Onboarding",
-        body: "Trigger secure credentials generation, background checks, and setup tasks post-signature."
+        title: "Automate Follow-Up Sequences",
+        body: "Trigger intelligent reminders for pending signatures to prevent candidate drop-off."
+      },
+      {
+        title: "Initiate Seamless Onboarding",
+        body: "Launch document collection and compliance workflows the moment an offer is signed."
       }
     ]
   },
   {
     chapter: "Chapter 06",
     eyebrow: "HR Analytics",
-    title: "HR Operations Dashboard & Strategic Intelligence",
-    desc: "Identify pipeline bottlenecks, assess time-to-hire metrics, and measure overall source ROI.",
+    title: "HR Operations Dashboard & Analytics",
+    desc: "Monitor recruitment performance, pipeline bottlenecks, and hiring velocity through a centralized dashboard.",
     video: "/videos/hrpod/6.mp4",
     points: [
       {
-        title: "Track End-to-End Analytics",
-        body: "View source performance, role velocity, drop-off rates, and recruiter workloads inside one hub."
+        title: "Track Pipeline Visibility",
+        body: "Monitor candidate volumes, open roles, and recruiter workloads instantly."
       },
       {
-        title: "Automate Executive Reports",
-        body: "Export formatted recruitment activity summaries for team syncs and budget planning sessions."
+        title: "Analyze Hiring Performance",
+        body: "Measure time-to-hire, source effectiveness, and conversion rates automatically."
+      },
+      {
+        title: "Generate Executive Reports",
+        body: "Extract actionable trend analyses to keep leadership informed on progress."
       },
       {
         title: "Optimize Workforce Planning",
-        body: "Leverage historic data trends to forecast team onboarding timelines and hiring velocity."
+        body: "Identify bottlenecks and forecast hiring needs using hard data, not guesswork."
       }
     ]
   },
   {
     chapter: "Chapter 07",
     eyebrow: "AI Assistant",
-    title: "Natural Language AI HR Assistant",
-    desc: "Access hiring database details instantly. Filter lists and run intelligence queries on demand.",
+    title: "AI HR Assistant",
+    desc: "Access recruitment intelligence instantly through natural language conversations powered by your real-time hiring data.",
     video: "/videos/hrpod/7.mp4",
     points: [
       {
-        title: "Query Data Naturally",
-        body: "Identify top candidate fits or check role status using everyday English prompts."
+        title: "Query Operations Naturally",
+        body: "Ask questions about pipelines and outcomes using simple, everyday language."
       },
       {
-        title: "Audit Process Bottlenecks",
-        body: "Let the AI assistant point out exactly where candidates are getting stuck in the pipeline."
+        title: "Discover Candidates Instantly",
+        body: "Surface top fits from your database without complex search strings."
       },
       {
-        title: "Generate Smart Selection Notes",
-        body: "Get draft summaries comparing shortlists to assist hiring managers in final decisions."
+        title: "Receive Strategic Intelligence",
+        body: "Get proactive recommendations on candidate selection and pipeline optimization."
+      },
+      {
+        title: "Investigate Bottlenecks Faster",
+        body: "Uncover trends and process delays without manually digging through ATS data."
       }
     ]
   }
@@ -1414,7 +1441,6 @@ export default function HRWorkflowAutomationPage() {
 
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
-  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
   const [auditModalTitle, setAuditModalTitle] = useState("Pre-Configure Your HR Pod");
   const [auditModalSourceName, setAuditModalSourceName] = useState("HR Workflow Automation solution page");
@@ -1533,7 +1559,7 @@ export default function HRWorkflowAutomationPage() {
   };
 
   return (
-    <BeamsBackground className="hrpod-container" hues={[135, 110]}>
+    <BeamsBackground className="hrpod-container" hues={[140, 160]}>
       {/* Soft Ambient Cool Green Glow Overlay */}
       <div className="sp-ambient-bg-glow" />
 
@@ -1581,7 +1607,7 @@ export default function HRWorkflowAutomationPage() {
 
             {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              Automate Your Hiring{" "}
+              <span style={{ color: "#B1D997" }}>Automate Your Hiring</span>{" "}
               <br className="sp-hero-desk-br" />
               Process &amp; Build Your{" "}
               <br className="sp-hero-br" />
@@ -1591,10 +1617,7 @@ export default function HRWorkflowAutomationPage() {
             {/* Subtext */}
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Deploy autonomous HR Pods that configure, screen, evaluate, and schedule candidates automatically.
-              </p>
-              <p style={{ margin: "8px 0 0 0", opacity: 0.85 }}>
-                Scale your hiring velocity without scaling your overhead.
+                Deploy autonomous HR Pods that configure, screen, evaluate, and schedule candidates automatically. Scale your hiring velocity without scaling your overhead.
               </p>
             </div>
 
@@ -1602,11 +1625,12 @@ export default function HRWorkflowAutomationPage() {
             <div style={{
               display: "grid",
               gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
-              gap: isMobile ? "12px" : "14px 40px",
+              gap: isMobile ? "12px" : "14px 60px",
               marginBottom: "32px",
-              width: "100%",
-              maxWidth: "540px",
-              marginInline: "auto"
+              width: "fit-content",
+              maxWidth: "100%",
+              marginInline: "auto",
+              paddingInline: "20px"
             }}>
               {[
                 "Autonomous Candidate Screening",
@@ -1614,9 +1638,9 @@ export default function HRWorkflowAutomationPage() {
                 "Zero-Chase Interview Scheduling",
                 "Onboarding & Analytics Dashboard"
               ].map((bullet, idx) => (
-                <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
-                  <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0 }} />
-                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)", letterSpacing: "-0.01em" }}>
+                <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", justifyContent: "flex-start" }}>
+                  <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0, marginTop: "2px" }} />
+                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)", letterSpacing: "-0.01em", textAlign: "left" }}>
                     {bullet}
                   </span>
                 </div>
@@ -1625,14 +1649,14 @@ export default function HRWorkflowAutomationPage() {
 
             {/* Clean CTA Button */}
             <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "12px" }}>
-              <motion.a
+              <motion.button
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                href="#deployment-form"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("deployment-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                onClick={() => {
+                  setAuditModalTitle("Book a Hiring Automation Audit");
+                  setAuditModalSourceName("HR Workflow Automation - Hero CTA");
+                  setIsAuditModalOpen(true);
                 }}
                 className="sp-hero-cta-btn"
                 style={{
@@ -1641,7 +1665,7 @@ export default function HRWorkflowAutomationPage() {
                 }}
               >
                 Book a Hiring Automation Audit →
-              </motion.a>
+              </motion.button>
             </div>
           </motion.div>
 
@@ -1984,8 +2008,8 @@ export default function HRWorkflowAutomationPage() {
                       }}
                     >
                       <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#76B852] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#76B852]"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#63A5E7] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#63A5E7]"></span>
                       </span>
                       <span>{loadingStatus}</span>
                     </div>
@@ -2056,7 +2080,14 @@ export default function HRWorkflowAutomationPage() {
       </div>
 
       {/* ── FOLD 2: TRUST SIGNAL ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Label / Intro */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
@@ -2096,9 +2127,7 @@ export default function HRWorkflowAutomationPage() {
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
-            Turn your HR department into a predictable talent acquisition and onboarding engine.
-            <br /><br />
-            Step into the next generation of automated excellence.
+            Turn your HR department into a predictable talent acquisition and workforce planning engine. Automate everything from candidate sourcing and screening to onboarding and hiring analytics while building high-performing teams at scale.
           </p>
         </div>
 
@@ -2119,17 +2148,24 @@ export default function HRWorkflowAutomationPage() {
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">5 hrs</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Saved Per Recruiter / Wk</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Saved Per Recruiter / Week</div>
             <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>more time for high-value hires</div>
           </div>
 
         </div>
 
-      </div>
+      </motion.div>
 
 
       {/* ── FOLD 3: PRODUCT DEMO ── */}
-      <div className="sp-section-wrapper sp-demo-section" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper sp-demo-section"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Top Header */}
         <div className="sp-demo-header" style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
@@ -2145,7 +2181,7 @@ export default function HRWorkflowAutomationPage() {
               textTransform: "uppercase",
               color: "var(--sp-accent)",
             }}>
-              Product Demo
+              See the HR Pod in Action
             </span>
           </div>
 
@@ -2166,10 +2202,17 @@ export default function HRWorkflowAutomationPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLDS 4+: WHAT HRPOD DOES ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Intro Header */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -2190,11 +2233,11 @@ export default function HRWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Your AI-Powered HR Engine
+            Your AI-Powered Hiring System
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            From candidate intake and AI scoring to automated scheduling and onboarding — HRPod streamlines the entire recruitment workflow.
+            HRPod automates the entire hiring lifecycle from campaign creation and job descriptions to candidate screening and interview scheduling across every role, every time
           </p>
         </div>
 
@@ -2209,11 +2252,8 @@ export default function HRWorkflowAutomationPage() {
               >
                 {/* Content Block */}
                 <div className="sp-capability-content">
-                  <span className="sp-capability-eyebrow">
-                    {cap.chapter} // {cap.eyebrow}
-                  </span>
-                  <h3 className="sp-capability-title">
-                    {cap.title}
+                  <h3 className="sp-capability-title" style={{ color: "var(--sp-accent)" }}>
+                    {idx + 1}. {cap.title}
                   </h3>
                   <p className="sp-capability-desc">
                     {cap.desc}
@@ -2257,10 +2297,17 @@ export default function HRWorkflowAutomationPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 7: STATS & BENEFITS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Intro Section Label */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -2299,8 +2346,8 @@ export default function HRWorkflowAutomationPage() {
           >
             <div className="sp-stat-num">48h</div>
             <div className="sp-stat-desc">
-              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Brief to Interview</strong>
-              Setup hiring campaigns and get interview slots booked within two days.
+              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Brief to Interview Setup</strong>
+              Configure hiring campaigns and get interview slots booked within 48 hours.
             </div>
           </motion.div>
 
@@ -2322,7 +2369,7 @@ export default function HRWorkflowAutomationPage() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <div className="sp-stat-num">80%</div>
-            <div style={{ color: "var(--color-text-body)", fontSize: "13px", lineHeight: "1.5" }}>
+            <div className="sp-stat-desc">
               <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Coordination Reduction</strong>
               Eliminate calendar coordination threads, double-booking, and candidate no-shows.
             </div>
@@ -2340,6 +2387,23 @@ export default function HRWorkflowAutomationPage() {
             </div>
           </motion.div>
 
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            className="sp-stats-cta-btn"
+            onClick={() => {
+              setAuditModalTitle("Evaluate Your Hiring Funnel");
+              setAuditModalSourceName("HR Workflow Automation - Funnel CTA");
+              setIsAuditModalOpen(true);
+            }}
+          >
+            <span>Evaluate your funnel</span>
+            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
+          </motion.button>
         </div>
 
         {/* WHY HR TEAMS USE HRPOD */}
@@ -2381,10 +2445,17 @@ export default function HRWorkflowAutomationPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 8: COMPARISON ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "20px", paddingBottom: "20px" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "20px", paddingBottom: "20px" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Heading & Subtext */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "16px" }}>
@@ -2419,8 +2490,8 @@ export default function HRWorkflowAutomationPage() {
           {/* LEFT HEADER */}
           <div className="sp-comp-col-header automated-header">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#76B852] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#76B852]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B1D997] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B1D997]"></span>
             </span>
             <span>Automated HRPod Workflow</span>
           </div>
@@ -2489,7 +2560,7 @@ export default function HRWorkflowAutomationPage() {
           </motion.button>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 9: FINAL CALL TO ACTION ── */}
       <div className="sp-final-cta-wrapper">
@@ -2539,7 +2610,14 @@ export default function HRWorkflowAutomationPage() {
       </div>
 
       {/* ── FOLD 10: TESTIMONIALS ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Heading */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "28px" }}>
@@ -2569,10 +2647,17 @@ export default function HRWorkflowAutomationPage() {
           <HRPodTestimonialCarousel />
         </div>
 
-      </div>
+      </motion.div>
 
       {/* ── FOLD 11: FAQ ── */}
-      <div className="sp-section-wrapper" style={{ borderTop: "1px solid var(--color-border-faint)" }}>
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         
         {/* Section Heading */}
         <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
@@ -2671,13 +2756,13 @@ export default function HRWorkflowAutomationPage() {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-faq-bottom-btn"
-            onClick={() => setIsCalendlyModalOpen(true)}
+            onClick={() => window.open("https://calendar.app.google/DhM4emV5aoPSqpDt8", "_blank")}
           >
             <span>Book a Call</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
           </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       <DownloadModal
         isOpen={isDownloadModalOpen}
@@ -2698,11 +2783,6 @@ export default function HRWorkflowAutomationPage() {
         isSalesPod={false}
       />
 
-      <CalendlyModal
-        isOpen={isCalendlyModalOpen}
-        onClose={() => setIsCalendlyModalOpen(false)}
-        url={CALENDLY_URL}
-      />
 
     </BeamsBackground>
   );

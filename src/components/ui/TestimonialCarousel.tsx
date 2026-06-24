@@ -11,7 +11,7 @@ const C = {
   txtBright: "var(--color-text-bright)",
   txtBody: "var(--color-text-body)",
   blueMid: "var(--color-blue-mid)",
-  green: "var(--color-green)",
+  green: "var(--sp-accent, #63A5E7)",
 };
 
 const F = {
@@ -182,7 +182,7 @@ const TestimonialText: React.FC<TestimonialTextProps> = ({
           fontFamily: F.inter,
           fontSize: "12px",
           fontWeight: 600,
-          color: "var(--color-green)",
+          color: "var(--sp-accent, #63A5E7)",
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
@@ -369,7 +369,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                     background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
                     backdropFilter: "blur(20px)",
                     WebkitBackdropFilter: "blur(20px)",
-                    border: `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`,
+                    border: `1px solid rgba(var(--sp-accent-rgb, 99, 165, 231), ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`,
                     borderRadius: "28px",
                     overflow: "hidden",
                     // Increased mobile card padding for vertical breathing room
@@ -379,8 +379,8 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                     justifyContent: "flex-start",
                     gap: "16px",
                     boxShadow: resolvedTheme === 'dark'
-                      ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
-                      : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+                      ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                      : "0 25px 50px -12px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), 0 0 20px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
                   }}
                   className="transform-gpu"
                 >
@@ -392,8 +392,8 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                     width: "80%",
                     height: "40%",
                     background: resolvedTheme === 'dark'
-                      ? "radial-gradient(circle, rgba(177, 217, 151, 0.08) 0%, transparent 80%)"
-                      : "radial-gradient(circle, rgba(177, 217, 151, 0.05) 0%, transparent 80%)",
+                      ? "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.08) 0%, transparent 80%)"
+                      : "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.05) 0%, transparent 80%)",
                     zIndex: -1,
                     pointerEvents: "none"
                   }} />
@@ -422,7 +422,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                       <span style={{ 
                         fontFamily: F.inter, 
                         fontSize: "10px", 
-                        color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb, 99, 165, 231), 0.8)" : "rgba(0, 0, 0, 0.6)", 
                         marginTop: "1px", 
                         fontWeight: 500,
                         textTransform: "uppercase",
@@ -524,8 +524,8 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                       backdropFilter: "blur(20px)",
                       WebkitBackdropFilter: "blur(20px)",
                       border: isCenter 
-                        ? `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
-                        : `1px solid rgba(177, 217, 151, ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
+                        ? `1px solid rgba(var(--sp-accent-rgb, 99, 165, 231), ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`
+                        : `1px solid rgba(var(--sp-accent-rgb, 99, 165, 231), ${resolvedTheme === 'dark' ? '0.1' : '0.05'})`,
                       borderRadius: "28px",
                       overflow: "hidden",
                       // Increased padding for desktop from 32px 24px to 40px 32px
@@ -536,8 +536,8 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                       gap: "18px",
                       boxShadow: isCenter 
                         ? resolvedTheme === 'dark'
-                          ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(177, 217, 151, 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
-                          : "0 25px 50px -12px rgba(177, 217, 151, 0.15), 0 0 20px rgba(177, 217, 151, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                          ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                          : "0 25px 50px -12px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), 0 0 20px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
                         : "0 10px 30px rgba(0,0,0,0.05)",
                     }}
                     className="transform-gpu"
@@ -551,8 +551,8 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                         width: "80%",
                         height: "40%",
                         background: resolvedTheme === 'dark'
-                          ? "radial-gradient(circle, rgba(177, 217, 151, 0.08) 0%, transparent 80%)"
-                          : "radial-gradient(circle, rgba(177, 217, 151, 0.05) 0%, transparent 80%)",
+                          ? "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.08) 0%, transparent 80%)"
+                          : "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.05) 0%, transparent 80%)",
                         zIndex: -1,
                         pointerEvents: "none"
                       }} />
@@ -582,7 +582,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
                         <span style={{ 
                           fontFamily: F.inter, 
                           fontSize: "11px", 
-                          color: resolvedTheme === 'dark' ? "rgba(177, 217, 151, 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                          color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb, 99, 165, 231), 0.8)" : "rgba(0, 0, 0, 0.6)", 
                           marginTop: "1px", 
                           fontWeight: 500,
                           textTransform: "uppercase",
@@ -650,7 +650,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
             style={{
               width: active === i ? "24px" : "8px",
               height: "8px",
-              background: active === i ? "rgba(177, 217, 151, 0.8)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+              background: active === i ? "var(--sp-accent, #63A5E7)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
             }}
             aria-label={`Go to slide ${i + 1}`}
           />

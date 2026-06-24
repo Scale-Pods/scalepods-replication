@@ -195,12 +195,12 @@
 }
 
 /* Shared Premium Gradient Button Styles */
-.sp-submit-btn,
-.sp-hero-cta-btn,
-.sp-stats-cta-btn,
-.sp-comp-bottom-btn,
-.sp-final-cta-btn,
-.sp-faq-bottom-btn {
+.salespod-container .sp-submit-btn,
+.salespod-container .sp-hero-cta-btn,
+.salespod-container .sp-stats-cta-btn,
+.salespod-container .sp-comp-bottom-btn,
+.salespod-container .sp-final-cta-btn,
+.salespod-container .sp-faq-bottom-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -224,58 +224,58 @@
 }
 
 /* Individual CTA Layout Constraints */
-.sp-submit-btn {
+.salespod-container .sp-submit-btn {
   width: 100% !important;
 }
 
-.sp-hero-cta-btn,
-.sp-stats-cta-btn,
-.sp-comp-bottom-btn,
-.sp-final-cta-btn,
-.sp-faq-bottom-btn {
+.salespod-container .sp-hero-cta-btn,
+.salespod-container .sp-stats-cta-btn,
+.salespod-container .sp-comp-bottom-btn,
+.salespod-container .sp-final-cta-btn,
+.salespod-container .sp-faq-bottom-btn {
   width: fit-content !important;
   min-width: 240px;
 }
 
 /* Hover & Active States */
-.sp-submit-btn:hover,
-.sp-hero-cta-btn:hover,
-.sp-stats-cta-btn:hover,
-.sp-comp-bottom-btn:hover,
-.sp-final-cta-btn:hover,
-.sp-faq-bottom-btn:hover {
+.salespod-container .sp-submit-btn:hover,
+.salespod-container .sp-hero-cta-btn:hover,
+.salespod-container .sp-stats-cta-btn:hover,
+.salespod-container .sp-comp-bottom-btn:hover,
+.salespod-container .sp-final-cta-btn:hover,
+.salespod-container .sp-faq-bottom-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 165, 231, 0.18) !important;
 }
 
-.sp-submit-btn:active,
-.sp-hero-cta-btn:active,
-.sp-stats-cta-btn:active,
-.sp-comp-bottom-btn:active,
-.sp-final-cta-btn:active,
-.sp-faq-bottom-btn:active {
+.salespod-container .sp-submit-btn:active,
+.salespod-container .sp-hero-cta-btn:active,
+.salespod-container .sp-stats-cta-btn:active,
+.salespod-container .sp-comp-bottom-btn:active,
+.salespod-container .sp-final-cta-btn:active,
+.salespod-container .sp-faq-bottom-btn:active {
   transform: translateY(0);
 }
 
 /* Light Theme Overrides */
-[data-theme="light"] .sp-submit-btn,
-[data-theme="light"] .sp-hero-cta-btn,
-[data-theme="light"] .sp-stats-cta-btn,
-[data-theme="light"] .sp-comp-bottom-btn,
-[data-theme="light"] .sp-final-cta-btn,
-[data-theme="light"] .sp-faq-bottom-btn {
+[data-theme="light"] .salespod-container .sp-submit-btn,
+[data-theme="light"] .salespod-container .sp-hero-cta-btn,
+[data-theme="light"] .salespod-container .sp-stats-cta-btn,
+[data-theme="light"] .salespod-container .sp-comp-bottom-btn,
+[data-theme="light"] .salespod-container .sp-final-cta-btn,
+[data-theme="light"] .salespod-container .sp-faq-bottom-btn {
   background: linear-gradient(135deg, #E0EEFD 0%, #63A5E7 100%) !important;
   color: #0b1020 !important;
   border: 1px solid rgba(99, 165, 231, 0.2) !important;
   box-shadow: 0 8px 20px -4px rgba(99, 165, 231, 0.15) !important;
 }
 
-[data-theme="light"] .sp-submit-btn:hover,
-[data-theme="light"] .sp-hero-cta-btn:hover,
-[data-theme="light"] .sp-stats-cta-btn:hover,
-[data-theme="light"] .sp-comp-bottom-btn:hover,
-[data-theme="light"] .sp-final-cta-btn:hover,
-[data-theme="light"] .sp-faq-bottom-btn:hover {
+[data-theme="light"] .salespod-container .sp-submit-btn:hover,
+[data-theme="light"] .salespod-container .sp-hero-cta-btn:hover,
+[data-theme="light"] .salespod-container .sp-stats-cta-btn:hover,
+[data-theme="light"] .salespod-container .sp-comp-bottom-btn:hover,
+[data-theme="light"] .salespod-container .sp-final-cta-btn:hover,
+[data-theme="light"] .salespod-container .sp-faq-bottom-btn:hover {
   box-shadow: 0 12px 25px -4px rgba(99, 165, 231, 0.25) !important;
 }
 
@@ -1169,7 +1169,7 @@
 }
 
 .sp-capability-title {
-  font-size: clamp(20px, 2.8vw, 34px);
+  font-size: clamp(16px, 1.8vw, 24px);
   font-weight: 700;
   color: var(--color-text-bright);
   line-height: 1.2;
