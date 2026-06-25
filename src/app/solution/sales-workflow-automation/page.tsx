@@ -522,7 +522,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLInputElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -736,7 +736,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       <video
         ref={videoRef}
         src={shouldLoad ? src : undefined}
-        poster="/Thumbnail.png"
+        autoPlay
         muted={isMuted}
         loop
         playsInline
@@ -974,7 +974,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLInputElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -1200,7 +1200,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       <video
         ref={videoRef}
         src={shouldLoad ? src : undefined}
-        poster="/Thumbnail.png"
+        autoPlay
         muted={isMuted}
         loop
         playsInline
