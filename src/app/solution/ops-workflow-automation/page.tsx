@@ -10,6 +10,7 @@ import {
   Loader2, 
   CheckCircle2, 
   Play,
+  Pause,
   Volume2,
   VolumeX
 } from "lucide-react";
@@ -1297,14 +1298,42 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           onClick={(e) => e.stopPropagation()}
           style={{
             position: "absolute",
-            bottom: "22px",
+            bottom: "16px",
             left: "20px",
-            right: "72px",
+            right: "76px",
             display: "flex",
             alignItems: "center",
+            gap: "12px",
             zIndex: 10,
+            background: "rgba(10, 15, 30, 0.65)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            padding: "8px 16px",
+            borderRadius: "24px",
+            height: "44px"
           }}
         >
+          <button
+            onClick={togglePlay}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "#ffffff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 0,
+              outline: "none"
+            }}
+          >
+            {isPlaying ? (
+              <Pause size={18} style={{ fill: "#ffffff" }} />
+            ) : (
+              <Play size={18} style={{ fill: "#ffffff" }} />
+            )}
+          </button>
           <input 
             ref={timelineRef}
             type="range"
@@ -1314,6 +1343,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             defaultValue={0}
             onChange={handleTimelineChange}
             className="sp-video-timeline"
+            style={{ flex: 1 }}
           />
         </div>
       )}
@@ -1324,7 +1354,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           style={{
             position: "absolute",
             bottom: "16px",
-            right: "16px",
+            right: "20px",
             width: "44px",
             height: "44px",
             borderRadius: "50%",

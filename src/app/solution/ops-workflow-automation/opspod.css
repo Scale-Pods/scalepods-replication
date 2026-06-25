@@ -1901,7 +1901,8 @@
   transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sp-capability-video-wrapper:hover .sp-video-timeline-container {
+.sp-capability-video-wrapper:hover .sp-video-timeline-container,
+.sp-demo-video-wrapper:hover .sp-video-timeline-container {
   opacity: 1;
 }
 
