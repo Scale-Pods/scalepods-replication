@@ -515,7 +515,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLInputElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -704,6 +704,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     if (videoRef.current) {
       setDuration(videoRef.current.duration);
       updateProgressDOM();
+      setIsVideoReady(true);
     }
   };
 
@@ -725,7 +726,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       <video
         ref={videoRef}
         src={shouldLoad ? src : undefined}
-        autoPlay
+        poster="/Thumbnail.png"
         muted={isMuted}
         loop
         playsInline
@@ -941,7 +942,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLInputElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [seekType, setSeekType] = useState<"rewind" | "forward" | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -1130,6 +1131,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
     if (videoRef.current) {
       setDuration(videoRef.current.duration);
       updateProgressDOM();
+      setIsVideoReady(true);
     }
   };
 
@@ -1151,7 +1153,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       <video
         ref={videoRef}
         src={shouldLoad ? src : undefined}
-        autoPlay
+        poster="/Thumbnail.png"
         muted={isMuted}
         loop
         playsInline
