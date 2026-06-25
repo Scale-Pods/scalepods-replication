@@ -42,7 +42,7 @@ const countries = [
 ];
 
 const opsGoals = [
-  "Fully Autonomous Screening",
+  "Fully Autonomous Hiring",
   "AI Resume Intelligence",
   "Interview Scheduling Pod",
   "Offer & Onboarding Automation",

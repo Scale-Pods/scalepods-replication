@@ -42,7 +42,7 @@ const countries = [
 ];
 
 const hrGoals = [
-  "Fully Autonomous Screening",
+  "Fully Autonomous Hiring",
   "AI Resume Intelligence",
   "Interview Scheduling Pod",
   "Offer & Onboarding Automation",
@@ -1458,7 +1458,7 @@ export default function HRWorkflowAutomationPage() {
     name: "",
     email: "",
     company: "",
-    goal: "Fully Autonomous Screening",
+    goal: "Fully Autonomous Hiring",
     phone: "",
     countryCode: "+1",
     customCode: "",
