@@ -768,11 +768,10 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             position: "absolute",
             inset: 0,
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-end",
             justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.35)",
-            backdropFilter: "blur(2px)",
-            WebkitBackdropFilter: "blur(2px)",
+            paddingBottom: "80px",
+            background: "rgba(0, 0, 0, 0.15)",
             pointerEvents: "none",
             transition: "opacity 0.2s ease"
           }}
@@ -1195,11 +1194,10 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             position: "absolute",
             inset: 0,
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-end",
             justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.35)",
-            backdropFilter: "blur(2px)",
-            WebkitBackdropFilter: "blur(2px)",
+            paddingBottom: "80px",
+            background: "rgba(0, 0, 0, 0.15)",
             pointerEvents: "none",
             transition: "opacity 0.2s ease"
           }}
