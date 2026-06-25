@@ -803,8 +803,9 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             inset: 0,
             display: "flex",
             alignItems: "flex-end",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             paddingBottom: "80px",
+            paddingLeft: "40px",
             background: "rgba(0, 0, 0, 0.15)",
             pointerEvents: "none",
             transition: "opacity 0.2s ease"
@@ -1254,8 +1255,9 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             inset: 0,
             display: "flex",
             alignItems: "flex-end",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             paddingBottom: "80px",
+            paddingLeft: "40px",
             background: "rgba(0, 0, 0, 0.15)",
             pointerEvents: "none",
             transition: "opacity 0.2s ease"
