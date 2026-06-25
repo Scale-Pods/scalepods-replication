@@ -837,32 +837,19 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         <div 
           style={{
             position: "absolute",
-            inset: 0,
+            bottom: "29px",
+            left: "37px",
+            zIndex: 11,
             display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-start",
-            paddingBottom: "80px",
-            paddingLeft: "40px",
-            background: "rgba(0, 0, 0, 0.15)",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "18px",
+            height: "18px",
             pointerEvents: "none",
             transition: "opacity 0.2s ease"
           }}
         >
-          <div 
-            style={{
-              width: "56px",
-              height: "56px",
-              borderRadius: "50%",
-              background: "rgba(255, 255, 255, 0.15)",
-              border: "1px solid rgba(255, 255, 255, 0.25)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
-            }}
-          >
-            <Play size={20} style={{ color: "#ffffff", fill: "#ffffff", marginLeft: "2px" }} />
-          </div>
+          <Play size={18} style={{ color: "#ffffff", fill: "#ffffff" }} />
         </div>
       )}
 
@@ -923,14 +910,42 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           onClick={(e) => e.stopPropagation()}
           style={{
             position: "absolute",
-            bottom: "18px",
-            left: "16px",
-            right: "64px",
+            bottom: "16px",
+            left: "20px",
+            right: "76px",
             display: "flex",
             alignItems: "center",
+            gap: "12px",
             zIndex: 10,
+            background: "rgba(10, 15, 30, 0.65)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            padding: "8px 16px",
+            borderRadius: "24px",
+            height: "44px"
           }}
         >
+          <button
+            onClick={togglePlay}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "#ffffff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 0,
+              outline: "none"
+            }}
+          >
+            {isPlaying ? (
+              <Pause size={18} style={{ fill: "#ffffff" }} />
+            ) : (
+              <Play size={18} style={{ fill: "#ffffff" }} />
+            )}
+          </button>
           <input 
             ref={timelineRef}
             type="range"
@@ -940,6 +955,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
             defaultValue={0}
             onChange={handleTimelineChange}
             className="sp-video-timeline"
+            style={{ flex: 1 }}
           />
         </div>
       )}
@@ -949,8 +965,8 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
           onClick={toggleMute}
           style={{
             position: "absolute",
-            bottom: "12px",
-            right: "12px",
+            bottom: "16px",
+            right: "20px",
             width: "44px",
             height: "44px",
             borderRadius: "50%",
@@ -1264,32 +1280,19 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         <div 
           style={{
             position: "absolute",
-            inset: 0,
+            bottom: "29px",
+            left: "37px",
+            zIndex: 11,
             display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-start",
-            paddingBottom: "80px",
-            paddingLeft: "40px",
-            background: "rgba(0, 0, 0, 0.15)",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "18px",
+            height: "18px",
             pointerEvents: "none",
             transition: "opacity 0.2s ease"
           }}
         >
-          <div 
-            style={{
-              width: "64px",
-              height: "64px",
-              borderRadius: "50%",
-              background: "rgba(255, 255, 255, 0.15)",
-              border: "1px solid rgba(255, 255, 255, 0.25)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
-            }}
-          >
-            <Play size={24} style={{ color: "#ffffff", fill: "#ffffff", marginLeft: "3px" }} />
-          </div>
+          <Play size={18} style={{ color: "#ffffff", fill: "#ffffff" }} />
         </div>
       )}
 
