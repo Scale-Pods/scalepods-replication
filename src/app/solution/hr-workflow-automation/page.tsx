@@ -2196,7 +2196,7 @@ export default function HRWorkflowAutomationPage() {
             
             {/* Full-bleed Product Demo Video Player */}
             <div style={{ width: "100%", overflow: "hidden" }}>
-              <ProductDemoVideoPlayer src="/videos/Product_demo_fold 3.mp4" />
+              <ProductDemoVideoPlayer src="/videos/hrpod/hr-demo.mp4" />
             </div>
 
           </div>
