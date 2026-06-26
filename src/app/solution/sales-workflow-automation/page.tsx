@@ -2005,7 +2005,7 @@ export default function SalesPodPage() {
 
             {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              The <span style={{ color: "var(--sp-accent)", fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>AI-powered</span> Engine{" "}
+              <span style={{ color: "var(--sp-accent)" }}>The AI-powered Engine</span>{" "}
               <br className="sp-hero-desk-br" />
               for High-Performance{" "}
               <br className="sp-hero-br" />
