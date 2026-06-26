@@ -2158,7 +2158,7 @@ export default function HRWorkflowAutomationPage() {
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
             The ultimate hiring engine <br />
-            for <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>modern HR teams</span>.
+            for <span style={{ color: "var(--sp-accent)" }}>modern HR teams</span>.
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
@@ -2171,20 +2171,17 @@ export default function HRWorkflowAutomationPage() {
           
           <div className="sp-metric-block">
             <div className="sp-metric-number">10×</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Faster Candidate Screening</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>evaluate profiles in real time</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster Candidate Screening</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">80%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Less Manual Coordination</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>zero calendar chasing required</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Less Manual Coordination</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">5 hrs</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Saved Per Recruiter / Week</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>more time for high-value hires</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Saved Per Recruiter / Week</div>
           </div>
 
         </div>
@@ -2560,7 +2557,7 @@ export default function HRWorkflowAutomationPage() {
 
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
-          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
+          <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
             Your team is great at hiring. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>HRPod makes sure they spend their time on people, not paperwork.</span>
           </p>
           <motion.button 
@@ -2604,7 +2601,7 @@ export default function HRWorkflowAutomationPage() {
 
           <h2 className="sp-final-cta-title">
             Your team deserves a <br />
-            <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>faster hiring loop</span>.
+            <span style={{ color: "var(--sp-accent)" }}>faster hiring loop</span>.
           </h2>
 
           <p className="sp-final-cta-desc">

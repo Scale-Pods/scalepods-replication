@@ -2012,7 +2012,25 @@ export default function MarketingWorkflowAutomationPage() {
       </div>
 
       {/* Brand logo showcase */}
-      <div style={{ position: "relative", zIndex: 10, paddingBottom: "24px", borderBottom: "1px solid var(--color-border-faint)" }}>
+      <div 
+        style={{ 
+          textAlign: "center", 
+          paddingBottom: "80px", 
+          borderBottom: "1px solid var(--color-border-faint)",
+          zIndex: 1,
+          position: "relative"
+        }}
+      >
+        <p style={{
+          fontFamily: "var(--font-inter), Inter, sans-serif",
+          fontSize: isMobile ? "13px" : "15px",
+          color: "var(--color-text-muted)",
+          marginBottom: isMobile ? "24px" : "36px",
+          fontWeight: 400,
+          letterSpacing: "0.01em"
+        }}>
+          Trusted by thousands of companies and investors all over the world
+        </p>
         <BrandsMarquee />
       </div>
 
@@ -2059,20 +2077,17 @@ export default function MarketingWorkflowAutomationPage() {
           
           <div className="sp-metric-block">
             <div className="sp-metric-number">10×</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Faster Content Production</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>scale production across formats</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster Content Production</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">80%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Less Manual Coordination</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>eliminate endless feedback chains</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Less Manual Coordination</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">40%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Team Efficiency Improved</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>optimized resource utilization</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Team Efficiency Improved</div>
           </div>
 
         </div>
@@ -2130,7 +2145,7 @@ export default function MarketingWorkflowAutomationPage() {
       {/* ── FOLDS 4+: WHAT MARKETINGPOD DOES ── */}
       <motion.div
         className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        style={{ borderTop: "1px solid var(--color-border-faint)", paddingBottom: "48px" }}
         initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-60px" }}
@@ -2211,7 +2226,7 @@ export default function MarketingWorkflowAutomationPage() {
       {/* ── FOLD 7: STATS & BENEFITS ── */}
       <motion.div
         className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}
+        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingTop: "56px", paddingBottom: "56px" }}
         initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-60px" }}
@@ -2454,7 +2469,7 @@ export default function MarketingWorkflowAutomationPage() {
 
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
-          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
+          <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
             Your team is great at marketing. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>MarketingPod makes sure they spend their time on strategy not status updates.</span>
           </p>
           <motion.button 
@@ -2498,7 +2513,7 @@ export default function MarketingWorkflowAutomationPage() {
 
           <h2 className="sp-final-cta-title">
             Your brand deserves a <br />
-            <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>faster growth loop</span>.
+            <span style={{ color: "var(--sp-accent)" }}>faster growth loop</span>.
           </h2>
 
           <p className="sp-final-cta-desc">

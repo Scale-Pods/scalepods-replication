@@ -2523,7 +2523,7 @@ export default function SalesPodPage() {
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
             The ultimate growth shortcut <br />
-            for <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>modern sales teams</span>.
+            for <span style={{ color: "var(--sp-accent)" }}>modern sales teams</span>.
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
@@ -2538,20 +2538,17 @@ export default function SalesPodPage() {
           
           <div className="sp-metric-block">
             <div className="sp-metric-number">500+</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>CRM Automated</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>across active client accounts</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>CRM Automated</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">70%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Faster lead response time</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>with SalesPod running live</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster lead response time</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">8 hrs</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Saved Per Rep / Week</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>zero manual follow-up required</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Saved Per Rep / Week</div>
           </div>
 
         </div>
@@ -2931,7 +2928,7 @@ export default function SalesPodPage() {
 
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
-          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
+          <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
             Your team is good at selling. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>SalesPod makes sure they only talk to people who are ready.</span>
           </p>
           <motion.button 
@@ -2975,7 +2972,7 @@ export default function SalesPodPage() {
 
           <h2 className="sp-final-cta-title">
             Your leads deserve a <br />
-            <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>faster response</span>.
+            <span style={{ color: "var(--sp-accent)" }}>faster response</span>.
           </h2>
 
           <p className="sp-final-cta-desc">

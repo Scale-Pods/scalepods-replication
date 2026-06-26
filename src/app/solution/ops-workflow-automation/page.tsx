@@ -2106,7 +2106,7 @@ export default function OperationsWorkflowAutomationPage() {
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
             The ultimate accuracy shortcut <br />
-            for <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>operations teams</span>.
+            for <span style={{ color: "var(--sp-accent)" }}>operations teams</span>.
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
@@ -2119,20 +2119,17 @@ export default function OperationsWorkflowAutomationPage() {
           
           <div className="sp-metric-block">
             <div className="sp-metric-number">100%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Documents Cross-Checked</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>across uploaded records</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Documents Cross-Checked</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">90%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Faster Verification</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>reconcile under 60s</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster Verification</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">Zero</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "6px" }}>Compliance Slippages</div>
-            <div style={{ fontSize: "12.5px", color: "var(--color-text-body)" }}>prevent transaction risk</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Compliance Slippages</div>
           </div>
 
         </div>
@@ -2190,7 +2187,7 @@ export default function OperationsWorkflowAutomationPage() {
       {/* ── FOLDS 4+: WHAT HRPOD DOES ── */}
       <motion.div
         className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        style={{ borderTop: "1px solid var(--color-border-faint)", paddingBottom: "48px" }}
         initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-60px" }}
@@ -2287,7 +2284,7 @@ export default function OperationsWorkflowAutomationPage() {
       {/* ── FOLD 7: STATS & BENEFITS ── */}
       <motion.div
         className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}
+        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingTop: "56px", paddingBottom: "56px" }}
         initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-60px" }}
@@ -2528,7 +2525,7 @@ export default function OperationsWorkflowAutomationPage() {
 
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
-          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
+          <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
             Your operations team is good at catching problems. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>Operations Pod makes sure nothing slips through before they even have to look.</span>
           </p>
           <motion.button 
@@ -2572,7 +2569,7 @@ export default function OperationsWorkflowAutomationPage() {
 
           <h2 className="sp-final-cta-title">
             Your team deserves a <br />
-            <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--sp-accent)" }}>faster audit loop</span>.
+            <span style={{ color: "var(--sp-accent)" }}>faster audit loop</span>.
           </h2>
 
           <p className="sp-final-cta-desc">

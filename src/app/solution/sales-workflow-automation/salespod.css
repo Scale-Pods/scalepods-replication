@@ -296,7 +296,7 @@
 
 .sp-hero-desc {
   font-family: var(--font-sans), sans-serif;
-  font-size: 15px; /* Optimized from 15.5px */
+  font-size: 17px; /* Optimized from 15.5px */
   font-weight: 400;
   line-height: 1.55;
   color: var(--color-text-body);
@@ -380,7 +380,7 @@
     margin-bottom: 12px;
   }
   .sp-hero-desc {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     margin-bottom: 16px;
   }
@@ -1178,7 +1178,7 @@
 }
 
 .sp-capability-desc {
-  font-size: 14.5px;
+  font-size: 16.5px;
   color: var(--color-text-muted);
   line-height: 1.6;
   margin: 0 0 28px 0;
@@ -1207,14 +1207,14 @@
 }
 
 .sp-capability-point-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--color-text-bright);
   margin: 0 0 4px 0;
 }
 
 .sp-capability-point-body {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--color-text-body);
   line-height: 1.5;
   margin: 0;
@@ -1297,7 +1297,7 @@
 }
 
 .sp-stat-desc {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--color-text-body);
   line-height: 1.5;
   margin: 0;
@@ -1349,7 +1349,7 @@
 }
 
 .sp-benefit-text {
-  font-size: 13.5px;
+  font-size: 15.5px;
   font-weight: 550;
   color: var(--color-text-bright);
 }
@@ -1406,8 +1406,9 @@
 .sp-why-use-item {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 8px;
-  padding: 20px;
+  padding: 38px 20px;
   background: rgba(var(--color-text-bright-rgb), 0.02);
   border: 1px solid var(--color-border-faint);
   border-radius: 12px;
@@ -1443,7 +1444,7 @@
 
 .sp-why-use-item-desc {
   font-family: var(--font-sans), sans-serif;
-  font-size: 13.5px;
+  font-size: 15.5px;
   line-height: 1.5;
   color: var(--color-text-muted);
   margin: 0;
@@ -1584,7 +1585,7 @@
 }
 
 .sp-comp-body {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--color-text-bright);
   line-height: 1.4;
   margin: 0;
@@ -1665,7 +1666,7 @@
 
 .sp-final-cta-desc {
   font-family: var(--font-sans), sans-serif;
-  font-size: clamp(15px, 1.8vw, 17px);
+  font-size: clamp(17px, 1.8vw, 19px);
   line-height: 1.6;
   color: var(--color-text-muted);
   margin: 0 0 40px 0;
@@ -1846,7 +1847,7 @@
 .sp-faq-answer-content {
   padding: 0 24px 24px 24px;
   font-family: var(--font-sans), sans-serif;
-  font-size: 13.5px;
+  font-size: 15.5px;
   line-height: 1.6;
   color: var(--color-text-muted);
 }
@@ -1869,7 +1870,7 @@
 }
 
 .sp-faq-bottom-sub {
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--color-text-muted);
   margin: 0 0 24px 0;
 }
