@@ -2613,7 +2613,7 @@ export default function SalesPodPage() {
       {/* ── FOLDS 4, 5 & 6: WHAT SALESPOD DOES (Your AI-Powered Sales Engine) ── */}
       <motion.div
         className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)" }}
+        style={{ borderTop: "1px solid var(--color-border-faint)", paddingBottom: "48px" }}
         initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-60px" }}
@@ -2687,28 +2687,12 @@ export default function SalesPodPage() {
           })}
         </div>
 
-        {/* BOTTOM STATS ROW */}
-        <div className="sp-engine-metrics-bar" style={{ marginTop: "56px", marginBottom: "0px" }}>
-          <div className="sp-engine-metric-item">
-            <div className="sp-engine-metric-val">3×</div>
-            <div className="sp-engine-metric-label">More touchpoints</div>
-          </div>
-          <div className="sp-engine-metric-item">
-            <div className="sp-engine-metric-val">0</div>
-            <div className="sp-engine-metric-label">Manual follow-ups</div>
-          </div>
-          <div className="sp-engine-metric-item">
-            <div className="sp-engine-metric-val">&lt; 3sec</div>
-            <div className="sp-engine-metric-label">First response time</div>
-          </div>
-        </div>
-
       </motion.div>
 
       {/* ── FOLD 7: STATS & BENEFITS ── */}
       <motion.div
         className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingBottom: "56px" }}
+        style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingTop: "56px", paddingBottom: "56px" }}
         initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-60px" }}
