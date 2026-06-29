@@ -147,7 +147,9 @@ export default function AuditModal({
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      w.dataLayer.push({ event: "lead_form_success", form_type: "contact_sales", source_page: "audit_modal" });
+      const gtmEvent = { event: "lead_form_success", form_type: "contact_sales", source_page: "audit_modal" };
+      console.log("[GTM] lead_form_success →", gtmEvent);
+      w.dataLayer.push(gtmEvent);
 
       // Auto close after 3 seconds
       setTimeout(() => {

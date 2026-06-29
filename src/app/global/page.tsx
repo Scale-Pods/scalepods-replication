@@ -229,7 +229,9 @@ export default function GlobalPage() {
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      w.dataLayer.push({ event: "lead_form_success", form_type: "global_inquiry", source_page: "/global" });
+      const gtmEvent = { event: "lead_form_success", form_type: "global_inquiry", source_page: "/global" };
+      console.log("[GTM] lead_form_success →", gtmEvent);
+      w.dataLayer.push(gtmEvent);
     }
   }
 
