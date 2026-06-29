@@ -30,6 +30,7 @@ const instrumentSerif = localFont({
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import type { Viewport } from "next";
+import JsonLd from "@/components/SEO/JsonLd";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -66,12 +67,50 @@ export const metadata: Metadata = {
   },
 };
 
+const globalSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.scalepods.co/#organization",
+      "name": "ScalePods",
+      "url": "https://www.scalepods.co",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://www.scalepods.co/#logo",
+        "url": "https://www.scalepods.co/scalepods-logo.png",
+        "caption": "ScalePods Logo"
+      },
+      "image": {
+        "@id": "https://www.scalepods.co/#logo"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/scalepods-co/",
+        "https://www.instagram.com/scalepods.co/"
+      ],
+      "email": "info@scalepods.co",
+      "description": "Architecting the future of enterprise operations through autonomous Agentic AI ecosystems."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.scalepods.co/#website",
+      "url": "https://www.scalepods.co",
+      "name": "ScalePods",
+      "publisher": {
+        "@id": "https://www.scalepods.co/#organization"
+      },
+      "description": "Architecting the future of enterprise operations through autonomous Agentic AI ecosystems."
+    }
+  ]
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        <JsonLd data={globalSchema} />
 
         <Script
           id="theme-script"

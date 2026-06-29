@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/SEO/JsonLd";
 
 export const metadata: Metadata = {
   title: "HR Workflow Automation | ScalePods",
@@ -25,10 +26,31 @@ export const metadata: Metadata = {
   },
 };
 
+const hrSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.scalepods.co/solution/hr-workflow-automation/#service",
+  "name": "HR & Recruitment Workflow Automation Pod",
+  "provider": {
+    "@type": "Organization",
+    "name": "ScalePods",
+    "url": "https://www.scalepods.co",
+    "logo": "https://www.scalepods.co/scalepods-logo.png"
+  },
+  "description": "Deploy autonomous HR infrastructure to scale your talent acquisition and hiring velocity. Automate candidate screening, resume intelligence, and interview coordination.",
+  "areaServed": "Worldwide",
+  "category": "HR and Recruitment Automation"
+};
+
 export default function HRWorkflowAutomationLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <>
+      <JsonLd data={hrSchema} />
+      {children}
+    </>
+  );
 }

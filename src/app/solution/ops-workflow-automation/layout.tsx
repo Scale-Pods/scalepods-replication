@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/SEO/JsonLd";
 
 export const metadata: Metadata = {
   title: "AI Operations & Audit Automation | ScalePods",
@@ -21,10 +22,31 @@ export const metadata: Metadata = {
   },
 };
 
+const opsSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.scalepods.co/solution/ops-workflow-automation/#service",
+  "name": "Operations & Audit Workflow Automation Pod",
+  "provider": {
+    "@type": "Organization",
+    "name": "ScalePods",
+    "url": "https://www.scalepods.co",
+    "logo": "https://www.scalepods.co/scalepods-logo.png"
+  },
+  "description": "Deploy autonomous Operations Pods to verify purchase invoices, cross-check documents, validate quality certificates, and catch mismatch risks instantly.",
+  "areaServed": "Worldwide",
+  "category": "Operations and Audit Automation"
+};
+
 export default function OperationsWorkflowLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <JsonLd data={opsSchema} />
+      {children}
+    </>
+  );
 }

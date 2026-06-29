@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/SEO/JsonLd";
 
 export const metadata: Metadata = {
   title: "AI Marketing Workflow Automation | ScalePods",
@@ -21,10 +22,31 @@ export const metadata: Metadata = {
   },
 };
 
+const marketingSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.scalepods.co/solution/marketing-workflow-automation/#service",
+  "name": "Marketing Workflow Automation Pod",
+  "provider": {
+    "@type": "Organization",
+    "name": "ScalePods",
+    "url": "https://www.scalepods.co",
+    "logo": "https://www.scalepods.co/scalepods-logo.png"
+  },
+  "description": "Deploy autonomous Marketing Pods to automate your entire marketing lifecycle: strategy, copywriting, approvals, publishing, and real-time performance analytics.",
+  "areaServed": "Worldwide",
+  "category": "Marketing Automation"
+};
+
 export default function MarketingWorkflowLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <JsonLd data={marketingSchema} />
+      {children}
+    </>
+  );
 }

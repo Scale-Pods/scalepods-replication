@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import BlogFaqAccordion from "@/components/ui/BlogFaqAccordion";
 import BlogBodyClient from "@/components/ui/BlogBodyClient";
+import JsonLd from "@/components/SEO/JsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -151,8 +152,49 @@ export default async function ArticlePage({ params }: Props) {
     displayData = { ...sPost, image: sPost.image };
   }
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.scalepods.co/blog/${slug}`
+    },
+    "headline": displayData.title,
+    "description": displayData.excerpt,
+    "image": displayData.image.startsWith("http") ? displayData.image : `https://www.scalepods.co${displayData.image}`,
+    "datePublished": displayData.date ? new Date(displayData.date).toISOString() : new Date().toISOString(),
+    "author": {
+      "@type": "Organization",
+      "name": "ScalePods",
+      "url": "https://www.scalepods.co"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ScalePods",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.scalepods.co/scalepods-logo.png"
+      }
+    }
+  };
+
+  const faqSchema = displayData.faqs && displayData.faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": displayData.faqs.map((f: any) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a
+      }
+    }))
+  } : null;
+
   return (
     <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "64px", paddingBottom: "120px", color: "var(--color-text-body)" }}>
+      <JsonLd data={articleSchema} />
+      {faqSchema && <JsonLd data={faqSchema} />}
       <style>{`
         .premium-blog-paragraph {
           text-align: justify;
