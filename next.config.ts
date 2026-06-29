@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
         destination: '/solution/sales-workflow-automation',
         permanent: true,
       },
+      {
+        source: '/use-cases',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
 };
