@@ -65,7 +65,7 @@ export default function ClaudePartnership() {
         }
 
         .claude-heading .highlight-blue {
-          color: #3B82F6;
+          color: var(--sp-accent, #3B82F6);
         }
 
         .claude-heading .highlight-orange {
@@ -83,24 +83,51 @@ export default function ClaudePartnership() {
         .claude-cta-btn {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
-          background: #006ADC;
-          color: #FFFFFF;
-          font-weight: 600;
-          font-size: 15px;
-          padding: 14px 28px;
-          border-radius: 9999px;
-          border: none;
+          height: 44px;
+          padding: 0 28px;
+          border-radius: 10px;
+          font-family: var(--font-sans), sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
           cursor: pointer;
-          box-shadow: 0 10px 20px rgba(0, 106, 220, 0.2);
-          transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+          box-sizing: border-box;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          width: fit-content;
+          min-width: 240px;
+
+          /* Dynamic Theme Adaptive Styling (Default Dark Mode) */
+          background: linear-gradient(135deg, #050816 0%, #0b1020 100%);
+          color: var(--sp-accent, #3B82F6);
+          border: 1px solid rgba(var(--sp-accent-rgb, 59, 130, 246), 0.4);
+          box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(var(--sp-accent-rgb, 59, 130, 246), 0.15);
         }
 
         .claude-cta-btn:hover {
-          background: #0080FF;
           transform: translateY(-2px);
-          box-shadow: 0 12px 24px rgba(0, 128, 255, 0.3);
+          box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(var(--sp-accent-rgb, 59, 130, 246), 0.3);
+          border-color: rgba(var(--sp-accent-rgb, 59, 130, 246), 0.6);
         }
+
+        .claude-cta-btn:active {
+          transform: translateY(0);
+        }
+
+        /* Light Theme Adaptive Styling */
+        [data-theme="light"] .claude-cta-btn {
+          background: linear-gradient(135deg, var(--sp-accent, #3B82F6) 0%, rgba(var(--sp-accent-rgb, 59, 130, 246), 0.8) 100%);
+          color: #ffffff;
+          border: 1px solid rgba(var(--sp-accent-rgb, 59, 130, 246), 0.3);
+          box-shadow: 0 10px 20px -5px rgba(var(--sp-accent-rgb, 59, 130, 246), 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        [data-theme="light"] .claude-cta-btn:hover {
+          background: linear-gradient(135deg, rgba(var(--sp-accent-rgb, 59, 130, 246), 0.9) 0%, rgba(var(--sp-accent-rgb, 59, 130, 246), 0.7) 100%);
+          box-shadow: 0 12px 25px -4px rgba(var(--sp-accent-rgb, 59, 130, 246), 0.35);
+        }
+
 
         /* Right Badge Card styling */
         .claude-badge-container {
@@ -176,7 +203,7 @@ export default function ClaudePartnership() {
         }
 
         .badge-select-partner {
-          color: #CC6B49;
+          color: var(--sp-accent, #CC6B49);
           font-weight: 700;
           font-size: 22px;
           letter-spacing: 0.02em;
@@ -218,12 +245,12 @@ export default function ClaudePartnership() {
           width: 36px;
           height: 36px;
           border-radius: 10px;
-          background: rgba(109, 182, 255, 0.05);
-          border: 1px solid rgba(109, 182, 255, 0.1);
+          background: rgba(var(--sp-accent-rgb, 109, 182, 255), 0.05);
+          border: 1px solid rgba(var(--sp-accent-rgb, 109, 182, 255), 0.15);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--color-blue-mid);
+          color: var(--sp-accent, var(--color-blue-mid));
         }
 
         .pillar-title {
@@ -241,16 +268,20 @@ export default function ClaudePartnership() {
 
         /* Legal disclaimer */
         .claude-disclaimer {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
+          display: block;
           font-size: 13px;
           color: var(--color-text-muted);
           margin-top: 16px;
           text-align: center;
           padding: 0 16px;
           line-height: 1.5;
+        }
+
+        .disclaimer-lock-icon {
+          display: inline-block;
+          vertical-align: -2px;
+          margin-right: 6px;
+          color: var(--color-text-muted);
         }
 
         /* Responsive Breakpoints */
@@ -355,7 +386,7 @@ export default function ClaudePartnership() {
           <p className="claude-subheading">
             We work with Claude to help organizations design, deploy, and scale intelligent workflows that automate operations and accelerate growth.
           </p>
-          <button className="claude-cta-btn" onClick={handleCTAClick}>
+          <button className="claude-cta-btn sp-hero-cta-btn" onClick={handleCTAClick}>
             <span>Book a Claude Strategy Session</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
           </button>
@@ -461,8 +492,8 @@ export default function ClaudePartnership() {
 
       {/* Legal disclaimer */}
       <div className="claude-disclaimer">
-        <Lock size={14} />
         <span>
+          <Lock size={13} className="disclaimer-lock-icon" />
           Claude Partner Network participation recognizes our capabilities in delivering Claude-powered solutions. It does not constitute endorsement of individual customer implementations.
         </span>
       </div>

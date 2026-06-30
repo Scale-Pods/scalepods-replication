@@ -2,6 +2,7 @@ import Hero from "@/components/sections/Hero";
 import dynamic from "next/dynamic";
 
 // Below the fold sections are dynamically imported to improve initial load speed
+const ClaudePartnership = dynamic(() => import("@/components/sections/ClaudePartnership"), { ssr: true });
 const DataAnalysis = dynamic(() => import("@/components/sections/Sections").then(mod => mod.DataAnalysis), { ssr: true });
 const Benefits = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Benefits), { ssr: true });
 const Services = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Services), { ssr: true });
@@ -18,6 +19,13 @@ export default function Home() {
   return (
     <main style={{ position: "relative" }}>
       <Hero />
+      <style>{`
+        .claude-partnership-section {
+          --sp-accent: var(--color-green) !important;
+          --sp-accent-rgb: var(--color-green-rgb) !important;
+        }
+      `}</style>
+      <ClaudePartnership />
       <DataAnalysis />
       <Services />
       <Benefits />
