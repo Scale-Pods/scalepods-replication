@@ -14,7 +14,7 @@ export default function ClaudePartnership() {
         .claude-partnership-section {
           width: 100%;
           max-width: 1200px;
-          margin: 40px auto 80px auto;
+          margin: 32px auto 60px auto;
           padding: 0 24px;
           font-family: var(--font-sans), sans-serif;
           position: relative;
@@ -195,7 +195,7 @@ export default function ClaudePartnership() {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 24px;
-          margin-top: 48px;
+          margin-top: 36px;
           background: rgba(var(--color-text-bright-rgb), 0.01);
           border: 1px solid var(--color-border-faint);
           border-radius: 24px;
@@ -245,11 +245,12 @@ export default function ClaudePartnership() {
           align-items: center;
           justify-content: center;
           gap: 8px;
-          font-size: 11px;
-          color: var(--color-text-faint);
-          margin-top: 24px;
+          font-size: 13px;
+          color: var(--color-text-muted);
+          margin-top: 16px;
           text-align: center;
           padding: 0 16px;
+          line-height: 1.5;
         }
 
         /* Responsive Breakpoints */
@@ -274,17 +275,18 @@ export default function ClaudePartnership() {
           .claude-pillars-grid {
             grid-template-columns: repeat(2, 1fr);
             padding: 24px;
+            margin-top: 28px;
           }
         }
 
         @media (max-width: 568px) {
           .claude-partnership-section {
-            margin: 24px auto 48px auto;
+            margin: 20px auto 36px auto;
           }
 
           .claude-main-card {
             padding: 24px;
-            gap: 28px;
+            gap: 24px;
           }
 
           .claude-badge-card {
@@ -318,6 +320,7 @@ export default function ClaudePartnership() {
             grid-template-columns: 1fr;
             padding: 20px;
             gap: 20px;
+            margin-top: 20px;
           }
 
           .claude-heading {
@@ -332,6 +335,11 @@ export default function ClaudePartnership() {
           .claude-cta-btn {
             width: 100%;
             justify-content: center;
+          }
+
+          .claude-disclaimer {
+            font-size: 12px;
+            margin-top: 12px;
           }
         }
       `}</style>
@@ -453,7 +461,7 @@ export default function ClaudePartnership() {
 
       {/* Legal disclaimer */}
       <div className="claude-disclaimer">
-        <Lock size={12} />
+        <Lock size={14} />
         <span>
           Claude Partner Network participation recognizes our capabilities in delivering Claude-powered solutions. It does not constitute endorsement of individual customer implementations.
         </span>
