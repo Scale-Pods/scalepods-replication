@@ -33,6 +33,7 @@ const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { s
 const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
 import { BrandsMarquee } from "@/components/sections/Sections";
+import ClaudePartnership from "@/components/sections/ClaudePartnership";
 import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -2480,6 +2481,9 @@ export default function SalesPodPage() {
         </p>
         <BrandsMarquee />
       </div>
+
+      {/* Claude Select Partner Network section */}
+      <ClaudePartnership />
 
       {/* ── FOLD 2: TRUST SIGNAL ── */}
       <motion.div
