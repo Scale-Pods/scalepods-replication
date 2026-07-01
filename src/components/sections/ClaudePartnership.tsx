@@ -380,7 +380,7 @@ export default function ClaudePartnership() {
         <div className="claude-content-left">
           <h2 className="claude-heading">
             ScalePods is now a <br />
-            <span className="highlight-blue">Select Partner</span> in the <br />
+            <span className="highlight-blue">Partner</span> in the <br />
             <span className="highlight-orange">Claude Partner Network Services Track.</span>
           </h2>
           <p className="claude-subheading">
@@ -428,7 +428,7 @@ export default function ClaudePartnership() {
             <div className="claude-badge-divider"></div>
             
             <div className="claude-badge-right">
-              <div className="badge-select-partner">Select Partner</div>
+              <div className="badge-select-partner">Partner</div>
               <div className="badge-network-track">Claude Partner Network Services Track</div>
             </div>
           </div>
