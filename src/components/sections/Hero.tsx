@@ -192,40 +192,119 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Badge — blinking blue dot */}
-        <motion.div variants={fadeUp(0.16, isMobile)} initial="initial" animate="animate"
-          style={{ marginBottom: "14px" }}>
-          <span style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            fontFamily: "var(--font-inter), Inter, sans-serif",
-            fontSize: "11.5px",
-            fontWeight: 600,
-            letterSpacing: "0.17em",
-            textTransform: "uppercase",
-            color: "var(--color-text-muted)",
-          }}>
-            {/* Blinking blue dot with exact pulse scale animation from live site */}
-            <span style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-              {/* Solid core dot that scales and fades */}
-              <motion.span
-                animate={{ scale: [1, 1.6, 1], opacity: [1, 0.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                style={{
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  background: "#3B82F6",
-                  boxShadow: "0 0 10px rgba(59,130,246,0.6)",
-                  flexShrink: 0,
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              />
+        {/* Badge — Claude Partner Network */}
+        <motion.div 
+          variants={fadeUp(0.16, isMobile)} 
+          initial="initial" 
+          animate="animate"
+          style={{ marginBottom: "14px" }}
+        >
+          <style>{`
+            .claude-hero-badge {
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              padding: 6px 14px;
+              border-radius: 99px;
+              font-family: var(--font-inter), Inter, sans-serif;
+              font-size: 12px;
+              font-weight: 600;
+              letter-spacing: 0.18em;
+              text-transform: uppercase;
+              text-decoration: none;
+              color: var(--color-text-muted);
+              background: rgba(255, 255, 255, 0.03);
+              border: 1px solid rgba(255, 255, 255, 0.08);
+              backdrop-filter: blur(8px);
+              -webkit-backdrop-filter: blur(8px);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(217, 119, 87, 0.05);
+              transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+              cursor: pointer;
+            }
+
+            [data-theme="light"] .claude-hero-badge {
+              background: rgba(15, 23, 42, 0.03);
+              border: 1px solid rgba(15, 23, 42, 0.06);
+              box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03), 0 0 0 1px rgba(217, 119, 87, 0.03);
+            }
+
+            .claude-hero-badge:hover {
+              transform: scale(1.05);
+              background: rgba(255, 255, 255, 0.06);
+              border-color: rgba(217, 119, 87, 0.3);
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 12px rgba(217, 119, 87, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+            }
+
+            [data-theme="light"] .claude-hero-badge:hover {
+              background: rgba(15, 23, 42, 0.05);
+              border-color: rgba(217, 119, 87, 0.3);
+              box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06), 0 0 12px rgba(217, 119, 87, 0.2);
+            }
+
+            .claude-badge-bloom-icon-container {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 18px;
+              height: 18px;
+            }
+
+            .claude-badge-bloom-svg {
+              width: 100%;
+              height: 100%;
+              overflow: visible;
+              transform-origin: center;
+              animation: claude-symbol-bloom 3.5s ease-in-out infinite;
+              fill: #D97757;
+            }
+
+            @keyframes claude-symbol-bloom {
+              0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+                filter: drop-shadow(0 0 2px rgba(217, 119, 87, 0.3));
+              }
+              35% {
+                transform: scale(1.1);
+                opacity: 1;
+                filter: drop-shadow(0 0 8px rgba(217, 119, 87, 0.55));
+              }
+              45% {
+                transform: scale(1.0);
+                opacity: 1;
+                filter: drop-shadow(0 0 4px rgba(217, 119, 87, 0.4));
+              }
+              75% {
+                transform: scale(1.0);
+                opacity: 1;
+                filter: drop-shadow(0 0 4px rgba(217, 119, 87, 0.4));
+              }
+              100% {
+                transform: scale(0.8);
+                opacity: 0.8;
+                filter: drop-shadow(0 0 2px rgba(217, 119, 87, 0.3));
+              }
+            }
+
+            .claude-badge-separator {
+              margin: 0 4px;
+              color: rgba(217, 119, 87, 0.6);
+            }
+          `}</style>
+          
+          <Link href="#claude-partnership" scroll={true} className="claude-hero-badge">
+            <span className="claude-badge-bloom-icon-container">
+              <svg 
+                viewBox="0 0 24 24" 
+                className="claude-badge-bloom-svg" 
+              >
+                <path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" />
+              </svg>
             </span>
-            NEW GEN AI AUTOMATION PARTNER
-          </span>
+            <span>
+              Claude Partner Network <span className="claude-badge-separator">•</span> Official Services Partner
+            </span>
+          </Link>
         </motion.div>
 
         {/* H1 — with exact blended black/silver fade effect at sides */}

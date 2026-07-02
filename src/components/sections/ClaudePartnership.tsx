@@ -9,7 +9,7 @@ export default function ClaudePartnership() {
   };
 
   return (
-    <section className="claude-partnership-section">
+    <section id="claude-partnership" className="claude-partnership-section">
       <style>{`
         .claude-partnership-section {
           width: 100%;
