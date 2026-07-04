@@ -78,6 +78,15 @@ export const reviewsData: ReviewItem[] = [
     quote: "“Working with Scalepods on our Restaurant Management System was an outstanding experience from start to finish. They delivered a project with the kind of professionalism and dedication you rarely find — clear communication throughout, zero surprises, and results that exceeded expectations.\n\nWhat truly set Scalepods apart was there commitment to quality. Every detail was handled with care, and he approached every challenge with a solution-oriented mindset rather than making excuses.\n\nThey kept us informed at every stage, was fully accountable for outcomes, and always showed up ready to deliver.\n\nThe system they built is rock-solid, well-structured, and exactly what we envisioned. It's clear this is someone who takes pride in their craft.\n\nHighly recommended — without reservation. We're already planning our next collaboration, and I look forward to a long-term partnership. If you're looking for a developer who combines technical excellence with genuine reliability, Scalepods is your choice.\n\n10/10 — Wil work again and again with ScalePods.”",
     image: "/reviews/Luis Guilherme.gif",
     expanded: true // Explicitly marked as using the expandable review UI
+  },
+  {
+    name: "Taslim Kausar Attar",
+    title: "Property Manager at Lootah Group of Companies",
+    location: "UAE",
+    countryCode: "ae",
+    quote: "“I have been trying to find a solution to create a Procurement Website as per my vision and requirement which is a step up to E-Learning and with current AI automation.\n\nScalepods has fulfilled all the requirements...It was great experience to work with everyone related to Scalepods.\n\nWould like to especially thank Mr. Adnan Shaikh, Mr. Raunak Kumar for listening to all my requirements and assuring to fulfill it and Mr. Viraj Goswami and Mr. Mithul are the brains behind creating a fantastic website which not just fulfills the procurement need, dashboard, comparison of price with new and previous data also provides whatsapp as well as email connectivity to get new quotations.\nThank you so much everyone at Scalepods.”",
+    image: "/reviews/TASLIM.png",
+    expanded: true
   }
 ];
 
