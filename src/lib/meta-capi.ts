@@ -39,15 +39,21 @@ interface SendEventParams {
   customData?: Record<string, unknown>;
 }
 
-export async function sendMetaCapiEvent(params: SendEventParams): Promise<void> {
+export interface SendEventOutcome {
+  skipped: boolean;
+  reason?: string;
+  status?: number;
+  responseBody?: string;
+}
+
+export async function sendMetaCapiEvent(params: SendEventParams): Promise<SendEventOutcome> {
   const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
   const pixelId = process.env.META_PIXEL_ID;
 
   if (!accessToken || !pixelId) {
-    console.warn(
-      `[Meta CAPI] Missing META_CAPI_ACCESS_TOKEN or META_PIXEL_ID — skipping "${params.eventName}" event`
-    );
-    return;
+    const reason = "Missing META_CAPI_ACCESS_TOKEN or META_PIXEL_ID";
+    console.warn(`[Meta CAPI] ${reason} — skipping "${params.eventName}" event`);
+    return { skipped: true, reason };
   }
 
   const userData: Record<string, unknown> = {};
@@ -86,12 +92,14 @@ export async function sendMetaCapiEvent(params: SendEventParams): Promise<void> 
         body: JSON.stringify(body),
       }
     );
+    const responseBody = await res.text();
     if (!res.ok) {
-      const errText = await res.text();
-      console.error(`[Meta CAPI] "${params.eventName}" failed (${res.status}):`, errText);
+      console.error(`[Meta CAPI] "${params.eventName}" failed (${res.status}):`, responseBody);
     }
+    return { skipped: false, status: res.status, responseBody };
   } catch (err) {
     console.error(`[Meta CAPI] "${params.eventName}" request error:`, err);
+    return { skipped: false, reason: err instanceof Error ? err.message : "Unknown error" };
   }
 }
 
