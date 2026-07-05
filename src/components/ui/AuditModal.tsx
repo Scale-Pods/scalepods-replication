@@ -147,7 +147,7 @@ export default function AuditModal({
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", form_type: "contact_sales", source_page: "audit_modal" };
+      const gtmEvent = { event: "lead_form_success", event_id: result.eventId, form_type: "contact_sales", source_page: "audit_modal" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
 

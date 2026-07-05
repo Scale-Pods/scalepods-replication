@@ -1,4 +1,6 @@
-export type WorkflowType = 
+import { getFacebookCookies, generateEventId } from "@/lib/metaPixelClient";
+
+export type WorkflowType =
   | "marketing_workflow"
   | "sales_workflow"
   | "hr_workflow"
@@ -19,11 +21,21 @@ export interface LeadPayload {
   website?: string;
 }
 
-export async function submitLead(data: LeadPayload) {
+export interface SubmitLeadResult {
+  success: boolean;
+  error?: string;
+  // Shared with the browser Pixel's Lead event (via dataLayer) so Meta can
+  // deduplicate the browser + server events into one conversion.
+  eventId: string;
+}
+
+export async function submitLead(data: LeadPayload): Promise<SubmitLeadResult> {
+  const eventId = generateEventId();
+
   // Silent Honeypot Reject
   if (data.website && data.website.trim() !== "") {
     console.warn("[Spam Protection] Honeypot field filled. Silently rejecting request.");
-    return { success: true };
+    return { success: true, eventId };
   }
 
   const payload = {
@@ -58,9 +70,27 @@ export async function submitLead(data: LeadPayload) {
       }).catch(() => {});
     }
 
-    return { success: true };
+    // Meta Conversions API (server-side, fire-and-forget). Mirrors the browser
+    // Pixel Lead event; shares `eventId` with the dataLayer push so Meta
+    // deduplicates the two into a single conversion.
+    const { fbp, fbc } = getFacebookCookies();
+    fetch("/api/capi/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        eventId,
+        email: data.email,
+        phone: data.phone,
+        sourcePage: data.sourcePage,
+        formType: data.formType,
+        fbp,
+        fbc,
+      }),
+    }).catch(() => {});
+
+    return { success: true, eventId };
   } catch (error: any) {
     console.error("[Lead Service] Submission failed:", error);
-    return { success: false, error: error.message || "Submission failed. Please try again." };
+    return { success: false, error: error.message || "Submission failed. Please try again.", eventId };
   }
 }

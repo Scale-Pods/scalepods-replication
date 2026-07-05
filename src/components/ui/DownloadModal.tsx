@@ -152,7 +152,7 @@ export default function DownloadModal({
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", form_type: "guide_download", source_page: "download_modal" };
+      const gtmEvent = { event: "lead_form_success", event_id: result.eventId, form_type: "guide_download", source_page: "download_modal" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
       // Trigger download

@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import Script from "next/script";
 import ChatbotLoader from "@/components/ui/ChatbotLoader";
 import ClarityProvider from "@/components/ui/ClarityProvider";
+import MetaPageViewTracker from "@/components/analytics/MetaPageViewTracker";
 
 const inter = localFont({
   src: [
@@ -182,6 +183,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <ThemeProvider>
           <ClarityProvider />
+          <MetaPageViewTracker />
           <Navbar />
           {children}
           <Footer />

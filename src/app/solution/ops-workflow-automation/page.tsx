@@ -1550,7 +1550,7 @@ export default function OperationsWorkflowAutomationPage() {
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", form_type: "contact_sales", source_page: "/solution/ops-workflow-automation" };
+      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solution/ops-workflow-automation" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
     }
