@@ -440,7 +440,7 @@ const capabilitiesData = [
   {
     chapter: "Chapter 02",
     eyebrow: "Outreach & Delivery",
-    title: "Multi-Channel Outreach That Scales Personalization",
+    title: "Sales Pipeline Automation",
     desc: "Reach prospects across channels with messaging tailored to your audience.",
     video: "/videos/salespod/2.mp4",
     points: [
@@ -1985,7 +1985,7 @@ export default function SalesPodPage() {
             className="sp-hero-left"
           >
             {/* Soft Blinking Brand-Native Eyebrow */}
-            <div className="sp-hero-eyebrow" style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+            <div className="sp-hero-eyebrow" style={{ display: "flex", justifyContent: "center", width: "100%", transform: "translateY(-0.5px)" }}>
               <span style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -2016,12 +2016,12 @@ export default function SalesPodPage() {
             </div>
 
             {/* Content Heading */}
-            <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              <span style={{ color: "var(--sp-accent)" }}>The AI-powered Engine</span>{" "}
+            <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%", transform: "translateY(-0.5px)" }}>
+              <span style={{ color: "var(--sp-accent)" }}>Sales Workflow Automation Software</span>{" "}
               <br className="sp-hero-desk-br" />
-              for High-Performance{" "}
+              for Growing{" "}
               <br className="sp-hero-br" />
-              Sales Teams.
+              Teams.
             </h1>
 
             {/* Subtext */}
@@ -2537,7 +2537,7 @@ export default function SalesPodPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            The ultimate growth shortcut <br />
+            AI Sales Automation Software <br />
             for <span style={{ color: "var(--sp-accent)" }}>modern sales teams</span>.
           </h2>
 
@@ -2651,7 +2651,7 @@ export default function SalesPodPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Your AI-Powered Sales Engine
+            Key Features of SalesPod
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
@@ -2819,7 +2819,7 @@ export default function SalesPodPage() {
             </div>
             <div className="sp-why-use-item">
               <h4 className="sp-why-use-item-title">Multi-Channel Outreach</h4>
-              <p className="sp-why-use-item-desc">Email, LinkedIn, AI Voice Calls, WhatsApp, and more — in one sequence.</p>
+              <p className="sp-why-use-item-desc">Email, LinkedIn, AI Voice Calls, WhatsApp, and more — in one sequence with sales pipeline automation.</p>
             </div>
             <div className="sp-why-use-item">
               <h4 className="sp-why-use-item-title">Smarter Sales Handoffs</h4>
@@ -2882,7 +2882,7 @@ export default function SalesPodPage() {
           </h2>
 
           <p className="sp-hero-desc" style={{ fontSize: "13px", lineHeight: "1.4", margin: "0 auto", color: "var(--color-text-muted)", maxWidth: "600px" }}>
-            Integrate Sales Automation in your workflow to drive exponential results.
+            Integrate Sales Automation Software in your workflow to drive exponential results.
           </p>
         </div>
 
@@ -2968,7 +2968,7 @@ export default function SalesPodPage() {
       <div className="sp-final-cta-wrapper">
         <div className="sp-final-cta-glow" />
         
-        <div className="sp-final-cta-content">
+        <div className="sp-final-cta-content" style={{ maxWidth: "850px" }}>
           <div className="sp-hero-eyebrow" style={{ marginBottom: "16px" }}>
             <span style={{
               display: "inline-flex",
@@ -2985,9 +2985,9 @@ export default function SalesPodPage() {
             </span>
           </div>
 
-          <h2 className="sp-final-cta-title">
-            Your leads deserve a <br />
-            <span style={{ color: "var(--sp-accent)" }}>faster response</span>.
+          <h2 className="sp-final-cta-title" style={{ fontSize: "clamp(18px, 3.8vw, 46px)", width: "100%", lineHeight: "1.2" }}>
+            Your business deserves <br />
+            <span style={{ color: "var(--sp-accent)", whiteSpace: "nowrap" }}>Business Process Workflow Automation</span>
           </h2>
 
           <p className="sp-final-cta-desc">
@@ -3040,7 +3040,7 @@ export default function SalesPodPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Teams that made the switch.
+            Teams that experienced ScalePods' <span style={{ color: "var(--sp-accent)" }}>Workflow Automation Tools</span>
           </h2>
         </div>
 
@@ -3089,7 +3089,7 @@ export default function SalesPodPage() {
           
           {[
             {
-              q: "What is sales automation?",
+              q: "What is AI sales automation software?",
               a: "Traditionally, sales automation meant setting up static email sequences and auto-filling contact fields. ScalePods transforms this definition entirely. With SalesPod, sales automation becomes an end-to-end, autonomous sales pipeline engine. Instead of your team managing software, the SalesPod actively executes the work: it scrapes live internet data to find your exact ICP, launches coordinated campaigns across Email, LinkedIn, WhatsApp, and Voice, and uses AI in sales to handle lead nurturing until a meeting is ready to be booked."
             },
             {
@@ -3103,10 +3103,6 @@ export default function SalesPodPage() {
             {
               q: "Will AI replace sales professionals?",
               a: "No. AI sales tools are built to eliminate administrative friction, not human relationship builders. B2B buyers still require human trust, nuance, and strategic negotiation to finalize a partnership. SalesPod is designed to automate the grueling 80% of the sales cycle—the manual prospecting, cold outreach, follow-ups, and CRM logging. By taking over the tedious groundwork, SalesPod empowers your reps to spend 100% of their time doing what they do best: holding high-intent conversations and closing deals."
-            },
-            {
-              q: "Is SalesPod GDPR and data compliance ready?",
-              a: "Yes. ScalePods is engineered with enterprise-grade data security and strict adherence to global privacy laws, including GDPR and CCPA. The SalesPod relies on compliant, opt-in targeted web scraping standards and operates within the strict terms of service for platforms like WhatsApp and LinkedIn. Because every outreach flow includes seamless opt-out mechanisms, you get high-velocity pipeline growth while maintaining complete data compliance, with all configurations fully managed by our team during your setup."
             }
           ].map((faq, idx) => {
             const isExpanded = expandedFaq === idx;

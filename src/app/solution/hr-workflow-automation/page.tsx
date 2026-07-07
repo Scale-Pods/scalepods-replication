@@ -2280,7 +2280,7 @@ export default function HRWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Your AI-Powered Hiring System
+            Key Features of HRPod
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
@@ -2669,7 +2669,7 @@ export default function HRWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Teams that made the switch.
+            Teams that experienced ScalePods' <span style={{ color: "var(--sp-accent)" }}>Workflow Automation Tools</span>
           </h2>
         </div>
 
