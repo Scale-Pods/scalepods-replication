@@ -2232,7 +2232,7 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
         <a href="/solution/hr-workflow-automation" className="creative-cta-card">
           <div className="creative-cta-content">
             <div className="creative-cta-tag">HR WORKFLOW SOLUTION →</div>
-            <h4 className="creative-cta-title">ScalePods HR Landing Page</h4>
+            <h4 className="creative-cta-title">Explore AI powered HR solutions</h4>
             <p className="creative-cta-desc">Explore how ScalePods integrates candidate screening, employee onboarding, leave management, and payroll into a seamless system.</p>
           </div>
           <div className="creative-cta-action">
@@ -2441,7 +2441,7 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
         <a href="/solution/marketing-workflow-automation" className="creative-cta-card">
           <div className="creative-cta-content">
             <div className="creative-cta-tag">MARKETING WORKFLOW SOLUTION →</div>
-            <h4 className="creative-cta-title">ScalePods Marketing Landing Page</h4>
+            <h4 className="creative-cta-title">Explore AI powered Marketing solutions</h4>
             <p className="creative-cta-desc">Learn how ScalePods automates lead capture, qualification, email campaigns, and behavior-triggered customer journeys.</p>
           </div>
           <div className="creative-cta-action">
