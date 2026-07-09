@@ -58,7 +58,11 @@ export default async function BlogPage() {
     post.slug === "sales-workflow-automation-complete-guide-2026" ||
     post.slug === "hr-automation-complete-guide-2026" ||
     post.slug === "marketing-automation-complete-guide-2026"
-  );
+  ).sort((a, b) => {
+    const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
+    const timeB = isNaN(Date.parse(b.date)) ? 0 : Date.parse(b.date);
+    return timeB - timeA;
+  });
 
   return (
     <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>
