@@ -62,6 +62,20 @@ export const metadata: Metadata = {
     url: "https://scalepods.co",
     siteName: "ScalePods",
     type: "website",
+    images: [
+      {
+        url: "/scalepods-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "ScalePods Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ScalePods — Growth, Automated.",
+    description: "Automate the Busywork. Unlock Growth.",
+    images: ["/scalepods-logo.png"],
   },
   verification: {
     google: "8aOPEFl4dWIxTJhXRiL12CxEUluEWB2sWfejshT_d8k",
