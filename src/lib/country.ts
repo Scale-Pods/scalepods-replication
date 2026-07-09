@@ -62,29 +62,38 @@ export function useCountryDetection(
       setCustomCode(tzGuess);
     }
 
-    // 2. Fetch API for precise IP location (Non-blocking async query)
+    // 2. Fetch API for precise IP location (Non-blocking async query) using XHR to avoid Promise rejections under test extensions
     let isMounted = true;
-    fetch("https://ipapi.co/json/")
-      .then(res => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then(data => {
-        if (isMounted && data && data.country_calling_code) {
-          const rawCode = data.country_calling_code;
-          const code = rawCode.startsWith("+") ? rawCode : `+${rawCode}`;
-          const matchGeo = countries.find(c => c.code === code);
-          if (matchGeo) {
-            setCountryCode(code);
-          } else if (setCustomCode) {
-            setCountryCode("Custom");
-            setCustomCode(code);
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://ipapi.co/json/");
+      xhr.onload = () => {
+        if (isMounted && xhr.status === 200) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            if (data && data.country_calling_code) {
+              const rawCode = data.country_calling_code;
+              const code = rawCode.startsWith("+") ? rawCode : `+${rawCode}`;
+              const matchGeo = countries.find(c => c.code === code);
+              if (matchGeo) {
+                setCountryCode(code);
+              } else if (setCustomCode) {
+                setCountryCode("Custom");
+                setCustomCode(code);
+              }
+            }
+          } catch (e) {
+            // ignore JSON parse errors
           }
         }
-      })
-      .catch(() => {
+      };
+      xhr.onerror = () => {
         // Fallback silently if blocked or failed
-      });
+      };
+      xhr.send();
+    } catch (e) {
+      // Fallback silently if blocked or failed
+    }
 
     return () => {
       isMounted = false;

@@ -12,6 +12,16 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+function parseMarkdownInline(text: string) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index} style={{ fontWeight: 700, color: "var(--color-text-bright)" }}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
+
 function renderBodyContent(body: string, hasFooter: boolean) {
   const lines = body.split("\n").map(l => l.trim()).filter(Boolean);
   
@@ -23,6 +33,32 @@ function renderBodyContent(body: string, hasFooter: boolean) {
         const isHighlight = line.startsWith("✅") || line.startsWith("💡");
         
         if (isBullet) {
+          const bulletText = line.replace(/^[•\-\*]\s*/, "");
+          const colonIdx = bulletText.indexOf(":");
+          if (colonIdx !== -1) {
+            const headingPart = bulletText.substring(0, colonIdx);
+            const descPart = bulletText.substring(colonIdx + 1);
+            return (
+              <div
+                key={idx}
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "16px",
+                  color: "var(--color-text-body)",
+                  lineHeight: 1.8,
+                  textAlign: "left",
+                  paddingLeft: "16px",
+                  display: "flex",
+                  gap: "8px"
+                }}
+              >
+                <span style={{ color: "var(--color-blue-mid)" }}>•</span>
+                <span>
+                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{headingPart}:</strong>{parseMarkdownInline(descPart)}
+                </span>
+              </div>
+            );
+          }
           return (
             <div
               key={idx}
@@ -38,7 +74,7 @@ function renderBodyContent(body: string, hasFooter: boolean) {
               }}
             >
               <span style={{ color: "var(--color-blue-mid)" }}>•</span>
-              <span>{line.replace(/^[•\-\*]\s*/, "")}</span>
+              <span>{parseMarkdownInline(bulletText)}</span>
             </div>
           );
         }
@@ -68,7 +104,7 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 lineHeight: 1.7
               }}
             >
-              <span>{line}</span>
+              <span>{parseMarkdownInline(line)}</span>
             </div>
           );
         }
@@ -88,7 +124,7 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 marginBottom: "4px"
               }}
             >
-              {line}
+              {parseMarkdownInline(line)}
             </h3>
           );
         }
@@ -105,7 +141,7 @@ function renderBodyContent(body: string, hasFooter: boolean) {
               margin: 0
             }}
           >
-            {line}
+            {parseMarkdownInline(line)}
           </p>
         );
       })}
@@ -281,7 +317,13 @@ export default async function ArticlePage({ params }: Props) {
               color: "var(--color-text-bright)", marginBottom: "32px", lineHeight: 1.3,
               letterSpacing: "-0.02em"
             }}>
-              FAQs About AI SDR Automation
+              {displayData.title.includes("HR")
+                ? "FAQs About HR Automation"
+                : displayData.title.includes("Sales Workflow")
+                ? "FAQs About Sales Workflow Automation"
+                : displayData.title.includes("Marketing")
+                ? "FAQs About Marketing Automation"
+                : "FAQs About AI SDR Automation"}
             </h2>
             <BlogFaqAccordion faqData={displayData.faqs} />
           </div>
