@@ -676,4 +676,40 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "lotus-manor-case-study",
+    date: "July 9, 2026",
+    category: "Case Study",
+    title: "Lotus Manor: 21% Response Rate across 1,000+ Prospects via ScalePods Outreach",
+    excerpt: "Lotus Manor achieved a 21% response rate across 1,000+ prospects by using ScalePods to automatically follow up, sequence outreach, and route replies back to sales, eliminating manual chasing and giving their team the bandwidth to focus entirely on closing deals.",
+    image: "/brands/lotus-manor.webp",
+    sections: [
+      {
+        heading: "Overview",
+        body: "Lotus Manor is a leading real estate firm in Dubai, operating in one of the most competitive markets in the world. Speed to lead, persistent follow-ups, and multichannel touchpoints are critical to securing viewing appointments and closing high-value sales. However, agents were spending up to 8 hours a day manually finding, qualifying, and chasing leads, leaving them with very little time to do what they do best: build relationships and close deals."
+      },
+      {
+        heading: "The Challenge: Manual Outreach and Missed Opportunities",
+        body: "Before ScalePods, the sales team struggled with:\n\n• High Lead Leakage: Delayed response times meant hot leads cooled off or went to competitors.\n• Inconsistent Follow-ups: Busy agents rarely followed up more than twice, missing out on over 50% of potential conversions.\n• CRM Overhead: Hours spent logging details instead of speaking to qualified buyers."
+      },
+      {
+        heading: "The Solution: Autonomous ScalePods Outbound Sequencing",
+        body: "ScalePods deployed an outbound sales workflow that automated the entire prospecting lifecycle:\n\nStep 1: Automated Lead Enrichment\nScalePods enriches every incoming lead in real-time, retrieving company size, intent signals, and historical touchpoints.\n\nStep 2: Multichannel Sequencing\nThe system initiates personalized sequences across Email, WhatsApp, and LinkedIn based on user activity.\n\nStep 3: Intelligent Reply Routing\nWhen a prospect replies with high intent (e.g. asking for a viewing time), ScalePods immediately routes the conversation directly to the agent's inbox, along with the full lead context.\n\n✅ Result: Agents focus 100% of their energy on closing deals."
+      },
+      {
+        heading: "The Results",
+        body: "Within the first 30 days of implementation, Lotus Manor saw substantial, measurable improvements in outreach performance:\n\n• 21% Response Rate: Maintained across 1,000+ targeted prospects.\n• 80% Less Coordination: Administrative work and lead chasing vanished.\n• 0 manual follow-up required until a response is received.\n• 25+ Hours Saved: Every recruiter and agent gained back hours every week to focus on closing."
+      }
+    ],
+    faqs: [
+      {
+        q: "How did ScalePods achieve a 21% response rate for Lotus Manor?",
+        a: "By combining automated real-time enrichment with highly personalized multichannel follow-ups that adapt based on recipient behavior, ensuring messages were timely and relevant."
+      },
+      {
+        q: "What channels did the ScalePods sequence use?",
+        a: "The sequence integrated automated Email outreach, LinkedIn engagement, and WhatsApp messaging tailored to the Dubai real estate market."
+      }
+    ]
+  }
 ];

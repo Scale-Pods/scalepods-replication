@@ -2610,9 +2610,9 @@ export default function SalesPodPage() {
             
 
 
-            {/* Full-bleed Product Demo Video Player */}
+            {/* Full-bleed Product Demo Video Video Player */}
             <div style={{ width: "100%", overflow: "hidden" }}>
-              <ProductDemoVideoPlayer src="/videos/Product_demo_fold 3.mp4" />
+              <ProductDemoVideoPlayer src="/videos/Sales_pod_demo.mp4" />
             </div>
 
           </div>

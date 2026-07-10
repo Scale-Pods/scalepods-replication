@@ -95,11 +95,10 @@ const ThemeToggle = memo(() => {
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "Solutions", dropdown: true, href: "/solution" },
+  { label: "Case Studies", href: "/blog/case-studies" },
   { label: "Global", href: "/global" },
 ];
 
@@ -144,6 +143,12 @@ const Navbar = memo(() => {
 
   const isLinkActive = useCallback((href: string) => {
     if (pathname !== "/") {
+      if (href === "/blog") {
+        return pathname === "/blog" || (pathname?.startsWith("/blog/") && !pathname?.startsWith("/blog/case-studies") && !pathname?.includes("case-study"));
+      }
+      if (href === "/blog/case-studies") {
+        return pathname === "/blog/case-studies" || pathname?.includes("case-study");
+      }
       return pathname === href || pathname?.startsWith(href);
     }
     // On homepage, track scroll sections
