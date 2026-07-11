@@ -42,10 +42,9 @@ export default function CaseStudiesPage() {
                   overflow: "hidden",
                   position: "relative"
                 }}>
-                  {/* Light Theme Image */}
                   <img
-                    src="/brands/lotus-manor-light.png"
-                    alt="Lotus Manor Logo Box Light"
+                    src="/brands/lotus-manor-new.png"
+                    alt="Lotus Manor Logo Box"
                     style={{
                       position: "absolute",
                       top: 0,
@@ -53,26 +52,7 @@ export default function CaseStudiesPage() {
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      opacity: isDark ? 0 : 1,
-                      transition: "opacity 0.3s ease-in-out, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
-                      pointerEvents: isDark ? "none" : "auto",
-                    }}
-                    className="hover:scale-[1.03]"
-                  />
-                  {/* Dark Theme Image */}
-                  <img
-                    src="/brands/lotus-manor-dark.png"
-                    alt="Lotus Manor Logo Box Dark"
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      opacity: isDark ? 1 : 0,
-                      transition: "opacity 0.3s ease-in-out, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
-                      pointerEvents: isDark ? "auto" : "none",
+                      transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
                     }}
                     className="hover:scale-[1.03]"
                   />

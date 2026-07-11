@@ -295,7 +295,7 @@ function PipelineViz() {
         <g transform="translate(180, 150)">
           <rect width="160" height="80" rx="10" ry="10" fill="var(--color-bg-card-alt)" stroke="var(--sp-accent)" strokeWidth="1.5" style={{ filter: "drop-shadow(0 0 10px rgba(var(--sp-accent-rgb), 0.08))" }} />
           <text x="80" y="24" textAnchor="middle" fill="var(--sp-accent)" fontSize="9" fontWeight="700" letterSpacing="0.1em">CORE PIPELINE</text>
-          <text x="80" y="44" textAnchor="middle" fill="var(--color-text-bright)" fontSize="13" fontWeight="600">HRPod Engine</text>
+          <text x="80" y="44" textAnchor="middle" fill="var(--color-text-bright)" fontSize="13" fontWeight="600">HR Pod Engine</text>
           
           <circle cx="50" cy="62" r="3" fill="var(--sp-accent)" />
           <motion.circle cx="50" cy="62" r="6" fill="none" stroke="var(--sp-accent)" strokeWidth="1"
@@ -1774,7 +1774,7 @@ export default function HRWorkflowAutomationPage() {
                       marginBottom: "24px"
                     }}
                   >
-                    Your HRPod configurations have been pre-registered. An integration specialist will reach out shortly to demo the customized hiring workflows.
+                    Your HR Pod configurations have been pre-registered. An integration specialist will reach out shortly to demo the customized hiring workflows.
                   </p>
                   
                   <div 
@@ -2280,11 +2280,11 @@ export default function HRWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Key Features of HRPod
+            Key Features of HR Pod
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            HRPod automates the entire hiring lifecycle from campaign creation and job descriptions to candidate screening and interview scheduling across every role, every time
+            HR Pod automates the entire hiring lifecycle from campaign creation and job descriptions to candidate screening and interview scheduling across every role, every time
           </p>
         </div>
 
@@ -2363,7 +2363,7 @@ export default function HRWorkflowAutomationPage() {
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            HRPod combines candidate screening, AI scoring, and interview scheduling to help teams secure top talent without administrative overhead.
+            HR Pod combines candidate screening, AI scoring, and interview scheduling to help teams secure top talent without administrative overhead.
           </p>
         </div>
 
@@ -2439,7 +2439,7 @@ export default function HRWorkflowAutomationPage() {
 
         {/* WHY HR TEAMS USE HRPOD */}
         <div className="sp-why-use-wrapper">
-          <h3 className="sp-why-use-title">Why Talent Teams Use HRPod</h3>
+          <h3 className="sp-why-use-title">Why Talent Teams Use HR Pod</h3>
           
           <div className="sp-why-use-grid">
             <div className="sp-why-use-item">
@@ -2452,7 +2452,7 @@ export default function HRWorkflowAutomationPage() {
             </div>
             <div className="sp-why-use-item">
               <h4 className="sp-why-use-item-title">No-Chase Schedules</h4>
-              <p className="sp-why-use-item-desc">HRPod routes verified applicants directly to the interviewer's calendar.</p>
+              <p className="sp-why-use-item-desc">HR Pod routes verified applicants directly to the interviewer's calendar.</p>
             </div>
             <div className="sp-why-use-item">
               <h4 className="sp-why-use-item-title">Data-Backed Offers</h4>
@@ -2524,7 +2524,7 @@ export default function HRWorkflowAutomationPage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B1D997] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B1D997]"></span>
             </span>
-            <span>Automated HRPod Workflow</span>
+            <span>Automated HR Pod Workflow</span>
           </div>
 
           {/* LEFT CARDS */}
@@ -2573,7 +2573,7 @@ export default function HRWorkflowAutomationPage() {
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
           <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
-            Your team is great at hiring. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>HRPod makes sure they spend their time on people, not paperwork.</span>
+            Your team is great at hiring. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>HR Pod makes sure they spend their time on people, not paperwork.</span>
           </p>
           <motion.button 
             whileHover={{ y: -2, scale: 1.02 }}
@@ -2620,7 +2620,7 @@ export default function HRWorkflowAutomationPage() {
           </h2>
 
           <p className="sp-final-cta-desc">
-            HRPod builds and runs the full screening and scheduling system for you, so your recruiters focus on interview outcomes, not administration.
+            HR Pod builds and runs the full screening and scheduling system for you, so your recruiters focus on interview outcomes, not administration.
           </p>
 
           <motion.button 
@@ -2731,11 +2731,11 @@ export default function HRWorkflowAutomationPage() {
             },
             {
               q: "How does AI automated screening work?",
-              a: "Our AI systems evaluate candidate resumes against predefined role scorecards. HRPod does not make black-box hiring decisions; it acts as a smart copilot that filters profiles based on skills and criteria, scoring them to build a structured candidate intelligence summary."
+              a: "Our AI systems evaluate candidate resumes against predefined role scorecards. HR Pod does not make black-box hiring decisions; it acts as a smart copilot that filters profiles based on skills and criteria, scoring them to build a structured candidate intelligence summary."
             },
             {
               q: "How quickly can AI automation be set up for a new role?",
-              a: "HRPod campaigns can be configured in a few minutes. Recruiter and manager availability defaults can be mapped instantly, allowing talent acquisitions teams to launch candidate campaigns, sync their ATS data, and begin screening profiles immediately."
+              a: "HR Pod campaigns can be configured in a few minutes. Recruiter and manager availability defaults can be mapped instantly, allowing talent acquisitions teams to launch candidate campaigns, sync their ATS data, and begin screening profiles immediately."
             }
           ].map((faq, idx) => {
             const isExpanded = expandedFaq === idx;
