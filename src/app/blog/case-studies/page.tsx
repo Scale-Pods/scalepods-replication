@@ -43,7 +43,7 @@ export default function CaseStudiesPage() {
                   position: "relative"
                 }}>
                   <img
-                    src="/brands/lotus-manor-new.png"
+                    src="/brands/lotus-manor-new.webp"
                     alt="Lotus Manor Logo Box"
                     style={{
                       position: "absolute",

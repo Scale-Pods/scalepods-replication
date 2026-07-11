@@ -868,7 +868,7 @@ export default async function ArticlePage({ params }: Props) {
                   overflow: "hidden"
                 }}>
                   <img 
-                    src="/brands/workflow-preview-light.png" 
+                    src="/brands/workflow-preview-light.webp" 
                     alt="ScalePods Automation Workflow Diagram" 
                     style={{
                       width: "100%",
@@ -879,7 +879,7 @@ export default async function ArticlePage({ params }: Props) {
                     className="workflow-preview-light"
                   />
                   <img 
-                    src="/brands/workflow-preview-dark.png" 
+                    src="/brands/workflow-preview-dark.webp" 
                     alt="ScalePods Automation Workflow Diagram" 
                     style={{
                       width: "100%",
