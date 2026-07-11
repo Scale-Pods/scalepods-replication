@@ -634,7 +634,7 @@ export default async function ArticlePage({ params }: Props) {
                   }}>
                     <div style={{ width: "100%", height: "180px", borderRadius: "16px", overflow: "hidden" }}>
                       <img 
-                        src="/images/case-studies/challenge-leakage.png" 
+                        src="/images/case-studies/challenge-leakage.webp" 
                         alt="Scalability Bottlenecks in Lead Follow-Up" 
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                       />
@@ -672,7 +672,7 @@ export default async function ArticlePage({ params }: Props) {
                     </div>
                     <div style={{ width: "100%", height: "180px", borderRadius: "16px", overflow: "hidden" }}>
                       <img 
-                        src="/images/case-studies/challenge-followup.png" 
+                        src="/images/case-studies/challenge-followup.webp" 
                         alt="Untouched High-Intent Opportunities" 
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                       />
@@ -688,7 +688,7 @@ export default async function ArticlePage({ params }: Props) {
                   }}>
                     <div style={{ width: "100%", height: "180px", borderRadius: "16px", overflow: "hidden" }}>
                       <img 
-                        src="/images/case-studies/challenge-crm.png" 
+                        src="/images/case-studies/challenge-crm.webp" 
                         alt="Inefficiencies in Qualification" 
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                       />
@@ -726,7 +726,7 @@ export default async function ArticlePage({ params }: Props) {
                     </div>
                     <div style={{ width: "100%", height: "180px", borderRadius: "16px", overflow: "hidden" }}>
                       <img 
-                        src="/images/case-studies/challenge-coverage.png" 
+                        src="/images/case-studies/challenge-coverage.webp" 
                         alt="Rising Customer Acquisition Costs" 
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                       />

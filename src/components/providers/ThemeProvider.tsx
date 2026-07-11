@@ -37,6 +37,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setResolvedTheme(effectiveTheme);
     root.setAttribute("data-theme", effectiveTheme);
     root.style.colorScheme = effectiveTheme;
+    if (effectiveTheme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
   };
 
   useEffect(() => {

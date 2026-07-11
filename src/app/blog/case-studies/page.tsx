@@ -42,15 +42,13 @@ export default function CaseStudiesPage() {
                   overflow: "hidden",
                   position: "relative"
                 }}>
-                  <img
+                  <Image
                     src="/brands/lotus-manor-new.webp"
                     alt="Lotus Manor Logo Box"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    priority
                     style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
                       objectFit: "cover",
                       transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
                     }}
