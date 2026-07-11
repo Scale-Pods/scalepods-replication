@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts as staticPosts } from "@/lib/blogData";
-import { ArrowLeft, Database, Workflow, Inbox, ArrowUpRight, Zap, Cpu } from "lucide-react";
+import { ArrowLeft, Database, Workflow, Inbox, ArrowUpRight, Zap, Cpu, MessageSquare, UserCheck, Eye } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import BlogFaqAccordion from "@/components/ui/BlogFaqAccordion";
 import BlogBodyClient from "@/components/ui/BlogBodyClient";
@@ -97,7 +97,9 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 maxWidth: "680px",
                 width: "100%",
                 background: "rgba(var(--color-blue-mid-rgb), 0.04)",
-                border: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
+                borderTop: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
+                borderBottom: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
+                borderRight: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
                 borderLeft: "4px solid var(--color-blue-mid)",
                 borderRadius: "12px",
                 fontFamily: "var(--font-inter), sans-serif",
@@ -230,7 +232,7 @@ export default async function ArticlePage({ params }: Props) {
     }))
   } : null;
 
-  const isLotusManorCaseStudy = slug === "lotus-manor-case-study";
+  const isLotusManorCaseStudy = slug === "lotus-manor-real-estate-sales-automation-dubai";
 
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
@@ -341,18 +343,20 @@ export default async function ArticlePage({ params }: Props) {
       `}</style>
       <BeamsBackground hues={[210, 185]} intensity="strong">
         <div style={{ paddingTop: "64px", paddingBottom: "120px" }}>
-          <div style={{ maxWidth: isLotusManorCaseStudy ? "1150px" : "800px", margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ maxWidth: isLotusManorCaseStudy ? "1200px" : "800px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Back Button */}
-        <Link href={isLotusManorCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
-          <ArrowLeft style={{ width: "14px", height: "14px" }} />
-          {isLotusManorCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
-        </Link>
+        <div className={isLotusManorCaseStudy ? "px-6 md:px-10" : ""}>
+          <Link href={isLotusManorCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
+            <ArrowLeft style={{ width: "14px", height: "14px" }} />
+            {isLotusManorCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
+          </Link>
+        </div>
 
         {isLotusManorCaseStudy ? (
           <>
             {/* Top section: Title, Stats, Testimonial (Full Width) */}
-          <div style={{ marginTop: "40px" }}>
+          <div style={{ marginTop: "40px" }} className="px-6 md:px-10">
             {/* Category */}
             <div style={{
               fontSize: "11px",
@@ -368,53 +372,71 @@ export default async function ArticlePage({ params }: Props) {
             {/* Custom Headline */}
             <h1 style={{
               fontFamily: "var(--font-inter), sans-serif",
-              fontSize: "clamp(24px, 3.5vw, 42px)",
+              fontSize: "clamp(20px, 3.8vw, 45px)",
               fontWeight: 700,
               color: "var(--color-text-bright)",
-              lineHeight: 1.2,
+              lineHeight: 1.3,
               marginBottom: "32px",
-              letterSpacing: "-0.03em"
+              letterSpacing: "-0.02em"
             }}>
-              How Lotus Manor Automated 7,000+ Follow-Ups and Turned Follow-Up Chaos Into a Robust Sales System
+              <span style={{ display: "block", textAlign: "justify", textAlignLast: "justify", textJustify: "inter-word" }}>
+                How Lotus Manor Automated 7,000+ Follow-Ups and
+              </span>
+              <span style={{ display: "block", textAlign: "center", marginTop: "8px" }}>
+                Turned Follow-Up Chaos Into a Robust Sales System
+              </span>
             </h1>
 
             {/* Divider */}
             <div style={{ height: "1px", background: "var(--color-border)", marginBottom: "32px" }} />
 
-            {/* Running Metrics Grid */}
+            {/* Running Metrics Flex Container */}
             <div 
-              style={{ padding: "8px 0", textAlign: "center" }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+              style={{ 
+                padding: "8px 0", 
+                display: "flex", 
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                width: "100%"
+              }}
+              className="flex-wrap md:flex-nowrap gap-y-6 md:gap-y-0"
             >
-              <div>
-                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
+              {/* Metric 1 */}
+              <div className="w-[48%] md:w-auto flex flex-col items-start text-left">
+                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-blue-mid)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
                   <AnimatedMetric value={1000} suffix="+" />
                 </div>
-                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px", margin: "0 auto" }}>
+                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px" }}>
                   Prospects reached
                 </div>
               </div>
-              <div>
-                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
+
+              {/* Metric 2 */}
+              <div className="w-[48%] md:w-auto flex flex-col items-end md:items-center text-right md:text-center">
+                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-blue-mid)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
                   <AnimatedMetric value={7000} suffix="+" />
                 </div>
-                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px", margin: "0 auto" }}>
+                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px" }}>
                   Follow-ups sent automatically
                 </div>
               </div>
-              <div>
-                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
+
+              {/* Metric 3 */}
+              <div className="w-[48%] md:w-auto flex flex-col items-start md:items-center text-left md:text-center">
+                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-blue-mid)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
                   <AnimatedMetric value={229} />
                 </div>
-                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px", margin: "0 auto" }}>
+                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px" }}>
                   Direct responses
                 </div>
               </div>
-              <div>
-                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
+
+              {/* Metric 4 */}
+              <div className="w-[48%] md:w-auto flex flex-col items-end text-right">
+                <div style={{ fontSize: "clamp(32px, 3.5vw, 42px)", fontWeight: 700, color: "var(--color-blue-mid)", marginBottom: "8px", letterSpacing: "-0.02em" }}>
                   <AnimatedMetric value={21} suffix="%" />
                 </div>
-                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px", margin: "0 auto" }}>
+                <div style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.4, maxWidth: "160px" }}>
                   Response rate
                 </div>
               </div>
@@ -422,19 +444,19 @@ export default async function ArticlePage({ params }: Props) {
 
             {/* Divider */}
             <div style={{ height: "1px", background: "var(--color-border)", marginTop: "32px", marginBottom: "48px" }} />
+          </div>
 
-            {/* Testimonial Card */}
-            <div style={{
-              borderRadius: "24px",
-              border: "1px solid var(--color-border)",
-              background: "var(--color-bg-card)",
-              padding: "32px",
-              marginBottom: "64px",
-              boxShadow: "var(--shadow-sm)"
-            }}>
+          {/* Testimonial Card */}
+          <div className="premium-card" style={{
+            padding: "40px",
+            marginBottom: "64px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "32px"
+          }}>
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                 {/* Left Column: Image with overlay */}
-                <div className="md:col-span-5" style={{ position: "relative", width: "100%", aspectRatio: "1", borderRadius: "16px", overflow: "hidden" }}>
+                <div className="md:col-span-5" style={{ position: "relative", width: "100%", aspectRatio: "1.15", borderRadius: "16px", overflow: "hidden" }}>
                   <img
                     src="/images/blog/vinay-kumar.webp"
                     alt="Vinay Kumar"
@@ -456,28 +478,139 @@ export default async function ArticlePage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* Right Column: Statement */}
-                <div className="md:col-span-7" style={{ paddingLeft: "8px" }}>
+                {/* Right Column: Statement & Logo */}
+                <div className="md:col-span-7" style={{ paddingLeft: "8px", display: "flex", flexDirection: "column", gap: "20px" }}>
+                  {/* Logo & Company Name */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#ffffff",
+                      padding: "8px 16px",
+                      borderRadius: "10px",
+                      border: "1px solid rgba(0, 0, 0, 0.08)",
+                      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)"
+                    }}>
+                      <img
+                        src="/brands/lotus-manor.webp"
+                        alt="Lotus Manor Logo"
+                        style={{
+                          height: "20px",
+                          width: "auto",
+                          objectFit: "contain"
+                        }}
+                      />
+                    </div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text-bright)" }}>
+                      Lotus Manor Real Estate
+                    </div>
+                  </div>
+
                   <blockquote style={{
-                    fontSize: "clamp(16px, 2.2vw, 21px)",
+                    fontSize: "clamp(16px, 1.8vw, 20px)",
                     fontWeight: 400,
                     lineHeight: 1.6,
                     color: "var(--color-text-bright)",
                     fontStyle: "normal",
-                    margin: 0
+                    margin: 0,
+                    textAlign: "justify",
+                    textJustify: "inter-word"
                   }}>
                     “We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right and the timeline is tight.”
                   </blockquote>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Grid Layout: Challenges and below (Main Content Left, Sidebar Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16" style={{ marginTop: "40px" }}>
-            
-            {/* Left Column: Challenges & Solutions */}
-            <div className="lg:col-span-9">
+              {/* Divider */}
+              <div style={{ height: "1px", background: "var(--color-border)" }} />
+
+              {/* Company Info Footer */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                {/* About (6 cols) */}
+                <div className="md:col-span-6">
+                  <h4 style={{
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    color: "var(--color-text-muted)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    marginBottom: "8px"
+                  }}>
+                    About
+                  </h4>
+                  <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
+                    Lotus Manor Real Estate is a premium UAE-based real estate agency that simplifies the process of finding, evaluating, and securing properties across Dubai.
+                  </p>
+                </div>
+
+                {/* Metadata Fields (3 cols) */}
+                <div className="md:col-span-3" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                    <div>
+                      <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
+                        Industry
+                      </div>
+                      <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
+                        Real Estate
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
+                        Founded
+                      </div>
+                      <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
+                        2024
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
+                      Headquarters
+                    </div>
+                    <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
+                      Dubai, UAE
+                    </div>
+                  </div>
+                </div>
+
+                {/* Key Features (3 cols) */}
+                <div className="md:col-span-3">
+                  <h4 style={{
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    color: "var(--color-text-muted)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    marginBottom: "12px"
+                  }}>
+                    Key features
+                  </h4>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                    {["Real Estate", "Sales", "Luxury homes", "Villas"].map((tag) => (
+                      <span
+                        key={tag}
+                        style={{
+                          fontSize: "12px",
+                          padding: "4px 10px",
+                          borderRadius: "6px",
+                          background: "var(--color-bg-card-alt)",
+                          border: "1px solid var(--color-border)",
+                          color: "var(--color-text-muted)"
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          {/* Content Container (No Sidebar) */}
+          <div style={{ marginTop: "40px" }}>
+            {/* Centered Main Column */}
+            <div style={{ maxWidth: "100%", margin: "0 auto" }} className="px-6 md:px-10">
               {/* Challenges Section */}
               <div style={{ marginBottom: "80px" }}>
                 <h2 style={{
@@ -493,10 +626,7 @@ export default async function ArticlePage({ params }: Props) {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Card 1: Image top, Text bottom */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "24px",
+                  <div className="premium-card" style={{
                     padding: "16px",
                     display: "flex",
                     flexDirection: "column",
@@ -509,43 +639,34 @@ export default async function ArticlePage({ params }: Props) {
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                       />
                     </div>
-                    <div style={{
-                      background: "var(--color-bg-card)",
-                      border: "1px solid var(--color-border)",
-                      borderRadius: "16px",
+                    <div className="internal-panel" style={{
                       padding: "20px",
                       flex: 1
                     }}>
                       <h3 style={{ fontSize: "14.5px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Scalability Bottlenecks in Lead Follow-Up
                       </h3>
-                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         Despite building a robust database of over 10,000 qualified prospects, the lean sales team struggled to keep pace with growing inbound demand. Relying heavily on manual outreach created operational bottlenecks, making it increasingly difficult to consistently nurture every new lead at scale.
                       </p>
                     </div>
                   </div>
 
                   {/* Card 2: Text top, Image bottom */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "24px",
+                  <div className="premium-card" style={{
                     padding: "16px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "16px"
                   }}>
-                    <div style={{
-                      background: "var(--color-bg-card)",
-                      border: "1px solid var(--color-border)",
-                      borderRadius: "16px",
+                    <div className="internal-panel" style={{
                       padding: "20px",
                       flex: 1
                     }}>
                       <h3 style={{ fontSize: "14.5px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Untouched High-Intent Opportunities
                       </h3>
-                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         With an overwhelming volume of contacts and limited hours in the day, timely outreach fell through the cracks. High-intent leads sat untouched in the system, causing lucrative conversion opportunities to slip away and directly impacting the company's bottom-line revenue.
                       </p>
                     </div>
@@ -559,10 +680,7 @@ export default async function ArticlePage({ params }: Props) {
                   </div>
 
                   {/* Card 3: Image top, Text bottom */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "24px",
+                  <div className="premium-card" style={{
                     padding: "16px",
                     display: "flex",
                     flexDirection: "column",
@@ -575,43 +693,34 @@ export default async function ArticlePage({ params }: Props) {
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                       />
                     </div>
-                    <div style={{
-                      background: "var(--color-bg-card)",
-                      border: "1px solid var(--color-border)",
-                      borderRadius: "16px",
+                    <div className="internal-panel" style={{
                       padding: "20px",
                       flex: 1
                     }}>
                       <h3 style={{ fontSize: "14.5px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Inefficiencies in Qualification
                       </h3>
-                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The small sales team spent excessive time on manual processes instead of focusing on hot opportunities. Without a structured, automated system to efficiently qualify prospects and improve response rates, the team was bogged down by routine administrative follow-ups.
                       </p>
                     </div>
                   </div>
 
                   {/* Card 4: Text top, Image bottom */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "24px",
+                  <div className="premium-card" style={{
                     padding: "16px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "16px"
                   }}>
-                    <div style={{
-                      background: "var(--color-bg-card)",
-                      border: "1px solid var(--color-border)",
-                      borderRadius: "16px",
+                    <div className="internal-panel" style={{
                       padding: "20px",
                       flex: 1
                     }}>
                       <h3 style={{ fontSize: "14.5px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Rising Customer Acquisition Costs
                       </h3>
-                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         While marketing successfully generated consistent demand, the lack of a repeatable sales system meant that investments weren't being fully capitalized on. This gap between lead generation and sales execution led to rising customer acquisition costs (CAC) and wasted marketing spend.
                       </p>
                     </div>
@@ -647,99 +756,89 @@ export default async function ArticlePage({ params }: Props) {
                   color: "var(--color-text-muted)",
                   lineHeight: 1.6,
                   marginBottom: "40px",
-                  maxWidth: "800px"
+                  maxWidth: "100%",
+                  textAlign: "justify",
+                  textJustify: "inter-word"
                 }}>
                   Lotus Manor needed a way to keep follow-up moving without relying on manual reminders or extra headcount. ScalePods built a structured outreach system that kept leads warm, maintained continuity, and reduced the burden on the sales team.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Solution Card 1 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "12px"
                   }}>
-                    <div style={{ fontSize: "28px", fontWeight: 700, color: "var(--color-blue-mid)", fontFamily: "var(--font-inter), sans-serif" }}>
-                      01
+                    <div style={{ color: "var(--color-blue-mid)" }}>
+                      <Workflow style={{ width: "28px", height: "28px" }} />
                     </div>
                     <div>
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Structured follow-up instead of scattered chasing
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The team no longer depended on reps remembering when to reach out. Once a lead entered the workflow, reachouts & follow-up happened automatically across the right channels at the right time.
                       </p>
                     </div>
                   </div>
 
                   {/* Solution Card 2 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "12px"
                   }}>
-                    <div style={{ fontSize: "28px", fontWeight: 700, color: "var(--color-blue-mid)", fontFamily: "var(--font-inter), sans-serif" }}>
-                      02
+                    <div style={{ color: "var(--color-blue-mid)" }}>
+                      <MessageSquare style={{ width: "28px", height: "28px" }} />
                     </div>
                     <div>
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Multi-channel outreach that stayed consistent
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The workflow used WhatsApp, email, and AI voice calls to keep prospects engaged without overwhelming the sales team with repetitive manual effort. This gave Lotus Manor a more reliable reachout & follow-up rhythm across the full database.
                       </p>
                     </div>
                   </div>
 
                   {/* Solution Card 3 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "12px"
                   }}>
-                    <div style={{ fontSize: "28px", fontWeight: 700, color: "var(--color-blue-mid)", fontFamily: "var(--font-inter), sans-serif" }}>
-                      03
+                    <div style={{ color: "var(--color-blue-mid)" }}>
+                      <UserCheck style={{ width: "28px", height: "28px" }} />
                     </div>
                     <div>
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Lead ownership stayed clean and organized
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         If a prospect replied, the lead was reassigned back to the original sales rep so the human conversation could continue immediately. That meant automation supported the sales team instead of replacing it.
                       </p>
                     </div>
                   </div>
 
                   {/* Solution Card 4 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "12px"
                   }}>
-                    <div style={{ fontSize: "28px", fontWeight: 700, color: "var(--color-blue-mid)", fontFamily: "var(--font-inter), sans-serif" }}>
-                      04
+                    <div style={{ color: "var(--color-blue-mid)" }}>
+                      <Eye style={{ width: "28px", height: "28px" }} />
                     </div>
                     <div>
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Visibility was built into the process
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         Every important step and responses from the lead was logged in the CRM, giving the admin and sales team a clear view of where each lead stood. That made the process easier to manage and removed guesswork from follow-up.
                       </p>
                     </div>
@@ -763,14 +862,10 @@ export default async function ArticlePage({ params }: Props) {
                   The Workflow
                 </h2>
                 
-                <div style={{
+                <div className="premium-card" style={{
                   width: "100%",
-                  borderRadius: "24px",
-                  border: "1px solid var(--color-border)",
-                  background: "var(--color-bg-card-alt)",
                   padding: "24px",
-                  overflow: "hidden",
-                  boxShadow: "var(--shadow-sm)"
+                  overflow: "hidden"
                 }}>
                   <img 
                     src="/brands/workflow-preview-light.png" 
@@ -818,17 +913,16 @@ export default async function ArticlePage({ params }: Props) {
                   color: "var(--color-text-muted)",
                   lineHeight: 1.6,
                   marginBottom: "40px",
-                  maxWidth: "800px"
+                  maxWidth: "100%",
+                  textAlign: "justify",
+                  textJustify: "inter-word"
                 }}>
                   Within four months, the impact was visible across both engagement and sales productivity. Lotus Manor’s automated follow-up system helped the team reach more leads, generate more responses, and stop spending time on repetitive outreach work.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Result Card 1 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
@@ -841,17 +935,14 @@ export default async function ArticlePage({ params }: Props) {
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Prospects were reached
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The automation created a consistent outreach layer that kept prospects moving instead of letting them sit idle in the database.
                       </p>
                     </div>
                   </div>
 
                   {/* Result Card 2 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
@@ -864,17 +955,14 @@ export default async function ArticlePage({ params }: Props) {
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Follow-ups were sent automatically
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         What used to require constant manual effort was now handled by a repeatable system, giving the team far more leverage from the same lead.
                       </p>
                     </div>
                   </div>
 
                   {/* Result Card 3 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
@@ -887,17 +975,14 @@ export default async function ArticlePage({ params }: Props) {
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Direct responses came in
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The automated follow-up cadence helped uncover high-intent prospects and generate meaningful sales conversations that would likely have been missed through manual follow-ups.
                       </p>
                     </div>
                   </div>
 
                   {/* Result Card 4 */}
-                  <div style={{
-                    background: "var(--color-bg-card-alt)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "20px",
+                  <div className="premium-card" style={{
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
@@ -910,18 +995,18 @@ export default async function ArticlePage({ params }: Props) {
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
                         Response rate showed strong engagement
                       </h3>
-                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
+                      <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The system did more than save time — it created measurable interaction from prospects who were previously under-nurtured.
                       </p>
                     </div>
                   </div>
 
                   {/* Result Card 5: Full Width */}
-                  <div className="md:col-span-2" style={{
-                    background: "var(--color-bg-card)",
-                    border: "1px solid var(--color-border)",
+                  <div className="md:col-span-2 premium-card" style={{
+                    borderTop: "1px solid var(--color-glass-border)",
+                    borderBottom: "1px solid var(--color-glass-border)",
+                    borderRight: "1px solid var(--color-glass-border)",
                     borderLeft: "4px solid var(--color-blue-mid)",
-                    borderRadius: "20px",
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
@@ -930,7 +1015,7 @@ export default async function ArticlePage({ params }: Props) {
                     <h3 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0, lineHeight: 1.3 }}>
                       The sales team could focus on closing instead of chasing
                     </h3>
-                    <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
+                    <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                       By removing repetitive reminder work, ScalePods gave Lotus Manor a more efficient sales motion and a better way to use its existing team capacity.
                     </p>
                   </div>
@@ -941,41 +1026,53 @@ export default async function ArticlePage({ params }: Props) {
               <div style={{ height: "1px", background: "var(--color-border)", marginTop: "80px", marginBottom: "80px" }} />
 
               {/* Why ScalePods Section */}
-              <div style={{ marginBottom: "80px", display: "flex", flexDirection: "column", gap: "20px" }}>
-                {/* Block 1: Why ScalePods */}
-                <div style={{
-                  background: "var(--color-bg-card)",
-                  border: "1px solid var(--color-border)",
+              <div style={{ marginBottom: "80px", display: "flex", flexDirection: "column", gap: "24px" }}>
+                {/* Section Title */}
+                <h2 style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "clamp(24px, 3vw, 32px)",
+                  fontWeight: 700,
+                  color: "var(--color-text-bright)",
+                  margin: 0,
+                  letterSpacing: "-0.02em"
+                }}>
+                  Why ScalePods
+                </h2>
+
+                {/* Block 1 */}
+                <div className="premium-card" style={{
+                  borderTop: "1px solid var(--color-glass-border)",
+                  borderBottom: "1px solid var(--color-glass-border)",
+                  borderRight: "1px solid var(--color-glass-border)",
                   borderLeft: "4px solid var(--color-blue-mid)",
-                  borderRadius: "20px",
-                  padding: "24px",
+                  padding: "28px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "8px"
+                  gap: "10px"
                 }}>
                   <h3 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0, lineHeight: 1.3 }}>
-                    Why ScalePods
+                    The right fit for this challenge
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     Lotus Manor did not need another tool that added more work for the sales team. They needed a system that could turn a large lead database into real conversations without increasing operational complexity.
                   </p>
                 </div>
 
-                {/* Block 2: An Automated Follow-Up Engine Built for Closing */}
-                <div style={{
-                  background: "var(--color-bg-card)",
-                  border: "1px solid var(--color-border)",
+                {/* Block 2 */}
+                <div className="premium-card" style={{
+                  borderTop: "1px solid var(--color-glass-border)",
+                  borderBottom: "1px solid var(--color-glass-border)",
+                  borderRight: "1px solid var(--color-glass-border)",
                   borderLeft: "4px solid var(--color-blue-mid)",
-                  borderRadius: "20px",
-                  padding: "24px",
+                  padding: "28px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "8px"
+                  gap: "10px"
                 }}>
                   <h3 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0, lineHeight: 1.3 }}>
                     An Automated Follow-Up Engine Built for Closing
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     ScalePods helped make that possible by building an automated follow-up engine that kept outreach consistent, protected lead ownership, and reduced the burden of manual sales coordination. The result was a leaner, more scalable process that let the team focus on closing instead of chasing.
                   </p>
                 </div>
@@ -1002,7 +1099,9 @@ export default async function ArticlePage({ params }: Props) {
                   color: "var(--color-text-muted)",
                   lineHeight: 1.6,
                   marginBottom: "32px",
-                  maxWidth: "800px"
+                  maxWidth: "100%",
+                  textAlign: "justify",
+                  textJustify: "inter-word"
                 }}>
                   See the core outbound engine in action — managing multi-channel sequences, coordinating WhatsApp outreach, and automating CRM updates.
                 </p>
@@ -1015,14 +1114,13 @@ export default async function ArticlePage({ params }: Props) {
 
               {/* Final CTA Section */}
               <div style={{ marginBottom: "40px" }}>
-                <div style={{
-                  background: "linear-gradient(135deg, var(--color-bg-card-alt) 0%, var(--color-bg-card) 100%)",
-                  border: "1px solid var(--color-border)",
-                  borderLeft: "4px solid #6DB6FF",
-                  borderRadius: "24px",
+                <div className="premium-card" style={{
+                  borderTop: "1px solid var(--color-glass-border)",
+                  borderBottom: "1px solid var(--color-glass-border)",
+                  borderRight: "1px solid var(--color-glass-border)",
+                  borderLeft: "4px solid var(--color-blue-mid)",
                   padding: "48px 32px",
-                  textAlign: "center",
-                  boxShadow: "var(--shadow-sm)"
+                  textAlign: "center"
                 }}>
                   <h3 style={{
                     fontFamily: "var(--font-inter), sans-serif",
@@ -1082,126 +1180,6 @@ export default async function ArticlePage({ params }: Props) {
                 </div>
               </div>
 
-            </div>
-
-            {/* Right Column: Sidebar (on the right) */}
-            <div className="lg:col-span-3 lg:sticky lg:top-[120px] self-start" style={{ display: "flex", flexDirection: "column" }}>
-              {/* Lotus Manor Logo */}
-              <div style={{ marginBottom: "20px" }}>
-                <div style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "#ffffff",
-                  padding: "10px 18px",
-                  borderRadius: "12px",
-                  border: "1px solid rgba(0, 0, 0, 0.08)",
-                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)"
-                }}>
-                  <img
-                    src="/brands/lotus-manor.webp"
-                    alt="Lotus Manor Logo"
-                    style={{
-                      height: "24px",
-                      width: "auto",
-                      objectFit: "contain"
-                    }}
-                    className="case-study-header-logo"
-                  />
-                </div>
-              </div>
-
-              {/* Company Title */}
-              <div style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "24px" }}>
-                Lotus Manor Real Estate
-              </div>
-
-              {/* Divider */}
-              <div style={{ height: "1px", background: "var(--color-border)", marginBottom: "24px" }} />
-
-              {/* About Section */}
-              <div style={{ marginBottom: "24px" }}>
-                <h4 style={{
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: "var(--color-text-muted)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  marginBottom: "8px"
-                }}>
-                  About
-                </h4>
-                <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0 }}>
-                  Lotus Manor Real Estate is a premium UAE-based real estate agency that simplifies the process of finding, evaluating, and securing properties across Dubai.
-                </p>
-              </div>
-
-              {/* Metadata Fields */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                    Industry
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
-                    Real Estate
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                    Company size
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
-                    2-10
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                    Headquarters
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
-                    Dubai, UAE
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                    Founded
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
-                    2024
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Features Section */}
-              <div>
-                <h4 style={{
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: "var(--color-text-muted)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  marginBottom: "12px"
-                }}>
-                  Key features
-                </h4>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                  {["Real Estate", "Sales", "Luxury homes", "Villas"].map((tag) => (
-                    <span
-                      key={tag}
-                      style={{
-                        fontSize: "12px",
-                        padding: "4px 10px",
-                        borderRadius: "6px",
-                        background: "var(--color-bg-card-alt)",
-                        border: "1px solid var(--color-border)",
-                        color: "var(--color-text-muted)"
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </>
@@ -1288,10 +1266,12 @@ export default async function ArticlePage({ params }: Props) {
         <div style={{ height: "1px", background: "var(--color-border)", marginTop: "80px", marginBottom: "40px" }} />
 
         {/* Bottom Back Button */}
-        <Link href={isLotusManorCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
-          <ArrowLeft style={{ width: "14px", height: "14px" }} />
-          {isLotusManorCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
-        </Link>
+        <div className={isLotusManorCaseStudy ? "px-6 md:px-10" : ""}>
+          <Link href={isLotusManorCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
+            <ArrowLeft style={{ width: "14px", height: "14px" }} />
+            {isLotusManorCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
+          </Link>
+        </div>
 
           </div>
         </div>

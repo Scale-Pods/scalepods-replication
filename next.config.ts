@@ -29,6 +29,16 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/blog/lotus-manor-case-study',
+        destination: '/case-study/lotus-manor-real-estate-sales-automation-dubai',
+        permanent: true,
+      },
+      {
+        source: '/blog/lotus-manor-real-estate-sales-automation-dubai',
+        destination: '/case-study/lotus-manor-real-estate-sales-automation-dubai',
+        permanent: true,
+      },
     ];
   },
 };

@@ -71,8 +71,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Map static blogs
-  const staticBlogRoutes: MetadataRoute.Sitemap = staticPosts.map((post) => {
+  // 2. Map static blogs (exclude case studies — they have their own /case-study/ route)
+  const staticBlogRoutes: MetadataRoute.Sitemap = staticPosts
+    .filter((post) => post.category !== "Case Study")
+    .map((post) => {
     // Parse the static date safely (e.g. "May 20, 2026")
     let parsedDate = new Date();
     if (post.date) {
@@ -86,6 +88,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: parsedDate,
       changeFrequency: "weekly",
       priority: 0.7,
+    };
+  });
+
+  // 2b. Case study routes under /case-study/
+  const staticCaseStudyRoutes: MetadataRoute.Sitemap = staticPosts
+    .filter((post) => post.category === "Case Study")
+    .map((post) => {
+    let parsedDate = new Date();
+    if (post.date) {
+      const d = Date.parse(post.date);
+      if (!isNaN(d)) parsedDate = new Date(d);
+    }
+    return {
+      url: `${baseUrl}/case-study/${post.slug}`,
+      lastModified: parsedDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
     };
   });
 
@@ -112,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Combine and deduplicate by URL
-  const allRoutes = [...staticRoutes, ...staticBlogRoutes, ...dynamicBlogRoutes];
+  const allRoutes = [...staticRoutes, ...staticBlogRoutes, ...staticCaseStudyRoutes, ...dynamicBlogRoutes];
   const uniqueRoutesMap = new Map<string, typeof allRoutes[0]>();
 
   for (const route of allRoutes) {

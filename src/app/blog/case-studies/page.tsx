@@ -112,7 +112,7 @@ export default function CaseStudiesPage() {
 
             <div style={{ marginTop: "12px" }}>
               <Link 
-                href="/blog/lotus-manor-case-study"
+                href="/case-study/lotus-manor-real-estate-sales-automation-dubai"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

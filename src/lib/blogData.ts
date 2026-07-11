@@ -677,7 +677,7 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
-    slug: "lotus-manor-case-study",
+    slug: "lotus-manor-real-estate-sales-automation-dubai",
     date: "July 9, 2026",
     category: "Case Study",
     title: "Lotus Manor: 21% Response Rate across 1,000+ Prospects via ScalePods Outreach",

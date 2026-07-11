@@ -143,16 +143,23 @@ const Navbar = memo(() => {
 
   const isLinkActive = useCallback((href: string) => {
     if (pathname !== "/") {
+      if (href === "/") return false; // Home only active on exact root
       if (href === "/blog") {
-        return pathname === "/blog" || (pathname?.startsWith("/blog/") && !pathname?.startsWith("/blog/case-studies") && !pathname?.includes("case-study"));
+        return pathname === "/blog" || (
+          pathname?.startsWith("/blog/") &&
+          !pathname?.startsWith("/blog/case-studies")
+        );
       }
       if (href === "/blog/case-studies") {
-        return pathname === "/blog/case-studies" || pathname?.includes("case-study");
+        return (
+          pathname === "/blog/case-studies" ||
+          pathname?.startsWith("/case-study/")
+        );
       }
-      return pathname === href || pathname?.startsWith(href);
+      return pathname === href || pathname?.startsWith(href + "/");
     }
     // On homepage, track scroll sections
-    if (href === "/") return activeSection === "hero";
+    if (href === "/") return activeSection === "hero" || activeSection === "";
     if (href === "/#services") return activeSection === "services";
     if (href === "/#process") return activeSection === "process";
     return false;

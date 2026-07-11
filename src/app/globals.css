@@ -259,6 +259,9 @@ html, body {
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -269,6 +272,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   width: 100%;
+}
+
+/* Optimize image rendering on high-DPI displays */
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Fluid design scaling for large viewports (Retina screens / desktop viewports) */
+@media (min-width: 1200px) {
+  body {
+    font-size: 16.5px;
+  }
+}
+@media (min-width: 1600px) {
+  body {
+    font-size: 17px;
+  }
 }
 
 /* ── Prevent Horizontal Overflow Globally ── */
