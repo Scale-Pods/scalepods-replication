@@ -336,6 +336,14 @@ const salespodReviews = [
     image: "/reviews/Vinay Kumar.webp"
   },
   {
+    name: "Joaquin Cornejo",
+    title: "Controller at MACRO",
+    location: "Los Angeles, USA",
+    countryCode: "us",
+    quote: "“Very fast and competent team. I got too busy with other work to be able to keep up with their pace. I will rehire them once I free up.”",
+    image: "/reviews/joaquin-cornejo-v2.webp"
+  },
+  {
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
     location: "Mumbai, India",

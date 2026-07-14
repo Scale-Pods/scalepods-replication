@@ -39,6 +39,14 @@ export const reviewsData: ReviewItem[] = [
     image: "/reviews/Vinay Kumar.webp"
   },
   {
+    name: "Joaquin Cornejo",
+    title: "Controller at MACRO",
+    location: "Los Angeles, USA",
+    countryCode: "us",
+    quote: "“Very fast and competent team. I got too busy with other work to be able to keep up with their pace. I will rehire them once I free up.”",
+    image: "/reviews/joaquin-cornejo-v2.webp"
+  },
+  {
     name: "Anuj Ruia",
     title: "Co-Founder at BECO",
     location: "Mumbai, India",
@@ -291,6 +299,10 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
     return { x, scale, opacity, zIndex, filter, pointerEvents, isCenter };
   };
 
+  const currentMobileReview = data[active];
+  const canMobileExpand = currentMobileReview ? (currentMobileReview.expanded !== false && (currentMobileReview.expanded === true || currentMobileReview.quote.length > 420)) : false;
+  const mobileCardStyles = getCardStyles(active);
+
   return (
     <div 
       ref={carouselRef} 
@@ -337,142 +349,134 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
       >
         {isMobile ? (
           <AnimatePresence initial={false} mode="wait">
-            {(() => {
-              if (data.length === 0) return null;
-              const review = data[active];
-              const { zIndex } = getCardStyles(active);
-              // Adjusted character threshold from 240 to 420 since the collapsed container now holds 2-3 extra lines
-              const canExpand = review.expanded !== false && (review.expanded === true || review.quote.length > 420);
+            {currentMobileReview && (
+              <motion.div
+                key={currentMobileReview.name}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  opacity: 1,
+                  zIndex: mobileCardStyles.zIndex,
+                  filter: "none",
+                }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{
+                  duration: 0.4,
+                  ease: [0.32, 0.72, 0, 1],
+                }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                style={{
+                  position: "relative",
+                  pointerEvents: "auto",
+                  cursor: "grab",
+                  width: "92%",
+                  maxWidth: "360px",
+                  marginInline: "auto",
+                  // Increased mobile card min-height by 60px to allow breathing room and prevent overflow
+                  minHeight: "360px",
+                  height: "auto",
+                  background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: `1px solid rgba(var(--sp-accent-rgb, 99, 165, 231), ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`,
+                  borderRadius: "28px",
+                  overflow: "hidden",
+                  // Increased mobile card padding for vertical breathing room
+                  padding: "36px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  gap: "16px",
+                  boxShadow: resolvedTheme === 'dark'
+                    ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                    : "0 25px 50px -12px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), 0 0 20px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+                }}
+                className="transform-gpu"
+              >
+                <div style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "80%",
+                  height: "40%",
+                  background: resolvedTheme === 'dark'
+                    ? "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.08) 0%, transparent 80%)"
+                    : "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.05) 0%, transparent 80%)",
+                  zIndex: -1,
+                  pointerEvents: "none"
+                }} />
 
-              return (
-                <motion.div
-                  key={review.name}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    opacity: 1,
-                    zIndex,
-                    filter: "none",
-                  }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.32, 0.72, 0, 1],
-                  }}
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.2}
-                  onDragEnd={handleDragEnd}
-                  style={{
-                    position: "relative",
-                    pointerEvents: "auto",
-                    cursor: "grab",
-                    width: "92%",
-                    maxWidth: "360px",
-                    marginInline: "auto",
-                    // Increased mobile card min-height by 60px to allow breathing room and prevent overflow
-                    minHeight: "360px",
-                    height: "auto",
-                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    border: `1px solid rgba(var(--sp-accent-rgb, 99, 165, 231), ${resolvedTheme === 'dark' ? '0.5' : '0.4'})`,
-                    borderRadius: "28px",
-                    overflow: "hidden",
-                    // Increased mobile card padding for vertical breathing room
-                    padding: "36px 24px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    gap: "16px",
-                    boxShadow: resolvedTheme === 'dark'
-                      ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
-                      : "0 25px 50px -12px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.15), 0 0 20px rgba(var(--sp-accent-rgb, 99, 165, 231), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
-                  }}
-                  className="transform-gpu"
-                >
-                  <div style={{
-                    position: "absolute",
-                    top: "0",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "80%",
-                    height: "40%",
-                    background: resolvedTheme === 'dark'
-                      ? "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.08) 0%, transparent 80%)"
-                      : "radial-gradient(circle, rgba(var(--sp-accent-rgb, 99, 165, 231), 0.05) 0%, transparent 80%)",
-                    zIndex: -1,
-                    pointerEvents: "none"
-                  }} />
-
-                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                    <div style={{ 
-                      position: "relative", 
-                      width: "44px", 
-                      height: "44px", 
-                      borderRadius: "12px", 
-                      overflow: "hidden", 
-                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
-                      flexShrink: 0 
-                    }}>
-                      <Image 
-                        src={review.image} 
-                        alt={review.name} 
-                        fill 
-                        className="object-cover" 
-                        sizes="64px"
-                        unoptimized={review.image.endsWith(".gif")}
-                      />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <span style={{ fontFamily: F.inter, fontSize: "15px", fontWeight: 700, color: C.txtBright }}>{review.name}</span>
-                      <span style={{ 
-                        fontFamily: F.inter, 
-                        fontSize: "10px", 
-                        color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb, 99, 165, 231), 0.8)" : "rgba(0, 0, 0, 0.6)", 
-                        marginTop: "1px", 
-                        fontWeight: 500,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.02em"
-                      }}>{review.title}</span>
-                      {/* Location and Flag (Mobile) */}
-                      <div style={{ 
-                        fontFamily: F.inter, 
-                        fontSize: "12px", 
-                        color: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.65)", 
-                        marginTop: "4px", 
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontWeight: 500
-                      }}>
-                        <img 
-                          src={`https://flagcdn.com/${review.countryCode}.svg`} 
-                          style={{ width: "16px", height: "12px", borderRadius: "1.5px", objectFit: "cover", display: "inline-block" }} 
-                          alt={review.location} 
-                        />
-                        <span>{review.location}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
-
-                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
-                    <TestimonialText
-                      quote={review.quote}
-                      isMobile={true}
-                      resolvedTheme={resolvedTheme || "dark"}
-                      isExpanded={isCenterExpanded}
-                      setIsExpanded={setIsCenterExpanded}
-                      canExpand={canExpand}
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  <div style={{ 
+                    position: "relative", 
+                    width: "44px", 
+                    height: "44px", 
+                    borderRadius: "12px", 
+                    overflow: "hidden", 
+                    border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                    flexShrink: 0 
+                  }}>
+                    <Image 
+                      src={currentMobileReview.image} 
+                      alt={currentMobileReview.name} 
+                      fill 
+                      className="object-cover" 
+                      sizes="64px"
+                      unoptimized={currentMobileReview.image.endsWith(".gif")}
                     />
                   </div>
-                </motion.div>
-              );
-            })()}
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span style={{ fontFamily: F.inter, fontSize: "15px", fontWeight: 700, color: C.txtBright }}>{currentMobileReview.name}</span>
+                    <span style={{ 
+                      fontFamily: F.inter, 
+                      fontSize: "10px", 
+                      color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb, 99, 165, 231), 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                      marginTop: "1px", 
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.02em"
+                    }}>{currentMobileReview.title}</span>
+                    {/* Location and Flag (Mobile) */}
+                    <div style={{ 
+                      fontFamily: F.inter, 
+                      fontSize: "12px", 
+                      color: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.65)" : "rgba(0, 0, 0, 0.65)", 
+                      marginTop: "4px", 
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontWeight: 500
+                    }}>
+                      <img 
+                        src={`https://flagcdn.com/${currentMobileReview.countryCode}.svg`} 
+                        style={{ width: "16px", height: "12px", borderRadius: "1.5px", objectFit: "cover", display: "inline-block" }} 
+                        alt={currentMobileReview.location} 
+                      />
+                      <span>{currentMobileReview.location}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
+                  <TestimonialText
+                    quote={currentMobileReview.quote}
+                    isMobile={true}
+                    resolvedTheme={resolvedTheme || "dark"}
+                    isExpanded={isCenterExpanded}
+                    setIsExpanded={setIsCenterExpanded}
+                    canExpand={canMobileExpand}
+                  />
+                </div>
+              </motion.div>
+            )}
           </AnimatePresence>
         ) : (
           <AnimatePresence initial={false}>
