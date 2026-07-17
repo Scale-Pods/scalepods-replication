@@ -32,8 +32,8 @@ const storyTabs = [
     title: "Redesigning the way businesses operate.",
     image: "/images/story/built_to_grow.webp",
     paragraphs: [
-      "As they started experimenting with AI and automation initially to solve sales challenges, they quickly realized the same inefficiencies existed across marketing, operations, hiring, customer support, and other business functions.",
-      "Around the same time, Palashy brought another important dimension to the vision. Coming from a holistic marketing background, she understood that sustainable growth isn't driven by technology alone. It comes from aligning brand, marketing, and the right customer journey into one cohesive strategy.",
+      "As they started experimenting with AI and automation initially to solve sales challenges, they quickly realized the same inefficiencies existed across marketing, operations, hiring, client support, and other business functions.",
+      "Around the same time, Palashy brought another important dimension to the vision. Coming from a holistic marketing background, she understood that sustainable growth isn't driven by technology alone. It comes from aligning brand, marketing, and the right client journey into one cohesive strategy.",
       "Her perspective helped shape ScalePods into a company that builds solutions around business problems, not just automation. The real opportunity was to redesign the way businesses operated by combining the right processes with the right and latest technology."
     ],
     ctaText: "Book an Automation Audit",
@@ -46,7 +46,7 @@ const storyTabs = [
     title: "Scaling without unnecessary complexity.",
     image: "/images/story/infinity.webp",
     paragraphs: [
-      "Together, they built ScalePods with one mission: to help businesses scale through intelligent systems that eliminate repetitive work, streamline operations, and allow teams to focus on innovation, customer relationships, and growth.",
+      "Together, they built ScalePods with one mission: to help businesses scale through intelligent systems that eliminate repetitive work, streamline operations, and allow teams to focus on innovation, client relationships, and growth.",
       "Today, ScalePods partners with ambitious businesses to build AI-powered workflows that make organisations leaner, faster, and ready to scale.",
       "What started as a conversation between friends has grown into a team united by one belief: Every business should be able to scale without unnecessary complexity."
     ],
@@ -733,7 +733,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 4: Our Customer Focus */}
+      {/* SECTION 4: Our Approaches */}
       <section 
         style={{ 
           position: "relative",
@@ -772,9 +772,9 @@ export default function AboutPage() {
                   border: "none"
                 }}
               >
-                OUR CUSTOMER FOCUS
+                OUR APPROACHES
               </motion.div>
-
+ 
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -790,10 +790,10 @@ export default function AboutPage() {
                   letterSpacing: "-0.02em"
                 }}
               >
-                Our Customer Focus
+                Our Approaches
               </motion.h2>
-
-              {/* Animated Customer Support Graphic (Placed below heading) */}
+ 
+              {/* Animated Client Support Graphic (Placed below heading) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -821,7 +821,7 @@ export default function AboutPage() {
                 }}
               >
                 <p style={{ fontWeight: 600, fontSize: "18px", color: "var(--color-text-bright)", borderLeft: "2px solid #B1D997", paddingLeft: "16px" }}>
-                  "Will this make our customer's business run better?"
+                  "Will this make our client's business run better?"
                 </p>
                 <p>
                   Everything we build starts with this single question. We spend time understanding how a business actually operates before we recommend anything.
@@ -915,7 +915,7 @@ export default function AboutPage() {
                 </p>
               </motion.div>
 
-              {/* Card 3: Better Customer Experiences */}
+              {/* Card 3: Better Client Experiences */}
               <motion.div
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -948,10 +948,10 @@ export default function AboutPage() {
                   <Sparkles size={20} color="#B1D997" />
                 </div>
                 <h3 style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "20px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "10px", lineHeight: "1.3" }}>
-                  Better Customer Experiences
+                  Better Client Experiences
                 </h3>
                 <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "14px", lineHeight: "1.6", color: "var(--color-text-body)" }}>
-                  Faster response times and fewer dropped balls, every single time. Customers feel the difference before they can even name what changed.
+                  Faster response times and fewer dropped balls, every single time. Clients feel the difference before they can even name what changed.
                 </p>
               </motion.div>
 
@@ -1781,7 +1781,7 @@ export default function AboutPage() {
                     margin: 0
                   }}
                 >
-                  Whether you are streamlining internal operations, accelerating sales, improving customer support, or building AI-powered experiences, we are committed to creating solutions that are practical, scalable, and built for long-term success.
+                  Whether you are streamlining internal operations, accelerating sales, improving client support, or building AI-powered experiences, we are committed to creating solutions that are practical, scalable, and built for long-term success.
                 </p>
 
                 {/* Highlight Slogan Box */}
