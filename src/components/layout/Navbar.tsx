@@ -95,11 +95,11 @@ const ThemeToggle = memo(() => {
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
   { label: "Solutions", dropdown: true, href: "/solution" },
   { label: "Case Studies", href: "/blog/case-studies" },
+  { label: "Blog", href: "/blog" },
   { label: "Global", href: "/global" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const solutions = [

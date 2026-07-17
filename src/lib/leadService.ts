@@ -9,7 +9,7 @@ export type WorkflowType =
   | null;
 
 export interface LeadPayload {
-  formType: "contact_sales" | "global_inquiry" | "guide_download";
+  formType: "contact_sales" | "global_inquiry" | "guide_download" | "job_application";
   workflowType?: WorkflowType;
   sourcePage: string;
   name: string;
