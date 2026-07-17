@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fold 3 — The Problem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@1,300;1,600&display=swap" rel="stylesheet"/>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #000000;
+  --white:   #F0EDE6;
+  --off:     #A8A49C;
+  --ghost:   #1E1E1E;
+  --border:  #1C1C1C;
+  --muted:   #3C3C3C;
+  --amber:   #E8A010;
+  --red:     #E82C14;
+  --n1:      #242424;
+  --n2:      #2E2C26;
+  --n3:      #3A3018;
+  --n4:      #4A2C10;
+  --n5:      #3C0C04;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── vignette edges ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 120% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.85) 100%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ═══════════════════════════════
+   STAGE
+═══════════════════════════════ */
+.stage {
+  position: relative;
+  z-index: 1;
+  width: 1280px;
+  max-width: 100vw;
+  height: 100vh;
+  padding: 52px 80px 50px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* ═══════════════════════════════
+   TOP ROW
+═══════════════════════════════ */
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  opacity: 0;
+  animation: fadeIn .5s .1s ease forwards;
+}
+
+.top-left { display: flex; flex-direction: column; gap: 10px; }
+
+.label {
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.headline {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(26px, 3.2vw, 42px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--white);
+  letter-spacing: -.02em;
+  margin-top: 14px;
+}
+.headline .accent { color: var(--red); }
+
+.top-right {
+  text-align: right;
+  padding-top: 6px;
+}
+.top-right .sub {
+  font-size: 11px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--off);
+  line-height: 1.6;
+  max-width: 260px;
+  text-align: right;
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════
+   TIMELINE ZONE
+═══════════════════════════════ */
+.timeline-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+/* ── above labels ── */
+.labels-above,
+.labels-below {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 12px;
+}
+
+.labels-above { margin-bottom: 18px; height: 72px; }
+.labels-below { margin-top: 18px;   height: 72px; align-items: flex-start; }
+
+.lbl {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.lbl.show { opacity: 1; transform: translateY(0); }
+
+/* above labels: show only odd indices (1,3,5) */
+.labels-above .lbl:nth-child(even) { visibility: hidden; }
+/* below labels: show only even indices (2,4) */
+.labels-below .lbl:nth-child(odd)  { visibility: hidden; }
+
+.lbl-day {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.lbl-event {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(9px, 1vw, 11.5px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.lbl-note {
+  font-size: 10px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--off);
+  line-height: 1.5;
+  max-width: 170px;
+}
+
+/* ── THE TRACK ── */
+.track {
+  position: relative;
+  height: 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* dashed line - drawn via JS width animation */
+.track-line {
+  position: absolute;
+  top: 0; left: 12px;
+  right: 12px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--muted) 0px,
+    var(--muted) 12px,
+    transparent 12px,
+    transparent 20px
+  );
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1s .8s cubic-bezier(.4,0,.2,1);
+}
+.track-line.draw { transform: scaleX(1); }
+
+/* progress fill — red, draws slower */
+.track-fill {
+  position: absolute;
+  top: 0; left: 12px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--muted), var(--amber) 60%, var(--red));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.4s 1s cubic-bezier(.4,0,.2,1);
+  right: 12px;
+}
+.track-fill.draw { transform: scaleX(1); }
+
+/* nodes container */
+.nodes {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  z-index: 2;
+}
+
+.node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--muted);
+  background: var(--bg);
+  cursor: default;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1), border-color .3s, background .3s;
+  position: relative;
+}
+.node.show { opacity: 1; transform: scale(1); }
+
+/* sizes per node */
+.node:nth-child(1) { width: 14px; height: 14px; }
+.node:nth-child(2) { width: 16px; height: 16px; background: var(--n2); border-color: #555; }
+.node:nth-child(3) { width: 18px; height: 18px; background: var(--n3); border-color: var(--amber); }
+.node:nth-child(4) { width: 20px; height: 20px; background: var(--n4); border-color: #C06010; }
+.node:nth-child(5) {
+  width: 48px; height: 48px;
+  background: var(--n5);
+  border: 2px solid var(--red);
+  box-shadow: 0 0 0 0 rgba(232,44,20,.4);
+  animation: none;
+}
+.node:nth-child(5).show {
+  animation: nodePulse 2s 1.5s ease-in-out infinite;
+}
+
+/* inner dot */
+.node::after {
+  content: '';
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background .3s;
+}
+.node:nth-child(3)::after { background: var(--amber); }
+.node:nth-child(4)::after { background: #C06010; }
+.node:nth-child(5)::after {
+  width: 36%;
+  height: 36%;
+  background: var(--red);
+}
+
+@keyframes nodePulse {
+  0%   { box-shadow: 0 0 0 0   rgba(232,44,20,.5); }
+  60%  { box-shadow: 0 0 0 14px rgba(232,44,20,0); }
+  100% { box-shadow: 0 0 0 0   rgba(232,44,20,0); }
+}
+
+/* ── "REPEAT" badge — this cycle repeats ── */
+.repeat-badge {
+  position: absolute;
+  right: -10px;
+  top: -32px;
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid rgba(232,44,20,.3);
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: rgba(232,44,20,.05);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .4s 2.4s ease;
+}
+.node:nth-child(5).show .repeat-badge { opacity: 1; }
+
+/* ── curved loop arrow back ── */
+.loop-arrow {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: rgba(232,44,20,.35);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 300;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .5s 2.6s ease;
+}
+.node:nth-child(5).show ~ .loop-arrow { opacity: 1; }
+
+
+/* ═══════════════════════════════
+   BOTTOM ROW
+═══════════════════════════════ */
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+  opacity: 0;
+  animation: fadeIn .6s 0s ease forwards;
+  animation-play-state: paused;
+}
+.bottom.play { animation-play-state: running; }
+
+.payoff {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(20px, 2.2vw, 28px);
+  color: var(--white);
+  line-height: 1.35;
+  max-width: 520px;
+}
+.payoff strong {
+  font-weight: 600;
+  color: var(--amber);
+  font-style: normal;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.cta-text {
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--off);
+  font-weight: 400;
+}
+.cta-text span {
+  color: var(--white);
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.cta-btn {
+  width: 42px; height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--amber);
+  font-size: 18px;
+  transition: border-color .25s, background .25s;
+  cursor: pointer;
+  animation: arrowBob 1.8s 3s ease-in-out infinite;
+}
+.cta-btn:hover { border-color: var(--amber); background: rgba(232,160,16,.06); }
+
+@keyframes arrowBob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* ── ghost large word ── */
+.ghost-word {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(160px, 18vw, 220px);
+  font-weight: 900;
+  color: rgba(255,255,255,.018);
+  letter-spacing: -.04em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+
+/* ═══════════════════════════════
+   UTILITIES
+═══════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<span class="ghost-word" aria-hidden="true">IGNORED</span>
+
+<div class="stage">
+
+  <!-- TOP -->
+  <div class="top">
+    <div class="top-left">
+      <span class="label">Fold 03 &nbsp;·&nbsp; Why It Keeps Happening</span>
+      <h2 class="headline">
+        Every lost deal<br>
+        followed the <span class="accent">same script.</span>
+      </h2>
+    </div>
+    <div class="top-right">
+      <p class="sub">
+        This isn't about bad leads or a weak product.<br>
+        Trace any lost deal back far enough —<br>
+        it always starts with the same broken moment.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- TIMELINE -->
+  <div class="timeline-zone">
+
+    <!-- LABELS ABOVE (nodes 1, 3, 5) -->
+    <div class="labels-above">
+
+      <div class="lbl" id="lbl-a1">
+        <span class="lbl-day">Day 1</span>
+        <span class="lbl-event">Lead fills your form</span>
+        <span class="lbl-note">Gets added to a list.<br>Nobody's watching it.</span>
+      </div>
+
+      <div class="lbl"></div><!-- spacer for node 2 -->
+
+      <div class="lbl" id="lbl-a3">
+        <span class="lbl-day">Day 7</span>
+        <span class="lbl-event">Checks your pricing again</span>
+        <span class="lbl-note">No alert fired.<br>You had no idea.</span>
+      </div>
+
+      <div class="lbl"></div><!-- spacer for node 4 -->
+
+      <div class="lbl" id="lbl-a5">
+        <span class="lbl-day">Day 19</span>
+        <span class="lbl-event" style="color: var(--red)">Books a demo</span>
+        <span class="lbl-note" style="color: rgba(232,44,20,.7)">Not with you.</span>
+      </div>
+
+    </div>
+
+
+    <!-- TRACK -->
+    <div class="track">
+      <div class="track-line" id="trackLine"></div>
+      <div class="track-fill" id="trackFill"></div>
+
+      <div class="nodes" id="nodes">
+        <div class="node" id="n1"></div>
+        <div class="node" id="n2"></div>
+        <div class="node" id="n3"></div>
+        <div class="node" id="n4"></div>
+        <div class="node" id="n5">
+          <span class="repeat-badge">repeats next month</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- LABELS BELOW (nodes 2, 4) -->
+    <div class="labels-below">
+
+      <div class="lbl"></div><!-- spacer for node 1 -->
+
+      <div class="lbl" id="lbl-b2">
+        <span class="lbl-day">Day 3</span>
+        <span class="lbl-event">Rep means to call</span>
+        <span class="lbl-note">Gets pulled into a meeting.<br>Tab closes. Name forgotten.</span>
+      </div>
+
+      <div class="lbl"></div><!-- spacer for node 3 -->
+
+      <div class="lbl" id="lbl-b4">
+        <span class="lbl-day">Day 12</span>
+        <span class="lbl-event">One email. No reply.</span>
+        <span class="lbl-note">Team calls it cold.<br>Removes it from pipeline.</span>
+      </div>
+
+      <div class="lbl"></div><!-- spacer for node 5 -->
+
+    </div>
+
+  </div><!-- /timeline-zone -->
+
+
+  <!-- BOTTOM -->
+  <div class="bottom" id="bottom">
+    <p class="payoff">
+      The leads weren't the problem.<br>
+      <strong>No system remembered them long enough to close.</strong>
+    </p>
+    <div class="cta">
+      <p class="cta-text"><span>SalesPod</span> &nbsp;breaks this loop</p>
+      <div class="cta-btn">↓</div>
+    </div>
+  </div>
+
+</div><!-- /stage -->
+
+
+<script>
+  // Sequence: line draws → nodes pop → labels appear → bottom fades in
+
+  const delays = {
+    n1: 900, n2: 1150, n3: 1400, n4: 1650, n5: 1900
+  };
+
+  const labelDelays = {
+    'lbl-a1': 1000, 'lbl-b2': 1250,
+    'lbl-a3': 1500, 'lbl-b4': 1750,
+    'lbl-a5': 2000
+  };
+
+  window.addEventListener('DOMContentLoaded', () => {
+
+    // Draw track lines
+    setTimeout(() => {
+      document.getElementById('trackLine').classList.add('draw');
+      document.getElementById('trackFill').classList.add('draw');
+    }, 700);
+
+    // Pop nodes
+    Object.entries(delays).forEach(([id, delay]) => {
+      setTimeout(() => document.getElementById(id).classList.add('show'), delay);
+    });
+
+    // Reveal labels
+    Object.entries(labelDelays).forEach(([id, delay]) => {
+      setTimeout(() => document.getElementById(id).classList.add('show'), delay);
+    });
+
+    // Bottom bar
+    setTimeout(() => {
+      document.getElementById('bottom').classList.add('play');
+    }, 2300);
+
+  });
+</script>
+
+</body>
+</html>

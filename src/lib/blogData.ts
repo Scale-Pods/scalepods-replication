@@ -140,7 +140,7 @@ export const blogPosts: BlogPost[] = [
     title: "Sales Workflow Automation: A Complete Guide for 2026",
     excerpt:
       "Sales reps spend only 40% of the week on real selling. Learn how modern AI-powered sales workflow automation solves the administrative burden to book more qualified meetings in 2026.",
-    image: "/images/blog/sales-workflow-1.jpg",
+    image: "/images/blog/sales-workflow-1.webp",
     sections: [
       {
         heading: "Introduction",
@@ -149,25 +149,25 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What is Sales Workflow Automation?",
         body: "Sales workflow automation means using software and AI to handle repetitive, rule-based tasks in your sales process so that humans can spend more time in driving strategic conversations. Instead of a rep updating the CRM after every call, a system can log it. Instead of a rep typing every follow-up email from scratch, a system can draft and send it according to a smart plan.\n\nModern automation has evolved to cover the entire customer journey, making processes more seamless and efficient than ever before. Instead of handling isolated tasks, today’s systems manage multiple stages in a connected, intelligent flow:\n\n• Identifying and targeting the right prospects\n• Sending personalised outreach at scale\n• Running consistent and timely follow-up sequences\n• Scoring and prioritising leads based on intent\n• Booking meetings without manual back-and-forth\n• Keeping the sales pipeline continuously updated\n\nThis marks a significant shift from how automation worked in the past. Earlier systems were limited to executing predefined, rule-based actions, which made them rigid and reactive.\n\nIn contrast, modern AI-powered systems bring a new level of intelligence by:\n\n• Learning patterns from real interactions and data\n• Adapting to changing buyer behaviour in real time\n• Making increasingly accurate recommendations over time\n\nAs a result, automation is building smarter, more responsive systems that continuously improve and drive better outcomes.",
-        image: "/images/blog/sales-workflow-1.jpg",
+        image: "/images/blog/sales-workflow-1.webp",
         imageCaption: "What is Sales Workflow Automation?"
       },
       {
         heading: "Why 2026 is a Turning Point for Sales Automation",
         body: "Gartner predicts that AI agents will outnumber human sellers by 10 to 1 by 2028. They also expect about 40% of enterprise apps to include task-specific AI agents by the end of 2026, up from less than 5% in 2025. This means sales tools are quickly being rebuilt around automation by default, not as an optional add-on.\n\n💡 Takeaway: Modern sales automation is shifting from isolated task automation into a fully-connected intelligent flow. If your sales team is not actively shifting to this model, you are competing at a structural disadvantage.\n\nUnderstanding what modern automation can do is one thing and actually implementing it effectively is another. This is where platforms like ScalePods come in. Instead of stitching together multiple tools or relying on rigid workflows, ScalePods helps businesses deploy intelligent, end-to-end automation systems that are designed to learn, adapt, and scale with real-world usage.",
-        image: "/images/blog/sales-workflow-2.jpeg",
+        image: "/images/blog/sales-workflow-2.webp",
         imageCaption: "Why 2026 is a Turning Point for Sales Automation"
       },
       {
         heading: "Modern Sales Workflow and What Automation Delivers",
         body: "Most B2B sales teams follow a similar five-stage workflow. What has changed is how these stages are executed using automation and AI. When implemented correctly, sales workflow automation improves efficiency, lead quality, and revenue predictability across the entire funnel.\n\nStage 1: Prospect Research and Lead Enrichment\nIn traditional workflows, sales reps spend 4 to 8 hours a day identifying prospects, verifying contact details, and assessing fit. This limits the time available for actual selling. With automation, AI tools match your ideal customer profile based on role, industry, company size, and tech stack with large datasets to generate verified lead lists in minutes.\n\nStage 2: Personalised Outreach at Scale\nGeneric outreach no longer drives results. Buyers expect relevant and contextual communication, but manual personalisation is difficult to scale. AI tools analyse signals such as LinkedIn activity, company updates, and job changes to generate tailored outreach messages for each prospect.\n\nStage 3: Follow-Up Automation and Lead Nurturing\nInconsistent follow-up is one of the main reasons deals are lost. B2B conversions often require multiple touchpoints across channels. Automation enables structured follow-up sequences across email, LinkedIn, and messaging platforms based on time delays or user behaviour.\n\nStage 4: AI Lead Scoring and Pipeline Prioritisation\nAs pipelines grow, it becomes difficult to prioritise the right leads. Many teams rely on intuition instead of data. AI-based lead scoring evaluates engagement signals, firmographic data, and historical performance to rank leads based on conversion probability.\n\nStage 5: Meeting Scheduling and Sales Handoff\nEven when prospects show interest, delays in scheduling can lead to drop-offs. Automated scheduling allows prospects to book meetings instantly. The system logs interactions, sends reminders, and shares context with account executives before the call.\n\nBenefits of Sales Workflow Automation:\n• Increased selling time by reducing administrative work\n• Improved lead quality and more accurate forecasting\n• Personalised communication at scale\n• Real-time visibility into pipeline performance\n• Reduced burnout and better team productivity\n\nSales workflow automation does not just optimise individual steps. It creates a structured, scalable system that improves efficiency, decision-making, and overall sales performance.",
-        image: "/images/blog/sales-workflow-3.jpeg",
+        image: "/images/blog/sales-workflow-3.webp",
         imageCaption: "Modern Sales Workflow and What Automation Delivers"
       },
       {
         heading: "A Simple Framework to Implement Automation in 2026",
         body: "The biggest mistake teams make is trying to automate everything at once or layering AI on top of a broken process. Companies must first redesign their workflows, and then apply AI, to see growth. A simpler, phased approach works best. To implement AI effectively in your business, you must:\n\nStep 1: Audit Your Current Workflow\nMap your existing sales process end to end. Identify lead sources, routing, drop-off points, and time spent on tasks like research, follow-ups, note-taking, and scheduling.\n✅ Result: Clear visibility into bottlenecks and high-friction manual tasks.\n\nStep 2: Automate One High-Impact Workflow\nStart with a single, high-leverage use case. Common starting points include meeting scheduling, follow-up sequences, or lead scoring.\n✅ Result: Quick wins that build internal confidence and momentum.\n\nStep 3: Layer the Automation Stack\nGradually introduce additional automation layers. Add AI prospecting, CRM integration, personalised outreach, behaviour-based nurturing, and reporting dashboards over 60 to 90 days.\n✅ Result: Transition from isolated automation to a fully connected sales system.\n\nStep 4: Define Human vs AI Roles\nClearly separate responsibilities between automation and reps. AI handles research, data entry, outreach drafts, follow-ups, scoring, and scheduling. Humans focus on conversations, discovery, objections, and closing.\n✅ Result: Higher productivity, better performance, and a scalable Human + AI sales model.",
-        image: "/images/blog/sales-workflow-4.jpeg",
+        image: "/images/blog/sales-workflow-4.webp",
         imageCaption: "A Simple Framework to Implement Automation in 2026"
       },
       {
@@ -345,7 +345,7 @@ export const blogPosts: BlogPost[] = [
     title: "HR Automation: The Complete Guide for 2026",
     excerpt:
       "HR teams in 2026 face unprecedented hiring pressures, compliance complexity, and employee expectations. Learn how advanced workflow automation and AI scale recruitment, simplify onboarding, and cut administrative burden by 80%.",
-    image: "/images/blog/hr_automation_hero_new.jpg",
+    image: "/images/blog/hr_automation_hero_new.webp",
     sections: [
       {
         heading: "Introduction",
@@ -510,7 +510,7 @@ export const blogPosts: BlogPost[] = [
     title: "Marketing Automation: The Complete Guide for 2026",
     excerpt:
       "Marketing teams in 2026 manage more channels, higher acquisition costs, and more content demands than ever — with the same headcount. Learn how AI-powered automation helps you launch campaigns faster, cut wasted spend, and scale results without scaling headcount.",
-    image: "/images/blog/marketing_intro_new.png",
+    image: "/images/blog/marketing_intro_new.webp",
     sections: [
       {
         heading: "Introduction",

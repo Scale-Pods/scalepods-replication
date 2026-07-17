@@ -390,7 +390,7 @@ const salespodReviews = [
     location: "UAE",
     countryCode: "ae",
     quote: "“I have been trying to find a solution to create a Procurement Website as per my vision and requirement which is a step up to E-Learning and with current AI automation.\n\nScalepods has fulfilled all the requirements...It was great experience to work with everyone related to Scalepods.\n\nWould like to especially thank Mr. Adnan Shaikh, Mr. Raunak Kumar for listening to all my requirements and assuring to fulfill it and Mr. Viraj Goswami and Mr. Mithul are the brains behind creating a fantastic website which not just fulfills the procurement need, dashboard, comparison of price with new and previous data also provides whatsapp as well as email connectivity to get new quotations.\nThank you so much everyone at Scalepods.”",
-    image: "/reviews/TASLIM.png",
+    image: "/reviews/TASLIM.webp",
     expanded: true
   }
 ];

@@ -181,19 +181,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* Meta Pixel is now managed in Google Tag Manager (GTM-5FFD5XBQ) —
             do NOT re-add it here or it will double-fire (duplicate Pixel ID). */}
 
-        {/* Google Analytics 4 */}
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-MKXW098PHJ"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-MKXW098PHJ');
-          `}
-        </Script>
+        {/* Google Analytics 4 is managed through GTM (GTM-5FFD5XBQ) —
+            do NOT add a standalone gtag.js here or it will double-fire. */}
 
         <ThemeProvider>
           <ClarityProvider />

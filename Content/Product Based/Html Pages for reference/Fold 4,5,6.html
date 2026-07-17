@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalesPod — ScalePods</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #050505;
+    --off-black: #0c0c0c;
+    --card-bg: #111111;
+    --card-border: rgba(255,255,255,0.07);
+    --accent: #C8FF00;
+    --accent-dim: rgba(200,255,0,0.12);
+    --accent-glow: rgba(200,255,0,0.06);
+    --white: #ffffff;
+    --muted: rgba(255,255,255,0.38);
+    --muted2: rgba(255,255,255,0.60);
+    --line: rgba(255,255,255,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── SHARED ─── */
+  .fold {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* ─── FOLD A: THE SOLUTION ─── */
+  #fold-a {
+    background: var(--black);
+    padding: 120px 0;
+    min-height: 100vh;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #fold-a .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .fa-left {}
+
+  .fa-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 5.5vw, 76px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    color: var(--white);
+  }
+
+  .fa-headline em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .fa-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted2);
+    max-width: 400px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .fa-stat-row {
+    display: flex;
+    gap: 40px;
+  }
+
+  .fa-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .fa-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .fa-stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .fa-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .channel-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    transition: border-color 0.25s, background 0.25s;
+    cursor: default;
+    margin-bottom: 10px;
+  }
+
+  .channel-card:hover {
+    border-color: rgba(200,255,0,0.25);
+    background: #141414;
+  }
+
+  .channel-card:hover .ch-icon { background: var(--accent-dim); }
+
+  .ch-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: background 0.25s;
+    flex-shrink: 0;
+  }
+
+  .ch-body { display: flex; flex-direction: column; gap: 4px; }
+
+  .ch-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .ch-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .ch-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .fa-footer-line {
+    margin-top: 8px;
+    padding: 20px 32px;
+    background: rgba(200,255,0,0.05);
+    border: 1px solid rgba(200,255,0,0.12);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--muted2);
+    font-weight: 300;
+  }
+
+  .fa-footer-line strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ─── FOLD B: HOW IT WORKS ─── */
+  #fold-b {
+    background: var(--off-black);
+    padding: 120px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 72px;
+  }
+
+  .fb-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 480px;
+  }
+
+  .fb-headline em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .fb-header-note {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 240px;
+    text-align: right;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Horizontal timeline */
+  .timeline-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,255,0,0.3) 20%, rgba(200,255,0,0.3) 80%, transparent);
+    z-index: 0;
+  }
+
+  .tstep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tstep-dot-wrap {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    margin-bottom: 28px;
+    flex-shrink: 0;
+  }
+
+  .tstep-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    position: relative;
+    z-index: 2;
+    transition: border-color 0.25s, background 0.25s;
+  }
+
+  .tstep:hover .tstep-dot {
+    border-color: rgba(200,255,0,0.4);
+    background: rgba(200,255,0,0.06);
+  }
+
+  .tstep-num {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+
+  .tstep-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .tstep-body {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 160px;
+  }
+
+  /* Smart stop callout */
+  .smart-stop {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    border: 1px solid rgba(200,255,0,0.15);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .ss-left {
+    background: rgba(200,255,0,0.06);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid rgba(200,255,0,0.1);
+  }
+
+  .ss-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .ss-sublabel {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .ss-right {
+    padding: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ss-text {
+    font-size: 16px;
+    color: var(--muted2);
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  .ss-text strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ─── FOLD C: BOTTOM CTA ─── */
+  #fold-c {
+    background: var(--black);
+    padding: 140px 0;
+    min-height: auto;
+  }
+
+  .fc-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fc-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(44px, 5vw, 80px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+
+  .fc-headline em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .fc-sub {
+    font-size: 17px;
+    color: var(--muted2);
+    max-width: 480px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 56px;
+  }
+
+  .fc-cta-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 16px 36px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--muted2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 16px 24px;
+    border-radius: 100px;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
+
+  .fc-fine {
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── NOISE / TEXTURE OVERLAY ─── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.018;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ani { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .ani-1 { animation-delay: 0.1s; }
+  .ani-2 { animation-delay: 0.22s; }
+  .ani-3 { animation-delay: 0.34s; }
+  .ani-4 { animation-delay: 0.46s; }
+  .ani-5 { animation-delay: 0.58s; }
+  .ani-6 { animation-delay: 0.70s; }
+
+  /* ─── DECORATIVE ELEMENTS ─── */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(80px);
+  }
+
+  .orb-1 {
+    width: 500px;
+    height: 500px;
+    background: rgba(200,255,0,0.035);
+    top: -120px;
+    right: -100px;
+  }
+
+  .orb-2 {
+    width: 360px;
+    height: 360px;
+    background: rgba(200,255,0,0.025);
+    bottom: -80px;
+    left: -60px;
+  }
+
+  .fold-label {
+    position: absolute;
+    top: 36px;
+    right: 60px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.12);
+  }
+
+  .divider-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--muted), transparent);
+    margin: 0 auto 16px;
+  }
+
+  /* horizontal rule between folds */
+  .fold-rule {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ─── SCALEPODS HEADER ─── */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 22px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(5,5,5,0.85);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .header-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #000;
+    background: var(--accent);
+    padding: 10px 22px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .header-cta:hover { opacity: 0.85; }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">Scale<span>Pods</span></div>
+  <a href="#fold-c" class="header-cta">Get Started</a>
+</header>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOLD A — THE SOLUTION
+═══════════════════════════════════════════════ -->
+<section id="fold-a" class="fold" style="padding-top:160px; padding-bottom:120px; min-height:100vh; display:flex; align-items:center;">
+  <div class="glow-orb orb-1"></div>
+  <span class="fold-label">01 / Product</span>
+
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+
+      <!-- LEFT -->
+      <div>
+        <p class="eyebrow ani ani-1">Introducing SalesPod</p>
+        <h2 class="fa-headline ani ani-2">
+          One lead.<br>
+          <em>Three channels.</em><br>
+          No effort.
+        </h2>
+        <p class="fa-sub ani ani-3">
+          SalesPod runs your entire outreach operation — across WhatsApp, email, and AI voice — the moment a lead walks in. Your team only talks to leads who are ready.
+        </p>
+
+        <div class="fa-stat-row ani ani-4">
+          <div class="fa-stat">
+            <span class="fa-stat-num">3×</span>
+            <span class="fa-stat-label">More touchpoints</span>
+          </div>
+          <div class="fa-stat" style="border-left:1px solid rgba(255,255,255,0.08); padding-left:40px;">
+            <span class="fa-stat-num">0</span>
+            <span class="fa-stat-label">Manual follow-ups</span>
+          </div>
+          <div class="fa-stat" style="border-left:1px solid rgba(255,255,255,0.08); padding-left:40px;">
+            <span class="fa-stat-num">&lt;2m</span>
+            <span class="fa-stat-label">First response time</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT — CHANNEL CARDS -->
+      <div class="ani ani-3" style="display:flex; flex-direction:column; gap:0;">
+
+        <div class="channel-card">
+          <div class="ch-icon">💬</div>
+          <div class="ch-body">
+            <div class="ch-title">WhatsApp</div>
+            <div class="ch-desc">Personalized message hits every lead within minutes of entry. Feels human. Scales infinitely.</div>
+          </div>
+          <div class="ch-tag">Instant</div>
+        </div>
+
+        <div class="channel-card">
+          <div class="ch-icon">📧</div>
+          <div class="ch-body">
+            <div class="ch-title">Email Sequences</div>
+            <div class="ch-desc">Multi-step follow-ups, timed to cadence, personalized to context — tracked end to end.</div>
+          </div>
+          <div class="ch-tag">Automated</div>
+        </div>
+
+        <div class="channel-card">
+          <div class="ch-icon">📞</div>
+          <div class="ch-body">
+            <div class="ch-title">AI Voice</div>
+            <div class="ch-desc">Calls that engage, leave voicemails, and log outcomes — no human on the line required.</div>
+          </div>
+          <div class="ch-tag">AI-Powered</div>
+        </div>
+
+        <div class="fa-footer-line ani ani-5">
+          <strong>Smart Stop</strong> — the moment any channel gets a reply, all outreach halts. Your rep picks up with full context.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOLD B — HOW IT WORKS
+═══════════════════════════════════════════════ -->
+<section id="fold-b" class="fold" style="padding:120px 0; min-height:auto;">
+  <div class="glow-orb orb-2" style="opacity:0.6;"></div>
+  <span class="fold-label">02 / Workflow</span>
+
+  <div class="container">
+
+    <div class="fb-header">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="fb-headline">
+          Lead in.<br>Meeting booked.<br><em>Automatically.</em>
+        </h2>
+      </div>
+      <p class="fb-header-note">
+        A five-step sequence that runs itself — from first contact to qualified conversation.
+      </p>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline-track">
+
+      <div class="tstep">
+        <div class="tstep-dot-wrap">
+          <div class="tstep-dot">⚡</div>
+          <div class="tstep-num">01</div>
+        </div>
+        <div class="tstep-title">Lead Enters</div>
+        <div class="tstep-body">CRM, form, or import — SalesPod activates the sequence in real time.</div>
+      </div>
+
+      <div class="tstep">
+        <div class="tstep-dot-wrap">
+          <div class="tstep-dot">💬</div>
+          <div class="tstep-num">02</div>
+        </div>
+        <div class="tstep-title">WhatsApp First</div>
+        <div class="tstep-body">A personalized message lands on their phone within minutes of entry.</div>
+      </div>
+
+      <div class="tstep">
+        <div class="tstep-dot-wrap">
+          <div class="tstep-dot">📧</div>
+          <div class="tstep-num">03</div>
+        </div>
+        <div class="tstep-title">Email Follow-Up</div>
+        <div class="tstep-body">No reply in 24–48 hrs? A tailored email thread begins in their inbox.</div>
+      </div>
+
+      <div class="tstep">
+        <div class="tstep-dot-wrap">
+          <div class="tstep-dot">📞</div>
+          <div class="tstep-num">04</div>
+        </div>
+        <div class="tstep-title">AI Voice Call</div>
+        <div class="tstep-body">Still no response? An AI call goes out. Voicemail left if unanswered.</div>
+      </div>
+
+      <div class="tstep">
+        <div class="tstep-dot-wrap">
+          <div class="tstep-dot" style="border-color:rgba(200,255,0,0.35); background:rgba(200,255,0,0.06);">🤝</div>
+          <div class="tstep-num">05</div>
+        </div>
+        <div class="tstep-title">Rep Takes Over</div>
+        <div class="tstep-body">Lead replies anywhere — automation stops. Rep gets full thread instantly.</div>
+      </div>
+
+    </div>
+
+    <!-- SMART STOP CALLOUT -->
+    <div class="smart-stop">
+      <div class="ss-left">
+        <div class="ss-label">Smart<br>Stop™</div>
+        <div class="ss-sublabel">Intelligent handover</div>
+      </div>
+      <div class="ss-right">
+        <p class="ss-text">
+          The instant a lead replies — on any channel — <strong>every automated message stops.</strong> No overlapping outreach. No awkward double-messages. Your rep receives a single thread with the complete conversation history, so the handover is seamless and every conversation feels personal.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOLD C — CTA
+═══════════════════════════════════════════════ -->
+<section id="fold-c" style="background:var(--black); padding:140px 0; position:relative; overflow:hidden;">
+
+  <div class="glow-orb" style="width:600px; height:600px; background:rgba(200,255,0,0.03); top:50%; left:50%; transform:translate(-50%,-50%); filter:blur(100px);"></div>
+  <span class="fold-label" style="right:60px; top:40px;">03 / Start</span>
+
+  <div class="container">
+    <div style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+
+      <p class="eyebrow">ScalePods · SalesPod</p>
+
+      <h2 class="fc-headline">
+        Your leads deserve<br>
+        <em>a faster response.</em>
+      </h2>
+
+      <p class="fc-sub">
+        SalesPod builds and runs the full outreach system for you — so your team wakes up to conversations, not cold queues.
+      </p>
+
+      <div class="fc-cta-row">
+        <a href="#" class="btn-primary">Book a Demo</a>
+        <a href="#fold-a" class="btn-ghost">See how it works ↑</a>
+      </div>
+
+      <p class="fc-fine">No setup fee · Fully managed · Live in 48 hours</p>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1440"/>
+<title>SalesPod — Demo Video Fold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300;1,600&display=swap" rel="stylesheet"/>
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #000000;
+  --white:  #F0EDE6;
+  --off:    #9A9690;
+  --border: #1C1C1C;
+  --muted:  #2E2E2E;
+  --amber:  #E8A010;
+  --dim:    #4A4A4A;
+}
+
+html, body {
+  width: 1440px;
+  height: 1024px;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Mono', monospace;
+}
+
+/* ═══════════════════════════════
+   FOLD SHELL — 1440 × 1024
+═══════════════════════════════ */
+.fold {
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 110px 1fr 80px;
+  padding: 0 80px;
+  background: var(--bg);
+}
+
+/* scan-line texture */
+.fold::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 3px,
+    rgba(255,255,255,.006) 3px,
+    rgba(255,255,255,.006) 4px
+  );
+  pointer-events: none; z-index: 0;
+}
+
+/* corner marks */
+.corner {
+  position: absolute;
+  width: 18px; height: 18px;
+  border-color: var(--muted);
+  border-style: solid;
+  pointer-events: none; z-index: 10;
+}
+.corner.tl { top: 24px; left: 36px; border-width: 1px 0 0 1px; }
+.corner.tr { top: 24px; right: 36px; border-width: 1px 1px 0 0; }
+.corner.bl { bottom: 24px; left: 36px; border-width: 0 0 1px 1px; }
+.corner.br { bottom: 24px; right: 36px; border-width: 0 1px 1px 0; }
+
+/* ghost word */
+.ghost {
+  position: absolute;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  color: rgba(255,255,255,.013);
+  pointer-events: none;
+  user-select: none;
+  font-size: 340px;
+  letter-spacing: -.06em;
+  bottom: -60px; right: -60px;
+  z-index: 0;
+  line-height: 1;
+}
+
+/* ── animations ── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes ringPulse {
+  0%   { transform: scale(.82); opacity: .55; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+
+/* ═══════════════════════════════
+   TOP BAR
+═══════════════════════════════ */
+.top {
+  position: relative; z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  animation: rise .5s .08s ease forwards;
+}
+
+.fold-label {
+  font-size: 9px; font-weight: 400;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--dim);
+  display: flex; align-items: center; gap: 10px;
+}
+.fold-label span { display: block; width: 20px; height: 1px; background: var(--muted); }
+
+/* centre headline */
+.top-headline {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 26px; font-weight: 900;
+  letter-spacing: -.03em; line-height: 1.1;
+  color: var(--white);
+  text-align: center;
+  position: absolute; left: 50%; transform: translateX(-50%);
+  white-space: nowrap;
+}
+.top-headline em { font-style: normal; color: var(--amber); }
+
+.top-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px; font-weight: 300;
+  color: var(--off); line-height: 1.6;
+  text-align: right;
+}
+
+/* ═══════════════════════════════
+   VIDEO ZONE — fills centre row
+═══════════════════════════════ */
+.video-zone {
+  position: relative; z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0 20px;
+}
+
+/* video frame takes up full width */
+.video-frame {
+  width: 100%;
+  position: relative;
+  opacity: 0;
+  animation: rise .7s .22s ease forwards;
+}
+
+/* amber gradient border */
+.video-frame::before {
+  content: '';
+  position: absolute; inset: -1px;
+  background: linear-gradient(
+    130deg,
+    rgba(232,160,16,.8) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(232,160,16,.35) 100%
+  );
+  border-radius: 4px; z-index: 0; opacity: .75;
+}
+
+/* window chrome shell */
+.video-chrome {
+  position: relative; z-index: 1;
+  background: #0D0D0D;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* browser bar */
+.chrome-bar {
+  height: 34px;
+  background: #111111;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 16px; gap: 8px;
+  flex-shrink: 0;
+}
+.chrome-dot { width: 9px; height: 9px; border-radius: 50%; }
+.chrome-dot:nth-child(1) { background: #FF5F57; }
+.chrome-dot:nth-child(2) { background: #FFBD2E; }
+.chrome-dot:nth-child(3) { background: #28C840; }
+
+.chrome-url {
+  margin-left: 10px; flex: 1;
+  height: 20px; background: #1A1A1A; border-radius: 3px;
+  display: flex; align-items: center; padding: 0 12px; gap: 7px;
+}
+.chrome-url-text {
+  font-size: 10px; color: var(--muted);
+  letter-spacing: .04em; font-family: 'DM Mono', monospace;
+}
+.chrome-url-lock { font-size: 9px; color: #4CAF50; }
+
+/* 16:9 video container */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #070707;
+  overflow: hidden;
+}
+
+video {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* ── play overlay ── */
+.play-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.4);
+  cursor: pointer;
+  transition: background .3s;
+  z-index: 3;
+}
+.play-overlay:hover { background: rgba(0,0,0,.25); }
+.play-overlay.hidden { opacity: 0; pointer-events: none; transition: opacity .4s; }
+
+.play-btn {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232,160,16,.65);
+  background: rgba(0,0,0,.55);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: transform .25s, border-color .25s, background .25s;
+  position: relative;
+}
+.play-overlay:hover .play-btn {
+  transform: scale(1.07);
+  border-color: var(--amber);
+  background: rgba(232,160,16,.1);
+}
+
+/* pulse rings */
+.play-btn::before,
+.play-btn::after {
+  content: ''; position: absolute; border-radius: 50%;
+  border: 1px solid rgba(232,160,16,.18);
+  animation: ringPulse 2.6s ease-out infinite;
+}
+.play-btn::before { width: 112px; height: 112px; animation-delay: 0s; }
+.play-btn::after  { width: 144px; height: 144px; animation-delay: .9s; }
+
+.play-icon {
+  width: 0; height: 0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 21px solid var(--amber);
+  margin-left: 5px;
+}
+
+/* ── live badge ── */
+.time-badge {
+  position: absolute; bottom: 16px; right: 16px;
+  background: rgba(0,0,0,.72);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  font-size: 10px; letter-spacing: .12em; color: var(--off);
+  z-index: 2;
+  display: flex; align-items: center; gap: 8px;
+}
+.time-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--amber); animation: blink 1.8s infinite;
+}
+
+/* ── progress bar ── */
+.progress-bar {
+  height: 3px; background: #0d0d0d;
+  position: relative; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(to right, rgba(232,160,16,.4), var(--amber));
+  transition: width .5s linear;
+}
+
+/* ── 3 caption pills below video ── */
+.caption-strip {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px 0 0;
+  opacity: 0;
+  animation: rise .6s .5s ease forwards;
+}
+.cap-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  font-size: 9.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--dim);
+  transition: border-color .25s, color .25s;
+}
+.cap-pill:hover { border-color: rgba(232,160,16,.4); color: var(--amber); }
+.cap-pill .dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--amber); opacity: .5;
+}
+
+/* ═══════════════════════════════
+   BOTTOM BAR
+═══════════════════════════════ */
+.bottom {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  animation: rise .55s .55s ease forwards;
+}
+
+.bottom-note {
+  font-size: 11px; font-weight: 300;
+  color: var(--dim); letter-spacing: .05em;
+}
+.bottom-note strong { color: var(--off); font-weight: 400; }
+
+.bottom-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 11px 28px;
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .25s, color .25s;
+  text-decoration: none;
+}
+.bottom-cta:hover { background: var(--amber); color: var(--bg); }
+
+</style>
+</head>
+<body>
+
+<section class="fold">
+
+  <span class="ghost" aria-hidden="true">DEMO</span>
+
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- TOP BAR -->
+  <div class="top">
+    <div class="fold-label"><span></span>Product Demo</div>
+
+    <h2 class="top-headline">
+      See it work. Then decide <em>for yourself.</em>
+    </h2>
+
+    <p class="top-sub">
+      Real dashboard. Real client data.<br>
+      WhatsApp · Email · AI Voice.
+    </p>
+  </div>
+
+  <!-- VIDEO ZONE -->
+  <div class="video-zone">
+    <div class="video-frame">
+
+      <div class="video-chrome">
+
+        <!-- browser chrome -->
+        <div class="chrome-bar">
+          <div class="chrome-dot"></div>
+          <div class="chrome-dot"></div>
+          <div class="chrome-dot"></div>
+          <div class="chrome-url">
+            <span class="chrome-url-lock">🔒</span>
+            <span class="chrome-url-text">app.salespod.io / dashboard</span>
+          </div>
+        </div>
+
+        <!-- video -->
+        <div class="video-wrapper">
+          <video id="demoVideo" preload="metadata" playsinline>
+            <source src="salespod_demo.mp4" type="video/mp4"/>
+          </video>
+
+          <div class="play-overlay" id="playOverlay">
+            <div class="play-btn">
+              <div class="play-icon"></div>
+            </div>
+          </div>
+
+          <div class="time-badge">
+            <span class="time-dot"></span>
+            <span id="timeBadge">1:20 min</span>
+          </div>
+        </div>
+
+        <!-- progress bar -->
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+      </div>
+
+      <!-- 3 caption pills -->
+      <div class="caption-strip">
+        <div class="cap-pill"><div class="dot"></div>WhatsApp CRM</div>
+        <div class="cap-pill"><div class="dot"></div>AI Voice Dashboard</div>
+        <div class="cap-pill"><div class="dot"></div>Live Analytics</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom">
+    <p class="bottom-note">
+      Recorded live from a client account &nbsp;·&nbsp;
+      <strong>No staging. No mock data.</strong>
+    </p>
+    <a class="bottom-cta" href="#">Book a live walkthrough &nbsp;→</a>
+  </div>
+
+</section>
+
+<script>
+  const video    = document.getElementById('demoVideo');
+  const overlay  = document.getElementById('playOverlay');
+  const badge    = document.getElementById('timeBadge');
+  const progress = document.getElementById('progressFill');
+
+  overlay.addEventListener('click', () => {
+    video.play();
+    overlay.classList.add('hidden');
+  });
+
+  video.addEventListener('click', () => {
+    if (video.paused) { video.play(); overlay.classList.add('hidden'); }
+    else              { video.pause(); overlay.classList.remove('hidden'); }
+  });
+
+  video.addEventListener('timeupdate', () => {
+    const t = video.currentTime;
+    const d = video.duration || 80;
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60).toString().padStart(2,'0');
+    badge.textContent = `${m}:${s}`;
+    progress.style.width = `${(t / d) * 100}%`;
+  });
+
+  video.addEventListener('ended', () => overlay.classList.remove('hidden'));
+</script>
+
+</body>
+</html>

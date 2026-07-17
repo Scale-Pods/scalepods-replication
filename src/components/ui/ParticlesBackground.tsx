@@ -6,6 +6,7 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 // Pure canvas-based particle system — no external library dependency
 // Matches scalepods.co: faint white dots drifting slowly upward
 // Runs entirely in a <canvas> element, rendered via requestAnimationFrame
+// Automatically pauses when scrolled off-screen to save CPU/GPU.
 
 interface Particle {
   x: number;
@@ -33,6 +34,7 @@ export default function ParticlesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
   const particlesRef = useRef<Particle[]>([]);
+  const isVisibleRef = useRef<boolean>(true);
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
@@ -58,8 +60,26 @@ export default function ParticlesBackground() {
     resize();
     window.addEventListener("resize", resize);
 
+    // Pause animation when canvas is off-screen — saves CPU/GPU
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && rafRef.current === 0) {
+          rafRef.current = requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
+
     const animate = () => {
       if (!canvas || !ctx) return;
+      // If off-screen, cancel and wait for IntersectionObserver to resume
+      if (!isVisibleRef.current) {
+        rafRef.current = 0;
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const color = resolvedTheme === "dark" ? "255, 255, 255" : "0, 128, 255";
@@ -95,7 +115,9 @@ export default function ParticlesBackground() {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
+      rafRef.current = 0;
       window.removeEventListener("resize", resize);
+      visibilityObserver.disconnect();
     };
   }, [resolvedTheme]);
 

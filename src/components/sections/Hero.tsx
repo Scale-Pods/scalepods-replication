@@ -41,43 +41,43 @@ export default function Hero() {
       className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "var(--color-bg-page)" }}
     >
-      {/* ── VIDEO BACKGROUND ── */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        className={isMobile ? "mobile-video-bg" : "absolute inset-0 w-full h-full object-cover z-0 hero-video"}
-        style={isMobile ? {
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          transform: "translate(-50%, -50%)",
-          filter: resolvedTheme === 'dark'
-            ? "saturate(0.8) brightness(0.55) contrast(1.05) hue-rotate(-8deg)"
-            : "saturate(0.35) brightness(1.08) contrast(0.88) hue-rotate(-12deg)",
-          opacity: 1,
-          willChange: "transform",
-          backfaceVisibility: "hidden",
-          pointerEvents: "none"
-        } : {
-          objectPosition: "center",
-          filter: resolvedTheme === 'dark' 
-            ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)" 
-            : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)",
-          opacity: resolvedTheme === 'dark' ? 0.35 : 0.22,
-          transition: "filter 0.5s ease, opacity 0.5s ease",
-          willChange: "filter, opacity",
-          pointerEvents: "none",
-          backfaceVisibility: "hidden"
-        }}
-      >
-        <source src="/background.mp4" type="video/mp4" />
-      </video>
+      {/* ── VIDEO BACKGROUND — desktop only; mobile gets a static poster ── */}
+      {isMobile ? (
+        <div
+          className="absolute inset-0 w-full h-full z-0"
+          style={{
+            backgroundImage: "url('/background-poster.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: resolvedTheme === 'dark'
+              ? "saturate(0.8) brightness(0.55) contrast(1.05) hue-rotate(-8deg)"
+              : "saturate(0.35) brightness(1.08) contrast(0.88) hue-rotate(-12deg)",
+          }}
+        />
+      ) : (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster="/background-poster.webp"
+          className="absolute inset-0 w-full h-full object-cover z-0 hero-video"
+          style={{
+            objectPosition: "center",
+            filter: resolvedTheme === 'dark'
+              ? "hue-rotate(200deg) saturate(0.25) brightness(0.35)"
+              : "grayscale(1) contrast(1.1) brightness(1.2) opacity(0.6)",
+            opacity: resolvedTheme === 'dark' ? 0.35 : 0.22,
+            transition: "filter 0.5s ease, opacity 0.5s ease",
+            willChange: "filter, opacity",
+            pointerEvents: "none",
+            backfaceVisibility: "hidden",
+          }}
+        >
+          <source src="/background.mp4" type="video/mp4" />
+        </video>
+      )}
 
       {/* ── MOBILE VIDEO OVERLAY ── */}
       {isMobile && (

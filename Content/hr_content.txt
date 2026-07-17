@@ -1,0 +1,141 @@
+HR Pod Landing Page
+FOLD 1  │  HERO + LEAD GENERATION FORM
+Heading:
+Automate Your Hiring Process & Build Your Dream Team Faster
+Deploy autonomous HR Pod that configure, screen, evaluate, and schedule candidates automatically. Scale your hiring output without scaling your headcount.
+FOLD 2  
+The ultimate hiring engine for modern HR teams.
+Turn your HR department into a predictable talent acquisition and workforce planning engine. Automate everything from candidate sourcing and screening to onboarding and hiring analytics while building high-performing teams at scale.
+10×  
+Faster Candidate Screening 
+80%  
+Less Manual Coordination 
+5 hrs  
+Saved Per Recruiter / Week  
+FOLD 3  │  Demo Video
+Fold Label:  See the HR Pod in Action
+Main Headline:  Explore the Product
+FOLD 4, 5 and 6  │  
+Your AI-Powered Hiring System
+HRPod automates the entire hiring lifecycle from campaign creation and job descriptions to candidate screening and interview scheduling across every role, every time
+Talent Acquisition & Candidate Intake 
+Capture and consolidate candidates from every channel into one centralized, clean pipeline before screening begins.
+Configure Hiring Campaigns
+Launch campaigns instantly with automated timelines, stages, and recruiter assignments.
+Consolidate Candidate Intake
+Capture applicants from job boards, referrals, and agencies into a single unified pipeline.
+Centralize Applicant Data
+Organize profiles, resumes, and source data automatically without manual entry.
+Eliminate Duplicate Profiles
+Automatically merge duplicate entries to maintain a clean, actionable database.
+AI Resume Screening & Candidate Intelligence
+Transform manual resume reviews into intelligent shortlisting with automated analysis, scoring, and role-fit recommendations. 
+Analyze Resumes Automatically
+Evaluate skills, experience, and role fit instantly using AI.
+Score & Rank Candidates
+Rank applicants automatically based on your predefined hiring criteria.
+Generate Intelligence Summaries
+Build candidate profiles highlighting core strengths and risk factors before the first call.
+Prepare Interview Frameworks
+ Auto-generate role-specific interview questions for every evaluation stage.
+Interview Management & Scheduling
+Remove the back-and-forth from scheduling entirely with automated coordination and seamless calendar synchronization.
+Manage Recruitment Pipelines
+Track candidates across customizable stages without manual spreadsheets.
+Automate Interview Scheduling
+Dispatch self-booking links based on real-time interviewer availability.
+Coordinate Stakeholders Automatically
+Trigger calendar invites, reminders, and rescheduling automatically.
+Reduce Candidate No-Shows
+Deploy automated follow-up sequences to maximize interview attendance.
+Evaluation & Hiring Workflow
+Drive objective, fully documented hiring decisions based on unified evaluation criteria.
+Streamline Multi-Round Interviews
+Manage complex stages with standardized criteria and approval workflows.
+Collect Digital Feedback
+Capture scorecards and recommendations through structured digital forms.
+Route Approvals Seamlessly
+Route approvals through custom hierarchies for complete accountability.
+Automate Hiring Decisions
+Advance or reject candidates automatically based on aggregated feedback and scores.
+Offer Management & Onboarding
+Secure top talent faster by automating offer creation, digital acceptances, and end-to-end onboarding compliance. 
+Generate Personalized Offers
+Auto-draft customized offer letters based on approved compensation.
+Track Digital Acceptances
+ Dispatch offers electronically and track digital signatures in real time.
+Automate Follow-Up Sequences
+Trigger intelligent reminders for pending signatures to prevent candidate drop-off.
+Initiate Seamless Onboarding
+Launch document collection and compliance workflows the moment an offer is signed.
+HR Operations Dashboard & Analytics
+Monitor recruitment performance, pipeline bottlenecks, and hiring velocity through a centralized dashboard. 
+Track Pipeline Visibility
+ Monitor candidate volumes, open roles, and recruiter workloads instantly.
+Analyze Hiring Performance
+Measure time-to-hire, source effectiveness, and conversion rates automatically.
+Generate Executive Reports
+Extract actionable trend analyses to keep leadership informed on progress.
+Optimize Workforce Planning
+Identify bottlenecks and forecast hiring needs using hard data, not guesswork.
+AI HR Assistant
+Access recruitment intelligence instantly through natural language conversations powered by your real-time hiring data. 
+Query Operations Naturally: Ask questions about pipelines and outcomes using simple, everyday language.
+Discover Candidates Instantly: Surface top fits from your database without complex search strings.
+Receive Strategic Intelligence: Get proactive recommendations on candidate selection and pipeline optimization.
+Investigate Bottlenecks Faster: Uncover trends and process delays without manually digging through ATS data.
+CTA: Download the Feature Guide →
+FOLD 7  │  Stats and Benefits  
+Built to Scale Your Recruitment Pipeline Across Every Role
+HRPod automates the entire hiring lifecycle, from job briefs and candidate screening to scheduling and pipeline tracking, helping talent teams scale quality hires without scaling manual effort.
+<48 hrs
+Brief to Scheduled Interview
+From defining job parameters to securing confirmed candidate slots on your calendar.
+10×
+More Candidates Screened
+Scale your evaluation volume and reach without adding extra headcount or external recruiters.
+80%
+Less Manual Coordination
+Eliminate the endless back-and-forth of email threads, interview scheduling, and feedback chasing.
+Why Recruitment Teams Use HRPod
+100% Objective Assessment
+Every candidate is evaluated consistently against your exact criteria, eliminating unconscious bias.
+Zero Tool-Switching
+Execute campaign setup, automated call screening, and calendar scheduling from one unified system.
+No-Chase Scheduling
+Automated self-booking links empower candidates to secure their own interview slots instantly.
+Data-Backed Decisions
+Track real-time pipeline analytics to know exactly who to prioritize before planning your week.
+CTA:  See it in action →
+FOLD 8  │  Why HRPod  
+Heading : Manual vs Automated Recruitment Workflow
+Sub Text: Integrate Recruitment Automation in your workflow to drive exponential results
+Automated HRPod Workflow
+Traditional Manual Workflow
+AI automatically configures complete hiring campaigns ready for immediate launch.
+Teams manually build criteria and chase stakeholder approvals before screening begins.
+System automatically extracts metrics from call logs to score applicants instantly.
+Teams manually review resumes and conduct unstructured, bias-prone phone screens.
+System automatically aggregates weighted scoring into a prioritized candidate shortlist.
+Teams manually track subjective feedback scattered across emails and spreadsheets.
+System automatically dispatches self-scheduling links the moment a candidate is approved.
+Teams manage endless back-and-forth emails to align recruiter and candidate calendars.
+Campaign data automatically feeds a unified dashboard to optimize future hiring.
+Performance metrics require manual data synthesis from siloed ATS platforms.
+Your team is great at hiring. HRPod makes sure they spend their time on people, not paperwork.
+See how it works →
+FOLD 9  │  Voices — Client Testimonials
+Teams that made the switch.
+Direct Feedback:  from website
+FOLD 11 │ Questions · Before You Decide
+FAQs
+01. What is HR hiring automation?
+HR hiring automation is the integration of artificial intelligence and machine learning into the talent acquisition lifecycle to eliminate manual, repetitive administrative tasks. Rather than simply digitizing paperwork, modern HR automation acts as an intelligent operating system—handling everything from configuring job parameters and extracting structured data from candidate screening calls, to autonomously scheduling interviews. It transforms reactive recruitment into a predictable, data-driven engine that evaluates candidates with zero ambiguity, freeing human teams to focus entirely on relationship-building and final selection.
+02. What are the benefits of HR automation?
+The primary benefit of HR automation is the exponential increase in recruitment velocity without compromising candidate quality. By standardizing evaluation criteria through AI, organizations achieve 100% objective assessments, drastically reducing unconscious bias in the shortlisting process. Furthermore, it eliminates up to 80% of manual coordination—such as calendar management and tool-switching—resulting in a seamless candidate experience, a significantly lower time-to-hire, and the ability for talent teams to scale their hiring volume dynamically without adding administrative headcount.
+03. How do you measure the ROI of HR automation?
+Measuring the Return on Investment (ROI) of an HR automation platform requires tracking both operational efficiency and quality-of-hire metrics. The most immediate indicator is the reduction in "time-to-screen" and "time-to-interview," which quantifies the labor hours saved on manual resume reviews and back-and-forth scheduling. Long-term ROI is measured by analyzing round-by-round candidate drop-off rates, the increase in offer acceptance ratios, and the reduction in early attrition—proving that the system is not just filling seats faster, but consistently surfacing better-fit candidates through standardized, data-backed evaluation frameworks.
+04. How does AI automated screening work?
+AI automated screening works by extracting structured, objective data points from applicant submissions and initial interactions, such as automated call logs or chat transcripts. Instead of relying on basic keyword matching, the AI intelligence layer evaluates candidate responses against pre-configured, weighted criteria specific to the role's required competencies. The system instantly processes this unstructured data to score and rank applicants in real time, automatically surfacing a prioritized shortlist of the strongest fits while maintaining a completely consistent, bias-free evaluation framework for every single candidate.
+05. How quickly can AI automation be set up for a new role?
+Modern AI recruitment automation allows talent teams to configure and launch a complete, end-to-end hiring campaign in a matter of minutes. By leveraging an intelligent setup hub, recruiters simply define the core job parameters, expected candidate volume, and the required number of interview rounds. The AI instantly translates this brief into actionable evaluation weights and self-scheduling workflows, automatically mapping specific decision-makers to each stage. This eliminates the days traditionally lost to manual criteria definition, making the pipeline ready to screen and rank candidates immediately.

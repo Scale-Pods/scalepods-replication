@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>SalesPod — Folds D · E · F</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --a:   #C8FF00;
+  --b:   #040404;
+  --b2:  #070707;
+  --b3:  #0a0a0a;
+  --r:   rgba(255,255,255,0.06);
+  --r2:  rgba(255,255,255,0.12);
+  --m1:  rgba(255,255,255,0.28);
+  --m2:  rgba(255,255,255,0.52);
+  --m3:  rgba(255,255,255,0.78);
+}
+
+html, body {
+  width: 1440px;
+  background: var(--b);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* grain overlay */
+body::after {
+  content:''; position:fixed; inset:0;
+  pointer-events:none; z-index:9999; opacity:.015;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.fold {
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--r);
+}
+
+.ew {           /* eyebrow */
+  font-size:10px; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--a);
+  display:inline-flex; align-items:center; gap:10px;
+}
+.ew::before { content:''; width:16px; height:1px; background:var(--a); }
+
+
+/* ═══════════════════════════════════════════════════════
+   FOLD D  —  4 STATS
+   Layout: centred headline top · 4 giant stat cells below
+   Rule: each cell shows ONE number, ONE word label. Nothing else.
+═══════════════════════════════════════════════════════ */
+#fd { background: var(--b); }
+
+.fd-top {
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--r);
+  text-align: center;
+}
+
+.fd-h {
+  font-family:'Syne',sans-serif;
+  font-size: 64px; font-weight:800;
+  line-height:.95; letter-spacing:-.045em;
+}
+.fd-h em { font-style:normal; color:var(--a); }
+
+.fd-sub {
+  font-size:15px; color:var(--m2); font-weight:300;
+  max-width:440px; line-height:1.65;
+}
+
+/* 4 stat cells */
+.fd-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  height: 764px;
+}
+
+.stat {
+  border-right: 1px solid var(--r);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 72px 80px;
+  cursor: default;
+  transition: background .35s;
+  position: relative;
+  overflow: hidden;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(200,255,0,0.018); }
+
+/* bottom sweep on hover */
+.stat::after {
+  content:'';
+  position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:var(--a);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.stat:hover::after { transform:scaleX(1); }
+
+/* faint category label top-left */
+.stat-cat {
+  position:absolute; top:52px; left:72px;
+  font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.14);
+}
+
+.stat-num {
+  font-family:'Syne',sans-serif;
+  font-size: 110px; font-weight:800;
+  letter-spacing:-.07em; line-height:1;
+  color:var(--a);
+  display:block;
+  margin-bottom: 18px;
+}
+
+.stat-label {
+  font-family:'Syne',sans-serif;
+  font-size:17px; font-weight:700;
+  color:#fff; letter-spacing:-.015em;
+  margin-bottom:8px;
+}
+
+.stat-note {
+  font-size:12px; color:var(--m1); font-weight:300; line-height:1.55;
+  max-width:220px;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   FOLD E  —  2 CASE STUDIES
+   Each panel: giant number + one-line headline + ONE metric pill.
+   No bullets. No body copy. Let the numbers breathe.
+═══════════════════════════════════════════════════════ */
+#fe { background: var(--b2); }
+
+.fe-bar {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 100px;
+  border-bottom: 1px solid var(--r);
+}
+
+.fe-bar-h {
+  font-family:'Syne',sans-serif;
+  font-size:36px; font-weight:800;
+  letter-spacing:-.035em; line-height:1;
+}
+.fe-bar-h em { font-style:normal; color:var(--a); }
+
+.fe-bar-tag {
+  font-size:11px; color:var(--m2); font-weight:300;
+  letter-spacing:.02em;
+}
+
+/* two panels */
+.fe-panels {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  height:904px;
+}
+
+.panel {
+  border-right:1px solid var(--r);
+  padding:80px 100px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  cursor:default;
+  transition:background .3s;
+  position:relative;
+  overflow:hidden;
+}
+.panel:last-child { border-right:none; }
+.panel:hover { background:rgba(255,255,255,.01); }
+
+/* accent bar left on hover */
+.panel::before {
+  content:'';
+  position:absolute; left:0; top:80px; bottom:80px; width:2px;
+  background:var(--a);
+  transform:scaleY(0); transform-origin:bottom;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.panel:hover::before { transform:scaleY(1); }
+
+/* ghost number — decorative, bottom-right */
+.panel-ghost {
+  position:absolute;
+  right:60px; bottom:-40px;
+  font-family:'Syne',sans-serif;
+  font-size:320px; font-weight:800;
+  color:rgba(255,255,255,.018);
+  line-height:1; pointer-events:none;
+  letter-spacing:-.1em;
+}
+
+.panel-type {
+  font-size:10px; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--a);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.panel-type::before {
+  content:''; width:5px; height:5px;
+  border-radius:50%; background:var(--a); flex-shrink:0;
+}
+
+/* BIG centred headline — the only copy that matters */
+.panel-h {
+  font-family:'Syne',sans-serif;
+  font-size: 56px; font-weight:800;
+  line-height:1.0; letter-spacing:-.05em;
+  color:#fff; max-width:480px;
+}
+.panel-h em { font-style:normal; color:var(--a); }
+
+/* single metric pill */
+.panel-pill {
+  display:inline-flex; align-items:center; gap:12px;
+  background:rgba(200,255,0,0.06);
+  border:1px solid rgba(200,255,0,0.16);
+  border-radius:100px;
+  padding:14px 28px;
+  width:fit-content;
+}
+.pill-num {
+  font-family:'Syne',sans-serif;
+  font-size:22px; font-weight:800;
+  color:var(--a); letter-spacing:-.03em;
+}
+.pill-label {
+  font-size:13px; color:var(--m2); font-weight:300;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   FOLD F  —  VOICES
+   Left: headline + one featured card  /  Right: 3 rows  /  Bottom: marquee
+═══════════════════════════════════════════════════════ */
+#ff { background: var(--b3); }
+
+.ff-body {
+  display:grid;
+  grid-template-columns:480px 1fr;
+  height:844px;
+}
+
+/* LEFT */
+.ff-left {
+  padding:80px 64px 80px 100px;
+  border-right:1px solid var(--r);
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+
+.ff-h {
+  font-family:'Syne',sans-serif;
+  font-size:52px; font-weight:800;
+  line-height:.97; letter-spacing:-.045em;
+  margin-top:18px;
+}
+.ff-h em { font-style:normal; color:var(--a); }
+
+/* featured card */
+.hq {
+  background:rgba(200,255,0,0.04);
+  border:1px solid rgba(200,255,0,0.11);
+  border-radius:18px;
+  padding:40px;
+  position:relative;
+  display:flex; flex-direction:column; gap:0;
+}
+
+.hq-badge {
+  position:absolute; top:-14px; right:32px;
+  background:var(--a); color:#000;
+  font-family:'Syne',sans-serif; font-size:10px; font-weight:800;
+  letter-spacing:.05em; padding:7px 18px; border-radius:100px;
+}
+
+.hq-open {
+  font-family:'Syne',sans-serif; font-size:60px; font-weight:800;
+  color:var(--a); line-height:.65; opacity:.4; margin-bottom:16px;
+}
+
+.hq-text {
+  font-family:'Syne',sans-serif;
+  font-size:20px; font-weight:700;
+  line-height:1.45; letter-spacing:-.025em;
+  color:#fff; margin-bottom:28px;
+}
+
+.hq-who { display:flex; align-items:center; gap:12px; }
+.hq-av {
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(200,255,0,0.08); border:1px solid rgba(200,255,0,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--a);
+  flex-shrink:0;
+}
+.hq-name { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:#fff; }
+.hq-role { font-size:11px; color:var(--m1); margin-top:2px; }
+
+/* RIGHT — 3 rows */
+.ff-right { display:grid; grid-template-rows:1fr 1fr 1fr; }
+
+.tq {
+  border-bottom:1px solid var(--r);
+  padding:0 72px;
+  display:grid; grid-template-columns:44px 1fr; gap:20px;
+  align-items:center;
+  cursor:default;
+  transition:background .25s;
+  position:relative; overflow:hidden;
+}
+.tq:last-child { border-bottom:none; }
+.tq:hover { background:rgba(255,255,255,.01); }
+.tq::before {
+  content:''; position:absolute; left:0; top:24px; bottom:24px; width:2px;
+  background:var(--a);
+  transform:scaleY(0); transform-origin:top;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.tq:hover::before { transform:scaleY(1); }
+
+.tq-av {
+  width:44px; height:44px; border-radius:50%;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.09);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--m2);
+  align-self:center;
+}
+.tq-name {
+  font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:#fff;
+}
+.tq-role { font-size:11px; color:var(--m1); margin-top:2px; margin-bottom:10px; }
+.tq-text {
+  font-size:14px; color:var(--m2); font-weight:300; line-height:1.7; font-style:italic;
+}
+
+/* MARQUEE */
+.mq {
+  height:180px; border-top:1px solid var(--r);
+  overflow:hidden; position:relative; display:flex; align-items:center;
+}
+.mq::before,.mq::after {
+  content:''; position:absolute; top:0; bottom:0; width:180px; z-index:2; pointer-events:none;
+}
+.mq::before { left:0;  background:linear-gradient(to right,var(--b3),transparent); }
+.mq::after  { right:0; background:linear-gradient(to left, var(--b3),transparent); }
+.mq-t { display:flex; width:max-content; animation:mq 26s linear infinite; }
+@keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.mq-i {
+  display:flex; align-items:center; gap:18px;
+  padding:0 56px; border-right:1px solid var(--r); flex-shrink:0;
+}
+.mq-n { font-family:'Syne',sans-serif; font-size:13px; font-weight:800; color:var(--a); white-space:nowrap; }
+.mq-d { width:3px; height:3px; border-radius:50%; background:var(--m1); flex-shrink:0; }
+.mq-q { font-size:12.5px; color:var(--m2); font-weight:300; white-space:nowrap; font-style:italic; }
+</style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════════════════════
+  FOLD D  ·  STATS
+  Top: centred headline.  Bottom: 4 giant stat cells.
+══════════════════════════════════════════════════ -->
+<section class="fold" id="fd">
+
+  <div class="fd-top">
+    <span class="ew">The numbers</span>
+    <h2 class="fd-h">What changes when<br>follow-up runs <em>itself.</em></h2>
+    <p class="fd-sub">Every team. Same pattern. Faster contact, more replies, less time lost.</p>
+  </div>
+
+  <div class="fd-grid">
+
+    <div class="stat">
+      <span class="stat-cat">Speed</span>
+      <span class="stat-num">5m</span>
+      <div class="stat-label">First contact</div>
+      <div class="stat-note">Industry average: 29–42 hrs. SalesPod fires within minutes.</div>
+    </div>
+
+    <div class="stat">
+      <span class="stat-cat">Replies</span>
+      <span class="stat-num">3×</span>
+      <div class="stat-label">More responses</div>
+      <div class="stat-note">Three channels reach where single-channel email can't.</div>
+    </div>
+
+    <div class="stat">
+      <span class="stat-cat">Efficiency</span>
+      <span class="stat-num">8h</span>
+      <div class="stat-label">Saved per rep/week</div>
+      <div class="stat-note">Reps only touch threads that are already warm.</div>
+    </div>
+
+    <div class="stat">
+      <span class="stat-cat">Pipeline</span>
+      <span class="stat-num">40%</span>
+      <div class="stat-label">More meetings</div>
+      <div class="stat-note">Consistent follow-up converts leads already in your pipeline.</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+  FOLD F  ·  VOICES
+══════════════════════════════════════════════════ -->
+<section class="fold" id="ff">
+
+  <div class="ff-body">
+
+    <div class="ff-left">
+      <div>
+        <span class="ew">What clients say</span>
+        <h2 class="ff-h" style="margin-top:18px;">
+          Teams that<br>made the<br><em>switch.</em>
+        </h2>
+      </div>
+
+      <div class="hq">
+        <div class="hq-badge">2× Efficiency</div>
+        <div class="hq-open">"</div>
+        <p class="hq-text">Surprisingly simple. The AI adapts quickly. Our campaigns are running 2× more efficiently — live before we expected.</p>
+        <div class="hq-who">
+          <div class="hq-av">AP</div>
+          <div>
+            <div class="hq-name">Abinash Patra</div>
+            <div class="hq-role">Senior VP · Square Yards</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ff-right">
+
+      <div class="tq">
+        <div class="tq-av">AR</div>
+        <div>
+          <div class="tq-name">Anuj Ruia</div>
+          <div class="tq-role">Co-Founder · BECO</div>
+          <p class="tq-text">"Fast, accurate, and blends into daily ops without friction. Felt like a senior team member — not a tool."</p>
+        </div>
+      </div>
+
+      <div class="tq">
+        <div class="tq-av">SL</div>
+        <div>
+          <div class="tq-name">Sharan Lekhi</div>
+          <div class="tq-role">Founder · Krafty Animations</div>
+          <p class="tq-text">"Game-changer. Flows run flawlessly. Our team focuses only on what moves revenue — everything else just happens."</p>
+        </div>
+      </div>
+
+      <div class="tq">
+        <div class="tq-av">SJ</div>
+        <div>
+          <div class="tq-name">Shreyansh Jaiswal</div>
+          <div class="tq-role">Founder · HobbyFi</div>
+          <p class="tq-text">"Smooth setup. Replaced three tools in one go. Improvements showed in the very first week."</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mq">
+    <div class="mq-t">
+      <div class="mq-i"><span class="mq-n">Tejesh Lohiya</span><span class="mq-d"></span><span class="mq-q">Huge time-saver. Insights are actionable from day one.</span></div>
+      <div class="mq-i"><span class="mq-n">Dhairya Shah</span><span class="mq-d"></span><span class="mq-q">No fluff, just performance. Processes finally under control.</span></div>
+      <div class="mq-i"><span class="mq-n">Abinash Patra</span><span class="mq-d"></span><span class="mq-q">Campaigns running 2× more efficiently than before.</span></div>
+      <div class="mq-i"><span class="mq-n">Anuj Ruia</span><span class="mq-d"></span><span class="mq-q">Fast, accurate, blends into daily ops without friction.</span></div>
+      <div class="mq-i"><span class="mq-n">Sharan Lekhi</span><span class="mq-d"></span><span class="mq-q">Team now focuses only on what actually matters.</span></div>
+      <div class="mq-i"><span class="mq-n">Shreyansh Jaiswal</span><span class="mq-d"></span><span class="mq-q">Replaced three tools. Results in week one.</span></div>
+      <div class="mq-i"><span class="mq-n">Tejesh Lohiya</span><span class="mq-d"></span><span class="mq-q">Huge time-saver. Insights are actionable from day one.</span></div>
+      <div class="mq-i"><span class="mq-n">Dhairya Shah</span><span class="mq-d"></span><span class="mq-q">No fluff, just performance. Processes finally under control.</span></div>
+      <div class="mq-i"><span class="mq-n">Abinash Patra</span><span class="mq-d"></span><span class="mq-q">Campaigns running 2× more efficiently than before.</span></div>
+      <div class="mq-i"><span class="mq-n">Anuj Ruia</span><span class="mq-d"></span><span class="mq-q">Fast, accurate, blends into daily ops without friction.</span></div>
+      <div class="mq-i"><span class="mq-n">Sharan Lekhi</span><span class="mq-d"></span><span class="mq-q">Team now focuses only on what actually matters.</span></div>
+      <div class="mq-i"><span class="mq-n">Shreyansh Jaiswal</span><span class="mq-d"></span><span class="mq-q">Replaced three tools. Results in week one.</span></div>
+    </div>
+  </div>
+
+</section>
+
+
+</body>
+</html>
