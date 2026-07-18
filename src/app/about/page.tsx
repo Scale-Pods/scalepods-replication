@@ -248,10 +248,10 @@ export default function AboutPage() {
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-instrument), Georgia, serif",
-                    fontSize: "clamp(18px, 2.5vw, 32px)",
+                    fontSize: "clamp(15px, 2.0vw, 26px)",
                     fontWeight: 400,
                     letterSpacing: "-0.01em",
-                    padding: "10px 24px",
+                    padding: "8px 20px",
                     borderRadius: "8px",
                     boxShadow: isDark
                       ? "0 8px 32px rgba(177, 217, 151, 0.05)"
@@ -279,11 +279,11 @@ export default function AboutPage() {
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-inter), sans-serif",
-                    fontSize: "clamp(15px, 2.2vw, 26px)",
+                    fontSize: "clamp(12px, 1.5vw, 19px)",
                     fontWeight: 800,
                     textTransform: "uppercase",
                     letterSpacing: "-0.02em",
-                    padding: "8px 24px",
+                    padding: "6px 18px",
                     borderRadius: "8px",
                     boxShadow: isDark
                       ? "0 8px 32px rgba(109, 182, 255, 0.05)"
@@ -311,10 +311,10 @@ export default function AboutPage() {
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-instrument), Georgia, serif",
-                    fontSize: "clamp(18px, 2.5vw, 32px)",
+                    fontSize: "clamp(14px, 1.9vw, 24px)",
                     fontWeight: 400,
                     letterSpacing: "-0.01em",
-                    padding: "10px 24px",
+                    padding: "8px 20px",
                     borderRadius: "8px",
                     boxShadow: isDark
                       ? "0 8px 32px rgba(255, 255, 255, 0.02)"
