@@ -225,37 +225,108 @@ export default function AboutPage() {
                 Our Mission
               </motion.div>
 
-              {/* Mission Statement Container */}
+              {/* Bold Statement Badges Container */}
               <div 
                 style={{ 
-                  width: "100%",
-                  padding: "0 12px"
+                  display: "flex", 
+                  flexDirection: "column", 
+                  alignItems: "center", 
+                  gap: "24px",
+                  width: "100%"
                 }}
               >
+                {/* Row 1: To design and deploy practical AI solutions */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
+                  animate={{ opacity: 1, scale: 1, rotate: -1.8 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                  whileHover={{ scale: 1.03, rotate: -0.5, transition: { duration: 0.2 } }}
                   style={{
-                    background: isDark ? "rgba(177, 217, 151, 0.08)" : "rgba(177, 217, 151, 0.15)",
+                    background: isDark ? "rgba(177, 217, 151, 0.12)" : "rgba(177, 217, 151, 0.22)",
                     color: isDark ? "#B1D997" : "#1a3d0a",
-                    border: isDark ? "1px solid rgba(177, 217, 151, 0.2)" : "1px solid rgba(177, 217, 151, 0.45)",
+                    border: isDark ? "1px solid rgba(177, 217, 151, 0.25)" : "1px solid rgba(177, 217, 151, 0.55)",
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-instrument), Georgia, serif",
-                    fontSize: "clamp(18px, 2.2vw, 26px)",
-                    lineHeight: "1.45",
-                    padding: "24px 28px",
-                    borderRadius: "16px",
+                    fontSize: "clamp(18px, 2.5vw, 32px)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.01em",
+                    padding: "10px 24px",
+                    borderRadius: "8px",
                     boxShadow: isDark
-                      ? "0 8px 32px rgba(177, 217, 151, 0.03)"
-                      : "0 8px 32px rgba(143, 188, 106, 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
-                    textAlign: "center",
-                    cursor: "default"
+                      ? "0 8px 32px rgba(177, 217, 151, 0.05)"
+                      : "0 8px 32px rgba(143, 188, 106, 0.18), inset 0 1px 0 rgba(255,255,255,0.6)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "default",
+                    textAlign: "center"
                   }}
                 >
-                  To design and deploy practical AI solutions that simplify operations, increase productivity, and help businesses grow without adding complexity.
+                  To design and deploy practical AI solutions
+                </motion.div>
+
+                {/* Row 2: that simplify operations, increase productivity, */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, rotate: 3 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 1.5 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  whileHover={{ scale: 1.03, rotate: 0, transition: { duration: 0.2 } }}
+                  style={{
+                    background: isDark ? "rgba(109, 182, 255, 0.12)" : "rgba(109, 182, 255, 0.2)",
+                    color: isDark ? "#6DB6FF" : "#003d7a",
+                    border: isDark ? "1px solid rgba(109, 182, 255, 0.25)" : "1px solid rgba(109, 182, 255, 0.5)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: "clamp(15px, 2.2vw, 26px)",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "-0.02em",
+                    padding: "8px 24px",
+                    borderRadius: "8px",
+                    boxShadow: isDark
+                      ? "0 8px 32px rgba(109, 182, 255, 0.05)"
+                      : "0 8px 32px rgba(0, 106, 220, 0.18), inset 0 1px 0 rgba(255,255,255,0.6)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "default",
+                    textAlign: "center"
+                  }}
+                >
+                  that simplify operations, increase productivity,
+                </motion.div>
+
+                {/* Row 3: and help businesses grow without adding complexity. */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+                  animate={{ opacity: 1, scale: 1, rotate: -0.8 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  whileHover={{ scale: 1.03, rotate: 0, transition: { duration: 0.2 } }}
+                  style={{
+                    background: isDark ? "rgba(255, 255, 255, 0.06)" : "rgba(255, 255, 255, 0.55)",
+                    color: isDark ? "var(--color-text-bright)" : "#1e293b",
+                    border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid rgba(148, 163, 184, 0.4)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    fontFamily: "var(--font-instrument), Georgia, serif",
+                    fontSize: "clamp(18px, 2.5vw, 32px)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.01em",
+                    padding: "10px 24px",
+                    borderRadius: "8px",
+                    boxShadow: isDark
+                      ? "0 8px 32px rgba(255, 255, 255, 0.02)"
+                      : "0 8px 32px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "default",
+                    textAlign: "center"
+                  }}
+                >
+                  and help businesses grow without adding complexity.
                 </motion.div>
               </div>
             </div>
