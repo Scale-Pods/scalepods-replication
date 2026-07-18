@@ -85,55 +85,80 @@ export function CustomerSupportAnimation({ hoveredIndex = null }: CustomerSuppor
             : "0 20px 40px -15px rgba(0, 0, 0, 0.06)"
         }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentAnim.src}
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96 }}
-            transition={{ duration: 0.25 }}
-            className="w-full h-full flex items-center justify-center"
-          >
-            {currentAnim.type === "svg" ? (
-              <img 
-                src={currentAnim.src} 
-                alt="Focus Illustration" 
-                className="w-full h-full object-contain p-2 transition-transform duration-300" 
-                style={{
-                  filter: isDark ? "contrast(1.05) brightness(1.05)" : "none",
-                  transform: currentAnim.scale ? `scale(${currentAnim.scale})` : "none",
-                  transformOrigin: "center"
+        <div className="w-full h-full relative flex items-center justify-center">
+          {Object.entries(animations).map(([key, anim]) => {
+            const isVisible = (hoveredIndex === null && key === "default") || 
+                              (hoveredIndex !== null && String(hoveredIndex) === key);
+            
+            return (
+              <motion.div
+                key={key}
+                initial={false}
+                animate={{ 
+                  opacity: isVisible ? 1 : 0,
+                  scale: isVisible ? 1 : 0.96,
+                  pointerEvents: isVisible ? "auto" : "none"
                 }}
-              />
-            ) : playerLoaded ? (
-              /* Standard Web Component for Native Transparent SVG Rendering */
-              React.createElement("lottie-player", {
-                src: currentAnim.src,
-                background: "transparent",
-                speed: "1",
-                style: {
-                  width: "100%",
-                  height: "100%",
-                  filter: isDark ? "contrast(1.08) brightness(1.05)" : "none"
-                },
-                loop: true,
-                autoplay: true
-              })
-            ) : (
-              /* Seamless Blend Iframe Fallback during initial script load */
-              <iframe
-                src={currentAnim.src.replace("https://lottie.host/", "https://lottie.host/embed/")}
-                className="w-full h-full border-0 pointer-events-none rounded-xl"
+                transition={{ duration: 0.25, ease: "easeInOut" }}
                 style={{
-                  background: "transparent",
-                  mixBlendMode: isDark ? "screen" : "multiply",
-                  filter: isDark ? "brightness(1.1) contrast(1.1)" : "none"
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  visibility: isVisible ? "visible" : "hidden"
                 }}
-                title="Focus Animation Lottie"
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+                className="w-full h-full"
+              >
+                {anim.type === "svg" ? (
+                  <img 
+                    src={anim.src} 
+                    alt="Focus Illustration" 
+                    className="w-full h-full object-contain p-2 transition-transform duration-300" 
+                    style={{
+                      filter: isDark ? "contrast(1.05) brightness(1.05)" : "none",
+                      transform: anim.scale ? `scale(${anim.scale})` : "none",
+                      transformOrigin: "center"
+                    }}
+                  />
+                ) : playerLoaded ? (
+                  /* Standard Web Component for Native Transparent SVG Rendering */
+                  React.createElement("lottie-player", {
+                    src: anim.src,
+                    background: "transparent",
+                    speed: "1",
+                    style: {
+                      width: "100%",
+                      height: "100%",
+                      filter: isDark ? "contrast(1.08) brightness(1.05)" : "none"
+                    },
+                    loop: true,
+                    autoplay: true
+                  })
+                ) : (
+                  /* Light CSS loading spinner instead of heavy iframe */
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div 
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "50%",
+                        border: "2px solid rgba(109, 182, 255, 0.2)",
+                        borderTopColor: "var(--color-blue-mid)",
+                        animation: "spin 0.8s linear infinite"
+                      }}
+                    />
+                    <style>{`
+                      @keyframes spin {
+                        to { transform: rotate(360deg); }
+                      }
+                    `}</style>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

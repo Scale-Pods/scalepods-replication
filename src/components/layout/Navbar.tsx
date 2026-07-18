@@ -369,6 +369,7 @@ const Navbar = memo(() => {
                   fill
                   sizes="160px"
                   priority
+                  loading="eager"
                   style={{
                     objectFit: "contain",
                     objectPosition: "left center",

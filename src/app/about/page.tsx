@@ -9,6 +9,7 @@ import { BeamsBackground } from "@/components/ui/beams-background";
 import { CoreValuesOrbit } from "@/components/ui/core-values-orbit";
 import { CustomerSupportAnimation } from "@/components/ui/customer-support-animation";
 import ApplyModal from "@/components/ui/ApplyModal";
+import { useMobile } from "@/lib/hooks";
 
 const storyTabs = [
   {
@@ -61,14 +62,14 @@ const founders = [
     name: "Adnan Shaikh",
     title: "Co-Founder & CEO",
     image: "/images/team/adnan.jpeg",
-    bio: "Adnan Shaikh is the Co-founder and CEO of ScalePods with years of experience leading sales operations, revenue growth, and team building. With a deep understanding of business development and operational efficiency, he specializes in building high-performing sales strategies and automating complex outreach and CRM workflows. At ScalePods, he drives the company's business development, client relations, and operational strategy, helping growing businesses eliminate repetitive work and achieve scalable growth."
+    bio: "Adnan Shaikh is the Co-founder and CEO of ScalePods with years of experience leading sales operations, revenue growth, and team building. With a focus on business development and operational efficiency, he specializes in building high-performing sales strategies and automating complex CRM workflows. At ScalePods, he drives client relations and operational strategy, helping growing businesses eliminate repetitive work and achieve scalable growth."
   },
   {
     id: "raunak",
     name: "Raunak Kumar",
-    title: "Co-Founder & CTO",
+    title: "Co-Founder, CPO & CTO",
     image: "/images/team/raunak.jpeg",
-    bio: "Raunak Kumar is the Co-founder of ScalePods with over 9 years of experience across fintech, enterprise technology, and product management. Holding an MBA in Entrepreneurship and Product Management, he has built digital products and driven business growth for both B2B and B2C organizations. At ScalePods, he leads product and technology, building AI-powered systems that help businesses scale faster, operate smarter, and solve complex business challenges."
+    bio: "Raunak Kumar is the Co-founder, CPO & CTO of ScalePods with years of experience across fintech, enterprise technology, and product management. Holding an MBA in Entrepreneurship and Product Management, he has built digital products and driven business growth for both B2B and B2C organizations. At ScalePods, he leads product and technology, building AI-powered systems that help businesses scale faster, operate smarter, and solve complex business challenges."
   },
   {
     id: "palashy",
@@ -82,6 +83,7 @@ const founders = [
 export default function AboutPage() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const isMobile = useMobile(768);
   const [activeStoryTab, setActiveStoryTab] = useState("how-it-started");
   const [expandedFounders, setExpandedFounders] = useState<string[]>([]);
   const [isApplyOpen, setIsApplyOpen] = useState(false);
@@ -121,28 +123,33 @@ export default function AboutPage() {
           overflow: "hidden"
         }}
       >
-        {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
-            opacity: isDark ? 0.55 : 0.45,
-            filter: isDark 
-              ? "hue-rotate(190deg) brightness(0.6) contrast(1.25) saturate(1.3)" 
-              : "brightness(1.4) contrast(0.8) saturate(0.5) grayscale(0.1)",
-            pointerEvents: "none"
-          }}
-        >
-          <source src="/videos/our-mission.mp4" type="video/mp4" />
-        </video>
+        {/* Background Video (Desktop only) */}
+        {!isMobile && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              zIndex: 0,
+              opacity: isDark ? 0.55 : 0.45,
+              filter: isDark 
+                ? "hue-rotate(190deg) brightness(0.6) contrast(1.25) saturate(1.3)" 
+                : "brightness(1.4) contrast(0.8) saturate(0.5) grayscale(0.1)",
+              pointerEvents: "none",
+              willChange: "opacity",
+              backfaceVisibility: "hidden"
+            }}
+          >
+            <source src="/videos/our-mission.mp4" type="video/mp4" />
+          </video>
+        )}
 
         {/* Video Gradient Overlay */}
         <div 
@@ -235,18 +242,20 @@ export default function AboutPage() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   whileHover={{ scale: 1.03, rotate: -0.5, transition: { duration: 0.2 } }}
                   style={{
-                    background: isDark ? "rgba(177, 217, 151, 0.12)" : "#B1D997",
-                    color: isDark ? "#B1D997" : "#050816",
-                    border: isDark ? "1px solid rgba(177, 217, 151, 0.25)" : "1px solid transparent",
-                    backdropFilter: isDark ? "blur(12px)" : "none",
-                    WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                    background: isDark ? "rgba(177, 217, 151, 0.12)" : "rgba(177, 217, 151, 0.22)",
+                    color: isDark ? "#B1D997" : "#1a3d0a",
+                    border: isDark ? "1px solid rgba(177, 217, 151, 0.25)" : "1px solid rgba(177, 217, 151, 0.55)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-instrument), Georgia, serif",
                     fontSize: "clamp(20px, 3.2vw, 42px)",
                     fontWeight: 400,
                     letterSpacing: "-0.01em",
                     padding: "12px 28px",
                     borderRadius: "8px",
-                    boxShadow: isDark ? "0 8px 32px rgba(177, 217, 151, 0.05)" : "0 8px 24px rgba(0,0,0,0.15)",
+                    boxShadow: isDark
+                      ? "0 8px 32px rgba(177, 217, 151, 0.05)"
+                      : "0 8px 32px rgba(143, 188, 106, 0.18), inset 0 1px 0 rgba(255,255,255,0.6)",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -263,11 +272,11 @@ export default function AboutPage() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   whileHover={{ scale: 1.03, rotate: 0, transition: { duration: 0.2 } }}
                   style={{
-                    background: isDark ? "rgba(109, 182, 255, 0.12)" : "#6DB6FF",
-                    color: isDark ? "#6DB6FF" : "#050816",
-                    border: isDark ? "1px solid rgba(109, 182, 255, 0.25)" : "1px solid transparent",
-                    backdropFilter: isDark ? "blur(12px)" : "none",
-                    WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                    background: isDark ? "rgba(109, 182, 255, 0.12)" : "rgba(109, 182, 255, 0.2)",
+                    color: isDark ? "#6DB6FF" : "#003d7a",
+                    border: isDark ? "1px solid rgba(109, 182, 255, 0.25)" : "1px solid rgba(109, 182, 255, 0.5)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-inter), sans-serif",
                     fontSize: "clamp(17px, 2.6vw, 32px)",
                     fontWeight: 800,
@@ -275,7 +284,9 @@ export default function AboutPage() {
                     letterSpacing: "-0.02em",
                     padding: "10px 28px",
                     borderRadius: "8px",
-                    boxShadow: isDark ? "0 8px 32px rgba(109, 182, 255, 0.05)" : "0 8px 24px rgba(0,0,0,0.15)",
+                    boxShadow: isDark
+                      ? "0 8px 32px rgba(109, 182, 255, 0.05)"
+                      : "0 8px 32px rgba(0, 106, 220, 0.18), inset 0 1px 0 rgba(255,255,255,0.6)",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -292,18 +303,20 @@ export default function AboutPage() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   whileHover={{ scale: 1.03, rotate: 0, transition: { duration: 0.2 } }}
                   style={{
-                    background: isDark ? "rgba(255, 255, 255, 0.06)" : "#E2E8F0",
-                    color: isDark ? "var(--color-text-bright)" : "#050816",
-                    border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid transparent",
-                    backdropFilter: isDark ? "blur(12px)" : "none",
-                    WebkitBackdropFilter: isDark ? "blur(12px)" : "none",
+                    background: isDark ? "rgba(255, 255, 255, 0.06)" : "rgba(255, 255, 255, 0.55)",
+                    color: isDark ? "var(--color-text-bright)" : "#1e293b",
+                    border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid rgba(148, 163, 184, 0.4)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
                     fontFamily: "var(--font-instrument), Georgia, serif",
                     fontSize: "clamp(20px, 3.2vw, 42px)",
                     fontWeight: 400,
                     letterSpacing: "-0.01em",
                     padding: "12px 28px",
                     borderRadius: "8px",
-                    boxShadow: isDark ? "0 8px 32px rgba(255, 255, 255, 0.02)" : "0 8px 24px rgba(0,0,0,0.15)",
+                    boxShadow: isDark
+                      ? "0 8px 32px rgba(255, 255, 255, 0.02)"
+                      : "0 8px 32px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -321,13 +334,31 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "clamp(16px, 1.4vw, 19px)",
+                  lineHeight: "1.75",
+                  color: "var(--color-text-mid)",
+                  textAlign: "justify",
+                  fontWeight: 400,
+                  margin: 0
+                }}
+              >
+                To design and deploy practical AI solutions that simplify operations, increase productivity, and help businesses grow without adding complexity.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 style={{
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "clamp(16px, 1.4vw, 19px)",
                   lineHeight: "1.75",
                   color: "var(--color-text-mid)",
-                  textAlign: "left",
+                  textAlign: "justify",
                   fontWeight: 400,
                   margin: 0
                 }}
@@ -345,7 +376,7 @@ export default function AboutPage() {
                   fontSize: "clamp(16px, 1.4vw, 19px)",
                   lineHeight: "1.75",
                   color: "var(--color-text-mid)",
-                  textAlign: "left",
+                  textAlign: "justify",
                   fontWeight: 400,
                   margin: 0
                 }}
@@ -363,7 +394,7 @@ export default function AboutPage() {
                   fontSize: "clamp(16px, 1.4vw, 19px)",
                   lineHeight: "1.75",
                   color: "var(--color-text-mid)",
-                  textAlign: "left",
+                  textAlign: "justify",
                   fontWeight: 400,
                   margin: 0
                 }}
@@ -431,13 +462,31 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "clamp(16px, 1.4vw, 19px)",
+                  lineHeight: "1.75",
+                  color: "var(--color-text-mid)",
+                  textAlign: "justify",
+                  fontWeight: 400,
+                  margin: 0
+                }}
+              >
+                To create a future where every business can scale effortlessly through AI, automation, and intelligent systems.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6 }}
                 style={{
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "clamp(16px, 1.4vw, 19px)",
                   lineHeight: "1.75",
                   color: "var(--color-text-mid)",
-                  textAlign: "left",
+                  textAlign: "justify",
                   fontWeight: 400,
                   margin: 0
                 }}
@@ -455,7 +504,7 @@ export default function AboutPage() {
                   fontSize: "clamp(16px, 1.4vw, 19px)",
                   lineHeight: "1.75",
                   color: "var(--color-text-mid)",
-                  textAlign: "left",
+                  textAlign: "justify",
                   fontWeight: 400,
                   margin: 0
                 }}
@@ -473,7 +522,7 @@ export default function AboutPage() {
                   fontSize: "clamp(16px, 1.4vw, 19px)",
                   lineHeight: "1.75",
                   color: "var(--color-text-mid)",
-                  textAlign: "left",
+                  textAlign: "justify",
                   fontWeight: 400,
                   margin: 0
                 }}
@@ -557,10 +606,15 @@ export default function AboutPage() {
                   transition={{ duration: 0.4 }}
                   src={isDark ? "/images/story/our_vision_dark.webp" : "/images/story/our_vision_light.webp"}
                   alt="ScalePods Vision and Mission illustration"
+                  width={2800}
+                  height={1562}
+                  fetchPriority="high"
+                  decoding="async"
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover"
+                    objectFit: "cover",
+                    imageRendering: "-webkit-optimize-contrast",
                   }}
                   draggable="false"
                 />
@@ -733,7 +787,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 4: Our Approaches */}
+      {/* SECTION 4: Our Approach */}
       <section 
         style={{ 
           position: "relative",
@@ -772,7 +826,7 @@ export default function AboutPage() {
                   border: "none"
                 }}
               >
-                OUR APPROACHES
+                OUR APPROACH
               </motion.div>
  
               <motion.h2
@@ -790,7 +844,7 @@ export default function AboutPage() {
                   letterSpacing: "-0.02em"
                 }}
               >
-                Our Approaches
+                Our Approach
               </motion.h2>
  
               {/* Animated Client Support Graphic (Placed below heading) */}
@@ -1603,7 +1657,7 @@ export default function AboutPage() {
                       width: "100%",
                       overflow: "hidden",
                       transition: "all 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
-                      maxHeight: isExpanded ? "260px" : "0px",
+                      maxHeight: isExpanded ? "500px" : "0px",
                       opacity: isExpanded ? 1 : 0
                     }}
                   >
@@ -1867,12 +1921,6 @@ export default function AboutPage() {
         <div
           className="careers-container"
           style={{
-            width: "100%",
-            maxWidth: "1100px",
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1.12fr",
-            gap: "64px",
-            alignItems: "center",
             position: "relative",
             zIndex: 2
           }}
@@ -2038,7 +2086,7 @@ export default function AboutPage() {
               </div>
               <div className="collage-item collage-img-3">
                 <img
-                  src="/images/careers/collab3.png"
+                  src="/images/careers/collab3.webp"
                   alt="Team Portrait"
                   style={{
                     width: "100%",
@@ -2051,7 +2099,7 @@ export default function AboutPage() {
               </div>
               <div className="collage-item collage-img-4">
                 <img
-                  src="/images/careers/collab4.png"
+                  src="/images/careers/collab4.webp"
                   alt="Team Collaboration"
                   style={{
                     width: "100%",
@@ -2080,7 +2128,15 @@ export default function AboutPage() {
         </div>
 
         {/* CSS rules for collage layout and responsiveness */}
-        <style jsx>{`
+        <style>{`
+          .careers-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+          }
           .careers-collage {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -2099,11 +2155,11 @@ export default function AboutPage() {
           }
           .collage-img-1 {
             grid-column: span 7;
-            aspect-ratio: 16/11;
+            aspect-ratio: 7/5;
           }
           .collage-img-2 {
             grid-column: span 5;
-            aspect-ratio: 16/11;
+            aspect-ratio: 1/1;
           }
           .collage-img-3 {
             grid-column: span 5;
@@ -2111,7 +2167,7 @@ export default function AboutPage() {
           }
           .collage-img-4 {
             grid-column: span 7;
-            aspect-ratio: 1.45;
+            aspect-ratio: 7/5;
             transform: rotate(2deg);
           }
           .collage-img-4:hover {
@@ -2120,6 +2176,15 @@ export default function AboutPage() {
           .collage-img-5 {
             grid-column: span 12;
             aspect-ratio: 2.8/1;
+          }
+          @media (min-width: 900px) {
+            .careers-container {
+              grid-template-columns: 1.1fr 1.12fr;
+              gap: 64px;
+            }
+            .careers-collage {
+              max-width: 560px;
+            }
           }
           @media (max-width: 900px) {
             .careers-collage {
