@@ -217,7 +217,7 @@
 </g>
 </g>
 <g mask="url(#i4)" visibility="hidden" id="i41">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
 <g transform="translate(848.987,925.794)">
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="848.987 925.794; 848.987 925.794; 1347.987 635.794; 1347.987 635.794" keyTimes="0; 0.050881; 0.189824; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-73.245,-38.638)">
@@ -228,13 +228,13 @@
 </g>
 </g>
 <g display="none" transform="matrix(1,0,0,1,772.389,406.174)" visibility="hidden" id="m42">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,235.971,197.983)">
 <path fill="#fdc25f" d="M235.722,197.733C235.722,197.733,-259.937,484.776,-259.937,484.776C-259.937,484.776,-259.937,52.491,-259.937,52.491C-259.937,52.491,235.722,-197.733,235.722,-197.733C235.722,-197.733,235.722,197.733,235.722,197.733Z" />
 </g>
 </g>
 <g mask="url(#i7)" visibility="hidden" id="i43">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
 <g transform="translate(848.987,925.794)">
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="848.987 925.794; 848.987 925.794; 1347.987 635.794; 1347.987 635.794" keyTimes="0; 0.618395; 0.757339; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-73.245,-38.638)">
@@ -245,7 +245,7 @@
 </g>
 </g>
 <g display="none" transform="matrix(1,0,0,1,772.389,406.174)" visibility="hidden" id="m44">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,235.971,197.983)">
 <path fill="#fdc25f" d="M235.722,197.733C235.722,197.733,-259.937,484.776,-259.937,484.776C-259.937,484.776,-259.937,52.491,-259.937,52.491C-259.937,52.491,235.722,-197.733,235.722,-197.733C235.722,-197.733,235.722,197.733,235.722,197.733Z" />
 </g>
@@ -314,7 +314,7 @@
 </g>
 </g>
 <g visibility="hidden" id="i59">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
 <animate repeatCount="indefinite" attributeName="opacity" dur="17.033s" begin="0s" fill="freeze" values="1; 1; 0; 0" keyTimes="0; 0.228963; 0.287671; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" calcMode="spline" />
 <g transform="translate(1202.79,562.836)">
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1202.79 562.836; 1202.79 562.836; 1403.79 445.336; 1403.79 445.336" keyTimes="0; 0.136986; 0.248532; 1" keySplines="0 0 1 1; 0 0 0.257 1; 0 0 1 1" fill="freeze" />
@@ -335,7 +335,7 @@
 </g>
 </g>
 <g mask="url(#i9)" visibility="hidden" id="i61">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
 <g transform="translate(1493.424,497.766)">
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1493.424 497.766; 1493.424 497.766; 1236.424 497.766; 1236.424 497.766" keyTimes="0; 0.136986; 0.248532; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-153.68,-204.372)">
@@ -353,7 +353,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1202.79 562.836; 1202.79 562.836; 1403.79 445.336; 1403.79 445.336" keyTimes="0; 0.136986; 0.248532; 1" keySplines="0 0 1 1; 0 0 0.257 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-85.426,-114.467)">
 <g transform="matrix(1,0,0,1,25.167,14.501)" visibility="hidden" id="i10">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,72.842,107.217)">
 <path fill="#fdc25f" fill-rule="evenodd" d="M0,-83.82C-40.091,-60.673,-72.592,-4.382,-72.592,41.91C-72.592,88.202,-40.091,106.966,0,83.819C40.092,60.672,72.592,4.381,72.592,-41.911C72.592,-88.203,40.091,-106.966,0,-83.82ZM0,68.129C-32.578,86.936,-59,71.69,-59,34.066C-59,-3.559,-32.578,-49.31,0,-68.13C32.578,-86.936,59,-71.691,59,-34.067C59,3.558,32.579,49.31,0,68.129Z" />
 </g>
@@ -366,7 +366,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1493.424 497.766; 1493.424 497.766; 1236.424 497.766; 1236.424 497.766" keyTimes="0; 0.136986; 0.248532; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-153.68,-204.372)">
 <g transform="matrix(1,0,0,1,0,0)" visibility="hidden" id="i62">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
 <g id="i58" transform="matrix(1,0,0,1,131.907,216.943)">
 <path fill="#fdc25f" d="M-68.468,155.068C-68.468,155.068,131.657,-191.55,131.657,-191.55C131.657,-191.55,68.467,-155.068,68.467,-155.068C68.467,-155.068,-131.657,191.55,-131.657,191.55C-131.657,191.55,-68.468,155.068,-68.468,155.068Z" />
 </g>
@@ -382,7 +382,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1202.79 562.836; 1202.79 562.836; 1403.79 445.336; 1403.79 445.336" keyTimes="0; 0.136986; 0.248532; 1" keySplines="0 0 1 1; 0 0 0.257 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-85.426,-114.467)">
 <g transform="matrix(1,0,0,1,38.759,34.531)" visibility="hidden" id="i10">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.136997; 0.289994; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,59.25,87.186)">
 <path fill="#feaa4f" d="M59,-34.067C59,3.558,32.579,49.311,0,68.13C-32.578,86.937,-59,71.691,-59,34.067C-59,-3.558,-32.578,-49.311,0,-68.13C32.578,-86.937,59,-71.691,59,-34.067Z" />
 </g>
@@ -407,7 +407,7 @@
 </g>
 </g>
 <g visibility="hidden" id="i63">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
 <animate repeatCount="indefinite" attributeName="opacity" dur="17.033s" begin="0s" fill="freeze" values="1; 1; 0; 0" keyTimes="0; 0.796477; 0.855186; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" calcMode="spline" />
 <g transform="translate(1202.79,562.836)">
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1202.79 562.836; 1202.79 562.836; 1403.79 445.336; 1403.79 445.336" keyTimes="0; 0.704501; 0.816047; 1" keySplines="0 0 1 1; 0 0 0.257 1; 0 0 1 1" fill="freeze" />
@@ -428,7 +428,7 @@
 </g>
 </g>
 <g mask="url(#i14)" visibility="hidden" id="i65">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
 <g transform="translate(1493.424,497.766)">
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1493.424 497.766; 1493.424 497.766; 1236.424 497.766; 1236.424 497.766" keyTimes="0; 0.704501; 0.816047; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-153.68,-204.372)">
@@ -446,7 +446,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1202.79 562.836; 1202.79 562.836; 1403.79 445.336; 1403.79 445.336" keyTimes="0; 0.704501; 0.816047; 1" keySplines="0 0 1 1; 0 0 0.257 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-85.426,-114.467)">
 <g transform="matrix(1,0,0,1,25.167,14.501)" visibility="hidden" id="i15">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,72.842,107.217)">
 <path fill="#fdc25f" fill-rule="evenodd" d="M0,-83.82C-40.091,-60.673,-72.592,-4.382,-72.592,41.91C-72.592,88.202,-40.091,106.966,0,83.819C40.092,60.672,72.592,4.381,72.592,-41.911C72.592,-88.203,40.091,-106.966,0,-83.82ZM0,68.129C-32.578,86.936,-59,71.69,-59,34.066C-59,-3.559,-32.578,-49.31,0,-68.13C32.578,-86.936,59,-71.691,59,-34.067C59,3.558,32.579,49.31,0,68.129Z" />
 </g>
@@ -459,7 +459,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1493.424 497.766; 1493.424 497.766; 1236.424 497.766; 1236.424 497.766" keyTimes="0; 0.704501; 0.816047; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-153.68,-204.372)">
 <g transform="matrix(1,0,0,1,0,0)" visibility="hidden" id="i66">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
 <g id="i58" transform="matrix(1,0,0,1,131.907,216.943)">
 <path fill="#fdc25f" d="M-68.468,155.068C-68.468,155.068,131.657,-191.55,131.657,-191.55C131.657,-191.55,68.467,-155.068,68.467,-155.068C68.467,-155.068,-131.657,191.55,-131.657,191.55C-131.657,191.55,-68.468,155.068,-68.468,155.068Z" />
 </g>
@@ -475,7 +475,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="1202.79 562.836; 1202.79 562.836; 1403.79 445.336; 1403.79 445.336" keyTimes="0; 0.704501; 0.816047; 1" keySplines="0 0 1 1; 0 0 0.257 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-85.426,-114.467)">
 <g transform="matrix(1,0,0,1,38.759,34.531)" visibility="hidden" id="i18">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.704986; 0.856983; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,59.25,87.186)">
 <path fill="#feaa4f" d="M59,-34.067C59,3.558,32.579,49.311,0,68.13C-32.578,86.937,-59,71.691,-59,34.067C-59,-3.558,-32.578,-49.311,0,-68.13C32.578,-86.937,59,-71.691,59,-34.067Z" />
 </g>
@@ -592,7 +592,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="848.987 925.794; 848.987 925.794; 1347.987 635.794; 1347.987 635.794" keyTimes="0; 0.050881; 0.189824; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-73.245,-38.638)">
 <g transform="matrix(1,0,0,1,0,0)" visibility="hidden" id="i41">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,73.244,38.638)">
 <path fill="#feaa4f" d="M0.001,-38.388C-17.02,-38.388,-34.039,-34.642,-47.023,-27.143C-72.994,-12.146,-72.985,12.147,-47.016,27.158C-34.035,34.645,-17.017,38.388,0.002,38.388C17.022,38.388,34.042,34.645,47.027,27.158C72.995,12.156,72.995,-12.146,47.027,-27.143C34.042,-34.642,17.022,-38.388,0.001,-38.388Z" />
 </g>
@@ -601,7 +601,7 @@
 </g>
 </g>
 <g display="none" transform="matrix(1,0,0,1,993.647,215.47)" visibility="hidden" id="m42">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.050999; 0.191996; 0.99998; 1" attributeName="visibility" />
 <g id="i21" transform="matrix(1,0,0,1,133.433,327.654)">
 <path fill="#fdc25f" d="M117.001,258.766C117.001,268.087,110.453,271.873,102.376,267.208C102.376,267.208,-102.374,148.993,-102.374,148.993C-110.45,144.332,-117.001,132.995,-117.001,123.66C-117.001,123.66,-117.001,-271.873,-117.001,-271.873C-117.001,-271.873,117.001,-136.771,117.001,-136.771C117.001,-136.771,117.001,258.766,117.001,258.766Z" />
 </g>
@@ -611,7 +611,7 @@
 <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="17.033s" begin="0s" calcMode="spline" values="848.987 925.794; 848.987 925.794; 1347.987 635.794; 1347.987 635.794" keyTimes="0; 0.618395; 0.757339; 1" keySplines="0 0 1 1; 0.333 0 0.667 1; 0 0 1 1" fill="freeze" />
 <g transform="scale(1,1) translate(-73.245,-38.638)">
 <g transform="matrix(1,0,0,1,0,0)" visibility="hidden" id="i86">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
 <g id="i5" transform="matrix(1,0,0,1,73.244,38.638)">
 <path fill="#feaa4f" d="M0.001,-38.388C-17.02,-38.388,-34.039,-34.642,-47.023,-27.143C-72.994,-12.146,-72.985,12.147,-47.016,27.158C-34.035,34.645,-17.017,38.388,0.002,38.388C17.022,38.388,34.042,34.645,47.027,27.158C72.995,12.156,72.995,-12.146,47.027,-27.143C34.042,-34.642,17.022,-38.388,0.001,-38.388Z" />
 </g>
@@ -620,7 +620,7 @@
 </g>
 </g>
 <g display="none" transform="matrix(1,0,0,1,993.647,215.47)" visibility="hidden" id="m87">
-<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="hidden; visible; hidden; hidden; hidden" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
+<animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="17.033s" values="visible; visible; visible; visible; visible" keyTimes="0; 0.617988; 0.758985; 0.99998; 1" attributeName="visibility" />
 <g id="i21" transform="matrix(1,0,0,1,133.433,327.654)">
 <path fill="#fdc25f" d="M117.001,258.766C117.001,268.087,110.453,271.873,102.376,267.208C102.376,267.208,-102.374,148.993,-102.374,148.993C-110.45,144.332,-117.001,132.995,-117.001,123.66C-117.001,123.66,-117.001,-271.873,-117.001,-271.873C-117.001,-271.873,117.001,-136.771,117.001,-136.771C117.001,-136.771,117.001,258.766,117.001,258.766Z" />
 </g>
