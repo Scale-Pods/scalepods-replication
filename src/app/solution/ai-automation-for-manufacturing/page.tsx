@@ -1480,7 +1480,7 @@ export default function ManufacturingWorkflowAutomationPage() {
       <section id="audit-form-section" className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-final-card">
           <h2 className="sp-section-heading">Ready to Scale Your Manufacturing Business <span style={{ color: "var(--sp-accent)" }}>with AI?</span></h2>
-          <p className="sp-section-subheading max-w-[700px] mx-auto">
+          <p className="sp-section-subheading max-w-[700px] mx-auto text-center">
             Book a free 30-minute workflow audit and see exactly which processes ScalePods can automate for your manufacturing 
             business with a custom impact projection.
           </p>
