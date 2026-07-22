@@ -784,17 +784,21 @@
 /* Fold 10: Final CTA Datasheet Banner */
 .sp-final-card {
   width: 100%;
-  max-width: 80rem;
+  max-width: 960px;
   margin: 0 auto;
-  border-radius: 24px;
+  border-radius: 20px;
   border: var(--sp-card-border);
   background: radial-gradient(circle at 80% 20%, rgba(var(--sp-accent-rgb), 0.08) 0%, transparent 50%), var(--sp-card-bg);
   box-shadow: var(--sp-card-shadow);
   backdrop-filter: var(--sp-card-blur);
   -webkit-backdrop-filter: var(--sp-card-blur);
-  padding: 64px;
+  padding: 60px 40px;
   box-sizing: border-box;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
   position: relative;
   overflow: hidden;
 }
