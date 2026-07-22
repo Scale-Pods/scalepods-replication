@@ -97,10 +97,9 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 maxWidth: "680px",
                 width: "100%",
                 background: "rgba(var(--color-blue-mid-rgb), 0.04)",
-                borderTop: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
-                borderBottom: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
-                borderRight: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
-                borderLeft: "4px solid var(--color-blue-mid)",
+                borderWidth: "1px 1px 1px 4px",
+                borderStyle: "solid",
+                borderColor: "rgba(var(--color-blue-mid-rgb), 0.15) rgba(var(--color-blue-mid-rgb), 0.15) rgba(var(--color-blue-mid-rgb), 0.15) var(--color-blue-mid)",
                 borderRadius: "12px",
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "15px",
@@ -1003,10 +1002,9 @@ export default async function ArticlePage({ params }: Props) {
 
                   {/* Result Card 5: Full Width */}
                   <div className="md:col-span-2 premium-card" style={{
-                    borderTop: "1px solid var(--color-glass-border)",
-                    borderBottom: "1px solid var(--color-glass-border)",
-                    borderRight: "1px solid var(--color-glass-border)",
-                    borderLeft: "4px solid var(--color-blue-mid)",
+                    borderWidth: "1px 1px 1px 4px",
+                    borderStyle: "solid",
+                    borderColor: "var(--color-glass-border) var(--color-glass-border) var(--color-glass-border) var(--color-blue-mid)",
                     padding: "24px",
                     display: "flex",
                     flexDirection: "column",
@@ -1041,10 +1039,9 @@ export default async function ArticlePage({ params }: Props) {
 
                 {/* Block 1 */}
                 <div className="premium-card" style={{
-                  borderTop: "1px solid var(--color-glass-border)",
-                  borderBottom: "1px solid var(--color-glass-border)",
-                  borderRight: "1px solid var(--color-glass-border)",
-                  borderLeft: "4px solid var(--color-blue-mid)",
+                  borderWidth: "1px 1px 1px 4px",
+                  borderStyle: "solid",
+                  borderColor: "var(--color-glass-border) var(--color-glass-border) var(--color-glass-border) var(--color-blue-mid)",
                   padding: "28px",
                   display: "flex",
                   flexDirection: "column",
@@ -1060,10 +1057,9 @@ export default async function ArticlePage({ params }: Props) {
 
                 {/* Block 2 */}
                 <div className="premium-card" style={{
-                  borderTop: "1px solid var(--color-glass-border)",
-                  borderBottom: "1px solid var(--color-glass-border)",
-                  borderRight: "1px solid var(--color-glass-border)",
-                  borderLeft: "4px solid var(--color-blue-mid)",
+                  borderWidth: "1px 1px 1px 4px",
+                  borderStyle: "solid",
+                  borderColor: "var(--color-glass-border) var(--color-glass-border) var(--color-glass-border) var(--color-blue-mid)",
                   padding: "28px",
                   display: "flex",
                   flexDirection: "column",
@@ -1115,10 +1111,9 @@ export default async function ArticlePage({ params }: Props) {
               {/* Final CTA Section */}
               <div style={{ marginBottom: "40px" }}>
                 <div className="premium-card" style={{
-                  borderTop: "1px solid var(--color-glass-border)",
-                  borderBottom: "1px solid var(--color-glass-border)",
-                  borderRight: "1px solid var(--color-glass-border)",
-                  borderLeft: "4px solid var(--color-blue-mid)",
+                  borderWidth: "1px 1px 1px 4px",
+                  borderStyle: "solid",
+                  borderColor: "var(--color-glass-border) var(--color-glass-border) var(--color-glass-border) var(--color-blue-mid)",
                   padding: "48px 32px",
                   textAlign: "center"
                 }}>

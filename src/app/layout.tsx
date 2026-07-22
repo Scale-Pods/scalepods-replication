@@ -165,6 +165,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body
+        suppressHydrationWarning
         className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
         style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
       >
@@ -202,65 +203,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ThemeProvider>
 
         {/* Global scroll fade-up animation via IntersectionObserver */}
-        <Script id="scroll-fade-up" strategy="afterInteractive">{`
-          (function() {
-            var observer = new IntersectionObserver(function(entries) {
-              entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                  entry.target.style.opacity = '1';
-                  entry.target.style.transform = 'translateY(0)';
-                  entry.target.style.transition = 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)';
-                  observer.unobserve(entry.target);
+        <Script
+          id="scroll-fade-up"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var observer = new IntersectionObserver(function(entries) {
+                  entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                      entry.target.style.opacity = '1';
+                      entry.target.style.transform = 'translateY(0)';
+                      entry.target.style.transition = 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+                      observer.unobserve(entry.target);
+                    }
+                  });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+                function applyToSection(section) {
+                  // Animate direct children of sections that are not already animated by framer
+                  Array.from(section.children).forEach(function(child, i) {
+                    if (!child.hasAttribute('data-scroll-observed')) {
+                      child.setAttribute('data-scroll-observed', '1');
+                      child.style.opacity = '0';
+                      child.style.transform = 'translateY(28px)';
+                      child.style.transitionDelay = (i * 0.07) + 's';
+                      observer.observe(child);
+                    }
+                  });
                 }
-              });
-            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-            function applyToSection(section) {
-              // Animate direct children of sections that are not already animated by framer
-              Array.from(section.children).forEach(function(child, i) {
-                if (!child.hasAttribute('data-scroll-observed')) {
-                  child.setAttribute('data-scroll-observed', '1');
-                  child.style.opacity = '0';
-                  child.style.transform = 'translateY(28px)';
-                  child.style.transitionDelay = (i * 0.07) + 's';
-                  observer.observe(child);
+                function init() {
+                  if (window.location.pathname !== '/') {
+                    return;
+                  }
+                  if (window.requestAnimationFrame) {
+                    window.requestAnimationFrame(function() {
+                      document.querySelectorAll('section').forEach(applyToSection);
+                    });
+                  } else {
+                    document.querySelectorAll('section').forEach(applyToSection);
+                  }
                 }
-              });
-            }
 
-            function init() {
-              if (window.location.pathname !== '/') {
-                return;
-              }
-              if (window.requestAnimationFrame) {
-                window.requestAnimationFrame(function() {
-                  document.querySelectorAll('section').forEach(applyToSection);
-                });
-              } else {
-                document.querySelectorAll('section').forEach(applyToSection);
-              }
-            }
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', init);
+                } else {
+                  init();
+                }
 
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', init);
-            } else {
-              init();
-            }
-
-            // Also re-run on route changes (Next.js SPA navigation)
-            var pushState = history.pushState;
-            history.pushState = function() {
-              pushState.apply(history, arguments);
-              if (window.requestAnimationFrame) {
-                window.requestAnimationFrame(function() {
-                  setTimeout(init, 300);
-                });
-              } else {
-                setTimeout(init, 300);
-              }
-            };
-          })();
-        `}</Script>
+                // Also re-run on route changes (Next.js SPA navigation)
+                var pushState = history.pushState;
+                history.pushState = function() {
+                  pushState.apply(history, arguments);
+                  if (window.requestAnimationFrame) {
+                    window.requestAnimationFrame(function() {
+                      setTimeout(init, 300);
+                    });
+                  } else {
+                    setTimeout(init, 300);
+                  }
+                };
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );

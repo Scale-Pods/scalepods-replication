@@ -21,7 +21,7 @@ interface BlogSection {
   imageDark?: string;
   imageCaption?: string;
   accordionItems?: AccordionItem[];
-  visual?: "ai-transform" | "barriers" | "implementation" | "checklist" | "readiness-datasheets" | "features-grid" | "ma-evolution" | "ma-processes-grid" | "ma-use-cases" | "ma-ai-transform" | "ma-challenges" | "ma-trends" | "ma-features-grid" | "hr-processes-grid" | "hr-benefits-stats" | "ma-benefits-stats" | "hr-cta-cards" | "ma-cta-cards" | "hr-cta-landing" | "hr-cta-datasheet" | "ma-cta-landing" | "ma-cta-datasheet";
+  visual?: "ai-transform" | "barriers" | "implementation" | "checklist" | "readiness-datasheets" | "features-grid" | "ma-evolution" | "ma-processes-grid" | "ma-use-cases" | "ma-ai-transform" | "ma-challenges" | "ma-trends" | "ma-features-grid" | "hr-processes-grid" | "hr-benefits-stats" | "ma-benefits-stats" | "hr-cta-cards" | "ma-cta-cards" | "hr-cta-landing" | "hr-cta-datasheet" | "ma-cta-landing" | "ma-cta-datasheet" | "sa-before-after" | "sa-benefits-stats" | "sa-processes-grid" | "sa-flow-diagram" | "sa-ai-transform" | "sa-implementation" | "sa-features-grid" | "sa-cta-landing" | "sa-cta-datasheet";
   cta?: {
     text: string;
     link: string;
@@ -341,10 +341,9 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 maxWidth: "680px",
                 width: "100%",
                 background: "rgba(var(--color-blue-mid-rgb), 0.04)",
-                borderTop: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
-                borderRight: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
-                borderBottom: "1px solid rgba(var(--color-blue-mid-rgb), 0.15)",
-                borderLeft: "4px solid var(--color-blue-mid)",
+                borderWidth: "1px 1px 1px 4px",
+                borderStyle: "solid",
+                borderColor: "rgba(var(--color-blue-mid-rgb), 0.15) rgba(var(--color-blue-mid-rgb), 0.15) rgba(var(--color-blue-mid-rgb), 0.15) var(--color-blue-mid)",
                 borderRadius: "12px",
                 fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "15px",
@@ -720,10 +719,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
           {/* Card 1: People Challenge */}
           <div style={{
             background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
-            borderLeft: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderRight: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderBottom: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderTop: "4px solid var(--color-green)",
+            borderWidth: "4px 1px 1px 1px",
+            borderStyle: "solid",
+            borderColor: `var(--color-green) ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"}`,
             borderRadius: "12px",
             padding: "24px",
             display: "flex",
@@ -751,10 +749,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
           {/* Card 2: Data Challenge */}
           <div style={{
             background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
-            borderLeft: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderRight: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderBottom: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderTop: "4px solid var(--color-blue-mid)",
+            borderWidth: "4px 1px 1px 1px",
+            borderStyle: "solid",
+            borderColor: `var(--color-blue-mid) ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"}`,
             borderRadius: "12px",
             padding: "24px",
             display: "flex",
@@ -782,10 +779,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
           {/* Card 3: Compliance & Integration */}
           <div style={{
             background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
-            borderLeft: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderRight: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderBottom: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderTop: "4px solid var(--color-green)",
+            borderWidth: "4px 1px 1px 1px",
+            borderStyle: "solid",
+            borderColor: `var(--color-green) ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"}`,
             borderRadius: "12px",
             padding: "24px",
             display: "flex",
@@ -823,10 +819,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
           {/* Card 4: Automation Scope */}
           <div style={{
             background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
-            borderLeft: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderRight: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderBottom: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
-            borderTop: "4px solid var(--color-blue-mid)",
+            borderWidth: "4px 1px 1px 1px",
+            borderStyle: "solid",
+            borderColor: `var(--color-blue-mid) ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"} ${isDark ? "var(--color-border)" : "rgba(15, 23, 42, 0.04)"}`,
             borderRadius: "12px",
             padding: "24px",
             display: "flex",
@@ -859,10 +854,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
         {/* Full-width Human Touch Footer Card */}
         <div style={{
           background: isDark ? "rgba(var(--color-green-rgb), 0.02)" : "rgba(var(--color-green-rgb), 0.01)",
-          borderTop: isDark ? "1px solid rgba(var(--color-green-rgb), 0.15)" : "1px solid rgba(var(--color-green-rgb), 0.2)",
-          borderRight: isDark ? "1px solid rgba(var(--color-green-rgb), 0.15)" : "1px solid rgba(var(--color-green-rgb), 0.2)",
-          borderBottom: isDark ? "1px solid rgba(var(--color-green-rgb), 0.15)" : "1px solid rgba(var(--color-green-rgb), 0.2)",
-          borderLeft: "4px solid var(--color-green)",
+          borderWidth: "1px 1px 1px 4px",
+          borderStyle: "solid",
+          borderColor: `${isDark ? "rgba(var(--color-green-rgb), 0.15)" : "rgba(var(--color-green-rgb), 0.2)"} ${isDark ? "rgba(var(--color-green-rgb), 0.15)" : "rgba(var(--color-green-rgb), 0.2)"} ${isDark ? "rgba(var(--color-green-rgb), 0.15)" : "rgba(var(--color-green-rgb), 0.2)"} var(--color-green)`,
           borderRadius: "12px",
           padding: "24px",
           display: "flex",
@@ -1433,8 +1427,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
             return (
               <div key={idx} style={{
                 background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
-                border: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.06)",
-                borderTop: `3px solid ${f.color}`,
+                borderWidth: "3px 1px 1px 1px",
+                borderStyle: "solid",
+                borderColor: `${f.color} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"}`,
                 borderRadius: "12px",
                 padding: "24px",
                 display: "flex",
@@ -2562,6 +2557,563 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
     );
   };
 
+  const renderSABeforeAfter = () => {
+    const isDark = resolvedTheme === "dark";
+    const traditionalItems = [
+      "15–20 Admin Hours/Week — Reps lose over half their week logging activity, drafting emails, and updating spreadsheets",
+      "Manual Data Entry — CRM records, call notes, and contact changes logged inconsistently or forgotten",
+      "Delayed Lead Response — Inbound leads wait hours or days for first contact, causing high lead drop-off",
+      "Static Blast Messaging — One-size-fits-all email templates with low open and reply rates",
+      "Gut-Feel Lead Prioritization — Reps guess which prospects to contact without objective intent scoring"
+    ];
+    const aiItems = [
+      "<4 Admin Hours/Week — Reps focus almost entirely on high-value conversations and closing deals",
+      "Automated Real-Time CRM Sync — Call transcripts, email activities, and pipeline updates logged instantly",
+      "<60 Second Lead Response — AI agents qualify and engage inbound leads immediately upon submission",
+      "Contextual 1:1 Personalization — Outreach tailored dynamically using ICP triggers, tech stack, and role signals",
+      "Predictive Intent Scoring — AI ranks leads by conversion probability so reps call top buyers first"
+    ];
+
+    return (
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        gap: "24px",
+        marginTop: "32px",
+        marginBottom: "32px"
+      }}>
+        {/* Traditional Sales */}
+        <div style={{
+          background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+          border: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.04)",
+          borderRadius: "16px",
+          padding: "28px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          boxShadow: isDark ? "0 10px 30px rgba(0, 0, 0, 0.4)" : "0 10px 30px rgba(15, 23, 42, 0.05)"
+        }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span style={{
+              fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em",
+              padding: "4px 10px", borderRadius: "6px", background: "rgba(239, 68, 68, 0.1)", color: "#ef4444"
+            }}>Traditional Sales Ops</span>
+            <span style={{ fontSize: "14px", color: "var(--color-text-muted)", fontWeight: 500 }}>Manual Execution</span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {traditionalItems.map((item, idx) => {
+              const parts = item.split(" — ");
+              const title = parts[0];
+              const desc = parts.slice(1).join(" — ");
+              return (
+                <div key={idx} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                  <div style={{
+                    width: "20px", height: "20px", borderRadius: "50%", background: "rgba(239, 68, 68, 0.1)",
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px"
+                  }}>
+                    <X style={{ width: "12px", height: "12px", color: "#ef4444" }} />
+                  </div>
+                  <div style={{ fontSize: "14px", lineHeight: "1.5", color: "var(--color-text-body)" }}>
+                    <strong style={{ color: "var(--color-text-bright)" }}>{title}</strong> — {desc}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* AI-Powered Sales */}
+        <div style={{
+          background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+          border: isDark ? "1px solid var(--color-blue-mid)" : "1px solid rgba(var(--color-blue-mid-rgb), 0.2)",
+          borderRadius: "16px",
+          padding: "28px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          boxShadow: isDark ? "0 10px 30px rgba(0, 0, 0, 0.4)" : "0 10px 30px rgba(var(--color-blue-mid-rgb), 0.08)"
+        }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span style={{
+              fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em",
+              padding: "4px 10px", borderRadius: "6px", background: "rgba(var(--color-green-rgb), 0.15)", color: "var(--color-green)"
+            }}>AI-Powered Sales Ops</span>
+            <span style={{ fontSize: "14px", color: "var(--color-blue-mid)", fontWeight: 600 }}>Automated Workflows</span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {aiItems.map((item, idx) => {
+              const parts = item.split(" — ");
+              const title = parts[0];
+              const desc = parts.slice(1).join(" — ");
+              return (
+                <div key={idx} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                  <div style={{
+                    width: "20px", height: "20px", borderRadius: "50%", background: "rgba(var(--color-green-rgb), 0.12)",
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px"
+                  }}>
+                    <Check style={{ width: "12px", height: "12px", color: "var(--color-green)" }} />
+                  </div>
+                  <div style={{ fontSize: "14px", lineHeight: "1.5", color: "var(--color-text-body)" }}>
+                    <strong style={{ color: "var(--color-text-bright)" }}>{title}</strong> — {desc}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderSABenefitsStats = () => {
+    const isDark = resolvedTheme === "dark";
+    const stats = [
+      { stat: "70%", label: "Lead Response Reduction", detail: "Inbound lead response times drop from hours down to <60 seconds", color: "var(--color-green-text)", colorRgb: "var(--color-green-rgb)" },
+      { stat: "30%", label: "Lead-to-Opp Conversion", detail: "Higher conversion rate from faster response & multi-channel follow-up", color: "var(--color-blue-mid)", colorRgb: "var(--color-blue-mid-rgb)" },
+      { stat: "15 Hrs", label: "Capacity Reclaimed / Week", detail: "Hours saved per sales rep per week from automated admin & CRM logging", color: "var(--color-green-text)", colorRgb: "var(--color-green-rgb)" },
+    ];
+
+    return (
+      <div style={{ marginTop: "32px", marginBottom: "32px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .sa-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .sa-stats-grid {
+              grid-template-columns: repeat(3, 1fr);
+            }
+          }
+        ` }} />
+        <div className="sa-stats-grid">
+          {stats.map((s, idx) => (
+            <div key={idx} style={{
+              background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+              borderWidth: "4px 1px 1px 1px",
+              borderStyle: "solid",
+              borderColor: `${s.color} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"}`,
+              borderRadius: "14px",
+              padding: "26px 20px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              alignItems: "center",
+              textAlign: "center",
+              boxShadow: isDark ? "0 8px 24px rgba(0,0,0,0.25)" : "0 8px 24px rgba(15,23,42,0.05)"
+            }}>
+              <span style={{ fontSize: "36px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.stat}</span>
+              <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-bright)" }}>{s.label}</span>
+              <span style={{ fontSize: "12px", color: "var(--color-text-muted)", lineHeight: 1.5 }}>{s.detail}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSAProcessesGrid = () => {
+    const isDark = resolvedTheme === "dark";
+    const processes = [
+      { icon: Target, title: "1. Lead Capture & Enrichment", desc: "Automate prospect research by matching ICP criteria across LinkedIn, Apollo, and company databases to produce verified contact profiles.", color: "var(--color-blue-mid)" },
+      { icon: Zap, title: "2. Lead Qualification & Scoring", desc: "AI evaluates engagement signals, tech stack, funding, and firmographic data to score and route warm leads instantly.", color: "var(--color-green-text)" },
+      { icon: RefreshCw, title: "3. CRM Data Entry & Activity Sync", desc: "Automatically log call notes, emails, meeting transcripts, and contact updates directly into Salesforce, HubSpot, or Pipedrive.", color: "var(--color-blue-mid)" },
+      { icon: Send, title: "4. Multi-Channel Follow-Ups", desc: "Trigger multi-touch sequences across email, LinkedIn, and messaging platforms based on prospect behavior and response delays.", color: "var(--color-green-text)" },
+      { icon: Calendar, title: "5. Meeting Scheduling", desc: "Eliminate booking back-and-forth by letting prospects instantly pick time slots with automated reminders and calendar sync.", color: "var(--color-blue-mid)" },
+      { icon: FileText, title: "6. Proposal & Quote Generation", desc: "Generate custom quotes, contracts, and proposals dynamically based on discovery notes and CRM deal parameters.", color: "var(--color-green-text)" },
+      { icon: LayoutGrid, title: "7. Pipeline Management", desc: "Automatically update deal stages, flag stalled opportunities, and trigger rep alerts when buyer activity changes.", color: "var(--color-blue-mid)" },
+      { icon: TrendingUp, title: "8. Sales Forecasting", desc: "Predict revenue outcomes using historical deal velocity, conversion rates, and real-time deal engagement indicators.", color: "var(--color-green-text)" },
+      { icon: BarChart3, title: "9. Reporting & Analytics", desc: "Track rep productivity, pipeline velocity, channel ROI, and conversion bottlenecks on one live executive dashboard.", color: "var(--color-blue-mid)" },
+      { icon: UserCheck, title: "10. Customer Success Handoff", desc: "Pass closed-won deal context, client goals, and onboarding tasks automatically from sales reps to CS account managers.", color: "var(--color-green-text)" },
+    ];
+
+    return (
+      <div style={{ marginTop: "32px", marginBottom: "32px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .sa-proc-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .sa-proc-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          @media (min-width: 1024px) {
+            .sa-proc-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+        ` }} />
+        <div className="sa-proc-grid">
+          {processes.map((p, idx) => {
+            const IconComponent = p.icon;
+            return (
+              <div key={idx} style={{
+                background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+                borderTop: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.06)",
+                borderRight: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.06)",
+                borderBottom: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.06)",
+                borderLeft: `4px solid ${p.color}`,
+                borderRadius: "14px",
+                padding: "24px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+                boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.25)" : "0 4px 20px rgba(15,23,42,0.04)"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{
+                    width: "38px", height: "38px", borderRadius: "10px",
+                    background: `${p.color}15`, display: "flex", alignItems: "center", justifyContent: "center",
+                    color: p.color, flexShrink: 0
+                  }}>
+                    <IconComponent style={{ width: "20px", height: "20px" }} />
+                  </div>
+                  <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)" }}>{p.title}</div>
+                </div>
+                <div style={{ fontSize: "13px", color: "var(--color-text-body)", lineHeight: 1.6 }}>{p.desc}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSAFlowDiagram = () => {
+    const isDark = resolvedTheme === "dark";
+    const flowSteps = [
+      { step: "01", title: "Lead Capture", desc: "Inbound form / Outbound ICP signal", tag: "Trigger" },
+      { step: "02", title: "AI Qualification", desc: "Enrichment & Intent Scoring", tag: "Enrichment" },
+      { step: "03", title: "CRM Sync", desc: "Real-Time record creation", tag: "Data" },
+      { step: "04", title: "Smart Outreach", desc: "Personalized multi-channel sequence", tag: "Engagement" },
+      { step: "05", title: "Instant Booking", desc: "Automated Calendar Handoff", tag: "Meeting" },
+      { step: "06", title: "Proposal & Close", desc: "AI contract gen & deal tracking", tag: "Revenue" },
+      { step: "07", title: "CS Handoff", desc: "Seamless client onboarding sync", tag: "Retention" },
+    ];
+
+    return (
+      <div style={{ marginTop: "32px", marginBottom: "32px", width: "100%" }}>
+        <div style={{
+          background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+          border: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.06)",
+          borderRadius: "16px",
+          padding: "32px 24px",
+          boxShadow: isDark ? "0 10px 30px rgba(0,0,0,0.3)" : "0 10px 30px rgba(15,23,42,0.05)"
+        }}>
+          <div style={{ textAlign: "center", marginBottom: "28px" }}>
+            <span style={{
+              fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em",
+              padding: "4px 12px", borderRadius: "20px", background: "rgba(var(--color-blue-mid-rgb), 0.12)", color: "var(--color-blue-mid)"
+            }}>
+              END-TO-END WORKFLOW PIPELINE
+            </span>
+            <h4 style={{ fontSize: "20px", fontWeight: 800, color: "var(--color-text-bright)", marginTop: "10px", marginBottom: "4px" }}>
+              The Automated Lead Journey in 2026
+            </h4>
+            <p style={{ fontSize: "14px", color: "var(--color-text-muted)" }}>
+              From initial prospect discovery to customer success handoff without friction
+            </p>
+          </div>
+
+          <style dangerouslySetInnerHTML={{ __html: `
+            .sa-flow-grid {
+              display: grid;
+              grid-template-columns: repeat(1, 1fr);
+              gap: 14px;
+            }
+            @media (min-width: 640px) {
+              .sa-flow-grid {
+                grid-template-columns: repeat(2, 1fr);
+              }
+            }
+            @media (min-width: 1024px) {
+              .sa-flow-grid {
+                grid-template-columns: repeat(4, 1fr);
+              }
+            }
+          ` }} />
+          <div className="sa-flow-grid">
+            {flowSteps.map((s, idx) => (
+              <div key={idx} style={{
+                background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
+                border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+                borderRadius: "12px",
+                padding: "18px 16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+                position: "relative"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span style={{ fontSize: "18px", fontWeight: 800, color: "var(--color-blue-mid)" }}>{s.step}</span>
+                  <span style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", padding: "2px 8px", borderRadius: "4px", background: "rgba(var(--color-green-rgb), 0.15)", color: "var(--color-green-text)" }}>{s.tag}</span>
+                </div>
+                <div style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>{s.title}</div>
+                <div style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>{s.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderSAAITransform = () => {
+    const isDark = resolvedTheme === "dark";
+    const aiCaps = [
+      { icon: Search, title: "1. ICP Scraping & Enrichment", desc: "AI scans web signals, job changes, funding, and tech stacks to build verified lead lists dynamically.", color: "var(--color-blue-mid)" },
+      { icon: Zap, title: "2. AI Lead Qualification", desc: "Conversational AI scores incoming inquiries and determines real intent before routing to reps.", color: "var(--color-green-text)" },
+      { icon: Mail, title: "3. Multi-Channel AI Outreach", desc: "Generative messaging creates authentic 1:1 emails, LinkedIn touchpoints, and WhatsApp messages tailored to each lead.", color: "var(--color-blue-mid)" },
+      { icon: Activity, title: "4. Automated Sentiment Analysis", desc: "AI reads reply tone to categorize responses into interested, objection, referral, or unsubscribe automatically.", color: "var(--color-green-text)" },
+      { icon: Award, title: "5. Predictive Opportunity Scoring", desc: "Machine learning models analyze deal parameters to highlight closing probability and win rates.", color: "var(--color-blue-mid)" },
+      { icon: Bot, title: "6. Autonomous Sales Workflows", desc: "Task-specific AI agents handle research, draft follow-ups, and update CRM records automatically.", color: "var(--color-green-text)" },
+      { icon: TrendingUp, title: "7. Predictive Revenue Forecasting", desc: "Live analytics evaluate current pipeline momentum to deliver accurate quarterly sales forecasts.", color: "var(--color-blue-mid)" },
+      { icon: RefreshCw, title: "8. Unified Intelligence & CRM Sync", desc: "Bi-directional syncing ensures all customer interactions update across sales, marketing, and CS tools.", color: "var(--color-green-text)" },
+    ];
+
+    return (
+      <div style={{ marginTop: "32px", marginBottom: "32px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .sa-ai-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .sa-ai-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          @media (min-width: 1024px) {
+            .sa-ai-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+        ` }} />
+        <div className="sa-ai-grid">
+          {aiCaps.map((c, idx) => {
+            const IconComponent = c.icon;
+            return (
+              <div key={idx} style={{
+                background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+                borderWidth: "3px 1px 1px 1px",
+                borderStyle: "solid",
+                borderColor: `${c.color} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"} ${isDark ? "var(--color-border)" : "rgba(15,23,42,0.06)"}`,
+                borderRadius: "12px",
+                padding: "22px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.25)" : "0 4px 20px rgba(15,23,42,0.04)"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <div style={{
+                    width: "36px", height: "36px", borderRadius: "8px",
+                    background: `${c.color}15`, display: "flex", alignItems: "center", justifyContent: "center",
+                    color: c.color, flexShrink: 0
+                  }}>
+                    <IconComponent style={{ width: "18px", height: "18px" }} />
+                  </div>
+                  <div style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>{c.title}</div>
+                </div>
+                <div style={{ fontSize: "13px", color: "var(--color-text-body)", lineHeight: 1.6 }}>{c.desc}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSAImplementation = () => {
+    const isDark = resolvedTheme === "dark";
+    const phases = [
+      { phase: "Phase 1", time: "Weeks 1–2", title: "Audit & Process Mapping", desc: "Map your sales pipeline end-to-end. Identify manual bottlenecks, lead drop-off points, and CRM data hygiene gaps." },
+      { phase: "Phase 2", time: "Weeks 3–4", title: "Workflow Design & Standardization", desc: "Select high-ROI use cases (e.g. Lead Qualification, Follow-Up Sequences). Establish ICP rules and outreach guardrails." },
+      { phase: "Phase 3", time: "Weeks 5–8", title: "Integration & Team Training", desc: "Deploy AI workflows into your CRM (HubSpot/Salesforce). Train reps on co-piloted AI outreach and meeting management." },
+      { phase: "Phase 4", time: "Weeks 9+", title: "Measurement & Optimization", desc: "Track lead response speed, conversion rates, and rep capacity. Continuously optimize messaging prompts and intent scoring." },
+    ];
+
+    return (
+      <div style={{ marginTop: "32px", marginBottom: "32px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .sa-impl-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .sa-impl-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+        ` }} />
+        <div className="sa-impl-grid">
+          {phases.map((p, idx) => (
+            <div key={idx} style={{
+              background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+              border: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.06)",
+              borderRadius: "14px",
+              padding: "24px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px",
+              boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.25)" : "0 4px 20px rgba(15,23,42,0.04)"
+            }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", padding: "4px 10px", borderRadius: "6px", background: "rgba(var(--color-blue-mid-rgb), 0.12)", color: "var(--color-blue-mid)" }}>{p.phase}</span>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--color-green-text)" }}>{p.time}</span>
+              </div>
+              <h4 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>{p.title}</h4>
+              <p style={{ fontSize: "13px", color: "var(--color-text-body)", margin: 0, lineHeight: 1.6 }}>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSAFeaturesGrid = () => {
+    const isDark = resolvedTheme === "dark";
+    const features = [
+      { icon: Bot, title: "AI Presales Pods", desc: "Ready-to-deploy automated SDR systems combining research, outreach, and appointment setting." },
+      { icon: RefreshCw, title: "Plug-and-Play Setup", desc: "Seamless bi-directional integrations for HubSpot, Salesforce, Pipedrive, and Apollo." },
+      { icon: Users, title: "Human + AI Synergy", desc: "AI handles repetitive tasks while trained remote SDRs manage high-touch discovery calls." },
+      { icon: Award, title: "SLA-Backed Performance", desc: "We measure success by qualified meetings booked and pipeline generated, not vanity emails." },
+      { icon: Shield, title: "Claude Partner Network", desc: "Built on enterprise-grade Anthropic AI architecture for safe, contextual communication." },
+      { icon: Lock, title: "GDPR & CAN-SPAM Safe", desc: "Safe sending domain management, verified prospect data, and full regulatory compliance." },
+    ];
+
+    return (
+      <div style={{ marginTop: "32px", marginBottom: "32px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .sa-feat-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 16px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .sa-feat-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          @media (min-width: 1024px) {
+            .sa-feat-grid {
+              grid-template-columns: repeat(3, 1fr);
+            }
+          }
+        ` }} />
+        <div className="sa-feat-grid">
+          {features.map((f, idx) => {
+            const IconComponent = f.icon;
+            return (
+              <div key={idx} style={{
+                background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+                border: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15,23,42,0.06)",
+                borderRadius: "12px",
+                padding: "20px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                boxShadow: isDark ? "0 4px 16px rgba(0,0,0,0.2)" : "0 4px 16px rgba(15,23,42,0.03)"
+              }}>
+                <div style={{
+                  width: "36px", height: "36px", borderRadius: "8px",
+                  background: "rgba(var(--color-blue-mid-rgb), 0.12)", display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "var(--color-blue-mid)"
+                }}>
+                  <IconComponent style={{ width: "18px", height: "18px" }} />
+                </div>
+                <div style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>{f.title}</div>
+                <div style={{ fontSize: "13px", color: "var(--color-text-body)", lineHeight: 1.5 }}>{f.desc}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSaCtaLanding = () => {
+    const isDark = resolvedTheme === "dark";
+    return (
+      <div style={{ marginTop: "36px", marginBottom: "36px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .creative-cta-card {
+            background: ${isDark ? "var(--color-bg-card-alt)" : "#ffffff"};
+            border: ${isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.08)"};
+            border-left: 4px solid var(--color-blue-mid);
+            border-radius: 16px;
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            cursor: pointer;
+            box-shadow: ${isDark ? "0 10px 30px rgba(0, 0, 0, 0.3)" : "0 10px 30px rgba(15, 23, 42, 0.05)"};
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          .creative-cta-card:hover {
+            transform: translateY(-3px);
+            border-color: ${isDark ? "rgba(255, 255, 255, 0.2)" : "rgba(37, 99, 235, 0.3)"};
+            box-shadow: ${isDark ? "0 14px 36px rgba(0, 0, 0, 0.4)" : "0 14px 36px rgba(37, 99, 235, 0.1)"};
+          }
+        ` }} />
+        <div 
+          onClick={(e) => {
+            e.preventDefault();
+            setIsSalesPodRequest(false);
+            setIsAuditModalOpen(true);
+          }} 
+          className="creative-cta-card"
+        >
+          <div className="creative-cta-content">
+            <div className="creative-cta-tag">SALES WORKFLOW AUDIT →</div>
+            <h4 className="creative-cta-title">Audit Your Sales Operations for 2026</h4>
+            <p className="creative-cta-desc">Discover where your reps lose admin hours, pinpoint lead leakages, and get a customized AI sales automation blueprint.</p>
+          </div>
+          <div className="creative-cta-action">
+            <ArrowUpRight size={20} />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderSaCtaDatasheet = () => {
+    const isDark = resolvedTheme === "dark";
+    return (
+      <div style={{ marginTop: "36px", marginBottom: "36px", width: "100%" }}>
+        <div 
+          onClick={(e) => {
+            e.preventDefault();
+            setIsSalesPodRequest(true);
+            setIsAuditModalOpen(true);
+          }} 
+          className="creative-cta-card"
+        >
+          <div className="creative-cta-content">
+            <div className="creative-cta-tag">SALES RESOURCES & DATASHEETS →</div>
+            <h4 className="creative-cta-title">Download ScalePods Sales Automation Playbook</h4>
+            <p className="creative-cta-desc">Access outreach sequence templates, CRM integration diagrams, and automated lead scoring frameworks.</p>
+          </div>
+          <div className="creative-cta-action">
+            <ArrowUpRight size={20} />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -2737,6 +3289,15 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                 {section.visual === "hr-cta-datasheet" && renderHrCtaDatasheet()}
                 {section.visual === "ma-cta-landing" && renderMaCtaLanding()}
                 {section.visual === "ma-cta-datasheet" && renderMaCtaDatasheet()}
+                {section.visual === "sa-before-after" && renderSABeforeAfter()}
+                {section.visual === "sa-benefits-stats" && renderSABenefitsStats()}
+                {section.visual === "sa-processes-grid" && renderSAProcessesGrid()}
+                {section.visual === "sa-flow-diagram" && renderSAFlowDiagram()}
+                {section.visual === "sa-ai-transform" && renderSAAITransform()}
+                {section.visual === "sa-implementation" && renderSAImplementation()}
+                {section.visual === "sa-features-grid" && renderSAFeaturesGrid()}
+                {section.visual === "sa-cta-landing" && renderSaCtaLanding()}
+                {section.visual === "sa-cta-datasheet" && renderSaCtaDatasheet()}
               </div>
             )}
 

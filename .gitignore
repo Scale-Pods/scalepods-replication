@@ -51,3 +51,12 @@ Blogs-*/
 # Non-source planning artifacts and media
 /Admin/
 /Sales/
+
+# Temp developer scratch scripts & text dumps
+Video-data/
+*.py
+*.txt
+public/images/temp_*
+/src/app/api/copy-images/
+/src/app/api/git-helper/
+/src/app/inspect-images/

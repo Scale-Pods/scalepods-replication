@@ -52,7 +52,9 @@ export async function sendMetaCapiEvent(params: SendEventParams): Promise<SendEv
 
   if (!accessToken || !pixelId) {
     const reason = "Missing META_CAPI_ACCESS_TOKEN or META_PIXEL_ID";
-    console.warn(`[Meta CAPI] ${reason} — skipping "${params.eventName}" event`);
+    if (process.env.META_CAPI_DEBUG === "true") {
+      console.warn(`[Meta CAPI] ${reason} — skipping "${params.eventName}" event`);
+    }
     return { skipped: true, reason };
   }
 
