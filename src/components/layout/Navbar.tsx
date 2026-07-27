@@ -33,7 +33,7 @@ const ThemeToggle = memo(() => {
         onClick={() => setTheme("light")}
         style={{
           background: theme === "light" ? "var(--color-bg-page)" : "transparent",
-          color: theme === "light" ? "var(--color-blue-bright)" : "var(--color-text-faint)",
+          color: theme === "light" ? "var(--color-green-text)" : "var(--color-text-faint)",
           border: theme === "light" ? "1px solid var(--color-border)" : "none",
           borderRadius: "50%",
           width: "28px",
@@ -53,7 +53,7 @@ const ThemeToggle = memo(() => {
         onClick={() => setTheme("dark")}
         style={{
           background: theme === "dark" ? "var(--color-bg-card)" : "transparent",
-          color: theme === "dark" ? "var(--color-blue-bright)" : "var(--color-text-faint)",
+          color: theme === "dark" ? "var(--color-green-text)" : "var(--color-text-faint)",
           border: theme === "dark" ? "1px solid var(--color-border)" : "none",
           borderRadius: "50%",
           width: "28px",
@@ -102,14 +102,19 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const solutions = [
+const workflowSolutions = [
   { label: "Sales Workflow Automation", href: "/solution/sales-workflow-automation" },
   { label: "HR Workflow Automation", href: "/solution/hr-workflow-automation" },
   { label: "Marketing Workflow Automation", href: "/solution/marketing-workflow-automation" },
   { label: "Operations Workflow Automation", href: "/solution/ops-workflow-automation" },
+];
+
+const industrySolutions = [
   { label: "Manufacturing Workflow Automation", href: "/solution/ai-automation-for-manufacturing" },
   { label: "Real Estate Workflow Automation", href: "/solution/ai-automation-for-real-estate" },
 ];
+
+const solutions = [...workflowSolutions, ...industrySolutions];
 
 const globalSections = [
   { label: "Hero Section: Plug and Play Pods", id: "hero-plug-play" },
@@ -482,49 +487,123 @@ const Navbar = memo(() => {
                               background: "var(--color-bg-card)",
                               border: "1px solid var(--color-border)",
                               borderRadius: "16px",
-                              padding: "8px",
-                              minWidth: "240px",
+                              padding: "20px",
+                              minWidth: "520px",
                               boxShadow: resolvedTheme === 'dark' 
                                 ? "0 20px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05)" 
                                 : "0 15px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
                               backdropFilter: "blur(24px)",
                               WebkitBackdropFilter: "blur(24px)",
+                              display: "grid",
+                              gridTemplateColumns: "1fr 1fr",
+                              gap: "24px"
                             }}
                           >
-                            {solutions.map((sol) => {
-                              const isSolActive = pathname === sol.href;
-                              return (
-                                <Link
-                                  key={sol.label}
-                                  href={sol.href}
-                                  prefetch={isProd}
-                                  onClick={() => setSolutionsOpen(false)}
-                                  style={{
-                                    display: "block",
-                                    padding: "10px 14px",
-                                    borderRadius: "10px",
-                                    fontSize: "13px",
-                                    fontWeight: 500,
-                                    color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)",
-                                    background: isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
-                                    textDecoration: "none",
-                                    transition: "all 0.2s ease",
-                                    fontFamily: "Inter, sans-serif",
-                                    textAlign: "left"
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
-                                    e.currentTarget.style.color = "var(--color-text-bright)";
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent";
-                                    e.currentTarget.style.color = isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)";
-                                  }}
-                                >
-                                  {sol.label}
-                                </Link>
-                              );
-                            })}
+                            {/* Column 1: By Workflow */}
+                            <div>
+                              <div style={{
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                letterSpacing: "0.08em",
+                                color: "var(--color-green-text)",
+                                textTransform: "uppercase",
+                                marginBottom: "10px",
+                                paddingBottom: "6px",
+                                borderBottom: "1px solid var(--color-border-faint)",
+                                fontFamily: "Inter, sans-serif"
+                              }}>
+                                By Workflow
+                              </div>
+                              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                                {workflowSolutions.map((sol) => {
+                                  const isSolActive = pathname === sol.href;
+                                  return (
+                                    <Link
+                                      key={sol.label}
+                                      href={sol.href}
+                                      prefetch={isProd}
+                                      onClick={() => setSolutionsOpen(false)}
+                                      style={{
+                                        display: "block",
+                                        padding: "8px 10px",
+                                        borderRadius: "8px",
+                                        fontSize: "13px",
+                                        fontWeight: 500,
+                                        color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)",
+                                        background: isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                                        textDecoration: "none",
+                                        transition: "all 0.2s ease",
+                                        fontFamily: "Inter, sans-serif",
+                                        textAlign: "left"
+                                      }}
+                                      onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                                        e.currentTarget.style.color = "var(--color-text-bright)";
+                                      }}
+                                      onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                        e.currentTarget.style.color = isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)";
+                                      }}
+                                    >
+                                      {sol.label}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Column 2: By Industry */}
+                            <div>
+                              <div style={{
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                letterSpacing: "0.08em",
+                                color: "var(--color-green-text)",
+                                textTransform: "uppercase",
+                                marginBottom: "10px",
+                                paddingBottom: "6px",
+                                borderBottom: "1px solid var(--color-border-faint)",
+                                fontFamily: "Inter, sans-serif"
+                              }}>
+                                By Industry
+                              </div>
+                              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                                {industrySolutions.map((sol) => {
+                                  const isSolActive = pathname === sol.href;
+                                  return (
+                                    <Link
+                                      key={sol.label}
+                                      href={sol.href}
+                                      prefetch={isProd}
+                                      onClick={() => setSolutionsOpen(false)}
+                                      style={{
+                                        display: "block",
+                                        padding: "8px 10px",
+                                        borderRadius: "8px",
+                                        fontSize: "13px",
+                                        fontWeight: 500,
+                                        color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)",
+                                        background: isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                                        textDecoration: "none",
+                                        transition: "all 0.2s ease",
+                                        fontFamily: "Inter, sans-serif",
+                                        textAlign: "left"
+                                      }}
+                                      onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                                        e.currentTarget.style.color = "var(--color-text-bright)";
+                                      }}
+                                      onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = isSolActive ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                        e.currentTarget.style.color = isSolActive ? "var(--color-text-bright)" : "var(--color-text-body)";
+                                      }}
+                                    >
+                                      {sol.label}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
                           </motion.div>
                         </div>
                       )}
@@ -726,7 +805,7 @@ const Navbar = memo(() => {
                                   position: "absolute",
                                   inset: 0,
                                   background: "rgba(255, 255, 255, 0.03)",
-                                  borderLeft: "2px solid var(--color-blue-bright)",
+                                  borderLeft: "2px solid var(--color-green-text)",
                                   zIndex: 0,
                                 }}
                                 transition={{
@@ -777,9 +856,20 @@ const Navbar = memo(() => {
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.3 }}
-                                style={{ overflow: "hidden", background: "rgba(255,255,255,0.02)" }}
+                                style={{ overflow: "hidden", background: "rgba(255,255,255,0.02)", padding: "8px 0" }}
                               >
-                                {solutions.map((sol) => {
+                                <div style={{
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  letterSpacing: "0.08em",
+                                  color: "var(--color-green-text)",
+                                  textTransform: "uppercase",
+                                  padding: "8px 32px 4px",
+                                  fontFamily: "Inter, sans-serif"
+                                }}>
+                                  By Workflow
+                                </div>
+                                {workflowSolutions.map((sol) => {
                                   const isSolActive = pathname === sol.href;
                                   return (
                                     <Link
@@ -789,7 +879,44 @@ const Navbar = memo(() => {
                                       onClick={closeMenu}
                                       style={{
                                         display: "block",
-                                        padding: "12px 40px",
+                                        padding: "10px 40px",
+                                        fontSize: "13px",
+                                        fontWeight: 500,
+                                        color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                        background: isSolActive ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                        border: "none",
+                                        fontFamily: "Inter, sans-serif",
+                                        textDecoration: "none",
+                                        textAlign: "left"
+                                      }}
+                                    >
+                                      • {sol.label}
+                                    </Link>
+                                  );
+                                })}
+
+                                <div style={{
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  letterSpacing: "0.08em",
+                                  color: "var(--color-green-text)",
+                                  textTransform: "uppercase",
+                                  padding: "14px 32px 4px",
+                                  fontFamily: "Inter, sans-serif"
+                                }}>
+                                  By Industry
+                                </div>
+                                {industrySolutions.map((sol) => {
+                                  const isSolActive = pathname === sol.href;
+                                  return (
+                                    <Link
+                                      key={sol.label}
+                                      href={sol.href}
+                                      prefetch={isProd}
+                                      onClick={closeMenu}
+                                      style={{
+                                        display: "block",
+                                        padding: "10px 40px",
                                         fontSize: "13px",
                                         fontWeight: 500,
                                         color: isSolActive ? "var(--color-text-bright)" : "var(--color-text-muted)",

@@ -21,15 +21,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = blogPosts.find((p) => p.slug === slug && p.category === "Case Study");
   if (!post) return { title: "Not Found" };
 
+  const title = post.metaTitle || `${post.title} | ScalePods Case Study`;
+  const description = post.metaDescription || post.excerpt;
+
   return {
-    title: `${post.title} | ScalePods Case Study`,
-    description: post.excerpt,
+    title,
+    description,
     alternates: {
       canonical: `https://www.scalepods.co/case-study/${slug}`,
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description,
       url: `https://www.scalepods.co/case-study/${slug}`,
       type: "article",
       images: [
@@ -39,14 +42,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             : `https://www.scalepods.co${post.image}`,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: title,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description,
     },
   };
 }

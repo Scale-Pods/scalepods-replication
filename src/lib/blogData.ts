@@ -30,6 +30,8 @@ export interface BlogPost {
   category: string;
   title: string;
   excerpt: string;
+  metaTitle?: string;
+  metaDescription?: string;
   image: string;
   sections: BlogSection[];
   faqs?: {
@@ -744,6 +746,8 @@ export const blogPosts: BlogPost[] = [
     category: "Case Study",
     title: "Lotus Manor: 21% Response Rate across 1,000+ Prospects via ScalePods Outreach",
     excerpt: "Lotus Manor achieved a 21% response rate across 1,000+ prospects by using ScalePods to automatically follow up, sequence outreach, and route replies back to sales, eliminating manual chasing and giving their team the bandwidth to focus entirely on closing deals.",
+    metaTitle: "Lotus Manor Case Study: 21% Response Rate | ScalePods",
+    metaDescription: "See how ScalePods helped Lotus Manor automate 7,000+ follow-ups across 1,000+ real estate prospects in Dubai, driving a 21% response rate.",
     image: "/brands/lotus-manor.webp",
     sections: [
       {

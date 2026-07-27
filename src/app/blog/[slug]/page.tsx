@@ -163,7 +163,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (post) return { title: `${post.title} – ScalePods Blog`, description: post.excerpt };
   const sPost = staticPosts.find((p) => p.slug === slug);
   if (!sPost) return { title: "Not Found" };
-  return { title: `${sPost.title} – ScalePods Blog`, description: sPost.excerpt };
+  const title = sPost.metaTitle || `${sPost.title} – ScalePods Blog`;
+  const description = sPost.metaDescription || sPost.excerpt;
+  return { title, description };
 }
 
 export default async function ArticlePage({ params }: Props) {
