@@ -28,6 +28,7 @@ interface BlogSection {
     isDownload?: boolean;
   };
   video?: string;
+  imagePosition?: "top" | "middle" | "bottom";
   isContinuation?: boolean;
 }
 

@@ -20,7 +20,7 @@ export interface BlogSection {
     isDownload?: boolean;
   };
   video?: string;
-  imagePosition?: "middle" | "bottom";
+  imagePosition?: "top" | "middle" | "bottom";
   isContinuation?: boolean;
 }
 
