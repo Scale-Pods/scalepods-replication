@@ -52,13 +52,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/ai-automation-for-manufacturing`,
+      url: `${baseUrl}/solution/ai-automation-for-manufacturing`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/ai-automation-for-real-estate`,
+      url: `${baseUrl}/solution/ai-automation-for-real-estate`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
