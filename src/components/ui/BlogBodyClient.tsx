@@ -3148,6 +3148,33 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                 {section.heading}
               </h2>
             )}
+
+            {/* Top Positioned Section Image */}
+            {section.imagePosition === "top" && (section.image || (section.imageLight && section.imageDark)) && (
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", marginTop: "12px", marginBottom: "24px" }}>
+                <div style={{
+                  width: "100%", borderRadius: "12px", overflow: "hidden",
+                  border: "1px solid var(--color-border)",
+                  boxShadow: "var(--shadow-sm)"
+                }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={section.image ? section.image : (resolvedTheme === "dark" ? section.imageDark : section.imageLight)}
+                    alt={section.imageCaption || section.heading}
+                    style={{ width: "100%", height: "auto", objectFit: "cover", display: "block" }}
+                  />
+                </div>
+                {section.imageCaption && (
+                  <span style={{
+                    fontFamily: "var(--font-inter), sans-serif", fontSize: "13px",
+                    color: "var(--color-text-muted)", textAlign: "center", fontStyle: "italic"
+                  }}>
+                    {section.imageCaption}
+                  </span>
+                )}
+              </div>
+            )}
+
             {renderBodyContent(section.body, !!(section.image || section.cta || section.accordionItems || section.visual))}
 
             {section.accordionItems && section.accordionItems.length > 0 && (
@@ -3166,10 +3193,16 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                     tagPrefix = "FOUNDATION";
                   } else if (sectionHeadingLower.includes("evolution")) {
                     tagPrefix = "EVOLUTION";
-                  } else if (sectionHeadingLower.includes("implement") || sectionHeadingLower.includes("step")) {
+                  } else if (sectionHeadingLower.includes("implement") || sectionHeadingLower.includes("step") || sectionHeadingLower.includes("framework")) {
                     tagPrefix = "STEP";
+                  } else if (sectionHeadingLower.includes("modern sales workflow") || sectionHeadingLower.includes("stage")) {
+                    tagPrefix = "STAGE";
                   } else if (sectionHeadingLower.includes("process")) {
                     tagPrefix = "PROCESS";
+                  } else if (sectionHeadingLower.includes("mistake")) {
+                    tagPrefix = "MISTAKE";
+                  } else if (sectionHeadingLower.includes("scalepods")) {
+                    tagPrefix = "CAPABILITY";
                   } else if (sectionHeadingLower.includes("use case")) {
                     tagPrefix = "USE CASE";
                   }
@@ -3238,7 +3271,7 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
             )}
 
             {/* Section Inline Image */}
-            {(section.image || (section.imageLight && section.imageDark)) && (
+            {section.imagePosition !== "top" && (section.image || (section.imageLight && section.imageDark)) && (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", marginTop: "12px", marginBottom: "24px" }}>
                 <div style={{
                   width: "100%", borderRadius: "12px", overflow: "hidden",

@@ -53,11 +53,14 @@ export default async function BlogPage() {
     ...dynamicPosts, 
     ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))
   ].filter(post => 
-    !post.date.includes("2026") || 
-    post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
-    post.slug === "sales-workflow-automation-complete-guide-2026" ||
-    post.slug === "hr-automation-complete-guide-2026" ||
-    post.slug === "marketing-automation-complete-guide-2026"
+    post.category !== "Case Study" && (
+      !post.date.includes("2026") || 
+      post.slug === "how-to-implement-sales-workflow-automation" ||
+      post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
+      post.slug === "sales-workflow-automation-complete-guide-2026" ||
+      post.slug === "hr-automation-complete-guide-2026" ||
+      post.slug === "marketing-automation-complete-guide-2026"
+    )
   ).sort((a, b) => {
     const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
     const timeB = isNaN(Date.parse(b.date)) ? 0 : Date.parse(b.date);
