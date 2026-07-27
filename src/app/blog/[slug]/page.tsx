@@ -1249,6 +1249,8 @@ export default async function ArticlePage({ params }: Props) {
             }}>
               {displayData.title.includes("HR")
                 ? "FAQs About HR Automation"
+                : displayData.title.includes("Sales Automation")
+                ? "FAQs About Sales Automation"
                 : displayData.title.includes("Sales Workflow")
                 ? "FAQs About Sales Workflow Automation"
                 : displayData.title.includes("Marketing")
