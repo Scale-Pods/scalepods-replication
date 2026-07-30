@@ -398,8 +398,27 @@ function renderBodyContent(body: string, hasFooter: boolean) {
   );
 }
 
-function WorkflowAuditCTA({ resolvedTheme, onClick }: { resolvedTheme: string; onClick: (e: React.MouseEvent) => void }) {
+function WorkflowAuditCTA({
+  resolvedTheme,
+  articleTitle,
+  slug,
+  onClick
+}: {
+  resolvedTheme: string;
+  articleTitle?: string;
+  slug?: string;
+  onClick: (e: React.MouseEvent) => void;
+}) {
   const isDark = resolvedTheme === "dark";
+  const titleLower = ((articleTitle || "") + " " + (slug || "")).toLowerCase();
+
+  let dynamicTitle = "Build a sales system that works even when your team is offline";
+  if (titleLower.includes("hr")) {
+    dynamicTitle = "Build an HR system that works even when your team is offline";
+  } else if (titleLower.includes("marketing")) {
+    dynamicTitle = "Build a marketing system that works even when your team is offline";
+  }
+
   return (
     <div style={{
       width: "100%",
@@ -513,7 +532,7 @@ function WorkflowAuditCTA({ resolvedTheme, onClick }: { resolvedTheme: string; o
         margin: "0 0 12px 0",
         letterSpacing: "-0.02em"
       }}>
-        Build a sales system that works even when your team is offline
+        {dynamicTitle}
       </h3>
 
       {/* Subtitle */}
@@ -3338,7 +3357,7 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
             {/* Section CTA Button (Horizontally Centered) or Custom Banner */}
             {section.cta && (
               section.cta.text === "Get Workflow Audit" ? (
-                <WorkflowAuditCTA resolvedTheme={resolvedTheme} onClick={(e) => { e.preventDefault(); setIsSalesPodRequest(false); setIsAuditModalOpen(true); }} />
+                <WorkflowAuditCTA resolvedTheme={resolvedTheme} articleTitle={articleTitle} slug={slug} onClick={(e) => { e.preventDefault(); setIsSalesPodRequest(false); setIsAuditModalOpen(true); }} />
               ) : (
                 <div style={{ marginTop: "24px", marginBottom: "24px", display: "flex", justifyContent: "center", width: "100%" }}>
                   <a
