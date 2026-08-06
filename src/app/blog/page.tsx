@@ -60,7 +60,8 @@ export default async function BlogPage() {
       post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
       post.slug === "sales-workflow-automation-complete-guide-2026" ||
       post.slug === "hr-automation-complete-guide-2026" ||
-      post.slug === "marketing-automation-complete-guide-2026"
+      post.slug === "marketing-automation-complete-guide-2026" ||
+      post.slug === "the-ai-marketing-edge-how-ai-is-reshaping-marketing-in-2026"
     )
   ).sort((a, b) => {
     const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
