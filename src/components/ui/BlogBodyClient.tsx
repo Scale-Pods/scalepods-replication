@@ -494,7 +494,7 @@ function WorkflowAuditCTA({
   resolvedTheme: string;
   articleTitle?: string;
   slug?: string;
-  onClick: (e: React.MouseEvent) => void;
+  onClick: (e: any, cta?: any) => void;
 }) {
   const isDark = resolvedTheme === "dark";
   const titleLower = ((articleTitle || "") + " " + (slug || "")).toLowerCase();
@@ -745,13 +745,15 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
 
   const isGatedArticle = slug === "how-to-automate-your-sdr-workflow-with-ai";
 
-  const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>, cta: any) => {
-    if (isGatedArticle && cta.text === "Download the Feature Guide") {
-      e.preventDefault();
+  const handleCtaClick = (e: React.MouseEvent<any>, cta?: any) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (isGatedArticle && cta?.text === "Download the Feature Guide") {
       setIsModalOpen(true);
-    } else if (cta.text === "Build My Sales Pod") {
-      e.preventDefault();
+    } else if (cta?.text === "Build My Sales Pod") {
       setIsSalesPodRequest(true);
+      setIsAuditModalOpen(true);
+    } else {
+      setIsSalesPodRequest(false);
       setIsAuditModalOpen(true);
     }
   };
