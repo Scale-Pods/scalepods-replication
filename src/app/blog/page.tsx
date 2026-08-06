@@ -55,6 +55,7 @@ export default async function BlogPage() {
   ].filter(post => 
     post.category !== "Case Study" && (
       !post.date.includes("2026") || 
+      post.slug === "ai-automation-roi-real-business-impact" ||
       post.slug === "how-to-implement-sales-workflow-automation" ||
       post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
       post.slug === "sales-workflow-automation-complete-guide-2026" ||

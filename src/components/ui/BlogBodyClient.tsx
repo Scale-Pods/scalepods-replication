@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import DownloadModal from "@/components/ui/DownloadModal";
 import AuditModal from "@/components/ui/AuditModal";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -260,10 +261,35 @@ interface BlogBodyClientProps {
 }
 
 function parseMarkdownInline(text: string) {
-  const parts = text.split(/(\*\*.*?\*\*)/g);
+  const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*)/g;
+  const parts = text.split(regex);
+
   return parts.map((part, index) => {
+    if (part.startsWith("[") && part.includes("](") && part.endsWith(")")) {
+      const match = part.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (match) {
+        const [, linkText, url] = match;
+        return (
+          <Link
+            key={index}
+            href={url}
+            style={{
+              color: "var(--color-blue-mid)",
+              textDecoration: "underline",
+              fontWeight: 600
+            }}
+          >
+            {linkText}
+          </Link>
+        );
+      }
+    }
     if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={index} style={{ fontWeight: 700, color: "var(--color-text-bright)" }}>{part.slice(2, -2)}</strong>;
+      return (
+        <strong key={index} style={{ fontWeight: 700, color: "var(--color-text-bright)" }}>
+          {part.slice(2, -2)}
+        </strong>
+      );
     }
     return part;
   });
@@ -276,7 +302,7 @@ function renderBodyContent(body: string, hasFooter: boolean) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "100%", marginBottom: hasFooter ? "24px" : "0" }}>
       {lines.map((line, idx) => {
-        const isBullet = line.startsWith("•") || line.startsWith("-") || line.startsWith("*");
+        const isBullet = line.startsWith("•") || line.startsWith("- ") || (line.startsWith("* ") && !line.startsWith("**"));
         const isStep = line.startsWith("Step ") || /^\d+\.\s/.test(line) || line.startsWith("💡 Example:") || line.startsWith("✅ Result:");
         const isHighlight = line.startsWith("✅") || line.startsWith("💡");
         
@@ -387,13 +413,50 @@ function renderBodyContent(body: string, hasFooter: boolean) {
               fontSize: "16px",
               color: "var(--color-text-body)",
               lineHeight: 1.8,
-              margin: 0
+              margin: 0,
+              textAlign: line.startsWith("👉") ? "center" : "left"
             }}
           >
             {parseMarkdownInline(line)}
           </p>
         );
       })}
+    </div>
+  );
+}
+
+export function BlogHeroImage({
+  image,
+  imageDark,
+  imageLight,
+  title
+}: {
+  image: string;
+  imageDark?: string;
+  imageLight?: string;
+  title: string;
+}) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const src = mounted && imageDark && imageLight
+    ? (resolvedTheme === "dark" ? imageDark : imageLight)
+    : image;
+
+  return (
+    <div style={{
+      width: "100%", maxWidth: "100%", boxSizing: "border-box",
+      borderRadius: "16px", overflow: "hidden",
+      marginBottom: "64px", border: "1px solid var(--color-border)",
+      boxShadow: "var(--shadow-md)"
+    }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={title}
+        style={{ width: "100%", maxWidth: "100%", height: "auto", display: "block" }}
+      />
     </div>
   );
 }
@@ -411,9 +474,23 @@ function WorkflowAuditCTA({
 }) {
   const isDark = resolvedTheme === "dark";
   const titleLower = ((articleTitle || "") + " " + (slug || "")).toLowerCase();
+  const isRoiBlog = titleLower.includes("roi") || (slug && slug.includes("roi"));
 
   let dynamicTitle = "Build a sales system that works even when your team is offline";
-  if (titleLower.includes("hr")) {
+  let dynamicSubtitle = "Smarter workflows. Better conversations.";
+  let dynamicButtonText = "Get Workflow Audit →";
+  let bulletPoints: string[] = [];
+
+  if (isRoiBlog) {
+    dynamicTitle = "Ready to Put AI to Work for Your Business?";
+    dynamicSubtitle = "At ScalePods, we help businesses move from knowing they need AI to deploying it in ways that generate real, measurable results — in sales, marketing, and HR.";
+    dynamicButtonText = "Talk to Us About Your AI Roadmap →";
+    bulletPoints = [
+      "Department-specific automation pods, live in weeks — not months",
+      "Built around how your team actually works, not a generic template",
+      "Ongoing support after launch, not a one-time install"
+    ];
+  } else if (titleLower.includes("hr")) {
     dynamicTitle = "Build an HR system that works even when your team is offline";
   } else if (titleLower.includes("marketing")) {
     dynamicTitle = "Build a marketing system that works even when your team is offline";
@@ -528,25 +605,57 @@ function WorkflowAuditCTA({
         fontWeight: 800,
         color: isDark ? "#ffffff" : "#0f172a",
         lineHeight: 1.25,
-        maxWidth: "600px",
-        margin: "0 0 12px 0",
+        maxWidth: "640px",
+        margin: "0 0 14px 0",
         letterSpacing: "-0.02em"
       }}>
         {dynamicTitle}
       </h3>
 
-      {/* Subtitle */}
+      {/* Subtitle / Description */}
       <p style={{
         position: "relative",
         zIndex: 1,
         fontFamily: "var(--font-inter), sans-serif",
-        fontSize: "clamp(14px, 2vw, 17px)",
-        color: isDark ? "rgba(255, 255, 255, 0.65)" : "#475569",
-        margin: "0 0 28px 0",
-        fontWeight: 400
+        fontSize: "clamp(14px, 2vw, 16px)",
+        color: isDark ? "rgba(255, 255, 255, 0.75)" : "#475569",
+        margin: bulletPoints.length > 0 ? "0 0 20px 0" : "0 0 28px 0",
+        fontWeight: 400,
+        maxWidth: "620px",
+        lineHeight: 1.5
       }}>
-        Smarter workflows. Better conversations.
+        {dynamicSubtitle}
       </p>
+
+      {/* Optional Bullet Points */}
+      {bulletPoints.length > 0 && (
+        <div style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          textAlign: "left",
+          maxWidth: "580px",
+          margin: "0 0 28px 0",
+          width: "100%"
+        }}>
+          {bulletPoints.map((pt, idx) => (
+            <div key={idx} style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "10px",
+              fontSize: "14px",
+              color: isDark ? "rgba(255, 255, 255, 0.9)" : "#334155",
+              fontFamily: "var(--font-inter), sans-serif",
+              lineHeight: 1.4
+            }}>
+              <span style={{ color: "var(--color-green-text)", fontWeight: "bold", fontSize: "15px", flexShrink: 0 }}>✓</span>
+              <span>{pt}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Get Workflow Audit Button */}
       <button
@@ -588,11 +697,7 @@ function WorkflowAuditCTA({
           e.currentTarget.style.transform = "none";
         }}
       >
-        <span>Get Workflow Audit</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
+        {dynamicButtonText}
       </button>
     </div>
   );
@@ -3207,7 +3312,7 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                 width: "100%"
               }}>
                 {section.accordionItems.map((item, idx) => {
-                  let tagPrefix = "CONCEPT";
+                  let tagPrefix = "";
                   const sectionHeadingLower = section.heading.toLowerCase();
                   if (sectionHeadingLower.includes("building blocks")) {
                     tagPrefix = "FOUNDATION";
@@ -3250,16 +3355,18 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                         width: "100%"
                       }}
                     >
-                      <div style={{
-                        fontFamily: "var(--font-inter), sans-serif",
-                        fontSize: "12px",
-                        fontWeight: 700,
-                        letterSpacing: "0.05em",
-                        color: highlightColor,
-                        textTransform: "uppercase"
-                      }}>
-                        {tagPrefix} {String(idx + 1).padStart(2, '0')}
-                      </div>
+                      {tagPrefix && (
+                        <div style={{
+                          fontFamily: "var(--font-inter), sans-serif",
+                          fontSize: "12px",
+                          fontWeight: 700,
+                          letterSpacing: "0.05em",
+                          color: highlightColor,
+                          textTransform: "uppercase"
+                        }}>
+                          {tagPrefix} {String(idx + 1).padStart(2, '0')}
+                        </div>
+                      )}
                       <h3 style={{
                         fontFamily: "var(--font-inter), sans-serif",
                         fontSize: "18px",
@@ -3369,16 +3476,36 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "8px",
-                      padding: "12px 24px",
+                      padding: "14px 28px",
                       borderRadius: "8px",
-                      background: "linear-gradient(135deg, var(--color-blue-mid) 0%, #1e40af 100%)",
+                      background: resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.08)" : "#0f172a",
+                      border: resolvedTheme === "dark" ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid #0f172a",
                       color: "#ffffff",
                       fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: "14px",
+                      fontSize: "15px",
                       fontWeight: 600,
                       textDecoration: "none",
-                      boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)",
-                      transition: "all 0.2s ease"
+                      boxShadow: resolvedTheme === "dark" ? "0 4px 20px rgba(0, 0, 0, 0.2)" : "0 4px 12px rgba(15, 23, 42, 0.12)",
+                      transition: "all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                      cursor: "pointer"
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.14)" : "#1e293b";
+                      if (resolvedTheme === "dark") {
+                        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.25)";
+                      } else {
+                        e.currentTarget.style.borderColor = "#1e293b";
+                      }
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.08)" : "#0f172a";
+                      if (resolvedTheme === "dark") {
+                        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)";
+                      } else {
+                        e.currentTarget.style.borderColor = "#0f172a";
+                      }
+                      e.currentTarget.style.transform = "none";
                     }}
                   >
                     <span>{section.cta.text}</span>

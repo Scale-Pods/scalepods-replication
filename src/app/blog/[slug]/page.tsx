@@ -5,7 +5,7 @@ import { blogPosts as staticPosts } from "@/lib/blogData";
 import { ArrowLeft, Database, Workflow, Inbox, ArrowUpRight, Zap, Cpu, MessageSquare, UserCheck, Eye } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import BlogFaqAccordion from "@/components/ui/BlogFaqAccordion";
-import BlogBodyClient from "@/components/ui/BlogBodyClient";
+import BlogBodyClient, { BlogHeroImage } from "@/components/ui/BlogBodyClient";
 import AnimatedMetric from "@/components/ui/AnimatedMetric";
 import JsonLd from "@/components/SEO/JsonLd";
 import CaseStudyVideoPlayer from "@/components/ui/CaseStudyVideoPlayer";
@@ -1218,19 +1218,12 @@ export default async function ArticlePage({ params }: Props) {
             <div style={{ height: "1px", background: "var(--color-border)", marginBottom: "40px" }} />
 
             {/* Hero Image */}
-            <div style={{
-              width: "100%", maxWidth: "100%", boxSizing: "border-box",
-              borderRadius: "16px", overflow: "hidden",
-              marginBottom: "64px", border: "1px solid var(--color-border)",
-              boxShadow: "var(--shadow-md)"
-            }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={displayData.image}
-                alt={displayData.title}
-                style={{ width: "100%", maxWidth: "100%", height: "auto", display: "block" }}
-              />
-            </div>
+            <BlogHeroImage
+              image={displayData.image}
+              imageDark={displayData.imageDark}
+              imageLight={displayData.imageLight}
+              title={displayData.title}
+            />
           </>
         )}
 
@@ -1247,7 +1240,9 @@ export default async function ArticlePage({ params }: Props) {
               color: "var(--color-text-bright)", marginBottom: "32px", lineHeight: 1.3,
               letterSpacing: "-0.02em"
             }}>
-              {displayData.title.includes("HR")
+              {displayData.title.includes("ROI") || slug.includes("roi")
+                ? "FAQs"
+                : displayData.title === "HR Automation: The Complete Guide for 2026"
                 ? "FAQs About HR Automation"
                 : displayData.title.includes("Sales Automation")
                 ? "FAQs About Sales Automation"
