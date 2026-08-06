@@ -969,9 +969,9 @@ export const blogPosts: BlogPost[] = [
     title: "AI Automation ROI: Real Business Impact for Sales, Marketing & HR",
     excerpt:
       "See how AI automation drives measurable ROI in sales, marketing, and HR – backed by 2025-2026 data. Explore ScalePods done-for-you automation pods.",
-    metaTitle: "AI Automation ROI: Real Business Impact for Sales, Marketing & HR",
+    metaTitle: "AI Automation ROI: Impact on Sales, Marketing & HR",
     metaDescription:
-      "See how AI automation drives measurable ROI in sales, marketing, and HR – backed by 2025-2026 data. Explore ScalePods done-for-you automation pods.",
+      "88% of companies now use AI. See the real 2025–2026 ROI data across sales, marketing, and HR, plus how done-for-you automation pods drive results.",
     image: "/images/blog/roi_1_dark.webp",
     imageDark: "/images/blog/roi_1_dark.webp",
     imageLight: "/images/blog/roi_1_light.webp",
