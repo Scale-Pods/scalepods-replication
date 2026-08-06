@@ -964,7 +964,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "ai-automation-roi-real-business-impact",
-    date: "August 6, 2026",
+    date: "August 1, 2026",
     category: "Article",
     title: "AI Automation ROI: Real Business Impact for Sales, Marketing & HR",
     excerpt:
