@@ -302,9 +302,31 @@ function renderBodyContent(body: string, hasFooter: boolean) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "100%", marginBottom: hasFooter ? "24px" : "0" }}>
       {lines.map((line, idx) => {
+        const isH3 = line.startsWith("### ") || line.startsWith("## ") || (line.startsWith("**") && line.endsWith("**") && line.length < 90);
         const isBullet = line.startsWith("•") || line.startsWith("- ") || (line.startsWith("* ") && !line.startsWith("**"));
         const isStep = line.startsWith("Step ") || /^\d+\.\s/.test(line) || line.startsWith("💡 Example:") || line.startsWith("✅ Result:");
         const isHighlight = line.startsWith("✅") || line.startsWith("💡");
+        
+        if (isH3) {
+          const cleanLine = line.replace(/^#{2,3}\s*/, "").replace(/^\*\*/, "").replace(/\*\*$/, "");
+          return (
+            <h3
+              key={idx}
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "20px",
+                fontWeight: 700,
+                color: "var(--color-text-bright)",
+                lineHeight: 1.4,
+                textAlign: "left",
+                marginTop: "24px",
+                marginBottom: "8px"
+              }}
+            >
+              {parseMarkdownInline(cleanLine)}
+            </h3>
+          );
+        }
         
         if (isBullet) {
           const bulletText = line.replace(/^[•\-\*]\s*/, "");
@@ -414,7 +436,9 @@ function renderBodyContent(body: string, hasFooter: boolean) {
               color: "var(--color-text-body)",
               lineHeight: 1.8,
               margin: 0,
-              textAlign: line.startsWith("👉") ? "center" : "left"
+              textAlign: line.startsWith("👉") ? "center" : line.toLowerCase().includes("see it in action") ? "left" : "justify",
+              textAlignLast: line.startsWith("👉") ? "center" : "left",
+              textJustify: "inter-word"
             }}
           >
             {parseMarkdownInline(line)}
@@ -475,6 +499,7 @@ function WorkflowAuditCTA({
   const isDark = resolvedTheme === "dark";
   const titleLower = ((articleTitle || "") + " " + (slug || "")).toLowerCase();
   const isRoiBlog = titleLower.includes("roi") || (slug && slug.includes("roi"));
+  const isMarketingEdge = titleLower.includes("marketing edge") || (slug && slug.includes("the-ai-marketing-edge"));
 
   let dynamicTitle = "Build a sales system that works even when your team is offline";
   let dynamicSubtitle = "Smarter workflows. Better conversations.";
@@ -489,6 +514,15 @@ function WorkflowAuditCTA({
       "Department-specific automation pods, live in weeks — not months",
       "Built around how your team actually works, not a generic template",
       "Ongoing support after launch, not a one-time install"
+    ];
+  } else if (isMarketingEdge) {
+    dynamicTitle = "Ready to Build Your Marketing Pod?";
+    dynamicSubtitle = "ScalePods helps marketing teams move past scattered AI experiments into one integrated system — built around how your team actually works.";
+    dynamicButtonText = "Book a Free Call →";
+    bulletPoints = [
+      "One system for email, social, lead gen, chatbots, and analytics",
+      "Built and configured around your existing stack, not a generic template",
+      "Live in weeks, with ongoing support after launch"
     ];
   } else if (titleLower.includes("hr")) {
     dynamicTitle = "Build an HR system that works even when your team is offline";
@@ -3326,8 +3360,6 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                     tagPrefix = "PROCESS";
                   } else if (sectionHeadingLower.includes("mistake")) {
                     tagPrefix = "MISTAKE";
-                  } else if (sectionHeadingLower.includes("scalepods")) {
-                    tagPrefix = "CAPABILITY";
                   } else if (sectionHeadingLower.includes("use case")) {
                     tagPrefix = "USE CASE";
                   }
@@ -3528,6 +3560,14 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
           </div>
         ))}
       </div>
+
+      {/* Bottom CTA Card */}
+      <WorkflowAuditCTA
+        resolvedTheme={resolvedTheme}
+        articleTitle={articleTitle}
+        slug={slug}
+        onClick={handleCtaClick}
+      />
 
       {isGatedArticle && (
         <DownloadModal

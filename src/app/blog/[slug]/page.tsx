@@ -256,6 +256,7 @@ export default async function ArticlePage({ params }: Props) {
         }
         .premium-blog-paragraph {
           text-align: justify;
+          text-align-last: left;
           text-justify: inter-word;
         }
         .premium-blog-highlight {
