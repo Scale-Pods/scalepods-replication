@@ -3495,12 +3495,9 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
               </div>
             )}
 
-            {/* Section CTA Button (Horizontally Centered) or Custom Banner */}
+            {/* Section CTA Button (Horizontally Centered) */}
             {section.cta && (
-              section.cta.text === "Get Workflow Audit" ? (
-                <WorkflowAuditCTA resolvedTheme={resolvedTheme} articleTitle={articleTitle} slug={slug} onClick={(e) => { e.preventDefault(); setIsSalesPodRequest(false); setIsAuditModalOpen(true); }} />
-              ) : (
-                <div style={{ marginTop: "24px", marginBottom: "24px", display: "flex", justifyContent: "center", width: "100%" }}>
+              <div style={{ marginTop: "24px", marginBottom: "24px", display: "flex", justifyContent: "center", width: "100%" }}>
                   <a
                     href={section.cta.link}
                     download={section.cta.isDownload}
@@ -3557,7 +3554,6 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
                     )}
                   </a>
                 </div>
-              )
             )}
           </div>
         ))}
