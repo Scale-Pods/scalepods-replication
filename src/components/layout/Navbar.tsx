@@ -96,8 +96,7 @@ const ThemeToggle = memo(() => {
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Solutions", dropdown: true, href: "/solution" },
-  { label: "Case Studies", href: "/blog/case-studies" },
-  { label: "Blog", href: "/blog" },
+  { label: "Resources", dropdown: true, href: "/resources" },
   { label: "Global", href: "/global" },
   { label: "Contact", href: "/contact" },
 ];
@@ -138,6 +137,8 @@ const Navbar = memo(() => {
   const [globalExpanded, setGlobalExpanded] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [solutionsExpanded, setSolutionsExpanded] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [resourcesExpanded, setResourcesExpanded] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
@@ -401,7 +402,7 @@ const Navbar = memo(() => {
             }}
           >
             {navLinks.map((link) => {
-              if (link.dropdown) {
+              if (link.dropdown && link.label === "Solutions") {
                 const active = pathname?.startsWith("/solution");
                 return (
                   <div
@@ -612,6 +613,192 @@ const Navbar = memo(() => {
                 );
               }
 
+              if (link.dropdown && link.label === "Resources") {
+                const active = pathname?.startsWith("/resources");
+                return (
+                  <div
+                    key={link.label}
+                    onMouseEnter={() => setResourcesOpen(true)}
+                    onMouseLeave={() => setResourcesOpen(false)}
+                    style={{ position: "relative" }}
+                  >
+                    <button
+                      onClick={() => setResourcesOpen(prev => !prev)}
+                      style={{
+                        position: "relative",
+                        fontSize: "13.5px",
+                        fontWeight: 500,
+                        color: active || resourcesOpen ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                        background: "transparent",
+                        border: "none",
+                        padding: "5px 14px",
+                        borderRadius: "24px",
+                        cursor: "pointer",
+                        transition: "color 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+                        whiteSpace: "nowrap",
+                        fontFamily: "Inter, sans-serif",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        zIndex: 1,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "var(--color-text-bright)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = (active || resourcesOpen) ? "var(--color-text-bright)" : "var(--color-text-muted)";
+                      }}
+                    >
+                      {active && (
+                        <motion.div
+                          layoutId="desktop-active-nav-pill-resources"
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            background: "rgba(255, 255, 255, 0.05)",
+                            borderRadius: "24px",
+                            zIndex: -1,
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30
+                          }}
+                        />
+                      )}
+                      Resources
+                      <ChevronDown 
+                        size={12} 
+                        style={{ 
+                          transform: resourcesOpen ? "rotate(180deg)" : "rotate(0deg)", 
+                          transition: "transform 0.2s ease",
+                          opacity: 0.8
+                        }} 
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {resourcesOpen && (
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            marginTop: "8px",
+                            zIndex: 100,
+                          }}
+                        >
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
+                            style={{
+                              background: "var(--color-bg-card)",
+                              border: "1px solid var(--color-border)",
+                              borderRadius: "16px",
+                              padding: "16px",
+                              minWidth: "300px",
+                              boxShadow: resolvedTheme === 'dark' 
+                                ? "0 20px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05)" 
+                                : "0 15px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                              backdropFilter: "blur(24px)",
+                              WebkitBackdropFilter: "blur(24px)",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "4px"
+                            }}
+                          >
+                            <Link
+                              href="/resources"
+                              prefetch={isProd}
+                              onClick={() => setResourcesOpen(false)}
+                              style={{
+                                display: "block",
+                                padding: "10px 14px",
+                                borderRadius: "10px",
+                                textDecoration: "none",
+                                transition: "all 0.2s ease",
+                                background: pathname === "/resources" || pathname?.startsWith("/resources/") ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = pathname === "/resources" || pathname?.startsWith("/resources/") ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                              }}
+                            >
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
+                                Executive eBooks
+                              </div>
+                              <div style={{ fontSize: "12px", color: "var(--color-text-muted)", lineHeight: 1.4 }}>
+                                Playbooks, maturity models & blueprints
+                              </div>
+                            </Link>
+
+                            <Link
+                              href="/blog/case-studies"
+                              prefetch={isProd}
+                              onClick={() => setResourcesOpen(false)}
+                              style={{
+                                display: "block",
+                                padding: "10px 14px",
+                                borderRadius: "10px",
+                                textDecoration: "none",
+                                transition: "all 0.2s ease",
+                                background: pathname === "/blog/case-studies" ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = pathname === "/blog/case-studies" ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                              }}
+                            >
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
+                                Case Studies
+                              </div>
+                              <div style={{ fontSize: "12px", color: "var(--color-text-muted)", lineHeight: 1.4 }}>
+                                Real client ROI & enterprise transformation proof
+                              </div>
+                            </Link>
+
+                            <Link
+                              href="/blog"
+                              prefetch={isProd}
+                              onClick={() => setResourcesOpen(false)}
+                              style={{
+                                display: "block",
+                                padding: "10px 14px",
+                                borderRadius: "10px",
+                                textDecoration: "none",
+                                transition: "all 0.2s ease",
+                                background: pathname === "/blog" ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = pathname === "/blog" ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                              }}
+                            >
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
+                                Blog & Articles
+                              </div>
+                              <div style={{ fontSize: "12px", color: "var(--color-text-muted)", lineHeight: 1.4 }}>
+                                Latest AI trends & operating strategies
+                              </div>
+                            </Link>
+                          </motion.div>
+                        </div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
               const active = isLinkActive(link.href!);
               return (
                 <Link
@@ -793,7 +980,7 @@ const Navbar = memo(() => {
                   WebkitOverflowScrolling: "touch"
                 }}>
                   {navLinks.map((link, i) => {
-                    if (link.dropdown) {
+                    if (link.dropdown && link.label === "Solutions") {
                       const active = pathname?.startsWith("/solution");
                       return (
                         <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
@@ -931,6 +1118,135 @@ const Navbar = memo(() => {
                                     </Link>
                                   );
                                 })}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      );
+                    }
+
+                    if (link.dropdown && link.label === "Resources") {
+                      const active = pathname?.startsWith("/resources");
+                      return (
+                        <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
+                          <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+                            {active && (
+                              <motion.div
+                                layoutId="mobile-active-nav-bg-resources"
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  background: "rgba(255, 255, 255, 0.03)",
+                                  borderLeft: "2px solid var(--color-green-text)",
+                                  zIndex: 0,
+                                }}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 380,
+                                  damping: 30
+                                }}
+                              />
+                            )}
+                            <button
+                              onClick={() => setResourcesExpanded(prev => !prev)}
+                              style={{
+                                flexGrow: 1,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                fontSize: "15px",
+                                fontWeight: 500,
+                                color: active || resourcesExpanded ? "var(--color-text-bright)" : "var(--color-text-body)",
+                                background: "transparent",
+                                border: "none",
+                                padding: "16px 24px",
+                                fontFamily: "Inter, sans-serif",
+                                cursor: "pointer",
+                                position: "relative",
+                                zIndex: 1,
+                                width: "100%",
+                                textAlign: "left"
+                              }}
+                            >
+                              <span>{link.label}</span>
+                              <ChevronDown 
+                                style={{ 
+                                  width: "16px", 
+                                  height: "16px", 
+                                  transform: resourcesExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                                  transition: "transform 0.3s ease",
+                                  opacity: 0.6
+                                }} 
+                              />
+                            </button>
+                          </div>
+                          
+                          <AnimatePresence>
+                            {resourcesExpanded && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                style={{ overflow: "hidden", background: "rgba(255,255,255,0.02)", padding: "8px 0" }}
+                              >
+                                <Link
+                                  href="/resources"
+                                  prefetch={isProd}
+                                  onClick={closeMenu}
+                                  style={{
+                                    display: "block",
+                                    padding: "10px 40px",
+                                    fontSize: "13px",
+                                    fontWeight: 500,
+                                    color: pathname === "/resources" ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                    background: pathname === "/resources" ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                    border: "none",
+                                    fontFamily: "Inter, sans-serif",
+                                    textDecoration: "none",
+                                    textAlign: "left"
+                                  }}
+                                >
+                                  • Executive eBooks
+                                </Link>
+                                <Link
+                                  href="/blog/case-studies"
+                                  prefetch={isProd}
+                                  onClick={closeMenu}
+                                  style={{
+                                    display: "block",
+                                    padding: "10px 40px",
+                                    fontSize: "13px",
+                                    fontWeight: 500,
+                                    color: pathname === "/blog/case-studies" ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                    background: pathname === "/blog/case-studies" ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                    border: "none",
+                                    fontFamily: "Inter, sans-serif",
+                                    textDecoration: "none",
+                                    textAlign: "left"
+                                  }}
+                                >
+                                  • Case Studies
+                                </Link>
+                                <Link
+                                  href="/blog"
+                                  prefetch={isProd}
+                                  onClick={closeMenu}
+                                  style={{
+                                    display: "block",
+                                    padding: "10px 40px",
+                                    fontSize: "13px",
+                                    fontWeight: 500,
+                                    color: pathname === "/blog" ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                    background: pathname === "/blog" ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                    border: "none",
+                                    fontFamily: "Inter, sans-serif",
+                                    textDecoration: "none",
+                                    textAlign: "left"
+                                  }}
+                                >
+                                  • Blog & Articles
+                                </Link>
                               </motion.div>
                             )}
                           </AnimatePresence>

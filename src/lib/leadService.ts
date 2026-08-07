@@ -40,6 +40,7 @@ export async function submitLead(data: LeadPayload): Promise<SubmitLeadResult> {
 
   const payload = {
     ...data,
+    phone: data.phone || "N/A",
     timestamp: new Date().toISOString(),
   };
 
