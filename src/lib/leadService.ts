@@ -19,6 +19,7 @@ export interface LeadPayload {
   message?: string;
   metadata?: Record<string, any>;
   website?: string;
+  [key: string]: any;
 }
 
 export interface SubmitLeadResult {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { LeadPayload, submitLead } from "@/lib/leadService";
 
 export async function POST(req: Request) {
   try {
@@ -9,7 +10,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: "Email is required" }, { status: 400 });
     }
 
-    const payload = {
+    const payload: LeadPayload = {
       formType: "guide_download",
       sourcePage: "/resources/ebooks/ai-in-hr-executive-playbook",
       name: `${firstName || ''} ${lastName || ''}`.trim() || email,
@@ -26,7 +27,6 @@ export async function POST(req: Request) {
     };
 
     // Use leadService submitLead for unified submission
-    const { submitLead } = await import("@/lib/leadService");
     await submitLead(payload);
 
     return NextResponse.json({
