@@ -16,7 +16,7 @@ export default function CaseStudiesPage() {
       color: "var(--color-text-body)",
       fontFamily: "var(--font-inter), sans-serif" 
     }}>
-      <BeamsBackground hues={[210, 185]} intensity="strong">
+      <BeamsBackground hues={[200, 210, 225]} intensity="strong">
         <div style={{ paddingTop: "140px", paddingBottom: "120px" }}>
           <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
             

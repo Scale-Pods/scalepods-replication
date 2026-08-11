@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts as staticPosts, BlogPost } from "@/lib/blogData";
 import { supabase } from "@/lib/supabase";
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 export const revalidate = 0; // Force dynamic fetching for real-time updates
 
@@ -70,8 +71,9 @@ export default async function BlogPage() {
   });
 
   return (
-    <main style={{ background: "var(--color-bg-page)", minHeight: "100vh", paddingTop: "96px", paddingBottom: "96px" }}>
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
+    <main style={{ background: "var(--color-bg-page)", minHeight: "100vh" }}>
+      <BeamsBackground hues={[200, 210, 225]} intensity="strong">
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "140px 32px 96px 32px" }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "72px" }}>
@@ -175,6 +177,7 @@ export default async function BlogPage() {
           })}
         </div>
       </div>
-    </main>
-  );
+    </BeamsBackground>
+  </main>
+);
 }

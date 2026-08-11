@@ -343,7 +343,7 @@ export default async function ArticlePage({ params }: Props) {
           color: #60a5fa !important;
         }
       `}</style>
-      <BeamsBackground hues={[210, 185]} intensity="strong">
+      <BeamsBackground hues={[200, 210, 225]} intensity="strong">
         <div style={{ paddingTop: "64px", paddingBottom: "120px" }}>
           <div style={{ maxWidth: isLotusManorCaseStudy ? "1200px" : "800px", margin: "0 auto", padding: "0 24px" }}>
 
