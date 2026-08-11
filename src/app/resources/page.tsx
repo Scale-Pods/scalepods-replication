@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import { Search, Mail, ArrowRight, BookOpen } from "lucide-react";
 import { LinkedinIcon } from "@/components/Icons";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 export default function ResourcesPage() {
   const { resolvedTheme } = useTheme();
@@ -49,7 +50,8 @@ export default function ResourcesPage() {
 
   return (
     <div style={{ background: "var(--color-bg-page)", minHeight: "100vh", color: "var(--color-text-body)" }}>
-      <Navbar />
+      <BeamsBackground hues={[200, 210, 225]} intensity="strong">
+        <Navbar />
 
       {/* Top Section / Header */}
       <section style={{ paddingTop: "140px", paddingBottom: "40px", borderBottom: "1px solid var(--color-border-faint)" }}>
@@ -272,7 +274,8 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <Footer />
+        <Footer />
+      </BeamsBackground>
     </div>
   );
 }

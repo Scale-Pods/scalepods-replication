@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CheckCircle2, Download, Sparkles, ArrowRight } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 export default function AIinHREbookPage() {
   const { resolvedTheme } = useTheme();
@@ -64,7 +65,8 @@ export default function AIinHREbookPage() {
 
   return (
     <div style={{ background: "var(--color-bg-page)", minHeight: "100vh", color: "var(--color-text-body)" }}>
-      <Navbar />
+      <BeamsBackground hues={[200, 210, 225]} intensity="strong">
+        <Navbar />
 
       {/* Main Landing Page Section */}
       <section style={{ paddingTop: "140px", paddingBottom: "120px" }}>
@@ -389,7 +391,8 @@ export default function AIinHREbookPage() {
         </div>
       </section>
 
-      <Footer />
+        <Footer />
+      </BeamsBackground>
     </div>
   );
 }
