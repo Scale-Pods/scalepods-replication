@@ -16,10 +16,20 @@ export default function ResourcesPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const formats = [
-    { name: "eBook", count: 1, active: true }
+    { name: "eBook", count: 2, active: true }
   ];
 
   const ebooks = [
+    {
+      id: "ai-employees-digital-workforce",
+      slug: "ai-employees-digital-workforce",
+      badge: "EBOOK",
+      title: "AI Employees: Meet the Digital Workforce That Never Sleeps, Never Forgets, and Never Misses a Deadline",
+      date: "AUGUST 2026",
+      coverImage: "/images/resources/ai_employees_ebook_cover.png",
+      href: "/resources/ebooks/ai-employees-digital-workforce",
+      description: "Meet Alex, Maya, Harper, and Orion – your AI Sales, Marketing, HR, and Operations employees – and see how an AI-powered workforce can run alongside your team."
+    },
     {
       id: "ai-in-hr-executive-playbook",
       slug: "ai-in-hr-executive-playbook",
@@ -236,9 +246,9 @@ export default function ResourcesPage() {
                         }}>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src="/images/resources/ai_in_hr_ebook_cover.webp"
+                            src={book.coverImage.replace(/\.(png|jpg|jpeg)$/, '.webp')}
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = "/images/resources/ai_in_hr_ebook_cover.png";
+                              (e.target as HTMLImageElement).src = book.coverImage;
                             }}
                             alt={book.title}
                             style={{
