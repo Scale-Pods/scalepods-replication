@@ -498,6 +498,7 @@ function WorkflowAuditCTA({
 }) {
   const isDark = resolvedTheme === "dark";
   const titleLower = ((articleTitle || "") + " " + (slug || "")).toLowerCase();
+  const isAiEmployees = titleLower.includes("ai employee") || titleLower.includes("digital workforce") || (slug && slug.includes("ai-employees"));
   const isRoiBlog = titleLower.includes("roi") || (slug && slug.includes("roi"));
   const isMarketingEdge = titleLower.includes("marketing edge") || (slug && slug.includes("the-ai-marketing-edge"));
 
@@ -506,7 +507,12 @@ function WorkflowAuditCTA({
   let dynamicButtonText = "Get Workflow Audit →";
   let bulletPoints: string[] = [];
 
-  if (isRoiBlog) {
+  if (isAiEmployees) {
+    dynamicTitle = "Build an AI workforce that works even when your team is offline";
+    dynamicSubtitle = "Deploy Alex, Maya, Harper, and Orion across Sales, Marketing, HR, and Operations 24/7.";
+    dynamicButtonText = "Build Your AI Workforce →";
+    bulletPoints = [];
+  } else if (isRoiBlog) {
     dynamicTitle = "Ready to Put AI to Work for Your Business?";
     dynamicSubtitle = "At ScalePods, we help businesses move from knowing they need AI to deploying it in ways that generate real, measurable results — in sales, marketing, and HR.";
     dynamicButtonText = "Talk to Us About Your AI Roadmap →";
