@@ -52,6 +52,8 @@ export const blogPosts: BlogPost[] = [
     metaDescription: "AI employees are digital team members that own an entire role — sales, marketing, HR, or operations — not just a single task. See how they work.",
     excerpt: "A practical look at how AI employees work, and how four of them — Alex, Maya, Harper, and Orion — cover sales, marketing, HR, and operations without ever clocking out.",
     image: "/images/blog/ai_employees_hero.webp",
+    imageDark: "/images/blog/ai_employees_hero.webp",
+    imageLight: "/images/blog/ai_employees_hero_light.webp",
     sections: [
       {
         heading: "Introduction",
