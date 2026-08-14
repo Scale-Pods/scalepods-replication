@@ -25,12 +25,11 @@ const placeholderImages: Record<string, string> = {
 };
 
 export default async function BlogPage() {
-  // 1. Fetch from Supabase (Filter out 2026 posts)
+  // 1. Fetch from Supabase
   const { data: dbPosts, error } = await supabase
     .from("website_content")
     .select("*")
     .eq("status", "published")
-    .lt("published_at", "2026-01-01") // Only show posts before 2026
     .order("published_at", { ascending: false });
 
   if (error) console.error("[BlogPage] Supabase error:", error);
@@ -50,22 +49,26 @@ export default async function BlogPage() {
     sections: [] // We'll handle body content in the slug page
   }));
 
-  const allPosts = [
-    ...dynamicPosts, 
-    ...staticPosts.filter(sp => !dynamicPosts.find(dp => dp.slug === sp.slug))
-  ].filter(post => 
-    post.category !== "Case Study" && (
-      !post.date.includes("2026") || 
-      post.slug === "ai-employees-digital-workforce-guide" ||
-      post.slug === "ai-automation-roi-real-business-impact" ||
-      post.slug === "how-to-implement-sales-workflow-automation" ||
-      post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
-      post.slug === "sales-workflow-automation-complete-guide-2026" ||
-      post.slug === "hr-automation-complete-guide-2026" ||
-      post.slug === "marketing-automation-complete-guide-2026" ||
-      post.slug === "the-ai-marketing-edge-how-ai-is-reshaping-marketing-in-2026"
-    )
-  ).sort((a, b) => {
+  // Filter static posts (apply 2026 date heuristic whitelist only to static fallback posts)
+  const filteredStaticPosts = staticPosts
+    .filter(sp => !dynamicPosts.some(dp => dp.slug === sp.slug))
+    .filter(post => 
+      post.category !== "Case Study" && (
+        !post.date.includes("2026") || 
+        post.slug === "ai-employees-digital-workforce-guide" ||
+        post.slug === "ai-automation-roi-real-business-impact" ||
+        post.slug === "how-to-implement-sales-workflow-automation" ||
+        post.slug === "how-to-automate-your-sdr-workflow-with-ai" ||
+        post.slug === "sales-workflow-automation-complete-guide-2026" ||
+        post.slug === "hr-automation-complete-guide-2026" ||
+        post.slug === "marketing-automation-complete-guide-2026" ||
+        post.slug === "the-ai-marketing-edge-how-ai-is-reshaping-marketing-in-2026"
+      )
+    );
+
+  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study");
+
+  const allPosts = [...filteredDynamicPosts, ...filteredStaticPosts].sort((a, b) => {
     const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
     const timeB = isNaN(Date.parse(b.date)) ? 0 : Date.parse(b.date);
     return timeB - timeA;
