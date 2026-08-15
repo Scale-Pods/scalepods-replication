@@ -133,6 +133,8 @@ function renderBodyContent(body: string, hasFooter: boolean) {
           );
         }
         
+        const isCentered = line.startsWith("👉") || line.includes("You're not buying software") || line.includes("You're building a workforce");
+        
         return (
           <p
             key={idx}
@@ -142,7 +144,9 @@ function renderBodyContent(body: string, hasFooter: boolean) {
               fontSize: "16px",
               color: "var(--color-text-body)",
               lineHeight: 1.8,
-              margin: 0
+              margin: 0,
+              textAlign: isCentered ? "center" : "left",
+              textAlignLast: isCentered ? "center" : "left"
             }}
           >
             {parseMarkdownInline(line)}

@@ -426,6 +426,8 @@ function renderBodyContent(body: string, hasFooter: boolean) {
           );
         }
         
+        const isCentered = line.startsWith("👉") || line.includes("You're not buying software") || line.includes("You're building a workforce");
+        
         return (
           <p
             key={idx}
@@ -436,8 +438,8 @@ function renderBodyContent(body: string, hasFooter: boolean) {
               color: "var(--color-text-body)",
               lineHeight: 1.8,
               margin: 0,
-              textAlign: line.startsWith("👉") ? "center" : line.toLowerCase().includes("see it in action") ? "left" : "justify",
-              textAlignLast: line.startsWith("👉") ? "center" : "left",
+              textAlign: isCentered ? "center" : line.toLowerCase().includes("see it in action") ? "left" : "justify",
+              textAlignLast: isCentered ? "center" : "left",
               textJustify: "inter-word"
             }}
           >
