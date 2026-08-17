@@ -179,17 +179,38 @@ export default async function ArticlePage({ params }: Props) {
   let displayData: any = null;
   if (post) {
     let sections = [];
+    let bodyMeta: any = {};
     try {
-      sections = JSON.parse(post.body);
+      const parsed = JSON.parse(post.body);
+      if (Array.isArray(parsed)) {
+        sections = parsed;
+      } else if (parsed && typeof parsed === "object") {
+        sections = parsed.sections || [];
+        bodyMeta = parsed;
+      }
     } catch {
       sections = [{ heading: "", body: post.body }];
     }
+
+    const heroImageDark = post.hero_image_dark || bodyMeta.bannerUrlDark || bodyMeta.banner_url_dark || post.hero_image;
+    const heroImageLight = post.hero_image_light || bodyMeta.bannerUrlLight || bodyMeta.banner_url_light || post.hero_image;
+    const ctaTitle = post.cta_title || bodyMeta.ctaTitle || bodyMeta.cta_title;
+    const ctaSubtitle = post.cta_subtitle || bodyMeta.ctaSubtitle || bodyMeta.cta_subtitle;
+    const ctaLabel = post.cta_label || bodyMeta.ctaLabel || bodyMeta.cta_label;
+    const ctaUrl = post.cta_url || bodyMeta.ctaUrl || bodyMeta.cta_url;
+
     displayData = {
       title: post.title,
       excerpt: post.excerpt,
       date: new Date(post.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
       category: post.category || "Article",
       image: post.hero_image,
+      imageDark: heroImageDark,
+      imageLight: heroImageLight,
+      ctaTitle: ctaTitle,
+      ctaSubtitle: ctaSubtitle,
+      ctaLabel: ctaLabel,
+      ctaUrl: ctaUrl,
       sections: sections
     };
   } else {
@@ -1234,7 +1255,15 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Article Body */}
         {!isLotusManorCaseStudy && (
-          <BlogBodyClient sections={displayData.sections} slug={slug} articleTitle={displayData.title} />
+          <BlogBodyClient
+            sections={displayData.sections}
+            slug={slug}
+            articleTitle={displayData.title}
+            ctaTitle={displayData.ctaTitle}
+            ctaSubtitle={displayData.ctaSubtitle}
+            ctaLabel={displayData.ctaLabel}
+            ctaUrl={displayData.ctaUrl}
+          />
         )}
 
         {/* FAQ Accordion Section */}

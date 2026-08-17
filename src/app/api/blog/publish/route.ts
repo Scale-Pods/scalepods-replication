@@ -17,7 +17,20 @@ export async function POST(req: Request) {
 
     // 2. Parse payload
     const body = await req.json();
-    const { title, slug, category, excerpt, bannerUrl, ctaLabel, ctaUrl, sections } = body;
+    const {
+      title,
+      slug,
+      category,
+      excerpt,
+      bannerUrl,
+      bannerUrlDark,
+      bannerUrlLight,
+      ctaTitle,
+      ctaSubtitle,
+      ctaLabel,
+      ctaUrl,
+      sections
+    } = body;
 
     if (!slug || !title) {
       return NextResponse.json(
@@ -26,10 +39,23 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. Prepare payload for Supabase website_content table
-    const formattedBody = typeof sections === "string" 
-      ? sections 
-      : JSON.stringify(sections || []);
+    // 3. Prepare hero image and JSON body (embedding theme banner URLs and CTA overrides into body metadata)
+    const heroImage = bannerUrl || bannerUrlDark || bannerUrlLight || null;
+    const parsedSections = Array.isArray(sections)
+      ? sections
+      : typeof sections === "string"
+      ? JSON.parse(sections)
+      : [];
+
+    const formattedBody = JSON.stringify({
+      sections: parsedSections,
+      bannerUrlDark: bannerUrlDark || null,
+      bannerUrlLight: bannerUrlLight || null,
+      ctaTitle: ctaTitle || null,
+      ctaSubtitle: ctaSubtitle || null,
+      ctaLabel: ctaLabel || null,
+      ctaUrl: ctaUrl || null
+    });
 
     const { error } = await supabase.from("website_content").upsert(
       {
@@ -37,7 +63,7 @@ export async function POST(req: Request) {
         title,
         excerpt: excerpt || "",
         category: category || "Article",
-        hero_image: bannerUrl || null,
+        hero_image: heroImage,
         body: formattedBody,
         cta_label: ctaLabel || null,
         cta_url: ctaUrl || null,
@@ -70,6 +96,61 @@ export async function POST(req: Request) {
 
   } catch (err: any) {
     console.error("[Blog Publish API Error]:", err);
+    return NextResponse.json(
+      { success: false, error: err.message || "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    // 1. Auth check: verify x-publish-secret header matches BLOG_PUBLISH_SECRET
+    const secret = req.headers.get("x-publish-secret");
+    const expectedSecret = process.env.BLOG_PUBLISH_SECRET;
+
+    if (!expectedSecret || secret !== expectedSecret) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized: Invalid or missing x-publish-secret header" },
+        { status: 401 }
+      );
+    }
+
+    // 2. Parse payload
+    const body = await req.json();
+    const { slug } = body;
+
+    if (!slug) {
+      return NextResponse.json(
+        { success: false, error: "Missing required field: slug" },
+        { status: 400 }
+      );
+    }
+
+    // 3. Delete row from Supabase website_content table
+    const { error } = await supabase.from("website_content").delete().eq("slug", slug);
+
+    if (error) {
+      console.error("[Blog Unpublish API Supabase Error]:", error);
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    }
+
+    // 4. Trigger Next.js cache revalidation for blog list and post page
+    try {
+      revalidatePath("/blog");
+      revalidatePath(`/blog/${slug}`);
+    } catch (revalErr) {
+      console.warn("[Blog Unpublish Revalidate Warning]:", revalErr);
+    }
+
+    // 5. Return success response
+    return NextResponse.json({
+      success: true,
+      slug
+    });
+
+  } catch (err: any) {
+    console.error("[Blog Unpublish API Error]:", err);
     return NextResponse.json(
       { success: false, error: err.message || "Internal server error" },
       { status: 500 }

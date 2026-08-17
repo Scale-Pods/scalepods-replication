@@ -258,6 +258,10 @@ interface BlogBodyClientProps {
   sections: BlogSection[];
   slug: string;
   articleTitle: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
 }
 
 function parseMarkdownInline(text: string) {
@@ -491,11 +495,19 @@ function WorkflowAuditCTA({
   resolvedTheme,
   articleTitle,
   slug,
+  ctaTitle,
+  ctaSubtitle,
+  ctaLabel,
+  ctaUrl,
   onClick
 }: {
   resolvedTheme: string;
   articleTitle?: string;
   slug?: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
   onClick: (e: any, cta?: any) => void;
 }) {
   const isDark = resolvedTheme === "dark";
@@ -537,6 +549,24 @@ function WorkflowAuditCTA({
   } else if (titleLower.includes("marketing")) {
     dynamicTitle = "Build a marketing system that works even when your team is offline";
   }
+
+  // Optional overrides from CMS
+  if (ctaTitle) dynamicTitle = ctaTitle;
+  if (ctaSubtitle) dynamicSubtitle = ctaSubtitle;
+  if (ctaLabel) dynamicButtonText = ctaLabel.endsWith("→") ? ctaLabel : `${ctaLabel} →`;
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    if (ctaUrl) {
+      e.preventDefault();
+      if (ctaUrl.startsWith("http://") || ctaUrl.startsWith("https://")) {
+        window.open(ctaUrl, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = ctaUrl;
+      }
+    } else {
+      onClick(e, { url: ctaUrl, label: ctaLabel });
+    }
+  };
 
   return (
     <div style={{
@@ -701,7 +731,7 @@ function WorkflowAuditCTA({
 
       {/* Get Workflow Audit Button */}
       <button
-        onClick={onClick}
+        onClick={handleButtonClick}
         style={{
           position: "relative",
           zIndex: 1,
@@ -745,7 +775,15 @@ function WorkflowAuditCTA({
   );
 }
 
-export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBodyClientProps) {
+export default function BlogBodyClient({
+  sections,
+  slug,
+  articleTitle,
+  ctaTitle,
+  ctaSubtitle,
+  ctaLabel,
+  ctaUrl
+}: BlogBodyClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [isSalesPodRequest, setIsSalesPodRequest] = useState(false);
@@ -3572,6 +3610,10 @@ export default function BlogBodyClient({ sections, slug, articleTitle }: BlogBod
         resolvedTheme={resolvedTheme}
         articleTitle={articleTitle}
         slug={slug}
+        ctaTitle={ctaTitle}
+        ctaSubtitle={ctaSubtitle}
+        ctaLabel={ctaLabel}
+        ctaUrl={ctaUrl}
         onClick={handleCtaClick}
       />
 
