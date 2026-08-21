@@ -22,6 +22,12 @@ interface BlogSection {
   imageDark?: string;
   imageCaption?: string;
   accordionItems?: AccordionItem[];
+  // Overrides the auto-detected accordionItems tag word ("STEP"/"STAGE"/etc, still auto-numbered
+  // 01/02/...). Three states: key absent -> old behavior (auto-detect from heading keywords,
+  // unchanged for every post that predates this field); null -> explicitly no tag; a string ->
+  // use it verbatim instead of guessing from the heading. Set by ScalePods Growth OS's blog
+  // composer (accordionTagPrefix in its own BlogSection type).
+  accordionTagPrefix?: string | null;
   visual?: "ai-transform" | "barriers" | "implementation" | "checklist" | "readiness-datasheets" | "features-grid" | "ma-evolution" | "ma-processes-grid" | "ma-use-cases" | "ma-ai-transform" | "ma-challenges" | "ma-trends" | "ma-features-grid" | "hr-processes-grid" | "hr-benefits-stats" | "ma-benefits-stats" | "hr-cta-cards" | "ma-cta-cards" | "hr-cta-landing" | "hr-cta-datasheet" | "ma-cta-landing" | "ma-cta-datasheet" | "sa-before-after" | "sa-benefits-stats" | "sa-processes-grid" | "sa-flow-diagram" | "sa-ai-transform" | "sa-implementation" | "sa-features-grid" | "sa-cta-landing" | "sa-cta-datasheet";
   cta?: {
     text: string;
@@ -3394,22 +3400,31 @@ export default function BlogBodyClient({
                 width: "100%"
               }}>
                 {section.accordionItems.map((item, idx) => {
+                  // accordionTagPrefix, when the composer actually sent it, wins outright:
+                  // undefined/absent falls through to the original heading-keyword guess (every
+                  // post published before this field existed relies on that), null means the
+                  // author explicitly chose no tag, and a string is used verbatim instead of
+                  // guessing.
                   let tagPrefix = "";
-                  const sectionHeadingLower = section.heading.toLowerCase();
-                  if (sectionHeadingLower.includes("building blocks")) {
-                    tagPrefix = "FOUNDATION";
-                  } else if (sectionHeadingLower.includes("evolution")) {
-                    tagPrefix = "EVOLUTION";
-                  } else if (sectionHeadingLower.includes("implement") || sectionHeadingLower.includes("step") || sectionHeadingLower.includes("framework")) {
-                    tagPrefix = "STEP";
-                  } else if (sectionHeadingLower.includes("modern sales workflow") || sectionHeadingLower.includes("stage")) {
-                    tagPrefix = "STAGE";
-                  } else if (sectionHeadingLower.includes("process")) {
-                    tagPrefix = "PROCESS";
-                  } else if (sectionHeadingLower.includes("mistake")) {
-                    tagPrefix = "MISTAKE";
-                  } else if (sectionHeadingLower.includes("use case")) {
-                    tagPrefix = "USE CASE";
+                  if (section.accordionTagPrefix !== undefined) {
+                    tagPrefix = section.accordionTagPrefix || "";
+                  } else {
+                    const sectionHeadingLower = section.heading.toLowerCase();
+                    if (sectionHeadingLower.includes("building blocks")) {
+                      tagPrefix = "FOUNDATION";
+                    } else if (sectionHeadingLower.includes("evolution")) {
+                      tagPrefix = "EVOLUTION";
+                    } else if (sectionHeadingLower.includes("implement") || sectionHeadingLower.includes("step") || sectionHeadingLower.includes("framework")) {
+                      tagPrefix = "STEP";
+                    } else if (sectionHeadingLower.includes("modern sales workflow") || sectionHeadingLower.includes("stage")) {
+                      tagPrefix = "STAGE";
+                    } else if (sectionHeadingLower.includes("process")) {
+                      tagPrefix = "PROCESS";
+                    } else if (sectionHeadingLower.includes("mistake")) {
+                      tagPrefix = "MISTAKE";
+                    } else if (sectionHeadingLower.includes("use case")) {
+                      tagPrefix = "USE CASE";
+                    }
                   }
 
                   const highlightColor = idx % 2 === 0 ? "var(--color-green-text)" : "var(--color-blue-mid)";
