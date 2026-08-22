@@ -28,7 +28,7 @@ interface BlogSection {
   // use it verbatim instead of guessing from the heading. Set by ScalePods Growth OS's blog
   // composer (accordionTagPrefix in its own BlogSection type).
   accordionTagPrefix?: string | null;
-  visual?: "ai-transform" | "barriers" | "implementation" | "checklist" | "readiness-datasheets" | "features-grid" | "ma-evolution" | "ma-processes-grid" | "ma-use-cases" | "ma-ai-transform" | "ma-challenges" | "ma-trends" | "ma-features-grid" | "hr-processes-grid" | "hr-benefits-stats" | "ma-benefits-stats" | "hr-cta-cards" | "ma-cta-cards" | "hr-cta-landing" | "hr-cta-datasheet" | "ma-cta-landing" | "ma-cta-datasheet" | "sa-before-after" | "sa-benefits-stats" | "sa-processes-grid" | "sa-flow-diagram" | "sa-ai-transform" | "sa-implementation" | "sa-features-grid" | "sa-cta-landing" | "sa-cta-datasheet";
+  visual?: "ai-always-on-workflow" | "ai-transform" | "barriers" | "implementation" | "checklist" | "readiness-datasheets" | "features-grid" | "ma-evolution" | "ma-processes-grid" | "ma-use-cases" | "ma-ai-transform" | "ma-challenges" | "ma-trends" | "ma-features-grid" | "hr-processes-grid" | "hr-benefits-stats" | "ma-benefits-stats" | "hr-cta-cards" | "ma-cta-cards" | "hr-cta-landing" | "hr-cta-datasheet" | "ma-cta-landing" | "ma-cta-datasheet" | "sa-before-after" | "sa-benefits-stats" | "sa-processes-grid" | "sa-flow-diagram" | "sa-ai-transform" | "sa-implementation" | "sa-features-grid" | "sa-cta-landing" | "sa-cta-datasheet" | string;
   cta?: {
     text: string;
     link: string;
@@ -271,10 +271,12 @@ interface BlogBodyClientProps {
 }
 
 function parseMarkdownInline(text: string) {
-  const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*)/g;
+  if (!text) return text;
+  const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*|`.*?`|\*.*?\*)/g;
   const parts = text.split(regex);
 
   return parts.map((part, index) => {
+    if (!part) return null;
     if (part.startsWith("[") && part.includes("](") && part.endsWith(")")) {
       const match = part.match(/^\[(.*?)\]\((.*?)\)$/);
       if (match) {
@@ -294,14 +296,41 @@ function parseMarkdownInline(text: string) {
         );
       }
     }
-    if (part.startsWith("**") && part.endsWith("**")) {
+    if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
       return (
         <strong key={index} style={{ fontWeight: 700, color: "var(--color-text-bright)" }}>
           {part.slice(2, -2)}
         </strong>
       );
     }
-    return part;
+    if (part.startsWith("`") && part.endsWith("`") && part.length >= 2) {
+      return (
+        <code
+          key={index}
+          style={{
+            fontFamily: "monospace",
+            fontSize: "0.88em",
+            padding: "3px 8px",
+            borderRadius: "6px",
+            background: "rgba(var(--color-blue-mid-rgb), 0.08)",
+            color: "var(--color-blue-mid)",
+            border: "1px solid rgba(var(--color-blue-mid-rgb), 0.2)",
+            wordBreak: "break-word"
+          }}
+        >
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+    if (part.startsWith("*") && part.endsWith("*") && !part.startsWith("**") && part.length >= 2) {
+      return (
+        <em key={index} style={{ fontStyle: "italic", color: "var(--color-text-body)" }}>
+          {part.slice(1, -1)}
+        </em>
+      );
+    }
+    // Clean any stray ** from remaining plain text parts
+    return part.replace(/\*\*/g, "");
   });
 }
 
@@ -340,10 +369,15 @@ function renderBodyContent(body: string, hasFooter: boolean) {
         
         if (isBullet) {
           const bulletText = line.replace(/^[•\-\*]\s*/, "");
-          const colonIdx = bulletText.indexOf(":");
-          if (colonIdx !== -1) {
-            const headingPart = bulletText.substring(0, colonIdx);
-            const descPart = bulletText.substring(colonIdx + 1);
+
+          // Case 1: **Heading:** Description OR **Heading**: Description
+          const boldHeadingMatch = bulletText.match(/^\*\*(.*?)\*\*:?\s*([\s\S]*)/) || bulletText.match(/^\*\*(.*?):\*\*\s*([\s\S]*)/);
+
+          if (boldHeadingMatch) {
+            let [, heading, desc] = boldHeadingMatch;
+            heading = heading.replace(/:\s*$/, "").replace(/\*\*/g, "").trim();
+            desc = desc.replace(/^\*\*/, "").replace(/\*\*/g, "").trim();
+
             return (
               <div
                 key={idx}
@@ -358,13 +392,46 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                   gap: "8px"
                 }}
               >
-                <span style={{ color: "var(--color-blue-mid)" }}>•</span>
+                <span style={{ color: "var(--color-blue-mid)", flexShrink: 0 }}>•</span>
                 <span>
-                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{headingPart}:</strong>{parseMarkdownInline(descPart)}
+                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{heading}:</strong> {parseMarkdownInline(desc)}
                 </span>
               </div>
             );
           }
+
+          // Case 2: Heading: Description (Plain text heading with colon)
+          const colonIdx = bulletText.indexOf(":");
+          if (colonIdx !== -1 && colonIdx < 80) {
+            let headingPart = bulletText.substring(0, colonIdx).trim();
+            let descPart = bulletText.substring(colonIdx + 1).trim();
+            headingPart = headingPart.replace(/^\*\*/, "").replace(/\*\*$/, "").replace(/\*\*/g, "").trim();
+            descPart = descPart.replace(/^\*\*/, "").replace(/\*\*/g, "").trim();
+
+            return (
+              <div
+                key={idx}
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "16px",
+                  color: "var(--color-text-body)",
+                  lineHeight: 1.8,
+                  textAlign: "left",
+                  paddingLeft: "16px",
+                  display: "flex",
+                  gap: "8px"
+                }}
+              >
+                <span style={{ color: "var(--color-blue-mid)", flexShrink: 0 }}>•</span>
+                <span>
+                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{headingPart}:</strong> {parseMarkdownInline(descPart)}
+                </span>
+              </div>
+            );
+          }
+
+          // Case 3: Regular bullet without colon
+          const cleanBulletText = bulletText.replace(/^\*\*/, "").replace(/\*\*$/, "").trim();
           return (
             <div
               key={idx}
@@ -379,8 +446,8 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 gap: "8px"
               }}
             >
-              <span style={{ color: "var(--color-blue-mid)" }}>•</span>
-              <span>{parseMarkdownInline(bulletText)}</span>
+              <span style={{ color: "var(--color-blue-mid)", flexShrink: 0 }}>•</span>
+              <span>{parseMarkdownInline(cleanBulletText)}</span>
             </div>
           );
         }
@@ -3327,6 +3394,185 @@ export default function BlogBodyClient({
     );
   };
 
+  const renderAlwaysOnWorkflow = () => {
+    const isDark = resolvedTheme === "dark";
+    const steps = [
+      { step: "01", title: "Trigger Event", sub: "e.g., Lead Form / Webhook", icon: Zap },
+      { step: "02", title: "AI Context Layer", sub: "Extract Intent & Enrich", icon: Cpu },
+      { step: "03", title: "System Verification", sub: "Check CRM / Database", icon: Shield },
+      { step: "04", title: "Automated Action", sub: "Assign, Alert & Sync", icon: Send },
+    ];
+
+    return (
+      <div style={{ marginTop: "24px", marginBottom: "28px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .always-on-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 16px;
+            width: 100%;
+          }
+          @media (min-width: 640px) {
+            .always-on-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          @media (min-width: 1024px) {
+            .always-on-grid {
+              grid-template-columns: repeat(4, 1fr);
+            }
+          }
+        ` }} />
+        <div style={{
+          background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+          border: isDark ? "1px solid var(--color-border)" : "1px solid rgba(15, 23, 42, 0.08)",
+          borderRadius: "16px",
+          padding: "24px",
+          boxShadow: isDark ? "0 8px 24px rgba(0,0,0,0.2)" : "0 8px 24px rgba(15,23,42,0.04)"
+        }}>
+          <div style={{
+            fontSize: "11px",
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--color-blue-mid)",
+            marginBottom: "18px",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px"
+          }}>
+            <Activity size={14} /> AUTONOMOUS EVENT-DRIVEN EXECUTION FLOW
+          </div>
+          <div className="always-on-grid">
+            {steps.map((s, idx) => {
+              const IconComp = s.icon;
+              return (
+                <div key={idx} style={{
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(241, 245, 249, 0.7)",
+                  border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(15, 23, 42, 0.06)",
+                  borderRadius: "12px",
+                  padding: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  position: "relative"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--color-blue-mid)" }}>{s.step}</span>
+                    <IconComp size={16} style={{ color: "var(--color-blue-mid)" }} />
+                  </div>
+                  <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-bright)" }}>{s.title}</div>
+                  <div style={{ fontSize: "12px", color: "var(--color-text-body)", lineHeight: 1.4 }}>{s.sub}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderRevenueModelComparison = () => {
+    const isDark = resolvedTheme === "dark";
+
+    return (
+      <div style={{ marginTop: "24px", marginBottom: "28px", width: "100%" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .rev-model-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            width: 100%;
+          }
+          @media (min-width: 768px) {
+            .rev-model-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+        ` }} />
+        <div className="rev-model-grid">
+          {/* Traditional Model Card */}
+          <div style={{
+            background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+            borderStyle: "solid",
+            borderWidth: "1px 1px 1px 4px",
+            borderColor: isDark 
+              ? "var(--color-border) var(--color-border) var(--color-border) #ef4444"
+              : "rgba(15,23,42,0.06) rgba(15,23,42,0.06) rgba(15,23,42,0.06) #ef4444",
+            borderRadius: "14px",
+            padding: "24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "14px",
+            boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.2)" : "0 4px 20px rgba(15,23,42,0.03)"
+          }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", padding: "4px 10px", borderRadius: "6px", background: "rgba(239, 68, 68, 0.12)", color: "#ef4444" }}>TRADITIONAL MODEL</span>
+              <span style={{ fontSize: "12px", fontWeight: 600, color: "#ef4444" }}>Margin Compression</span>
+            </div>
+            <div style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>Linear Headcount Scaling</div>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "13px",
+              color: "var(--color-text-body)",
+              background: isDark ? "rgba(255,255,255,0.03)" : "rgba(241, 245, 249, 0.8)",
+              padding: "12px 14px",
+              borderRadius: "8px",
+              fontFamily: "var(--font-inter), sans-serif"
+            }}>
+              <span>Revenue Scaling</span>
+              <span style={{ color: "#ef4444" }}>──►</span>
+              <span>Headcount Increase</span>
+              <span style={{ color: "#ef4444" }}>──►</span>
+              <strong style={{ color: "#ef4444" }}>Margin Squeeze</strong>
+            </div>
+          </div>
+
+          {/* AI-Powered Model Card */}
+          <div style={{
+            background: isDark ? "var(--color-bg-card-alt)" : "#ffffff",
+            borderStyle: "solid",
+            borderWidth: "1px 1px 1px 4px",
+            borderColor: isDark 
+              ? "var(--color-border) var(--color-border) var(--color-border) var(--color-blue-mid)"
+              : "rgba(15,23,42,0.06) rgba(15,23,42,0.06) rgba(15,23,42,0.06) var(--color-blue-mid)",
+            borderRadius: "14px",
+            padding: "24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "14px",
+            boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.2)" : "0 4px 20px rgba(15,23,42,0.03)"
+          }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", padding: "4px 10px", borderRadius: "6px", background: "rgba(var(--color-blue-mid-rgb), 0.12)", color: "var(--color-blue-mid)" }}>AI-POWERED MODEL</span>
+              <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--color-blue-mid)" }}>Margin Expansion</span>
+            </div>
+            <div style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>AI Infrastructure Scaling</div>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "13px",
+              color: "var(--color-text-body)",
+              background: isDark ? "rgba(255,255,255,0.03)" : "rgba(241, 245, 249, 0.8)",
+              padding: "12px 14px",
+              borderRadius: "8px",
+              fontFamily: "var(--font-inter), sans-serif"
+            }}>
+              <span>Revenue Scaling</span>
+              <span style={{ color: "var(--color-blue-mid)" }}>──►</span>
+              <span>AI Pod Infrastructure</span>
+              <span style={{ color: "var(--color-blue-mid)" }}>──►</span>
+              <strong style={{ color: "var(--color-blue-mid)" }}>Margin Growth</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -3389,6 +3635,9 @@ export default function BlogBodyClient({
             )}
 
             {renderBodyContent(section.body, !!(section.image || section.cta || section.accordionItems || section.visual))}
+
+            {section.visual === "ai-always-on-workflow" && renderAlwaysOnWorkflow()}
+            {section.visual === "ai-revenue-model" && renderRevenueModelComparison()}
 
             {section.accordionItems && section.accordionItems.length > 0 && (
               <div style={{

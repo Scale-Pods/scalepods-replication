@@ -16,12 +16,66 @@ interface Props {
 }
 
 function parseMarkdownInline(text: string) {
-  const parts = text.split(/(\*\*.*?\*\*)/g);
+  if (!text) return text;
+  const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*|`.*?`|\*.*?\*)/g;
+  const parts = text.split(regex);
+
   return parts.map((part, index) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={index} style={{ fontWeight: 700, color: "var(--color-text-bright)" }}>{part.slice(2, -2)}</strong>;
+    if (!part) return null;
+    if (part.startsWith("[") && part.includes("](") && part.endsWith(")")) {
+      const match = part.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (match) {
+        const [, linkText, url] = match;
+        return (
+          <Link
+            key={index}
+            href={url}
+            style={{
+              color: "var(--color-blue-mid)",
+              textDecoration: "underline",
+              fontWeight: 600
+            }}
+          >
+            {linkText}
+          </Link>
+        );
+      }
     }
-    return part;
+    if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
+      return (
+        <strong key={index} style={{ fontWeight: 700, color: "var(--color-text-bright)" }}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.startsWith("`") && part.endsWith("`") && part.length >= 2) {
+      return (
+        <code
+          key={index}
+          style={{
+            fontFamily: "monospace",
+            fontSize: "0.88em",
+            padding: "3px 8px",
+            borderRadius: "6px",
+            background: "rgba(var(--color-blue-mid-rgb), 0.08)",
+            color: "var(--color-blue-mid)",
+            border: "1px solid rgba(var(--color-blue-mid-rgb), 0.2)",
+            wordBreak: "break-word"
+          }}
+        >
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+    if (part.startsWith("*") && part.endsWith("*") && !part.startsWith("**") && part.length >= 2) {
+      return (
+        <em key={index} style={{ fontStyle: "italic", color: "var(--color-text-body)" }}>
+          {part.slice(1, -1)}
+        </em>
+      );
+    }
+    // Clean any stray ** from remaining plain text parts
+    return part.replace(/\*\*/g, "");
   });
 }
 
@@ -37,10 +91,15 @@ function renderBodyContent(body: string, hasFooter: boolean) {
         
         if (isBullet) {
           const bulletText = line.replace(/^[•\-\*]\s*/, "");
-          const colonIdx = bulletText.indexOf(":");
-          if (colonIdx !== -1) {
-            const headingPart = bulletText.substring(0, colonIdx);
-            const descPart = bulletText.substring(colonIdx + 1);
+
+          // Case 1: **Heading:** Description OR **Heading**: Description
+          const boldHeadingMatch = bulletText.match(/^\*\*(.*?)\*\*:?\s*([\s\S]*)/) || bulletText.match(/^\*\*(.*?):\*\*\s*([\s\S]*)/);
+
+          if (boldHeadingMatch) {
+            let [, heading, desc] = boldHeadingMatch;
+            heading = heading.replace(/:\s*$/, "").replace(/\*\*/g, "").trim();
+            desc = desc.replace(/^\*\*/, "").replace(/\*\*/g, "").trim();
+
             return (
               <div
                 key={idx}
@@ -55,13 +114,46 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                   gap: "8px"
                 }}
               >
-                <span style={{ color: "var(--color-blue-mid)" }}>•</span>
+                <span style={{ color: "var(--color-blue-mid)", flexShrink: 0 }}>•</span>
                 <span>
-                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{headingPart}:</strong>{parseMarkdownInline(descPart)}
+                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{heading}:</strong> {parseMarkdownInline(desc)}
                 </span>
               </div>
             );
           }
+
+          // Case 2: Heading: Description (Plain text heading with colon)
+          const colonIdx = bulletText.indexOf(":");
+          if (colonIdx !== -1 && colonIdx < 80) {
+            let headingPart = bulletText.substring(0, colonIdx).trim();
+            let descPart = bulletText.substring(colonIdx + 1).trim();
+            headingPart = headingPart.replace(/^\*\*/, "").replace(/\*\*$/, "").replace(/\*\*/g, "").trim();
+            descPart = descPart.replace(/^\*\*/, "").replace(/\*\*/g, "").trim();
+
+            return (
+              <div
+                key={idx}
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "16px",
+                  color: "var(--color-text-body)",
+                  lineHeight: 1.8,
+                  textAlign: "left",
+                  paddingLeft: "16px",
+                  display: "flex",
+                  gap: "8px"
+                }}
+              >
+                <span style={{ color: "var(--color-blue-mid)", flexShrink: 0 }}>•</span>
+                <span>
+                  <strong style={{ color: "var(--color-text-bright)", fontWeight: 700 }}>{headingPart}:</strong> {parseMarkdownInline(descPart)}
+                </span>
+              </div>
+            );
+          }
+
+          // Case 3: Regular bullet without colon
+          const cleanBulletText = bulletText.replace(/^\*\*/, "").replace(/\*\*$/, "").trim();
           return (
             <div
               key={idx}
@@ -76,8 +168,8 @@ function renderBodyContent(body: string, hasFooter: boolean) {
                 gap: "8px"
               }}
             >
-              <span style={{ color: "var(--color-blue-mid)" }}>•</span>
-              <span>{parseMarkdownInline(bulletText)}</span>
+              <span style={{ color: "var(--color-blue-mid)", flexShrink: 0 }}>•</span>
+              <span>{parseMarkdownInline(cleanBulletText)}</span>
             </div>
           );
         }
