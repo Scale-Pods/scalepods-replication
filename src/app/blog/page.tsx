@@ -67,7 +67,7 @@ export default async function BlogPage() {
       )
     );
 
-  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study");
+  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study" && post.slug !== "5-ways-ai-assistants-are-transforming-operations-mo8ksajr");
 
   const allPosts = [...filteredDynamicPosts, ...filteredStaticPosts].sort((a, b) => {
     const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
