@@ -67,7 +67,14 @@ export default async function BlogPage() {
       )
     );
 
-  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study" && post.slug !== "5-ways-ai-assistants-are-transforming-operations-mo8ksajr");
+  const excludedSlugs = new Set([
+    "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
+    "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
+    "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
+    "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8"
+  ]);
+
+  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study" && !excludedSlugs.has(post.slug));
 
   const allPosts = [...filteredDynamicPosts, ...filteredStaticPosts].sort((a, b) => {
     const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
