@@ -71,7 +71,8 @@ export default async function BlogPage() {
     "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
     "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
     "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
-    "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8"
+    "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8",
+    "how-to-build-an-autonomous-agency-the-uae-blueprint-mo8lksce"
   ]);
 
   const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study" && !excludedSlugs.has(post.slug));
