@@ -16,9 +16,13 @@ export default function MetaPageViewTracker() {
     const url = `${window.location.origin}${pathname}`;
     const { fbp, fbc } = getFacebookCookies();
 
-    const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+    const w = window as unknown as { dataLayer?: Record<string, unknown>[]; gtag?: (command: string, targetId: string, config?: Record<string, unknown>) => void };
     w.dataLayer = w.dataLayer || [];
     w.dataLayer.push({ event: "meta_page_view", event_id: eventId, page_path: pathname });
+
+    if (typeof w.gtag === "function") {
+      w.gtag("config", "G-MKXW098PHJ", { page_path: pathname });
+    }
 
     fetch("/api/capi/pageview", {
       method: "POST",
