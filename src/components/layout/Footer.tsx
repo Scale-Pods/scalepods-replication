@@ -12,6 +12,19 @@ const footerLinks = [
   { label: "Terms of Service", href: "/terms" },
 ];
 
+const solutionLinks = [
+  { label: "Sales Automation", href: "/solution/sales-workflow-automation" },
+  { label: "Ops Automation", href: "/solution/ops-workflow-automation" },
+  { label: "Manufacturing AI", href: "/solution/ai-automation-for-manufacturing" },
+  { label: "Real Estate AI", href: "/solution/ai-automation-for-real-estate" },
+  { label: "HR Automation", href: "/solution/hr-workflow-automation" },
+  { label: "Marketing Automation", href: "/solution/marketing-workflow-automation" },
+];
+
+const caseStudyLinks = [
+  { label: "Lotus Manor Dubai", href: "/case-study/lotus-manor-real-estate-sales-automation-dubai" },
+];
+
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { usePathname } from "next/navigation";
 
@@ -144,15 +157,15 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "32px", flex: 2 }}>
             <div>
-              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Platform</h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {footerLinks.slice(0, 3).map((link) => (
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Solutions</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {solutionLinks.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
-                    style={{ fontSize: "14px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
+                    style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
                   >
@@ -162,13 +175,45 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Legal</h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Case Studies</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {caseStudyLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Platform</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {footerLinks.slice(0, 3).map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Legal</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {footerLinks.slice(3).map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
-                    style={{ fontSize: "14px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
+                    style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
                   >
