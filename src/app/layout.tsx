@@ -127,9 +127,8 @@ export default function RootLayout({
       <head>
         <JsonLd data={globalSchema} />
 
-        <Script
+        <script
           id="theme-script"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function () {

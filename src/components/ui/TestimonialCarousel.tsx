@@ -232,11 +232,17 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
   const data = reviews || reviewsData;
   const [active, setActive] = useState(0);
   const [isCenterExpanded, setIsCenterExpanded] = useState(false);
-  const isMobile = useMobile(768);
-  const isDesktop = !useMobile(1024);
+  const [mounted, setMounted] = useState(false);
+  const rawIsMobile = useMobile(768);
+  const isMobile = mounted ? rawIsMobile : false;
+  const isDesktop = !isMobile;
   const { resolvedTheme } = useTheme();
   const carouselRef = useRef(null);
   const isInView = useInView(carouselRef, { once: false, amount: 0.2 });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % data.length);
