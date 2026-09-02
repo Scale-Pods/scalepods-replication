@@ -364,6 +364,15 @@ const salespodReviews = [
     image: "/reviews/Vinay Kumar.webp"
   },
   {
+    name: "Zameer Lokhandwala",
+    title: "Managing Director at Z.V Steels Pvt. Ltd",
+    location: "India",
+    countryCode: "in",
+    quote: "“We were a large, four-generation manufacturing business and ScalePods was a young startup when we first hired them — a bit of a leap of faith on our part. It paid off. We started with HR recruitment automation, and Adnan and Raunak built it around our actual process instead of handing us something off the shelf, weaving in Claude to handle resume screening and candidate shortlisting intelligently rather than with rigid keyword rules. Screening effort dropped 70-80%, and interview scheduling went from 1-2 days to under 30 minutes. That got us comfortable enough to bring them into three more parts of the business — purchase and sales audits, material quality checks, and sales outreach for our group company. Every time, same experience: responsive, custom-built, and never once did we have to chase them for a fix or an update. Four projects in, this feels less like a vendor we hired and more like a team we grew alongside. Recommended without hesitation.”",
+    image: "/reviews/Zameer Lokhandwala.webp",
+    expanded: true
+  },
+  {
     name: "Joaquin Cornejo",
     title: "Controller at MACRO",
     location: "Los Angeles, USA",
