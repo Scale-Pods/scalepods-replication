@@ -29,7 +29,8 @@ export async function POST(req: Request) {
       ctaSubtitle,
       ctaLabel,
       ctaUrl,
-      sections
+      sections,
+      faqs
     } = body;
 
     if (!slug || !title) {
@@ -54,7 +55,10 @@ export async function POST(req: Request) {
       ctaTitle: ctaTitle || null,
       ctaSubtitle: ctaSubtitle || null,
       ctaLabel: ctaLabel || null,
-      ctaUrl: ctaUrl || null
+      ctaUrl: ctaUrl || null,
+      // { q, a }[] for BlogFaqAccordion — see [slug]/page.tsx's dynamic-post branch, which reads
+      // this back out of bodyMeta.faqs. Optional; omitted/empty just means no FAQ block renders.
+      faqs: Array.isArray(faqs) ? faqs : null
     });
 
     const { error } = await supabase.from("website_content").upsert(

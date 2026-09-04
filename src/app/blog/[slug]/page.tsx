@@ -303,7 +303,14 @@ export default async function ArticlePage({ params }: Props) {
       ctaSubtitle: ctaSubtitle,
       ctaLabel: ctaLabel,
       ctaUrl: ctaUrl,
-      sections: sections
+      sections: sections,
+      // { q, a }[] for BlogFaqAccordion (added 2026-09-04) — written by the Growth OS composer's
+      // publish route into body's JSON wrapper alongside sections/ctaTitle/etc.
+      faqs: bodyMeta.faqs || [],
+      // Static posts get their FAQ heading from the keyword ternary below (tied to specific
+      // legacy titles) — a dynamic post has no such hand-authored heading, so it always gets this
+      // generic one instead of falling through that ternary's final (wrong-for-us) case.
+      faqHeading: "Frequently Asked Questions"
     };
   } else {
     const sPost = staticPosts.find((p) => p.slug === slug);
@@ -1366,17 +1373,19 @@ export default async function ArticlePage({ params }: Props) {
               color: "var(--color-text-bright)", marginBottom: "32px", lineHeight: 1.3,
               letterSpacing: "-0.02em"
             }}>
-              {displayData.title.includes("ROI") || slug.includes("roi")
-                ? "FAQs"
-                : displayData.title === "HR Automation: The Complete Guide for 2026"
-                ? "FAQs About HR Automation"
-                : displayData.title.includes("Sales Automation")
-                ? "FAQs About Sales Automation"
-                : displayData.title.includes("Sales Workflow")
-                ? "FAQs About Sales Workflow Automation"
-                : displayData.title.includes("Marketing")
-                ? "FAQs About Marketing Automation"
-                : "FAQs About AI SDR Automation"}
+              {displayData.faqHeading ?? (
+                displayData.title.includes("ROI") || slug.includes("roi")
+                  ? "FAQs"
+                  : displayData.title === "HR Automation: The Complete Guide for 2026"
+                  ? "FAQs About HR Automation"
+                  : displayData.title.includes("Sales Automation")
+                  ? "FAQs About Sales Automation"
+                  : displayData.title.includes("Sales Workflow")
+                  ? "FAQs About Sales Workflow Automation"
+                  : displayData.title.includes("Marketing")
+                  ? "FAQs About Marketing Automation"
+                  : "FAQs About AI SDR Automation"
+              )}
             </h2>
             <BlogFaqAccordion faqData={displayData.faqs} />
           </div>
