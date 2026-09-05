@@ -127,8 +127,16 @@ export default function RootLayout({
       <head>
         <JsonLd data={globalSchema} />
 
-        <script
+      </head>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
+        style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
+      >
+        {/* Inline Theme Script executed before interactive */}
+        <Script
           id="theme-script"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function () {
@@ -151,12 +159,6 @@ export default function RootLayout({
           }}
         />
 
-      </head>
-      <body
-        suppressHydrationWarning
-        className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
-        style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
-      >
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"
