@@ -23,7 +23,7 @@ import dynamic from "next/dynamic";
 
 const DownloadModal = dynamic(() => import("@/components/ui/DownloadModal"), { ssr: false });
 const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: false });
-import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
+const TestimonialCarousel = dynamic(() => import("@/components/ui/TestimonialCarousel"), { ssr: false });
 import { BrandsMarquee } from "@/components/sections/Sections";
 import ClaudePartnership from "@/components/sections/ClaudePartnership";
 import "./marketingpod.css";

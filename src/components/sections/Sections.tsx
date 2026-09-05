@@ -9,7 +9,12 @@ import ScrollRevealText from "@/components/ui/ScrollRevealText";
 import ActivityBarChart from "@/components/ui/ActivityBarChart";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FuturisticGauge from "@/components/ui/FuturisticGauge";
-import TestimonialCarousel from "@/components/ui/TestimonialCarousel";
+import dynamic from "next/dynamic";
+
+const TestimonialCarousel = dynamic(
+  () => import("@/components/ui/TestimonialCarousel"),
+  { ssr: false }
+);
 import { useMobile } from "@/lib/hooks";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode } from 'swiper/modules';

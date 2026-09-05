@@ -240,17 +240,11 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
   const data = reviews || reviewsData;
   const [active, setActive] = useState(0);
   const [isCenterExpanded, setIsCenterExpanded] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const rawIsMobile = useMobile(768);
-  const isMobile = mounted ? rawIsMobile : false;
+  const isMobile = useMobile(768);
   const isDesktop = !isMobile;
   const { resolvedTheme } = useTheme();
   const carouselRef = useRef(null);
   const isInView = useInView(carouselRef, { once: false, amount: 0.2 });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % data.length);
@@ -326,20 +320,7 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
   const canMobileExpand = currentMobileReview ? (currentMobileReview.expanded !== false && (currentMobileReview.expanded === true || currentMobileReview.quote.length > 420)) : false;
   const mobileCardStyles = getCardStyles(active);
 
-  if (!mounted) {
-    return (
-      <div 
-        className="relative w-full max-w-full"
-        style={{
-          minHeight: "440px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      />
-    );
-  }
+
 
   return (
     <div 

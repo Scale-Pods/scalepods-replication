@@ -123,7 +123,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <JsonLd data={globalSchema} />
 
@@ -133,12 +133,6 @@ export default function RootLayout({
         className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
         style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
       >
-        {/* Theme Script executed before interactive */}
-        <Script
-          id="theme-script"
-          src="/theme.js"
-          strategy="beforeInteractive"
-        />
 
         {/* Google Tag Manager */}
         <Script
