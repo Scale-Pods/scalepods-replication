@@ -39,6 +39,14 @@ export const reviewsData: ReviewItem[] = [
     image: "/reviews/Vinay Kumar.webp"
   },
   {
+    name: "Akarsh Arora",
+    title: "Founder & CEO at A SQUARED REAL ESTATE",
+    location: "UAE",
+    countryCode: "ae",
+    quote: "“Scalepods helped me automate my business processes using Claude, making everything much faster and more efficient. Highly recommended!”",
+    image: "/reviews/Akarsh Arora.webp"
+  },
+  {
     name: "Zameer Lokhandwala",
     title: "Managing Director at Z.V Steels Pvt. Ltd",
     location: "India",
