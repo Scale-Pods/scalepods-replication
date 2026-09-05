@@ -6,7 +6,7 @@ const ClaudePartnership = dynamic(() => import("@/components/sections/ClaudePart
 const DataAnalysis = dynamic(() => import("@/components/sections/Sections").then(mod => mod.DataAnalysis), { ssr: true });
 const Benefits = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Benefits), { ssr: true });
 const Services = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Services), { ssr: true });
-const Reviews = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Reviews), { ssr: false });
+const Reviews = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Reviews), { ssr: true });
 const Features = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Features), { ssr: true });
 const Process = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Process), { ssr: true });
 const CaseStudies = dynamic(() => import("@/components/sections/Sections").then(mod => mod.CaseStudies), { ssr: true });
