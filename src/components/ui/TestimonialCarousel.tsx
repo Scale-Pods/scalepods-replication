@@ -326,6 +326,21 @@ export default function TestimonialCarousel({ reviews }: { reviews?: ReviewItem[
   const canMobileExpand = currentMobileReview ? (currentMobileReview.expanded !== false && (currentMobileReview.expanded === true || currentMobileReview.quote.length > 420)) : false;
   const mobileCardStyles = getCardStyles(active);
 
+  if (!mounted) {
+    return (
+      <div 
+        className="relative w-full max-w-full"
+        style={{
+          minHeight: "440px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      />
+    );
+  }
+
   return (
     <div 
       ref={carouselRef} 

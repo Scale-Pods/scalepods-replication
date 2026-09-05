@@ -133,30 +133,11 @@ export default function RootLayout({
         className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
         style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
       >
-        {/* Inline Theme Script executed before interactive */}
+        {/* Theme Script executed before interactive */}
         <Script
           id="theme-script"
+          src="/theme.js"
           strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function () {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  var effectiveTheme = 'dark';
-                  if (theme === 'light' || (!theme && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    effectiveTheme = 'light';
-                  }
-                  document.documentElement.setAttribute('data-theme', effectiveTheme);
-                  document.documentElement.style.colorScheme = effectiveTheme;
-                  if (effectiveTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
         />
 
         {/* Google Tag Manager */}
