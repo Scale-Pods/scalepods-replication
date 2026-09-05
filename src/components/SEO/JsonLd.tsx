@@ -2,14 +2,15 @@ import React from "react";
 
 interface JsonLdProps {
   data: Record<string, any>;
+  id?: string;
 }
 
-export default function JsonLd({ data }: JsonLdProps) {
+export default function JsonLd({ data, id = "json-ld" }: JsonLdProps) {
   return (
     <script
+      id={id}
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-      suppressHydrationWarning
     />
   );
 }

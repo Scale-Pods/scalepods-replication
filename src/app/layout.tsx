@@ -151,8 +151,15 @@ export default function RootLayout({
           }}
         />
 
+      </head>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
+        style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
+      >
         {/* Google Tag Manager */}
         <Script
+          id="gtm-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -162,12 +169,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5FFD5XBQ');`,
           }}
         />
-      </head>
-      <body
-        suppressHydrationWarning
-        className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
-        style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
-      >
+
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
