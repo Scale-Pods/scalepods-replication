@@ -235,7 +235,7 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
                     Founded
                   </div>
                   <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
-                    1996 (50+ Yrs)
+                    1996 (30+ Yrs)
                   </div>
                 </div>
               </div>
