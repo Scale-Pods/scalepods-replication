@@ -23,6 +23,7 @@ const solutionLinks = [
 
 const caseStudyLinks = [
   { label: "Lotus Manor Dubai", href: "/case-study/lotus-manor-real-estate-sales-automation-dubai" },
+  { label: "ZV Steels India", href: "/case-study/zv-steels-recruitment-automation-tool" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -166,8 +167,8 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-green)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-text-body)"; }}
                   >
                     {link.label}
                   </Link>
@@ -182,8 +183,8 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-green)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-text-body)"; }}
                   >
                     {link.label}
                   </Link>
@@ -198,8 +199,8 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-green)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-text-body)"; }}
                   >
                     {link.label}
                   </Link>
@@ -214,8 +215,8 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     style={{ fontSize: "13px", color: "var(--color-text-body)", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--color-green)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "var(--color-text-body)")}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-green)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-text-body)"; }}
                   >
                     {link.label}
                   </Link>

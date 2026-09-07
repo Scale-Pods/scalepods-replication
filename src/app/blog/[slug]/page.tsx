@@ -10,6 +10,7 @@ import AnimatedMetric from "@/components/ui/AnimatedMetric";
 import JsonLd from "@/components/SEO/JsonLd";
 import CaseStudyVideoPlayer from "@/components/ui/CaseStudyVideoPlayer";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import ZVSteelsCaseStudy from "@/components/case-studies/ZVSteelsCaseStudy";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -358,6 +359,8 @@ export default async function ArticlePage({ params }: Props) {
   } : null;
 
   const isLotusManorCaseStudy = slug === "lotus-manor-real-estate-sales-automation-dubai";
+  const isZVSteelsCaseStudy = slug === "zv-steels-recruitment-automation-tool";
+  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy;
 
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
@@ -469,17 +472,19 @@ export default async function ArticlePage({ params }: Props) {
       `}</style>
       <BeamsBackground hues={[200, 210, 225]} intensity="strong">
         <div style={{ paddingTop: "64px", paddingBottom: "120px" }}>
-          <div style={{ maxWidth: isLotusManorCaseStudy ? "1200px" : "800px", margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ maxWidth: isCustomCaseStudy ? "1200px" : "800px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Back Button */}
-        <div className={isLotusManorCaseStudy ? "px-6 md:px-10" : ""}>
-          <Link href={isLotusManorCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
+        <div className={isCustomCaseStudy ? "px-6 md:px-10" : ""}>
+          <Link href={isCustomCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
             <ArrowLeft style={{ width: "14px", height: "14px" }} />
-            {isLotusManorCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
+            {isCustomCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
           </Link>
         </div>
 
-        {isLotusManorCaseStudy ? (
+        {isZVSteelsCaseStudy ? (
+          <ZVSteelsCaseStudy faqs={displayData.faqs} />
+        ) : isLotusManorCaseStudy ? (
           <>
             {/* Top section: Title, Stats, Testimonial (Full Width) */}
           <div style={{ marginTop: "40px" }} className="px-6 md:px-10">
@@ -1353,7 +1358,7 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         {/* Article Body */}
-        {!isLotusManorCaseStudy && (
+        {!isCustomCaseStudy && (
           <BlogBodyClient
             sections={displayData.sections}
             slug={slug}
@@ -1366,7 +1371,7 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         {/* FAQ Accordion Section */}
-        {!isLotusManorCaseStudy && displayData.faqs && displayData.faqs.length > 0 && (
+        {!isCustomCaseStudy && displayData.faqs && displayData.faqs.length > 0 && (
           <div style={{ marginTop: "80px" }}>
             <h2 style={{
               fontFamily: "var(--font-inter), sans-serif", fontSize: "28px", fontWeight: 700,
@@ -1395,10 +1400,10 @@ export default async function ArticlePage({ params }: Props) {
         <div style={{ height: "1px", background: "var(--color-border)", marginTop: "80px", marginBottom: "40px" }} />
 
         {/* Bottom Back Button */}
-        <div className={isLotusManorCaseStudy ? "px-6 md:px-10" : ""}>
-          <Link href={isLotusManorCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
+        <div className={isCustomCaseStudy ? "px-6 md:px-10" : ""}>
+          <Link href={isCustomCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
             <ArrowLeft style={{ width: "14px", height: "14px" }} />
-            {isLotusManorCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
+            {isCustomCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
           </Link>
         </div>
 

@@ -931,6 +931,56 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "zv-steels-recruitment-automation-tool",
+    date: "September 7, 2026",
+    category: "Case Study",
+    title: "How a 4-Generation Steel Giant Used a Recruitment Automation Tool to Automate 4 Core Operations and Slash HR Screening Effort by 80%",
+    excerpt: "ZV Steels partnered with ScalePods to replace manual bottlenecks across recruitment, freight audits, and wholesale outreach with four purpose-built automated engines, unlocking rapid turnaround times and end-to-end operational visibility.",
+    metaTitle: "Recruitment Automation Tool | ZV Steels Case Study",
+    metaDescription: "See how ZV Steels used AI talent acquisition and automation to cut HR screening effort by 80% and streamline logistics and B2B sales operations.",
+    image: "/brands/zv-steels.webp",
+    sections: [
+      {
+        heading: "The Challenge: Manual Bottlenecks Across a Manufacturing Giant",
+        body: "ZV Steels & Alco Steel Processors is a prominent, four-generation manufacturing leader in flat steel products (HR Coils, CRCA, HRPO, GP, GPSP) and coated steel profiles (PPGL). Managing high-volume operations across multiple enterprise entities introduced severe friction across three mission-critical departments:\n\n• Hiring Latency & Candidate Drop-Off: Screening hundreds of technical candidate profiles using manual keyword searches led to hiring delays of up to five days and missed top-tier talent.\n• Logistics & Reconciliation Discrepancies: Line-item verification across Supplier Invoices, E-Way Bills (EWB), and Lorry Receipts (LR) was fully manual, risking freight weight inaccuracies (±300 kg) and GST miscalculations.\n• Pipeline Stagnation: Inbound wholesale leads from TradeIndia, Google Maps, and LinkedIn went cold because there was no immediate, structured multichannel follow-up sequence."
+      },
+      {
+        heading: "The ScalePods Moment: From Off-the-Shelf Bottlenecks to Custom AI Engines",
+        body: "When ZV Steels initially brought in ScalePods, it began with a single pilot: solving the recruiter bottleneck for talent acquisition. The breakthrough came when ScalePods abandoned off-the-shelf applicant trackers with rigid keyword filters and engineered a custom Claude-powered evaluation engine matched directly to their hiring criteria.\n\nScreening effort plummeted by 80%, and candidate interview bookings dropped from two days of back-and-forth messaging to under 30 minutes via WhatsApp self-scheduling. That immediate win proved that custom AI engines could handle the nuances of heavy industrial operations, paving the way to expand ScalePods automation across logistics verification, financial reconciliation, and wholesale pipeline retention."
+      },
+      {
+        heading: "System 1: AI Talent Acquisition & AI Recruitment Platform with HR Automation Tool",
+        body: "Built as a dedicated HR platform that automates candidate shortlisting and booking without recruiter overhead:\n\n• Contextual Resume Parsing: Recruiters define custom percentage weights for Skills Match, Experience Relevance, Education Relevance, and JD Alignment. Claude screens batches of resumes against real criteria rather than basic keywords.\n• Instant WhatsApp Self-Scheduling: Shortlisted candidates automatically receive WhatsApp notifications (hr_meeting_not_booked, tech_meeting_not_booked, manager_round_not_booked) with embedded calendar links to self-book interview slots.\n• Unified Candidate Dossier: Provides interviewers with summarized resumes, fit analysis, call logs, and structured round-by-round decision controls in one dashboard."
+      },
+      {
+        heading: "System 2: ERP Automation & SAP Build Process Automation for Logistics Audits",
+        body: "An automated compliance system designed to catch billing errors, transit inconsistencies, and tax discrepancies:\n\n• Inbound (Purchase) 3-Way Verification: Automatically reconciles Supplier Invoices against E-Way Bills (EWB) and Logistics Receipts (LR). It applies fuzzy matching for factory address variations (ZV Metal Processor vs. Russian Fabricators) while enforcing exact verification on vehicle numbers, GSTIN, and batch coil codes.\n• Outbound (Sales) Compliance: Cross-references Sales Order Excel sheets with generated Sales Invoices, validating 18% GST (9% CGST + 9% SGST), base rates, standard 0.47% brokerages, and loading charges within weight tolerances (±300 kg).\n• Real-Time Discrepancy Reporting: Labels run as Match (✓), Partial Match (Δ), or Mismatch (×) with field-by-field error logs."
+      },
+      {
+        heading: "System 3: Operations Automation Software & Sales Process Automation with a Sales Automation Platform",
+        body: "An automated revenue machine built to capture inbound wholesale inquiries and re-engage dormant buyer accounts:\n\n• Automated Ingestion: Scrapes and pushes inbound leads from TradeIndia, Google Maps, and LinkedIn into Supabase in real time.\n• 6-Day Multichannel Cadence: Day 0 instant personalized email with product catalogs and quotes; Day 1 & Day 3 dynamic WhatsApp messaging confirming stock, thickness, and quantity specs; Day 2 & Day 4 autonomous AI Voice agent calls (Vapi + Vobiz) qualifying buyer timeline and interest; Day 5 final closing email touchpoint before entering long-term nurture.\n• Smart Follow-Up Loop: Automatically shifts postponed inquiries into an automated 0-day re-engagement sequence with updated price sheets."
+      },
+      {
+        heading: "The Results",
+        body: "By replacing manual bottlenecks with four purpose-built automated engines, ZV Steels achieved measurable operational gains across departments:\n\n• 80% Reduction in Screening Effort: Intelligent Claude-powered CV parsing replaced rigid keyword rules with contextual candidate evaluation.\n• 30-Minute Interview Turnaround: Automated WhatsApp scheduling cut multi-day recruiter coordination down to minutes.\n• Zero-Touch 3-Way Audit Validation: Real-time cross-referencing across Invoices, E-Way Bills, and Lorry Receipts with tolerance checks.\n• 6-Day Multichannel Sales Loop: A unified lead-conversion machine combining WhatsApp, autonomous AI Voice calls, and dynamic emails."
+      }
+    ],
+    faqs: [
+      {
+        q: "How did ScalePods reduce HR candidate screening effort by 80% for ZV Steels?",
+        a: "Instead of using off-the-shelf keyword scanners, ScalePods built a custom Claude-powered evaluation engine that contextually parses CVs against weighted scores for skills match, experience relevance, education, and job description alignment."
+      },
+      {
+        q: "How does the automated 3-way logistics audit verification work?",
+        a: "The engine cross-references Supplier Invoices against E-Way Bills (EWB) and Lorry Receipts (LR), applying fuzzy logic for factory address variations while strictly verifying vehicle registration numbers, GSTINs, batch codes, and weight tolerances within ±300 kg."
+      },
+      {
+        q: "What channels are included in the wholesale sales re-engagement cadence?",
+        a: "The 6-day cadence connects inbound leads from TradeIndia, Google Maps, and LinkedIn into Supabase, orchestrating dynamic quotes via Email, WhatsApp stock updates, and autonomous AI Voice follow-ups powered by Vapi and Vobiz."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",
