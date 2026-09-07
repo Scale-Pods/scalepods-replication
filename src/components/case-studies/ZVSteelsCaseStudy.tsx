@@ -505,7 +505,7 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
                       <CheckCircle2 style={{ width: "18px", height: "18px" }} />
                     </div>
                     <p style={{ fontSize: "14.5px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
-                      <strong style={{ color: "var(--color-text-bright)", fontWeight: 600 }}>Instant WhatsApp Self-Scheduling:</strong> Shortlisted candidates automatically receive WhatsApp notifications (<code style={{ fontSize: "13px", color: "var(--color-blue-mid)", background: "rgba(59, 130, 246, 0.1)", padding: "2px 6px", borderRadius: "4px" }}>hr_meeting_not_booked</code>, <code style={{ fontSize: "13px", color: "var(--color-blue-mid)", background: "rgba(59, 130, 246, 0.1)", padding: "2px 6px", borderRadius: "4px" }}>tech_meeting_not_booked</code>, <code style={{ fontSize: "13px", color: "var(--color-blue-mid)", background: "rgba(59, 130, 246, 0.1)", padding: "2px 6px", borderRadius: "4px" }}>manager_round_not_booked</code>) with embedded calendar links to self-book interview slots.
+                      <strong style={{ color: "var(--color-text-bright)", fontWeight: 600 }}>Instant WhatsApp Self-Scheduling:</strong> Shortlisted candidates automatically receive WhatsApp notifications with embedded calendar links to self-book interview slots.
                     </p>
                   </div>
 

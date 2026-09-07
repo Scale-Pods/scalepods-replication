@@ -950,7 +950,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "System 1: AI Talent Acquisition & AI Recruitment Platform with HR Automation Tool",
-        body: "Built as a dedicated HR platform that automates candidate shortlisting and booking without recruiter overhead:\n\n• Contextual Resume Parsing: Recruiters define custom percentage weights for Skills Match, Experience Relevance, Education Relevance, and JD Alignment. Claude screens batches of resumes against real criteria rather than basic keywords.\n• Instant WhatsApp Self-Scheduling: Shortlisted candidates automatically receive WhatsApp notifications (hr_meeting_not_booked, tech_meeting_not_booked, manager_round_not_booked) with embedded calendar links to self-book interview slots.\n• Unified Candidate Dossier: Provides interviewers with summarized resumes, fit analysis, call logs, and structured round-by-round decision controls in one dashboard."
+        body: "Built as a dedicated HR platform that automates candidate shortlisting and booking without recruiter overhead:\n\n• Contextual Resume Parsing: Recruiters define custom percentage weights for Skills Match, Experience Relevance, Education Relevance, and JD Alignment. Claude screens batches of resumes against real criteria rather than basic keywords.\n• Instant WhatsApp Self-Scheduling: Shortlisted candidates automatically receive WhatsApp notifications with embedded calendar links to self-book interview slots.\n• Unified Candidate Dossier: Provides interviewers with summarized resumes, fit analysis, call logs, and structured round-by-round decision controls in one dashboard."
       },
       {
         heading: "System 2: ERP Automation & SAP Build Process Automation for Logistics Audits",
