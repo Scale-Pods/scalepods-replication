@@ -471,7 +471,7 @@ export default async function ArticlePage({ params }: Props) {
         }
       `}</style>
       <BeamsBackground hues={[200, 210, 225]} intensity="strong">
-        <div style={{ paddingTop: "64px", paddingBottom: "120px" }}>
+        <div style={{ paddingTop: "64px", paddingBottom: isCustomCaseStudy ? "64px" : "120px" }}>
           <div style={{ maxWidth: isCustomCaseStudy ? "1200px" : "800px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Back Button */}
@@ -1241,7 +1241,7 @@ export default async function ArticlePage({ params }: Props) {
               <div style={{ height: "1px", background: "var(--color-border)", marginTop: "80px", marginBottom: "80px" }} />
 
               {/* Final CTA Section */}
-              <div style={{ marginBottom: "40px" }}>
+              <div style={{ marginBottom: "0px" }}>
                 <div className="premium-card" style={{
                   borderWidth: "1px 1px 1px 4px",
                   borderStyle: "solid",
@@ -1397,7 +1397,12 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         {/* Divider */}
-        <div style={{ height: "1px", background: "var(--color-border)", marginTop: "80px", marginBottom: "40px" }} />
+        <div style={{
+          height: "1px",
+          background: "var(--color-border)",
+          marginTop: isCustomCaseStudy ? "32px" : "80px",
+          marginBottom: isCustomCaseStudy ? "24px" : "40px"
+        }} />
 
         {/* Bottom Back Button */}
         <div className={isCustomCaseStudy ? "px-6 md:px-10" : ""}>

@@ -748,7 +748,7 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
 
 
           {/* ── CTA Card (Lotus Manor exact style) ── */}
-          <div style={{ marginBottom: "80px" }}>
+          <div style={{ marginBottom: "0px" }}>
             <div className="premium-card" style={{
               padding: "48px 32px",
               textAlign: "center",
