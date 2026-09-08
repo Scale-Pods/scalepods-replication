@@ -256,8 +256,24 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const { data: post } = await supabase.from("website_content").select("title, excerpt").eq("slug", slug).single();
-  if (post) return { title: `${post.title} – ScalePods Blog`, description: post.excerpt };
+  const { data: post } = await supabase.from("website_content").select("title, excerpt, body").eq("slug", slug).single();
+  if (post) {
+    // metaTitle/metaDescription live inside body's JSON wrapper, same as ctaTitle/bannerUrlDark
+    // (see the Growth OS composer's publish route) -- no dedicated columns, so no site-DB
+    // migration needed. Falls back to the auto-derived title/excerpt when either is unset, so
+    // every post published before this existed keeps working unchanged.
+    let bodyMeta: any = {};
+    try {
+      const parsed = JSON.parse(post.body);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) bodyMeta = parsed;
+    } catch {
+      // legacy body shapes (a bare sections array, or a plain string) carry no metadata -- fall
+      // through to the auto-derived title/excerpt below, same as if bodyMeta were never set.
+    }
+    const title = bodyMeta.metaTitle || `${post.title} – ScalePods Blog`;
+    const description = bodyMeta.metaDescription || post.excerpt;
+    return { title, description };
+  }
   const sPost = staticPosts.find((p) => p.slug === slug);
   if (!sPost) return { title: "Not Found" };
   const title = sPost.metaTitle || `${sPost.title} – ScalePods Blog`;

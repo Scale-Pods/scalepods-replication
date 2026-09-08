@@ -22,6 +22,8 @@ export async function POST(req: Request) {
       slug,
       category,
       excerpt,
+      metaTitle,
+      metaDescription,
       bannerUrl,
       bannerUrlDark,
       bannerUrlLight,
@@ -50,6 +52,10 @@ export async function POST(req: Request) {
 
     const formattedBody = JSON.stringify({
       sections: parsedSections,
+      // Read by generateMetadata() in [slug]/page.tsx for the real <title>/<meta name="description">
+      // tags -- falls back to the auto-derived title/excerpt when either is unset.
+      metaTitle: metaTitle || null,
+      metaDescription: metaDescription || null,
       bannerUrlDark: bannerUrlDark || null,
       bannerUrlLight: bannerUrlLight || null,
       ctaTitle: ctaTitle || null,
