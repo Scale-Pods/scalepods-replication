@@ -12,6 +12,14 @@ import CaseStudyVideoPlayer from "@/components/ui/CaseStudyVideoPlayer";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import ZVSteelsCaseStudy from "@/components/case-studies/ZVSteelsCaseStudy";
 
+// Without this, a dynamic (DB-backed) post's page gets ISR-cached on first visit and then keeps
+// serving that stale snapshot indefinitely -- publish's revalidatePath(`/blog/${slug}`) call is
+// not enough on its own to force a fresh render on every request for a route with no explicit
+// revalidate export. blog/page.tsx (the listing) already has this; this file never did, which is
+// why a real published post kept showing its pre-publish state (title/meta especially) well past
+// any reasonable cache window. Matches the listing page's fix exactly.
+export const revalidate = 0; // Force dynamic fetching for real-time updates
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
