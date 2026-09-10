@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ScalePods — Growth, Automated.",
+  title: "Global Enterprise AI Infrastructure | ScalePods",
   description: "Experience the future of AI-native business operations. Seamlessly integrate modular AI pods into your marketing, sales, HR, and ops workflows with ScalePods.",
+  alternates: {
+    canonical: "https://www.scalepods.co/global",
+  },
   openGraph: {
-    title: "ScalePods — Growth, Automated.",
+    title: "Global Enterprise AI Infrastructure | ScalePods",
     description: "Modular AI infrastructure designed for the next generation of business scale.",
-    url: "https://scalepods.co/global",
+    url: "https://www.scalepods.co/global",
     siteName: "ScalePods",
     images: [
       {

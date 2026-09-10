@@ -47,6 +47,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.scalepods.co"),
+  alternates: {
+    canonical: "https://www.scalepods.co",
+  },
   title: "ScalePods — Growth, Automated.",
   description:
     "We build smart workflows that automate the repetitive, reduce overheads, and keep teams lean.",

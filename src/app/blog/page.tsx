@@ -7,8 +7,18 @@ import { BeamsBackground } from "@/components/ui/beams-background";
 export const revalidate = 0; // Force dynamic fetching for real-time updates
 
 export const metadata: Metadata = {
-  title: "ScalePods — Growth, Automated.",
-  description: "Latest news, articles, and resources from ScalePods on AI automation and workflows.",
+  title: "Blog & Insights | AI Automation & Workflows | ScalePods",
+  description: "Latest articles, guides, and practical playbooks from ScalePods on AI automation, digital workforces, and enterprise workflows.",
+  alternates: {
+    canonical: "https://www.scalepods.co/blog",
+  },
+  openGraph: {
+    title: "Blog & Insights | AI Automation & Workflows | ScalePods",
+    description: "Latest articles, guides, and practical playbooks from ScalePods on AI automation, digital workforces, and enterprise workflows.",
+    url: "https://www.scalepods.co/blog",
+    siteName: "ScalePods",
+    type: "website",
+  },
 };
 
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {

@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "About Us | ScalePods",
   description:
     "We help businesses grow without adding the weight that usually comes with growth. Meet the co-founders, explore our timeline of milestones, and learn the values that drive our AI workflow automation pods.",
+  alternates: {
+    canonical: "https://www.scalepods.co/about",
+  },
   openGraph: {
     title: "About Us | ScalePods",
     description:

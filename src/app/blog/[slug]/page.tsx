@@ -264,29 +264,53 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const sPost = staticPosts.find((p) => p.slug === slug);
+  const isCaseStudy = sPost?.category === "Case Study";
+  const canonicalUrl = isCaseStudy
+    ? `https://www.scalepods.co/case-study/${slug}`
+    : `https://www.scalepods.co/blog/${slug}`;
+
   const { data: post } = await supabase.from("website_content").select("title, excerpt, body").eq("slug", slug).single();
   if (post) {
-    // metaTitle/metaDescription live inside body's JSON wrapper, same as ctaTitle/bannerUrlDark
-    // (see the Growth OS composer's publish route) -- no dedicated columns, so no site-DB
-    // migration needed. Falls back to the auto-derived title/excerpt when either is unset, so
-    // every post published before this existed keeps working unchanged.
     let bodyMeta: any = {};
     try {
       const parsed = JSON.parse(post.body);
       if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) bodyMeta = parsed;
     } catch {
-      // legacy body shapes (a bare sections array, or a plain string) carry no metadata -- fall
-      // through to the auto-derived title/excerpt below, same as if bodyMeta were never set.
+      // legacy body shapes
     }
     const title = bodyMeta.metaTitle || `${post.title} – ScalePods Blog`;
     const description = bodyMeta.metaDescription || post.excerpt;
-    return { title, description };
+    return {
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title,
+        description,
+        url: canonicalUrl,
+        type: "article",
+      },
+    };
   }
-  const sPost = staticPosts.find((p) => p.slug === slug);
   if (!sPost) return { title: "Not Found" };
   const title = sPost.metaTitle || `${sPost.title} – ScalePods Blog`;
   const description = sPost.metaDescription || sPost.excerpt;
-  return { title, description };
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "article",
+    },
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {
