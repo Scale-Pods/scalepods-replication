@@ -2812,7 +2812,7 @@ export default function HRWorkflowAutomationPage() {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-faq-bottom-btn"
-            onClick={() => window.open("https://calendar.app.google/DhM4emV5aoPSqpDt8", "_blank")}
+            onClick={() => window.open("https://calendar.app.google/a6AYTKNajbEPg3Dq7", "_blank")}
           >
             <span>Book a Call</span>
             <span style={{ fontSize: "12px", fontWeight: 700 }}>→</span>
