@@ -352,7 +352,7 @@ export default function Hero() {
             backgroundClip: resolvedTheme === 'dark' ? "text" : undefined,
           }}
         >
-          We build smart workflows that automate the repetitive, reduce overheads and keep teams lean.
+          We build AI-powered workflow automation solutions that automate repetitive work, reduce operational overhead, and help lean teams scale without unnecessary complexity.
         </motion.p>
 
 

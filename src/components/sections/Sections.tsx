@@ -267,7 +267,7 @@ export function Services() {
       </div>
       <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "8px" }}>
         <H2 plain="Smarter Services," italic="Built with AI" />
-        <Sub>Everything you need to automate operations, boost productivity</Sub>
+        <Sub>Everything you need to automate operations, improve productivity, and build scalable AI-powered workflows for sales, marketing, finance, and operations.</Sub>
       </div>
 
        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-3 w-full">
@@ -350,10 +350,10 @@ export function Services() {
           {/* Text Content */}
           <div style={{ textAlign: "center" }}>
             <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>
-              Automate repetitive tasks
+              Automate Repetitive Tasks
             </h3>
             <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>
-              We help you streamline internal operations by automating manual workflows
+              We help you streamline internal operations with business workflow automation, replacing repetitive manual work with reliable, connected processes. For larger teams, this can extend into enterprise workflow automation and IT operations automation.
             </p>
           </div>
         </motion.div>
@@ -454,8 +454,8 @@ export function Services() {
           </div>
  
           <div style={{ flex: 1, textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Automated Workflows</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.5 }}>Build intelligent workflows that automate multi-step processes across platforms.</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Workflow Automation Platform</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.5 }}>Build intelligent workflows across your tools with a workflow automation platform designed to connect triggers, AI agents, approvals, data, and actions.</p>
           </div>
         </motion.div>
 
@@ -524,7 +524,7 @@ export function Services() {
           </div>
           <div style={{ textAlign: "center" }}>
             <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Real-Time Intelligence</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>Make smarter decisions with live data insights. Tap into real-time data</p>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>Make faster, better decisions with live operational data, connected workflows, and AI-powered insights.</p>
           </div>
         </motion.div>
 
@@ -618,8 +618,8 @@ export function Services() {
             </div>
           </div>
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Custom AI Agent development</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>We develop custom AI agents that integrate seamlessly with your tools</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>Custom AI Agent Development</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>We develop custom AI agents and AI automation services that integrate seamlessly with your existing tools, systems, and business processes.</p>
           </div>
         </motion.div>
 
@@ -659,8 +659,8 @@ export function Services() {
             </div>
           </div>
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>AI Strategy Consulting</h3>
-            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>Get expert guidance to implement AI solutions that drive business growth</p>
+            <h3 style={{ fontFamily: F.inter, fontSize: "17px", fontWeight: 700, color: C.blueMid, marginBottom: "4px" }}>AI Automation Services & Strategy Consulting</h3>
+            <p style={{ fontFamily: F.inter, fontSize: "14px", color: C.txtMuted, lineHeight: 1.6 }}>Get expert guidance to identify automation opportunities, design the right architecture, and implement AI solutions around measurable business goals. We also design AI business process automation for repeatable, high-volume workflows.</p>
           </div>
         </motion.div>
 
@@ -981,31 +981,39 @@ export function DataAnalysis() {
           className="justify-center text-center"
           words={[
             { text: "We" },
-            { text: "find" },
+            { text: "analyze" },
+            { text: "your" },
+            { text: "data," },
+            { text: "users," },
+            { text: "systems," },
+            { text: "and" },
+            { text: "processes" },
+            { text: "to" },
+            { text: "identify" },
             { text: "what" },
             { text: "to" },
             { text: "automate", italic: true, accentColor: "#ACD791" },
-            { text: "who" },
-            { text: "your" },
-            { text: "users" },
-            { text: "are" },
-            { text: "&" },
-            { text: "how" },
-            { text: "AI", newLine: !isMobile },
-            { text: "can" },
-            { text: "optimize" },
-            { text: "your" },
-            { text: "workflow.", italic: true, accentColor: "#ACD791", newLine: isMobile },
-            { text: "Best" },
-            { text: "part" },
-            { text: "is" },
-            { text: "we" },
-            { text: "also" },
-            { text: "build", newLine: !isMobile },
             { text: "and" },
-            { text: "launch" },
+            { text: "where" },
+            { text: "AI" },
+            { text: "can" },
+            { text: "create" },
+            { text: "measurable", italic: true, accentColor: "#ACD791" },
+            { text: "value.", italic: true, accentColor: "#ACD791", newLine: !isMobile },
+            { text: "Our" },
+            { text: "AI" },
+            { text: "automation" },
+            { text: "services" },
+            { text: "include" },
+            { text: "workflow" },
+            { text: "design," },
             { text: "custom", italic: true, accentColor: "#ACD791" },
-            { text: "solutions.", italic: true, accentColor: "#ACD791" },
+            { text: "AI", italic: true, accentColor: "#ACD791" },
+            { text: "agents,", italic: true, accentColor: "#ACD791" },
+            { text: "integrations," },
+            { text: "implementation," },
+            { text: "and" },
+            { text: "optimization.", italic: true, accentColor: "#ACD791" },
           ]}
           fontFamily={F.inter}
           fontSize={isMobile ? "22px" : "clamp(18px, 2.5vw, 30px)"}
@@ -1258,7 +1266,7 @@ const AIStrategyGrowthGraph = memo(function AIStrategyGrowthGraph({ hovered, res
 const benefitCards = [
   {
     title: "Real-Time Intelligence",
-    desc: "Access accurate, real-time data to drive smarter decisions",
+    desc: "Access accurate, real-time data to drive smarter decisions across connected workflows and business operations.",
     Icon: function RadarSweep({ hovered }: { hovered: boolean }) {
       return (
         <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
@@ -1372,7 +1380,7 @@ const benefitCards = [
   },
   {
     title: "AI Strategy & Growth",
-    desc: "Get expert guidance to implement AI solutions that drive business growth",
+    desc: "Get expert guidance to implement intelligent workflow automation that supports measurable business outcomes.",
     Icon: function Bars({ hovered }: { hovered: boolean }) {
       const { resolvedTheme } = useTheme();
       return <AIStrategyGrowthGraph hovered={hovered} resolvedTheme={resolvedTheme} />;
@@ -1380,7 +1388,7 @@ const benefitCards = [
   },
   {
     title: "Custom AI Solutions",
-    desc: "We develop custom AI agents that integrate seamlessly with your tools",
+    desc: "We develop custom AI solutions that integrate with your tools and extend your automation platform as your needs grow, from marketing automation to operational workflows.",
     Icon: function Nodes({ hovered }: { hovered: boolean }) {
       return (
         <svg width="200" height="160" viewBox="0 0 210 200">
@@ -1433,7 +1441,7 @@ export function Benefits() {
     >
       <Label icon="✦" text="BENEFITS" />
       <H2 plain="Why Choose " italic="Us?" />
-      <Sub>Automate growth with intelligence and speed</Sub>
+      <Sub>Automate growth with intelligence, speed, and scalable enterprise process automation.</Sub>
 
       <div style={{
         display: "grid",
@@ -1457,14 +1465,14 @@ export function Features() {
   const items = [
     {
       title: "Workflow Automation",
-      desc: "Automate complex business processes to boost speed, clarity, and efficiency.",
+      desc: "Automate complex business processes with a workflow automation platform built to improve speed, consistency, visibility, and efficiency.",
       Visual: ({ hovered }: { hovered: boolean }) => (
         <FeatureVisual hovered={hovered} i1={<GitBranch style={{ width: "30px", height: "30px" }} />} i2={<Brain style={{ width: "30px", height: "30px" }} />} />
       )
     },
     {
       title: "Custom AI Solutions",
-      desc: "Build tailored AI systems that align with your business goals and challenges.",
+      desc: "Build tailored AI systems that align with your business goals, processes, data, and automation priorities.",
       Visual: ({ hovered }: { hovered: boolean }) => (
         <FeatureVisual 
           hovered={hovered} 
@@ -1487,22 +1495,22 @@ export function Features() {
       )
     },
     {
-      title: "Sales & Marketing",
-      desc: "Leverage AI to optimize campaigns, track leads, and personalize outreach.",
+      title: "Sales Automation",
+      desc: "Use AI to support sales automation, campaign execution, lead management, personalization, and customer engagement.",
       Visual: ({ hovered }: { hovered: boolean }) => (
         <FeatureVisual hovered={hovered} i1={<MoveDiagonal style={{ width: "28px", height: "28px" }} />} i2={<PieChart style={{ width: "28px", height: "28px" }} />} />
       )
     },
     {
       title: "Performance Tracking",
-      desc: "Track automation results in real time to improve and scale your workflows.",
+      desc: "Track automation results in real time so teams can identify bottlenecks, measure impact, and continuously improve workflows.",
       Visual: ({ hovered }: { hovered: boolean }) => (
         <FeatureVisual hovered={hovered} i1={<TrendingUp style={{ width: "30px", height: "30px" }} />} i2={<BarChart3 style={{ width: "30px", height: "30px" }} />} />
       )
     },
     {
       title: "Seamless Integrations",
-      desc: "Connect your tools and apps for smooth, unified AI-powered workflows.",
+      desc: "Connect your tools and apps to create a unified automation platform for AI-powered processes.",
       Visual: ({ hovered }: { hovered: boolean }) => (
         <FeatureVisual hovered={hovered} i1={<PlugZap style={{ width: "30px", height: "30px" }} />} i2={<Database style={{ width: "30px", height: "30px" }} />} />
       )
@@ -1518,8 +1526,8 @@ export function Features() {
         </div>
       </div>
       <div style={{ transform: "scale(0.85)", transformOrigin: "top center", marginBottom: "8px" }}>
-        <H2 plain="All features in " italic="one place" />
-        <Sub>Everything you need to automate operations, boost productivity</Sub>
+        <H2 plain="AI-Powered " italic="Automation Features" />
+        <Sub>Everything you need to automate operations, boost productivity, and connect AI-powered workflows.</Sub>
       </div>
 
       <div style={{ 
@@ -1589,7 +1597,7 @@ function FeatureVisual({ hovered, i1, i2 }: { hovered: boolean; i1: React.ReactN
 // ═══════════════════════════════════════════════════════════════════════════════
 // COMPARISON — ScalePods vs Others
 // ═══════════════════════════════════════════════════════════════════════════════
-const pros = ["Fast setup with ready AI workflows", "Built to grow and adapt with you", "Real-time, AI-powered analytics", "Automates tasks, reducing overhead", "Expert support + AI guidance"];
+const pros = ["Fast setup with ready-to-deploy AI workflows", "Built to grow and adapt with you", "Real-time, AI-powered analytics", "Automates repetitive tasks and reduces operational overhead", "Expert support + AI guidance"];
 const cons = ["Slower execution and manual setup", "Requires manual updates as you scale", "Limited or delayed reporting", "Higher labor costs, less automation", "Generic support or none at all"];
 
 export function Comparison() {
@@ -1608,8 +1616,8 @@ export function Comparison() {
           </span>
         </div>
       </div>
-      <H2 plain="Why Choose Us " italic="Over Others" />
-      <Sub>See how we compare against others in performance, growth</Sub>
+      <H2 plain="Why Choose ScalePods for " italic="Enterprise Process Automation" />
+      <Sub>Understand the capabilities and outcomes you can expect from a scalable automation partner.</Sub>
 
       <div style={{ maxWidth: "1100px", margin: "60px auto 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "32px" }}>
         {/* ScalePods column */}
@@ -1688,7 +1696,7 @@ const processSteps = [
     label: "STEP 1",
     num: "01",
     title: "Discover & Analyze",
-    desc: "We audit your existing workflows, tools, and customer data to uncover inefficiencies and automation opportunities. Every system is mapped for clarity.",
+    desc: "We audit your existing workflows, tools, and customer data to uncover inefficiencies and automation opportunities. Every system is mapped for clarity before implementation, including enterprise workflow automation and IT operations automation opportunities.",
   },
   {
     label: "STEP 2",
@@ -1852,8 +1860,8 @@ export function Process() {
           </span>
         </div>
       </div>
-      <H2 plain="Our Simple & " italic="Smart Process" />
-      <Sub>Everything you need to collaborate, create, and scale, all in one place.</Sub>
+      <H2 plain="Our Simple & " italic="Smart Automation Process" />
+      <Sub>A clear, structured approach to identifying opportunities, designing workflows, and implementing scalable automation for marketing, sales, and operations.</Sub>
 
       <div style={{ borderRadius: "16px", border: `1px solid ${C.border}`, background: C.bgCard, overflow: "hidden", marginTop: "16px" }}>
         {/* Navigation Tabs */}
@@ -2073,7 +2081,7 @@ const caseStudiesData = [
     id: 1,
     category: "EXHIBITION AUTOMATION",
     title: "Expo Success Story",
-    description: "A company attending a major industry expo needed to capture and follow up with hundreds of leads quickly. Previously, it took their team 2-3 days to manually enter data. With ScalePods, personalized follow-ups were sent within 30 seconds of capture.",
+    description: "A company attending a major industry expo needed to capture and follow up with hundreds of leads quickly. Previously, it took their team 2–3 days to manually enter data. With ScalePods, personalized follow-ups were sent within 30 seconds of capture through an automated sales workflow powered by sales automation.",
     metrics: [
       { value: "40%", label: "Lead Retention" },
       { value: "65%", label: "ROI Surge" }
@@ -2174,8 +2182,8 @@ export function CaseStudies() {
             </div>
           </div>
           <H2 
-            plain="Success Stories to " 
-            italic="Inspire" 
+            plain="Success Stories with " 
+            italic="Workflow Automation" 
             style={{ fontSize: isMobile ? "32px" : "clamp(40px, 4vw, 56px)", marginBottom: "4px" }} 
           />
           <Sub style={{ fontSize: "14px", marginBottom: "0" }}>Discover how businesses and creators achieve results</Sub>
@@ -2542,8 +2550,8 @@ export function Integrations() {
           </span>
         </div>
       </div>
-      <H2 plain="Seamless " italic="Integrations" />
-      <Sub>Interact with all your favorite software without unnecessary fuss</Sub>
+      <H2 plain="Seamless Integrations for " italic="AI Workflows" />
+      <Sub>Connect your business software and data sources so your AI workflow automation can operate across the tools your teams already use, creating a connected layer for AI business process automation.</Sub>
 
       {/* Marquee Container */}
       <div style={{ display: "flex", justifyContent: "center", margin: isMobile ? "40px 0" : "60px 0 40px" }}>
@@ -2574,7 +2582,7 @@ export function Integrations() {
         fontFamily: F.inter, fontSize: "16px", color: C.txtMuted,
         textAlign: "center", marginBottom: "40px"
       }}>
-        "Our AI automation plugs into your stack to create a unified, intelligent workflow"
+        “Our AI automation connects your stack to create a unified, intelligent workflow.”
       </p>
 
       {/* Flashing Book a Call CTA */}
@@ -2624,7 +2632,7 @@ export function Reviews() {
       </div>
       <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "12px" }}>
         <H2 plain="Trusted by " italic="Visionaries" />
-        <Sub>Hear from real users who achieved success with our automation</Sub>
+        <Sub>Hear from real users who achieved measurable results with our automation solutions.</Sub>
       </div>
 
       <div style={{ marginTop: "24px" }}>
@@ -2643,19 +2651,19 @@ export function Reviews() {
 
 const faqData = [
   {
-    q: "What types of processes can you automate?",
+    q: "What types of processes can you automate with AI workflow automation and AI business process automation?",
     a: "We specialize in automating repetitive workflows across operations, marketing, sales, and customer support using AI and custom logic."
   },
   {
     q: "Do I need technical knowledge to use your service?",
-    a: "Not at all. Our team handles the setup, integration, and optimization. You just focus on your goals — we'll automate the rest."
+    a: "Not at all. Our team handles strategy, setup, integration, and optimization. You focus on your goals while we build and manage the automation."
   },
   {
     q: "Can you integrate with our existing tools?",
     a: "Yes! We support integrations with CRMs, project management tools, communication apps, and more — tailored to your stack."
   },
   {
-    q: "How long does implementation take?",
+    q: "How long does enterprise process automation implementation take?",
     a: "Most clients see their first automation live within 1—2 weeks, depending on complexity and the number of workflows."
   },
   {
@@ -2683,8 +2691,8 @@ export function FAQ() {
           </span>
         </div>
       </div>
-      <H2 plain="Frequently Asked " italic="Questions" />
-      <Sub>Find quick answers to the most common support questions</Sub>
+      <H2 plain="Frequently Asked Questions " italic="About Automation" />
+      <Sub>Find quick answers about workflow automation, AI implementation, integrations, security, and business process automation.</Sub>
 
       <div style={{
         display: "flex", flexWrap: "wrap", gap: "32px", marginTop: "60px",
@@ -2849,7 +2857,7 @@ export function FinalCTA() {
 
         {/* Sub Header */}
         <p style={{ fontFamily: F.inter, fontSize: "16px", color: C.txtBody, marginTop: "24px", marginBottom: "48px" }}>
-          Schedule a Call and Begin Automating
+          Schedule a call and begin building a scalable automation strategy.
         </p>
 
         {/* Glowing Button */}

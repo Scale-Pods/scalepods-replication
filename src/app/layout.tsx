@@ -52,8 +52,24 @@ export const metadata: Metadata = {
   },
   title: "ScalePods — Growth, Automated.",
   description:
-    "We build smart workflows that automate the repetitive, reduce overheads, and keep teams lean.",
-  keywords: ["AI automation", "workflow automation", "AI agents", "ScalePods"],
+    "We build AI-powered workflow automation solutions that automate repetitive work, reduce operational overhead, and help lean teams scale without unnecessary complexity.",
+  keywords: [
+    "workflow automation",
+    "ai workflow automation",
+    "sales automation",
+    "ai automation services",
+    "workflow automation platform",
+    "enterprise process automation",
+    "marketing automation",
+    "IT operations automation",
+    "business workflow automation",
+    "intelligent workflow automation",
+    "enterprise workflow automation",
+    "AI business process automation",
+    "AI automation",
+    "AI agents",
+    "ScalePods"
+  ],
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",

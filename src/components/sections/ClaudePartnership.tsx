@@ -384,7 +384,7 @@ export default function ClaudePartnership() {
             <span className="highlight-orange">Claude Partner Network Services Track.</span>
           </h2>
           <p className="claude-subheading">
-            We work with Claude to help organizations design, deploy, and scale intelligent workflows that automate operations and accelerate growth.
+            We work with Claude to help organizations design, deploy, and scale intelligent workflows, combining AI workflow automation with secure implementation to automate operations and accelerate growth.
           </p>
           <button className="claude-cta-btn sp-hero-cta-btn" onClick={handleCTAClick}>
             <span>Book a Claude Strategy Session</span>
@@ -472,7 +472,7 @@ export default function ClaudePartnership() {
             <h4 className="pillar-title">End-to-End Implementation</h4>
           </div>
           <p className="pillar-desc">
-            From strategy and workflow design to deployment and optimization, we're with you at every step.
+            From strategy and workflow design to deployment and optimization, our team manages the implementation end to end.
           </p>
         </div>
 
@@ -485,7 +485,7 @@ export default function ClaudePartnership() {
             <h4 className="pillar-title">Measurable Impact</h4>
           </div>
           <p className="pillar-desc">
-            We focus on outcomes that matter: efficiency, productivity, and business growth.
+            We focus on outcomes that matter: efficiency, productivity, and business growth through scalable automation.
           </p>
         </div>
       </div>

@@ -92,10 +92,10 @@ export default function Footer() {
               fontSize: "14px", 
               color: "var(--color-text-body)", 
               lineHeight: 1.6, 
-              maxWidth: "280px",
+              maxWidth: "320px",
               marginBottom: "24px"
             }}>
-              Architecting the future of enterprise operations through autonomous Agentic AI ecosystems.
+              Architecting the future of enterprise operations through autonomous Agentic AI ecosystems, enterprise process automation, and intelligent automation.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               {/* Social links with glass styling */}
