@@ -444,42 +444,42 @@ const capabilitiesData = [
   {
     chapter: "Chapter 01",
     eyebrow: "Lead Sourcing",
-    title: "Lead Generation With AI",
-    desc: "SalesPod identifies, filters, and delivers high-quality leads tailored to your ICP.",
+    title: "Modern B2B Prospecting Powered by AI",
+    desc: "Finding and engaging the right decision-makers no longer requires manual research or copy-paste outreach. By deploying AI for sales prospecting, your revenue team can automatically identify high-intent accounts, enrich contact data in real-time, and draft personalized outreach sequences that convert. Evaluated among the best AI sales tools for modern outbound teams, our solution transforms cold outreach into predictable pipeline generation.",
     video: "/videos/salespod/1.mp4",
     points: [
       {
-        title: "Understand Your ICP",
-        body: "Define your ideal customer based on industry, company size, geography, buying signals, and decision-makers."
+        title: "Identify High-Intent Accounts",
+        body: "Automatically discover and qualify target accounts based on real-time buying signals, industry fit, and decision-maker criteria."
       },
       {
-        title: "Scrape Relevant Leads Across the Internet",
-        body: "Continuously scans LinkedIn, business databases, and public sources to identify matching prospects."
+        title: "Real-Time Contact Data Enrichment",
+        body: "Continuously enrich prospect records with validated emails, verified direct dials, and verified professional profiles."
       },
       {
-        title: "Generate Sales-Ready Leads",
-        body: "Filters, enriches, and organizes lead data for immediate outreach."
+        title: "Predictable Pipeline Generation",
+        body: "Deploy personalized, high-converting outreach sequences that turn cold prospecting into qualified meetings."
       }
     ]
   },
   {
     chapter: "Chapter 02",
     eyebrow: "Outreach & Delivery",
-    title: "Sales Pipeline Automation",
-    desc: "Reach prospects across channels with messaging tailored to your audience.",
+    title: "End-to-End Sales Pipeline Automation",
+    desc: "Stop losing deals to stalled follow-ups or untracked stage movements. With built-in sales pipeline automation, every deal progression, meeting outcome, and follow-up trigger is managed automatically. From inbound lead capture to contract execution, your reps maintain absolute visibility across every pipeline stage without manual data entry.",
     video: "/videos/salespod/2.mp4",
     points: [
       {
-        title: "Launch Outreach Across Multiple Channels",
-        body: "Connect through Email, AI Voice Calls, LinkedIn, WhatsApp, and more."
+        title: "Launch Coordinated Multichannel Cadences",
+        body: "Execute synchronized touches through Email, AI Voice Calls, LinkedIn, WhatsApp, and SMS automatically."
       },
       {
-        title: "Customize Messaging for Every Audience",
-        body: "Set your tone, messaging flow, and campaign strategy based on your ICP."
+        title: "Automate Stage Movements & Triggers",
+        body: "Move deals forward automatically as meetings are completed, proposals are viewed, and engagement spikes."
       },
       {
-        title: "Train AI Agents to Match Your Style",
-        body: "AI agents adapt to your communication style, language, and conversation patterns."
+        title: "Adaptive Conversation Style",
+        body: "AI agents adapt to your communication tone, company voice, and conversation patterns across every touchpoint."
       }
     ]
   },
@@ -507,21 +507,21 @@ const capabilitiesData = [
   {
     chapter: "Chapter 04",
     eyebrow: "CRM Sync & Analytics",
-    title: "Automated CRM Updates and Smarter Lead Scoring",
-    desc: "Reduce manual work while prioritizing the leads most likely to convert.",
+    title: "Seamless CRM and Sales Automation Sync",
+    desc: "Eliminate data silos between your engagement stack and system of record. Our complete crm and sales automation engine maintains bidirectional synchronization across your CRM, email, and meeting scheduling tools. Every touchpoint, stage update, and customer activity is logged instantly, ensuring your CRM remains a reliable source of truth.",
     video: "/videos/salespod/4.mp4",
     points: [
       {
-        title: "Auto-Update CRM Entries",
-        body: "Syncs interactions, responses, and lead activity automatically into your CRM."
+        title: "Bidirectional Stack Synchronization",
+        body: "Instantly sync interactions, responses, and stage updates between your CRM, email inboxes, and calendar tools."
       },
       {
-        title: "Analyze Buyer Sentiment",
-        body: "Understands tone, hesitation, engagement, and intent across conversations."
+        title: "Analyze Buyer Sentiment & Intent",
+        body: "Understands tone, hesitation, engagement, and intent signals across customer conversations."
       },
       {
-        title: "Score Leads Based on Intent",
-        body: "Ranks leads dynamically using engagement quality and buying signals."
+        title: "Reliable Single Source of Truth",
+        body: "Eliminate manual CRM admin while maintaining pristine pipeline analytics and forecasting accuracy."
       }
     ]
   },
@@ -2042,20 +2042,14 @@ export default function SalesPodPage() {
 
             {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%", transform: "translateY(-0.5px)" }}>
-              <span style={{ color: "var(--sp-accent)" }}>Sales Workflow Automation Software</span>{" "}
-              <br className="sp-hero-desk-br" />
-              for Growing{" "}
-              <br className="sp-hero-br" />
-              Teams.
+              Scale Your Revenue Engine with <br className="sp-hero-desk-br" />
+              <span style={{ color: "var(--sp-accent)" }}>Next-Gen Sales Workflow Automation</span>
             </h1>
 
             {/* Subtext */}
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Deploy autonomous Sales Pods that source, screen, and engage your ideal customers.
-              </p>
-              <p style={{ margin: "8px 0 0 0", opacity: 0.85 }}>
-                Scale your revenue without scaling your headcount.
+                Transform manual sales drag into high-velocity revenue. Our platform equips modern revenue teams with intelligent sales automation software designed to eliminate repetitive administrative tasks, streamline prospect engagement, and close deals faster.
               </p>
             </div>
 
@@ -2676,11 +2670,11 @@ export default function SalesPodPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Key Features of SalesPod
+            Intelligent Sales Workflow Automation
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            From finding the right prospects to nurturing intent and updating your CRM — SalesPod automates the entire outbound sales workflow.
+            From AI-powered B2B prospecting to autonomous pipeline tracking and CRM sync — our sales automation software accelerates every deal stage.
           </p>
         </div>
 
@@ -2835,24 +2829,27 @@ export default function SalesPodPage() {
 
         {/* WHY SALES TEAMS USE SALESPOS GRID CONTAINER */}
         <div className="sp-why-use-wrapper">
-          <h3 className="sp-why-use-title">Why Sales Teams Use SalesPod</h3>
+          <h3 className="sp-why-use-title">Why Teams Choose Our AI Sales Engine</h3>
+          <p style={{ textAlign: "center", fontSize: "14px", color: "var(--color-text-muted)", maxWidth: "720px", margin: "0 auto 32px auto", lineHeight: 1.6 }}>
+            Whether you are looking for the best AI for sales performance or upgrading from legacy tools, our platform provides a unified suite of AI sales tools built for enterprise scale:
+          </p>
           
           <div className="sp-why-use-grid">
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">ICP-Matched Leads</h4>
-              <p className="sp-why-use-item-desc">Qualified leads tailored to your target audience and buying intent.</p>
+              <h4 className="sp-why-use-item-title">Predictive Lead Scoring & Routing</h4>
+              <p className="sp-why-use-item-desc">Qualify and route inbound leads to the right account executive instantly.</p>
             </div>
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">Multi-Channel Outreach</h4>
-              <p className="sp-why-use-item-desc">Email, LinkedIn, AI Voice Calls, WhatsApp, and more — in one sequence with sales pipeline automation.</p>
+              <h4 className="sp-why-use-item-title">Automated Multichannel Cadences</h4>
+              <p className="sp-why-use-item-desc">Execute coordinated email, call, and social follow-ups automatically.</p>
             </div>
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">Smarter Sales Handoffs</h4>
-              <p className="sp-why-use-item-desc">Sales teams step in only when leads are warm and conversation-ready.</p>
+              <h4 className="sp-why-use-item-title">Pipeline Intelligence</h4>
+              <p className="sp-why-use-item-desc">Spot deal risk early and automate CRM stage transitions based on buyer intent signals.</p>
             </div>
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">Intent-Driven Prioritization</h4>
-              <p className="sp-why-use-item-desc">Identify high-intent prospects before your team makes the call.</p>
+              <h4 className="sp-why-use-item-title">Best Sales Automation Software</h4>
+              <p className="sp-why-use-item-desc">Recognized as the best sales automation software for high-growth revenue organizations, reducing rep admin work by 70% while maximizing deal velocity.</p>
             </div>
           </div>
 
@@ -3010,13 +3007,13 @@ export default function SalesPodPage() {
             </span>
           </div>
 
-          <h2 className="sp-final-cta-title" style={{ fontSize: "clamp(18px, 3.8vw, 46px)", width: "100%", lineHeight: "1.2" }}>
-            Your business deserves <br />
-            <span style={{ color: "var(--sp-accent)", whiteSpace: "nowrap" }}>Business Process Workflow Automation</span>
+          <h2 className="sp-final-cta-title" style={{ fontSize: "clamp(24px, 3.8vw, 46px)", width: "100%", lineHeight: "1.2" }}>
+            Ready to Automate Your <br />
+            <span style={{ color: "var(--sp-accent)" }}>Sales Process?</span>
           </h2>
 
           <p className="sp-final-cta-desc">
-            SalesPod builds and runs the full outreach system for you, so your team wakes up to conversations, not cold queues.
+            Request a personalized demo today and see how sales workflow automation can transform your sales cycle from prospect to closed-won.
           </p>
 
           <motion.button 
@@ -3025,12 +3022,12 @@ export default function SalesPodPage() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-final-cta-btn"
             onClick={() => {
-              setAuditModalTitle("Get a Free Funnel Analysis");
+              setAuditModalTitle("Request a Personalized Demo");
               setAuditModalSourceName("Sales Workflow Automation - Final CTA");
               setIsAuditModalOpen(true);
             }}
           >
-            <span>Get Full Funnel Analysis</span>
+            <span>Request a Personalized Demo</span>
             <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
           </motion.button>
         </div>
