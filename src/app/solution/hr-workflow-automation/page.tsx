@@ -418,7 +418,7 @@ const capabilitiesData = [
     chapter: "Chapter 01",
     eyebrow: "Talent Acquisition & Candidate Intake",
     title: "Talent Acquisition & Candidate Intake",
-    desc: "Capture and consolidate candidates from every channel into one centralized, clean pipeline before screening begins.",
+    desc: "Capture and consolidate candidates from every channel into one centralized, clean pipeline. Modern enterprise solutions leverage AI HR capabilities to streamline talent intake, remove manual data entry, and unify applicant pools.",
     video: "/videos/hrpod/1.mp4",
     points: [
       {
@@ -443,7 +443,7 @@ const capabilitiesData = [
     chapter: "Chapter 02",
     eyebrow: "AI Resume Screening",
     title: "AI Resume Screening & Candidate Intelligence",
-    desc: "Transform manual resume reviews into intelligent shortlisting with automated analysis, scoring, and role-fit recommendations.",
+    desc: "Transform manual resume reviews into intelligent shortlisting using automated resume screening. Combining advanced AI and HR intelligence allows teams to score, rank, and evaluate applicants against job requirements instantly.",
     video: "/videos/hrpod/2.mp4",
     points: [
       {
@@ -468,7 +468,7 @@ const capabilitiesData = [
     chapter: "Chapter 03",
     eyebrow: "Interview Scheduling",
     title: "Interview Management & Scheduling",
-    desc: "Remove the back-and-forth from scheduling entirely with automated coordination and seamless calendar synchronization.",
+    desc: "Remove scheduling friction completely with flexible automated interview scheduling. By utilizing a dedicated automated scheduling system, teams maintain real-time calendar synchronization and eliminate drop-offs.",
     video: "/videos/hrpod/3.mp4",
     points: [
       {
@@ -493,7 +493,7 @@ const capabilitiesData = [
     chapter: "Chapter 04",
     eyebrow: "Evaluation & Approvals",
     title: "Evaluation & Hiring Workflow",
-    desc: "Drive objective, fully documented hiring decisions based on unified evaluation criteria.",
+    desc: "Drive objective, structured decisions using modern HR automation tools and automated process frameworks. Modern HR operations require a robust automated hiring system to route approvals, collect digital feedback, and advance candidates seamlessly.",
     video: "/videos/hrpod/4.mp4",
     points: [
       {
@@ -518,7 +518,7 @@ const capabilitiesData = [
     chapter: "Chapter 05",
     eyebrow: "Offers & Onboarding",
     title: "Offer Management & Onboarding",
-    desc: "Secure top talent faster by automating offer creation, digital acceptances, and end-to-end onboarding compliance.",
+    desc: "Secure top talent faster by leveraging recruitment process automation to handle offer creation, digital acceptances, and onboarding compliance.",
     video: "/videos/hrpod/5.mp4",
     points: [
       {
@@ -543,7 +543,7 @@ const capabilitiesData = [
     chapter: "Chapter 06",
     eyebrow: "HR Analytics",
     title: "HR Operations Dashboard & Analytics",
-    desc: "Monitor recruitment performance, pipeline bottlenecks, and hiring velocity through a centralized dashboard.",
+    desc: "Monitor recruitment performance, velocity, and pipeline bottlenecks through dynamic HR automation solutions designed for modern HR teams.",
     video: "/videos/hrpod/6.mp4",
     points: [
       {
@@ -1679,17 +1679,15 @@ export default function HRWorkflowAutomationPage() {
 
             {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              <span style={{ color: "#B1D997" }}>Automate Your Hiring</span>{" "}
+              <span style={{ color: "#B1D997" }}>Autonomous HR &amp; Talent</span>{" "}
               <br className="sp-hero-desk-br" />
-              Process &amp; Build Your{" "}
-              <br className="sp-hero-br" />
-              Dream Team Faster.
+              Workflow Automation
             </h1>
 
             {/* Subtext */}
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Deploy autonomous HR Pods that configure, screen, evaluate, and schedule candidates automatically. Scale your hiring velocity without scaling your overhead.
+                Build your elite team with modern HR workflow automation. ScalePods automates the entire talent lifecycle through next-generation recruitment automation and intelligent workflows. Our specialized solutions handle candidate sourcing, evaluation, and HR onboarding automation 24/7, ensuring top 1% talent velocity without operational friction.
               </p>
             </div>
 
@@ -2305,11 +2303,11 @@ export default function HRWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Key Features of HR Pod
+            Key Features of Our HR Automation System
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            HR Pod automates the entire hiring lifecycle from campaign creation and job descriptions to candidate screening and interview scheduling across every role, every time
+            From talent acquisition and automated resume screening to flexible interview scheduling and seamless onboarding — our HR automation tools streamline the entire hiring lifecycle.
           </p>
         </div>
 
@@ -2640,12 +2638,12 @@ export default function HRWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-final-cta-title">
-            Your team deserves a <br />
-            <span style={{ color: "var(--sp-accent)" }}>faster hiring loop</span>.
+            Ready to Deploy <br />
+            <span style={{ color: "var(--sp-accent)" }}>Autonomous HR Workflows?</span>
           </h2>
 
           <p className="sp-final-cta-desc">
-            HR Pod builds and runs the full screening and scheduling system for you, so your recruiters focus on interview outcomes, not administration.
+            Book a free workflow audit today and transform your talent acquisition with modern HR automation architecture.
           </p>
 
           <motion.button 
@@ -2654,12 +2652,12 @@ export default function HRWorkflowAutomationPage() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-final-cta-btn"
             onClick={() => {
-              setAuditModalTitle("Book a Hiring Automation Audit");
+              setAuditModalTitle("Book a Free Workflow Audit");
               setAuditModalSourceName("HR Workflow Automation - Final CTA");
               setIsAuditModalOpen(true);
             }}
           >
-            <span>Get Free Hiring Process Audit</span>
+            <span>Book a Free Workflow Audit</span>
             <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
           </motion.button>
         </div>
