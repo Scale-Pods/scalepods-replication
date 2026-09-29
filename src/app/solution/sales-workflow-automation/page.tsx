@@ -445,7 +445,7 @@ const capabilitiesData = [
     chapter: "Chapter 01",
     eyebrow: "Lead Sourcing",
     title: "Modern B2B Prospecting Powered by AI",
-    desc: "Finding and engaging the right decision-makers no longer requires manual research or copy-paste outreach. By deploying AI for sales prospecting, your revenue team can automatically identify high-intent accounts, enrich contact data in real-time, and draft personalized outreach sequences that convert. Evaluated among the best AI sales tools for modern outbound teams, our solution transforms cold outreach into predictable pipeline generation.",
+    desc: "Finding and engaging the right decision-makers no longer requires manual research or copy-paste outreach. By deploying AI for sales prospecting, your revenue team can automatically identify high-intent accounts, enrich contact data in real time, and draft personalized outreach sequences that convert. Evaluated among the best AI sales tools for modern outbound teams, our solution transforms cold outreach into predictable pipeline generation.",
     video: "/videos/salespod/1.mp4",
     points: [
       {
@@ -2849,7 +2849,7 @@ export default function SalesPodPage() {
             </div>
             <div className="sp-why-use-item">
               <h4 className="sp-why-use-item-title">Best Sales Automation Software</h4>
-              <p className="sp-why-use-item-desc">Recognized as the best sales automation software for high-growth revenue organizations, reducing rep admin work by 70% while maximizing deal velocity.</p>
+              <p className="sp-why-use-item-desc">Recognized as the best sales automation software for high-growth revenue organizations, our platform reduces rep admin work by 70% while maximizing deal velocity.</p>
             </div>
           </div>
 

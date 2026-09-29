@@ -415,106 +415,151 @@ const salespodReviews = [
 const capabilitiesData = [
   {
     chapter: "Chapter 01",
-    eyebrow: "Funnel Strategy",
-    title: "Full Funnel Analysis with AI",
-    desc: "Build marketing strategies backed by business data, competitor insights, and growth opportunities.",
+    eyebrow: "Demand Nurturing",
+    title: "Lead Capture & Demand Nurturing Architecture",
+    desc: "Convert passive visitor attention into a qualified sales pipeline. Deploying scalable lead generation automation enables organizations to capture intent signals across forms, chat, and event channels automatically. Pairing these entry points with intelligent email marketing automation software ensures every prospect receives tailored messaging based on real-time behavior.",
     video: "/videos/marketingpod/1.mp4",
     points: [
       {
-        title: "Capture Your Complete Business Context",
-        body: "Input your business website, brand guidelines, social media channels, and other brand assets into one centralized system."
+        title: "Unified Intent Ingestion",
+        body: "Capture inbound inquiries from web forms, event registrations, and partner channels into a single operational queue."
       },
       {
-        title: "Analyze Competitors Across Channels",
-        body: "Compare your business against competitors through website analysis, social presence evaluation, and AI-powered SWOT analysis."
+        title: "Behavioral Nurture Tracks",
+        body: "Trigger targeted email messaging based on page visits, content downloads, and product feature engagement."
       },
       {
-        title: "Build Growth Strategies Automatically",
-        body: "Generate monthly or quarterly organic growth strategies tailored to your business goals, channels, and competitive landscape."
+        title: "Dynamic Lead Scoring",
+        body: "Assign real-time priority scores to prospects based on firmographic fit and explicit intent signals."
+      },
+      {
+        title: "Instant SDR Routing",
+        body: "Pass sales-ready leads to reps immediately upon reaching qualification thresholds."
       }
     ]
   },
   {
     chapter: "Chapter 02",
-    eyebrow: "Content Engine",
-    title: "AI-Powered Content Generation",
-    desc: "Create, manage, and scale content production across channels from one unified workflow.",
+    eyebrow: "Campaign Orchestration",
+    title: "AI-Driven Campaign Orchestration",
+    desc: "Harness full-funnel efficiency by implementing AI marketing automation. Modern growth infrastructure relies on flexible workflow automation tools to personalize copy, optimize send times, and manage dynamic segmentation without manual intervention.",
     video: "/videos/marketingpod/2.mp4",
     points: [
       {
-        title: "Generate Content Across Formats",
-        body: "Create social media content, SEO-optimized website copy, blogs, gated assets, and more based on your approved marketing strategy."
+        title: "Dynamic Audience Segmentation",
+        body: "Continuously regroup contacts based on shifting buyer intent and historical interactions."
       },
       {
-        title: "Streamline Approvals With Maker-Checker Workflows",
-        body: "Set up customizable approval hierarchies to manage reviews, feedback, and publishing workflows from one centralized system."
+        title: "Predictive Content Delivery",
+        body: "Serve personalized recommendations tailored to each buyer segment's funnel stage."
       },
       {
-        title: "Create Visual Assets Automatically",
-        body: "Generate supporting visuals and image-based creatives aligned with your content, brand guidelines, and campaign goals."
+        title: "Automated Multichannel Delivery",
+        body: "Coordinate email, SMS, and in-app messages seamlessly across customer touchpoints."
+      },
+      {
+        title: "Send-Time Optimization",
+        body: "Deliver campaign assets at exact moments when individual prospects are most likely to engage."
       }
     ]
   },
   {
     chapter: "Chapter 03",
-    eyebrow: "Distribution Hubs",
-    title: "Automated Publishing & Content Repurposing",
-    desc: "Manage publishing, distribution, and content reuse across channels from one centralized workflow.",
+    eyebrow: "Social & Content",
+    title: "Social & Content Engagement Automation",
+    desc: "Maintain consistent brand presence across digital channels through targeted social media marketing automation. By utilizing structured social media automation platforms, marketing teams schedule posts, monitor audience interactions, and track cross-platform performance automatically.",
     video: "/videos/marketingpod/3.mp4",
     points: [
       {
-        title: "Connect Your Marketing Channels",
-        body: "Integrate your social media platforms, website, and marketing channels into one unified system."
+        title: "Cross-Channel Publishing",
+        body: "Schedule and syndicate updates across LinkedIn, Twitter, and Facebook from a central dashboard."
       },
       {
-        title: "Automate Content Publishing",
-        body: "Schedule and publish social media posts automatically while deploying website pages directly through the platform."
+        title: "Social Listening & Monitoring",
+        body: "Track brand mentions, industry keywords, and direct inquiries in real time."
       },
       {
-        title: "Repurpose Content Across Channels",
-        body: "Convert a single content piece into social posts, email campaigns, website content, blogs, and other marketing assets automatically."
+        title: "Content Recirculation",
+        body: "Automatically re-share high-performing evergreen content to maximize organic reach."
+      },
+      {
+        title: "Engagement Analytics",
+        body: "Measure click-through rates, audience growth, and post performance to refine messaging."
       }
     ]
   },
   {
     chapter: "Chapter 04",
-    eyebrow: "Metrics Layer",
-    title: "Unified Analytics & Strategy Dashboard",
-    desc: "Track marketing performance, analyze outcomes, and optimize growth strategies from one centralized dashboard.",
-    video: "/videos/marketingpod/4.mp4",
+    eyebrow: "Lifecycle Messaging",
+    title: "Lifecycle Messaging & Email Workflows",
+    desc: "Engage leads across their entire customer journey using dedicated email marketing automation. Implementing a cohesive email automation workflow ensures onboarding, re-engagement, and renewal sequences trigger instantly based on user activity.",
+    video: "/videos/marketingpod/2.mp4",
     points: [
       {
-        title: "Centralize Data Across Channels",
-        body: "Pull performance data from social media, websites, campaigns, and marketing channels into one unified dashboard."
+        title: "Automated Welcome Sequences",
+        body: "Deliver immediate value, resource guides, and product walk-throughs to new subscribers."
       },
       {
-        title: "Visualize Insights Clearly",
-        body: "Convert raw data into charts, graphs, and performance reports for faster analysis and decision-making."
+        title: "Re-Engagement Triggers",
+        body: "Identify dormant leads and trigger targeted win-back offers automatically."
       },
       {
-        title: "Optimize Strategy Continuously",
-        body: "Receive AI-driven recommendations to improve campaigns, content strategy, and marketing performance based on real outcomes."
+        title: "Transactional Communications",
+        body: "Dispatch purchase receipts, account notifications, and event updates reliably."
+      },
+      {
+        title: "A/B Testing Infrastructure",
+        body: "Continuously test subject lines, call-to-action buttons, and email layouts for optimal conversion."
       }
     ]
   },
   {
     chapter: "Chapter 05",
-    eyebrow: "AI Performance Analyst",
-    title: "AI Performance Marketing Analyst",
-    desc: "Connect your marketing ecosystem, analyze performance in real time, and uncover optimization opportunities through AI-powered insights.",
+    eyebrow: "Revenue Operations",
+    title: "Revenue Operations & System Alignment",
+    desc: "Eliminate data friction between marketing engines and sales systems. Establishing deep CRM automation ensures marketing signals flow directly into CRM records, providing sales teams with full context on buyer intent.",
+    video: "/videos/marketingpod/4.mp4",
+    points: [
+      {
+        title: "Bidirectional Syncing",
+        body: "Keep prospect profiles, engagement history, and stage updates synchronized across platforms."
+      },
+      {
+        title: "SDR Handoff Automation",
+        body: "Create sales tasks automatically when prospects hit milestone qualification scores."
+      },
+      {
+        title: "Closed-Loop Attribution",
+        body: "Track revenue back to specific campaigns, ad channels, and content assets."
+      },
+      {
+        title: "Database Hygiene Rules",
+        body: "Automatically deduplicate entries and update contact field data."
+      }
+    ]
+  },
+  {
+    chapter: "Chapter 06",
+    eyebrow: "Growth Analytics",
+    title: "Growth Analytics & Campaign Intelligence",
+    desc: "Gain actionable insights into marketing ROI with an enterprise marketing automation platform. Evaluating performance through a unified platform gives leadership complete visibility into campaign velocity and revenue impact.",
     video: "/videos/marketingpod/5.mp4",
     points: [
       {
-        title: "Connect Marketing Data Sources",
-        body: "Integrate Meta Ads, Google Ads, Microsoft Clarity, Google Analytics 4, Google Search Console, and other marketing platforms into one centralized system."
+        title: "Executive Revenue Dashboards",
+        body: "Monitor pipeline contribution, CAC payback, and conversion rates across channels."
       },
       {
-        title: "Analyze Campaign & Website Performance",
-        body: "Track advertising performance, user behavior, website engagement, traffic patterns, keyword rankings, and conversion signals through a unified analytics layer."
+        title: "Campaign Performance Metrics",
+        body: "Track open rates, click-through rates, and lead velocities in real time."
       },
       {
-        title: "Ask AI for Insights & Recommendations",
-        body: "Interact with an AI assistant that uses all connected data sources to answer questions, identify opportunities, and recommend actions to improve marketing performance."
+        title: "Funnel Bottleneck Identification",
+        body: "Spot conversion drops early to optimize content and campaign steps."
+      },
+      {
+        title: "Multi-Touch Attribution Modeling",
+        body: "Analyze how first-touch, lead-creation, and multi-touch interactions drive revenue."
       }
     ]
   }
@@ -1609,17 +1654,15 @@ export default function MarketingWorkflowAutomationPage() {
 
             {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              <span style={{ color: "#63A5E7" }}>The AI-Powered Marketing</span>{" "}
+              <span style={{ color: "#63A5E7" }}>Enterprise Marketing</span>{" "}
               <br className="sp-hero-desk-br" />
-              Operating System for{" "}
-              <br className="sp-hero-br" />
-              Modern Brands.
+              Workflow Automation
             </h1>
 
             {/* Subtext */}
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Deploy autonomous Marketing Pods that strategize, create, approve, publish, and analyze content &amp; performance campaigns simultaneously. Scale content volume and channel coverage without scaling administrative overhead.
+                In modern growth environments, fragmented campaign operations sap revenue. ScalePods implements enterprise marketing workflow automation to unify multi-channel messaging, accelerate demand capture, and scale growth engines. By deploying targeted AI workflow automation, revenue teams eliminate operational overhead while delivering timely, high-converting buyer experiences.
               </p>
             </div>
 
@@ -1635,10 +1678,10 @@ export default function MarketingWorkflowAutomationPage() {
               paddingInline: "20px"
             }}>
               {[
-                "Full Funnel Strategy & Analysis",
-                "AI-Powered Content Generation",
-                "Automated Publishing & Repurposing",
-                "AI Performance Marketing Analyst"
+                "Lead Capture & Demand Nurturing",
+                "AI-Driven Campaign Orchestration",
+                "Social & Content Automation",
+                "Lifecycle Email & CRM Alignment"
               ].map((bullet, idx) => (
                 <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", justifyContent: "flex-start" }}>
                   <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0, marginTop: "2px" }} />
@@ -2211,11 +2254,11 @@ export default function MarketingWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Key Features of MarketingPod
+            Key Features of Our Enterprise Marketing Automation Platform
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            MarketingPod automates the entire marketing lifecycle from strategy and briefs to scheduling and reporting across every channel, every week.
+            From lead capture and AI-driven campaign orchestration to lifecycle email workflows and deep CRM alignment — our marketing automation tools accelerate revenue across every channel.
           </p>
         </div>
 
@@ -2552,12 +2595,12 @@ export default function MarketingWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-final-cta-title">
-            Your brand deserves a <br />
-            <span style={{ color: "var(--sp-accent)" }}>faster growth loop</span>.
+            Ready to Scale Your <br />
+            <span style={{ color: "var(--sp-accent)" }}>Marketing Workflows?</span>
           </h2>
 
           <p className="sp-final-cta-desc">
-            MarketingPod builds and automates your entire campaign lifecycle, so your marketing teams focus on insights and scaling what works.
+            Book a free workflow audit today and transform your growth operations with scalable marketing automation software infrastructure.
           </p>
 
           <motion.button 
@@ -2566,12 +2609,12 @@ export default function MarketingWorkflowAutomationPage() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-final-cta-btn"
             onClick={() => {
-              setAuditModalTitle("Book a Marketing Automation Audit");
+              setAuditModalTitle("Book a Free Workflow Audit");
               setAuditModalSourceName("Marketing Workflow Automation - Final CTA");
               setIsAuditModalOpen(true);
             }}
           >
-            <span>Get Free Marketing Process Audit</span>
+            <span>Book a Free Workflow Audit</span>
             <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
           </motion.button>
         </div>
