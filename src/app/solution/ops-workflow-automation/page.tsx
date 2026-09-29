@@ -415,127 +415,151 @@ const salespodReviews = [
 const capabilitiesData = [
   {
     chapter: "Chapter 01",
-    eyebrow: "Purchase Audit & Verification",
-    title: "Purchase Audit & Verification",
-    desc: "Validate every incoming purchase transaction automatically by cross-checking documents, supplier records, and compliance requirements before material enters your operations.",
+    eyebrow: "Document Ingestion",
+    title: "Document & Unstructured Data Ingestion Engine",
+    desc: "Processing heavy volumes of physical or digital records creates severe operational drag. Deploying document workflow automation allows organizations to extract, classify, and parse inbound contracts, vendor invoices, and compliance forms automatically. Coupling vision parsing with automated data processing ensures structured data flows seamlessly into enterprise databases without demanding tedious manual copy-pasting from operational staff.",
     video: "/videos/opspod/1.mp4",
     points: [
       {
-        title: "Capture Operational Documents",
-        body: "Upload supplier invoices, transport documents, warehouse receipts, and supporting operational records into one centralized system."
+        title: "Optical Document Parsing",
+        body: "Extract text, key fields, and table line-items from incoming PDF invoices, POs, and legal contracts automatically."
       },
       {
-        title: "Validate Data Across Documents",
-        body: "Automatically compare invoice numbers, quantities, weights, GST details, vehicle information, material references, and other critical fields across documents."
+        title: "Validation & Exception Routing",
+        body: "Cross-verify extracted fields against existing database records, routing edge-case discrepancies directly to human reviewers."
       },
       {
-        title: "Detect Risks & Compliance Issues",
-        body: "Identify mismatches, duplicate records, missing documents, quantity variances, and compliance concerns before they impact operations."
+        title: "System-Wide Database Synchronization",
+        body: "Update core systems of record instantly upon document confirmation without administrative delays."
+      },
+      {
+        title: "Audit-Compliant Archiving",
+        body: "Tag and index digital documents automatically to satisfy regulatory record-keeping standards."
       }
     ]
   },
   {
     chapter: "Chapter 02",
-    eyebrow: "Sales Audit & Commercial Controls",
-    title: "Sales Audit & Commercial Controls",
-    desc: "Ensure every sales transaction aligns with approved orders, production records, and commercial policies before dispatch.",
+    eyebrow: "Process Optimization",
+    title: "End-to-End Business Process Optimization",
+    desc: "Scale operations smoothly without inflating headcounts or administrative costs. Utilizing targeted business process automation tools helps operations managers link separate departments together into unified workflows. With tailored AI business process automation solutions, teams eliminate internal bottlenecks, speed up approval cycles, and establish crystal-clear operational accountability.",
     video: "/videos/opspod/2.mp4",
     points: [
       {
-        title: "Cross-Verify Sales Transactions",
-        body: "Validate sales invoices against approved orders, production records, dispatch records, and ERP data automatically."
+        title: "Cross-Departmental Task Routing",
+        body: "Hand off tasks between finance, legal, and fulfillment teams automatically based on predefined logic rules."
       },
       {
-        title: "Identify Commercial Risks",
-        body: "Detect unauthorized rate changes, quantity deviations, missing approvals, excess invoicing, and operational inconsistencies before shipment."
+        title: "Real-Time Process Monitoring",
+        body: "Identify internal execution delays and bottlenecks before they disrupt customer deliverables."
       },
       {
-        title: "Maintain Complete Traceability",
-        body: "Track every invoice back to approved orders, production batches, and dispatch records for full operational accountability."
+        title: "Custom Logic Decision Trees",
+        body: "Implement rule-based routing paths tailored specifically to your organization's operating governance."
+      },
+      {
+        title: "SLA Enforcement Triggers",
+        body: "Notify department managers and reassign urgent approval requests when SLA thresholds are breached."
       }
     ]
   },
   {
     chapter: "Chapter 03",
-    eyebrow: "Quality & Specification Compliance",
-    title: "Quality & Specification Compliance",
-    desc: "Verify that every product meets customer-approved specifications, quality standards, and certification requirements before dispatch.",
+    eyebrow: "Resource Execution",
+    title: "Enterprise Operations & Resource Execution",
+    desc: "Achieving high operating margins requires systematic coordination across all business units. Implementing a customized Ops automation framework transforms daily administrative burden into streamlined digital tasks. Modern automation tools for business empower leaders to enforce standardized quality control across every operational touchpoint.",
     video: "/videos/opspod/3.mp4",
     points: [
       {
-        title: "Capture Approved Specifications",
-        body: "Upload customer specifications, quality requirements, and manufacturer certificates into one centralized workflow."
+        title: "Vendor & Partner Onboarding",
+        body: "Collect tax forms, banking details, and compliance certifications automatically through interactive portals."
       },
       {
-        title: "Validate Material & Quality Parameters",
-        body: "Compare grades, dimensions, coatings, packaging requirements, chemical composition, tensile strength, hardness, and other quality metrics automatically."
+        title: "Resource Allocation Tracking",
+        body: "Assign personnel and physical assets dynamically based on real-time project demand."
       },
       {
-        title: "Ensure End-to-End Traceability",
-        body: "Verify batch numbers, heat numbers, coil references, and production records to maintain complete material traceability."
+        title: "Internal SLA Escalations",
+        body: "Trigger automated alerts when internal request tickets exceed expected turnaround times."
+      },
+      {
+        title: "Quality Control Audit Logging",
+        body: "Capture complete historical logs for every operational step to maintain strict compliance oversight."
       }
     ]
   },
   {
     chapter: "Chapter 04",
-    eyebrow: "AI-Powered Audit Intelligence",
-    title: "AI-Powered Audit Intelligence",
-    desc: "Transform manual audit reviews into intelligent decision-making with automated analysis, risk detection, and approval recommendations.",
+    eyebrow: "Intelligent Automation",
+    title: "Intelligent Resource Deployment & AI Systems",
+    desc: "Integrate adaptive decision-making into core operational workflows. Modern leaders leverage specialized intelligent automation tools alongside practical business AI solutions to handle complex data evaluation tasks, optimize inventory levels, and forecast operational needs accurately.",
     video: "/videos/opspod/4.mp4",
     points: [
       {
-        title: "Analyze Documents Automatically",
-        body: "Use AI to review uploaded records, identify inconsistencies, and uncover operational risks without manual investigation."
+        title: "Predictive Demand Forecasting",
+        body: "Analyze historical consumption patterns to predict future supply requirements automatically."
       },
       {
-        title: "Generate Audit Scores & Outcomes",
-        body: "Categorize transactions using intelligent match scoring with outcomes such as Match, Partial Match, Mismatch, and Critical Exception."
+        title: "Automated Exception Flagging",
+        body: "Detect data anomalies and system discrepancies instantly, alerting risk officers before errors escalate."
       },
       {
-        title: "Understand Root Causes Instantly",
-        body: "Receive detailed variance explanations and AI-generated recommendations for approvals, reviews, or corrective actions."
+        title: "Context-Aware Task Routing",
+        body: "Direct inbound operational requests to team members based on workload capacity and specialized skills."
+      },
+      {
+        title: "Real-Time Operational Insights",
+        body: "Synthesize operational telemetry into clear, actionable summaries for executive decision-makers."
       }
     ]
   },
   {
     chapter: "Chapter 05",
-    eyebrow: "Operations Dashboard & Analytics",
-    title: "Operations Dashboard & Analytics",
-    desc: "Monitor operational performance, audit outcomes, and compliance trends through a centralized visibility layer.",
+    eyebrow: "IT & Infrastructure",
+    title: "IT & Technical Infrastructure Automation",
+    desc: "Ensure high system availability while protecting sensitive operational data. Implementing robust automation in IT operations keeps software infrastructure synchronized, secure, and resilient. Deploying enterprise operations automation tools allows IT engineers to focus on strategic growth projects rather than routine system maintenance.",
     video: "/videos/opspod/5.mp4",
     points: [
       {
-        title: "Track Operational Performance",
-        body: "Monitor audits, approvals, rejections, pending reviews, and critical exceptions from one dashboard."
+        title: "User Provisioning & Offboarding",
+        body: "Grant software access and revoke security credentials automatically based on employment status."
       },
       {
-        title: "Search Historical Records",
-        body: "Retrieve previous audits using invoice numbers, order references, supplier details, customer names, or material identifiers."
+        title: "System Log Monitoring",
+        body: "Aggregate cross-platform system metrics to catch security anomalies early."
       },
       {
-        title: "Analyze Trends & Risks",
-        body: "Identify recurring mismatches, operational bottlenecks, quality issues, compliance failures, and approval trends over time."
+        title: "Database Sync & Maintenance",
+        body: "Schedule routine database updates and cloud backups automatically without manual intervention."
+      },
+      {
+        title: "Incident Remediation Rules",
+        body: "Trigger automated server recovery protocols instantly when infrastructure alerts activate."
       }
     ]
   },
   {
     chapter: "Chapter 06",
-    eyebrow: "AI Operations Assistant",
-    title: "AI Operations Assistant",
-    desc: "Access operational intelligence instantly through natural language conversations powered by your audit and transaction data.",
+    eyebrow: "Operational Excellence",
+    title: "Operational Excellence & ROI Measurement",
+    desc: "Track cycle time reductions, labor cost savings, and operational throughput using centralized dashboards. Modern organizations rely on comprehensive operations automation architectures to measure performance metrics accurately. Building out tailored operations and automation systems gives leadership clear visibility into operational return on investment.",
     video: "/videos/opspod/6.mp4",
     points: [
       {
-        title: "Ask Questions Across Operations",
-        body: "Query purchase audits, sales validations, quality records, and compliance data using simple natural language."
+        title: "Executive KPI Dashboards",
+        body: "Monitor cost reductions, processing times, and team throughput metrics across departments."
       },
       {
-        title: "Investigate Issues Faster",
-        body: "Identify discrepancies, uncover risk areas, and analyze exceptions without manually reviewing documents."
+        title: "Process Velocity Tracking",
+        body: "Measure exact lead times from initial intake request to final fulfillment execution."
       },
       {
-        title: "Receive Actionable Recommendations",
-        body: "Get AI-powered guidance for approvals, investigations, process improvements, and compliance decisions."
+        title: "Cost Center Attribution",
+        body: "Analyze operational expenditures per business unit to pinpoint areas for efficiency improvement."
+      },
+      {
+        title: "Continuous Optimization Feedback",
+        body: "Utilize real-time operational data to adjust workflow rules and improve system throughput."
       }
     ]
   }
@@ -1628,16 +1652,17 @@ export default function OperationsWorkflowAutomationPage() {
               </span>
             </div>
 
+            {/* Content Heading */}
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              <span style={{ color: "#B1D997" }}>The AI-Powered Audit Engine</span>{" "}
+              <span style={{ color: "#B1D997" }}>Enterprise Operations</span>{" "}
               <br className="sp-hero-desk-br" />
-              for Error-Free Operations.
+              &amp; Process Workflow Automation
             </h1>
 
             {/* Subtext */}
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Deploy autonomous Operations Pods to verify purchase invoices, cross-check documents, validate quality certificates, and catch mismatch risks instantly. Scale audit frequency and transaction coverage without scaling administrative overhead.
+                Manually handling routine internal processes creates systemic friction, inflates overhead, and slows execution across mid-market and enterprise organizations. ScalePods builds tailored architectures for modern enterprise workflow automation, replacing disconnected spreadsheets and slow email approvals with dependable execution tracks. By integrating enterprise-grade intelligent process automation directly into core operational systems, teams systematically remove human error while keeping total control over critical data pipelines.
               </p>
             </div>
 
@@ -1653,10 +1678,10 @@ export default function OperationsWorkflowAutomationPage() {
               paddingInline: "20px"
             }}>
               {[
-                "Purchase Audit & Verification",
-                "Sales Audit & Commercial Controls",
-                "Quality & Specification Compliance",
-                "AI-Powered Audit Intelligence"
+                "Document & Unstructured Data Ingestion",
+                "End-to-End Business Process Optimization",
+                "Intelligent Resource & AI Deployment",
+                "IT Infrastructure & Operations Automation"
               ].map((bullet, idx) => (
                 <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", justifyContent: "flex-start" }}>
                   <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0, marginTop: "2px" }} />
@@ -2253,11 +2278,11 @@ export default function OperationsWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(30px, 3.8vw, 48px)" }}>
-            Key Features of OpsPod
+            Key Features of Our Enterprise Operations Automation Architecture
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Operations Pod automates the entire audit workflow from purchase validation and invoice cross-checks to material quality certification and final decisions across every transaction without any compliance risk.
+            From document ingestion and business process optimization to intelligent resource allocation and IT operations automation — our operations automation tools eliminate friction across every touchpoint.
           </p>
         </div>
 
@@ -2608,12 +2633,12 @@ export default function OperationsWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-final-cta-title">
-            Your team deserves a <br />
-            <span style={{ color: "var(--sp-accent)" }}>faster audit loop</span>.
+            Ready to Eliminate <br />
+            <span style={{ color: "var(--sp-accent)" }}>Operational Friction?</span>
           </h2>
 
           <p className="sp-final-cta-desc">
-            OperationsPod automates document matching and verification for you, so your operations team focuses on growth, not administrative checking.
+            Schedule an operations architectural assessment today and see how custom automated business operations frameworks drive sustainable operational efficiency.
           </p>
 
           <motion.button 
@@ -2622,12 +2647,12 @@ export default function OperationsWorkflowAutomationPage() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-final-cta-btn"
             onClick={() => {
-              setAuditModalTitle("Book an Operations Process Audit");
+              setAuditModalTitle("Schedule Architectural Assessment");
               setAuditModalSourceName("Operations Workflow Automation - Final CTA");
               setIsAuditModalOpen(true);
             }}
           >
-            <span>Get Free Operations Process Audit</span>
+            <span>Schedule Architectural Assessment</span>
             <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
           </motion.button>
         </div>
