@@ -34,7 +34,7 @@ export default function Footer() {
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
   
-  if (pathname?.startsWith("/admin")) return null;
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/ai-business-automation-webinar")) return null;
   
   return (
     <footer

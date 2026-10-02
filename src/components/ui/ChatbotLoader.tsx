@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * ChatbotLoader
@@ -11,6 +12,10 @@ import { useEffect } from "react";
  * that caused the chatbot to silently fail when using Next.js <Script>.
  */
 export default function ChatbotLoader() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/ai-business-automation-webinar") || pathname?.startsWith("/admin")) {
+    return null;
+  }
   useEffect(() => {
     // Guard: only run once
     if ((window as any).__SCALEPODS_LOADER_INIT__) return;
