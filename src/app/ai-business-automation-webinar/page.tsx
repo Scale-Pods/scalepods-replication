@@ -168,6 +168,41 @@ export default function WebinarPage() {
                 bookingId: response.razorpay_payment_id,
                 orderId: response.razorpay_order_id,
               });
+
+              // Fire Client-Side Meta Pixel & GTM Purchase Conversion Event
+              try {
+                if (typeof window !== "undefined") {
+                  (window as any).dataLayer = (window as any).dataLayer || [];
+                  (window as any).dataLayer.push({
+                    event: "purchase",
+                    ecommerce: {
+                      transaction_id: response.razorpay_payment_id,
+                      value: 99.0,
+                      currency: "INR",
+                      items: [
+                        {
+                          item_name: "AI Business Automation Live Webinar Pass",
+                          price: 99.0,
+                          quantity: 1,
+                        },
+                      ],
+                    },
+                  });
+                  (window as any).fbq?.(
+                    "track",
+                    "Purchase",
+                    {
+                      value: 99.0,
+                      currency: "INR",
+                      content_name: "AI Business Automation Live Webinar Pass",
+                    },
+                    { eventID: response.razorpay_payment_id }
+                  );
+                }
+              } catch (trackingErr) {
+                console.warn("[Tracking Notice]:", trackingErr);
+              }
+
               setModalStep("confirmed");
             } else {
               setPaymentError(

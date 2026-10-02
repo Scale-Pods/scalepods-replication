@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { sendMetaCapiEvent, getClientInfo } from "@/lib/meta-capi";
 
 export async function POST(req: NextRequest) {
   try {
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Forward registration details to n8n webhook or storage if configured
+    // 1. Forward registration details to n8n webhook
     try {
       const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL;
       if (webhookUrl) {
@@ -69,8 +70,31 @@ export async function POST(req: NextRequest) {
         }).catch((err) => console.warn("[n8n Webhook Notice]:", err?.message));
       }
     } catch (e) {
-      // Don't block user confirmation if webhook is offline
       console.warn("[Webhook Notification Notice]:", e);
+    }
+
+    // 2. Fire Server-Side Meta Conversions API (CAPI) Purchase Event for Ad Attribution
+    try {
+      const { ip, userAgent } = getClientInfo(req.headers);
+      const origin = req.nextUrl.origin || "https://www.scalepods.co";
+      sendMetaCapiEvent({
+        eventName: "Purchase",
+        eventId: razorpay_payment_id,
+        eventSourceUrl: `${origin}/ai-business-automation-webinar`,
+        email,
+        phone,
+        clientIp: ip,
+        clientUserAgent: userAgent,
+        customData: {
+          currency: "INR",
+          value: 99.0,
+          content_name: "AI Business Automation Live Webinar Pass",
+          content_type: "product",
+          order_id: razorpay_order_id,
+        },
+      }).catch((err) => console.warn("[Meta CAPI Purchase Notice]:", err?.message));
+    } catch (e) {
+      console.warn("[Meta CAPI Error Notice]:", e);
     }
 
     return NextResponse.json({
