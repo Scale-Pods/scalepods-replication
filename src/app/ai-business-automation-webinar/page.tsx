@@ -23,10 +23,35 @@ import {
   AlertTriangle,
   X,
   Lock,
-  MessageSquare
+  MessageSquare,
+  Loader2,
+  ExternalLink,
 } from "lucide-react";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import "./webinar.css";
+
+// Helper to reliably load Razorpay Checkout script dynamically
+const loadRazorpayScript = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined") return resolve(false);
+    if ((window as any).Razorpay) return resolve(true);
+
+    const existingScript = document.getElementById("razorpay-checkout-js");
+    if (existingScript) {
+      existingScript.addEventListener("load", () => resolve(true));
+      existingScript.addEventListener("error", () => resolve(false));
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = "razorpay-checkout-js";
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 export default function WebinarPage() {
   // Modal & Flow state
@@ -39,6 +64,12 @@ export default function WebinarPage() {
     role: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [paymentSuccessData, setPaymentSuccessData] = useState<{
+    bookingId: string;
+    orderId: string;
+  } | null>(null);
 
   // Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -59,18 +90,121 @@ export default function WebinarPage() {
   }, []);
 
   const handleOpenModal = () => {
+    setPaymentError(null);
     setModalStep("form");
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setPaymentError(null);
     setIsSubmitting(true);
-    // Simulate intake submission (Phase 1)
-    setTimeout(() => {
+
+    try {
+      // 1. Ensure Razorpay checkout script is loaded
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded || !(window as any).Razorpay) {
+        throw new Error(
+          "Unable to load Razorpay payment gateway. Please check your network or ad-blocker and try again."
+        );
+      }
+
+      // 2. Create order on the server
+      const res = await fetch("/api/webinar/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const orderData = await res.json();
+      if (!res.ok || !orderData.success) {
+        throw new Error(orderData.error || "Failed to initialize payment order.");
+      }
+
+      // 3. Configure Razorpay checkout options
+      const options = {
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "ScalePods",
+        description: "AI Business Automation Live Webinar Pass",
+        image: "https://scalepods.co/favicon.ico",
+        order_id: orderData.orderId,
+        prefill: {
+          name: formData.name,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: "#0F1A12",
+        },
+        modal: {
+          ondismiss: function () {
+            setIsSubmitting(false);
+          },
+        },
+        handler: async function (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) {
+          setIsVerifying(true);
+          try {
+            const verifyRes = await fetch("/api/webinar/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                ...response,
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                role: formData.role,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+            if (verifyRes.ok && verifyData.success) {
+              setPaymentSuccessData({
+                bookingId: response.razorpay_payment_id,
+                orderId: response.razorpay_order_id,
+              });
+              setModalStep("confirmed");
+            } else {
+              setPaymentError(
+                verifyData.error ||
+                  "Payment signature verification failed. Please contact support."
+              );
+            }
+          } catch (err: any) {
+            setPaymentError(
+              err?.message || "An error occurred while confirming payment."
+            );
+          } finally {
+            setIsVerifying(false);
+            setIsSubmitting(false);
+          }
+        },
+      };
+
+      const razorpayInstance = new (window as any).Razorpay(options);
+
+      razorpayInstance.on("payment.failed", function (failResponse: any) {
+        console.warn("Razorpay Payment Notice:", failResponse?.error);
+        setPaymentError(
+          failResponse?.error?.description ||
+            "Payment failed or was cancelled. Please try again."
+        );
+        setIsSubmitting(false);
+      });
+
+      razorpayInstance.open();
+    } catch (err: any) {
+      console.error("Webinar registration error:", err);
+      setPaymentError(
+        err?.message || "Failed to initiate payment. Please try again."
+      );
       setIsSubmitting(false);
-      setModalStep("confirmed");
-    }, 600);
+    }
   };
 
   const toggleFaq = (index: number) => {
@@ -1504,7 +1638,7 @@ export default function WebinarPage() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: "22px",
+                    marginBottom: "18px",
                   }}
                 >
                   <span style={{ fontSize: "14px", color: "#FFFFFF", fontWeight: 600 }}>Webinar Access Pass</span>
@@ -1513,6 +1647,27 @@ export default function WebinarPage() {
                     <span style={{ fontSize: "13px", color: "var(--wb-text-faint)", marginLeft: "6px", textDecoration: "line-through" }}>₹999</span>
                   </div>
                 </div>
+
+                {paymentError && (
+                  <div
+                    style={{
+                      background: "rgba(239, 68, 68, 0.12)",
+                      border: "1px solid rgba(239, 68, 68, 0.35)",
+                      borderRadius: "10px",
+                      padding: "12px 14px",
+                      marginBottom: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      color: "#FCA5A5",
+                      fontSize: "13px",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                    <span>{paymentError}</span>
+                  </div>
+                )}
 
                 <form onSubmit={handleFormSubmit}>
                   <div className="wb-form-group">
@@ -1524,6 +1679,7 @@ export default function WebinarPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="wb-form-input"
+                      disabled={isSubmitting || isVerifying}
                     />
                   </div>
 
@@ -1536,6 +1692,7 @@ export default function WebinarPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="wb-form-input"
+                      disabled={isSubmitting || isVerifying}
                     />
                   </div>
 
@@ -1548,6 +1705,7 @@ export default function WebinarPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="wb-form-input"
+                      disabled={isSubmitting || isVerifying}
                     />
                   </div>
 
@@ -1559,17 +1717,26 @@ export default function WebinarPage() {
                       value={formData.role}
                       onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                       className="wb-form-input"
+                      disabled={isSubmitting || isVerifying}
                     />
                   </div>
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isVerifying}
                     className="wb-button-primary"
                     style={{ width: "100%", marginTop: "10px" }}
                   >
                     {isSubmitting ? (
-                      <span>Processing...</span>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                        <Loader2 size={16} className="animate-spin" />
+                        <span>Opening Secure Payment...</span>
+                      </span>
+                    ) : isVerifying ? (
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                        <Loader2 size={16} className="animate-spin" />
+                        <span>Verifying Payment...</span>
+                      </span>
                     ) : (
                       <>
                         <Lock size={16} />
@@ -1585,12 +1752,12 @@ export default function WebinarPage() {
                 </div>
               </div>
             ) : (
-              /* Confirmation Screen (Phase 1 dummy step before Razorpay keys connected in Phase 2) */
-              <div style={{ textAlign: "center", padding: "20px 0" }}>
+              /* Verified Confirmation Screen */
+              <div style={{ textAlign: "center", padding: "16px 0" }}>
                 <div
                   style={{
-                    width: "60px",
-                    height: "60px",
+                    width: "64px",
+                    height: "64px",
                     borderRadius: "50%",
                     background: "rgba(177, 217, 151, 0.12)",
                     border: "2px solid #B1D997",
@@ -1601,20 +1768,58 @@ export default function WebinarPage() {
                     color: "#B1D997",
                   }}
                 >
-                  <CheckCircle2 size={34} />
+                  <CheckCircle2 size={36} />
+                </div>
+
+                <div className="wb-pill-green" style={{ marginBottom: "10px" }}>
+                  <span className="wb-dot-green" />
+                  <span>PAYMENT VERIFIED & CONFIRMED</span>
                 </div>
 
                 <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
-                  Seat Reserved Successfully!
+                  Your Seat Is Confirmed!
                 </h3>
-                <p style={{ fontSize: "14px", color: "var(--wb-text-mid)", marginBottom: "24px" }}>
-                  Thank you, <strong>{formData.name || "Attendee"}</strong>. Your entry for ₹99 is confirmed. We have sent the confirmation to <strong>{formData.email}</strong>.
+                <p style={{ fontSize: "14px", color: "var(--wb-text-mid)", marginBottom: "20px", lineHeight: 1.5 }}>
+                  Thank you, <strong style={{ color: "#FFFFFF" }}>{formData.name || "Attendee"}</strong>. We’ve received your registration for ₹99 and sent the confirmation receipt to <strong style={{ color: "#FFFFFF" }}>{formData.email}</strong>.
                 </p>
 
-                {/* Dummy Action Buttons requested by user */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px" }}>
-                  <button
-                    onClick={() => alert("Dummy WhatsApp Link: In live production, this will redirect users directly to your official ScalePods Webinar WhatsApp Community!")}
+                {/* Receipt Card */}
+                {paymentSuccessData && (
+                  <div
+                    style={{
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      borderRadius: "12px",
+                      padding: "14px 18px",
+                      textAlign: "left",
+                      marginBottom: "22px",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "12px" }}>
+                      <span style={{ color: "var(--wb-text-muted)" }}>Payment Reference</span>
+                      <span style={{ color: "#B1D997", fontFamily: "monospace", fontWeight: 600 }}>
+                        {paymentSuccessData.bookingId}
+                      </span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "12px" }}>
+                      <span style={{ color: "var(--wb-text-muted)" }}>Order Reference</span>
+                      <span style={{ color: "#63A5E7", fontFamily: "monospace", fontWeight: 600 }}>
+                        {paymentSuccessData.orderId}
+                      </span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px" }}>
+                      <span style={{ color: "var(--wb-text-muted)" }}>Pass Fee</span>
+                      <span style={{ color: "#FFFFFF", fontWeight: 700 }}>₹99.00 INR (Paid)</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Next Steps Buttons */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
+                  <a
+                    href="https://chat.whatsapp.com/G5VbNKn2V2hKz7r0xL"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -1626,16 +1831,19 @@ export default function WebinarPage() {
                       fontSize: "15px",
                       padding: "14px 20px",
                       borderRadius: "10px",
-                      border: "none",
-                      cursor: "pointer",
+                      textDecoration: "none",
+                      boxShadow: "0 4px 16px rgba(37, 211, 102, 0.3)",
                     }}
                   >
-                    <MessageSquare size={16} />
-                    <span>Join WhatsApp VIP Group (Dummy)</span>
-                  </button>
+                    <MessageSquare size={18} />
+                    <span>Join Attendee VIP WhatsApp Group</span>
+                    <ExternalLink size={14} style={{ opacity: 0.8 }} />
+                  </a>
 
-                  <button
-                    onClick={() => alert("Dummy Calendar Link: In live production, this will download an .ics file or add the event to Google Calendar!")}
+                  <a
+                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Live AI Business Automation Webinar with Adnan Shaikh")}&details=${encodeURIComponent("ScalePods Live Interactive Workshop.\nHow Businesses Are Automating 60-80% of Repetitive Workflows.\n\nZoom Link sent to WhatsApp & Email.")}&dates=20261010T110000Z%2F20261010T123000Z`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -1648,12 +1856,13 @@ export default function WebinarPage() {
                       fontSize: "14px",
                       padding: "12px 20px",
                       borderRadius: "10px",
-                      cursor: "pointer",
+                      textDecoration: "none",
                     }}
                   >
                     <Calendar size={16} />
-                    <span>Add to Google Calendar (Dummy)</span>
-                  </button>
+                    <span>Add to Google Calendar</span>
+                    <ExternalLink size={14} style={{ opacity: 0.8 }} />
+                  </a>
                 </div>
 
                 <button
