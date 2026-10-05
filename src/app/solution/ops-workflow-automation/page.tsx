@@ -43,10 +43,12 @@ const countries = [
 ];
 
 const opsGoals = [
-  "Fully Autonomous Hiring",
-  "AI Resume Intelligence",
-  "Interview Scheduling Pod",
-  "Offer & Onboarding Automation",
+  "Document & Invoice Ingestion Engine",
+  "Cross-Departmental Process Routing",
+  "Vendor & Partner Onboarding Automation",
+  "IT Infrastructure & Security Automation",
+  "ERP & WMS Data Synchronization",
+  "Operational Audit & Compliance Tracking",
 ];
 
 
@@ -61,270 +63,6 @@ const fadeUp = (delay = 0, isMobile = false) => ({
   },
 });
 
-// ── Connected Enterprise Infrastructure Ecosystem Visualizer ─────────────────
-function EcosystemViz() {
-  return (
-    <div 
-      className="sp-form-card"
-      style={{
-        width: "100%",
-        maxWidth: "680px",
-        margin: "0 auto",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "32px",
-        overflow: "hidden",
-        position: "relative"
-      }}
-    >
-      <div 
-        style={{ 
-          position: "absolute", 
-          inset: 0, 
-          opacity: 0.015, 
-          backgroundImage: "radial-gradient(var(--sp-accent) 1px, transparent 1px)", 
-          backgroundSize: "20px 20px" 
-        }} 
-      />
-      <svg 
-        viewBox="0 0 600 400" 
-        className="w-full h-auto"
-        style={{ display: "block" }}
-      >
-        <defs>
-          <radialGradient id="hub-glow-eco" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="var(--sp-accent)" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="var(--sp-accent)" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* Outer orbital boundary lines */}
-        <circle cx="300" cy="200" r="160" fill="none" stroke="var(--color-border-faint)" strokeWidth="1" strokeDasharray="6 8" />
-        <circle cx="300" cy="200" r="110" fill="none" stroke="var(--color-border-faint)" strokeWidth="1" strokeDasharray="4 6" />
-
-        {/* Central Hub glowing halo */}
-        <circle cx="300" cy="200" r="70" fill="url(#hub-glow-eco)" />
-        <motion.circle 
-          cx="300" 
-          cy="200" 
-          r="48" 
-          fill="none" 
-          stroke="rgba(var(--sp-accent-rgb), 0.15)" 
-          strokeWidth="1.5"
-          animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        {/* Central Node: OpsPod Core */}
-        <circle cx="300" cy="200" r="32" fill="var(--color-bg-card)" stroke="var(--sp-accent)" strokeWidth="2" />
-        <text x="300" y="204" textAnchor="middle" fill="var(--sp-accent)" fontSize="10px" fontWeight="700" letterSpacing="0.05em">POD CORE</text>
-
-        {/* Orbit Connection lines */}
-        <line x1="300" y1="200" x2="160" y2="100" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
-        <line x1="300" y1="200" x2="440" y2="100" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
-        <line x1="300" y1="200" x2="160" y2="300" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
-        <line x1="300" y1="200" x2="440" y2="300" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
-
-        {/* Node 1: ATS */}
-        <circle cx="160" cy="100" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
-        <text x="160" y="104" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">ERP & WMS</text>
-
-        {/* Node 2: Communication */}
-        <circle cx="440" cy="100" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
-        <text x="440" y="104" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">LOGISTICS / LR</text>
-
-        {/* Node 3: Job Boards */}
-        <circle cx="160" cy="300" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
-        <text x="160" y="304" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">INVOICES & GST</text>
-
-        {/* Node 4: Talent Database */}
-        <circle cx="440" cy="300" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
-        <text x="440" y="304" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">QUALITY CERT</text>
-
-        {/* Interactive connection pulses */}
-        <motion.circle 
-          cx="300" 
-          cy="200" 
-          r="4" 
-          fill="var(--sp-accent)"
-          animate={{ cx: [300, 160], cy: [200, 100], opacity: [0, 1, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 0.5 }}
-        />
-        <motion.circle 
-          cx="300" 
-          cy="200" 
-          r="4" 
-          fill="var(--sp-accent)"
-          animate={{ cx: [300, 440], cy: [200, 100], opacity: [0, 1, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.2 }}
-        />
-        <motion.circle 
-          cx="300" 
-          cy="200" 
-          r="4" 
-          fill="var(--sp-accent)"
-          animate={{ cx: [300, 160], cy: [200, 300], opacity: [0, 1, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.8 }}
-        />
-        <motion.circle 
-          cx="300" 
-          cy="200" 
-          r="4" 
-          fill="var(--sp-accent)"
-          animate={{ cx: [300, 440], cy: [200, 300], opacity: [0, 1, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 2.4 }}
-        />
-      </svg>
-    </div>
-  );
-}
-
-// ── Live Pipeline Infrastructure Visualizer ─────────────────────────────────
-function PipelineViz() {
-  const p1 = "M 150 72 C 175 72, 165 190, 180 190";
-  const p2 = "M 150 308 C 175 308, 165 190, 180 190";
-  const p3 = "M 340 190 C 355 190, 345 72, 370 72";
-  const p4 = "M 340 190 C 355 190, 345 308, 370 308";
-
-  return (
-    <div 
-      className="sp-form-card"
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-        overflow: "hidden"
-      }}
-    >
-      <div 
-        style={{ 
-          position: "absolute", 
-          inset: 0, 
-          opacity: 0.02, 
-          backgroundImage: "radial-gradient(var(--sp-accent) 1px, transparent 1px)", 
-          backgroundSize: "24px 24px" 
-        }} 
-      />
-      <svg 
-        viewBox="0 0 520 380" 
-        className="w-full h-auto"
-        style={{ display: "block" }}
-      >
-        <defs>
-          <radialGradient id="hub-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="var(--sp-accent)" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="var(--sp-accent)" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* Glow behind Central Hub */}
-        <circle cx="260" cy="190" r="100" fill="url(#hub-glow)" />
-
-        {/* Connection Curves */}
-        <path d={p1} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
-        <path d={p2} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
-        <path d={p3} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
-        <path d={p4} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
-
-        {/* Animated Data Packets */}
-        <motion.path 
-          d={p1} 
-          fill="none" 
-          stroke="var(--sp-accent)" 
-          strokeWidth="1.5" 
-          strokeDasharray="4 6"
-          animate={{ strokeDashoffset: [20, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
-          strokeOpacity="0.6"
-        />
-        <motion.path 
-          d={p2} 
-          fill="none" 
-          stroke="var(--sp-accent)" 
-          strokeWidth="1.5" 
-          strokeDasharray="4 6"
-          animate={{ strokeDashoffset: [20, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear", delay: 0.5 }}
-          strokeOpacity="0.6"
-        />
-        <motion.path 
-          d={p3} 
-          fill="none" 
-          stroke="var(--sp-accent)" 
-          strokeWidth="1.5" 
-          strokeDasharray="4 6"
-          animate={{ strokeDashoffset: [20, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: 0.3 }}
-          strokeOpacity="0.6"
-        />
-        <motion.path 
-          d={p4} 
-          fill="none" 
-          stroke="var(--sp-accent)" 
-          strokeWidth="1.5" 
-          strokeDasharray="4 6"
-          animate={{ strokeDashoffset: [20, 0] }}
-          transition={{ duration: 1.7, repeat: Infinity, ease: "linear", delay: 0.8 }}
-          strokeOpacity="0.6"
-        />
-
-        {/* INPUT NODE 1 */}
-        <g transform="translate(20, 40)">
-          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
-          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">RESUME FEED</text>
-          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="12" fontWeight="500">Applicant Stream</text>
-          <circle cx="16" cy="50" r="2.5" fill="var(--color-green)" />
-          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Active Scan</text>
-        </g>
-
-        {/* INPUT NODE 2 */}
-        <g transform="translate(20, 276)">
-          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
-          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">ATS PARSER</text>
-          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="12" fontWeight="500">Profile Intake</text>
-          <circle cx="16" cy="50" r="2.5" fill="var(--color-green)" />
-          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Synchronized</text>
-        </g>
-
-        {/* CENTRAL HUB NODE */}
-        <g transform="translate(180, 150)">
-          <rect width="160" height="80" rx="10" ry="10" fill="var(--color-bg-card-alt)" stroke="var(--sp-accent)" strokeWidth="1.5" style={{ filter: "drop-shadow(0 0 10px rgba(var(--sp-accent-rgb), 0.08))" }} />
-          <text x="80" y="24" textAnchor="middle" fill="var(--sp-accent)" fontSize="9" fontWeight="700" letterSpacing="0.1em">CORE PIPELINE</text>
-          <text x="80" y="44" textAnchor="middle" fill="var(--color-text-bright)" fontSize="13" fontWeight="600">OperationsPod Engine</text>
-          
-          <circle cx="50" cy="62" r="3" fill="var(--sp-accent)" />
-          <motion.circle cx="50" cy="62" r="6" fill="none" stroke="var(--sp-accent)" strokeWidth="1"
-            animate={{ scale: [1, 1.8, 1], opacity: [0.8, 0, 0.8] }}
-            transition={{ duration: 2.2, repeat: Infinity }}
-          />
-          <text x="60" y="65" fill="var(--color-text-bright)" fontSize="10" fontWeight="500">Live Orchestrator</text>
-        </g>
-
-        {/* OUTPUT NODE 1 */}
-        <g transform="translate(370, 40)">
-          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
-          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">SCHEDULING ROUTER</text>
-          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="11" fontWeight="500">Calendar Loops</text>
-          <circle cx="16" cy="50" r="2.5" fill="var(--sp-accent)" />
-          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Self-booking Active</text>
-        </g>
-
-        {/* OUTPUT NODE 2 */}
-        <g transform="translate(370, 276)">
-          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
-          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">COMPLIANCE SYNC</text>
-          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="12" fontWeight="500">Onboarding Flow</text>
-          <circle cx="16" cy="50" r="2.5" fill="var(--color-green)" />
-          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Fully Mapped</text>
-        </g>
-      </svg>
-    </div>
-  );
-}
 
 const salespodReviews = [
   {
@@ -1467,7 +1205,7 @@ export default function OperationsWorkflowAutomationPage() {
     name: "",
     email: "",
     company: "",
-    goal: "Purchase Audit & Verification",
+    goal: "Document & Invoice Ingestion Engine",
     phone: "",
     countryCode: "+1",
     customCode: "",
@@ -1531,11 +1269,11 @@ export default function OperationsWorkflowAutomationPage() {
   // Mock status loader for premium user feedback
   const runStatusUpdates = async () => {
     const messages = [
-      "Configuring screening model...",
-      "Setting resume score parameters...",
-      "Mapping calendar triggers...",
-      "Syncing with ATS webhook schema...",
-      "Registering your HR Pod..."
+      "Analyzing enterprise process schema...",
+      "Configuring document parsing triggers...",
+      "Mapping cross-departmental logic...",
+      "Syncing with ERP/CRM webhook pipelines...",
+      "Registering your Operations Pod..."
     ];
 
     for (const msg of messages) {
@@ -1648,7 +1386,7 @@ export default function OperationsWorkflowAutomationPage() {
                     }}
                   />
                 </span>
-                AI-Powered Operations Engine
+                Certified Enterprise Intelligent Process Automation
               </span>
             </div>
 
@@ -1678,10 +1416,10 @@ export default function OperationsWorkflowAutomationPage() {
               paddingInline: "20px"
             }}>
               {[
-                "Document & Unstructured Data Ingestion",
+                "Document & Unstructured Data Ingestion Engine",
                 "End-to-End Business Process Optimization",
-                "Intelligent Resource & AI Deployment",
-                "IT Infrastructure & Operations Automation"
+                "Enterprise Operations & Resource Execution",
+                "Intelligent Resource Deployment & AI Systems"
               ].map((bullet, idx) => (
                 <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", justifyContent: "flex-start" }}>
                   <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0, marginTop: "2px" }} />
@@ -1699,7 +1437,7 @@ export default function OperationsWorkflowAutomationPage() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 onClick={() => {
-                  setAuditModalTitle("Book an Operations Process Audit");
+                  setAuditModalTitle("Schedule an Operations Architectural Assessment");
                   setAuditModalSourceName("Operations Workflow Automation - Hero CTA");
                   setIsAuditModalOpen(true);
                 }}
@@ -1709,7 +1447,7 @@ export default function OperationsWorkflowAutomationPage() {
                   minWidth: "250px",
                 }}
               >
-                Book an Operations Process Audit →
+                Schedule an Operations Assessment →
               </motion.button>
             </div>
           </motion.div>
@@ -2165,7 +1903,7 @@ export default function OperationsWorkflowAutomationPage() {
                   }}
                 />
               </span>
-              LIVE INFRASTRUCTURE
+              OPERATIONAL TELEMETRY &amp; MEASURABLE OUTCOMES
             </span>
           </div>
 
@@ -2175,26 +1913,31 @@ export default function OperationsWorkflowAutomationPage() {
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
-            Closing document mismatches is now as simple as uploading your files and hitting verify. Step into the next generation of AI-driven operational excellence.
+            Closing document mismatches and operational bottlenecks is now as simple as deploying unified execution pipelines. Step into the next generation of AI-driven operational excellence.
           </p>
         </div>
 
         {/* Main Trust Metrics Grid */}
-        <div className="sp-metrics-grid">
+        <div className="sp-metrics-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
           
           <div className="sp-metric-block">
             <div className="sp-metric-number">100%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Documents Cross-Checked</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Audit &amp; Compliance Coverage</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">90%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster Verification</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster Verification Velocity</div>
           </div>
 
           <div className="sp-metric-block">
             <div className="sp-metric-number">Zero</div>
             <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Compliance Slippages</div>
+          </div>
+
+          <div className="sp-metric-block">
+            <div className="sp-metric-number">65%+</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Manual Overhead Eliminated</div>
           </div>
 
         </div>
@@ -2346,7 +2089,106 @@ export default function OperationsWorkflowAutomationPage() {
 
       </motion.div>
 
-      {/* ── FOLD 7: STATS & BENEFITS ── */}
+      {/* ── FOLD 5: MEASURABLE PERFORMANCE FRAMEWORK ── */}
+      <motion.div
+        className="sp-section-wrapper"
+        style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "56px", paddingBottom: "56px" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "40px" }}>
+          <div className="sp-hero-eyebrow">
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-sans), sans-serif",
+              fontSize: "11px",
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--sp-accent)",
+            }}>
+              Operational Performance Framework
+            </span>
+          </div>
+
+          <h2 className="sp-hero-title" style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}>
+            Direct Operational Impact Across Enterprise Functions
+          </h2>
+
+          <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
+            See how ScalePods transforms fragmented manual handoffs into predictable, automated business operations across your core workflows.
+          </p>
+        </div>
+
+        {/* Impact Table */}
+        <div className="sp-table-wrapper">
+          <table className="sp-impact-table">
+            <thead>
+              <tr>
+                <th>Operational Function</th>
+                <th>Traditional Manual Friction</th>
+                <th>ScalePods Automated Pipeline</th>
+                <th>Measurable Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="sp-table-metric">Document Ingestion</td>
+                <td>30–45 mins per invoice/PO, tedious manual copy-pasting, high error rate</td>
+                <td>Optical vision parsing extracts line-items and cross-verifies ERP records in &lt;60 sec</td>
+                <td className="sp-table-result">90% cycle time reduction &amp; 0 data entry errors</td>
+              </tr>
+              <tr>
+                <td className="sp-table-metric">Process Handoffs</td>
+                <td>Fragmented emails, forgotten WhatsApps, and multi-day approval delays</td>
+                <td>Context-aware decision trees, automatic task routing, and SLA escalation alerts</td>
+                <td className="sp-table-result">Zero approval bottlenecks &amp; 100% SLA compliance</td>
+              </tr>
+              <tr>
+                <td className="sp-table-metric">Partner &amp; Vendor Onboarding</td>
+                <td>Weeks spent collecting tax IDs, bank proofs, and compliance certifications</td>
+                <td>Self-service interactive digital portals with real-time verification checks</td>
+                <td className="sp-table-result">4.2× faster partner onboarding velocity</td>
+              </tr>
+              <tr>
+                <td className="sp-table-metric">IT &amp; User Provisioning</td>
+                <td>Manual ticket queues, delayed software access, and missed de-provisioning</td>
+                <td>Automated role-based access triggers and instant termination offboarding protocols</td>
+                <td className="sp-table-result">100% audit-compliant security governance</td>
+              </tr>
+              <tr>
+                <td className="sp-table-metric">Executive Visibility</td>
+                <td>Disconnected monthly spreadsheets, delayed cost reports, and operational blind spots</td>
+                <td>Unified real-time operational telemetry, cost center attribution, and throughput OS</td>
+                <td className="sp-table-result">Immediate ROI transparency &amp; root cause clarity</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}>
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            className="sp-stats-cta-btn"
+            onClick={() => {
+              setAuditModalTitle("Request Operational Architecture Review");
+              setAuditModalSourceName("Operations Workflow Automation - Performance Table CTA");
+              setIsAuditModalOpen(true);
+            }}
+          >
+            <span>Request Operational Architecture Review</span>
+            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* ── FOLD 6: STATS & BENEFITS ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingTop: "56px", paddingBottom: "56px" }}
@@ -2547,11 +2389,11 @@ export default function OperationsWorkflowAutomationPage() {
 
           {/* LEFT CARDS */}
           {[
-            "All purchase documents are cross-checked field by field automatically the moment files are uploaded.",
-            "GSTIN mismatches are flagged as Critical in bold red before goods are accepted into the warehouse.",
-            "Date format differences, name variations, and abbreviations are resolved automatically.",
-            "Approve or reject with a single click. Decision is logged with a timestamp and stored in full audit history.",
-            "Analytics surface which fields and suppliers are generating the most mismatches, so root causes get fixed."
+            "All vendor contracts, invoices, and purchase records are cross-checked field by field automatically using intelligent process automation.",
+            "GSTIN, tax IDs, and line-item pricing mismatches are flagged in real time before goods or payments are accepted.",
+            "Disparate date formats, supplier naming variations, and item codes are normalized automatically across your ERP and WMS.",
+            "Approve or reject with a single click. Every decision is logged with an immutable timestamp in a complete audit history.",
+            "Operational analytics surface which suppliers or internal departments generate discrepancies, so root causes get fixed permanently."
           ].map((text, idx) => (
             <motion.div 
               key={`left-${idx}`}
@@ -2571,11 +2413,11 @@ export default function OperationsWorkflowAutomationPage() {
 
           {/* RIGHT CARDS */}
           {[
-            "Staff manually compare Invoice, E-Way Bill, LR, and GRN line by line, a process that takes 30–45 minutes per shipment.",
-            "GSTIN errors are discovered during GST filing weeks later, after the incorrect entry is already in the books.",
-            "Teams manually wasting time on formatting, not substance.",
-            "Approval happens over WhatsApp or email with no record, no timestamp, no audit trail if something goes wrong later.",
-            "Errors are caught one at a time with no visibility into patterns, the same mistakes repeat month after month."
+            "Staff manually compare Invoices, POs, and shipping documents line by line, a process taking 30–45 minutes per record.",
+            "GSTIN and calculation errors are discovered weeks later during monthly accounting reconciliations, creating audit panic.",
+            "Operations teams waste hours re-typing data and fixing formatting differences rather than managing strategic priorities.",
+            "Approvals happen over fragmented emails and chats with no immutable record, no timestamp, and zero compliance oversight.",
+            "Discrepancies are handled one by one in fire-fighting mode, allowing the same operational errors to repeat month after month."
           ].map((text, idx) => (
             <div 
               key={`right-${idx}`}
@@ -2611,54 +2453,7 @@ export default function OperationsWorkflowAutomationPage() {
 
       </motion.div>
 
-      {/* ── FOLD 9: FINAL CALL TO ACTION ── */}
-      <div className="sp-final-cta-wrapper">
-        <div className="sp-final-cta-glow" />
-        
-        <div className="sp-final-cta-content">
-          <div className="sp-hero-eyebrow" style={{ marginBottom: "16px" }}>
-            <span style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: "var(--font-sans), sans-serif",
-              fontSize: "11px",
-              fontWeight: 600,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--sp-accent)",
-            }}>
-              Operational Upgrade
-            </span>
-          </div>
-
-          <h2 className="sp-final-cta-title">
-            Ready to Eliminate <br />
-            <span style={{ color: "var(--sp-accent)" }}>Operational Friction?</span>
-          </h2>
-
-          <p className="sp-final-cta-desc">
-            Schedule an operations architectural assessment today and see how custom automated business operations frameworks drive sustainable operational efficiency.
-          </p>
-
-          <motion.button 
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="sp-final-cta-btn"
-            onClick={() => {
-              setAuditModalTitle("Schedule Architectural Assessment");
-              setAuditModalSourceName("Operations Workflow Automation - Final CTA");
-              setIsAuditModalOpen(true);
-            }}
-          >
-            <span>Schedule Architectural Assessment</span>
-            <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
-          </motion.button>
-        </div>
-      </div>
-
-      {/* ── FOLD 10: TESTIMONIALS ── */}
+      {/* ── FOLD 8: TESTIMONIALS ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)" }}
@@ -2698,7 +2493,7 @@ export default function OperationsWorkflowAutomationPage() {
 
       </motion.div>
 
-      {/* ── FOLD 11: FAQ ── */}
+      {/* ── FOLD 9: FAQ ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)" }}
@@ -2727,7 +2522,7 @@ export default function OperationsWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            FAQs
+            Frequently Asked Questions
           </h2>
         </div>
 
@@ -2736,24 +2531,24 @@ export default function OperationsWorkflowAutomationPage() {
           
           {[
             {
-              q: "What is document audit automation?",
-              a: "Document audit automation is a technology-driven process that utilizes artificial intelligence to instantaneously cross-check, validate, and reconcile critical business records—such as supplier invoices, E-Way bills, Lorry Receipts (LR), and Goods Received Notes (GRN)—without manual data entry. Unlike traditional spot-checking, an automated audit engine extracts data field-by-field, intelligently normalizes variables like dates or supplier abbreviations, and highlights compliance risks like GSTIN mismatches in real time. This ensures 100% verification coverage across every transaction, eliminating human error and preventing costly supply chain discrepancies before goods are officially accepted into inventory."
+              q: "What is enterprise operations and process workflow automation?",
+              a: "Enterprise operations and process workflow automation replaces manual data entry, disconnected spreadsheets, and sluggish email approvals with intelligent, automated execution pipelines. ScalePods builds tailored architectures that ingest unstructured documents (invoices, POs, contracts), route tasks cross-departmentally via logic decision trees, and synchronize directly with core ERPs, WMS, and CRMs without human latency or data entry errors."
             },
             {
-              q: "What are the Benefits of Audit Automation?",
-              a: "The primary benefits of audit automation include total compliance risk mitigation, accelerated operational workflows, and the elimination of manual data entry bottlenecks. By replacing human spot-checking with intelligent algorithms, businesses achieve absolute document coverage, verifying upwards of 14 distinct fields—including HSN codes, weights, and tax identities—in under 60 seconds per transaction. This strict validation catches critical errors instantly, reduces time spent on physical document comparison by up to 90%, and leverages smart tolerances to filter out legitimate rounding discrepancies, ultimately turning isolated operational errors into structured, actionable intelligence."
+              q: "How does intelligent process automation (IPA) differ from traditional RPA or manual work?",
+              a: "Traditional RPA relies on brittle screen-scraping and static rules that break whenever document formats or software UIs change. Intelligent Process Automation (IPA) integrates advanced AI vision parsing and contextual decision engines that comprehend variable layouts, extract unstructured information with precision, normalize disparate data formats, and self-heal across unexpected edge cases. Normal records process automatically in seconds, while rare discrepancies route to human reviewers."
             },
             {
-              q: "How secure is my data when using AI automation tools?",
-              a: "Enterprise AI automation tools secure business data through end-to-end encryption, strict role-based access controls, and isolated data processing environments. When sensitive financial records, supplier invoices, and internal sheet records are uploaded for cross-verification, the data is transmitted via secure protocols and is strictly utilized for the immediate audit workflow, never used to train public AI models. Furthermore, robust platforms maintain immutable, timestamped audit histories, ensuring that your operational data remains proprietary, shielded from unauthorized access, and completely compliant with internal security standards."
+              q: "How secure is enterprise operational data when using ScalePods automation tools?",
+              a: "ScalePods protects enterprise operational data using end-to-end encryption in transit and at rest, zero-retention private tenancies, and strict role-based access controls. Proprietary financial records, supplier contracts, and internal databases are never used to train public AI models. All automated steps, approvals, and exception overrides generate immutable, timestamped audit logs to maintain regulatory compliance."
             },
             {
-              q: "Can Operations Pod work for businesses outside steel and manufacturing?",
-              a: "Yes, Operations Pod is highly adaptable and functions effectively for any industry managing high-volume logistics, procurement, and supply chain documentation, extending well beyond the steel and manufacturing sectors. The core engine is built on universal, intelligent matching logic that compares structured and semi-structured data across multiple files simultaneously. Whether a business operates in FMCG, retail distribution, logistics, or pharmaceuticals, the system’s field-by-field cross-checking, smart quantity tolerances, and automated text normalization seamlessly validate any complex purchasing or sales workflow to eliminate transaction risks."
+              q: "Can Operations Pod integrate with our existing ERP, WMS, CRM, and accounting systems?",
+              a: "Yes. Operations Pod is built to sit natively atop your existing technology stack without requiring you to rip and replace legacy software. It connects seamlessly via standard REST APIs, webhooks, and secure database connectors with major ERPs (SAP, Oracle, NetSuite, Microsoft Dynamics), logistics systems, WMS platforms, accounting systems (Tally, QuickBooks, Zoho Books), and CRMs."
             },
             {
-              q: "How does the approval and audit trail system work?",
-              a: "The approval and audit trail system functions as a centralized, dual-view mechanism that records every user interaction to guarantee complete operational accountability. When an audit is processed, decision-makers are presented with both a rapid intelligence summary and a color-coded raw data view to evaluate discrepancies without digging through paperwork. Users can then approve or reject the transaction with a single click, which the system permanently logs alongside a precise timestamp and the user's identity. This creates an immutable, instantly searchable historical record for every shipment, ensuring all compliance decisions are tracked, transparent, and ready for future review."
+              q: "How does exception routing and the approval audit trail work?",
+              a: "When the automated ingestion engine detects data anomalies—such as tax ID mismatches, line-item price variances exceeding predefined tolerances, or missing compliance certificates—the system automatically flags the record as an exception. It presents managers with a unified, dual-view comparison highlighting the discrepancy and enables one-click approval or rejection. Every decision is logged with an immutable timestamp and user identifier for complete accountability."
             }
           ].map((faq, idx) => {
             const isExpanded = expandedFaq === idx;
@@ -2812,6 +2607,60 @@ export default function OperationsWorkflowAutomationPage() {
           </motion.button>
         </div>
       </motion.div>
+
+      {/* ── FOLD 10: FINAL CALL TO ACTION ── */}
+      <div className="sp-final-cta-wrapper" style={{ marginTop: "40px", marginBottom: "40px" }}>
+        <div className="sp-final-cta-glow" />
+        
+        <div className="sp-final-cta-content">
+          <div className="sp-hero-eyebrow" style={{ marginBottom: "16px" }}>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-sans), sans-serif",
+              fontSize: "11px",
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--sp-accent)",
+            }}>
+              Operational Upgrade
+            </span>
+          </div>
+
+          <h2 className="sp-final-cta-title">
+            Ready to Eliminate <br />
+            <span style={{ color: "var(--sp-accent)" }}>Operational Friction?</span>
+          </h2>
+
+          <p className="sp-final-cta-desc">
+            Schedule an operations architectural assessment today and see how custom automated business operations frameworks drive sustainable operational efficiency.
+          </p>
+
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            className="sp-final-cta-btn"
+            onClick={() => {
+              setAuditModalTitle("Schedule Architectural Assessment");
+              setAuditModalSourceName("Operations Workflow Automation - Final CTA");
+              setIsAuditModalOpen(true);
+            }}
+          >
+            <span>Schedule Architectural Assessment</span>
+            <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
+          </motion.button>
+
+          <p style={{ marginTop: "16px", fontSize: "12px", color: "var(--color-text-muted)" }}>
+            Prefer direct email? Contact our enterprise architecture team at{" "}
+            <a href="mailto:info@scalepods.co" style={{ color: "var(--sp-accent)", textDecoration: "underline" }}>
+              info@scalepods.co
+            </a>
+          </p>
+        </div>
+      </div>
 
       <DownloadModal
         isOpen={isDownloadModalOpen}

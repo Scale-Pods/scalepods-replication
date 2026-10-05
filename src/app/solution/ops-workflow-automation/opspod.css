@@ -2039,3 +2039,50 @@
     border-radius: 8px !important;
   }
 }
+
+/* Impact / Performance Framework Table */
+.opspod-container .sp-table-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin: 0 auto 32px auto;
+  background: rgba(var(--color-bg-card-rgb), 0.2);
+}
+
+.opspod-container .sp-impact-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.opspod-container .sp-impact-table th {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--color-text-bright);
+  font-weight: 600;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.opspod-container .sp-impact-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border-faint);
+  color: var(--color-text-body);
+}
+
+.opspod-container .sp-impact-table tr:last-child td {
+  border-bottom: none;
+}
+
+.opspod-container .sp-table-metric {
+  font-weight: 600;
+  color: var(--color-text-bright);
+}
+
+.opspod-container .sp-table-result {
+  color: var(--sp-accent);
+  font-weight: 700;
+}
+
