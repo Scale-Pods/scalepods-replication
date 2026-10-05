@@ -618,7 +618,7 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
               {/* System 2 Image */}
               <div className="premium-card" style={{ width: "100%", padding: "20px", overflow: "hidden" }}>
                 <img 
-                  src="/images/case-studies/zv-steels/system-2-erp-reconciliation.webp" 
+                  src="/images/case-studies/zv-steels/system-2.jpeg" 
                   alt="Automated Logistics and Invoice Reconciliation Dashboard" 
                   style={{ width: "100%", height: "auto", borderRadius: "12px", display: "block" }} 
                 />
