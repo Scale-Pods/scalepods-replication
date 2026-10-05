@@ -47,6 +47,16 @@ const nextConfig: NextConfig = {
         destination: '/case-study/lotus-manor-real-estate-sales-automation-dubai',
         permanent: true,
       },
+      {
+        source: '/blog/zv-steels-recruitment-automation-tool',
+        destination: '/case-study/zv-steels-recruitment-automation-tool',
+        permanent: true,
+      },
+      {
+        source: '/blog/asquared-real-estate-sales-automation-dubai',
+        destination: '/case-study/asquared-real-estate-sales-automation-dubai',
+        permanent: true,
+      },
     ];
   },
 };

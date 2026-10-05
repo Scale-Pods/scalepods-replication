@@ -981,6 +981,44 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "asquared-real-estate-sales-automation-dubai",
+    date: "October 5, 2026",
+    category: "Case Study",
+    title: "22,000 Leads. 30 Hot. How A Squared Changed the Game",
+    excerpt: "A Squared had thousands of prospects moving through its CRM, but lead volume wasn't the real problem. Follow-ups were inconsistent, high-intent opportunities could go cold, and older leads were being forgotten. ScalePods built an AI-powered automated sales system that qualified leads, triggered WhatsApp and voice outreach, analyzed responses, and used sales lead automation to bring inactive prospects back into the sales pipeline software .",
+    metaTitle: "22,000 Leads. 30 Hot. How A Squared Changed the Game",
+    metaDescription: "22,000 leads. Just 30 hot. See how A Squared used AI sales automation to rebuild follow-up and keep more opportunities moving.",
+    image: "/brands/asquared-brand-1x1.webp",
+    sections: [
+      {
+        heading: "The Challenge: 22,000 Leads, Inconsistent Follow-Up, and High-Intent Drop-Off",
+        body: "A Squared Real Estate was managing around 22,000 fresh leads, but only 30 were classified as hot, and 10 were ready to buy. The bottleneck wasn't marketing lead generation — it was CRM workflow execution. Every lead required manual scoring, assignment, contact, and qualification. In Dubai's rapid real estate environment, uncontacted leads went cold within minutes, follow-ups were left to agent memory, and different buyer and owner workflows lacked systematic enforcement."
+      },
+      {
+        heading: "The Solution: A Sales Automation Layer Built Around Bitrix24",
+        body: "Instead of replacing Bitrix24, ScalePods built an intelligent automation layer around it. Incoming leads are tagged, scored, assigned, and classified automatically, targeting first contact within five minutes with a 15-minute escalation failsafe. Autonomous AI Sales Reps handle initial voice qualification, dynamic WhatsApp cadences run across 7–30 days, real-time sentiment analysis transitions lead stages, and an automated 30–60 day recycling engine brings dormant prospects back into the active pipeline."
+      },
+      {
+        heading: "The Results",
+        body: "Within months of deployment, A Squared achieved breakthrough improvements across pipeline velocity and broker productivity:\n\n• 94% First Contact in Under 5 Minutes: Slashing response latency on fresh inbound inquiries.\n• 2.6× Higher WhatsApp & Voice Reply Rates: Outperforming manual follow-ups with contextual multi-touch messaging.\n• 18% Dead Leads Reactivated: Reviving dormant database contacts through automated re-engagement cadences.\n• 52% Hot/Qualified Forecast Conversion: Up from 33% due to faster speed-to-lead and richer prospect dossiers.\n• 2,400 Outbound Calls Handled Daily: Seamlessly executed across owner loops without adding administrative headcount."
+      }
+    ],
+    faqs: [
+      {
+        q: "How did ScalePods achieve first contact in under 5 minutes for A Squared?",
+        a: "ScalePods built an automation layer around Bitrix24 that instantly tags, scores, and routes incoming leads to automated WhatsApp and AI voice workflows, backed by an automatic 15-minute escalation alert."
+      },
+      {
+        q: "How does the AI Sales Rep handle qualification on calls?",
+        a: "The autonomous voice agent conducts first-touch discovery calls to identify prospect intent (buy, rent, sell, or invest) and preferences, summarizing findings in a CRM dossier before handing off qualified leads to human brokers."
+      },
+      {
+        q: "How does A Squared reactivate dead leads automatically?",
+        a: "Leads categorized as inactive or cold are automatically recycled after 30–60 days, re-entering tailored nurturing sequences with new off-plan inventory, updated payment terms, and market insights."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

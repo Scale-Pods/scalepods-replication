@@ -11,6 +11,7 @@ import JsonLd from "@/components/SEO/JsonLd";
 import CaseStudyVideoPlayer from "@/components/ui/CaseStudyVideoPlayer";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import ZVSteelsCaseStudy from "@/components/case-studies/ZVSteelsCaseStudy";
+import ASquaredCaseStudy from "@/components/case-studies/ASquaredCaseStudy";
 
 // Without this, a dynamic (DB-backed) post's page gets ISR-cached on first visit and then keeps
 // serving that stale snapshot indefinitely -- publish's revalidatePath(`/blog/${slug}`) call is
@@ -408,7 +409,8 @@ export default async function ArticlePage({ params }: Props) {
 
   const isLotusManorCaseStudy = slug === "lotus-manor-real-estate-sales-automation-dubai";
   const isZVSteelsCaseStudy = slug === "zv-steels-recruitment-automation-tool";
-  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy;
+  const isASquaredCaseStudy = slug === "asquared-real-estate-sales-automation-dubai";
+  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy;
 
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
@@ -532,6 +534,8 @@ export default async function ArticlePage({ params }: Props) {
 
         {isZVSteelsCaseStudy ? (
           <ZVSteelsCaseStudy faqs={displayData.faqs} />
+        ) : isASquaredCaseStudy ? (
+          <ASquaredCaseStudy faqs={displayData.faqs} />
         ) : isLotusManorCaseStudy ? (
           <>
             {/* Top section: Title, Stats, Testimonial (Full Width) */}
