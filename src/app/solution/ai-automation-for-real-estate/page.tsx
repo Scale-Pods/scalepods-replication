@@ -448,18 +448,18 @@ export default function RealEstateWorkflowAutomationPage() {
             </div>
 
             <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%", transform: "translateY(-0.5px)" }}>
-              <span style={{ color: "var(--sp-accent)" }}>Real Estate AI Automation</span>{" "}
+              <span style={{ color: "var(--sp-accent)" }}>AI Automation for Real Estate:</span>{" "}
               <br className="sp-hero-desk-br" />
-              for Growing Property <br className="sp-hero-br" />
-              Teams.
+              Convert Buyers Faster, Streamline Viewing Bookings, <br className="sp-hero-br" />
+              and Eliminate Pipeline Leakage.
             </h1>
 
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "20px" : "24px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Deploy plug-and-play ScalePods workflow pods for lead generation, marketing, and event pipelines.
+                Modern property developers, brokerages, and agency leaders face an evolving sales environment. Traditional sales methods often result in slow inquiry response times, fragmented client data, and lost deals. Deploying practical <strong>AI for real estate</strong> solutions allows property teams to automate client discovery, accelerate site viewing schedules, and build a unified buyer engagement pipeline.
               </p>
-              <p style={{ margin: "8px 0 0 0", opacity: 0.85 }}>
-                Automate your entire real estate buyer journey from prospect discovery to viewing bookings and deal closure.
+              <p style={{ margin: "12px 0 0 0", opacity: 0.9 }}>
+                ScalePods provides specialized <strong>real estate AI tools</strong> and modular workflow pods that deploy in under 30 days. As a certified partner in the Claude Partner Network Services Track, ScalePods builds enterprise-grade <strong>AI for real estate marketing</strong>, automated sales engines, and real-time event lead capture systems that transform how real estate businesses handle buyer inquiries and scale transactions.
               </p>
             </div>
             
@@ -667,14 +667,13 @@ export default function RealEstateWorkflowAutomationPage() {
       {/* Claude Partnership */}
       <ClaudePartnership />
 
-      {/* Fold 2: Trust Signals Section */}
+      {/* Fold 2: Benchmark Metrics Section */}
       <section className="sp-section-wrapper">
         <div className="sp-section-title-wrap">
-          <div className="sp-section-eyebrow">The New Architecture of Real Estate</div>
-          <h2 className="sp-section-heading">Built for High-Growth <span style={{ color: "var(--sp-accent)" }}>Real Estate Teams</span></h2>
+          <div className="sp-section-eyebrow">Industry Benchmark Metrics</div>
+          <h2 className="sp-section-heading">Strategic Impact Across Every <span style={{ color: "var(--sp-accent)" }}>Real Estate Function</span></h2>
           <p className="sp-section-subheading">
-            As property markets go digital, real estate leaders are building competitive advantage through 
-            AI automation today — from lead generation and marketing pipelines to event revenue capturing systems.
+            Integrating AI and real estate technology turns manual agency operations into an automated, highly responsive revenue system. Combining <strong>real estate workflow automation</strong> with hands-on operational support enables agencies to eliminate response delays, qualify serious property buyers around the clock, and reduce administrative burdens on sales agents.
           </p>
         </div>
 
@@ -686,7 +685,7 @@ export default function RealEstateWorkflowAutomationPage() {
             </div>
             <div className="sp-telemetry-stat">$4.5B</div>
             <div className="sp-telemetry-label">Market Growth</div>
-            <p className="sp-telemetry-desc">AI in Real Estate deployment projected annually.</p>
+            <p className="sp-telemetry-desc">Projected annual investment in <strong>AI in real estate industry</strong> deployments globally.</p>
           </div>
 
           {/* Card 2 */}
@@ -696,7 +695,7 @@ export default function RealEstateWorkflowAutomationPage() {
             </div>
             <div className="sp-telemetry-stat">76%</div>
             <div className="sp-telemetry-label">Industry Adoption</div>
-            <p className="sp-telemetry-desc">Of leading firms automate core client acquisition, profiling, and sales systems.</p>
+            <p className="sp-telemetry-desc">Leading firms using <strong>automation in real estate</strong> to manage client acquisition, buyer profiling, and sales systems.</p>
           </div>
 
           {/* Card 3 */}
@@ -706,7 +705,7 @@ export default function RealEstateWorkflowAutomationPage() {
             </div>
             <div className="sp-telemetry-stat">4.8×</div>
             <div className="sp-telemetry-label">Lead Conversion</div>
-            <p className="sp-telemetry-desc">Higher win rates via automated lead nurturing pipelines.</p>
+            <p className="sp-telemetry-desc">Higher conversion rates achieved using structured, multi-channel lead nurturing workflows.</p>
           </div>
 
           {/* Card 4 */}
@@ -716,7 +715,7 @@ export default function RealEstateWorkflowAutomationPage() {
             </div>
             <div className="sp-telemetry-stat">65%</div>
             <div className="sp-telemetry-label">Sales Velocity</div>
-            <p className="sp-telemetry-desc">Faster transaction closure through multi-channel automated outreach.</p>
+            <p className="sp-telemetry-desc">Faster deal turnaround using multi-channel automated outreach across WhatsApp, Email, and Phone.</p>
           </div>
         </div>
       </section>
@@ -724,11 +723,10 @@ export default function RealEstateWorkflowAutomationPage() {
       {/* Fold 3: Pilot Outcomes Table */}
       <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-section-title-wrap">
-          <div className="sp-section-eyebrow">Measurable Pilot Outcomes</div>
-          <h2 className="sp-section-heading">Impact Across Every <span style={{ color: "var(--sp-accent)" }}>Real Estate Function</span></h2>
+          <div className="sp-section-eyebrow">Measurable Performance Framework</div>
+          <h2 className="sp-section-heading">Auditable Clarity Across <span style={{ color: "var(--sp-accent)" }}>Broker Pipelines & Property Expos</span></h2>
           <p className="sp-section-subheading">
-            ScalePods combines Agentic AI with managed execution to drive fast, auditable results 
-            for real estate leaders worldwide. Within 30 days, we move operations from bottlenecks to high-velocity.
+            Deploying <strong>AI in real estate</strong> workflows provides operational clarity and auditable performance metrics across marketing campaigns, broker pipelines, and property exhibitions:
           </p>
         </div>
 
@@ -736,36 +734,36 @@ export default function RealEstateWorkflowAutomationPage() {
           <table className="sp-impact-table">
             <thead>
               <tr>
-                <th>Metric</th>
+                <th>Performance Metric</th>
                 <th>Typical Result</th>
-                <th>Growth Driver</th>
+                <th>Primary Growth Driver</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td className="sp-table-metric">Sales Velocity</td>
-                <td className="sp-table-result">3× More Meetings*</td>
-                <td>Automated multi-channel outreach & instant scheduling.</td>
+                <td className="sp-table-result">3× More Meetings</td>
+                <td>Automated multi-channel outreach and direct calendar scheduling using a tailored <strong>real estate sales crm</strong>.</td>
               </tr>
               <tr>
                 <td className="sp-table-metric">Lead Quality</td>
                 <td className="sp-table-result">3× Higher Intent Leads</td>
-                <td>AI-powered ICP matching & sentiment-scored lead generation.</td>
+                <td>ICP prospect matching and sentiment-scored <strong>real estate lead generation</strong>.</td>
               </tr>
               <tr>
                 <td className="sp-table-metric">Event Pipeline</td>
                 <td className="sp-table-result">50% Higher Conversion</td>
-                <td>Real-time on-site qualification & same-day follow-up.</td>
+                <td>Real-time on-site lead scoring and same-day property brochure delivery.</td>
               </tr>
               <tr>
                 <td className="sp-table-metric">Marketing Output</td>
-                <td className="sp-table-result">80% Less Manual Work*</td>
-                <td>AI-driven content generation, scheduling & repurposing.</td>
+                <td className="sp-table-result">80% Less Manual Work</td>
+                <td>AI-assisted property content creation, campaign scheduling, and multi-platform repurposing.</td>
               </tr>
               <tr>
                 <td className="sp-table-metric">Data Integrity</td>
                 <td className="sp-table-result">Near-100% CRM Accuracy</td>
-                <td>Seamless real-time auto-sync across all channels and platforms.</td>
+                <td>Real-time data synchronization across property portals, messaging platforms, and <strong>CRM tools for real estate</strong>.</td>
               </tr>
             </tbody>
           </table>
@@ -781,10 +779,10 @@ export default function RealEstateWorkflowAutomationPage() {
       {/* Fold 4: Pods Overview Section */}
       <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-section-title-wrap">
-          <div className="sp-section-eyebrow">Pods Overview</div>
-          <h2 className="sp-section-heading">Three Pods. Zero Friction. <span style={{ color: "var(--sp-accent)" }}>Total Growth.</span></h2>
+          <div className="sp-section-eyebrow">Specialized Real Estate AI Pods</div>
+          <h2 className="sp-section-heading">Three Engines Built for <span style={{ color: "var(--sp-accent)" }}>Zero-Friction Growth</span></h2>
           <p className="sp-section-subheading">
-            AI automation built for real estate sales, marketing, and events — each pod deploys in under 30 days.
+            ScalePods delivers modular, plug-and-play workflow engines tailored to the real estate sales cycle. Each pod operates as an autonomous <strong>real estate lead generation platform</strong> while connecting directly into your active CRM tech stack.
           </p>
         </div>
 
@@ -792,29 +790,29 @@ export default function RealEstateWorkflowAutomationPage() {
           {/* Card 1 */}
           <div className="sp-pod-overview-card">
             <div className="relative w-full h-44 mb-5 rounded-xl overflow-hidden border border-[var(--color-border-faint)] bg-white/50 dark:bg-black/20">
-              <Image src="/images/Sales.svg" alt="Sales Pod Interface" fill className="object-contain p-4" />
+              <Image src="/images/Sales.svg" alt="Real Estate Sales Pod Interface" fill className="object-contain p-4" />
               <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-[var(--sp-accent)]/40 text-[10px] font-bold text-[var(--sp-accent)] uppercase tracking-wider">
                 Sales Pod
               </div>
             </div>
-            <h3 className="sp-pod-card-title">Sales Pod</h3>
-            <div className="sp-pod-card-subtitle">Hunt Automatically. Your team only handles the close.</div>
+            <h3 className="sp-pod-card-title">Real Estate Sales Pod</h3>
+            <div className="sp-pod-card-subtitle">Autonomous Lead Sourcing & Engagement</div>
             <div className="sp-pod-card-list">
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>ICP Lead Scraping:</strong> Target high-value property buyers automatically.</span>
+                <span><strong>Precision Lead Discovery:</strong> Target buyer profile matching and property buyer list extraction.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Multi-Channel Outreach:</strong> Automated touchpoints across WhatsApp, Email & Phone.</span>
+                <span><strong>Omnichannel Outreach:</strong> Automated touchpoints across LinkedIn, Email, and WhatsApp.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Smart Lead Nurturing:</strong> Trigger stage-specific follow-ups automatically.</span>
+                <span><strong>Intent-Driven Nurturing:</strong> Trigger automated viewing schedules and project datasheet delivery.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Sentiment-Based Scoring:</strong> Log and rank lead buyer interest in CRM.</span>
+                <span><strong>Sentiment-Based Scoring:</strong> Log buyer intent and timeline rankings directly into CRM.</span>
               </div>
             </div>
             <button onClick={handleDownloadClick} className="sp-feature-dl-btn">
@@ -825,29 +823,29 @@ export default function RealEstateWorkflowAutomationPage() {
           {/* Card 2 */}
           <div className="sp-pod-overview-card">
             <div className="relative w-full h-44 mb-5 rounded-xl overflow-hidden border border-[var(--color-border-faint)] bg-white/50 dark:bg-black/20">
-              <Image src="/images/Marketing.svg" alt="Marketing Pod Interface" fill className="object-contain p-4" />
+              <Image src="/images/Marketing.svg" alt="Real Estate Marketing Automation Pod Interface" fill className="object-contain p-4" />
               <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-[var(--sp-accent)]/40 text-[10px] font-bold text-[var(--sp-accent)] uppercase tracking-wider">
                 Marketing Pod
               </div>
             </div>
-            <h3 className="sp-pod-card-title">Marketing Pod</h3>
-            <div className="sp-pod-card-subtitle">Publish on Autopilot. From strategy to post — AI runs it.</div>
+            <h3 className="sp-pod-card-title">Marketing Automation Pod</h3>
+            <div className="sp-pod-card-subtitle">Scale Your Digital Footprint on Autopilot</div>
             <div className="sp-pod-card-list">
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Full-Funnel Strategy:</strong> Automated Organic growth and competitor mapping.</span>
+                <span><strong>Full-Funnel Intelligence:</strong> Competitor analysis and local market keyword research.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>AI Content & Visuals:</strong> Create high-quality SEO properties content instantly.</span>
+                <span><strong>AI Content & Visuals:</strong> High-converting property listing copy, blogs, and ad creatives.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Maker-Checker Workflow:</strong> Approve drafted creatives with 1 click.</span>
+                <span><strong>Maker-Checker Workflow:</strong> Review and approve drafted creatives with a single click.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Auto-Posting & Scheduling:</strong> Push automatically across all digital handles.</span>
+                <span><strong>Performance Analytics:</strong> Connect Meta Ads, Google Ads, GA4, and Clarity for real-time ROI.</span>
               </div>
             </div>
             <button onClick={handleDownloadClick} className="sp-feature-dl-btn">
@@ -858,29 +856,29 @@ export default function RealEstateWorkflowAutomationPage() {
           {/* Card 3 */}
           <div className="sp-pod-overview-card">
             <div className="relative w-full h-44 mb-5 rounded-xl overflow-hidden border border-[var(--color-border-faint)] bg-white/50 dark:bg-black/20">
-              <Image src="/images/Exhibition.svg" alt="Exhibition Pod Interface" fill className="object-contain p-4" />
+              <Image src="/images/Exhibition.svg" alt="Exhibition & Event Intelligence Pod Interface" fill className="object-contain p-4" />
               <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-[var(--sp-accent)]/40 text-[10px] font-bold text-[var(--sp-accent)] uppercase tracking-wider">
                 Exhibition Pod
               </div>
             </div>
-            <h3 className="sp-pod-card-title">Exhibition Pod</h3>
-            <div className="sp-pod-card-subtitle">Capture Every Lead. Qualified before they leave your stall.</div>
+            <h3 className="sp-pod-card-title">Exhibition & Event Pod</h3>
+            <div className="sp-pod-card-subtitle">Turn Expos into Pipeline Growth</div>
             <div className="sp-pod-card-list">
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Attendee Intelligence:</strong> Pre-qualify visitors and investor targets.</span>
+                <span><strong>Attendee Intelligence:</strong> Pre-qualify visitors against investor and buyer directories.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Pre-Event Outreach:</strong> Secure onsite property viewing bookings.</span>
+                <span><strong>Smart Lead Capture:</strong> Digitize badges and business cards instantly with OCR scanning.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>Smart Lead Capture:</strong> Real-time scan captures business cards into CRM.</span>
+                <span><strong>Automated Follow-Up Loops:</strong> Send thank-you WhatsApps and floor plans within hours.</span>
               </div>
               <div className="sp-pod-card-item">
                 <Check size={16} className="sp-pod-card-icon" />
-                <span><strong>AI Lead Qualification:</strong> Route hot buyers directly to onsite brokers.</span>
+                <span><strong>Interactive Event Dashboard:</strong> Monitor qualified leads and booked viewings from one interface.</span>
               </div>
             </div>
             <button onClick={handleDownloadClick} className="sp-feature-dl-btn">
@@ -898,11 +896,13 @@ export default function RealEstateWorkflowAutomationPage() {
           </div>
 
           <div className="flex flex-col">
-            <div className="sp-section-eyebrow">Sales Pod</div>
-            <h2 className="sp-section-heading">Convert More Prospects. Close More Deals. <span style={{ color: "var(--sp-accent)" }}>Automatically.</span></h2>
+            <div className="sp-section-eyebrow">Real Estate Sales Pod</div>
+            <h2 className="sp-section-heading">Autonomous Lead Sourcing & <span style={{ color: "var(--sp-accent)" }}>Engagement</span></h2>
+            <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px" }}>
+              Automate Prospect Sourcing. Your Team Focuses on Closing Deals.
+            </div>
             <p className="sp-section-subheading">
-              Our Sales Pod automates lead prospecting, launches multi-channel WhatsApp and email follow-ups, 
-              and books viewings directly into your team's calendars.
+              Allow your brokers to focus entirely on property viewings and contract negotiations. The Sales Pod automates <strong>lead generation and real estate</strong> activities, identifies prospective buyers, and manages early-stage conversations.
             </p>
 
             <div className="sp-capability-block">
@@ -910,7 +910,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">01</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Precision Lead Discovery</span>
-                  <span className="sp-cap-desc">Define your target profile and automatically scrape buyer lists from target regions.</span>
+                  <span className="sp-cap-desc">Define your target buyer profile and automatically extract property buyer lists across target geographic regions using <strong>real estate lead gen</strong> criteria.</span>
                 </div>
               </div>
 
@@ -918,7 +918,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">02</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Omnichannel AI Outreach</span>
-                  <span className="sp-cap-desc">Engage accounts across LinkedIn, Email, and WhatsApp matching your brand identity.</span>
+                  <span className="sp-cap-desc">Engage active property buyers across LinkedIn, Email, and WhatsApp using <strong>AI for real estate leads</strong> aligned with your brand voice.</span>
                 </div>
               </div>
 
@@ -926,7 +926,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">03</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Intent-Driven Nurturing</span>
-                  <span className="sp-cap-desc">Answer questions, deliver brochures, and trigger viewing schedules on autopilot.</span>
+                  <span className="sp-cap-desc">Answer buyer questions, deliver project datasheets, and schedule property viewings using automated <strong>real estate lead nurturing</strong> sequences.</span>
                 </div>
               </div>
 
@@ -934,9 +934,22 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">04</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Sentiment-Based Lead Scoring</span>
-                  <span className="sp-cap-desc">Sync sentiment analyses, customer timeline intents, and buyer budgets to your CRM.</span>
+                  <span className="sp-cap-desc">Evaluate buyer sentiment, purchasing timelines, and budgets, syncing ranked contacts directly to your <strong>real estate lead crm</strong>.</span>
                 </div>
               </div>
+            </div>
+
+            <div style={{
+              marginTop: "20px",
+              padding: "14px 18px",
+              background: "rgba(var(--sp-accent-rgb), 0.06)",
+              border: "1px solid rgba(var(--sp-accent-rgb), 0.2)",
+              borderRadius: "10px",
+              fontSize: "13px",
+              color: "var(--color-text-bright)",
+              lineHeight: 1.5
+            }}>
+              <strong>Empowered Broker Teams:</strong> Equip your team with <strong>AI for real estate agents</strong> to handle routine inquiries and escalate high-intent buyers to senior brokers.
             </div>
 
             <div className="mt-8">
@@ -952,11 +965,13 @@ export default function RealEstateWorkflowAutomationPage() {
       <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-deep-dive-row reversed">
           <div className="flex flex-col">
-            <div className="sp-section-eyebrow">Marketing Automation Pod</div>
-            <h2 className="sp-section-heading">Scale Your Real Estate Presence <span style={{ color: "var(--sp-accent)" }}>Using Our AI Engine</span></h2>
+            <div className="sp-section-eyebrow">Real Estate Marketing Automation Pod</div>
+            <h2 className="sp-section-heading">Scale Your Digital Footprint <span style={{ color: "var(--sp-accent)" }}>on Autopilot</span></h2>
+            <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px" }}>
+              Publish Campaigns on Autopilot from Strategy to Final Post
+            </div>
             <p className="sp-section-subheading">
-              Integrate campaign analytics, creative drafting, and scheduled postings into a single approval engine. 
-              Deploy campaigns that convert.
+              Scale your digital reach across organic search, social platforms, and paid ad channels without creation delays or high agency overhead using <strong>AI for real estate marketing</strong>.
             </p>
 
             <div className="sp-capability-block">
@@ -964,7 +979,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">01</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Full-Funnel Market Intelligence</span>
-                  <span className="sp-cap-desc">Deploy automated competitors and local market keyword intelligence strategies.</span>
+                  <span className="sp-cap-desc">Deploy automated competitive analysis and local market keyword research strategies using specialized <strong>real estate marketing systems</strong>.</span>
                 </div>
               </div>
 
@@ -972,7 +987,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">02</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">AI Content & Visual Generation</span>
-                  <span className="sp-cap-desc">Auto-generate stunning property listings copy, blog pages, and custom promotional ads visuals.</span>
+                  <span className="sp-cap-desc">Create high-quality property listing descriptions, blog posts, and visual ad creatives using the <strong>best AI for real estate</strong> frameworks.</span>
                 </div>
               </div>
 
@@ -980,15 +995,15 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">03</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Maker-Checker Approval Workflow</span>
-                  <span className="sp-cap-desc">Enable easy workflow review portals where managers approve content with one click.</span>
+                  <span className="sp-cap-desc">Maintain complete quality control through a simple review portal where campaign managers approve drafted assets with one click.</span>
                 </div>
               </div>
 
               <div className="sp-cap-item">
                 <div className="sp-cap-num-box">04</div>
                 <div className="sp-cap-text">
-                  <span className="sp-cap-title">AI Performance Analyst</span>
-                  <span className="sp-cap-desc">Connect Meta Ads, Google Ads, GA4, and Clarity for real-time campaign optimizations.</span>
+                  <span className="sp-cap-title">AI Performance Analytics</span>
+                  <span className="sp-cap-desc">Connect Meta Ads, Google Ads, GA4, and Clarity to monitor ad spend and conversion data using full-funnel <strong>marketing automation for real estate</strong>.</span>
                 </div>
               </div>
             </div>
@@ -1014,11 +1029,13 @@ export default function RealEstateWorkflowAutomationPage() {
           </div>
 
           <div className="flex flex-col">
-            <div className="sp-section-eyebrow">Exhibition Pod</div>
-            <h2 className="sp-section-heading">Turn Every Property Event into a <span style={{ color: "var(--sp-accent)" }}>Pipeline Engine</span></h2>
+            <div className="sp-section-eyebrow">Exhibition & Event Intelligence Pod</div>
+            <h2 className="sp-section-heading">Turn Expos into <span style={{ color: "var(--sp-accent)" }}>Pipeline Growth</span></h2>
+            <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px" }}>
+              Capture Every High-Intent Visitor Before They Leave Your Booth
+            </div>
             <p className="sp-section-subheading">
-              Secure more bookings before, during, and after property expos. Convert badge scans and business cards 
-              into CRM deals with same-day automated WhatsApp follow-ups.
+              Ensure every visitor at property expos, international launch events, and roadshows becomes a tracked sales opportunity.
             </p>
 
             <div className="sp-capability-block">
@@ -1026,7 +1043,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">01</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Attendee Intelligence & Targeting</span>
-                  <span className="sp-cap-desc">Match attendee lists against developer/investor directories to pre-identify targets.</span>
+                  <span className="sp-cap-desc">Cross-reference registered event lists against developer and investor directories to pre-qualify prospective buyers before the event starts.</span>
                 </div>
               </div>
 
@@ -1034,7 +1051,7 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">02</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Smart Expo Lead Capture</span>
-                  <span className="sp-cap-desc">Digitize visitor card data instantly using custom OCR scans connected to WhatsApp.</span>
+                  <span className="sp-cap-desc">Digitize physical business cards and event badges instantly using OCR scanning connected directly to <strong>real estate crm lead management</strong> databases.</span>
                 </div>
               </div>
 
@@ -1042,15 +1059,15 @@ export default function RealEstateWorkflowAutomationPage() {
                 <div className="sp-cap-num-box">03</div>
                 <div className="sp-cap-text">
                   <span className="sp-cap-title">Automated Follow-Up Loops</span>
-                  <span className="sp-cap-desc">Trigger thank-you WhatsApp and project datasheets automatically within hours.</span>
+                  <span className="sp-cap-desc">Send personalized thank-you messages, digital floor plans, and property datasheets via WhatsApp or Email within hours of contact using <strong>real estate lead follow-up</strong>.</span>
                 </div>
               </div>
 
               <div className="sp-cap-item">
                 <div className="sp-cap-num-box">04</div>
                 <div className="sp-cap-text">
-                  <span className="sp-cap-title">Intelligence Event Dashboard</span>
-                  <span className="sp-cap-desc">Monitor total leads, scored hot buyers, and booked viewings from one interface.</span>
+                  <span className="sp-cap-title">Interactive Event Dashboard</span>
+                  <span className="sp-cap-desc">Track total lead volume, qualified buyers, and booked viewings from a single interface.</span>
                 </div>
               </div>
             </div>
@@ -1064,42 +1081,84 @@ export default function RealEstateWorkflowAutomationPage() {
         </div>
       </section>
 
-      {/* Testimonials Carousel */}
+      {/* Fold 8: Sales Intelligence & Marketing OS Architecture */}
       <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-section-title-wrap">
-          <div className="sp-section-eyebrow">Client Success</div>
-          <h2 className="sp-section-heading">Trusted by Real Estate Leaders</h2>
-        </div>
-        <TestimonialCarousel />
-      </section>
-
-
-
-      {/* Fold 8: Why Choose ScalePods (Advantage) */}
-      <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
-        <div className="sp-section-title-wrap">
-          <div className="sp-section-eyebrow">The ScalePods Advantage</div>
-          <h2 className="sp-section-heading">Enterprise Efficiency. Startup Speed. <span style={{ color: "var(--sp-accent)" }}>Built for Real Estate.</span></h2>
+          <div className="sp-section-eyebrow">Enterprise Architecture</div>
+          <h2 className="sp-section-heading">Sales Intelligence & <span style={{ color: "var(--sp-accent)" }}>Marketing OS Architecture</span></h2>
+          <p className="sp-section-subheading">
+            Managing <strong>IT in real estate</strong> operations requires reliable connections between front-end marketing channels, sales reps, and backend property databases. ScalePods unifies these components into a secure <strong>real estate workflow automation software</strong> system.
+          </p>
         </div>
 
         <div className="sp-advantage-grid">
           <div className="sp-advantage-card">
             <h4 className="sp-advantage-title">
               <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
-              End-to-End Automation
+              Pipeline Performance Center
             </h4>
             <p className="sp-advantage-desc">
-              Sales outreach, listing creation, and event captures unified on one platform. No fragmented tools.
+              Monitor deal movement, buyer intent, and conversion velocity across all active developments in real time using your <strong>real estate sales pipeline</strong>.
             </p>
           </div>
 
           <div className="sp-advantage-card">
             <h4 className="sp-advantage-title">
               <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
-              Custom-Built Operations
+              Dynamic CRM Synchronization
             </h4>
             <p className="sp-advantage-desc">
-              We map your actual sales cycle — from site-visit schedules to document verification — building flows around your team.
+              Connects seamlessly with platforms like Salesforce, HubSpot, Zoho, Property Finder, and custom MLS architectures through secure <strong>real estate CRM workflow</strong> integrations.
+            </p>
+          </div>
+
+          <div className="sp-advantage-card">
+            <h4 className="sp-advantage-title">
+              <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
+              Automated Drip Campaigns
+            </h4>
+            <p className="sp-advantage-desc">
+              Keep long-term prospects engaged by serving relevant market reports, updated site images, and price adjustments via structured <strong>real estate workflow</strong> loops.
+            </p>
+          </div>
+
+          <div className="sp-advantage-card">
+            <h4 className="sp-advantage-title">
+              <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
+              Agentic Automation Systems
+            </h4>
+            <p className="sp-advantage-desc">
+              Use <strong>real estate agent automation</strong> to handle multi-step tasks—from initial lead intake to viewing coordination—without manual data entry.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Fold 9: The ScalePods Advantage */}
+      <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
+        <div className="sp-section-title-wrap">
+          <div className="sp-section-eyebrow">The ScalePods Advantage</div>
+          <h2 className="sp-section-heading">Built for High-Growth <span style={{ color: "var(--sp-accent)" }}>Property Teams</span></h2>
+        </div>
+
+        <div className="sp-advantage-grid">
+          <div className="sp-advantage-card">
+            <h4 className="sp-advantage-title">
+              <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
+              End-to-End Platform
+            </h4>
+            <p className="sp-advantage-desc">
+              Unify sales outreach, property listings, and event lead capture into a single system—eliminating fragmented software tools.
+            </p>
+          </div>
+
+          <div className="sp-advantage-card">
+            <h4 className="sp-advantage-title">
+              <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
+              Custom-Mapped Operations
+            </h4>
+            <p className="sp-advantage-desc">
+              Workflows match your exact agency processes, from initial site-visit bookings to buyer document verification.
             </p>
           </div>
 
@@ -1109,7 +1168,7 @@ export default function RealEstateWorkflowAutomationPage() {
               30-Day Go-Live
             </h4>
             <p className="sp-advantage-desc">
-              Workflow engines are deployed live within weeks with zero disruptions to active agents.
+              Systems deploy within weeks without interrupting ongoing broker operations.
             </p>
           </div>
 
@@ -1119,23 +1178,66 @@ export default function RealEstateWorkflowAutomationPage() {
               Human + AI Precision
             </h4>
             <p className="sp-advantage-desc">
-              Remote SDRs and operation desks coordinate directly with AI agents to verify and schedule leads.
+              Operations teams work alongside automated agents to verify buyer qualifications and coordinate viewing schedules.
             </p>
           </div>
 
           <div className="sp-advantage-card">
             <h4 className="sp-advantage-title">
               <CheckCircle2 size={16} className="text-[var(--sp-accent)]" />
-              No Contract Lock-In
+              Flexible Modular Pods
             </h4>
             <p className="sp-advantage-desc">
-              Deploy modular pods dynamically as your sales and projects pipelines scale up.
+              Scale individual pods as your project portfolio and sales teams expand.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Fold 9: Frequently Asked Questions Accordion */}
+      {/* Fold 10: Client Success Story */}
+      <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
+        <div className="sp-section-title-wrap">
+          <div className="sp-section-eyebrow">Client Success Story</div>
+          <h2 className="sp-section-heading">Luxury Agency Expansion: <span style={{ color: "var(--sp-accent)" }}>Lotus Manor Real Estate</span></h2>
+          <p className="sp-section-subheading">
+            Dubai, United Arab Emirates
+          </p>
+        </div>
+
+        <div style={{
+          maxWidth: "840px",
+          margin: "0 auto 40px",
+          padding: "36px 32px",
+          background: "var(--sp-card-bg)",
+          border: "var(--sp-card-border)",
+          borderRadius: "16px",
+          boxShadow: "var(--sp-card-shadow)",
+          textAlign: "center"
+        }}>
+          <p style={{
+            fontSize: "17px",
+            lineHeight: 1.7,
+            fontStyle: "italic",
+            color: "var(--color-text-bright)",
+            marginBottom: "20px"
+          }}>
+            “We needed an AI agent that wouldn't embarrass us in front of investors. Scalepods delivered it — and made the process easy. They were quick to respond, quick to iterate, and treated our launch deadline like their own. The kind of partner you want when the work has to be right, and the timeline is tight.”
+          </p>
+          <div style={{
+            fontSize: "14px",
+            fontWeight: 700,
+            color: "var(--sp-accent)",
+            textTransform: "uppercase",
+            letterSpacing: "0.08em"
+          }}>
+            — Executive Leadership, Lotus Manor Real Estate (Dubai, UAE)
+          </div>
+        </div>
+
+        <TestimonialCarousel />
+      </section>
+
+      {/* Fold 11: Frequently Asked Questions Accordion */}
       <section className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-section-title-wrap">
           <div className="sp-section-eyebrow">FAQ</div>
@@ -1145,24 +1247,24 @@ export default function RealEstateWorkflowAutomationPage() {
         <div className="sp-faq-list">
           {[
             {
-              q: "What are the top AI use cases in real estate?",
-              a: "The top use cases include lead generation, omnichannel outreach, event lead capture, marketing automation, and sales pipeline management. AI identifies high-intent buyers, engages them 24/7 across WhatsApp, and books viewings."
+              q: "What are the main AI use cases in real estate?",
+              a: "The top AI use cases in real estate include automated lead capture, 24/7 buyer qualification via WhatsApp, tailored property recommendation engines, site-visit bookings, ad campaign optimization, and booth lead processing during trade shows."
             },
             {
-              q: "How does AI improve real estate lead generation?",
-              a: "AI proactively identifies serious buyers before they submit an inquiry. It mines web data, matches prospects to your exact ICP, and scores them by purchase readiness using behavioral signals and sentiment."
+              q: "How does AI for real estate leads improve overall conversion rates?",
+              a: "By delivering responses in under 60 seconds, pre-qualifying buyer timelines and budgets, and routing serious prospects directly to brokers, real estate CRM and lead generation platforms prevent cold lead drop-off and increase viewing conversions."
             },
             {
-              q: "What is agentic AI in real estate?",
-              a: "Agentic AI is an autonomous system that executes multi-step workflows. Unlike a basic chatbot, it independently detects prospect intent, sends personalized messages, logs CRM info, and schedules property viewings."
+              q: "Can an AI chatbot real estate engine integrate with our current setup?",
+              a: "Yes. An AI real estate chatbot or conversational agent connects directly to your existing crm for real estate teams (such as Salesforce, HubSpot, Zoho, or Property Finder) using secure APIs and Model Context Protocol (MCP)."
             },
             {
-              q: "How do I integrate AI with my existing CRM and real estate tools?",
-              a: "ScalePods integrates seamlessly with tools like Salesforce, HubSpot, Zoho, and Property Finder using secure APIs and Model Context Protocol. There is no need to rip-and-replace your CRM."
+              q: "How does real estate agent automation support sales brokers?",
+              a: "Automation handles repetitive administrative work—such as entering contact data, scheduling viewings, delivering brochures, and running follow-up real estate drip campaigns—allowing brokers to focus on closing deals."
             },
             {
-              q: "What is the role of AI in real estate marketing automation?",
-              a: "AI automates multichannel organic strategies, property listing content drafts, approval workflows, and ad campaign recommendations (Meta/Google Ads) to continually maximize marketing ROI."
+              q: "What role do AI tools for real estate play in real estate marketing?",
+              a: "They automate property copy generation, social content scheduling, ad budget optimization, and audience retargeting to maintain a consistent real estate marketing CRM acquisition pipeline."
             }
           ].map((faq, idx) => {
             const isExpanded = expandedFaq === idx;
@@ -1204,14 +1306,27 @@ export default function RealEstateWorkflowAutomationPage() {
         </div>
       </section>
 
-      {/* Fold 10: Final CTA - Bottom of Page & Datasheet */}
+      {/* Fold 12: Final CTA - Bottom of Page */}
       <section id="audit-form-section" className="sp-section-wrapper border-t border-[var(--color-border-faint)]">
         <div className="sp-final-card">
-          <h2 className="sp-section-heading">Ready to Scale Your Real Estate Business <span style={{ color: "var(--sp-accent)" }}>with AI?</span></h2>
-          <p className="sp-section-subheading max-w-[700px] mx-auto text-center" style={{ textAlign: "center" }}>
-            Book a free 30-minute workflow audit and see exactly which processes ScalePods can automate for your business 
-            with a custom impact projection.
+          <h2 className="sp-section-heading">Schedule Your Free <span style={{ color: "var(--sp-accent)" }}>Real Estate Workflow Audit</span></h2>
+          <p className="sp-section-subheading max-w-[760px] mx-auto text-center" style={{ textAlign: "center" }}>
+            Transform your agency's pipeline into a scalable, high-velocity growth engine. Book a 30-minute interactive workflow audit to receive a custom <strong>real estate and AI</strong> automation roadmap and projected operational returns.
           </p>
+
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "24px",
+            marginTop: "24px",
+            fontSize: "13px",
+            color: "var(--color-text-muted)"
+          }}>
+            <span>Email Inquiries: <strong style={{ color: "var(--color-text-bright)" }}>info@scalepods.co</strong></span>
+            <span>•</span>
+            <span>Global Implementation: Enterprise-ready solutions for developers, brokerages & property management firms worldwide.</span>
+          </div>
 
           <div className="flex justify-center mt-8">
             <a href="#audit-form-section" onClick={handleAuditClick} className="sp-final-cta-btn">
