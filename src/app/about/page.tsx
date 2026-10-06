@@ -21,7 +21,7 @@ const storyTabs = [
     paragraphs: [
       "ScalePods began with a conversation between two friends who had spent years solving different sides of the same business problem.",
       "Adnan came from years of leading high-performing sales teams, where he saw firsthand how much time was lost to repetitive tasks. Teams were spending countless hours on prospecting, follow-ups, manual CRM updates, and operational overhead instead of focusing on what they did best: building relationships and closing business.",
-      "Raunak, with years of experience in product management, technology, and business growth, had been thinking about the same challenge from a different perspective. As businesses scaled, he saw teams adding more people before fixing inefficient business processes."
+      "Raunak, with years of experience in leadership, product management, technology, and business growth, had been thinking about the same challenge from a different perspective. As businesses scaled, he saw teams adding more people before fixing inefficient business processes."
     ],
     ctaText: "See ScalePods Solutions",
     ctaLink: "/global"
@@ -33,9 +33,8 @@ const storyTabs = [
     title: "Redesigning the way businesses operate.",
     image: "/images/story/built_to_grow.webp",
     paragraphs: [
-      "As they started experimenting with AI and automation initially to solve sales challenges, they quickly realized the same inefficiencies existed across marketing, operations, hiring, client support, and other business functions.",
-      "Around the same time, Palashy brought another important dimension to the vision. Coming from a holistic marketing background, she understood that sustainable growth isn't driven by technology alone. It comes from aligning brand, marketing, and the right client journey into one cohesive strategy.",
-      "Her perspective helped shape ScalePods into a company that builds solutions around business problems, not just automation. The real opportunity was to redesign the way businesses operated by combining the right processes with the right and latest technology."
+      "As they started experimenting with AI and automation, initially to solve sales challenges, they quickly realized the same inefficiencies existed across marketing, operations, hiring, client support, and other business functions. It became clear that the opportunity was much bigger than solving individual tasks. Businesses needed better systems, combining the right processes with the right technology.",
+      "That shared belief became the foundation of ScalePods."
     ],
     ctaText: "Book an Automation Audit",
     ctaLink: "/contact"
@@ -47,9 +46,9 @@ const storyTabs = [
     title: "Scaling without unnecessary complexity.",
     image: "/images/story/infinity.webp",
     paragraphs: [
-      "Together, they built ScalePods with one mission: to help businesses scale through intelligent systems that eliminate repetitive work, streamline operations, and allow teams to focus on innovation, client relationships, and growth.",
+      "Together, Adnan and Raunak built ScalePods with one mission: to help businesses scale through intelligent systems that eliminate repetitive work, streamline operations, and allow teams to focus on innovation, client relationships, and growth.",
       "Today, ScalePods partners with ambitious businesses to build AI-powered workflows that make organisations leaner, faster, and ready to scale.",
-      "What started as a conversation between friends has grown into a team united by one belief: Every business should be able to scale without unnecessary complexity."
+      "What started as a conversation between friends has grown into a team united by one belief: every business should be able to scale without unnecessary complexity."
     ],
     ctaText: "Get in Touch",
     ctaLink: "/contact"
@@ -70,13 +69,6 @@ const founders = [
     title: "Co-Founder, CPO & CTO",
     image: "/images/team/raunak.jpeg",
     bio: "Raunak Kumar is the Co-founder, CPO & CTO of ScalePods with years of experience across fintech, enterprise technology, and product management. Holding an MBA in Entrepreneurship and Product Management, he has built digital products and driven business growth for both B2B and B2C organizations. At ScalePods, he leads product and technology, building AI-powered systems that help businesses scale faster, operate smarter, and solve complex business challenges."
-  },
-  {
-    id: "palashy",
-    name: "Palashy Mathur",
-    title: "Co-Founder & CMO",
-    image: "/images/team/palashy.jpeg",
-    bio: "Palashy Mathur is the Co-founder and CMO of ScalePods and a B2B SaaS marketer with expertise in AI, workflow automation, SEO, and GTM strategy. She has spent her career helping technology companies drive growth through strategic marketing and now works with businesses to design AI-powered systems that deliver measurable business outcomes."
   }
 ];
 
@@ -1488,11 +1480,11 @@ export default function AboutPage() {
               fontWeight: 400
             }}
           >
-            Three founders, one goal: helping growing businesses operate like they already have an enterprise team behind them.
+            Two founders, one goal: helping growing businesses operate like they already have an enterprise team behind them.
           </motion.p>
 
           {/* Photo Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 w-full max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 w-full max-w-3xl mx-auto">
             {founders.map((founder, idx) => {
               const isExpanded = expandedFounders.includes(founder.id);
               return (
