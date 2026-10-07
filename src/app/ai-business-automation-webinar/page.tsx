@@ -30,7 +30,23 @@ import {
   ArrowDown,
 } from "lucide-react";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import { getDetectedCountryCode } from "@/lib/country";
 import "./webinar.css";
+
+const webinarCountries = [
+  { name: "India", code: "+91" },
+  { name: "UAE", code: "+971" },
+  { name: "US / CA", code: "+1" },
+  { name: "UK", code: "+44" },
+  { name: "Saudi Arabia", code: "+966" },
+  { name: "Qatar", code: "+974" },
+  { name: "Singapore", code: "+65" },
+  { name: "Australia", code: "+61" },
+  { name: "Germany", code: "+49" },
+  { name: "France", code: "+33" },
+  { name: "Japan", code: "+81" },
+  { name: "Other", code: "Custom" },
+];
 
 // Helper to reliably load Razorpay Checkout script dynamically
 const loadRazorpayScript = (): Promise<boolean> => {
@@ -62,6 +78,8 @@ export default function WebinarPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    countryCode: "+91",
+    customCode: "",
     phone: "",
     role: "",
   });
@@ -72,6 +90,21 @@ export default function WebinarPage() {
     bookingId: string;
     orderId: string;
   } | null>(null);
+
+  // Detect user's country code on client mount
+  useEffect(() => {
+    try {
+      const detected = getDetectedCountryCode();
+      const matched = webinarCountries.find((c) => c.code === detected);
+      if (matched) {
+        setFormData((prev) => ({ ...prev, countryCode: detected }));
+      } else if (detected) {
+        setFormData((prev) => ({ ...prev, countryCode: "Custom", customCode: detected }));
+      }
+    } catch {
+      // fallback to +91 default
+    }
+  }, []);
 
   // Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -103,6 +136,18 @@ export default function WebinarPage() {
     setIsSubmitting(true);
 
     try {
+      // Format phone number with selected country code
+      const rawPhone = formData.phone.trim();
+      const dial =
+        formData.countryCode === "Custom"
+          ? formData.customCode.trim()
+            ? formData.customCode.trim().startsWith("+")
+              ? formData.customCode.trim()
+              : `+${formData.customCode.trim()}`
+            : "+91"
+          : formData.countryCode;
+      const fullPhone = rawPhone.startsWith("+") ? rawPhone : `${dial} ${rawPhone}`;
+
       // 1. Ensure Razorpay checkout script is loaded
       const scriptLoaded = await loadRazorpayScript();
       if (!scriptLoaded || !(window as any).Razorpay) {
@@ -115,7 +160,10 @@ export default function WebinarPage() {
       const res = await fetch("/api/webinar/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          phone: fullPhone,
+        }),
       });
 
       const orderData = await res.json();
@@ -135,7 +183,7 @@ export default function WebinarPage() {
         prefill: {
           name: formData.name,
           email: formData.email,
-          contact: formData.phone,
+          contact: fullPhone.replace(/[\s-]/g, ""),
         },
         theme: {
           color: "#0F1A12",
@@ -159,7 +207,7 @@ export default function WebinarPage() {
                 ...response,
                 name: formData.name,
                 email: formData.email,
-                phone: formData.phone,
+                phone: fullPhone,
                 role: formData.role,
               }),
             });
@@ -1993,15 +2041,47 @@ export default function WebinarPage() {
 
                   <div className="wb-form-group">
                     <label className="wb-form-label">WhatsApp Number (For session link &amp; reminders) *</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="wb-form-input"
-                      disabled={isSubmitting || isVerifying}
-                    />
+                    <div className="wb-phone-input-row">
+                      <div className={`wb-country-select-wrapper ${formData.countryCode === "Custom" ? "wb-country-custom" : ""}`}>
+                        <select
+                          value={formData.countryCode}
+                          onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                          className="wb-country-select"
+                          disabled={isSubmitting || isVerifying}
+                          aria-label="Country Code"
+                        >
+                          {webinarCountries.map((c) => (
+                            <option key={c.name} value={c.code}>
+                              {c.code === "Custom" ? "Other (+...)" : `${c.code} (${c.name})`}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown size={14} className="wb-country-arrow" />
+                      </div>
+
+                      {formData.countryCode === "Custom" && (
+                        <input
+                          type="text"
+                          required
+                          placeholder="+..."
+                          value={formData.customCode}
+                          onChange={(e) => setFormData({ ...formData, customCode: e.target.value })}
+                          className="wb-custom-code-input"
+                          disabled={isSubmitting || isVerifying}
+                          aria-label="Custom dialing code"
+                        />
+                      )}
+
+                      <input
+                        type="tel"
+                        required
+                        placeholder="83790 62166"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="wb-phone-number-input"
+                        disabled={isSubmitting || isVerifying}
+                      />
+                    </div>
                   </div>
 
                   <div className="wb-form-group">

@@ -592,6 +592,113 @@
   color: var(--wb-text-faint);
 }
 
+/* ── Phone with Country Code Selector ── */
+.wb-phone-input-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
+.wb-country-select-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 132px;
+}
+
+.wb-country-select-wrapper.wb-country-custom {
+  width: 102px;
+}
+
+.wb-country-select {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 12px 28px 12px 12px;
+  color: var(--wb-text-bright);
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wb-country-select:focus {
+  border-color: var(--wb-green);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(177, 217, 151, 0.18);
+}
+
+.wb-country-select option {
+  background-color: #0c150e;
+  color: #f0fdf4;
+  padding: 8px 12px;
+}
+
+.wb-country-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--wb-text-faint);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.wb-country-select:focus ~ .wb-country-arrow {
+  color: var(--wb-green);
+}
+
+.wb-custom-code-input {
+  width: 65px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 12px 8px;
+  color: var(--wb-text-bright);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.wb-custom-code-input:focus {
+  border-color: var(--wb-green);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(177, 217, 151, 0.18);
+}
+
+.wb-phone-number-input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--wb-text-bright);
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.wb-phone-number-input:focus {
+  border-color: var(--wb-green);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(177, 217, 151, 0.18);
+}
+
+.wb-phone-number-input::placeholder,
+.wb-custom-code-input::placeholder {
+  color: var(--wb-text-faint);
+}
+
 
 /* ── Hero Refined Typography & Badge Classes ── */
 .wb-hero-pill {
@@ -1271,9 +1378,20 @@
   }
 
   /* Crucial iOS fix: 16px font prevents safari auto-zoom */
-  .wb-form-input {
+  .wb-form-input,
+  .wb-country-select,
+  .wb-custom-code-input,
+  .wb-phone-number-input {
     font-size: 16px !important;
-    padding: 13px 14px !important;
+    padding: 13px 12px !important;
+  }
+
+  .wb-country-select-wrapper {
+    width: 124px !important;
+  }
+
+  .wb-country-select-wrapper.wb-country-custom {
+    width: 92px !important;
   }
 
   .wb-pill-eyebrow,
@@ -1384,6 +1502,25 @@
 }
 
 @media (max-width: 390px) {
+  .wb-country-select-wrapper {
+    width: 114px !important;
+  }
+
+  .wb-country-select {
+    padding: 12px 22px 12px 8px !important;
+    font-size: 15px !important;
+  }
+
+  .wb-country-arrow {
+    right: 6px !important;
+  }
+
+  .wb-custom-code-input {
+    width: 58px !important;
+    padding: 12px 4px !important;
+    font-size: 15px !important;
+  }
+
   .wb-navbar-logo-wrap {
     width: 110px !important;
     height: 20px !important;
