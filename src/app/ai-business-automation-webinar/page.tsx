@@ -28,9 +28,12 @@ import {
   ExternalLink,
   Inbox,
   ArrowDown,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { getDetectedCountryCode } from "@/lib/country";
+import { useTheme } from "@/components/providers/ThemeProvider";
 import "./webinar.css";
 
 const webinarCountries = [
@@ -72,6 +75,8 @@ const loadRazorpayScript = (): Promise<boolean> => {
 };
 
 export default function WebinarPage() {
+  const { resolvedTheme, setTheme } = useTheme();
+
   // Modal & Flow state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState<"form" | "confirmed">("form");
@@ -312,6 +317,7 @@ export default function WebinarPage() {
               <Image
                 src="/scalepods-navbar-logo.png"
                 alt="ScalePods"
+                className="wb-navbar-logo-img"
                 fill
                 sizes="160px"
                 priority
@@ -319,7 +325,7 @@ export default function WebinarPage() {
                 style={{
                   objectFit: "contain",
                   objectPosition: "left center",
-                  filter: "invert(1)",
+                  filter: resolvedTheme === "dark" ? "invert(1)" : "none",
                 }}
               />
             </div>
@@ -327,6 +333,15 @@ export default function WebinarPage() {
 
           {/* Right Action Cluster */}
           <div className="wb-navbar-actions">
+            <button
+              type="button"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+              className="wb-theme-toggle"
+              aria-label="Toggle light or dark mode"
+              title={resolvedTheme === "dark" ? "Switch to White Mode" : "Switch to Dark Mode"}
+            >
+              {resolvedTheme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
             <div className="wb-nav-live-badge">
               <span className="wb-nav-pulse-dot" />
               <span>LIVE MASTERCLASS</span>
@@ -363,7 +378,7 @@ export default function WebinarPage() {
 
           <p className="wb-hero-subtitle">
             Discover how AI-powered automation can eliminate repetitive work across{" "}
-            <strong style={{ color: "#FFFFFF" }}>Sales, Marketing, HR &amp; Operations</strong> — and help your business scale without adding unnecessary complexity.
+            <strong style={{ color: "var(--wb-text-bright)" }}>Sales, Marketing, HR &amp; Operations</strong> — and help your business scale without adding unnecessary complexity.
           </p>
 
           {/* 3 Pillars Glassmorphic Card */}
@@ -386,7 +401,7 @@ export default function WebinarPage() {
               style={{
                 marginTop: "16px",
                 paddingTop: "16px",
-                borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                borderTop: "1px solid var(--wb-divider)",
                 fontSize: "14px",
                 color: "var(--wb-text-muted)",
               }}
@@ -440,7 +455,7 @@ export default function WebinarPage() {
               <span className="wb-dot-blue" />
               <span>THE EXPANSION TRAP</span>
             </div>
-            <h2 style={{ fontSize: "clamp(22px, 4.5vw, 38px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px", lineHeight: 1.25 }}>
+            <h2 style={{ fontSize: "clamp(22px, 4.5vw, 38px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "14px", lineHeight: 1.25 }}>
               BEFORE YOU HIRE ANOTHER PERSON…<br />ASK YOURSELF THIS:
             </h2>
             <p style={{ fontSize: "18px", color: "var(--wb-text-mid)", maxWidth: "700px", margin: "0 auto", fontWeight: 600 }}>
@@ -450,7 +465,7 @@ export default function WebinarPage() {
 
           {/* The 8-Step Manual Chain Breakdown */}
           <div className="wb-glass-card" style={{ marginBottom: "32px", borderLeft: "4px solid #63A5E7" }}>
-            <p style={{ fontSize: "16px", color: "#FFFFFF", fontWeight: 700, marginBottom: "18px" }}>
+            <p style={{ fontSize: "16px", color: "var(--wb-text-bright)", fontWeight: 700, marginBottom: "18px" }}>
               Consider the chain reaction inside an ordinary business day:
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -471,8 +486,8 @@ export default function WebinarPage() {
               ))}
             </div>
 
-            <div style={{ marginTop: "26px", paddingTop: "20px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
-              <p style={{ fontSize: "18px", color: "#FFFFFF", fontWeight: 700, marginBottom: "8px" }}>
+            <div style={{ marginTop: "26px", paddingTop: "20px", borderTop: "1px solid var(--wb-divider)" }}>
+              <p style={{ fontSize: "18px", color: "var(--wb-text-bright)", fontWeight: 700, marginBottom: "8px" }}>
                 Now multiply that across dozens, hundreds, or thousands of interactions every month.
               </p>
               <p style={{ fontSize: "17px", color: "#B1D997", fontWeight: 700, marginBottom: "8px" }}>
@@ -494,7 +509,7 @@ export default function WebinarPage() {
               <AlertTriangle size={14} />
               <span>OPERATIONAL FRICTION</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.25, marginBottom: "14px" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "var(--wb-text-bright)", lineHeight: 1.25, marginBottom: "14px" }}>
               THE HIDDEN COST OF MANUAL WORK
             </h2>
             <p style={{ fontSize: "17px", color: "var(--wb-text-muted)" }}>
@@ -517,7 +532,7 @@ export default function WebinarPage() {
             ].map((pain, idx) => (
               <div key={idx} className="wb-pain-card" style={{ background: "rgba(239, 68, 68, 0.05)", border: "1px solid rgba(239, 68, 68, 0.2)" }}>
                 <XCircle size={18} color="#F87171" style={{ flexShrink: 0 }} />
-                <span style={{ color: "#FEE2E2", fontWeight: 500 }}>{pain}</span>
+                <span style={{ color: "var(--wb-pain-text, #FEE2E2)", fontWeight: 500 }}>{pain}</span>
               </div>
             ))}
           </div>
@@ -531,13 +546,13 @@ export default function WebinarPage() {
               textAlign: "center",
               padding: "32px 28px",
               border: "1px solid rgba(177, 217, 151, 0.3)",
-              background: "linear-gradient(180deg, rgba(8, 12, 18, 0.8) 0%, rgba(177, 217, 151, 0.06) 100%)",
+              background: "linear-gradient(180deg, var(--wb-box-bg) 0%, rgba(177, 217, 151, 0.06) 100%)",
             }}
           >
             <p style={{ fontSize: "16px", color: "var(--wb-text-muted)", marginBottom: "8px" }}>
               And the natural response is often:
             </p>
-            <p style={{ fontSize: "18px", color: "#FFFFFF", fontWeight: 700, marginBottom: "16px" }}>
+            <p style={{ fontSize: "18px", color: "var(--wb-text-bright)", fontWeight: 700, marginBottom: "16px" }}>
               “We need another employee.” <span style={{ color: "var(--wb-text-faint)", fontWeight: 400 }}>Or:</span> “We need another software.”
             </p>
             <div className="wb-insight-callout">
@@ -558,7 +573,7 @@ export default function WebinarPage() {
             <span>AI AUTOMATION MASTERCLASS</span>
           </div>
 
-          <h2 style={{ fontSize: "clamp(24px, 4.2vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.25, marginBottom: "18px" }}>
+          <h2 style={{ fontSize: "clamp(24px, 4.2vw, 42px)", fontWeight: 800, color: "var(--wb-text-bright)", lineHeight: 1.25, marginBottom: "18px" }}>
             WELCOME TO THE AI AUTOMATION MASTERCLASS
           </h2>
 
@@ -584,7 +599,7 @@ export default function WebinarPage() {
               gap: "10px",
               fontSize: "16px",
               fontWeight: 800,
-              color: "#FFFFFF",
+              color: "var(--wb-text-bright)",
             }}
           >
             <span>Processes</span>
@@ -611,7 +626,7 @@ export default function WebinarPage() {
               <span>THE CRUCIAL DIFFERENCE</span>
             </div>
 
-            <h2 style={{ fontSize: "clamp(22px, 4vw, 36px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "16px", lineHeight: 1.25 }}>
+            <h2 style={{ fontSize: "clamp(22px, 4vw, 36px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "16px", lineHeight: 1.25 }}>
               WHAT MAKES THIS WEBINAR DIFFERENT?
             </h2>
 
@@ -624,7 +639,7 @@ export default function WebinarPage() {
                 marginBottom: "24px",
               }}
             >
-              <p style={{ fontSize: "19px", fontWeight: 800, color: "#FFFFFF", margin: "0 0 6px" }}>
+              <p style={{ fontSize: "19px", fontWeight: 800, color: "var(--wb-text-bright)", margin: "0 0 6px" }}>
                 YOU&apos;RE NOT LEARNING FROM AI CONTENT CREATORS.
               </p>
               <p style={{ fontSize: "20px", fontWeight: 800, color: "#63A5E7", margin: 0 }}>
@@ -641,7 +656,7 @@ export default function WebinarPage() {
             <p style={{ fontSize: "15px", color: "var(--wb-text-mid)", lineHeight: 1.7, marginBottom: "18px" }}>
               • The other brings the <strong style={{ color: "#63A5E7" }}>product, technology and AI systems perspective</strong>.
             </p>
-            <p style={{ fontSize: "16px", color: "#FFFFFF", fontWeight: 600, lineHeight: 1.7 }}>
+            <p style={{ fontSize: "16px", color: "var(--wb-text-bright)", fontWeight: 600, lineHeight: 1.7 }}>
               Together, they&apos;ll show you how those two sides come together to create automation that actually works inside a business.
             </p>
           </div>
@@ -656,7 +671,7 @@ export default function WebinarPage() {
               <Users size={14} />
               <span>YOUR INSTRUCTORS</span>
             </div>
-            <h2 style={{ fontSize: "clamp(26px, 4.5vw, 42px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "10px" }}>
+            <h2 style={{ fontSize: "clamp(26px, 4.5vw, 42px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "10px" }}>
               MEET YOUR FOUNDERS &amp; SPEAKERS
             </h2>
             <p style={{ fontSize: "17px", color: "var(--wb-text-muted)" }}>
@@ -691,7 +706,7 @@ export default function WebinarPage() {
                   </div>
                 </div>
 
-                <h3 style={{ fontSize: "24px", fontWeight: 800, color: "#FFFFFF", marginBottom: "4px" }}>
+                <h3 style={{ fontSize: "24px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "4px" }}>
                   ADNAN SHEIKH
                 </h3>
                 <div style={{ fontSize: "14px", fontWeight: 700, color: "#B1D997", marginBottom: "12px" }}>
@@ -717,7 +732,7 @@ export default function WebinarPage() {
 
               <div style={{ fontSize: "14px", color: "var(--wb-text-mid)", lineHeight: 1.7, display: "flex", flexDirection: "column", gap: "12px", flex: 1 }}>
                 <p>
-                  <strong style={{ color: "#FFFFFF" }}>Adnan is the business and revenue brain behind ScalePods.</strong> With years of experience leading sales operations, revenue growth, and teams, Adnan has seen firsthand how much business productivity can be lost to repetitive prospecting, follow-ups, CRM updates and operational overhead.
+                  <strong style={{ color: "var(--wb-text-bright)" }}>Adnan is the business and revenue brain behind ScalePods.</strong> With years of experience leading sales operations, revenue growth, and teams, Adnan has seen firsthand how much business productivity can be lost to repetitive prospecting, follow-ups, CRM updates and operational overhead.
                 </p>
                 <p>
                   At ScalePods, he focuses on client relationships, operational strategy, business development and scalable sales systems — helping businesses eliminate repetitive work and build more efficient paths to growth.
@@ -728,7 +743,7 @@ export default function WebinarPage() {
               <div
                 style={{
                   marginTop: "20px",
-                  background: "rgba(255, 255, 255, 0.04)",
+                  background: "var(--wb-subcard-bg)",
                   borderLeft: "3px solid #B1D997",
                   padding: "14px 18px",
                   borderRadius: "0 10px 10px 0",
@@ -736,7 +751,7 @@ export default function WebinarPage() {
               >
                 <span style={{ fontSize: "12px", textTransform: "uppercase", color: "var(--wb-text-muted)", letterSpacing: "0.06em", display: "block" }}>
                   Adnan&apos;s Core Question:</span>
-                <p style={{ fontSize: "15px", fontWeight: 700, color: "#FFFFFF", margin: "4px 0 0" }}>
+                <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--wb-text-bright)", margin: "4px 0 0" }}>
                   “Where is your business losing time, money and opportunities — and what can be automated?”
                 </p>
               </div>
@@ -768,7 +783,7 @@ export default function WebinarPage() {
                   </div>
                 </div>
 
-                <h3 style={{ fontSize: "24px", fontWeight: 800, color: "#FFFFFF", marginBottom: "4px" }}>
+                <h3 style={{ fontSize: "24px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "4px" }}>
                   RAUNAK KUMAR
                 </h3>
                 <div style={{ fontSize: "14px", fontWeight: 700, color: "#63A5E7", marginBottom: "12px" }}>
@@ -794,7 +809,7 @@ export default function WebinarPage() {
 
               <div style={{ fontSize: "14px", color: "var(--wb-text-mid)", lineHeight: 1.7, display: "flex", flexDirection: "column", gap: "12px", flex: 1 }}>
                 <p>
-                  <strong style={{ color: "#FFFFFF" }}>Raunak brings the product and technology brain behind ScalePods.</strong> With experience across fintech, enterprise technology, product management and business growth, Raunak has worked on the other side of the problem: understanding how businesses can replace inefficient processes with better-designed digital products and intelligent systems.
+                  <strong style={{ color: "var(--wb-text-bright)" }}>Raunak brings the product and technology brain behind ScalePods.</strong> With experience across fintech, enterprise technology, product management and business growth, Raunak has worked on the other side of the problem: understanding how businesses can replace inefficient processes with better-designed digital products and intelligent systems.
                 </p>
                 <p>
                   At ScalePods, he leads product and technology, building AI-powered systems designed to help businesses scale faster, operate smarter and solve complex business challenges.
@@ -805,7 +820,7 @@ export default function WebinarPage() {
               <div
                 style={{
                   marginTop: "20px",
-                  background: "rgba(255, 255, 255, 0.04)",
+                  background: "var(--wb-subcard-bg)",
                   borderLeft: "3px solid #63A5E7",
                   padding: "14px 18px",
                   borderRadius: "0 10px 10px 0",
@@ -813,7 +828,7 @@ export default function WebinarPage() {
               >
                 <span style={{ fontSize: "12px", textTransform: "uppercase", color: "var(--wb-text-muted)", letterSpacing: "0.06em", display: "block" }}>
                   Raunak&apos;s Core Question:</span>
-                <p style={{ fontSize: "15px", fontWeight: 700, color: "#FFFFFF", margin: "4px 0 0" }}>
+                <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--wb-text-bright)", margin: "4px 0 0" }}>
                   “How do we actually design the AI-powered system that makes this happen?”
                 </p>
               </div>
@@ -831,7 +846,7 @@ export default function WebinarPage() {
               <span>THE FOUNDER DIALOGUE</span>
             </div>
 
-            <h2 style={{ fontSize: "clamp(22px, 4vw, 36px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "28px" }}>
+            <h2 style={{ fontSize: "clamp(22px, 4vw, 36px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "28px" }}>
               TWO FOUNDERS. TWO PERSPECTIVES. ONE BUSINESS PROBLEM.
             </h2>
 
@@ -840,7 +855,7 @@ export default function WebinarPage() {
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#B1D997", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>
                   Adnan asks:
                 </div>
-                <div style={{ fontSize: "18px", fontWeight: 700, color: "#FFFFFF" }}>
+                <div style={{ fontSize: "18px", fontWeight: 700, color: "var(--wb-text-bright)" }}>
                   “What should we automate?”
                 </div>
               </div>
@@ -849,7 +864,7 @@ export default function WebinarPage() {
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#63A5E7", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>
                   Raunak asks:
                 </div>
-                <div style={{ fontSize: "18px", fontWeight: 700, color: "#FFFFFF" }}>
+                <div style={{ fontSize: "18px", fontWeight: 700, color: "var(--wb-text-bright)" }}>
                   “How should we build it?”
                 </div>
               </div>
@@ -866,7 +881,7 @@ export default function WebinarPage() {
             >
               <span style={{ fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.06em", color: "#B1D997", fontWeight: 700, display: "block", marginBottom: "6px" }}>
                 And together:</span>
-              <p style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", margin: 0 }}>
+              <p style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)", margin: 0 }}>
                 “How can we turn repetitive business processes into intelligent systems?”
               </p>
             </div>
@@ -886,7 +901,7 @@ export default function WebinarPage() {
               <Zap size={14} />
               <span>NO HYPE. NO FLUFF.</span>
             </div>
-            <h2 style={{ fontSize: "clamp(22px, 4vw, 38px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px" }}>
+            <h2 style={{ fontSize: "clamp(22px, 4vw, 38px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "14px" }}>
               THIS IS NOT A “LEARN AI TOOLS” WEBINAR.
             </h2>
             <p style={{ fontSize: "16px", color: "var(--wb-text-muted)" }}>
@@ -908,7 +923,7 @@ export default function WebinarPage() {
                   "Generic productivity hacks",
                   "AI hype",
                 ].map((item, idx) => (
-                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "15px", color: "#FEE2E2" }}>
+                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "15px", color: "var(--wb-pain-text, #FEE2E2)" }}>
                     <XCircle size={17} color="#EF4444" style={{ flexShrink: 0 }} />
                     <span>{item}</span>
                   </div>
@@ -929,7 +944,7 @@ export default function WebinarPage() {
                   "WHERE AI ACTUALLY ADDS VALUE",
                   "HOW DIFFERENT SYSTEMS CONNECT",
                 ].map((item, idx) => (
-                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "15px", color: "#FFFFFF", fontWeight: 700 }}>
+                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "15px", color: "var(--wb-text-bright)", fontWeight: 700 }}>
                     <CheckCircle2 size={17} color="#B1D997" style={{ flexShrink: 0 }} />
                     <span>{item}</span>
                   </div>
@@ -952,7 +967,7 @@ export default function WebinarPage() {
               <Cpu size={14} />
               <span>THE PROPRIETARY FRAMEWORK</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4.5vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.25, marginBottom: "14px" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4.5vw, 42px)", fontWeight: 800, color: "var(--wb-text-bright)", lineHeight: 1.25, marginBottom: "14px" }}>
               THE 4-LAYER AUTOMATION SYSTEM
             </h2>
             <p style={{ fontSize: "17px", color: "var(--wb-text-muted)", maxWidth: "760px", margin: "0 auto" }}>
@@ -989,7 +1004,7 @@ export default function WebinarPage() {
             ].map((layer, idx) => (
               <div key={idx} className="wb-layer-box">
                 <span className="wb-layer-index">{layer.num}</span>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", marginBottom: "10px" }}>
+                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "10px" }}>
                   {layer.name}
                 </h3>
                 <p style={{ fontSize: "15px", color: "var(--wb-text-mid)", lineHeight: 1.6, marginBottom: "18px" }}>
@@ -1022,7 +1037,7 @@ export default function WebinarPage() {
               margin: "0 auto",
             }}
           >
-            <div style={{ fontSize: "18px", fontWeight: 800, color: "#FFFFFF", marginBottom: "6px" }}>
+            <div style={{ fontSize: "18px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "6px" }}>
               <span style={{ color: "#B1D997" }}>CAPTURE</span> → <span style={{ color: "#63A5E7" }}>RESPOND</span> → <span style={{ color: "#B1D997" }}>QUALIFY</span> → <span style={{ color: "#63A5E7" }}>SYNC + FOLLOW-UP</span>
             </div>
             <span style={{ fontSize: "13px", color: "var(--wb-text-muted)" }}>
@@ -1039,7 +1054,7 @@ export default function WebinarPage() {
               <Briefcase size={14} />
               <span>DEPARTMENT ARCHITECTURES</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4.5vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.25, marginBottom: "14px" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4.5vw, 42px)", fontWeight: 800, color: "var(--wb-text-bright)", lineHeight: 1.25, marginBottom: "14px" }}>
               SEE HOW THIS WORKS ACROSS YOUR BUSINESS
             </h2>
             <p style={{ fontSize: "17px", color: "var(--wb-text-muted)" }}>
@@ -1054,7 +1069,7 @@ export default function WebinarPage() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", borderRadius: "10px", background: "rgba(177, 217, 151, 0.12)", border: "1px solid rgba(177, 217, 151, 0.25)" }}>
                   <TrendingUp size={18} color="#B1D997" />
                 </div>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF" }}> SALES</h3>
+                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)" }}> SALES</h3>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px", display: "flex", flexDirection: "column", gap: "8px", fontSize: "14px", color: "var(--wb-text-mid)" }}>
                 {[
@@ -1072,7 +1087,7 @@ export default function WebinarPage() {
                   </li>
                 ))}
               </ul>
-              <div style={{ paddingTop: "14px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", fontSize: "13px", fontWeight: 700, color: "#B1D997" }}>
+              <div style={{ paddingTop: "14px", borderTop: "1px solid var(--wb-divider)", fontSize: "13px", fontWeight: 700, color: "#B1D997" }}>
                 Result? Your team spends less time chasing and more time selling.
               </div>
             </div>
@@ -1083,7 +1098,7 @@ export default function WebinarPage() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", borderRadius: "10px", background: "rgba(99, 165, 231, 0.12)", border: "1px solid rgba(99, 165, 231, 0.25)" }}>
                   <Zap size={18} color="#63A5E7" />
                 </div>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF" }}> MARKETING</h3>
+                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)" }}> MARKETING</h3>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px", display: "flex", flexDirection: "column", gap: "8px", fontSize: "14px", color: "var(--wb-text-mid)" }}>
                 {[
@@ -1099,7 +1114,7 @@ export default function WebinarPage() {
                   </li>
                 ))}
               </ul>
-              <div style={{ paddingTop: "14px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", fontSize: "13px", fontWeight: 700, color: "#63A5E7" }}>
+              <div style={{ paddingTop: "14px", borderTop: "1px solid var(--wb-divider)", fontSize: "13px", fontWeight: 700, color: "#63A5E7" }}>
                 Result? Less manual campaign management. Better visibility.
               </div>
             </div>
@@ -1110,7 +1125,7 @@ export default function WebinarPage() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", borderRadius: "10px", background: "rgba(177, 217, 151, 0.12)", border: "1px solid rgba(177, 217, 151, 0.25)" }}>
                   <Users size={18} color="#B1D997" />
                 </div>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF" }}> HR</h3>
+                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)" }}> HR</h3>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px", display: "flex", flexDirection: "column", gap: "8px", fontSize: "14px", color: "var(--wb-text-mid)" }}>
                 {[
@@ -1126,7 +1141,7 @@ export default function WebinarPage() {
                   </li>
                 ))}
               </ul>
-              <div style={{ paddingTop: "14px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", fontSize: "13px", fontWeight: 700, color: "#B1D997" }}>
+              <div style={{ paddingTop: "14px", borderTop: "1px solid var(--wb-divider)", fontSize: "13px", fontWeight: 700, color: "#B1D997" }}>
                 Result? Less repetitive coordination. Faster movement through hiring.
               </div>
             </div>
@@ -1137,7 +1152,7 @@ export default function WebinarPage() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", borderRadius: "10px", background: "rgba(99, 165, 231, 0.12)", border: "1px solid rgba(99, 165, 231, 0.25)" }}>
                   <Cpu size={18} color="#63A5E7" />
                 </div>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF" }}> OPERATIONS</h3>
+                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)" }}> OPERATIONS</h3>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px", display: "flex", flexDirection: "column", gap: "8px", fontSize: "14px", color: "var(--wb-text-mid)" }}>
                 {[
@@ -1153,7 +1168,7 @@ export default function WebinarPage() {
                   </li>
                 ))}
               </ul>
-              <div style={{ paddingTop: "14px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", fontSize: "13px", fontWeight: 700, color: "#63A5E7" }}>
+              <div style={{ paddingTop: "14px", borderTop: "1px solid var(--wb-divider)", fontSize: "13px", fontWeight: 700, color: "#63A5E7" }}>
                 Result? Better visibility. Fewer things falling through the cracks.
               </div>
             </div>
@@ -1173,7 +1188,7 @@ export default function WebinarPage() {
               <Monitor size={14} />
               <span>LIVE EXECUTION ARCHITECTURE</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.25, marginBottom: "14px" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, color: "var(--wb-text-bright)", lineHeight: 1.25, marginBottom: "14px" }}>
               THEN WE SHOW YOU THE SYSTEM.
             </h2>
             <p style={{ fontSize: "19px", color: "#B1D997", fontWeight: 700 }}>
@@ -1362,7 +1377,7 @@ export default function WebinarPage() {
             >
               <Sparkles size={28} color="#B1D997" />
             </div>
-            <h2 style={{ fontSize: "clamp(22px, 4vw, 38px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "18px" }}>
+            <h2 style={{ fontSize: "clamp(22px, 4vw, 38px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "18px" }}>
               THE BIG IDEA
             </h2>
 
@@ -1379,8 +1394,8 @@ export default function WebinarPage() {
                 <div
                   key={idx}
                   style={{
-                    background: "rgba(255, 255, 255, 0.03)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    background: "var(--wb-subcard-bg)",
+                    border: "1px solid var(--wb-subcard-border)",
                     borderRadius: "10px",
                     padding: "12px 16px",
                     fontSize: "14px",
@@ -1396,13 +1411,13 @@ export default function WebinarPage() {
             <p style={{ fontSize: "18px", color: "var(--wb-text-mid)", lineHeight: 1.7, maxWidth: "720px", margin: "0 auto 24px" }}>
               They may look completely different.
               <br />
-              <strong style={{ color: "#FFFFFF" }}>But underneath… THEY ARE ALL WORKFLOWS.</strong>
+              <strong style={{ color: "var(--wb-text-bright)" }}>But underneath… THEY ARE ALL WORKFLOWS.</strong>
             </p>
 
             <div
               style={{
                 fontSize: "16px",
-                color: "#FFFFFF",
+                color: "var(--wb-text-bright)",
                 background: "linear-gradient(135deg, rgba(177, 217, 151, 0.12) 0%, rgba(99, 165, 231, 0.12) 100%)",
                 border: "1px solid rgba(177, 217, 151, 0.35)",
                 borderRadius: "12px",
@@ -1428,7 +1443,7 @@ export default function WebinarPage() {
               <CheckCircle2 size={14} />
               <span>CURRICULUM BLUEPRINTS</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4.5vw, 42px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "12px" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4.5vw, 42px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "12px" }}>
               WHAT YOU’LL LEARN
             </h2>
             <p style={{ fontSize: "17px", color: "var(--wb-text-muted)" }}>
@@ -1477,7 +1492,7 @@ export default function WebinarPage() {
             <span>THE DUAL ENGINE</span>
           </div>
 
-          <h2 style={{ fontSize: "clamp(22px, 4vw, 38px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "10px" }}>
+          <h2 style={{ fontSize: "clamp(22px, 4vw, 38px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "10px" }}>
             FROM THE BUSINESS BRAIN + THE TECHNOLOGY BRAIN
           </h2>
           <p style={{ fontSize: "18px", color: "#B1D997", fontWeight: 700, marginBottom: "32px" }}>
@@ -1487,26 +1502,26 @@ export default function WebinarPage() {
           <div className="wb-brain-grid">
             {/* Adnan's Brain */}
             <div className="wb-glass-card wb-glass-card-green" style={{ padding: "26px" }}>
-              <div style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", marginBottom: "4px" }}>
+              <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "4px" }}>
                 ADNAN
               </div>
               <div style={{ fontSize: "13px", fontWeight: 700, color: "#B1D997", marginBottom: "12px" }}>
                 Business → Sales → Revenue → Operations → Growth
               </div>
-              <p style={{ fontSize: "16px", fontStyle: "italic", color: "#FFFFFF", fontWeight: 600, margin: 0 }}>
+              <p style={{ fontSize: "16px", fontStyle: "italic", color: "var(--wb-text-bright)", fontWeight: 600, margin: 0 }}>
                 “What&apos;s costing the business time and opportunities?”
               </p>
             </div>
 
             {/* Raunak's Brain */}
             <div className="wb-glass-card wb-glass-card-blue" style={{ padding: "26px" }}>
-              <div style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", marginBottom: "4px" }}>
+              <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "4px" }}>
                 RAUNAK
               </div>
               <div style={{ fontSize: "13px", fontWeight: 700, color: "#63A5E7", marginBottom: "12px" }}>
                 Product → Technology → AI → Automation → Systems
               </div>
-              <p style={{ fontSize: "16px", fontStyle: "italic", color: "#FFFFFF", fontWeight: 600, margin: 0 }}>
+              <p style={{ fontSize: "16px", fontStyle: "italic", color: "var(--wb-text-bright)", fontWeight: 600, margin: 0 }}>
                 “How do we turn that problem into a scalable system?”
               </p>
             </div>
@@ -1527,7 +1542,7 @@ export default function WebinarPage() {
               <ShieldCheck size={14} />
               <span>ABOUT THE ARCHITECTS</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "12px" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "12px" }}>
               WHY SCALEPODS?
             </h2>
             <p style={{ fontSize: "16px", color: "var(--wb-text-mid)", maxWidth: "800px", margin: "0 auto", lineHeight: 1.7 }}>
@@ -1562,7 +1577,7 @@ export default function WebinarPage() {
               <div key={i} className="wb-glass-card" style={{ padding: "22px 18px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
                   <CheckCircle2 size={16} color="#B1D997" />
-                  <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#FFFFFF" }}>{pillar.title}</h3>
+                  <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--wb-text-bright)" }}>{pillar.title}</h3>
                 </div>
                 <p style={{ fontSize: "13.5px", color: "var(--wb-text-muted)", margin: 0, lineHeight: 1.5 }}>
                   {pillar.desc}
@@ -1583,7 +1598,7 @@ export default function WebinarPage() {
           >
             <span style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--wb-text-muted)", display: "block", marginBottom: "8px" }}>
               Our Core Philosophy</span>
-            <p style={{ fontSize: "21px", fontWeight: 800, color: "#FFFFFF", margin: 0 }}>
+            <p style={{ fontSize: "21px", fontWeight: 800, color: "var(--wb-text-bright)", margin: 0 }}>
               “Growth should not require more manual work. It should require better systems.”
             </p>
           </div>
@@ -1598,7 +1613,7 @@ export default function WebinarPage() {
               <TrendingUp size={14} />
               <span>IS THIS FOR YOU?</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "#FFFFFF" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "var(--wb-text-bright)" }}>
               WHO SHOULD ATTEND?
             </h2>
           </div>
@@ -1619,8 +1634,8 @@ export default function WebinarPage() {
                   { title: "OPERATIONS LEADERS", desc: "If tasks, approvals, reporting and internal coordination are becoming difficult to manage." },
                   { title: "BUSINESS & TECHNOLOGY LEADERS", desc: "If you want to understand how AI can become part of the operating system of your business." },
                 ].map((aud, i) => (
-                  <div key={i} style={{ borderBottom: i < 5 ? "1px solid rgba(255, 255, 255, 0.06)" : undefined, paddingBottom: i < 5 ? "12px" : undefined }}>
-                    <div style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF" }}>{aud.title}</div>
+                  <div key={i} style={{ borderBottom: i < 5 ? "1px solid var(--wb-divider)" : undefined, paddingBottom: i < 5 ? "12px" : undefined }}>
+                    <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--wb-text-bright)" }}>{aud.title}</div>
                     <div style={{ fontSize: "13px", color: "var(--wb-text-muted)", marginTop: "2px" }}>{aud.desc}</div>
                   </div>
                 ))}
@@ -1653,7 +1668,7 @@ export default function WebinarPage() {
               <p style={{ fontSize: "13px", color: "var(--wb-text-muted)", fontStyle: "italic", marginBottom: "14px" }}>
                 This isn&apos;t that webinar.
               </p>
-              <div style={{ paddingTop: "14px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", fontSize: "13.5px", color: "var(--wb-text-bright)" }}>
+              <div style={{ paddingTop: "14px", borderTop: "1px solid var(--wb-divider)", fontSize: "13.5px", color: "var(--wb-text-bright)" }}>
                 <span style={{ color: "#B1D997", fontWeight: 700, display: "block", marginBottom: "6px" }}>
                   But if you&apos;re asking:</span>
                 <span style={{ fontSize: "12.5px", color: "var(--wb-text-muted)", lineHeight: 1.5, display: "block" }}>
@@ -1692,13 +1707,13 @@ export default function WebinarPage() {
             >
               <Ticket size={28} color="#B1D997" />
             </div>
-            <h2 style={{ fontSize: "clamp(22px, 4.5vw, 40px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "16px" }}>
+            <h2 style={{ fontSize: "clamp(22px, 4.5vw, 40px)", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "16px" }}>
               WHY ONLY ₹99?
             </h2>
             <p style={{ fontSize: "16px", color: "var(--wb-text-mid)", lineHeight: 1.7, maxWidth: "700px", margin: "0 auto 24px" }}>
               Because this isn&apos;t about selling you an expensive course before you&apos;ve even seen what is possible.
               <br />
-              <strong style={{ color: "#FFFFFF" }}>We&apos;re keeping the barrier low.</strong>
+              <strong style={{ color: "var(--wb-text-bright)" }}>We&apos;re keeping the barrier low.</strong>
             </p>
 
             <div className="wb-price-big-badge">
@@ -1712,15 +1727,15 @@ export default function WebinarPage() {
             {/* Fire Banner */}
             <div
               style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "var(--wb-subcard-bg)",
+                border: "1px solid var(--wb-subcard-border)",
                 borderRadius: "12px",
                 padding: "16px 22px",
                 maxWidth: "600px",
                 margin: "0 auto 34px",
                 fontSize: "15px",
                 fontWeight: 700,
-                color: "#FFFFFF",
+                color: "var(--wb-text-bright)",
               }}
             >
               TWO FOUNDERS. ONE LIVE SESSION. REAL BUSINESS PROBLEMS. REAL AUTOMATION SYSTEMS. ₹99.
@@ -1769,7 +1784,7 @@ export default function WebinarPage() {
               <MessageSquare size={14} />
               <span>CLEAR ANSWERS</span>
             </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "#FFFFFF" }}>
+            <h2 style={{ fontSize: "clamp(24px, 4vw, 40px)", fontWeight: 800, color: "var(--wb-text-bright)" }}>
               FREQUENTLY ASKED QUESTIONS
             </h2>
           </div>
@@ -1849,7 +1864,7 @@ export default function WebinarPage() {
               fontSize: "clamp(26px, 4.5vw, 48px)",
               fontWeight: 800,
               lineHeight: 1.25,
-              color: "#FFFFFF",
+              color: "var(--wb-text-bright)",
               marginBottom: "20px",
             }}
           >
@@ -1869,7 +1884,7 @@ export default function WebinarPage() {
             }}
           >
             <p style={{ marginBottom: "10px", color: "var(--wb-text-muted)" }}>
-              Don&apos;t start with: <span style={{ color: "#FFFFFF" }}>“Which AI tool should I buy?”</span>
+              Don&apos;t start with: <span style={{ color: "var(--wb-text-bright)" }}>“Which AI tool should I buy?”</span>
             </p>
             <p style={{ fontStyle: "italic", color: "#B1D997", fontWeight: 700, fontSize: "18px" }}>
               Start with: “Which repetitive business process should we stop doing manually?”
@@ -1878,7 +1893,7 @@ export default function WebinarPage() {
 
           {/* Join Adnan + Raunak Live Card */}
           <div className="wb-glass-card wb-glass-card-green wb-final-cta-card">
-            <h3 style={{ fontSize: "24px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
+            <h3 style={{ fontSize: "24px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "8px" }}>
              JOIN ADNAN + RAUNAK LIVE
             </h3>
             <p style={{ fontSize: "16px", color: "#B1D997", fontWeight: 700, marginBottom: "18px" }}>
@@ -1916,7 +1931,7 @@ export default function WebinarPage() {
               <span>LIVE</span>
             </div>
             <div>
-              <div style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF" }}>
+              <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--wb-text-bright)" }}>
                 AI Business Automation Masterclass
               </div>
               <div style={{ fontSize: "12px", color: "#B1D997" }}>
@@ -1963,7 +1978,7 @@ export default function WebinarPage() {
                     <span className="wb-dot-green" />
                     <span>SECURE REGISTRATION</span>
                   </div>
-                  <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#FFFFFF" }}>
+                  <h3 style={{ fontSize: "22px", fontWeight: 800, color: "var(--wb-text-bright)" }}>
                     Reserve Your Masterclass Seat
                   </h3>
                   <p style={{ fontSize: "13px", color: "var(--wb-text-muted)", marginTop: "4px" }}>
@@ -1984,7 +1999,7 @@ export default function WebinarPage() {
                     marginBottom: "18px",
                   }}
                 >
-                  <span style={{ fontSize: "14px", color: "#FFFFFF", fontWeight: 600 }}>Masterclass Access Pass</span>
+                  <span style={{ fontSize: "14px", color: "var(--wb-text-bright)", fontWeight: 600 }}>Masterclass Access Pass</span>
                   <div style={{ textAlign: "right" }}>
                     <span style={{ fontSize: "20px", fontWeight: 800, color: "#B1D997" }}>₹99</span>
                     <span style={{ fontSize: "13px", color: "var(--wb-text-faint)", marginLeft: "6px", textDecoration: "line-through" }}>₹999</span>
@@ -2149,19 +2164,19 @@ export default function WebinarPage() {
                   <span>PAYMENT VERIFIED &amp; CONFIRMED</span>
                 </div>
 
-                <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
+                <h3 style={{ fontSize: "22px", fontWeight: 800, color: "var(--wb-text-bright)", marginBottom: "8px" }}>
                   Your Seat Is Confirmed!
                 </h3>
                 <p style={{ fontSize: "14px", color: "var(--wb-text-mid)", marginBottom: "20px", lineHeight: 1.5 }}>
-                  Thank you, <strong style={{ color: "#FFFFFF" }}>{formData.name || "Attendee"}</strong>. We’ve received your registration for ₹99 and sent the confirmation receipt to <strong style={{ color: "#FFFFFF" }}>{formData.email}</strong>.
+                  Thank you, <strong style={{ color: "var(--wb-text-bright)" }}>{formData.name || "Attendee"}</strong>. We’ve received your registration for ₹99 and sent the confirmation receipt to <strong style={{ color: "var(--wb-text-bright)" }}>{formData.email}</strong>.
                 </p>
 
                 {/* Receipt Card */}
                 {paymentSuccessData && (
                   <div
                     style={{
-                      background: "rgba(255, 255, 255, 0.03)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      background: "var(--wb-subcard-bg)",
+                      border: "1px solid var(--wb-subcard-border)",
                       borderRadius: "12px",
                       padding: "14px 18px",
                       textAlign: "left",
@@ -2178,9 +2193,13 @@ export default function WebinarPage() {
                       <span style={{ color: "#63A5E7", fontFamily: "monospace", fontWeight: 600 }}>
                         {paymentSuccessData.orderId}</span>
                     </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "12px" }}>
+                      <span style={{ color: "var(--wb-text-muted)" }}>Session Date</span>
+                      <span style={{ color: "#FCD34D", fontWeight: 600 }}>To Be Announced (Saved &amp; Reserved)</span>
+                    </div>
                     <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px" }}>
                       <span style={{ color: "var(--wb-text-muted)" }}>Pass Fee</span>
-                      <span style={{ color: "#FFFFFF", fontWeight: 700 }}>₹99.00 INR (Paid)</span>
+                      <span style={{ color: "var(--wb-text-bright)", fontWeight: 700 }}>₹99.00 INR (Paid)</span>
                     </div>
                   </div>
                 )}
@@ -2188,7 +2207,7 @@ export default function WebinarPage() {
                 {/* Next Steps Buttons */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
                   <a
-                    href="https://chat.whatsapp.com/G5VbNKn2V2hKz7r0xL"
+                    href="https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -2211,29 +2230,20 @@ export default function WebinarPage() {
                     <ExternalLink size={14} style={{ opacity: 0.8 }} />
                   </a>
 
-                  <a
-                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Live AI Business Automation Masterclass with Adnan Sheikh & Raunak Kumar")}&details=${encodeURIComponent("ScalePods Live Interactive Masterclass.\nHow Businesses Are Automating 60-80% of Repetitive Workflows.\n\nZoom Link sent to WhatsApp & Email.")}&dates=20261010T110000Z%2F20261010T123000Z`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "10px",
-                      background: "rgba(255, 255, 255, 0.08)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      color: "#FFFFFF",
-                      fontWeight: 600,
-                      fontSize: "14px",
-                      padding: "12px 20px",
+                      background: "var(--wb-subcard-bg)",
+                      border: "1px solid var(--wb-subcard-border)",
                       borderRadius: "10px",
-                      textDecoration: "none",
+                      padding: "12px 14px",
+                      fontSize: "13px",
+                      color: "var(--wb-text-mid)",
+                      textAlign: "center",
+                      lineHeight: 1.5,
                     }}
                   >
-                    <Calendar size={16} />
-                    <span>Add to Google Calendar</span>
-                    <ExternalLink size={14} style={{ opacity: 0.8 }} />
-                  </a>
+                    Official session date, preparation resources, and live Zoom access link will be announced in the VIP WhatsApp group and emailed to you.
+                  </div>
                 </div>
 
                 <button
@@ -2258,8 +2268,8 @@ export default function WebinarPage() {
       {/* ── DEDICATED COMPLIANCE FOOTER ───────────────────────────────────── */}
       <footer
         style={{
-          borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-          background: "rgba(2, 4, 8, 0.9)",
+          borderTop: "1px solid var(--wb-divider)",
+          background: "var(--wb-footer-bg)",
           backdropFilter: "blur(20px)",
           padding: "48px 24px",
           textAlign: "center",
@@ -2277,7 +2287,7 @@ export default function WebinarPage() {
                 alt="ScalePods"
                 fill
                 sizes="140px"
-                style={{ objectFit: "contain", filter: "invert(1)", opacity: 0.85 }}
+                style={{ objectFit: "contain", filter: resolvedTheme === "dark" ? "invert(1)" : "none", opacity: 0.85 }}
               />
             </div>
           </div>

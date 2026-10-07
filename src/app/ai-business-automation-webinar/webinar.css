@@ -38,12 +38,112 @@
   --wb-card-shadow-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(177, 217, 151, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
   --wb-card-blur: blur(24px);
 
+  /* Subsurfaces, Dividers & Overlays */
+  --wb-divider: rgba(255, 255, 255, 0.08);
+  --wb-subcard-bg: rgba(255, 255, 255, 0.04);
+  --wb-subcard-border: rgba(255, 255, 255, 0.08);
+  --wb-box-bg: rgba(12, 18, 28, 0.75);
+  --wb-pain-text: #FEE2E2;
+  --wb-modal-bg: #080C14;
+  --wb-modal-overlay: rgba(0, 0, 0, 0.85);
+  --wb-input-bg: rgba(255, 255, 255, 0.04);
+  --wb-input-border: rgba(255, 255, 255, 0.12);
+  --wb-navbar-bg: rgba(4, 7, 13, 0.75);
+  --wb-navbar-border: rgba(255, 255, 255, 0.08);
+  --wb-bottombar-bg: rgba(4, 7, 13, 0.92);
+  --wb-footer-bg: rgba(2, 4, 8, 0.9);
+
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  background-color: var(--wb-bg);
   color: var(--wb-text-bright);
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================================
+   ScalePods Light Mode Global Tokens & Adaptation
+   ========================================================================== */
+[data-theme="light"] .webinarpod-container,
+html:not(.dark) .webinarpod-container {
+  --wb-bg: #F8FAF7;
+  --wb-green: #B1D997;
+  --wb-green-rgb: 177, 217, 151;
+  --wb-green-glow: rgba(177, 217, 151, 0.16);
+  --wb-blue: #0284C7;
+  --wb-blue-rgb: 2, 132, 199;
+  --wb-blue-glow: rgba(2, 132, 199, 0.08);
+  
+  /* Text */
+  --wb-text-bright: #0B1020;
+  --wb-text-mid: #1E293B;
+  --wb-text-body: #334155;
+  --wb-text-muted: #64748B;
+  --wb-text-faint: #94A3B8;
+
+  /* ScalePods True Glassmorphism Card System (Light) */
+  --wb-card-bg: rgba(255, 255, 255, 0.9);
+  --wb-card-bg-hover: rgba(255, 255, 255, 0.98);
+  --wb-card-border: 1px solid rgba(15, 23, 42, 0.09);
+  --wb-card-border-green: 1px solid rgba(177, 217, 151, 0.4);
+  --wb-card-border-blue: 1px solid rgba(2, 132, 199, 0.3);
+  --wb-card-shadow: 0 14px 34px -10px rgba(15, 23, 42, 0.07), 0 0 20px rgba(177, 217, 151, 0.04), inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+  --wb-card-shadow-hover: 0 20px 42px -8px rgba(15, 23, 42, 0.12), 0 0 28px rgba(177, 217, 151, 0.08), inset 0 1px 0 0 #FFFFFF;
+  --wb-card-blur: blur(20px);
+
+  /* Subsurfaces, Dividers & Overlays */
+  --wb-divider: rgba(15, 23, 42, 0.08);
+  --wb-subcard-bg: rgba(241, 245, 249, 0.7);
+  --wb-subcard-border: rgba(15, 23, 42, 0.08);
+  --wb-box-bg: rgba(255, 255, 255, 0.95);
+  --wb-pain-text: #991B1B;
+  --wb-modal-bg: #FFFFFF;
+  --wb-modal-overlay: rgba(15, 23, 42, 0.65);
+  --wb-input-bg: #F8FAFC;
+  --wb-input-border: #CBD5E1;
+  --wb-navbar-bg: rgba(248, 250, 247, 0.9);
+  --wb-navbar-border: rgba(15, 23, 42, 0.08);
+  --wb-bottombar-bg: rgba(255, 255, 255, 0.95);
+  --wb-footer-bg: rgba(241, 245, 249, 0.92);
+}
+
+/* Theme Toggle Button */
+.wb-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--wb-text-bright);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.wb-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--wb-green);
+  color: var(--wb-green);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .wb-theme-toggle,
+html:not(.dark) .wb-theme-toggle {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0B1020;
+}
+
+[data-theme="light"] .wb-theme-toggle:hover,
+html:not(.dark) .wb-theme-toggle:hover {
+  background: rgba(177, 217, 151, 0.16);
+  border-color: #B1D997;
+  color: #0B1020;
 }
 
 /* Ambient Radial Glows */
@@ -114,10 +214,10 @@
   height: 70px;
   display: flex;
   align-items: center;
-  background: rgba(4, 7, 13, 0.75);
+  background: var(--wb-navbar-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--wb-navbar-border);
   transition: all 0.3s ease;
 }
 
@@ -344,8 +444,8 @@
 }
 
 .wb-spec-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--wb-subcard-bg);
+  border: 1px solid var(--wb-subcard-border);
   border-radius: 12px;
   padding: 14px 16px;
   text-align: center;
@@ -400,8 +500,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--wb-subcard-bg);
+  border: 1px solid var(--wb-subcard-border);
   border-radius: 14px;
   padding: 18px 24px;
   max-width: 660px;
@@ -442,8 +542,8 @@
 
 /* 4-Layer Framework Cards */
 .wb-layer-box {
-  background: linear-gradient(180deg, rgba(14, 18, 28, 0.8) 0%, rgba(8, 10, 16, 0.9) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--wb-box-bg);
+  border: 1px solid var(--wb-divider);
   border-radius: 18px;
   padding: 30px;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -470,7 +570,7 @@
 
 /* FAQ Accordion */
 .wb-faq-row {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--wb-divider);
 }
 
 .wb-faq-btn {
@@ -508,10 +608,10 @@
   left: 0;
   right: 0;
   z-index: 80;
-  background: rgba(4, 7, 13, 0.92);
+  background: var(--wb-bottombar-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(177, 217, 151, 0.3);
+  border-top: 1px solid var(--wb-card-border-green);
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
   padding: 14px 24px;
   transform: translateY(100%);
@@ -536,7 +636,7 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--wb-modal-overlay);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   display: flex;
@@ -548,8 +648,8 @@
 .wb-modal-body {
   width: 100%;
   max-width: 480px;
-  background: #080C14;
-  border: 1px solid rgba(177, 217, 151, 0.35);
+  background: var(--wb-modal-bg);
+  border: 1px solid var(--wb-card-border-green);
   border-radius: 20px;
   padding: 32px;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(177, 217, 151, 0.15);
@@ -572,8 +672,8 @@
 
 .wb-form-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--wb-input-bg);
+  border: 1px solid var(--wb-input-border);
   border-radius: 10px;
   padding: 12px 14px;
   color: var(--wb-text-bright);
@@ -613,8 +713,8 @@
 .wb-country-select {
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--wb-input-bg);
+  border: 1px solid var(--wb-input-border);
   border-radius: 10px;
   padding: 12px 28px 12px 12px;
   color: var(--wb-text-bright);
@@ -640,6 +740,12 @@
   padding: 8px 12px;
 }
 
+[data-theme="light"] .wb-country-select option,
+html:not(.dark) .wb-country-select option {
+  background-color: #FFFFFF;
+  color: #0B1020;
+}
+
 .wb-country-arrow {
   position: absolute;
   right: 10px;
@@ -657,8 +763,8 @@
 .wb-custom-code-input {
   width: 65px;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--wb-input-bg);
+  border: 1px solid var(--wb-input-border);
   border-radius: 10px;
   padding: 12px 8px;
   color: var(--wb-text-bright);
@@ -678,8 +784,8 @@
 .wb-phone-number-input {
   flex: 1;
   min-width: 0;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--wb-input-bg);
+  border: 1px solid var(--wb-input-border);
   border-radius: 10px;
   padding: 12px 14px;
   color: var(--wb-text-bright);
@@ -748,7 +854,7 @@
   letter-spacing: -0.03em;
   max-width: 1000px;
   margin: 0 auto 18px;
-  color: #FFFFFF;
+  color: var(--wb-text-bright);
   font-family: var(--font-inter), sans-serif;
 }
 
@@ -786,7 +892,7 @@
   gap: 10px;
   font-size: 15px;
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--wb-text-bright);
 }
 
 .wb-hero-cta {
@@ -802,7 +908,7 @@
 }
 
 .wb-section-bordered {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--wb-divider);
 }
 
 .wb-section-hero {
@@ -838,8 +944,8 @@
 }
 
 .wb-dialogue-box {
-  background: rgba(12, 18, 28, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--wb-box-bg);
+  border: 1px solid var(--wb-divider);
   border-radius: 16px;
   padding: 32px 28px;
   position: relative;
@@ -853,8 +959,8 @@
 
 /* ── Live Demo Interactive Workflow Pipeline ── */
 .wb-demo-pipeline-box {
-  background: rgba(8, 12, 18, 0.85);
-  border: 1px solid rgba(177, 217, 151, 0.3);
+  background: var(--wb-box-bg);
+  border: 1px solid var(--wb-card-border-green);
   border-radius: 20px;
   padding: 32px 28px;
   position: relative;
@@ -867,7 +973,7 @@
   justify-content: space-between;
   padding-bottom: 20px;
   margin-bottom: 28px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--wb-divider);
   font-size: 13px;
 }
 
@@ -892,8 +998,8 @@
 }
 
 .wb-demo-node {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--wb-subcard-bg);
+  border: 1px solid var(--wb-subcard-border);
   border-radius: 14px;
   padding: 18px 16px;
   text-align: center;
@@ -939,14 +1045,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--wb-subcard-bg);
+  border: 1px solid var(--wb-subcard-border);
 }
 
 .wb-demo-step-title {
   font-size: 13.5px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--wb-text-bright);
   line-height: 1.35;
   margin: 0;
   text-transform: uppercase;
@@ -1019,14 +1125,14 @@
 }
 
 .wb-brain-equation {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--wb-subcard-bg);
+  border: 1px solid var(--wb-subcard-border);
   border-radius: 12px;
   padding: 16px 24px;
   display: inline-block;
   font-size: 16px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--wb-text-bright);
   box-sizing: border-box;
 }
 
@@ -1112,7 +1218,7 @@
 .wb-demo-bottom-action {
   margin-top: 32px;
   padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--wb-divider);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1534,4 +1640,87 @@
     padding: 6px 10px !important;
     font-size: 11.5px !important;
   }
+}
+
+/* ==========================================================================
+   Light Mode Specific Component Polish
+   ========================================================================== */
+[data-theme="light"] .webinarpod-container .wb-button-primary,
+html:not(.dark) .webinarpod-container .wb-button-primary {
+  background: linear-gradient(135deg, #B1D997 0%, #9BCB7E 100%) !important;
+  color: #04070D !important;
+  box-shadow: 0 4px 25px rgba(177, 217, 151, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-button-primary:hover,
+html:not(.dark) .webinarpod-container .wb-button-primary:hover {
+  background: linear-gradient(135deg, #C5E5A8 0%, #A8D88C 100%) !important;
+  box-shadow: 0 8px 35px rgba(177, 217, 151, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-hero-title-gradient,
+html:not(.dark) .webinarpod-container .wb-hero-title-gradient {
+  background: linear-gradient(135deg, #82B366 0%, #0284C7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-layer-index,
+html:not(.dark) .webinarpod-container .wb-layer-index {
+  background: linear-gradient(135deg, #82B366 0%, #0284C7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-insight-callout,
+html:not(.dark) .webinarpod-container .wb-insight-callout {
+  color: #04070D !important;
+  background: rgba(177, 217, 151, 0.22) !important;
+  border-color: rgba(177, 217, 151, 0.55) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-price-big-badge,
+html:not(.dark) .webinarpod-container .wb-price-big-badge {
+  color: #04070D !important;
+  background: rgba(177, 217, 151, 0.22) !important;
+  border-color: rgba(177, 217, 151, 0.55) !important;
+  box-shadow: 0 0 25px rgba(177, 217, 151, 0.25) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-ambient-glow,
+html:not(.dark) .webinarpod-container .wb-ambient-glow {
+  opacity: 0.18 !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-pain-card,
+html:not(.dark) .webinarpod-container .wb-pain-card {
+  background: rgba(254, 242, 242, 0.85) !important;
+  border: 1px solid rgba(239, 68, 68, 0.22) !important;
+  color: #991B1B !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-demo-step-num,
+html:not(.dark) .webinarpod-container .wb-demo-step-num {
+  color: #2D5816 !important;
+  background: rgba(177, 217, 151, 0.25) !important;
+  border-color: rgba(177, 217, 151, 0.55) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-hero-pill,
+html:not(.dark) .webinarpod-container .wb-hero-pill {
+  color: #2D5816 !important;
+  background: rgba(177, 217, 151, 0.2) !important;
+  border-color: rgba(177, 217, 151, 0.5) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-pill-green,
+html:not(.dark) .webinarpod-container .wb-pill-green {
+  color: #2D5816 !important;
+  background: rgba(177, 217, 151, 0.2) !important;
+  border-color: rgba(177, 217, 151, 0.5) !important;
+}
+
+[data-theme="light"] .webinarpod-container .wb-glass-card:hover,
+html:not(.dark) .webinarpod-container .wb-glass-card:hover {
+  border-color: rgba(15, 23, 42, 0.18) !important;
 }
