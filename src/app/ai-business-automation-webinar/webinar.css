@@ -426,6 +426,14 @@ html:not(.dark) .wb-theme-toggle:hover {
   border-radius: 8px;
 }
 
+.wb-btn-nav-desktop {
+  display: inline;
+}
+
+.wb-btn-nav-mobile {
+  display: none;
+}
+
 .wb-btn-pulse-glow {
   animation: wb-btn-pulse 2.8s infinite alternate;
 }
@@ -1336,27 +1344,40 @@ html:not(.dark) .wb-country-select option {
   }
 
   .wb-navbar-logo-wrap {
-    width: 125px !important;
+    width: 120px !important;
     height: 22px !important;
+    flex-shrink: 0 !important;
   }
 
   .wb-navbar-actions {
+    display: flex !important;
+    align-items: center !important;
     gap: 8px !important;
+    flex-shrink: 0 !important;
   }
 
+  /* Hide redundant live badge in mobile navbar to prevent CTA cutoff */
   .wb-nav-live-badge {
-    padding: 4px 8px !important;
-    font-size: 10px !important;
-    gap: 5px !important;
-    white-space: nowrap !important;
+    display: none !important;
+  }
+
+  .wb-theme-toggle {
+    width: 34px !important;
+    height: 34px !important;
+    flex-shrink: 0 !important;
   }
 
   .wb-button-nav {
-    padding: 7px 12px !important;
-    font-size: 12px !important;
+    padding: 7px 13px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
     width: auto !important;
     white-space: nowrap !important;
+    flex-shrink: 0 !important;
     border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
   }
 
   .wb-specs-row {
@@ -1469,7 +1490,44 @@ html:not(.dark) .wb-country-select option {
   .wb-bottom-bar-inner {
     flex-direction: column !important;
     align-items: stretch !important;
+    gap: 8px !important;
+  }
+
+  .wb-bottom-bar-info {
+    display: flex !important;
+    align-items: center !important;
     gap: 10px !important;
+  }
+
+  .wb-bottom-bar-pill {
+    padding: 3px 8px !important;
+    font-size: 10px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .wb-bottom-bar-text-wrap {
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+
+  .wb-bottom-bar-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--wb-text-bright) !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .wb-bottom-bar-subtitle {
+    font-size: 11.5px !important;
+    color: var(--wb-green) !important;
+    line-height: 1.3 !important;
+  }
+
+  .wb-bottom-bar-hosts {
+    display: none !important;
   }
 
   /* Modal on Mobile */
@@ -1574,6 +1632,14 @@ html:not(.dark) .wb-country-select option {
 }
 
 @media (max-width: 480px) {
+  .wb-btn-nav-desktop {
+    display: none !important;
+  }
+
+  .wb-btn-nav-mobile {
+    display: inline !important;
+  }
+
   .webinarpod-container {
     --wb-section-py: 52px;
   }
@@ -1591,6 +1657,26 @@ html:not(.dark) .wb-country-select option {
 
   .wb-navbar {
     height: 56px !important;
+  }
+
+  .wb-navbar-logo-wrap {
+    width: 112px !important;
+    height: 20px !important;
+  }
+
+  .wb-navbar-actions {
+    gap: 6px !important;
+  }
+
+  .wb-theme-toggle {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .wb-button-nav {
+    padding: 6px 11px !important;
+    font-size: 12px !important;
+    gap: 4px !important;
   }
 
   .wb-specs-row {
@@ -1628,17 +1714,36 @@ html:not(.dark) .wb-country-select option {
   }
 
   .wb-navbar-logo-wrap {
-    width: 110px !important;
-    height: 20px !important;
-  }
-
-  .wb-nav-live-badge {
-    display: none !important;
+    width: 105px !important;
+    height: 19px !important;
   }
 
   .wb-button-nav {
     padding: 6px 10px !important;
     font-size: 11.5px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .wb-container,
+  .wb-container-narrow {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .wb-navbar-logo-wrap {
+    width: 96px !important;
+    height: 17px !important;
+  }
+
+  .wb-theme-toggle {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .wb-button-nav {
+    padding: 5px 8px !important;
+    font-size: 11px !important;
   }
 }
 

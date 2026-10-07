@@ -350,7 +350,8 @@ export default function WebinarPage() {
               onClick={handleOpenModal}
               className="wb-button-primary wb-button-nav wb-btn-pulse-glow"
             >
-              <span>Reserve for ₹99</span>
+              <span className="wb-btn-nav-desktop">Reserve for ₹99</span>
+              <span className="wb-btn-nav-mobile">Reserve ₹99</span>
               <ArrowRight size={14} />
             </button>
           </div>
@@ -1925,17 +1926,18 @@ export default function WebinarPage() {
       {/* ── STICKY BOTTOM ACTION BAR (MOBILE & DESKTOP) ──────────────────── */}
       <div className={`wb-bottom-bar ${showSticky ? "visible" : ""}`}>
         <div className="wb-bottom-bar-inner">
-          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            <div className="wb-pill-green" style={{ padding: "4px 10px", fontSize: "11px" }}>
+          <div className="wb-bottom-bar-info">
+            <div className="wb-pill-green wb-bottom-bar-pill">
               <span className="wb-dot-green" />
               <span>LIVE</span>
             </div>
-            <div>
-              <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--wb-text-bright)" }}>
+            <div className="wb-bottom-bar-text-wrap">
+              <div className="wb-bottom-bar-title">
                 AI Business Automation Masterclass
               </div>
-              <div style={{ fontSize: "12px", color: "#B1D997" }}>
-                With Adnan Sheikh &amp; Raunak Kumar • <strong>Only ₹99/-</strong> <s style={{ color: "var(--wb-text-faint)" }}>₹999</s>
+              <div className="wb-bottom-bar-subtitle">
+                <span className="wb-bottom-bar-hosts">With Adnan Sheikh &amp; Raunak Kumar • </span>
+                <strong>Only ₹99/-</strong> <s style={{ color: "var(--wb-text-faint)" }}>₹999</s>
               </div>
             </div>
           </div>
