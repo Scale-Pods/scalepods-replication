@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         attendee_email: String(email).trim().slice(0, 50),
         attendee_phone: String(phone).trim().slice(0, 20),
         attendee_role: String(role || "Leader").trim().slice(0, 50),
-        webinar_title: "AI Business Automation Webinar with Adnan Shaikh",
+        webinar_title: "AI Business Automation Masterclass with Adnan Sheikh & Raunak Kumar",
       },
     };
 
