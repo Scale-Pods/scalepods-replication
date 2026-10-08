@@ -2,8 +2,9 @@
 
 import { useState, useEffect, memo, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence, animate } from "framer-motion";
-import { Check, X, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, X, ArrowRight, ArrowUpRight, Users, Clock, Zap, GitBranch, Sliders, Settings, Bot, Sparkles, Maximize, PieChart, TrendingUp, BarChart3, Plug, Database, Heart, MessageCircle, HelpCircle, ChevronDown, ChevronUp, Layers, GitCompare, Search, Brain, MoveDiagonal, PlugZap, ChevronLeft, ChevronRight } from "lucide-react";
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import ScrollRevealText from "@/components/ui/ScrollRevealText";
 import ActivityBarChart from "@/components/ui/ActivityBarChart";
@@ -2079,38 +2080,41 @@ export function Process() {
 const caseStudiesData = [
   {
     id: 1,
-    category: "EXHIBITION AUTOMATION",
-    title: "Expo Success Story",
-    description: "A company attending a major industry expo needed to capture and follow up with hundreds of leads quickly. Previously, it took their team 2–3 days to manually enter data. With ScalePods, personalized follow-ups were sent within 30 seconds of capture through an automated sales workflow powered by sales automation.",
+    category: "REAL ESTATE OUTBOUND",
+    title: "Lotus Manor Dubai",
+    href: "/case-study/lotus-manor-real-estate-sales-automation-dubai",
+    description: "Lotus Manor automated multichannel outbound follow-ups across 1,000+ prospects in Dubai's real estate market, achieving a 21% response rate and eliminating manual lead chasing.",
     metrics: [
-      { value: "40%", label: "Lead Retention" },
-      { value: "65%", label: "ROI Surge" }
+      { value: "21%", label: "Response Rate" },
+      { value: "25+ hrs", label: "Saved Weekly" }
     ],
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600&auto=format&fit=crop",
+    image: "/brands/lotus-manor-new.webp",
     accent: "var(--color-blue-mid)"
   },
   {
     id: 2,
-    category: "B2B GROWTH ENGINE",
-    title: "SaaS Scaling Autonomy",
-    description: "A rapidly growing SaaS startup was drowning in inbound leads but lacked the resources to qualify them. We deployed an AI qualification system that processed 35,000 leads with zero additional headcount, allowing the sales team to focus on high-value closings.",
+    category: "HEAVY INDUSTRIAL AI",
+    title: "ZV Steels India",
+    href: "/case-study/zv-steels-recruitment-automation-tool",
+    description: "ZV Steels deployed four custom automation engines to eliminate recruitment latency, automate 3-way logistics audit verification, and retain wholesale pipeline leads.",
     metrics: [
-      { value: "30%", label: "Sales Growth" },
-      { value: "55%", label: "Engagement" }
+      { value: "80%", label: "Screening Cut" },
+      { value: "30 min", label: "Interview Booking" }
     ],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600&auto=format&fit=crop",
+    image: "/brands/zv-steels-new.webp",
     accent: "var(--color-green)"
   },
   {
     id: 3,
-    category: "AI RECRUITMENT",
-    title: "Tech Hiring Acceleration",
-    description: "A fast-growing tech firm faced hiring delays with thousands of manual applications. Our HR Pipeline Pod screened 3,500+ resumes and ranked applicants by fit, dropping the hiring cycle from 14 days to just 5 days.",
+    category: "CRM SALES AUTOMATION",
+    title: "A Squared Real Estate",
+    href: "/case-study/asquared-real-estate-sales-automation-dubai",
+    description: "A Squared turned 22,000 CRM leads into active pipeline using AI sales reps, Bitrix24 workflow automation layers, and autonomous multi-touch WhatsApp follow-up cadences.",
     metrics: [
-      { value: "70%", label: "Faster Hiring" },
-      { value: "35%", label: "Lower CAC" }
+      { value: "< 5 min", label: "First Contact (94%)" },
+      { value: "2.6×", label: "Reply Rates" }
     ],
-    image: "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1600&auto=format&fit=crop",
+    image: "/brands/asquared-brand-1x1.webp",
     accent: "var(--color-blue-mid)"
   }
 ];
@@ -2248,7 +2252,12 @@ export function CaseStudies() {
                   marginBottom: "16px",
                   letterSpacing: "-0.02em"
                 }}>
-                  {activeStudy.title}
+                  <Link 
+                    href={activeStudy.href}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    {activeStudy.title}
+                  </Link>
                 </h3>
                 
                 <p style={{ 
@@ -2264,7 +2273,7 @@ export function CaseStudies() {
                 </p>
 
                 {/* KPI Metrics */}
-                <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
+                <div style={{ display: "flex", gap: "12px", marginBottom: "18px" }}>
                   {activeStudy.metrics.map((m, idx) => (
                     <div key={idx} style={{ 
                       flex: 1,
@@ -2278,6 +2287,33 @@ export function CaseStudies() {
                       <div style={{ fontSize: "9px", fontWeight: 700, color: C.txtMuted, textTransform: "uppercase", letterSpacing: "0.05em" }}>{m.label}</div>
                     </div>
                   ))}
+                </div>
+
+                {/* CTA Link */}
+                <div style={{ marginBottom: "20px" }}>
+                  <Link
+                    href={activeStudy.href}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      padding: "9px 18px",
+                      borderRadius: "100px",
+                      background: "rgba(var(--color-text-bright-rgb), 0.05)",
+                      border: "1px solid var(--color-border)",
+                      color: C.txtBright,
+                      fontFamily: F.inter,
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      letterSpacing: "0.03em",
+                      textDecoration: "none",
+                      transition: "all 0.2s ease"
+                    }}
+                    className="hover:border-[var(--color-blue-mid)] hover:scale-[1.02]"
+                  >
+                    <span>Read Full Case Study</span>
+                    <ArrowUpRight size={14} color={activeStudy.accent} />
+                  </Link>
                 </div>
 
                 {/* Progress Indicator */}
@@ -2456,6 +2492,28 @@ export function CaseStudies() {
               )}
             </motion.button>
           ))}
+        </div>
+
+        {/* View All Case Studies Link */}
+        <div style={{ textAlign: "center", marginTop: "24px" }}>
+          <Link
+            href="/blog/case-studies"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              fontFamily: F.inter,
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "var(--color-text-muted)",
+              textDecoration: "none",
+              transition: "color 0.2s ease"
+            }}
+            className="hover:text-[var(--color-text-bright)]"
+          >
+            <span>View all client case studies</span>
+            <ArrowRight size={14} />
+          </Link>
         </div>
 
       </div>
