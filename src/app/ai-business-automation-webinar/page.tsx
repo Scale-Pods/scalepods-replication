@@ -1977,73 +1977,156 @@ export default function WebinarPage() {
       </section>
 
       {/* ── SECTION 9: WHAT YOU'LL LEARN (SLIDES 18 & 19) ──────────────────────── */}
-      <section className="wb-section">
-        <div className="wb-container">
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            <div className="wb-pill-green" style={{ marginBottom: "14px" }}>
-              <CheckCircle2 size={14} />
-              <span>CURRICULUM BLUEPRINTS</span>
-            </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.2, marginBottom: "14px" }}>
-              WHAT YOU’LL <span className="wb-gradient-text-green-cyan">LEARN</span>
-            </h2>
-            <p style={{ fontSize: "16px", color: "#94A3B8", maxWidth: "680px", margin: "0 auto" }}>
-              By the end of this live session, you&apos;ll understand:
-            </p>
-          </div>
+      <section className="wb-section-fullscreen-curriculum" id="what-you-will-learn">
+        {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Slide 18) ── */}
+        <div className="wb-curriculum-fullscreen-stage">
+          <Image
+            src="/images/webinar-redesign/18.webp"
+            alt="What You'll Learn - AI Business Automation Masterclass Curriculum"
+            fill
+            priority
+            quality={92}
+            sizes="100vw"
+            className="wb-curriculum-canvas-img"
+          />
+          <div className="wb-curriculum-canvas-overlay" />
 
-          {/* 3-Column Surround Grid matching Slide 18 & 19 */}
-          <div className="wb-curriculum-wrap">
+          {/* Interactive Hover Hotspots for 8 Curriculum Points & CTA */}
+          <div className="wb-curriculum-stage-hotspots">
             {/* Left 4 Cards */}
-            <div className="wb-curriculum-col">
-              {[
-                { title: "How to identify repetitive processes worth automating", icon: Settings },
-                { title: "How AI can fit into existing business workflows", icon: BrainCircuit },
-                { title: "How Sales workflows can capture, qualify and follow up with leads", icon: TrendingUp },
-                { title: "How HR workflows can automate screening and scheduling", icon: Users },
-              ].map((item, idx) => {
-                const IconComponent = item.icon;
-                return (
-                  <div key={idx} className="wb-curriculum-card">
-                    <div className="wb-cost-pillar-icon wb-cost-pillar-icon-green" style={{ width: "32px", height: "32px" }}>
-                      <IconComponent size={16} />
-                    </div>
-                    <p className="wb-curriculum-text">{item.title}</p>
-                  </div>
-                );
-              })}
+            <div className="wb-cstage-hotspot wb-cstage-left-1" title="How to identify repetitive processes worth automating" />
+            <div className="wb-cstage-hotspot wb-cstage-left-2" title="How AI can fit into existing business workflows" />
+            <div className="wb-cstage-hotspot wb-cstage-left-3" title="How Sales workflows can capture, qualify and follow up with leads" />
+            <div className="wb-cstage-hotspot wb-cstage-left-4" title="How HR workflows can automate screening and scheduling" />
+
+            {/* Right 4 Cards */}
+            <div className="wb-cstage-hotspot wb-cstage-right-1" title="How to separate tasks that need humans from tasks that don't" />
+            <div className="wb-cstage-hotspot wb-cstage-right-2" title="How the 4-Layer Automation System works" />
+            <div className="wb-cstage-hotspot wb-cstage-right-3" title="How Marketing workflows can automate lead nurturing and tracking" />
+            <div className="wb-cstage-hotspot wb-cstage-right-4" title="How Operations workflows can automate task assignment and reporting" />
+
+            {/* Clickable CTA Hotspot over Bottom Banner Button */}
+            <div
+              onClick={handleOpenModal}
+              className="wb-curriculum-stage-cta-hotspot"
+              title="Reserve Seat (₹99)"
+              role="button"
+              tabIndex={0}
+            >
+              <span className="sr-only">Reserve Your Seat for ₹99</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── MOBILE & TABLET RESPONSIVE WRAPPER (<= 1024px) ── */}
+        <div className="wb-curriculum-mobile-wrapper">
+          <div className="wb-container">
+            <div className="wb-curriculum-mobile-header">
+              <div className="wb-pill-badge-green" style={{ marginBottom: "14px" }}>
+                <CheckCircle2 size={13} className="wb-pill-badge-icon" />
+                <span>CURRICULUM BLUEPRINTS</span>
+              </div>
+
+              <h2 className="wb-curriculum-mobile-title">
+                WHAT YOU’LL <span className="wb-curriculum-title-cyan">LEARN</span>
+              </h2>
+
+              <p className="wb-curriculum-mobile-desc">
+                By the end of this live session, you&apos;ll understand:
+              </p>
             </div>
 
-            {/* Center 3D Stage (Slide 19) */}
-            <div className="wb-curriculum-center-stage">
+            {/* 3D Central Workspace Visual Stage (Slide 19) */}
+            <div className="wb-curriculum-mobile-stage-box">
               <Image
                 src="/images/webinar-redesign/19.webp"
                 alt="Interactive AI automation workspace and laptop dashboard"
-                fill
-                quality={90}
-                sizes="(max-width: 1024px) 100vw, 550px"
-                className="wb-cost-img"
+                width={1200}
+                height={675}
+                quality={92}
+                sizes="(max-width: 900px) 100vw, 850px"
+                className="wb-curriculum-mobile-img"
               />
             </div>
 
-            {/* Right 4 Cards */}
-            <div className="wb-curriculum-col">
+            {/* 8 Curriculum Cards Grid */}
+            <div className="wb-curriculum-mobile-grid">
               {[
-                { title: "How to separate tasks that need humans from tasks that don't", icon: ShieldCheck },
-                { title: "How the 4-Layer Automation System works", icon: Cpu },
-                { title: "How Marketing workflows can automate lead nurturing and tracking", icon: Zap },
-                { title: "How Operations workflows can automate task assignment and reporting", icon: BarChart3 },
+                {
+                  title: "How to identify repetitive processes worth automating",
+                  icon: Settings,
+                  color: "green",
+                },
+                {
+                  title: "How to separate tasks that need humans from tasks that don't",
+                  icon: ShieldCheck,
+                  color: "cyan",
+                },
+                {
+                  title: "How AI can fit into existing business workflows",
+                  icon: BrainCircuit,
+                  color: "green",
+                },
+                {
+                  title: "How the 4-Layer Automation System works",
+                  icon: Layers,
+                  color: "cyan",
+                },
+                {
+                  title: "How Sales workflows can capture, qualify and follow up with leads",
+                  icon: TrendingUp,
+                  color: "green",
+                },
+                {
+                  title: "How Marketing workflows can automate lead nurturing and tracking",
+                  icon: Megaphone,
+                  color: "cyan",
+                },
+                {
+                  title: "How HR workflows can automate screening and scheduling",
+                  icon: Users,
+                  color: "green",
+                },
+                {
+                  title: "How Operations workflows can automate task assignment and reporting",
+                  icon: BarChart3,
+                  color: "blue",
+                },
               ].map((item, idx) => {
                 const IconComponent = item.icon;
                 return (
-                  <div key={idx} className="wb-curriculum-card">
-                    <div className="wb-cost-pillar-icon wb-cost-pillar-icon-blue" style={{ width: "32px", height: "32px" }}>
+                  <div key={idx} className={`wb-curriculum-card wb-ccard-${item.color}`}>
+                    <div className={`wb-ccard-icon-badge wb-cbadge-${item.color}`}>
                       <IconComponent size={16} />
                     </div>
-                    <p className="wb-curriculum-text">{item.title}</p>
+                    <p className="wb-curriculum-card-text">{item.title}</p>
                   </div>
                 );
               })}
+            </div>
+
+            {/* Bottom Offer & Registration Banner (Slide 18) */}
+            <div className="wb-curriculum-mobile-callout-card">
+              <div className="wb-curriculum-callout-info">
+                <div className="wb-curriculum-live-badge">
+                  <span className="wb-live-dot" />
+                  <span>LIVE</span>
+                </div>
+                <div className="wb-curriculum-callout-title">
+                  AI Business Automation Masterclass
+                </div>
+                <div className="wb-curriculum-callout-meta">
+                  With Adnan Sheikh & Raunak Kumar • <strong className="wb-curriculum-price">Only ₹99/-</strong> <span className="wb-curriculum-orig-price">₹999</span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleOpenModal}
+                className="wb-curriculum-callout-btn"
+              >
+                <span>Reserve Seat (₹99)</span>
+                <ArrowRight size={15} />
+              </button>
             </div>
           </div>
         </div>

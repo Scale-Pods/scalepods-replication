@@ -5273,53 +5273,406 @@ html:not(.dark) .wb-section-fullscreen-bigidea {
 }
 
 /* ── SECTION 9: WHAT YOU'LL LEARN (SLIDES 18 & 19) ──────────────────────── */
-.wb-curriculum-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr 1fr;
-  gap: 20px;
+.wb-section-fullscreen-curriculum {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #02050B;
+  display: flex;
   align-items: center;
-  margin-bottom: 36px;
-}
-
-.wb-curriculum-col {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.wb-curriculum-card {
-  background: rgba(8, 16, 28, 0.72);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  transition: all 0.25s ease;
-}
-
-.wb-curriculum-card:hover {
-  border-color: rgba(74, 222, 128, 0.4);
-  background: rgba(8, 16, 28, 0.85);
-  transform: translateY(-2px);
-}
-
-.wb-curriculum-text {
-  font-size: 13.5px;
-  color: #E2E8F0;
-  line-height: 1.45;
+  justify-content: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0;
   margin: 0;
-  font-weight: 500;
 }
 
-.wb-curriculum-center-stage {
+[data-theme="light"] .wb-section-fullscreen-curriculum,
+html:not(.dark) .wb-section-fullscreen-curriculum {
+  background-color: #02050B;
+}
+
+.wb-curriculum-fullscreen-stage {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.wb-curriculum-canvas-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.wb-curriculum-canvas-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 72%, #02050B 100%),
+              linear-gradient(180deg, #02050B 0%, transparent 6%, transparent 94%, #02050B 100%);
+}
+
+/* Interactive Hotspot cards over 18.webp */
+.wb-curriculum-stage-hotspots {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.wb-cstage-hotspot {
+  position: absolute;
   border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.15);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+/* Left 4 Cards */
+.wb-cstage-left-1 {
+  top: 24.5%;
+  left: 3.3%;
+  width: 26.5%;
+  height: 11.4%;
+}
+.wb-cstage-left-2 {
+  top: 38.7%;
+  left: 3.3%;
+  width: 26.5%;
+  height: 11.4%;
+}
+.wb-cstage-left-3 {
+  top: 52.8%;
+  left: 3.3%;
+  width: 26.5%;
+  height: 11.4%;
+}
+.wb-cstage-left-4 {
+  top: 67.0%;
+  left: 3.3%;
+  width: 26.5%;
+  height: 11.4%;
+}
+
+.wb-cstage-left-1:hover,
+.wb-cstage-left-2:hover,
+.wb-cstage-left-3:hover,
+.wb-cstage-left-4:hover {
+  background: rgba(74, 222, 128, 0.04);
+  box-shadow: 0 0 28px rgba(74, 222, 128, 0.28), inset 0 0 16px rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Right 4 Cards */
+.wb-cstage-right-1 {
+  top: 24.5%;
+  left: 70.2%;
+  width: 26.5%;
+  height: 11.4%;
+}
+.wb-cstage-right-2 {
+  top: 38.7%;
+  left: 70.2%;
+  width: 26.5%;
+  height: 11.4%;
+}
+.wb-cstage-right-3 {
+  top: 52.8%;
+  left: 70.2%;
+  width: 26.5%;
+  height: 11.4%;
+}
+.wb-cstage-right-4 {
+  top: 67.0%;
+  left: 70.2%;
+  width: 26.5%;
+  height: 11.4%;
+}
+
+.wb-cstage-right-1:hover,
+.wb-cstage-right-2:hover,
+.wb-cstage-right-3:hover,
+.wb-cstage-right-4:hover {
+  background: rgba(56, 189, 248, 0.04);
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.28), inset 0 0 16px rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Bottom Banner CTA Hotspot */
+.wb-curriculum-stage-cta-hotspot {
+  position: absolute;
+  top: 87.2%;
+  left: 77.8%;
+  width: 17.5%;
+  height: 6.2%;
+  border-radius: 9999px;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.wb-curriculum-stage-cta-hotspot:hover {
+  background: rgba(74, 222, 128, 0.08);
+  box-shadow: 0 0 30px rgba(74, 222, 128, 0.5);
+  border: 1px solid rgba(74, 222, 128, 0.7);
+  transform: translateY(-2px);
+}
+
+/* Mobile & Tablet Responsive Breakdown */
+.wb-curriculum-mobile-wrapper {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .wb-section-fullscreen-curriculum {
+    min-height: auto;
+    padding: 60px 16px 80px;
+    display: block;
+  }
+  .wb-curriculum-fullscreen-stage {
+    display: none;
+  }
+  .wb-curriculum-mobile-wrapper {
+    display: block;
+    width: 100%;
+  }
+  .wb-curriculum-mobile-header {
+    text-align: center;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .wb-curriculum-mobile-title {
+    font-family: var(--font-inter), -apple-system, sans-serif;
+    font-size: clamp(26px, 6vw, 38px);
+    font-weight: 850;
+    line-height: 1.15;
+    color: #FFFFFF;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.02em;
+  }
+  .wb-curriculum-title-cyan {
+    background: linear-gradient(135deg, #4ADE80 0%, #38BDF8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .wb-curriculum-mobile-desc {
+    font-family: var(--font-inter), sans-serif;
+    font-size: clamp(14px, 3.8vw, 16px);
+    color: #94A3B8;
+    line-height: 1.5;
+    margin: 0 auto;
+  }
+
+  /* 3D Central Workspace Box */
+  .wb-curriculum-mobile-stage-box {
+    position: relative;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 28px;
+    background: #020712;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.12);
+  }
+  .wb-curriculum-mobile-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* 8 Curriculum Cards Grid */
+  .wb-curriculum-mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto 28px;
+  }
+  .wb-curriculum-card {
+    background: rgba(8, 16, 28, 0.88);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .wb-ccard-green {
+    border: 1px solid rgba(74, 222, 128, 0.32);
+  }
+  .wb-ccard-green:hover {
+    border-color: rgba(74, 222, 128, 0.6);
+    transform: translateY(-2px);
+  }
+  .wb-ccard-cyan {
+    border: 1px solid rgba(56, 189, 248, 0.32);
+  }
+  .wb-ccard-cyan:hover {
+    border-color: rgba(56, 189, 248, 0.6);
+    transform: translateY(-2px);
+  }
+  .wb-ccard-blue {
+    border: 1px solid rgba(96, 165, 250, 0.32);
+  }
+  .wb-ccard-blue:hover {
+    border-color: rgba(96, 165, 250, 0.6);
+    transform: translateY(-2px);
+  }
+  .wb-ccard-icon-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .wb-cbadge-green {
+    background: rgba(74, 222, 128, 0.15);
+    border: 1px solid rgba(74, 222, 128, 0.45);
+    color: #4ADE80;
+  }
+  .wb-cbadge-cyan {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #38BDF8;
+  }
+  .wb-cbadge-blue {
+    background: rgba(96, 165, 250, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.45);
+    color: #60A5FA;
+  }
+  .wb-curriculum-card-text {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 13.5px;
+    font-weight: 550;
+    color: #E2E8F0;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Bottom Offer & Registration Banner */
+  .wb-curriculum-mobile-callout-card {
+    max-width: 820px;
+    margin: 0 auto;
+    background: rgba(7, 16, 28, 0.92);
+    border: 1px solid rgba(74, 222, 128, 0.4);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 25px rgba(74, 222, 128, 0.15);
+  }
+  .wb-curriculum-callout-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .wb-curriculum-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(74, 222, 128, 0.14);
+    border: 1px solid rgba(74, 222, 128, 0.45);
+    color: #4ADE80;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    letter-spacing: 0.06em;
+    width: fit-content;
+  }
+  .wb-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ADE80;
+    box-shadow: 0 0 8px #4ADE80;
+  }
+  .wb-curriculum-callout-title {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 15px;
+    font-weight: 750;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+  }
+  .wb-curriculum-callout-meta {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 12.5px;
+    color: #94A3B8;
+  }
+  .wb-curriculum-price {
+    color: #4ADE80;
+    font-weight: 800;
+  }
+  .wb-curriculum-orig-price {
+    text-decoration: line-through;
+    color: #64748B;
+    margin-left: 4px;
+  }
+  .wb-curriculum-callout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    border: 1px solid rgba(52, 211, 153, 0.6);
+    border-radius: 9999px;
+    color: #FFFFFF;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 13.5px;
+    font-weight: 750;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    flex-shrink: 0;
+  }
+  .wb-curriculum-callout-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 640px) {
+  .wb-curriculum-mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .wb-curriculum-mobile-callout-card {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 18px 16px;
+    gap: 14px;
+  }
+  .wb-curriculum-callout-info {
+    align-items: center;
+  }
+  .wb-curriculum-callout-btn {
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 /* ── SECTION 10: BUSINESS BRAIN + TECHNOLOGY BRAIN (SLIDES 20 & 21) ─────── */
