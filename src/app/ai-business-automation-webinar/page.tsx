@@ -1874,69 +1874,99 @@ export default function WebinarPage() {
       </section>
 
       {/* ── SECTION 8: THE BIG IDEA (SLIDES 16 & 17) ───────────────────────────── */}
-      <section className="wb-section">
-        <div className="wb-container">
-          <div style={{ textAlign: "center", marginBottom: "32px" }}>
-            <div className="wb-pill-green" style={{ marginBottom: "14px" }}>
-              <Sparkles size={14} />
-              <span>THE PROPRIETARY FRAMEWORK</span>
-            </div>
-            <h2 style={{ fontSize: "clamp(26px, 4.5vw, 44px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.2, marginBottom: "16px" }}>
-              THE BIG <span className="wb-gradient-text-green-cyan">IDEA</span>
-            </h2>
+      <section className="wb-section-fullscreen-bigidea" id="big-idea">
+        {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Matches Masterclass & Business Tracks Architecture) ── */}
+        <div className="wb-bigidea-fullscreen-stage">
+          <Image
+            src="/images/webinar-redesign/16.webp"
+            alt="The Big Idea - They are all workflows - ScalePods"
+            fill
+            priority
+            quality={92}
+            sizes="100vw"
+            className="wb-bigidea-canvas-img"
+          />
+          <div className="wb-bigidea-canvas-overlay" />
 
-            {/* Top 7 Pills matching Slide 16 */}
-            <div className="wb-big-idea-pills-row">
-              {[
-                "A lead.",
-                "A candidate.",
-                "A customer enquiry.",
-                "An internal request.",
-                "A support ticket.",
-                "A marketing response.",
-                "A finance task.",
-              ].map((pill, idx) => (
-                <div key={idx} className="wb-big-idea-pill">
-                  <span>{pill}</span>
-                </div>
-              ))}
-            </div>
-
-            <p style={{ fontSize: "17px", color: "#94A3B8", maxWidth: "700px", margin: "0 auto" }}>
-              They may look completely different. <strong style={{ color: "#FFFFFF" }}>But underneath… THEY ARE ALL WORKFLOWS.</strong>
-            </p>
+          {/* Interactive Clickable CTA Hotspot over Bottom Banner in 16.webp */}
+          <div
+            onClick={handleOpenModal}
+            className="wb-bigidea-stage-cta-hotspot"
+            title="Reserve Seat (₹99)"
+            role="button"
+            tabIndex={0}
+          >
+            <span className="sr-only">Reserve Your Seat for ₹99</span>
           </div>
+        </div>
 
-          {/* 3D Visual Stage matching Slide 17 */}
-          <div className="wb-big-idea-stage-wrap">
-            <div className="wb-big-idea-stage">
+        {/* ── MOBILE & TABLET RESPONSIVE WRAPPER (<= 1024px) ── */}
+        <div className="wb-bigidea-mobile-wrapper">
+          <div className="wb-container">
+            <div className="wb-bigidea-mobile-header">
+              <div className="wb-pill-badge-green" style={{ marginBottom: "14px" }}>
+                <Sparkles size={13} className="wb-pill-badge-icon" />
+                <span>THE PROPRIETARY FRAMEWORK</span>
+              </div>
+
+              <h2 className="wb-bigidea-mobile-title">
+                THE BIG <span className="wb-bigidea-title-cyan">IDEA</span>
+              </h2>
+
+              {/* 7 Glowing Entity Pills */}
+              <div className="wb-bigidea-mobile-pills">
+                {[
+                  { text: "A lead.", icon: <Users size={13} className="wb-pill-ico-cyan" /> },
+                  { text: "A candidate.", icon: <Users size={13} className="wb-pill-ico-cyan" /> },
+                  { text: "A customer enquiry.", icon: <MessageSquare size={13} className="wb-pill-ico-cyan" /> },
+                  { text: "An internal request.", icon: <Inbox size={13} className="wb-pill-ico-cyan" /> },
+                  { text: "A support ticket.", icon: <ShieldCheck size={13} className="wb-pill-ico-mint" /> },
+                  { text: "A marketing response.", icon: <Megaphone size={13} className="wb-pill-ico-mint" /> },
+                  { text: "A finance task.", icon: <Database size={13} className="wb-pill-ico-cyan" /> },
+                ].map((item, idx) => (
+                  <div key={idx} className="wb-bigidea-mobile-pill-item">
+                    <div className="wb-bigidea-pill-icon-wrap">{item.icon}</div>
+                    <span>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              <p className="wb-bigidea-mobile-desc">
+                They may look completely different. <br className="wb-hide-mobile" />
+                <strong className="wb-bigidea-highlight-white">But underneath… THEY ARE ALL WORKFLOWS.</strong>
+              </p>
+            </div>
+
+            {/* 3D Workflow Engine Visual Card (Slide 17) */}
+            <div className="wb-bigidea-mobile-stage-box">
               <Image
                 src="/images/webinar-redesign/17.webp"
                 alt="One central AI workflow engine connecting departments to automated outcomes"
-                fill
-                quality={90}
-                sizes="(max-width: 1200px) 100vw, 1200px"
-                className="wb-cost-img"
+                width={1200}
+                height={675}
+                quality={92}
+                sizes="(max-width: 900px) 100vw, 850px"
+                className="wb-bigidea-mobile-img"
               />
             </div>
-          </div>
 
-          {/* Bottom Card matching Slide 16 */}
-          <div className="wb-expansion-callout-card">
-            <div className="wb-callout-accent-bar" />
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "16px", width: "100%" }}>
-              <div>
-                <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", color: "#4ADE80", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
-                  ONE CONNECTED WORKFLOW ENGINE
-                </span>
-                <div style={{ fontSize: "16px", fontWeight: 700, color: "#FFFFFF" }}>
-                  Redesign → Connect → Automate → AI
+            {/* Bottom Framework Callout Bar (Slide 16) */}
+            <div className="wb-bigidea-mobile-callout-card">
+              <div className="wb-bigidea-callout-left">
+                <div className="wb-bigidea-callout-sparkle-badge">
+                  <Sparkles size={16} className="wb-sparkle-mint" />
+                </div>
+                <div className="wb-bigidea-callout-text">
+                  <span className="wb-bigidea-callout-label">ONE CONNECTED WORKFLOW ENGINE</span>
+                  <div className="wb-bigidea-callout-flow">
+                    Redesign → Connect → Automate → AI
+                  </div>
                 </div>
               </div>
+
               <button
                 onClick={handleOpenModal}
-                className="wb-button-primary wb-btn-pulse-glow"
-                style={{ padding: "12px 24px", fontSize: "14px" }}
+                className="wb-bigidea-callout-btn"
               >
                 <span>Reserve Seat (₹99)</span>
                 <ArrowRight size={15} />
