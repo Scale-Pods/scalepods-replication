@@ -564,6 +564,37 @@
   gap: 18px;
 }
 
+/* Compliance Footer */
+.wb-footer-section {
+  border-top: 1px solid var(--wb-divider);
+  background: var(--wb-footer-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 56px 24px calc(115px + env(safe-area-inset-bottom, 24px));
+  text-align: center;
+  font-size: 13px;
+  color: var(--wb-text-faint);
+  position: relative;
+  z-index: 3;
+}
+
+.wb-footer-link {
+  color: var(--wb-text-mid);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
+
+.wb-footer-link:hover {
+  color: var(--wb-green);
+}
+
+@media (max-width: 768px) {
+  .wb-footer-section {
+    padding: 48px 20px calc(150px + env(safe-area-inset-bottom, 24px)) !important;
+  }
+}
+
 /* Modal */
 .wb-modal-overlay {
   position: fixed;

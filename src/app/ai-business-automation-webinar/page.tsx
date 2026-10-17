@@ -3383,59 +3383,47 @@ export default function WebinarPage() {
       )}
 
       {/* ── DEDICATED COMPLIANCE FOOTER ───────────────────────────────────── */}
-      <footer
-        style={{
-          borderTop: "1px solid var(--wb-divider)",
-          background: "var(--wb-footer-bg)",
-          backdropFilter: "blur(20px)",
-          padding: "48px 24px",
-          textAlign: "center",
-          fontSize: "13px",
-          color: "var(--wb-text-faint)",
-          position: "relative",
-          zIndex: 3,
-        }}
-      >
+      <footer className="wb-footer-section">
         <div className="wb-container">
           <div style={{ marginBottom: "18px", display: "flex", justifyContent: "center" }}>
-            <div style={{ position: "relative", width: "140px", height: "26px" }}>
+            <div style={{ position: "relative", width: "160px", height: "28px" }}>
               <Image
                 src="/scalepods-navbar-logo.png"
                 alt="ScalePods"
                 fill
-                sizes="140px"
-                style={{ objectFit: "contain", filter: "invert(1)", opacity: 0.85 }}
+                sizes="160px"
+                style={{ objectFit: "contain", filter: "invert(1)", opacity: 1 }}
               />
             </div>
           </div>
 
-          <p style={{ maxWidth: "620px", margin: "0 auto 18px", color: "var(--wb-text-muted)", fontSize: "14px" }}>
+          <p style={{ maxWidth: "620px", margin: "0 auto 18px", color: "var(--wb-text-muted)", fontSize: "14px", lineHeight: 1.6 }}>
             ScalePods architects autonomous AI workflow automation ecosystems across enterprise sales, marketing, HR and operational systems.
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "22px", marginBottom: "20px" }}>
-            <Link href="/privacy" style={{ color: "var(--wb-text-mid)", textDecoration: "none" }}>
+            <Link href="/privacy" className="wb-footer-link">
               Privacy Policy
             </Link>
-            <Link href="/terms" style={{ color: "var(--wb-text-mid)", textDecoration: "none" }}>
+            <Link href="/terms" className="wb-footer-link">
               Terms of Service
             </Link>
             <a
               href="#refund-policy"
+              className="wb-footer-link"
               onClick={(e) => {
                 e.preventDefault();
                 alert("Cancellation & Refund Policy:\n\n1. Registrations for the ScalePods ₹99 Live AI Business Automation Masterclass are non-refundable once confirmation access is issued.\n2. In the event of session rescheduling, your registration remains 100% valid for the rescheduled date.\n3. For any queries, write to info@scalepods.co.");
               }}
-              style={{ color: "var(--wb-text-mid)", textDecoration: "none" }}
             >
               Cancellation &amp; Refund Policy
             </a>
-            <a href="mailto:info@scalepods.co" style={{ color: "var(--wb-text-mid)", textDecoration: "none" }}>
+            <a href="mailto:info@scalepods.co" className="wb-footer-link">
               Contact: info@scalepods.co
             </a>
           </div>
 
-          <p style={{ fontSize: "12px", color: "var(--wb-text-faint)" }}>
+          <p style={{ fontSize: "12px", color: "var(--wb-text-faint)", margin: 0 }}>
             © {new Date().getFullYear()} ScalePods Inc. All rights reserved. Razorpay is a trademark of Razorpay Software Private Limited.
           </p>
         </div>
