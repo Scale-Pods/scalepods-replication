@@ -606,7 +606,11 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
                       <CheckCircle2 style={{ width: "18px", height: "18px" }} />
                     </div>
                     <p style={{ fontSize: "14.5px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
-                      Sales reps no longer have to manually schedule every next touchpoint. The sales workflow automation keeps the conversation moving across channels.
+                      Sales reps no longer have to manually schedule every next touchpoint. The{" "}
+                      <Link href="/blog/how-to-implement-sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                        sales workflow automation
+                      </Link>{" "}
+                      keeps the conversation moving across channels.
                     </p>
                   </div>
                   <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
@@ -846,7 +850,11 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
                 </p>
 
                 <p style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
-                  Lead recycling becomes an ongoing, automated revenue loop instead of an abandoned, manual database-cleaning chore.
+                  Lead recycling becomes an ongoing{" "}
+                  <Link href="/blog/how-to-automate-your-sdr-workflow-with-ai" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                    sales prospecting automation loop
+                  </Link>{" "}
+                  instead of an abandoned, manual database-cleaning chore.
                 </p>
               </div>
             </div>
@@ -1053,7 +1061,11 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
               textAlign: "justify",
               textJustify: "inter-word"
             }}>
-              By connecting Bitrix24 to an autonomous AI sales orchestration layer, A Squared unlocked rapid speed-to-lead and revitalized its massive prospect database without expanding headcount:
+              By connecting Bitrix24 to an autonomous{" "}
+              <Link href="/blog/sales-workflow-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                AI sales automation layer
+              </Link>
+              , A Squared unlocked rapid speed-to-lead and revitalized its massive prospect database without expanding headcount:
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1227,7 +1239,11 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
                 The CRM Wasn&apos;t the Problem. The Process Was.
               </h3>
               <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
-                Bitrix24 already contained the data. What was missing was an intelligent CRM and sales automation layer that could actually act on that data. ScalePods connected the CRM to automated outreach, AI qualification, sentiment analysis, lead recycling, and live executive reporting. The result was a real estate sales automation system built around the way A Squared&apos;s sales team actually works.
+                Bitrix24 already contained the data. What was missing was an intelligent CRM and sales automation layer that could actually act on that data. ScalePods connected the CRM to automated outreach, AI qualification, sentiment analysis, lead recycling, and live executive reporting. The result was a{" "}
+                <Link href="/solution/ai-automation-for-real-estate" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                  Real Estate Sales Automation system
+                </Link>{" "}
+                built around the way A Squared&apos;s sales team actually works.
               </p>
             </div>
 

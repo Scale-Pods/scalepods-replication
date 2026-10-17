@@ -770,7 +770,24 @@ export default async function ArticlePage({ params }: Props) {
                     Key features
                   </h4>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                    {["Real Estate", "Sales", "Luxury homes", "Villas"].map((tag) => (
+                    <Link
+                      href="/solution/ai-automation-for-real-estate"
+                      style={{
+                        fontSize: "12px",
+                        padding: "4px 10px",
+                        borderRadius: "6px",
+                        background: "var(--color-bg-card-alt)",
+                        border: "1px solid var(--color-border)",
+                        color: "var(--color-blue-mid)",
+                        textDecoration: "none",
+                        fontWeight: 600,
+                        transition: "all 0.2s ease"
+                      }}
+                      className="hover:border-blue-400"
+                    >
+                      Real Estate Sales
+                    </Link>
+                    {["Luxury homes", "Villas"].map((tag) => (
                       <span
                         key={tag}
                         style={{
@@ -830,7 +847,11 @@ export default async function ArticlePage({ params }: Props) {
                         Scalability Bottlenecks in Lead Follow-Up
                       </h3>
                       <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
-                        Despite building a robust database of over 10,000 qualified prospects, the lean sales team struggled to keep pace with growing inbound demand. Relying heavily on manual outreach created operational bottlenecks, making it increasingly difficult to consistently nurture every new lead at scale.
+                        Despite building a robust database of over 10,000 qualified prospects, the lean sales team struggled to keep pace with growing inbound demand. Relying heavily on{" "}
+                        <Link href="/solution/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                          manual outreach
+                        </Link>{" "}
+                        created operational bottlenecks, making it increasingly difficult to consistently nurture every new lead at scale.
                       </p>
                     </div>
                   </div>
@@ -979,7 +1000,10 @@ export default async function ArticlePage({ params }: Props) {
                     </div>
                     <div>
                       <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px", lineHeight: 1.3 }}>
-                        Multi-channel outreach that stayed consistent
+                        <Link href="/blog/how-to-implement-sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                          Multi-channel outreach
+                        </Link>{" "}
+                        that stayed consistent
                       </h3>
                       <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                         The workflow used WhatsApp, email, and AI voice calls to keep prospects engaged without overwhelming the sales team with repetitive manual effort. This gave Lotus Manor a more reliable reachout & follow-up rhythm across the full database.
@@ -1100,7 +1124,11 @@ export default async function ArticlePage({ params }: Props) {
                   textAlign: "justify",
                   textJustify: "inter-word"
                 }}>
-                  Within four months, the impact was visible across both engagement and sales productivity. Lotus Manor’s automated follow-up system helped the team reach more leads, generate more responses, and stop spending time on repetitive outreach work.
+                  Within four months, the impact was visible across both engagement and sales productivity. Lotus Manor’s{" "}
+                  <Link href="/blog/sales-workflow-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                    automated follow-up system
+                  </Link>{" "}
+                  helped the team reach more leads, generate more responses, and stop spending time on repetitive outreach work.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

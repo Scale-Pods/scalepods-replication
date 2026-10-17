@@ -59,6 +59,16 @@ const nextConfig: NextConfig = {
         destination: '/case-study/asquared-real-estate-sales-automation-dubai',
         permanent: true,
       },
+      {
+        source: '/solution/operations-automation',
+        destination: '/solution/ops-workflow-automation',
+        permanent: true,
+      },
+      {
+        source: '/blog/operations-automation-guide',
+        destination: '/solution/ops-workflow-automation',
+        permanent: true,
+      },
     ];
   },
 };
