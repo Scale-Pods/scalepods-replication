@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Employees Ebook: Meet the Digital Workforce | ScalePods",
+  title: "AI Employees & Workflow Automation eBook | ScalePods",
   description:
-    "Download the free executive guide to AI employees: how AI agents operate 24/7 across Sales, Marketing, HR, and Operations to eliminate repetitive busywork.",
+    "Download the free ScalePods eBook to explore AI employees, AI workflow automation, and business workflow automation for sales, marketing, HR, and operations.",
   alternates: {
     canonical: "https://www.scalepods.co/resources/ebooks/ai-employees-digital-workforce",
   },
   openGraph: {
-    title: "AI Employees Ebook: Meet the Digital Workforce | ScalePods",
+    title: "AI Employees & Workflow Automation eBook | ScalePods",
     description:
-      "Download the free executive guide to AI employees: how AI agents operate 24/7 across Sales, Marketing, HR, and Operations to eliminate repetitive busywork.",
+      "Download the free ScalePods eBook to explore AI employees, AI workflow automation, and business workflow automation for sales, marketing, HR, and operations.",
     url: "https://www.scalepods.co/resources/ebooks/ai-employees-digital-workforce",
     siteName: "ScalePods",
     type: "article",

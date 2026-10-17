@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI in HR: The Executive Playbook | ScalePods",
+  title: "HR Automation: AI in HR Executive Playbook | ScalePods",
   description:
-    "Download the executive playbook for building an AI-first HR organization. Includes maturity models, a 90-day implementation blueprint, and architecture diagrams.",
+    "Download the free ScalePods AI in HR Executive Playbook. Explore HR automation, recruitment workflows, AI maturity, and a practical 90-day implementation blueprint.",
   alternates: {
     canonical: "https://www.scalepods.co/resources/ebooks/ai-in-hr-executive-playbook",
   },
   openGraph: {
-    title: "AI in HR: The Executive Playbook | ScalePods",
+    title: "HR Automation: AI in HR Executive Playbook | ScalePods",
     description:
-      "Download the executive playbook for building an AI-first HR organization. Includes maturity models, a 90-day implementation blueprint, and architecture diagrams.",
+      "Download the free ScalePods AI in HR Executive Playbook. Explore HR automation, recruitment workflows, AI maturity, and a practical 90-day implementation blueprint.",
     url: "https://www.scalepods.co/resources/ebooks/ai-in-hr-executive-playbook",
     siteName: "ScalePods",
     type: "article",
