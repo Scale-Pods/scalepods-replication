@@ -447,14 +447,14 @@ export default function RealEstateWorkflowAutomationPage() {
               </span>
             </div>
 
-            <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%", transform: "translateY(-0.5px)" }}>
+            <h1 className="sp-hero-title" style={{ width: "100%", transform: "translateY(-0.5px)" }}>
               <span style={{ color: "var(--sp-accent)" }}>AI Automation for Real Estate:</span>{" "}
               <br className="sp-hero-desk-br" />
               Convert Buyers Faster, Streamline Viewing Bookings, <br className="sp-hero-br" />
               and Eliminate Pipeline Leakage.
             </h1>
 
-            <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "20px" : "24px", marginInline: "auto" }}>
+            <div className="sp-hero-desc" style={{ marginBottom: isMobile ? "20px" : "24px", textAlign: "center", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
                 Modern property developers, brokerages, and agency leaders face an evolving sales environment. Traditional sales methods often result in slow inquiry response times, fragmented client data, and lost deals. Deploying practical <strong>AI for real estate</strong> solutions allows property teams to automate client discovery, accelerate site viewing schedules, and build a unified buyer engagement pipeline.
               </p>
@@ -479,14 +479,14 @@ export default function RealEstateWorkflowAutomationPage() {
                 "Multi-Channel Viewing Bookings",
                 "Real-Time CRM Auto-Sync"
               ].map((bullet, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <CheckCircle2 size={15} style={{ color: "var(--sp-accent)", flexShrink: 0 }} />
                   <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-text-bright)" }}>{bullet}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-4 mt-2 justify-center">
+            <div className="flex flex-wrap gap-4 mt-2 justify-center w-full">
               <motion.button 
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -503,29 +503,100 @@ export default function RealEstateWorkflowAutomationPage() {
           <motion.div 
             className="flex justify-center"
             {...fadeUp(0.3, isMobile)}
+            id="deployment-form"
           >
             <div className="sp-form-card">
-              <h3 className="text-lg font-bold text-[var(--color-text-bright)] mb-4">Book a Free Workflow Audit</h3>
-              
+              {/* Dynamic Inset Shadow for Depth */}
+              <div 
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  borderRadius: "inherit",
+                  boxShadow: "var(--card-shadow-inset)",
+                  pointerEvents: "none"
+                }} 
+              />
+
               {submitted ? (
-                <div className="text-center py-8">
-                  <CheckCircle2 size={48} className="text-[var(--sp-accent)] mx-auto mb-3" />
-                  <h4 className="font-bold text-[var(--color-text-bright)] text-base mb-1">Audit Booked Successfully!</h4>
-                  <p className="text-xs text-[var(--color-text-muted)]">Our solution engineering team will reach out within 24 hours.</p>
+                // Rich Success State — matches manufacturing page
+                <div id="lead-form-success" style={{ textAlign: "center", padding: "20px 0" }}>
+                  <div 
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      borderRadius: "50%",
+                      background: "rgba(var(--sp-accent-rgb), 0.05)",
+                      border: "1px solid var(--sp-accent)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 20px",
+                    }}
+                  >
+                    <CheckCircle2 style={{ width: "24px", height: "24px", color: "var(--sp-accent)" }} />
+                  </div>
+                  <h3 
+                    style={{ 
+                      fontFamily: "var(--font-sans), sans-serif", 
+                      fontSize: "18px", 
+                      fontWeight: 700, 
+                      color: "var(--color-text-bright)", 
+                      marginBottom: "12px"
+                    }}
+                  >
+                    Workflow Audit Scheduled
+                  </h3>
+                  <p 
+                    style={{ 
+                      fontSize: "13.5px", 
+                      color: "var(--color-text-muted)", 
+                      lineHeight: 1.5,
+                      marginBottom: "20px"
+                    }}
+                  >
+                    Our Solutions Engineering team will reach out within 24 hours with your preliminary automation roadmap.
+                  </p>
+                  <div 
+                    style={{ 
+                      display: "inline-block", 
+                      padding: "8px 16px", 
+                      background: "rgba(var(--sp-accent-rgb), 0.06)", 
+                      border: "1px solid rgba(var(--sp-accent-rgb), 0.2)", 
+                      borderRadius: "8px", 
+                      fontSize: "12px", 
+                      color: "var(--sp-accent)",
+                      fontWeight: 600
+                    }}
+                  >
+                    Check your inbox for confirmation
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="sp-form-row">
-                  {/* Honeypot field */}
-                  <input
-                    type="text"
-                    name="website"
-                    value={form.website}
-                    onChange={handleInputChange}
-                    style={{ display: "none" }}
-                    autoComplete="off"
-                  />
+                  {/* Card Title Header */}
+                  <div style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "8px", marginBottom: "0px" }}>
+                    <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>
+                      Book a Free Workflow Audit
+                    </h2>
+                    <p style={{ fontSize: "12px", color: "var(--color-text-muted)", marginTop: "4px" }}>
+                      Choose your pod below and we&apos;ll map your automation blueprint.
+                    </p>
+                  </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  {/* Honeypot field */}
+                  <div style={{ display: "none", position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website}
+                      onChange={handleInputChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  {/* Full Name */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">Full Name *</label>
                     <input 
                       type="text" 
@@ -538,7 +609,8 @@ export default function RealEstateWorkflowAutomationPage() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  {/* Company Name */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">Company Name *</label>
                     <input 
                       type="text" 
@@ -551,7 +623,8 @@ export default function RealEstateWorkflowAutomationPage() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  {/* Work Email */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">Work Email *</label>
                     <input 
                       type="email" 
@@ -564,7 +637,8 @@ export default function RealEstateWorkflowAutomationPage() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-1.5 relative" ref={goalPickerRef}>
+                  {/* Target Workflow Pod Dropdown */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px", position: "relative" }} ref={goalPickerRef}>
                     <label className="sp-form-label">Target Workflow Pod *</label>
                     <button 
                       type="button" 
@@ -572,55 +646,145 @@ export default function RealEstateWorkflowAutomationPage() {
                       className="sp-dropdown-btn"
                     >
                       <span>{form.goal}</span>
-                      <ChevronDown size={14} />
+                      <ChevronDown size={14} style={{ opacity: 0.6 }} />
                     </button>
-                    {showGoalPicker && (
-                      <div className="sp-phone-dropdown w-full">
-                        {realEstateGoals.map((goal, idx) => (
-                          <button 
-                            key={idx} 
-                            type="button" 
-                            onClick={() => selectGoal(goal)} 
-                            className="sp-phone-option"
-                          >
-                            {goal}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+
+                    <AnimatePresence>
+                      {showGoalPicker && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 6 }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: 0,
+                            right: 0,
+                            marginTop: "6px",
+                            background: "var(--color-bg-card)",
+                            border: "1px solid var(--color-border)",
+                            borderRadius: "10px",
+                            zIndex: 100,
+                            padding: "6px",
+                            boxShadow: "var(--shadow-md)",
+                            boxSizing: "border-box",
+                            backdropFilter: "blur(16px)",
+                            WebkitBackdropFilter: "blur(16px)"
+                          }}
+                        >
+                          {realEstateGoals.map((goal, idx) => (
+                            <div
+                              key={idx}
+                              onClick={() => selectGoal(goal)}
+                              style={{
+                                padding: "10px 12px",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                fontSize: "13px",
+                                color: form.goal === goal ? "var(--sp-accent)" : "var(--color-text-body)",
+                                background: form.goal === goal ? "rgba(var(--sp-accent-rgb), 0.05)" : "transparent",
+                                transition: "background 0.2s"
+                              }}
+                              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(var(--sp-accent-rgb), 0.04)")}
+                              onMouseLeave={(e) => (e.currentTarget.style.background = form.goal === goal ? "rgba(var(--sp-accent-rgb), 0.05)" : "transparent")}
+                            >
+                              {goal}
+                            </div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  {/* Phone Number with Country Picker */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <label className="sp-form-label">Work Phone / WhatsApp (Optional)</label>
-                    <div className="flex gap-2 relative">
-                      <div ref={countryPickerRef} className="w-[84px] shrink-0">
-                        <button 
-                          type="button" 
-                          onClick={() => setShowCountryPicker(!showCountryPicker)} 
+                    <div style={{ display: "flex", gap: "8px", position: "relative" }}>
+                      
+                      {/* Country Flag Picker */}
+                      <div ref={countryPickerRef} style={{ position: "relative" }}>
+                        <button
+                          type="button"
+                          onClick={() => setShowCountryPicker(!showCountryPicker)}
                           className="sp-dropdown-btn"
+                          style={{ width: "auto", minWidth: "90px", gap: "6px" }}
                         >
-                          <span className="flex items-center gap-1.5">
-                            <span>{selectedCountryObj.flag}</span>
-                            <span>{selectedCountryObj.code}</span>
+                          <span style={{ fontSize: "15px" }}>
+                            {selectedCountryObj.flag}
                           </span>
-                          <ChevronDown size={12} />
+                          <span style={{ fontSize: "13px" }}>
+                            {form.countryCode === "Custom" ? "..." : form.countryCode}
+                          </span>
+                          <ChevronDown size={12} style={{ opacity: 0.6 }} />
                         </button>
-                        {showCountryPicker && (
-                          <div className="sp-phone-dropdown">
-                            {countries.map((c, idx) => (
-                              <button 
-                                key={idx} 
-                                type="button" 
-                                onClick={() => selectCountry(c.code)} 
-                                className="sp-phone-option"
-                              >
-                                <span className="mr-2">{c.flag}</span>
-                                <span>{c.name} ({c.code})</span>
-                              </button>
-                            ))}
-                          </div>
-                        )}
+
+                        <AnimatePresence>
+                          {showCountryPicker && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 6 }}
+                              transition={{ duration: 0.15, ease: "easeOut" }}
+                              style={{
+                                position: "absolute",
+                                top: "100%",
+                                left: 0,
+                                marginTop: "6px",
+                                background: "var(--color-bg-card)",
+                                border: "1px solid var(--color-border)",
+                                borderRadius: "10px",
+                                width: "180px",
+                                maxHeight: "180px",
+                                overflowY: "auto",
+                                zIndex: 100,
+                                padding: "6px",
+                                boxShadow: "var(--shadow-md)",
+                                boxSizing: "border-box",
+                                backdropFilter: "blur(16px)",
+                                WebkitBackdropFilter: "blur(16px)"
+                              }}
+                            >
+                              {countries.map((c, idx) => (
+                                <div
+                                  key={idx}
+                                  onClick={() => selectCountry(c.code)}
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "8px",
+                                    padding: "8px 10px",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                    fontSize: "12.5px",
+                                    color: form.countryCode === c.code ? "var(--sp-accent)" : "var(--color-text-body)",
+                                    background: form.countryCode === c.code ? "rgba(var(--sp-accent-rgb), 0.05)" : "transparent",
+                                    transition: "background 0.2s"
+                                  }}
+                                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(var(--sp-accent-rgb), 0.04)")}
+                                  onMouseLeave={(e) => (e.currentTarget.style.background = form.countryCode === c.code ? "rgba(var(--sp-accent-rgb), 0.05)" : "transparent")}
+                                >
+                                  <span>{c.flag}</span>
+                                  <span>{c.name} ({c.code})</span>
+                                </div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
+
+                      {form.countryCode === "Custom" && (
+                        <input
+                          type="text"
+                          name="customCode"
+                          placeholder="+..."
+                          value={form.customCode}
+                          onChange={handleInputChange}
+                          className="sp-input-field"
+                          style={{ width: "70px", padding: "0 8px", textAlign: "center" }}
+                          required
+                        />
+                      )}
 
                       <input 
                         type="tel" 
@@ -628,32 +792,70 @@ export default function RealEstateWorkflowAutomationPage() {
                         placeholder="Phone number" 
                         value={form.phone} 
                         onChange={handleInputChange} 
-                        className="sp-input-field flex-1" 
+                        className="sp-input-field"
+                        style={{ flex: 1 }}
                       />
                     </div>
                   </div>
 
+                  {/* Error Message */}
                   {error && (
-                    <div className="flex items-center gap-2 text-red-400 text-xs mt-1 p-2 rounded bg-red-950/20 border border-red-900/30">
-                      <AlertTriangle size={12} />
-                      <span>{error}</span>
+                    <div 
+                      style={{
+                        fontFamily: "var(--font-sans), sans-serif",
+                        fontSize: "12px",
+                        color: "var(--color-error)",
+                        padding: "8px 12px",
+                        background: "rgba(var(--color-error-rgb), 0.05)",
+                        border: "1px solid rgba(var(--color-error-rgb), 0.2)",
+                        borderRadius: "8px",
+                        marginTop: "4px"
+                      }}
+                    >
+                      {error}
                     </div>
                   )}
 
-                  <button 
-                    type="submit" 
-                    disabled={loading} 
-                    className="sp-submit-btn mt-2"
-                  >
-                    {loading ? (
-                      <span className="flex items-center gap-2">
-                        <Loader2 className="animate-spin" size={14} />
-                        <span>{loadingStatus}</span>
+                  {/* Loading Telemetry Status */}
+                  {loading && (
+                    <div 
+                      style={{ 
+                        fontSize: "11.5px", 
+                        color: "var(--color-text-muted)", 
+                        display: "flex", 
+                        alignItems: "center", 
+                        gap: "6px",
+                        marginTop: "2px" 
+                      }}
+                    >
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--sp-accent)] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--sp-accent)]"></span>
                       </span>
-                    ) : (
-                      <span>Book Free Audit</span>
-                    )}
-                  </button>
+                      <span>{loadingStatus}</span>
+                    </div>
+                  )}
+
+                  {/* Premium Submit Button */}
+                  <div style={{ position: "relative", marginTop: "4px" }}>
+                    <motion.button
+                      whileHover={{ y: -2, scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                      type="submit"
+                      disabled={loading}
+                      className="sp-submit-btn"
+                      style={{
+                        cursor: loading ? "not-allowed" : "pointer",
+                        opacity: loading ? 0.75 : 1,
+                      }}
+                    >
+                      {loading ? (
+                        <Loader2 size={16} className="animate-spin" />
+                      ) : null}
+                      <span>{loading ? "Transmitting Requirements..." : "Book Free Audit"}</span>
+                    </motion.button>
+                  </div>
                 </form>
               )}
             </div>
