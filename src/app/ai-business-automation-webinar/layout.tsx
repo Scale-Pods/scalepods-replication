@@ -9,9 +9,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Live AI Business Automation Masterclass (₹99) | ScalePods with Adnan Sheikh & Raunak Kumar",
+  title: "Live AI Business Automation Masterclass (₹99) | ScalePods with Adnan Shaikh & Raunak Kumar",
   description:
-    "Join ScalePods founders Adnan Sheikh (CEO) & Raunak Kumar (CTO/CPO) in a live, founder-led AI masterclass. Discover how AI automates 60–80% of repetitive workflows across Sales, Marketing, HR & Operations. Reserve your seat for just ₹99.",
+    "Join ScalePods founders Adnan Shaikh (CEO) & Raunak Kumar (CTO/CPO) in a live, founder-led AI masterclass. Discover how AI automates 60–80% of repetitive workflows across Sales, Marketing, HR & Operations. Reserve your seat for just ₹99.",
   alternates: {
     canonical: "https://www.scalepods.co/ai-business-automation-webinar",
   },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Live AI Business Automation Masterclass (₹99) | ScalePods",
     description:
-      "Your business doesn't need more people. It needs better systems. Discover how AI-powered automation can eliminate repetitive work across Sales, Marketing, HR & Operations. Live with Adnan Sheikh & Raunak Kumar.",
+      "Your business doesn't need more people. It needs better systems. Discover how AI-powered automation can eliminate repetitive work across Sales, Marketing, HR & Operations. Live with Adnan Shaikh & Raunak Kumar.",
     url: "https://www.scalepods.co/ai-business-automation-webinar",
     siteName: "ScalePods",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/images/team/adnan.jpeg",
         width: 800,
         height: 800,
-        alt: "Adnan Sheikh & Raunak Kumar - Hosts of ScalePods AI Business Automation Masterclass",
+        alt: "Adnan Shaikh & Raunak Kumar - Hosts of ScalePods AI Business Automation Masterclass",
       },
     ],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Live AI Business Automation Masterclass (₹99) | ScalePods",
     description:
-      "Automate 60–80% of repetitive business workflows across Sales, Marketing, HR & Operations. Live practical demonstration with ScalePods founders Adnan Sheikh & Raunak Kumar.",
+      "Automate 60–80% of repetitive business workflows across Sales, Marketing, HR & Operations. Live practical demonstration with ScalePods founders Adnan Shaikh & Raunak Kumar.",
     images: ["/images/team/adnan.jpeg"],
   },
 };
@@ -51,7 +51,7 @@ const webinarSchema = {
       "@type": "EducationEvent",
       "@id": "https://www.scalepods.co/ai-business-automation-webinar#event",
       "name": "AI Business Automation Masterclass: How Businesses Automate 60–80% of Repetitive Workflows Using AI",
-      "description": "A live, founder-led business automation masterclass with Adnan Sheikh (Co-Founder & CEO) and Raunak Kumar (Co-Founder, CTO & CPO) exploring practical business workflows, automation patterns, and the 4-Layer Automation System across Sales, Marketing, HR and Operations.",
+      "description": "A live, founder-led business automation masterclass with Adnan Shaikh (Co-Founder & CEO) and Raunak Kumar (Co-Founder, CTO & CPO) exploring practical business workflows, automation patterns, and the 4-Layer Automation System across Sales, Marketing, HR and Operations.",
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
       "location": {
@@ -66,7 +66,7 @@ const webinarSchema = {
       "performer": [
         {
           "@type": "Person",
-          "name": "Adnan Sheikh",
+          "name": "Adnan Shaikh",
           "jobTitle": "Co-Founder & CEO",
           "worksFor": {
             "@type": "Organization",

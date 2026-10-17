@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['127.0.0.1', 'localhost'],
   compress: true,
   productionBrowserSourceMaps: false,
   compiler: {
@@ -8,7 +9,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
-    qualities: [75, 85, 90, 92],
+    qualities: [75, 85, 90, 92, 95],
     minimumCacheTTL: 604800, // 7 days
     remotePatterns: [
       {
