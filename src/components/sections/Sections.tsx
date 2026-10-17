@@ -687,6 +687,7 @@ const brands = [
   { src: "/brands/propertygeld.png", alt: "PropertyGeld", type: "transparent", scale: 0.95 },
   { src: "/brands/zv_steels_logo.webp", alt: "ZV Steels", type: "transparent", scale: 0.8 },
   { src: "/brands/lotus-manor.webp", alt: "Lotus Manor", type: "transparent", scale: 1.25 },
+  { src: "/brands/lootah-group.png", alt: "Lootah Group of Companies", type: "transparent", scale: 1.1 },
   { src: "/brands/suphalmedia.avif", alt: "Suphal Media", type: "transparent", scale: 1.0 },
   { src: "/new logos/VE-Logo-Color.svg", alt: "Victory Energy", type: "victory-energy", scale: 1.25 },
   { src: "/brands/eequals_logo.webp", alt: "eEquals", type: "transparent", scale: 1.4 },
@@ -2115,6 +2116,19 @@ const caseStudiesData = [
       { value: "2.6×", label: "Reply Rates" }
     ],
     image: "/brands/asquared-brand-1x1.webp",
+    accent: "var(--color-blue-mid)"
+  },
+  {
+    id: 4,
+    category: "PROCUREMENT AUTOMATION",
+    title: "Lootah Group of Companies",
+    href: "/case-study/lootah-group-procurement-workflow-automation",
+    description: "Lootah Group replaced disconnected spreadsheets with an automated procurement workflow platform, reducing PO data ingestion time by ~95% and detecting unapproved supplier price hikes.",
+    metrics: [
+      { value: "~95%", label: "PO Ingestion Cut" },
+      { value: "2–5%", label: "Price Hikes Flagged" }
+    ],
+    image: "/brands/lootah-group-new.svg",
     accent: "var(--color-blue-mid)"
   }
 ];

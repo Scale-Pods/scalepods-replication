@@ -25,6 +25,7 @@ const caseStudyLinks = [
   { label: "Lotus Manor Dubai", href: "/case-study/lotus-manor-real-estate-sales-automation-dubai" },
   { label: "ZV Steels India", href: "/case-study/zv-steels-recruitment-automation-tool" },
   { label: "A Squared Dubai", href: "/case-study/asquared-real-estate-sales-automation-dubai" },
+  { label: "Lootah Group Dubai", href: "/case-study/lootah-group-procurement-workflow-automation" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";

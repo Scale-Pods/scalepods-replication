@@ -1039,6 +1039,64 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "lootah-group-procurement-workflow-automation",
+    date: "October 18, 2026",
+    category: "Case Study",
+    title: "How Lootah Group Automated Procurement & Slashed PO Processing by 95%",
+    excerpt: "Lootah Group of Companies needed a more structured way to manage procurement without relying on disconnected spreadsheets. ScalePods developed a centralized procurement workflow automation platform that combines smart PO import, supplier price variance tracking, dashboards, role-based access, and audit controls. The reported processing time dropped from 30–45 minutes per batch to under two minutes, giving procurement teams faster access to structured data and greater visibility into purchasing activity.",
+    metaTitle: "Lootah Automates Procurement With AI | ScalePods",
+    metaDescription: "See how Lootah Group automated procurement, cut PO processing by 95%, and gained real-time cost visibility.",
+    image: "/brands/lootah-group.png",
+    sections: [
+      {
+        heading: "Overview",
+        body: "Lootah Group of Companies is a diversified business group with procurement requirements that demand structured purchasing, supplier management, financial visibility, and operational accountability. To address these needs, ScalePods developed a centralized workflow automation platform designed to replace disconnected spreadsheets and manual processes with a single source of truth for purchase orders, supplier pricing, reporting, and procurement controls."
+      },
+      {
+        heading: "The Challenge: Manual Spreadsheets, Price Variance Leakage, and Slow Reporting",
+        body: "Before ScalePods, Lootah's procurement workflows faced severe operational friction:\n\n• 30–45 Minutes per PO Batch: Teams manually copied, matched, and reconciled purchase orders from Excel spreadsheets before making purchasing decisions.\n• Unchecked Supplier Price Increases: Small rate increases across thousands of material line items (steel, cement, equipment) slipped through undetected, compounding procurement costs.\n• Reporting Latency: Executives had to wait two to three days for month-end compiled reports rather than seeing real-time spend and supplier commitments.\n• Lack of Accountability: Shared spreadsheets created confusion around who changed data, lacking user permissions or audit trails."
+      },
+      {
+        heading: "The Solution: Centralized Procurement Workflow Automation Platform",
+        body: "ScalePods built a centralized [procurement workflow automation](/solution/ops-workflow-automation) platform applying [intelligent process automation](/solution/ai-automation-for-manufacturing) principles:\n\n• 3-Step Smart Import Workflow: Paste raw PO logs -> Smart Match columns against historical records -> Classify as New, Updated, or Matching in under 2 minutes.\n• Automated Price Variance & Multi-Change Analytics: Instantly flags unapproved supplier rate increases (saving an estimated 2–5%) and highlights frequent price fluctuations.\n• Real-Time Spend Dashboard: KPI cards tracking total spend, active suppliers, and line items across daily, monthly, and yearly views.\n• Role-Based Access & AI Audit Trails: Admin, Editor, and Viewer permissions coupled with an immutable audit modal documenting every record change.\n• Unified Connectivity: Foundation for [automated inventory systems](/blog/operations-automation-guide) and integrated WhatsApp/email quotation requests."
+      },
+      {
+        heading: "The Results",
+        body: "By centralizing procurement operations into a single source of truth, Lootah achieved dramatic performance and cost gains:\n\n• ~95% Reduction in PO Ingestion Time: Slashed batch processing from 30–45 minutes to under two minutes.\n• 2–5% Unapproved Price Hikes Flagged: Early variance alerts preventing cost leakage before payments are committed.\n• Live Spend Visibility: Instant executive reporting replacing 2–3 day manual compilation.\n• Zero Double Payments: Automated backend reconciliation eliminating duplicate orders.\n• Full Accountability: Granular role controls and complete audit trails across every procurement cycle."
+      }
+    ],
+    faqs: [
+      {
+        q: "What is procurement workflow automation?",
+        a: "Procurement workflow automation centralizes purchasing, purchase-order ingestion, supplier rate tracking, approvals, and reporting into a unified system, replacing manual spreadsheets with automated data validation and audit controls."
+      },
+      {
+        q: "How does the 3-Step Smart Import Workflow work?",
+        a: "Users paste raw purchase-order logs and material details directly into the platform. The system uses intelligent column matching to reconcile incoming data against historical records and automatically classifies entries as new, updated, or matching in under two minutes."
+      },
+      {
+        q: "How does ScalePods flag supplier price increases?",
+        a: "The platform cross-references incoming PO line items against historical supplier quotes, triggering automated alerts for high price variances and multi-change items so teams can prevent unapproved 2–5% cost hikes before payments compound."
+      },
+      {
+        q: "Can the procurement platform integrate with existing ERP and inventory systems?",
+        a: "Yes. The centralized architecture is designed to connect with existing ERPs, accounting platforms, inventory management tools, and communication channels like WhatsApp and email for quotation requests."
+      },
+      {
+        q: "What role permissions are supported?",
+        a: "The system features Role-Based Access Control (RBAC) with three distinct tiers: Admin (full data and system control), Editor (authorized procurement entry and updates), and Viewer (read-only visibility for executive review)."
+      },
+      {
+        q: "How does the AI-powered audit modal maintain data accountability?",
+        a: "Every creation, modification, or reconciliation action is recorded in an immutable audit history, allowing teams to track who modified data, when changes occurred, and why variations were approved."
+      },
+      {
+        q: "How did ScalePods support Lootah Group of Companies?",
+        a: "ScalePods engineered and deployed a custom procurement workflow automation platform tailored to Lootah's construction and purchasing requirements, delivering ~95% faster PO ingestion, real-time spend dashboards, and automated supplier rate tracking."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

@@ -13,6 +13,7 @@ import { BeamsBackground } from "@/components/ui/beams-background";
 import ZVSteelsCaseStudy from "@/components/case-studies/ZVSteelsCaseStudy";
 import ASquaredCaseStudy from "@/components/case-studies/ASquaredCaseStudy";
 import LotusManorCaseStudy from "@/components/case-studies/LotusManorCaseStudy";
+import LootahCaseStudy from "@/components/case-studies/LootahCaseStudy";
 
 // Without this, a dynamic (DB-backed) post's page gets ISR-cached on first visit and then keeps
 // serving that stale snapshot indefinitely -- publish's revalidatePath(`/blog/${slug}`) call is
@@ -411,7 +412,8 @@ export default async function ArticlePage({ params }: Props) {
   const isLotusManorCaseStudy = slug === "lotus-manor-real-estate-sales-automation-dubai";
   const isZVSteelsCaseStudy = slug === "zv-steels-recruitment-automation-tool";
   const isASquaredCaseStudy = slug === "asquared-real-estate-sales-automation-dubai";
-  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy;
+  const isLootahCaseStudy = slug === "lootah-group-procurement-workflow-automation";
+  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy;
 
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
@@ -539,6 +541,8 @@ export default async function ArticlePage({ params }: Props) {
           <ASquaredCaseStudy faqs={displayData.faqs} />
         ) : isLotusManorCaseStudy ? (
           <LotusManorCaseStudy faqs={displayData.faqs} />
+        ) : isLootahCaseStudy ? (
+          <LootahCaseStudy faqs={displayData.faqs} />
         ) : (
           <>
             {/* Meta */}
