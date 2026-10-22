@@ -1097,6 +1097,60 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "macro-media-finance-workflow-automation",
+    date: "October 22, 2026",
+    category: "Case Study",
+    title: "How MACRO Rebuilt Its Finance Workflow & Slashed Close Coordination by 30%",
+    excerpt: "Macro Media's accounting team relied on a single HTML file for monthly close, leaving shared access, task ownership, and data security unresolved. ScalePods rebuilt it as Macro Studio, a multi-user web app with centralized data, verified login, and real-time updates. In the first month, six users shared one tracker, 100% of tracked tasks had owners and due dates, and teams reported 30% less coordination time. Discover how workflow automation and custom web application development improved finance operations.",
+    metaTitle: "How MACRO Rebuilt Its Finance Workflow | ScalePods",
+    metaDescription: "See how ScalePods rebuilt MACRO's finance tracker with secure access, shared data, and real-time updates—cutting coordination time by 30%.",
+    image: "/brands/macro-og-image.png",
+    sections: [
+      {
+        heading: "Overview",
+        body: "Macro Media's accounting and finance team needed a better way to manage its monthly close process. The tracker and operational reference guide lived in a single HTML file, making it hard for people to work with the same information. ScalePods turned that prototype into Macro Studio, a shared web application where authorized members can access operational references, update tasks, and keep track of deadlines in one place."
+      },
+      {
+        heading: "The Challenge: Single-User Files, Confidentiality Risks, and Cross-Border Coordination Delays",
+        body: "Before ScalePods, Macro Media's monthly close workflows encountered critical operational bottlenecks:\n\n• The Tracker Worked for One Person: The initial HTML file saved data in browser localStorage. editting a task did not reflect for other users, making cross-team coordination difficult.\n• Sensitive Information Required Protection: The original prototype lacked authentication and role-based permissions, creating security and confidentiality risks for financial data.\n• Inconsistency in Task Ownership: Monthly close involves dozens of moving parts, but the prototype partially tracked due dates and owners, making maker-checker handovers unclear.\n• Multi-Location Sync Delays: Teams in Los Angeles and the Philippines passed files back and forth manually, causing friction and delaying time-sensitive financial closes."
+      },
+      {
+        heading: "The Solution: Macro Studio — Centralized Web Application & Monthly Close Tracker",
+        body: "ScalePods rebuilt the prototype into [Macro Studio](/solution/ops-workflow-automation), a secure multi-user web application applying modern [business process automation](/solution/sales-workflow-automation) principles:\n\n• Unified Web Application: Brings together an operational reference guide and an interactive monthly close tracker.\n• Centralized Cloud Database: Replaces manual file swapping with real-time cloud data synchronization in under two seconds.\n• Clerk Authentication & Role-Based Access: Verified email login with granular Edit and View role permissions to safeguard confidential financial records.\n• Clear View of Monthly Close: ~90 tasks with 100% assigned owners, statuses, and deadlines for total accountability.\n• Phased Automation Roadmap: Stabilized core database and user workflows first, laying the foundation for automated approval and reminder sequences."
+      },
+      {
+        heading: "The Results",
+        body: "Macro Studio achieved immediate operational and coordination gains in its first month of live deployment:\n\n• 6 Concurrent Users: Supporting simultaneous active onshore and offshore finance staff without conflict.\n• Under 2 Seconds: Real-time task synchronization across all logged-in users.\n• Zero Data Loss Incidents: Replaced volatile browser localStorage with an enterprise-grade cloud database.\n• 100% Task Ownership: All ~90 monthly close tasks assigned with clear accountability and due dates.\n• 30% Less Coordination Time: Eliminating manual file handoffs between Los Angeles and the Philippines.\n• Restricted Access: Strict verified email authentication preventing unauthorized data access."
+      }
+    ],
+    faqs: [
+      {
+        q: "What was the core problem with Macro Media's original monthly close tracker?",
+        a: "The original tracker was a single HTML file that saved data exclusively in browser localStorage. Because there was no shared database, when one team member updated a task, other members in Los Angeles or the Philippines could not see the updates, forcing them to exchange files manually."
+      },
+      {
+        q: "What is Macro Studio?",
+        a: "Macro Studio is a custom multi-user web application engineered by ScalePods for Macro Media's finance and accounting team. It centralizes operational reference guides, charts, workflows, and a live monthly close tracker with real-time updates and role-based security."
+      },
+      {
+        q: "How does Macro Studio handle data synchronization across global teams?",
+        a: "Macro Studio connects to a centralized cloud database. Whenever a team member in Los Angeles or the Philippines updates task statuses, ownership, or deadlines, changes sync across all active users in under two seconds."
+      },
+      {
+        q: "How does the application protect sensitive financial information?",
+        a: "The platform integrates Clerk authentication, restricting access strictly to verified corporate emails. It enforces Role-Based Access Control (RBAC) with granular Edit and View permissions."
+      },
+      {
+        q: "How did task ownership improve after implementing Macro Studio?",
+        a: "In the original setup, task ownership and due dates were only partially tracked. With Macro Studio, 100% of approximately 90 monthly close tasks have explicit owners, deadlines, and status indicators."
+      },
+      {
+        q: "What was the phased approach to automation used by ScalePods?",
+        a: "ScalePods prioritized getting the core application right first: centralized database storage, authentication, user roles, and task tracking. Once the daily workflow was stable, automated reminder and approval sequences were scheduled for subsequent rollout."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

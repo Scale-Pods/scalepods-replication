@@ -14,6 +14,7 @@ import ZVSteelsCaseStudy from "@/components/case-studies/ZVSteelsCaseStudy";
 import ASquaredCaseStudy from "@/components/case-studies/ASquaredCaseStudy";
 import LotusManorCaseStudy from "@/components/case-studies/LotusManorCaseStudy";
 import LootahCaseStudy from "@/components/case-studies/LootahCaseStudy";
+import MacroMediaCaseStudy from "@/components/case-studies/MacroMediaCaseStudy";
 
 // Without this, a dynamic (DB-backed) post's page gets ISR-cached on first visit and then keeps
 // serving that stale snapshot indefinitely -- publish's revalidatePath(`/blog/${slug}`) call is
@@ -413,7 +414,8 @@ export default async function ArticlePage({ params }: Props) {
   const isZVSteelsCaseStudy = slug === "zv-steels-recruitment-automation-tool";
   const isASquaredCaseStudy = slug === "asquared-real-estate-sales-automation-dubai";
   const isLootahCaseStudy = slug === "lootah-group-procurement-workflow-automation";
-  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy;
+  const isMacroMediaCaseStudy = slug === "macro-media-finance-workflow-automation";
+  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy || isMacroMediaCaseStudy;
 
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
@@ -543,6 +545,8 @@ export default async function ArticlePage({ params }: Props) {
           <LotusManorCaseStudy faqs={displayData.faqs} />
         ) : isLootahCaseStudy ? (
           <LootahCaseStudy faqs={displayData.faqs} />
+        ) : isMacroMediaCaseStudy ? (
+          <MacroMediaCaseStudy faqs={displayData.faqs} />
         ) : (
           <>
             {/* Meta */}
