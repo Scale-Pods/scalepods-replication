@@ -1151,6 +1151,60 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "bennett-realty-growth-os",
+    date: "October 23, 2026",
+    category: "Case Study",
+    title: "How a Real Estate Brokerage Can Scale Without Adding More Admin Work",
+    excerpt: "Growing a real estate brokerage means handling more than incoming leads. Disconnected follow-ups, contract checklists, and agent questions can consume hours of valuable time. ScalePods engineered Bennett Realty Growth OS for Gregory Bennett, connecting multi-channel lead capture, sub-2-minute conversational replies, automated transaction coordination, and 24/7 agent coaching into a unified workflow engine. Discover how automated business systems cut lead response times to under 2 minutes and saved 8–10 administrative hours per transaction.",
+    metaTitle: "Bennett Realty Growth OS: Real Estate Workflow Automation | ScalePods",
+    metaDescription: "See how ScalePods built Bennett Realty Growth OS for Gregory Bennett—automating lead capture, transaction milestones, and agent coaching while saving 8–10 hours per deal.",
+    image: "/brands/bennett-realty-box.svg",
+    sections: [
+      {
+        heading: "About Bennett Realty Growth OS",
+        body: "Growing a real estate company means handling more than new leads. Every prospective buyer or seller needs immediate follow-up. Every transaction requires strict deadline tracking and coordination across multiple parties. And every growing brokerage needs a dependable way to recruit, onboard, and support agents.\n\nBennett Realty Growth OS is a custom system built by ScalePods that links all these operations into one seamless workflow. It guides the entire brokerage journey—from initial multi-channel lead ingestion to sub-2-minute conversational responses, appointment scheduling, post-contract transaction coordination, agent recruitment, and 24/7 procedural support. The primary objective: enable the brokerage to scale revenue and transaction volume consistently without adding administrative headcount."
+      },
+      {
+        heading: "The Challenges: Manual Follow-Ups, Scattered Tasks, and Coordination Bottlenecks",
+        body: "Before deploying Bennett Realty Growth OS, Gregory Bennett's brokerage encountered four recurring friction points common to growing real estate firms:\n\n• Leads Waited Too Long for a Response: Prospective clients reach out in the evenings, on weekends, or when agents are conducting showings. Delayed manual replies allowed hot prospects to go cold or turn to competitors.\n• Agents Spent Peak Hours on Repetitive Busywork: Rather than spending their time on conversations, negotiations, and showings, agents were bogged down manually updating spreadsheets, moving data into CRMs, and dispatching repetitive reminders.\n• Transaction Management Had Many Moving Parts & Potential Errors: After contract signing, managing inspections, financing deadlines, title coordination, and signatures manually led to missed handovers and stressful last-minute delays.\n• Agent Recruiting and Daily Procedural Support Were Difficult to Scale: Onboarding new agents was dragged out over weeks of manual coordination. Furthermore, senior leadership became the bottleneck for answering basic procedural, compliance, and contractual questions."
+      },
+      {
+        heading: "The Solution: Bennett Realty Growth OS — A Connected Brokerage Engine",
+        body: "ScalePods consolidated Bennett Realty's disparate activities into an interconnected, autonomous Growth Operating System:\n\n• One Connected Growth System: Unites marketing, sales triage, appointment booking, transaction management, recruiting, and agent support into a cohesive operational workflow.\n• Sub-2-Minute Automated Lead Engagement: Instantly captures inbound inquiries from web portals, Facebook, Instagram, and SMS, initiating conversational qualification and booking calls outside standard business hours.\n• Automated Transaction Tracking & Proactive Alerts: Keeps buyers, sellers, lenders, and title agents updated with automated document reminders and deadline tracking, catching bottlenecks before they jeopardize closing dates.\n• 24/7 AI Agent Coaching & Procedural Assistant: Gives agents instant access to compliance guidelines, contracts, and internal procedures without diverting senior leadership from strategic business growth.\n• Systematic Agent Recruitment & Content Distribution: Automates candidate outreach, screening, and interview scheduling while repurposing existing media into multi-channel marketing assets."
+      },
+      {
+        heading: "Results and Performance Benchmarks",
+        body: "Based on comparative real estate automation benchmarks, Bennett Realty Growth OS demonstrates the power of systematic workflow automation:\n\n• Under 2 Minutes Response Time: Reduced from an industry average of 4 hours, engaging prospects while buying intent is highest.\n• +35% Higher Appointment Booking: Consistent follow-up cadences converting a significantly higher percentage of inbound inquiries.\n• 15–20 Additional Booked Calls/Agent/Month: Outbound voice assistance qualifying 20–25% of contacts as appointment-ready.\n• 8–10 Hours Saved Per Transaction: Eliminating manual document chasing, checklist updates, and administrative coordination.\n• ~90% Reduction in Missed Deadlines: Proactive milestone alerts and centralized visibility preventing contract lapses.\n• 5–7 Hours/Week of Leadership Time Reclaimed: AI coaching assistant resolving approximately 60% of routine procedural inquiries.\n• Under 10-Day Recruitment Cycle: Structured screening and automated interview scheduling reducing hiring delays from 3 weeks."
+      }
+    ],
+    faqs: [
+      {
+        q: "What is Bennett Realty Growth OS?",
+        a: "Bennett Realty Growth OS is a custom brokerage automation platform engineered by ScalePods for Gregory Bennett. It connects lead capture, instant conversational qualification, calendar scheduling, contract transaction management, agent recruiting, and 24/7 procedural support into a single automated system."
+      },
+      {
+        q: "How does the system handle leads arriving outside of business hours?",
+        a: "The Growth OS captures inquiries instantly across web forms, Facebook, Instagram, and SMS. An automated conversational workflow engages prospects within two minutes, answers initial questions, qualifies buyer or seller readiness, and books an appointment directly into an agent's calendar."
+      },
+      {
+        q: "Does Bennett Realty Growth OS replace real estate agents?",
+        a: "No. The system is designed around a human-in-the-loop philosophy. It eliminates the 8–10 hours of repetitive administrative tasks—such as CRM logging, deadline tracking, and routine reminder messages—so agents can focus on showings, client negotiations, and building relationships."
+      },
+      {
+        q: "How does automated transaction management prevent missed deadlines?",
+        a: "Once a purchase contract is signed, the Growth OS initiates a structured milestone checklist. It automatically tracks inspection contingency dates, appraisal deadlines, and financing milestones, sending proactive notifications to buyers, sellers, agents, and lenders before delays compound."
+      },
+      {
+        q: "What is the agent coaching assistant?",
+        a: "The agent coaching assistant is an AI-powered knowledge system trained on brokerage guidelines, state real estate compliance rules, and standard operating procedures. It resolves up to 60% of routine procedural questions immediately, freeing up 5–7 hours of leadership time each week."
+      },
+      {
+        q: "How does the system streamline agent recruiting?",
+        a: "The Growth OS automates prospective agent outreach, candidate intake questionnaires, initial screening, and interview calendar bookings, compressing the typical agent onboarding timeline from three weeks to under 10 days."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

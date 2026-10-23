@@ -377,6 +377,70 @@ export default function CaseStudiesPage() {
 
               </div>
 
+              {/* ── Case Study 6: Bennett Realty Solutions (Text Left, Image Right - Alternate Manner) ── */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-5xl mx-auto w-full">
+                
+                {/* Left Column on Desktop / Bottom on Mobile: Case Study Text */}
+                <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
+                  <span style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "var(--color-blue-mid)"
+                  }}>
+                    CASE STUDY
+                  </span>
+                  
+                  <h2 style={{
+                    fontSize: "clamp(32px, 3.5vw, 48px)",
+                    fontWeight: 750,
+                    color: "var(--color-text-bright)",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em"
+                  }}>
+                    Bennett Realty Solutions
+                  </h2>
+
+                  <p style={{
+                    fontSize: "17px",
+                    color: "var(--color-text-body)",
+                    lineHeight: 1.6,
+                    margin: 0
+                  }}>
+                    Bennett Realty needed a way to manage expanding lead flow, transaction milestones, and agent onboarding without drowning in administrative busywork. ScalePods engineered Bennett Realty Growth OS—an interconnected brokerage platform featuring sub-2-minute automated lead engagement, milestone tracking, and 24/7 AI agent procedural support that saved 8–10 hours per deal and cut missed deadlines by ~90%.
+                  </p>
+
+                  <div style={{ marginTop: "12px" }}>
+                    <Link 
+                      href="/case-study/bennett-realty-growth-os"
+                      style={learnMoreBtnStyle}
+                      className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                    >
+                      Learn more →
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right Column on Desktop / Top on Mobile: Image Container */}
+                <div className="order-1 lg:order-2 lg:col-span-5 w-full flex justify-center">
+                  <div style={logoBoxStyle}>
+                    <Image
+                      src="/brands/bennett-realty-box.svg"
+                      alt="Bennett Realty Solutions Logo Box"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{
+                        objectFit: "cover",
+                        transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                      className="hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>
