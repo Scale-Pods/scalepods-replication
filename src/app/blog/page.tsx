@@ -24,6 +24,8 @@ export const metadata: Metadata = {
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
   Article: { bg: "var(--color-bg-card-alt)", text: "var(--color-text-bright)", border: "var(--color-border)" },
   Resources: { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
+  "Sales Automation": { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
+  "AI Automation": { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
 };
 
 // Use dynamically if possible, but keep placeholders for variety
@@ -65,6 +67,7 @@ export default async function BlogPage() {
     .filter(post => 
       post.category !== "Case Study" && (
         !post.date.includes("2026") || 
+        post.slug === "best-sales-automation-software-2026" ||
         post.slug === "ai-employees-digital-workforce-guide" ||
         post.slug === "5-ways-ai-assistants-transforming-operations" ||
         post.slug === "ai-automation-roi-real-business-impact" ||
