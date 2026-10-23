@@ -404,432 +404,7 @@ export default function WebinarPage() {
         </div>
       </header>
 
-      {/* ── HERO SECTION (FULL SCREEN HERO WITH GEMINI BACKGROUND) ───── */}
-      <section className="wb-section-fullscreen-hero">
-        <div className="wb-hero-fullscreen-stage" style={{ position: "relative" }}>
-          {/* High-Res WebP Background Canvas */}
-          <Image
-            src="/images/webinar-redesign/hero-bg.webp"
-            alt="ScalePods Autonomous AI Business Systems"
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="wb-hero-canvas-img"
-          />
-
-          {/* Vignette edge lighting for seamless blending */}
-          <div className="wb-hero-canvas-overlay" />
-
-          {/* Top Pill Badge */}
-          <div className="wb-hero-pill-fs">
-            <span className="wb-hero-pill-asterisk">✳</span>
-            <span className="wb-hero-pill-text-fs">
-              A LIVE, FOUNDER-LED AI AUTOMATION MASTERCLASS WITH <span className="wb-highlight-founder">ADNAN SHAIKH</span> &amp; <span className="wb-highlight-founder">RAUNAK KUMAR</span> — <span className="wb-highlight-scalepods">SCALEPODS</span>
-            </span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="wb-hero-title-fs">
-            <span className="wb-hero-title-white-fs">
-              YOUR BUSINESS DOESN’T NEED<br />MORE PEOPLE.
-            </span>
-            <span className="wb-hero-title-gradient-fs">
-              IT NEEDS BETTER SYSTEMS.
-            </span>
-          </h1>
-
-          {/* 4 Holographic Department Screen Labels */}
-          <div className="wb-fs-dept-label wb-fs-label-sales">
-            <span className="wb-fs-dept-dot wb-dot-green" />
-            <span>SALES</span>
-          </div>
-          <div className="wb-fs-dept-label wb-fs-label-marketing">
-            <span className="wb-fs-dept-dot wb-dot-blue" />
-            <span>MARKETING</span>
-          </div>
-          <div className="wb-fs-dept-label wb-fs-label-hr">
-            <span className="wb-fs-dept-dot wb-dot-green" />
-            <span>HR</span>
-          </div>
-          <div className="wb-fs-dept-label wb-fs-label-operations">
-            <span className="wb-fs-dept-dot wb-dot-blue" />
-            <span>OPERATIONS</span>
-          </div>
-
-          {/* Interactive Glowing Button */}
-          <button
-            type="button"
-            onClick={handleOpenModal}
-            className="wb-fs-cta-button"
-            aria-label="Register Now for ₹99"
-          >
-            <span className="wb-fs-btn-text">REGISTER NOW — ₹99</span>
-            <span className="wb-fs-btn-arrow-circle">
-              <ArrowRight size={17} />
-            </span>
-          </button>
-
-          {/* Perfectly Synced Metadata Bar */}
-          <div className="wb-fs-meta-bar">
-            <div className="wb-fs-meta-item">
-              <Calendar size={15} className="wb-icon-green" />
-              <span>Live Masterclass</span>
-            </div>
-            <span className="wb-fs-meta-sep" />
-            <div className="wb-fs-meta-item">
-              <Clock size={15} className="wb-icon-green" />
-              <span>3+ Hours</span>
-            </div>
-            <span className="wb-fs-meta-sep" />
-            <div className="wb-fs-meta-item">
-              <Monitor size={15} className="wb-icon-blue" />
-              <span>Interactive + Live Q&amp;A</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 1: THE EXPANSION TRAP (FULLSCREEN CANVAS WITH 3D BACKGROUND) ── */}
-      <section className="wb-section-fullscreen-expansion">
-        <div className="wb-expansion-fullscreen-stage" style={{ position: "relative" }}>
-          {/* High-Res WebP Fullscreen Background Canvas */}
-          <Image
-            src="/images/webinar-redesign/expansion-trap-bg.webp"
-            alt="The Expansion Trap - Ask Yourself This"
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="wb-expansion-canvas-img"
-          />
-
-          {/* Vignette edge lighting for seamless blending */}
-          <div className="wb-expansion-canvas-overlay" />
-
-          {/* Top Pill Badge */}
-          <div className="wb-expansion-pill-fs">
-            <span className="wb-expansion-pill-dot" />
-            <span>THE EXPANSION TRAP</span>
-          </div>
-
-          {/* Main Headline */}
-          <h2 className="wb-expansion-title-fs">
-            <span className="wb-expansion-title-white-fs">BEFORE YOU HIRE ANOTHER PERSON…</span>
-            <span className="wb-expansion-title-gradient-fs">ASK YOURSELF THIS:</span>
-          </h2>
-
-          {/* Subtitle */}
-          <p className="wb-expansion-subtitle-fs">
-            How much of your team&apos;s time is actually being spent on work that a well-designed AI workflow could handle?
-          </p>
-
-          {/* The 8 Interactive Node Labels Overlaid Precisely on 3D Glowing Capsules */}
-          <div className="wb-expansion-node-fs wb-node-1" style={{ left: "19.6%", top: "49.8%" }}>
-            <span>Lead arrives</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-2" style={{ left: "35.5%", top: "45.2%" }}>
-            <span>Respond</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-3" style={{ left: "53.8%", top: "47.2%" }}>
-            <span>Qualify</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-4" style={{ left: "69.0%", top: "50.8%" }}>
-            <span>Update CRM</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-5" style={{ left: "67.4%", top: "69.0%" }}>
-            <span>Assign owner</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-6" style={{ left: "52.0%", top: "73.0%" }}>
-            <span>Follow up</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-7" style={{ left: "35.5%", top: "73.0%" }}>
-            <span>Update status</span>
-          </div>
-          <div className="wb-expansion-node-fs wb-node-8" style={{ left: "19.8%", top: "68.5%" }}>
-            <span>Report results</span>
-          </div>
-
-          {/* Bottom Callout Banner aligned beside the green line in the canvas */}
-          <div className="wb-expansion-callout-fs">
-            <h3 className="wb-expansion-callout-title-fs">
-              <span className="wb-callout-text-green">That&apos;s not a people problem.</span>{" "}
-              <span className="wb-callout-text-cyan">That&apos;s a systems problem.</span>
-            </h3>
-            <p className="wb-expansion-callout-desc-fs">
-              ScalePods removes repetitive work so lean teams can scale without unnecessary complexity.
-            </p>
-          </div>
-        </div>
-
-        {/* Mobile Sequential Breakdown (shown on small screens for crystal clear legibility) */}
-        <div className="wb-expansion-mobile-wrapper">
-          <div className="wb-container">
-            <div className="wb-expansion-mobile-grid">
-              {[
-                { num: "01", label: "Lead arrives", desc: "Enquiry or application received", dot: "green" },
-                { num: "02", label: "Respond", desc: "First response dispatch", dot: "blue" },
-                { num: "03", label: "Qualify", desc: "Lead triage & intent check", dot: "green" },
-                { num: "04", label: "Update CRM", desc: "Data entry & pipeline logging", dot: "blue" },
-                { num: "05", label: "Assign owner", desc: "Routing to the right team member", dot: "green" },
-                { num: "06", label: "Follow up", desc: "Multi-channel cadence follow up", dot: "blue" },
-                { num: "07", label: "Update status", desc: "Activity & stage tracking", dot: "green" },
-                { num: "08", label: "Report results", desc: "Manual reporting & summaries", dot: "blue" },
-              ].map((step, idx) => (
-                <div key={idx} className="wb-mobile-chain-card">
-                  <span className={`wb-mobile-chain-num wb-mobile-chain-${step.dot}`}>
-                    {step.num}
-                  </span>
-                  <div>
-                    <h4 className="wb-mobile-chain-title">{step.label}</h4>
-                    <p className="wb-mobile-chain-desc">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 2: THE HIDDEN COST OF MANUAL WORK (FULLSCREEN 16:9 CANVAS STAGE) ── */}
-      <section className="wb-section-fullscreen-cost">
-        <div className="wb-cost-fullscreen-stage">
-          {/* High-Res Fullscreen Background Canvas */}
-          <Image
-            src="/images/webinar-redesign/hidden-cost-bg.webp"
-            alt="The Hidden Cost of Manual Work - Chaotic manual work transformed into automated workflows"
-            fill
-            priority
-            quality={92}
-            sizes="(max-width: 768px) 0px, 100vw"
-            className="wb-cost-canvas-img"
-          />
-
-          {/* Vignette overlay for edge lighting and contrast */}
-          <div className="wb-cost-canvas-overlay" />
-
-          {/* Top Pill Badge */}
-          <div className="wb-cost-pill-fs">
-            <AlertTriangle size={13} className="wb-cost-pill-icon" />
-            <span>THE HIDDEN COST</span>
-          </div>
-
-          {/* Main Headline */}
-          <h2 className="wb-cost-title-fs">
-            <span className="wb-cost-title-white-fs">THE HIDDEN COST OF</span>
-            <span className="wb-cost-title-gradient-fs">MANUAL WORK</span>
-          </h2>
-
-          {/* Subtitle */}
-          <p className="wb-cost-subtitle-fs">
-            Your business may already be losing time and opportunities through:
-          </p>
-
-          {/* 3 Glassmorphic Cards Row */}
-          <div className="wb-cost-cards-fs-grid">
-            {/* Card 1: Lead Management */}
-            <div className="wb-cost-card-fs wb-cost-card-lead">
-              <div className="wb-cost-card-fs-header">
-                <div className="wb-cost-card-fs-icon wb-icon-solid-green">
-                  <Users size={18} />
-                </div>
-                <h3 className="wb-cost-card-fs-title wb-title-green">LEAD MANAGEMENT</h3>
-              </div>
-              <div className="wb-cost-card-fs-list">
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Slow lead responses</span>
-                </div>
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Missed follow-ups</span>
-                </div>
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Leads falling through the cracks</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: Operations */}
-            <div className="wb-cost-card-fs wb-cost-card-ops">
-              <div className="wb-cost-card-fs-header">
-                <div className="wb-cost-card-fs-icon wb-icon-solid-blue">
-                  <Settings size={18} />
-                </div>
-                <h3 className="wb-cost-card-fs-title wb-title-blue">OPERATIONS</h3>
-              </div>
-              <div className="wb-cost-card-fs-list">
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Repetitive data entry</span>
-                </div>
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Manual CRM updates</span>
-                </div>
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Too many disconnected tools</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: Visibility */}
-            <div className="wb-cost-card-fs wb-cost-card-vis">
-              <div className="wb-cost-card-fs-header">
-                <div className="wb-cost-card-fs-icon wb-icon-solid-purple">
-                  <BarChart3 size={18} />
-                </div>
-                <h3 className="wb-cost-card-fs-title wb-title-purple">VISIBILITY</h3>
-              </div>
-              <div className="wb-cost-card-fs-list">
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Scattered information</span>
-                </div>
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Delayed reporting</span>
-                </div>
-                <div className="wb-cost-card-fs-item">
-                  <XCircle size={16} className="wb-cost-x-icon" />
-                  <span>Teams working without human judgment</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Callout Banner matching Slide 5 */}
-          <div className="wb-cost-callout-fs">
-            <div className="wb-cost-callout-icon-wrap">
-              <BrainCircuit size={32} className="wb-cost-brain-icon" />
-              <div className="wb-cost-callout-sep" />
-            </div>
-            <div className="wb-cost-callout-text-wrap">
-              <div className="wb-cost-callout-line1-fs">THAT&apos;S NOT A PEOPLE PROBLEM.</div>
-              <div className="wb-cost-callout-line2-fs">THAT&apos;S A SYSTEMS PROBLEM.</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Sequential Breakdown */}
-        <div className="wb-cost-mobile-wrapper">
-          <div className="wb-container">
-            <div className="wb-cost-mobile-header">
-              <div className="wb-pill-eyebrow wb-pill-eyebrow-blue" style={{ marginBottom: "12px" }}>
-                <AlertTriangle size={13} className="text-amber-400" />
-                <span>THE HIDDEN COST</span>
-              </div>
-              <h2 className="wb-cost-title" style={{ fontSize: "28px" }}>
-                THE HIDDEN COST OF{" "}
-                <span className="wb-gradient-text-green-cyan">MANUAL WORK</span>
-              </h2>
-              <p className="wb-cost-subtitle" style={{ fontSize: "14px" }}>
-                Your business may already be losing time and opportunities through:
-              </p>
-            </div>
-
-            <div className="wb-cost-mobile-cards">
-              {/* Card 1 */}
-              <div className="wb-cost-card-fs wb-cost-card-lead" style={{ marginBottom: "14px" }}>
-                <div className="wb-cost-card-fs-header">
-                  <div className="wb-cost-card-fs-icon wb-icon-wrap-green">
-                    <Users size={16} />
-                  </div>
-                  <h3 className="wb-cost-card-fs-title wb-title-green">LEAD MANAGEMENT</h3>
-                </div>
-                <div className="wb-cost-card-fs-list">
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Slow lead responses</span>
-                  </div>
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Missed follow-ups</span>
-                  </div>
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Leads falling through the cracks</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="wb-cost-card-fs wb-cost-card-ops" style={{ marginBottom: "14px" }}>
-                <div className="wb-cost-card-fs-header">
-                  <div className="wb-cost-card-fs-icon wb-icon-wrap-blue">
-                    <Settings size={16} />
-                  </div>
-                  <h3 className="wb-cost-card-fs-title wb-title-blue">OPERATIONS</h3>
-                </div>
-                <div className="wb-cost-card-fs-list">
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Repetitive data entry</span>
-                  </div>
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Manual CRM updates</span>
-                  </div>
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Too many disconnected tools</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="wb-cost-card-fs wb-cost-card-vis" style={{ marginBottom: "14px" }}>
-                <div className="wb-cost-card-fs-header">
-                  <div className="wb-cost-card-fs-icon wb-icon-wrap-purple">
-                    <BarChart3 size={16} />
-                  </div>
-                  <h3 className="wb-cost-card-fs-title wb-title-purple">VISIBILITY</h3>
-                </div>
-                <div className="wb-cost-card-fs-list">
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Scattered information</span>
-                  </div>
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Delayed reporting</span>
-                  </div>
-                  <div className="wb-cost-card-fs-item">
-                    <XCircle size={15} color="#EF4444" className="wb-cost-x-icon" />
-                    <span>Teams working without human judgment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="wb-cost-mobile-preview" style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "12px", overflow: "hidden", margin: "16px 0" }}>
-              <Image
-                src="/images/webinar-redesign/hidden-cost-bg.webp"
-                alt="3D Automation Visual"
-                fill
-                quality={90}
-                sizes="(max-width: 768px) 100vw, 0px"
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-
-            <div className="wb-cost-callout-fs" style={{ position: "relative", bottom: "auto", left: "auto", transform: "none", width: "100%", margin: "16px 0 0" }}>
-              <div className="wb-cost-callout-icon-wrap">
-                <BrainCircuit size={28} color="#38BDF8" />
-                <div className="wb-cost-callout-sep" />
-              </div>
-              <div className="wb-cost-callout-text-wrap">
-                <div className="wb-cost-callout-line1-fs" style={{ fontSize: "12px" }}>THAT&apos;S NOT A PEOPLE PROBLEM.</div>
-                <div className="wb-cost-callout-line2-fs" style={{ fontSize: "14px" }}>THAT&apos;S A SYSTEMS PROBLEM.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 4: THE AI AUTOMATION MASTERCLASS (FULLSCREEN 16:9 CANVAS STAGE) ── */}
+      {/* ── THE AI AUTOMATION MASTERCLASS (FULLSCREEN 16:9 CANVAS STAGE) ── */}
       <section className="wb-section-fullscreen-masterclass" id="masterclass">
         <div className="wb-masterclass-fullscreen-stage">
           {/* High-Res Fullscreen Background Canvas */}
@@ -855,10 +430,10 @@ export default function WebinarPage() {
             </div>
 
             {/* Headline */}
-            <h2 className="wb-masterclass-title-fs">
+            <h1 className="wb-masterclass-title-fs">
               <span className="wb-masterclass-title-white-fs">THE AI AUTOMATION</span>
               <span className="wb-masterclass-title-gradient-fs">MASTERCLASS</span>
-            </h2>
+            </h1>
 
             {/* Subtitle */}
             <p className="wb-masterclass-subtitle-fs">
@@ -870,24 +445,24 @@ export default function WebinarPage() {
               <div className="wb-masterclass-spec-card-fs">
                 <Calendar size={20} className="wb-spec-icon-cyan" />
                 <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Starts 17th Apr</span>
-                  <span className="wb-spec-sub-fs">3 Hours</span>
+                  <span className="wb-spec-title-fs">Date: [TBA]</span>
+                  <span className="wb-spec-sub-fs">To be confirmed</span>
                 </div>
               </div>
 
               <div className="wb-masterclass-spec-card-fs">
                 <Clock size={20} className="wb-spec-icon-green" />
                 <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">7 PM – 10 PM</span>
-                  <span className="wb-spec-sub-fs">Live Workshop</span>
+                  <span className="wb-spec-title-fs">Time: [TBA]</span>
+                  <span className="wb-spec-sub-fs">To be confirmed</span>
                 </div>
               </div>
 
               <div className="wb-masterclass-spec-card-fs">
                 <Monitor size={20} className="wb-spec-icon-blue" />
                 <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Online</span>
-                  <span className="wb-spec-sub-fs">Live on Zoom</span>
+                  <span className="wb-spec-title-fs">Format: Live Online</span>
+                  <span className="wb-spec-sub-fs">Interactive Session (₹99)</span>
                 </div>
               </div>
             </div>
@@ -1006,22 +581,22 @@ export default function WebinarPage() {
               <div className="wb-masterclass-spec-card-fs">
                 <Calendar size={18} className="wb-spec-icon-cyan" />
                 <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Starts 17th Apr</span>
-                  <span className="wb-spec-sub-fs">3 Hours</span>
+                  <span className="wb-spec-title-fs">Date: [TBA]</span>
+                  <span className="wb-spec-sub-fs">To be confirmed</span>
                 </div>
               </div>
               <div className="wb-masterclass-spec-card-fs">
                 <Clock size={18} className="wb-spec-icon-green" />
                 <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">7 PM – 10 PM</span>
-                  <span className="wb-spec-sub-fs">Live Workshop</span>
+                  <span className="wb-spec-title-fs">Time: [TBA]</span>
+                  <span className="wb-spec-sub-fs">To be confirmed</span>
                 </div>
               </div>
               <div className="wb-masterclass-spec-card-fs">
                 <Monitor size={18} className="wb-spec-icon-blue" />
                 <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Online</span>
-                  <span className="wb-spec-sub-fs">Live on Zoom</span>
+                  <span className="wb-spec-title-fs">Format: Live Online</span>
+                  <span className="wb-spec-sub-fs">Interactive Session (₹99)</span>
                 </div>
               </div>
             </div>
@@ -1111,11 +686,11 @@ export default function WebinarPage() {
 
               <h2 className="wb-founders-main-title">
                 Learn from the people{" "}
-                <span className="wb-text-highlight-green">building</span> with AI.
+                <span className="wb-text-highlight-green">building</span> these systems.
               </h2>
 
               <p className="wb-founders-main-desc">
-                <span className="wb-highlight-founder">Adnan Shaikh</span> and <span className="wb-highlight-founder">Raunak Kumar</span> are the founders of <span className="wb-highlight-scalepods">ScalePods</span>, helping businesses automate operations, streamline workflows and scale with AI.
+                Together, <span className="wb-highlight-founder">Adnan Shaikh</span> and <span className="wb-highlight-founder">Raunak Kumar</span> bring business and technology perspectives to the same conversation: <strong>what should be improved, what can be automated, and how can the solution fit into the way a business actually operates?</strong>
               </p>
 
               {/* 3 Experience Badges */}
@@ -1124,14 +699,14 @@ export default function WebinarPage() {
                   <div className="wb-exp-badge-icon-wrap">
                     <Zap size={14} className="wb-exp-icon-green" />
                   </div>
-                  <span>Real-world experience</span>
+                  <span>Certified OpenAI &amp; Claude Partners</span>
                 </div>
 
                 <div className="wb-founder-exp-badge">
                   <div className="wb-exp-badge-icon-wrap">
                     <Users size={14} className="wb-exp-icon-cyan" />
                   </div>
-                  <span>Hands-on guidance</span>
+                  <span>Hands-on business guidance</span>
                 </div>
 
                 <div className="wb-founder-exp-badge">
@@ -1146,7 +721,7 @@ export default function WebinarPage() {
                 onClick={handleOpenModal}
                 className="wb-founders-about-btn"
               >
-                <span>About the Founders</span>
+                <span>Reserve Your Seat (₹99)</span>
                 <ArrowRight size={16} />
               </button>
             </div>
@@ -1158,7 +733,7 @@ export default function WebinarPage() {
                 <div className="wb-founder-img-frame">
                   <Image
                     src="/images/webinar-redesign/adnan-portrait-square.webp"
-                    alt="Adnan Shaikh - Co-Founder, ScalePods"
+                    alt="Adnan Shaikh - Co-Founder & CEO, ScalePods"
                     fill
                     sizes="(max-width: 768px) 100vw, 320px"
                     className="wb-founder-portrait-img"
@@ -1166,9 +741,9 @@ export default function WebinarPage() {
                 </div>
                 <div className="wb-founder-card-body">
                   <h3 className="wb-founder-card-name">Adnan Shaikh</h3>
-                  <div className="wb-founder-card-role">Co-Founder, <span className="wb-highlight-scalepods">ScalePods</span></div>
+                  <div className="wb-founder-card-role">Co-Founder &amp; CEO, <span className="wb-highlight-scalepods">ScalePods</span></div>
                   <p className="wb-founder-card-bio">
-                    Builds and scales AI automation solutions for modern businesses.
+                    Brings deep expertise in sales leadership, revenue growth, and operational efficiency — focusing on solving broken lead pipelines, manual follow-ups, and team coordination.
                   </p>
                   <a
                     href="https://www.linkedin.com/in/adnan-sheikh"
@@ -1189,7 +764,7 @@ export default function WebinarPage() {
                 <div className="wb-founder-img-frame">
                   <Image
                     src="/images/webinar-redesign/raunak-portrait-square.webp"
-                    alt="Raunak Kumar - Co-Founder, ScalePods"
+                    alt="Raunak Kumar - Co-Founder, CTO & CPO, ScalePods"
                     fill
                     sizes="(max-width: 768px) 100vw, 320px"
                     className="wb-founder-portrait-img"
@@ -1197,9 +772,9 @@ export default function WebinarPage() {
                 </div>
                 <div className="wb-founder-card-body">
                   <h3 className="wb-founder-card-name">Raunak Kumar</h3>
-                  <div className="wb-founder-card-role">Co-Founder, <span className="wb-highlight-scalepods">ScalePods</span></div>
+                  <div className="wb-founder-card-role">Co-Founder, CTO &amp; CPO, <span className="wb-highlight-scalepods">ScalePods</span></div>
                   <p className="wb-founder-card-bio">
-                    Specializes in workflow automation, AI systems and product strategy.
+                    Brings cross-domain experience in product management, technology, and AI systems — translating real operational challenges into scalable, practical automated workflows.
                   </p>
                   <a
                     href="https://www.linkedin.com/in/raunak-kumar"
@@ -1580,29 +1155,29 @@ export default function WebinarPage() {
         </div>
       </section>
 
-      {/* ── SECTION 6: THE 4-LAYER AUTOMATION SYSTEM (SLIDE 14) ─────────────────── */}
+      {/* ── SECTION 6: SEE THE PATTERN BEHIND SMARTER BUSINESS AUTOMATION ─────── */}
       <section className="wb-section">
         <div className="wb-container">
           <div style={{ textAlign: "center", marginBottom: "40px" }}>
             <div className="wb-pill-green" style={{ marginBottom: "14px" }}>
               <Cpu size={14} />
-              <span>THE PROPRIETARY FRAMEWORK</span>
+              <span>THE 5-STEP WORKFLOW PATTERN</span>
             </div>
             <h2 style={{ fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.2, marginBottom: "14px" }}>
-              THE 4-LAYER <span className="wb-framework-title-cyan">AUTOMATION SYSTEM</span>
+              SEE THE PATTERN BEHIND <span className="wb-framework-title-cyan">SMARTER BUSINESS AUTOMATION</span>
             </h2>
-            <p style={{ fontSize: "16px", color: "#94A3B8", maxWidth: "680px", margin: "0 auto" }}>
-              A practical framework for thinking about business automation.
+            <p style={{ fontSize: "16px", color: "#94A3B8", maxWidth: "720px", margin: "0 auto" }}>
+              You don&apos;t need to start by automating your entire business. You need to understand how individual steps can work together seamlessly.
             </p>
           </div>
 
-          {/* 4 Cards Grid matching Slide 14 */}
+          {/* 5 Cards Grid */}
           <div className="wb-4layers-grid">
             <div className="wb-4layer-card">
               <span className="wb-4layer-num">01</span>
               <h3 className="wb-4layer-title">CAPTURE</h3>
               <p className="wb-4layer-desc">
-                Capture the lead, application, enquiry, request or task.
+                Bring a lead, request, application, or task into the workflow automatically from any source.
               </p>
               <span className="wb-4layer-tag">Universal Ingestion</span>
             </div>
@@ -1611,41 +1186,51 @@ export default function WebinarPage() {
               <span className="wb-4layer-num">02</span>
               <h3 className="wb-4layer-title">RESPOND</h3>
               <p className="wb-4layer-desc">
-                Trigger the right response instantly without human delays.
+                Trigger the appropriate first action instead of relying entirely on manual intervention.
               </p>
-              <span className="wb-4layer-tag">Sub-Minute Response</span>
+              <span className="wb-4layer-tag">Instant First Action</span>
             </div>
 
             <div className="wb-4layer-card">
               <span className="wb-4layer-num">03</span>
               <h3 className="wb-4layer-title">QUALIFY</h3>
               <p className="wb-4layer-desc">
-                Use rules, data and AI to determine what should happen next.
+                Apply defined rules or AI assistance to organize information and determine the next step.
               </p>
               <span className="wb-4layer-tag">Intelligent Triage</span>
             </div>
 
             <div className="wb-4layer-card">
               <span className="wb-4layer-num">04</span>
-              <h3 className="wb-4layer-title">SYNC + FOLLOW-UP</h3>
+              <h3 className="wb-4layer-title">SYNC</h3>
               <p className="wb-4layer-desc">
-                Update systems, notify people and automatically trigger the next action.
+                Update relevant records across systems and pass context to the right person or team.
               </p>
-              <span className="wb-4layer-tag">Autonomous Orchestration</span>
+              <span className="wb-4layer-tag">Connected Records</span>
+            </div>
+
+            <div className="wb-4layer-card">
+              <span className="wb-4layer-num">05</span>
+              <h3 className="wb-4layer-title">FOLLOW UP</h3>
+              <p className="wb-4layer-desc">
+                Trigger reminders, communications, and next actions so work never stalls after initial contact.
+              </p>
+              <span className="wb-4layer-tag">Proactive Continuity</span>
             </div>
           </div>
 
           {/* Signature Framework Bar */}
           <div className="wb-pathway-card" style={{ textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 800, color: "#FFFFFF", marginBottom: "6px" }}>
+            <div style={{ fontSize: "16px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
               <span style={{ color: "#48DD83" }}>CAPTURE</span> →{" "}
               <span style={{ color: "#38BDF8" }}>RESPOND</span> →{" "}
               <span style={{ color: "#48DD83" }}>QUALIFY</span> →{" "}
-              <span style={{ color: "#38BDF8" }}>SYNC + FOLLOW-UP</span>
+              <span style={{ color: "#38BDF8" }}>SYNC</span> →{" "}
+              <span style={{ color: "#48DD83" }}>FOLLOW UP</span>
             </div>
-            <span style={{ fontSize: "12px", color: "#94A3B8" }}>
-              This is the signature four-layer framework outlined in the ScalePods masterclass.
-            </span>
+            <p style={{ fontSize: "13px", color: "#94A3B8", maxWidth: "780px", margin: "0 auto", lineHeight: 1.6 }}>
+              The objective is not to remove people from every process. It&apos;s to help people spend less time coordinating routine work and more time doing the work that requires judgment, expertise, and relationships.
+            </p>
           </div>
         </div>
       </section>
@@ -1655,11 +1240,11 @@ export default function WebinarPage() {
         <div className="wb-business-inner-container">
           <div className="wb-business-header">
             <h2 className="wb-business-title">
-              SEE HOW THIS WORKS ACROSS{" "}
-              <span className="wb-business-title-gradient">YOUR BUSINESS</span>
+              WHAT YOU&apos;LL DISCOVER IN THIS{" "}
+              <span className="wb-business-title-gradient">LIVE MASTERCLASS</span>
             </h2>
             <p className="wb-business-subtitle">
-              One underlying logic engine deployed across critical operational tracks:
+              How businesses identify and integrate AI-powered workflow automation across 4 core functions:
             </p>
           </div>
 
@@ -1682,18 +1267,17 @@ export default function WebinarPage() {
                 <div className="wb-bcard-icon-badge wb-badge-green">
                   <TrendingUp size={16} />
                 </div>
-                <h3 className="wb-bcard-title">SALES</h3>
+                <h3 className="wb-bcard-title">1. SALES: NEW LEAD TO FOLLOW-UP</h3>
               </div>
 
               <div className="wb-business-steps-list">
                 {[
-                  "Lead comes in",
-                  "Instant WhatsApp / AI response",
-                  "Qualification",
-                  "Lead categorization",
-                  "CRM update",
-                  "Assignment",
-                  "Automated follow-up",
+                  "Capture lead information from connected sources",
+                  "Trigger a timely initial response",
+                  "Support lead qualification and routing",
+                  "Update the CRM with relevant information",
+                  "Trigger follow-up reminders or next steps",
+                  "Improve visibility into lead status and ownership",
                 ].map((step, idx) => (
                   <div key={idx} className="wb-business-step-row">
                     <span className="wb-bstep-arrow wb-arrow-green">➔</span>
@@ -1707,9 +1291,9 @@ export default function WebinarPage() {
                   <Target size={15} />
                 </div>
                 <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-green">Result?</span>
+                  <span className="wb-bresult-label wb-label-green">Business Opportunity</span>
                   <p className="wb-bresult-desc">
-                    Your team spends less time chasing and more time closing.
+                    Spend less time managing repetitive lead administration and more time building relationships and progressing qualified opportunities.
                   </p>
                 </div>
               </div>
@@ -1733,16 +1317,16 @@ export default function WebinarPage() {
                 <div className="wb-bcard-icon-badge wb-badge-cyan">
                   <Megaphone size={16} />
                 </div>
-                <h3 className="wb-bcard-title">MARKETING</h3>
+                <h3 className="wb-bcard-title">2. MARKETING: CAPTURE TO ACTION</h3>
               </div>
 
               <div className="wb-business-steps-list">
                 {[
-                  "Lead captured",
-                  "Nurture workflow",
-                  "Campaign tracking",
-                  "Data synchronization",
-                  "Follow-up",
+                  "Route incoming enquiries into the right workflow",
+                  "Trigger relevant follow-up or nurture sequences",
+                  "Connect campaign information with lead records",
+                  "Reduce repetitive coordination between marketing activities",
+                  "Make reporting and performance tracking consistent",
                 ].map((step, idx) => (
                   <div key={idx} className="wb-business-step-row">
                     <span className="wb-bstep-arrow wb-arrow-cyan">➔</span>
@@ -1756,9 +1340,9 @@ export default function WebinarPage() {
                   <TrendingUp size={15} />
                 </div>
                 <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-cyan">Result?</span>
+                  <span className="wb-bresult-label wb-label-cyan">Business Opportunity</span>
                   <p className="wb-bresult-desc">
-                    More qualified leads, better engagement, higher conversions.
+                    Reduce manual handovers and help marketing teams turn everyday activity into organized, trackable processes.
                   </p>
                 </div>
               </div>
@@ -1782,16 +1366,16 @@ export default function WebinarPage() {
                 <div className="wb-bcard-icon-badge wb-badge-mint">
                   <Users size={16} />
                 </div>
-                <h3 className="wb-bcard-title">HR</h3>
+                <h3 className="wb-bcard-title">3. HR: COORDINATED HIRING</h3>
               </div>
 
               <div className="wb-business-steps-list">
                 {[
-                  "Candidate applies",
-                  "AI-assisted screening",
-                  "Candidate categorization",
-                  "Interview scheduling",
-                  "Follow-up",
+                  "Organizing incoming applications",
+                  "Assisting with resume screening and categorization",
+                  "Coordinating interview availability and scheduling",
+                  "Triggering candidate communications and reminders",
+                  "Maintaining clearer hiring-stage updates",
                 ].map((step, idx) => (
                   <div key={idx} className="wb-business-step-row">
                     <span className="wb-bstep-arrow wb-arrow-mint">➔</span>
@@ -1805,9 +1389,9 @@ export default function WebinarPage() {
                   <Users size={15} />
                 </div>
                 <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-mint">Result?</span>
+                  <span className="wb-bresult-label wb-label-mint">Business Opportunity</span>
                   <p className="wb-bresult-desc">
-                    Faster hiring, better matches, stronger teams.
+                    Reduce administrative pressure so recruiters can focus on candidate experience and final decisions (human oversight remains essential).
                   </p>
                 </div>
               </div>
@@ -1831,16 +1415,16 @@ export default function WebinarPage() {
                 <div className="wb-bcard-icon-badge wb-badge-blue">
                   <Settings size={16} />
                 </div>
-                <h3 className="wb-bcard-title">OPERATIONS</h3>
+                <h3 className="wb-bcard-title">4. OPERATIONS: CONNECTED EXECUTION</h3>
               </div>
 
               <div className="wb-business-steps-list">
                 {[
-                  "Task/request arrives",
-                  "Task creation",
-                  "Assignment",
-                  "Tracking",
-                  "Reporting",
+                  "Capture incoming requests in a structured way",
+                  "Assign tasks based on defined business rules",
+                  "Trigger status updates and proactive reminders",
+                  "Keep relevant records and systems synchronized",
+                  "Support recurring reporting and process checks",
                 ].map((step, idx) => (
                   <div key={idx} className="wb-business-step-row">
                     <span className="wb-bstep-arrow wb-arrow-blue">➔</span>
@@ -1854,9 +1438,9 @@ export default function WebinarPage() {
                   <BarChart3 size={15} />
                 </div>
                 <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-blue">Result?</span>
+                  <span className="wb-bresult-label wb-label-blue">Business Opportunity</span>
                   <p className="wb-bresult-desc">
-                    Better visibility, fewer bottlenecks, smoother execution.
+                    Make routine internal work easier to track, coordinate, and scale reliably as your operational volume grows.
                   </p>
                 </div>
               </div>
@@ -1970,10 +1554,10 @@ export default function WebinarPage() {
             </div>
             <div className="wb-framework-bottom-text">
               <span className="wb-framework-bottom-label">
-                ONE CONNECTED WORKFLOW ENGINE
+                THE 5-STEP CONNECTED WORKFLOW PATTERN
               </span>
               <div className="wb-framework-bottom-flow">
-                Redesign <span className="wb-flow-arrow">➔</span> Connect <span className="wb-flow-arrow">➔</span> Automate <span className="wb-flow-arrow">➔</span> AI
+                Capture <span className="wb-flow-arrow">➔</span> Respond <span className="wb-flow-arrow">➔</span> Qualify <span className="wb-flow-arrow">➔</span> Sync <span className="wb-flow-arrow">➔</span> Follow Up
               </div>
             </div>
 
@@ -2068,10 +1652,10 @@ export default function WebinarPage() {
                 </div>
                 <div className="wb-framework-bottom-text">
                   <span className="wb-framework-bottom-label">
-                    ONE CONNECTED WORKFLOW ENGINE
+                    THE 5-STEP CONNECTED WORKFLOW PATTERN
                   </span>
                   <div className="wb-framework-bottom-flow">
-                    Redesign <span className="wb-flow-arrow">➔</span> Connect <span className="wb-flow-arrow">➔</span> Automate <span className="wb-flow-arrow">➔</span> AI
+                    Capture <span className="wb-flow-arrow">➔</span> Respond <span className="wb-flow-arrow">➔</span> Qualify <span className="wb-flow-arrow">➔</span> Sync <span className="wb-flow-arrow">➔</span> Follow Up
                   </div>
                 </div>
               </div>
@@ -2108,96 +1692,95 @@ export default function WebinarPage() {
           <div className="wb-curriculum-stage-header">
             <div className="wb-pill-badge-green" style={{ marginBottom: "clamp(6px, 0.7vw, 10px)" }}>
               <CheckCircle2 size={13} className="wb-pill-badge-icon" />
-              <span>CURRICULUM BLUEPRINTS</span>
+              <span>WHAT YOU&apos;LL WALK AWAY WITH</span>
             </div>
 
             <h2 className="wb-curriculum-stage-title">
-              WHAT YOU’LL <span className="wb-curriculum-title-green">LEARN</span>
+              WHAT YOU’LL <span className="wb-curriculum-title-green">WALK AWAY WITH</span>
             </h2>
 
             <p className="wb-curriculum-stage-desc">
-              By the end of this live session, you&apos;ll understand:
+              By the end of this founder-led session, you&apos;ll have clear clarity on:
             </p>
           </div>
 
-          {/* Left 4 Cards Column (y: 24% - 88%) */}
+          {/* Left 3 Cards Column (y: 24% - 88%) */}
           <div className="wb-curriculum-stage-col-left">
             <div className="wb-cstage-card wb-cstage-card-green">
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <Settings size={22} />
               </div>
-              <p className="wb-cstage-card-text">
-                How to identify repetitive processes worth automating
-              </p>
+              <div>
+                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>Where to start</strong>
+                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+                  Recognize repetitive, rule-based tasks that are prime candidates for workflow automation.
+                </p>
+              </div>
             </div>
 
             <div className="wb-cstage-card wb-cstage-card-cyan">
               <div className="wb-cstage-icon-badge wb-cbadge-cyan">
                 <Target size={22} />
               </div>
-              <p className="wb-cstage-card-text">
-                How AI can fit into existing business workflows
-              </p>
+              <div>
+                <strong style={{ display: "block", color: "#38BDF8", fontSize: "14px", marginBottom: "4px" }}>What to prioritize</strong>
+                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+                  Evaluate opportunities based on business impact, frequency, time spent, and implementation effort.
+                </p>
+              </div>
             </div>
 
             <div className="wb-cstage-card wb-cstage-card-green">
               <div className="wb-cstage-icon-badge wb-cbadge-green">
-                <Filter size={22} />
+                <Layers size={22} />
               </div>
-              <p className="wb-cstage-card-text">
-                How Sales workflows can capture, qualify and follow up with leads
-              </p>
-            </div>
-
-            <div className="wb-cstage-card wb-cstage-card-cyan">
-              <div className="wb-cstage-icon-badge wb-cbadge-cyan">
-                <Users size={22} />
+              <div>
+                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>How workflows connect</strong>
+                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+                  Understand how inputs, decisions, systems, and follow-up actions fit together seamlessly.
+                </p>
               </div>
-              <p className="wb-cstage-card-text">
-                How HR workflows can automate screening and scheduling
-              </p>
             </div>
           </div>
 
-          {/* Central Workspace Pedestal:
-              Shines through seamlessly from curriculum-bg.webp in the center! */}
+          {/* Central Workspace Pedestal shines through from curriculum-bg.webp */}
 
-          {/* Right 4 Cards Column (y: 24% - 88%) */}
+          {/* Right 3 Cards Column (y: 24% - 88%) */}
           <div className="wb-curriculum-stage-col-right">
             <div className="wb-cstage-card wb-cstage-card-green">
               <div className="wb-cstage-icon-badge wb-cbadge-green">
-                <Users size={22} />
+                <BrainCircuit size={22} />
               </div>
-              <p className="wb-cstage-card-text">
-                How to separate tasks that need humans from tasks that don&apos;t
-              </p>
+              <div>
+                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>Where AI adds value</strong>
+                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+                  Distinguish between rule-based automation, tasks suited for AI, and decisions requiring human oversight.
+                </p>
+              </div>
             </div>
 
             <div className="wb-cstage-card wb-cstage-card-cyan">
               <div className="wb-cstage-icon-badge wb-cbadge-cyan">
                 <Box size={22} />
               </div>
-              <p className="wb-cstage-card-text">
-                How the 4-Layer Automation System works
-              </p>
+              <div>
+                <strong style={{ display: "block", color: "#38BDF8", fontSize: "14px", marginBottom: "4px" }}>How to approach integration</strong>
+                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+                  Connect automation into your existing business stack without breaking everyday operations.
+                </p>
+              </div>
             </div>
 
             <div className="wb-cstage-card wb-cstage-card-green">
               <div className="wb-cstage-icon-badge wb-cbadge-green">
-                <Megaphone size={22} />
+                <TrendingUp size={22} />
               </div>
-              <p className="wb-cstage-card-text">
-                How Marketing workflows can automate lead nurturing and tracking
-              </p>
-            </div>
-
-            <div className="wb-cstage-card wb-cstage-card-cyan">
-              <div className="wb-cstage-icon-badge wb-cbadge-cyan">
-                <BarChart3 size={22} />
+              <div>
+                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>What to do next</strong>
+                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+                  Identify immediate automation opportunities across your Sales, Marketing, HR, or Operations workflows.
+                </p>
               </div>
-              <p className="wb-cstage-card-text">
-                How Operations workflows can automate task assignment and reporting
-              </p>
             </div>
           </div>
         </div>
@@ -2208,15 +1791,15 @@ export default function WebinarPage() {
             <div className="wb-curriculum-mobile-header">
               <div className="wb-pill-badge-green" style={{ marginBottom: "14px" }}>
                 <CheckCircle2 size={13} className="wb-pill-badge-icon" />
-                <span>CURRICULUM BLUEPRINTS</span>
+                <span>WHAT YOU&apos;LL WALK AWAY WITH</span>
               </div>
 
               <h2 className="wb-curriculum-mobile-title">
-                WHAT YOU’LL <span className="wb-curriculum-title-green">LEARN</span>
+                WHAT YOU’LL <span className="wb-curriculum-title-green">WALK AWAY WITH</span>
               </h2>
 
               <p className="wb-curriculum-mobile-desc">
-                By the end of this live session, you&apos;ll understand:
+                By the end of this live session, you&apos;ll have clear clarity on:
               </p>
             </div>
 
@@ -2233,47 +1816,43 @@ export default function WebinarPage() {
               />
             </div>
 
-            {/* 8 Curriculum Cards Grid */}
+            {/* 6 Curriculum Cards Grid */}
             <div className="wb-curriculum-mobile-grid">
               {[
                 {
-                  title: "How to identify repetitive processes worth automating",
+                  label: "Where to start",
+                  title: "Recognize repetitive, rule-based tasks suitable for automation",
                   icon: Settings,
                   color: "green",
                 },
                 {
-                  title: "How to separate tasks that need humans from tasks that don't",
-                  icon: Users,
-                  color: "green",
-                },
-                {
-                  title: "How AI can fit into existing business workflows",
+                  label: "What to prioritize",
+                  title: "Evaluate based on business impact, frequency, time spent, and effort",
                   icon: Target,
                   color: "cyan",
                 },
                 {
-                  title: "How the 4-Layer Automation System works",
+                  label: "How workflows connect",
+                  title: "Understand how inputs, decisions, systems, and follow-ups fit together",
+                  icon: Layers,
+                  color: "green",
+                },
+                {
+                  label: "Where AI adds value",
+                  title: "Distinguish rules vs. AI-assisted interpretation vs. human oversight",
+                  icon: BrainCircuit,
+                  color: "cyan",
+                },
+                {
+                  label: "How to integrate",
+                  title: "Connect automation into your existing tools without operational disruption",
                   icon: Box,
-                  color: "cyan",
-                },
-                {
-                  title: "How Sales workflows can capture, qualify and follow up with leads",
-                  icon: Filter,
                   color: "green",
                 },
                 {
-                  title: "How Marketing workflows can automate lead nurturing and tracking",
-                  icon: Megaphone,
-                  color: "green",
-                },
-                {
-                  title: "How HR workflows can automate screening and scheduling",
-                  icon: Users,
-                  color: "cyan",
-                },
-                {
-                  title: "How Operations workflows can automate task assignment and reporting",
-                  icon: BarChart3,
+                  label: "What to do next",
+                  title: "Identify practical opportunities across Sales, Marketing, HR, or Operations",
+                  icon: TrendingUp,
                   color: "cyan",
                 },
               ].map((item, idx) => {
@@ -2283,11 +1862,20 @@ export default function WebinarPage() {
                     <div className={`wb-ccard-icon-badge wb-cbadge-${item.color}`}>
                       <IconComponent size={18} />
                     </div>
-                    <p className="wb-curriculum-card-text">{item.title}</p>
+                    <div>
+                      <span style={{ fontSize: "11px", fontWeight: 700, color: item.color === "green" ? "#48DD83" : "#38BDF8", textTransform: "uppercase" }}>
+                        {item.label}
+                      </span>
+                      <p className="wb-curriculum-card-text" style={{ marginTop: "4px" }}>{item.title}</p>
+                    </div>
                   </div>
                 );
               })}
             </div>
+
+            <p style={{ fontSize: "13px", color: "var(--wb-text-faint)", textAlign: "center", marginTop: "20px", lineHeight: 1.5 }}>
+              *No coding or technical background required. This session focuses strictly on business processes and practical implementation.
+            </p>
           </div>
         </div>
       </section>
@@ -2835,7 +2423,7 @@ export default function WebinarPage() {
               WHO SHOULD <span className="wb-attend-title-gradient">ATTEND?</span>
             </h2>
             <p className="wb-attend-desc">
-              If you&apos;re involved in running or scaling a business, this webinar is for you.
+              Designed for people responsible for making a business or team work better. You don&apos;t need to code or be an AI expert.
             </p>
           </div>
 
@@ -2847,33 +2435,33 @@ export default function WebinarPage() {
                 {[
                   {
                     icon: User,
-                    title: "FOUNDERS & ENTREPRENEURS",
-                    desc: "If you're scaling a business and constantly adding people to manage growing workloads.",
+                    title: "BUSINESS OWNERS & FOUNDERS",
+                    desc: "If you want to scale your business sustainably without allowing manual busywork to grow unchecked.",
                   },
                   {
                     icon: TrendingUp,
                     title: "SALES LEADERS",
-                    desc: "If leads are coming in but response, qualification or follow-up isn't consistent.",
+                    desc: "If you want more consistent lead handling, faster qualification, and timely follow-ups without manual CRM overhead.",
                   },
                   {
                     icon: Megaphone,
                     title: "MARKETING LEADERS",
-                    desc: "If your marketing generates leads but too much of the journey remains manual.",
+                    desc: "If you want better-connected campaigns, automated lead workflows, AI content creation, and trackable reporting.",
                   },
                   {
                     icon: Users,
-                    title: "HR LEADERS",
-                    desc: "If screening, scheduling and candidate communication consume your team's time.",
+                    title: "HR & RECRUITMENT LEADERS",
+                    desc: "If you're looking to streamline repetitive resume screening, interview scheduling, and candidate communication.",
                   },
                   {
                     icon: Settings,
-                    title: "OPERATIONS LEADERS",
-                    desc: "If tasks, approvals, reporting and internal coordination are becoming difficult to manage.",
+                    title: "OPERATIONS MANAGERS",
+                    desc: "If you need better coordination, structured task handovers, automated record syncing, and process visibility.",
                   },
                   {
                     icon: Monitor,
-                    title: "BUSINESS & TECHNOLOGY LEADERS",
-                    desc: "If you want to understand how AI can become part of the operating system of your business.",
+                    title: "ENTREPRENEURS & PROFESSIONALS",
+                    desc: "If you're exploring practical, ROI-driven applications of AI without the coding lessons or tool hype.",
                   },
                 ].map((track, i) => {
                   const Icon = track.icon;
@@ -2977,32 +2565,28 @@ export default function WebinarPage() {
           <div className="wb-glass-card wb-faq-card">
             {[
               {
-                q: "Is this only for technology companies?",
-                a: "No. The framework is built around universal business workflows and can apply across Sales, Marketing, HR, Operations and other functions.",
+                q: "Do I need technical knowledge or coding skills?",
+                a: "No. The session focuses on business problems, workflow patterns, and implementation considerations rather than teaching attendees to code or build automations.",
               },
               {
-                q: "Do I need technical knowledge?",
-                a: "No. The focus is on understanding business workflows and how AI/automation can be applied to them.",
+                q: "Will I learn about Sales, Marketing, HR, and Operations?",
+                a: "Yes. The masterclass will cover examples from all four functions and explain how common workflow patterns can be adapted to different business needs.",
               },
               {
-                q: "Will you demonstrate actual workflows?",
-                a: "Yes. A live workflow demonstration is a core part of the session.",
+                q: "Is this a product demonstration or sales pitch?",
+                a: "The session is designed around understanding business challenges and the role of AI-powered workflow automation. Its purpose is to help you identify opportunities and understand the underlying approach, not to teach a specific product.",
               },
               {
-                q: "Will both founders be speaking?",
-                a: "Yes. The session is designed to bring together Adnan Shaikh's business, sales and operational perspective with Raunak Kumar's product, technology and AI perspective.",
+                q: "Will I learn how to automate my entire business?",
+                a: "Yes, the goal is to help you recognize and prioritize opportunities, understand how workflows can be connected, and identify practical next steps. The right solution depends on your business processes, existing bottlenecks, data, and requirements.",
               },
               {
-                q: "Is this just about AI tools?",
-                a: "No. The emphasis is on systems, workflows and business outcomes, rather than simply learning a collection of tools.",
+                q: "When and where will the webinar take place?",
+                a: "The webinar will be conducted live online. The date and time will be announced on this page.",
               },
               {
-                q: "When is the webinar?",
-                a: "Date & Time: [TO BE CONFIRMED]. Registered attendees will receive calendar invites, reminder emails, and direct access links once the date is finalized.",
-              },
-              {
-                q: "How much does it cost?",
-                a: "₹99/- only.",
+                q: "How much does registration cost?",
+                a: "The registration fee is ₹99.",
               },
             ].map((faq, index) => {
               const isOpen = openFaq === index;
@@ -3036,7 +2620,36 @@ export default function WebinarPage() {
         </div>
       </section>
 
-
+      {/* ── SECTION 18: PRE-FOOTER FINAL CALL TO ACTION ───────────────────── */}
+      <section className="wb-section-prefooter-cta">
+        <div className="wb-container wb-container-narrow">
+          <div className="wb-prefooter-cta-card">
+            <div className="wb-pill-green" style={{ marginBottom: "18px" }}>
+              <Sparkles size={14} />
+              <span>TRANSFORM YOUR WORKFLOWS</span>
+            </div>
+            <h2 className="wb-prefooter-cta-title">
+              READY TO RETHINK HOW YOUR BUSINESS WORKS?
+            </h2>
+            <p className="wb-prefooter-cta-subtitle">
+              Stop looking at every repetitive task as something your team must handle manually forever. Discover how to identify bottlenecks, connect disconnected systems, and explore where AI-powered automation can unlock real productivity.
+            </p>
+            <div className="wb-prefooter-cta-btn-wrap">
+              <button
+                onClick={handleOpenModal}
+                className="wb-button-primary wb-btn-pulse-glow"
+                style={{ padding: "16px 36px", fontSize: "16px" }}
+              >
+                <span>Save Your Seat for ₹99</span>
+                <ArrowRight size={18} />
+              </button>
+            </div>
+            <p className="wb-prefooter-cta-note">
+              Live online session &bull; Practical business use cases &bull; No coding required
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* ── STICKY BOTTOM ACTION BAR (MOBILE & DESKTOP) ──────────────────── */}
       <div className={`wb-bottom-bar ${showSticky ? "visible" : ""}`}>

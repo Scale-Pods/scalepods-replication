@@ -9,9 +9,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Live AI Business Automation Masterclass (₹99) | ScalePods with Adnan Shaikh & Raunak Kumar",
+  title: "AI Automation Masterclass (₹99) | ScalePods with Adnan Shaikh & Raunak Kumar",
   description:
-    "Join ScalePods founders Adnan Shaikh (CEO) & Raunak Kumar (CTO/CPO) in a live, founder-led AI masterclass. Discover how AI automates 60–80% of repetitive workflows across Sales, Marketing, HR & Operations. Reserve your seat for just ₹99.",
+    "Before you hire another person, discover how to identify repetitive tasks, connect disconnected workflows, and use AI automation across Sales, Marketing, HR, and Operations. Live founder-led masterclass for ₹99.",
   alternates: {
     canonical: "https://www.scalepods.co/ai-business-automation-webinar",
   },
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Live AI Business Automation Masterclass (₹99) | ScalePods",
+    title: "AI Automation Masterclass (₹99) | ScalePods with Adnan Shaikh & Raunak Kumar",
     description:
-      "Your business doesn't need more people. It needs better systems. Discover how AI-powered automation can eliminate repetitive work across Sales, Marketing, HR & Operations. Live with Adnan Shaikh & Raunak Kumar.",
+      "Before you hire another person, find out how much of your work your business could automate. Live online masterclass across Sales, Marketing, HR, and Operations.",
     url: "https://www.scalepods.co/ai-business-automation-webinar",
     siteName: "ScalePods",
     type: "website",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Live AI Business Automation Masterclass (₹99) | ScalePods",
+    title: "AI Automation Masterclass (₹99) | ScalePods",
     description:
-      "Automate 60–80% of repetitive business workflows across Sales, Marketing, HR & Operations. Live practical demonstration with ScalePods founders Adnan Shaikh & Raunak Kumar.",
+      "Discover how to identify repetitive business tasks and use AI automation across Sales, Marketing, HR, and Operations. Live with ScalePods founders.",
     images: ["/images/team/adnan.jpeg"],
   },
 };
@@ -50,8 +50,8 @@ const webinarSchema = {
     {
       "@type": "EducationEvent",
       "@id": "https://www.scalepods.co/ai-business-automation-webinar#event",
-      "name": "AI Business Automation Masterclass: How Businesses Automate 60–80% of Repetitive Workflows Using AI",
-      "description": "A live, founder-led business automation masterclass with Adnan Shaikh (Co-Founder & CEO) and Raunak Kumar (Co-Founder, CTO & CPO) exploring practical business workflows, automation patterns, and the 4-Layer Automation System across Sales, Marketing, HR and Operations.",
+      "name": "AI Automation Masterclass: From Manual Work to Smarter Business Workflows",
+      "description": "A live, founder-led session with Adnan Shaikh (Co-Founder & CEO) and Raunak Kumar (Co-Founder, CTO & CPO) on how businesses can identify and integrate AI-powered workflow automation across Sales, Marketing, HR, and Operations.",
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
       "location": {
@@ -99,58 +99,50 @@ const webinarSchema = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Is this only for technology companies?",
+          "name": "Do I need technical knowledge or coding skills?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The framework is built around universal business workflows and can apply across Sales, Marketing, HR, Operations and other functions."
+            "text": "No. The session focuses on business problems, workflow patterns, and implementation considerations rather than teaching attendees to code or build automations."
           }
         },
         {
           "@type": "Question",
-          "name": "Do I need technical knowledge?",
+          "name": "Will I learn about Sales, Marketing, HR, and Operations?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The focus is on understanding business workflows and how AI/automation can be applied to them."
+            "text": "Yes. The masterclass will cover examples from all four functions and explain how common workflow patterns can be adapted to different business needs."
           }
         },
         {
           "@type": "Question",
-          "name": "Will you demonstrate actual workflows?",
+          "name": "Is this a product demonstration or sales pitch?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. A live workflow demonstration is a core part of the session."
+            "text": "The session is designed around understanding business challenges and the role of AI-powered workflow automation. Its purpose is to help you identify opportunities and understand the underlying approach, not to teach a specific product."
           }
         },
         {
           "@type": "Question",
-          "name": "Will both founders be speaking?",
+          "name": "Will I learn how to automate my entire business?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. The session is designed to bring together Adnan's business, sales and operational perspective with Raunak's product, technology and AI perspective."
+            "text": "Yes, the goal is to help you recognize and prioritize opportunities, understand how workflows can be connected, and identify practical next steps. The right solution depends on your business processes, existing bottlenecks, data, and requirements."
           }
         },
         {
           "@type": "Question",
-          "name": "Is this just about AI tools?",
+          "name": "When and where will the webinar take place?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The emphasis is on systems, workflows and business outcomes, rather than simply learning a collection of tools."
+            "text": "The webinar will be conducted live online. The date and time will be announced on this page."
           }
         },
         {
           "@type": "Question",
-          "name": "When is the webinar?",
+          "name": "How much does registration cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Date & Time: [TO BE CONFIRMED]. Registered attendees will receive calendar invites, reminder emails, and direct access links once the date is finalized."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How much does it cost?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "₹99/- only. This is a one-time registration for access to the live interactive masterclass."
+            "text": "The registration fee is ₹99."
           }
         }
       ]
