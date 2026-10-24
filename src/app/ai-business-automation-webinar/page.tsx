@@ -404,255 +404,197 @@ export default function WebinarPage() {
         </div>
       </header>
 
-      {/* ── THE AI AUTOMATION MASTERCLASS (FULLSCREEN 16:9 CANVAS STAGE) ── */}
-      <section className="wb-section-fullscreen-masterclass" id="masterclass">
-        <div className="wb-masterclass-fullscreen-stage">
-          {/* High-Res Fullscreen Background Canvas */}
-          <Image
-            src="/images/webinar-redesign/masterclass-bg.webp"
-            alt="The AI Automation Masterclass - ScalePods with Adnan Shaikh & Raunak Kumar"
-            fill
-            priority
-            quality={92}
-            sizes="(max-width: 768px) 0px, 100vw"
-            className="wb-masterclass-canvas-img"
-          />
+            {/* ── 1ST FOLD: THE AI AUTOMATION MASTERCLASS (HERO REDESIGN) ── */}
+      <section className="wb-section-firstfold-hero" id="masterclass">
+        {/* High-Res Background Canvas */}
+        <Image
+          src="/images/webinar-redesign/masterclass-hero-bg.png"
+          alt="The AI Automation Masterclass - ScalePods with Adnan Shaikh & Raunak Kumar"
+          fill
+          priority
+          quality={95}
+          sizes="100vw"
+          className="wb-firstfold-bg"
+        />
 
-          {/* Vignette edge lighting for seamless blending */}
-          <div className="wb-masterclass-canvas-overlay" />
+        {/* Atmospheric Ambient Overlay */}
+        <div className="wb-firstfold-overlay" />
 
-          {/* Left Content Area (Over the dark atmospheric left side) */}
-          <div className="wb-masterclass-left-content">
-            {/* Top Pill Eyebrow */}
-            <div className="wb-masterclass-pill-fs">
-              <Globe size={13} className="wb-masterclass-pill-icon" />
-              <span>AI AUTOMATION MASTERCLASS</span>
+        <div className="wb-firstfold-container">
+          {/* Eyebrow / Badges Row */}
+          <div className="wb-firstfold-topbar">
+            <div className="wb-firstfold-pill">
+              <span className="wb-pulse-dot-cyan" />
+              <Sparkles size={14} className="text-cyan-400" />
+              <span>LIVE FOUNDER-LED MASTERCLASS</span>
             </div>
 
-            {/* Headline */}
-            <h1 className="wb-masterclass-title-fs">
-              <span className="wb-masterclass-title-white-fs">THE AI AUTOMATION</span>
-              <span className="wb-masterclass-title-gradient-fs">MASTERCLASS</span>
+            <div className="wb-firstfold-partners">
+              <span className="wb-firstfold-partner-label">Certification Partner:</span>
+              <div className="wb-firstfold-partner-tags">
+                <span className="wb-partner-chip-openai" title="OpenAI">
+                  <svg viewBox="0 0 24 24" className="wb-openai-spiral-svg wb-partner-topbar-icon" fill="currentColor">
+                    <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7866A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1635a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
+                  </svg>
+                  <span className="wb-partner-brand-name-topbar">OpenAI</span>
+                </span>
+                <span className="wb-partner-chip-claude" title="Claude">
+                  <svg viewBox="0 0 24 24" className="wb-claude-sunburst-svg wb-partner-topbar-icon" fill="currentColor">
+                    <path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" />
+                  </svg>
+                  <span className="wb-partner-brand-name-topbar wb-claude-name-gradient">Claude</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Headline & Subtitle */}
+          <div className="wb-firstfold-header">
+            <h1 className="wb-firstfold-title">
+              <span className="wb-firstfold-title-top">BEFORE YOU HIRE ANOTHER PERSON...</span>
+              <span className="wb-firstfold-title-grad">FIND OUT HOW MUCH YOUR BUSINESS CAN AUTOMATE</span>
             </h1>
-
-            {/* Subtitle */}
-            <p className="wb-masterclass-subtitle-fs">
-              Learn how to build AI-powered workflows, automate repetitive work and scale your business — with real use cases, not theory.
+            <p className="wb-firstfold-desc">
+              Identify repetitive tasks, connect broken workflows, and deploy AI-powered automation across Sales, Marketing, HR &amp; Operations—without writing a single line of code.
             </p>
+          </div>
 
-            {/* Event Specs Bar (3 Cards) */}
-            <div className="wb-masterclass-specs-fs">
-              <div className="wb-masterclass-spec-card-fs">
-                <Calendar size={20} className="wb-spec-icon-cyan" />
-                <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Date: [TBA]</span>
-                  <span className="wb-spec-sub-fs">To be confirmed</span>
-                </div>
-              </div>
-
-              <div className="wb-masterclass-spec-card-fs">
-                <Clock size={20} className="wb-spec-icon-green" />
-                <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Time: [TBA]</span>
-                  <span className="wb-spec-sub-fs">To be confirmed</span>
-                </div>
-              </div>
-
-              <div className="wb-masterclass-spec-card-fs">
-                <Monitor size={20} className="wb-spec-icon-blue" />
-                <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Format: Live Online</span>
-                  <span className="wb-spec-sub-fs">Interactive Session (₹99)</span>
-                </div>
-              </div>
+          {/* 6 Top Data Metrics Cards */}
+          {/* 6 Top Data Metrics Cards - Merging smoothly from Blue to Green */}
+          <div className="wb-firstfold-stats-grid">
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #38BDF8, #33C6E1)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(56, 189, 248, 0.3)" }}>
+              <span className="wb-firstfold-stat-val">10X</span>
+              <span className="wb-firstfold-stat-lbl">Revenue Growth Improvement</span>
             </div>
 
-            {/* CTA Row */}
-            <div className="wb-masterclass-cta-row-fs">
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #33C6E1, #2DD4BF)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(51, 198, 225, 0.3)" }}>
+              <span className="wb-firstfold-stat-val">80%</span>
+              <span className="wb-firstfold-stat-lbl">Hiring Time Reduced</span>
+            </div>
+
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #2DD4BF, #30D2B8)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(45, 212, 191, 0.3)" }}>
+              <span className="wb-firstfold-stat-val">80%</span>
+              <span className="wb-firstfold-stat-lbl">Faster Brand Scaling vs Agencies</span>
+            </div>
+
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #30D2B8, #36D7A6)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(50, 213, 179, 0.3)" }}>
+              <span className="wb-firstfold-stat-val">95%</span>
+              <span className="wb-firstfold-stat-lbl">Manual Data Entry Eliminated</span>
+            </div>
+
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #36D7A6, #3FD995)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(61, 217, 155, 0.3)" }}>
+              <span className="wb-firstfold-stat-val">&lt; 60s</span>
+              <span className="wb-firstfold-stat-lbl">Instant Lead Engagement</span>
+            </div>
+
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #3FD995, #48DD83)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(72, 221, 131, 0.3)" }}>
+              <span className="wb-firstfold-stat-val">400%</span>
+              <span className="wb-firstfold-stat-lbl">Operational Efficiency ROI</span>
+            </div>
+          </div>
+
+          {/* Main Stage Grid: Left Booking / Specs, Right Both Founders */}
+          <div className="wb-firstfold-stage-grid">
+            {/* Left: High-Conversion Booking Box */}
+            <div className="wb-firstfold-booking-box">
+              <div className="wb-firstfold-booking-top">
+                <div className="wb-booking-live-pill">
+                  <span className="wb-pulse-dot-cyan" style={{ backgroundColor: "#48DD83", boxShadow: "0 0 10px #48DD83" }} />
+                  <span>LIVE ONLINE WEBINAR</span>
+                </div>
+                <span className="wb-booking-discount-chip">SAVE 95% TODAY</span>
+              </div>
+
+              <div className="wb-booking-price-row">
+                <span className="wb-booking-price-curr">₹99</span>
+                <span className="wb-booking-price-strike">₹1,999</span>
+              </div>
+
+              <div className="wb-booking-features-list">
+                <div className="wb-booking-feature-item">
+                  <CheckCircle2 size={16} className="wb-booking-feature-icon" />
+                  <span><strong>3+ Hours</strong> of founder-led live systems walkthrough</span>
+                </div>
+                <div className="wb-booking-feature-item">
+                  <CheckCircle2 size={16} className="wb-booking-feature-icon" />
+                  <span>Deploy automations across <strong>Sales, Marketing, HR &amp; Ops</strong></span>
+                </div>
+                <div className="wb-booking-feature-item">
+                  <CheckCircle2 size={16} className="wb-booking-feature-icon" />
+                  <span>Live Q&amp;A with <strong>Adnan Shaikh</strong> &amp; <strong>Raunak Kumar</strong></span>
+                </div>
+                <div className="wb-booking-feature-item">
+                  <CheckCircle2 size={16} className="wb-booking-feature-icon" />
+                  <span>Certification with <strong>OpenAI &amp; Claude</strong> partner frameworks</span>
+                </div>
+              </div>
+
               <button
+                type="button"
                 onClick={handleOpenModal}
-                className="wb-masterclass-btn-fs"
+                className="wb-firstfold-cta-btn"
+                aria-label="Reserve Seat for ₹99"
               >
-                <span>Reserve Your Seat (₹99)</span>
+                <span>RESERVE SEAT FOR ₹99</span>
                 <ArrowRight size={17} />
               </button>
-              <div className="wb-masterclass-seats-note-fs">
-                <Flame size={16} className="wb-flame-icon-fs" />
-                <span>Limited seats. High value.</span>
+
+              <div className="wb-firstfold-seats-note">
+                <Flame size={15} />
+                <span>Limited seats available. Highly interactive live session.</span>
               </div>
             </div>
-          </div>
 
-          {/* Cursive Handwriting Badge: "Build Automate Scale" */}
-          <div className="wb-masterclass-script-badge-fs">
-            <span>Build</span>
-            <span>Automate</span>
-            <span>Scale</span>
-          </div>
-
-          {/* Floating HUD Node Tags behind/beside the founders */}
-          <div className="wb-masterclass-hud-tag wb-hud-chatbots" style={{ left: "53.5%", top: "12%" }}>
-            <div className="wb-hud-inner">
-              <div className="wb-hud-icon"><Cpu size={14} /></div>
-              <span>Chatbots</span>
-            </div>
-          </div>
-          <div className="wb-masterclass-hud-tag wb-hud-automation" style={{ left: "70.5%", top: "12%" }}>
-            <div className="wb-hud-inner">
-              <div className="wb-hud-icon"><BrainCircuit size={14} /></div>
-              <span>Automation</span>
-            </div>
-          </div>
-          <div className="wb-masterclass-hud-tag wb-hud-databases" style={{ left: "87%", top: "24%" }}>
-            <div className="wb-hud-inner">
-              <div className="wb-hud-icon"><Database size={14} /></div>
-              <span>Databases</span>
-            </div>
-          </div>
-
-          {/* Founders Credit Pill Bar Under Adnan & Raunak */}
-          <div className="wb-masterclass-founders-pill-fs">
-            <div className="wb-masterclass-founders-left">
-              <Users size={16} className="wb-founders-icon-green" />
-              <span className="wb-founders-name-fs">Live with <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span></span>
-            </div>
-            <span className="wb-masterclass-founders-role">Founders, <span className="wb-highlight-scalepods">ScalePods</span></span>
-          </div>
-
-          {/* Full-width Process Evolution Pathway Card (Slide 7 bottom) */}
-          <div className="wb-masterclass-pathway-fs">
-            <div className="wb-pathway-steps-fs">
-              <div className="wb-pathway-step-fs">
-                <div className="wb-pathway-icon-fs"><Settings size={18} /></div>
-                <span>Processes</span>
-              </div>
-              <span className="wb-pathway-arrow-fs">→</span>
-
-              <div className="wb-pathway-step-fs">
-                <div className="wb-pathway-icon-fs"><Layers size={18} /></div>
-                <span>Workflows</span>
-              </div>
-              <span className="wb-pathway-arrow-fs">→</span>
-
-              <div className="wb-pathway-step-fs">
-                <div className="wb-pathway-icon-fs"><Zap size={18} /></div>
-                <span>Automation</span>
-              </div>
-              <span className="wb-pathway-arrow-fs">→</span>
-
-              <div className="wb-pathway-step-fs">
-                <div className="wb-pathway-icon-fs"><BrainCircuit size={18} /></div>
-                <span>AI</span>
-              </div>
-              <span className="wb-pathway-arrow-fs">→</span>
-
-              <div className="wb-pathway-step-fs">
-                <div className="wb-pathway-icon-fs"><Database size={18} /></div>
-                <span>Systems</span>
-              </div>
-              <span className="wb-pathway-arrow-fs">→</span>
-
-              <div className="wb-pathway-step-fs wb-pathway-step-highlight">
-                <div className="wb-pathway-icon-fs wb-pathway-icon-green"><TrendingUp size={18} /></div>
-                <span>Scale</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Sequential Breakdown (shown on <=768px for crystal clear legibility) */}
-        <div className="wb-masterclass-mobile-wrapper">
-          <div className="wb-container">
-            <div className="wb-masterclass-pill-fs" style={{ marginBottom: "12px" }}>
-              <Globe size={13} className="wb-masterclass-pill-icon" />
-              <span>AI AUTOMATION MASTERCLASS</span>
-            </div>
-
-            <h2 className="wb-masterclass-title-fs" style={{ fontSize: "28px", textAlign: "left" }}>
-              <span className="wb-masterclass-title-white-fs">THE AI AUTOMATION</span>
-              <span className="wb-masterclass-title-gradient-fs">MASTERCLASS</span>
-            </h2>
-
-            <p className="wb-masterclass-subtitle-fs" style={{ fontSize: "14px", textAlign: "left", marginBottom: "20px" }}>
-              Learn how to build AI-powered workflows, automate repetitive work and scale your business — with real use cases, not theory.
-            </p>
-
-            <div className="wb-masterclass-specs-fs" style={{ flexDirection: "column", alignItems: "stretch", gap: "10px", marginBottom: "20px" }}>
-              <div className="wb-masterclass-spec-card-fs">
-                <Calendar size={18} className="wb-spec-icon-cyan" />
-                <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Date: [TBA]</span>
-                  <span className="wb-spec-sub-fs">To be confirmed</span>
+            {/* Right: Both Founder Image Cards (As added in 2nd fold) */}
+            <div className="wb-firstfold-founders-wrap">
+              {/* Founder 1: Adnan Shaikh */}
+              <div className="wb-firstfold-founder-card wb-ff-card-adnan">
+                <div className="wb-firstfold-founder-img-frame">
+                  <Image
+                    src="/images/webinar-redesign/adnan-shaikh.png"
+                    alt="Adnan Shaikh - Co-Founder & CEO, ScalePods"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 300px"
+                    className="wb-firstfold-founder-img"
+                  />
+                </div>
+                <div className="wb-firstfold-founder-body">
+                  <h3 className="wb-firstfold-founder-name">Adnan Shaikh</h3>
+                  <div className="wb-firstfold-founder-role">
+                    Co-Founder &amp; CEO, <span className="wb-highlight-scalepods">ScalePods</span>
+                  </div>
+                  <div className="wb-firstfold-founder-focus">
+                    Sales Leadership &amp; Revenue Growth
+                  </div>
+                  <div className="wb-firstfold-founder-badge wb-ff-badge-green">
+                    <span>⚡ Sales &amp; Revenue OS</span>
+                  </div>
                 </div>
               </div>
-              <div className="wb-masterclass-spec-card-fs">
-                <Clock size={18} className="wb-spec-icon-green" />
-                <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Time: [TBA]</span>
-                  <span className="wb-spec-sub-fs">To be confirmed</span>
+
+              {/* Founder 2: Raunak Kumar */}
+              <div className="wb-firstfold-founder-card wb-ff-card-raunak">
+                <div className="wb-firstfold-founder-img-frame">
+                  <Image
+                    src="/images/webinar-redesign/raunak-kumar.png"
+                    alt="Raunak Kumar - Co-Founder, CTO & CPO, ScalePods"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 300px"
+                    className="wb-firstfold-founder-img"
+                  />
                 </div>
-              </div>
-              <div className="wb-masterclass-spec-card-fs">
-                <Monitor size={18} className="wb-spec-icon-blue" />
-                <div className="wb-spec-text-fs">
-                  <span className="wb-spec-title-fs">Format: Live Online</span>
-                  <span className="wb-spec-sub-fs">Interactive Session (₹99)</span>
+                <div className="wb-firstfold-founder-body">
+                  <h3 className="wb-firstfold-founder-name">Raunak Kumar</h3>
+                  <div className="wb-firstfold-founder-role">
+                    Co-Founder, CTO &amp; CPO, <span className="wb-highlight-scalepods">ScalePods</span>
+                  </div>
+                  <div className="wb-firstfold-founder-focus">
+                    Product Architecture &amp; Enterprise AI
+                  </div>
+                  <div className="wb-firstfold-founder-badge wb-ff-badge-blue">
+                    <span>🧠 Enterprise AI &amp; Architecture</span>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "12px", overflow: "hidden", margin: "16px 0" }}>
-              <Image
-                src="/images/webinar-redesign/masterclass-bg.webp"
-                alt="Adnan Shaikh & Raunak Kumar - Founders, ScalePods"
-                fill
-                quality={90}
-                sizes="(max-width: 768px) 100vw, 0px"
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-
-            <div className="wb-masterclass-founders-pill-fs" style={{ position: "relative", right: "auto", top: "auto", width: "100%", margin: "12px 0 20px" }}>
-              <div className="wb-masterclass-founders-left">
-                <Users size={16} className="wb-founders-icon-green" />
-                <span className="wb-founders-name-fs">Live with <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span></span>
-              </div>
-              <span className="wb-masterclass-founders-role">Founders, <span className="wb-highlight-scalepods">ScalePods</span></span>
-            </div>
-
-            <button
-              onClick={handleOpenModal}
-              className="wb-masterclass-btn-fs"
-              style={{ width: "100%", justifyContent: "center", marginBottom: "12px" }}
-            >
-              <span>Reserve Your Seat (₹99)</span>
-              <ArrowRight size={17} />
-            </button>
-            <div className="wb-masterclass-seats-note-fs" style={{ justifyContent: "center", marginBottom: "24px" }}>
-              <Flame size={16} className="wb-flame-icon-fs" />
-              <span>Limited seats. High value.</span>
-            </div>
-
-            <div className="wb-masterclass-pathway-fs" style={{ position: "relative", bottom: "auto", left: "auto", width: "100%", padding: "16px" }}>
-              <div className="wb-pathway-steps-fs" style={{ flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
-                {[
-                  { label: "Processes", icon: <Settings size={16} /> },
-                  { label: "Workflows", icon: <Layers size={16} /> },
-                  { label: "Automation", icon: <Zap size={16} /> },
-                  { label: "AI", icon: <BrainCircuit size={16} /> },
-                  { label: "Systems", icon: <Database size={16} /> },
-                  { label: "Scale", icon: <TrendingUp size={16} />, highlight: true },
-                ].map((st, i) => (
-                  <React.Fragment key={i}>
-                    <div className={`wb-pathway-step-fs ${st.highlight ? "wb-pathway-step-highlight" : ""}`} style={{ fontSize: "12px" }}>
-                      <div className={`wb-pathway-icon-fs ${st.highlight ? "wb-pathway-icon-green" : ""}`} style={{ width: "28px", height: "28px" }}>
-                        {st.icon}
-                      </div>
-                      <span>{st.label}</span>
-                    </div>
-                    {i < 5 && <span className="wb-pathway-arrow-fs" style={{ fontSize: "12px" }}>→</span>}
-                  </React.Fragment>
-                ))}
               </div>
             </div>
           </div>
@@ -726,166 +668,71 @@ export default function WebinarPage() {
               </button>
             </div>
 
-            {/* Right Column: 2 Founder Cards Side-by-Side */}
+            {/* Right Column: 2 AI Partner Cards */}
             <div className="wb-founders-cards-grid">
-              {/* Card 1: Adnan Shaikh */}
-              <div className="wb-founder-profile-card wb-founder-card-adnan">
-                <div className="wb-founder-img-frame">
-                  <Image
-                    src="/images/webinar-redesign/adnan-portrait-square.webp"
-                    alt="Adnan Shaikh - Co-Founder & CEO, ScalePods"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 320px"
-                    className="wb-founder-portrait-img"
-                  />
-                </div>
-                <div className="wb-founder-card-body">
-                  <h3 className="wb-founder-card-name">Adnan Shaikh</h3>
-                  <div className="wb-founder-card-role">Co-Founder &amp; CEO, <span className="wb-highlight-scalepods">ScalePods</span></div>
-                  <p className="wb-founder-card-bio">
-                    Brings deep expertise in sales leadership, revenue growth, and operational efficiency — focusing on solving broken lead pipelines, manual follow-ups, and team coordination.
-                  </p>
-                  <a
-                    href="https://www.linkedin.com/in/adnan-sheikh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="wb-founder-linkedin-link"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.9 0-1.63.73-1.63 1.63 0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63 0-.9-.73-1.63-1.63-1.63Z" />
+              {/* Claude Card */}
+              <div className="wb-partner-brand-card wb-partner-card-claude">
+                <div className="wb-partner-brand-header">
+                  <div className="wb-partner-brand-logo-wrap">
+                    <svg viewBox="0 0 24 24" className="wb-claude-sunburst-svg" fill="currentColor">
+                      <path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" />
                     </svg>
-                    <span>LinkedIn</span>
-                  </a>
+                    <div className="wb-partner-brand-titles">
+                      <span className="wb-brand-name-bold wb-claude-name-gradient">Claude</span>
+                      <span className="wb-brand-sub-anthropic wb-anthropic-accent">by ANTHROPIC</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="wb-partner-status-pill wb-claude-status-pill">
+                  <CheckCircle2 size={13} className="wb-status-check-icon" />
+                  <span>Official AI Partner</span>
+                </div>
+
+                <div className="wb-partner-bullets-list">
+                  <div className="wb-partner-bullet-row">
+                    <CheckCircle2 size={15} className="wb-bullet-green-icon wb-bullet-claude-icon" />
+                    <span>Advanced reasoning &amp; complex workflows</span>
+                  </div>
+                  <div className="wb-partner-bullet-row">
+                    <CheckCircle2 size={15} className="wb-bullet-green-icon wb-bullet-claude-icon" />
+                    <span>Enterprise-grade security &amp; safety</span>
+                  </div>
+                  <div className="wb-partner-bullet-row">
+                    <CheckCircle2 size={15} className="wb-bullet-green-icon wb-bullet-claude-icon" />
+                    <span>Built for production business execution</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Card 2: Raunak Kumar */}
-              <div className="wb-founder-profile-card wb-founder-card-raunak">
-                <div className="wb-founder-img-frame">
-                  <Image
-                    src="/images/webinar-redesign/raunak-portrait-square.webp"
-                    alt="Raunak Kumar - Co-Founder, CTO & CPO, ScalePods"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 320px"
-                    className="wb-founder-portrait-img"
-                  />
-                </div>
-                <div className="wb-founder-card-body">
-                  <h3 className="wb-founder-card-name">Raunak Kumar</h3>
-                  <div className="wb-founder-card-role">Co-Founder, CTO &amp; CPO, <span className="wb-highlight-scalepods">ScalePods</span></div>
-                  <p className="wb-founder-card-bio">
-                    Brings cross-domain experience in product management, technology, and AI systems — translating real operational challenges into scalable, practical automated workflows.
-                  </p>
-                  <a
-                    href="https://www.linkedin.com/in/raunak-kumar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="wb-founder-linkedin-link"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.9 0-1.63.73-1.63 1.63 0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63 0-.9-.73-1.63-1.63-1.63Z" />
+              {/* OpenAI Card */}
+              <div className="wb-partner-brand-card wb-partner-card-openai">
+                <div className="wb-partner-brand-header">
+                  <div className="wb-partner-brand-logo-wrap">
+                    <svg viewBox="0 0 24 24" className="wb-openai-spiral-svg" fill="currentColor">
+                      <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7866A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1635a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
                     </svg>
-                    <span>LinkedIn</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ── PART 2: OUR AI PARTNERS MASTER BOX ── */}
-          <div className="wb-partners-master-box">
-            <div className="wb-partners-box-grid">
-              {/* Left Column: Intro */}
-              <div className="wb-partners-intro-col">
-                <div className="wb-pill-badge-green" style={{ marginBottom: "16px" }}>
-                  <Cpu size={13} className="wb-pill-badge-icon" />
-                  <span>OUR AI PARTNERS</span>
-                </div>
-
-                <h3 className="wb-partners-box-title">
-                  Built with the best <br />
-                  <span className="wb-text-highlight-green">in AI.</span>
-                </h3>
-
-                <p className="wb-partners-box-desc">
-                  <span className="wb-highlight-scalepods">ScalePods</span> is powered by industry-leading AI models, including <span className="wb-highlight-claude">Claude (Anthropic)</span> and <span className="wb-highlight-openai">OpenAI</span>, giving you access to the most advanced tools for real-world business automation.
-                </p>
-
-                <button
-                  onClick={handleOpenModal}
-                  className="wb-partners-cta-btn"
-                >
-                  <span>Explore Our AI Ecosystem</span>
-                  <ArrowRight size={16} />
-                </button>
-              </div>
-
-              {/* Right Column: 2 Brand Cards */}
-              <div className="wb-partners-cards-grid">
-                {/* Claude Card */}
-                <div className="wb-partner-brand-card wb-partner-card-claude">
-                  <div className="wb-partner-brand-header">
-                    <div className="wb-partner-brand-logo-wrap">
-                      <svg viewBox="0 0 24 24" className="wb-claude-sunburst-svg" fill="currentColor">
-                        <path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" />
-                      </svg>
-                      <div className="wb-partner-brand-titles">
-                        <span className="wb-brand-name-bold wb-claude-name-gradient">Claude</span>
-                        <span className="wb-brand-sub-anthropic wb-anthropic-accent">by ANTHROPIC</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="wb-partner-status-pill wb-claude-status-pill">
-                    <CheckCircle2 size={13} className="wb-status-check-icon" />
-                    <span>Official AI Partner</span>
-                  </div>
-
-                  <div className="wb-partner-bullets-list">
-                    <div className="wb-partner-bullet-row">
-                      <CheckCircle2 size={15} className="wb-bullet-green-icon wb-bullet-claude-icon" />
-                      <span>Advanced reasoning &amp; complex workflows</span>
-                    </div>
-                    <div className="wb-partner-bullet-row">
-                      <CheckCircle2 size={15} className="wb-bullet-green-icon wb-bullet-claude-icon" />
-                      <span>Enterprise-grade security &amp; safety</span>
-                    </div>
-                    <div className="wb-partner-bullet-row">
-                      <CheckCircle2 size={15} className="wb-bullet-green-icon wb-bullet-claude-icon" />
-                      <span>Built for production business execution</span>
-                    </div>
+                    <span className="wb-brand-name-bold">OpenAI</span>
                   </div>
                 </div>
 
-                {/* OpenAI Card */}
-                <div className="wb-partner-brand-card wb-partner-card-openai">
-                  <div className="wb-partner-brand-header">
-                    <div className="wb-partner-brand-logo-wrap">
-                      <svg viewBox="0 0 24 24" className="wb-openai-spiral-svg" fill="currentColor">
-                        <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7866A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1635a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
-                      </svg>
-                      <span className="wb-brand-name-bold">OpenAI</span>
-                    </div>
-                  </div>
+                <div className="wb-partner-status-pill">
+                  <CheckCircle2 size={13} className="wb-status-check-icon" />
+                  <span>Official Partner</span>
+                </div>
 
-                  <div className="wb-partner-status-pill">
-                    <CheckCircle2 size={13} className="wb-status-check-icon" />
-                    <span>Official Partner</span>
+                <div className="wb-partner-bullets-list">
+                  <div className="wb-partner-bullet-row">
+                    <CheckCircle2 size={15} className="wb-bullet-green-icon" />
+                    <span>GPT-4o &amp; latest models</span>
                   </div>
-
-                  <div className="wb-partner-bullets-list">
-                    <div className="wb-partner-bullet-row">
-                      <CheckCircle2 size={15} className="wb-bullet-green-icon" />
-                      <span>GPT-4o &amp; latest models</span>
-                    </div>
-                    <div className="wb-partner-bullet-row">
-                      <CheckCircle2 size={15} className="wb-bullet-green-icon" />
-                      <span>Multimodal capabilities</span>
-                    </div>
-                    <div className="wb-partner-bullet-row">
-                      <CheckCircle2 size={15} className="wb-bullet-green-icon" />
-                      <span>Seamless integration</span>
-                    </div>
+                  <div className="wb-partner-bullet-row">
+                    <CheckCircle2 size={15} className="wb-bullet-green-icon" />
+                    <span>Multimodal capabilities</span>
+                  </div>
+                  <div className="wb-partner-bullet-row">
+                    <CheckCircle2 size={15} className="wb-bullet-green-icon" />
+                    <span>Seamless integration</span>
                   </div>
                 </div>
               </div>
@@ -1155,6 +1002,7 @@ export default function WebinarPage() {
         </div>
       </section>
 
+
       {/* ── SECTION 6: SEE THE PATTERN BEHIND SMARTER BUSINESS AUTOMATION ─────── */}
       <section className="wb-section">
         <div className="wb-container">
@@ -1231,220 +1079,6 @@ export default function WebinarPage() {
             <p style={{ fontSize: "13px", color: "#94A3B8", maxWidth: "780px", margin: "0 auto", lineHeight: 1.6 }}>
               The objective is not to remove people from every process. It&apos;s to help people spend less time coordinating routine work and more time doing the work that requires judgment, expertise, and relationships.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 7: SEE HOW THIS WORKS ACROSS YOUR BUSINESS ───────────────── */}
-      <section className="wb-section-business-frontend" id="business-tracks">
-        <div className="wb-business-inner-container">
-          <div className="wb-business-header">
-            <h2 className="wb-business-title">
-              WHAT YOU&apos;LL DISCOVER IN THIS{" "}
-              <span className="wb-business-title-gradient">LIVE MASTERCLASS</span>
-            </h2>
-            <p className="wb-business-subtitle">
-              How businesses identify and integrate AI-powered workflow automation across 4 core functions:
-            </p>
-          </div>
-
-          <div className="wb-business-grid">
-            {/* Card 1: SALES */}
-            <div className="wb-business-card wb-bcard-sales">
-              <div className="wb-business-diagram-box">
-                <Image
-                  src="/images/webinar-redesign/sales-diagram.webp"
-                  alt="Sales Lead to CRM Automation Diagram"
-                  width={402}
-                  height={206}
-                  quality={92}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1180px) 50vw, 340px"
-                  className="wb-business-diagram-img"
-                />
-              </div>
-
-              <div className="wb-business-card-header">
-                <div className="wb-bcard-icon-badge wb-badge-green">
-                  <TrendingUp size={16} />
-                </div>
-                <h3 className="wb-bcard-title">1. SALES: NEW LEAD TO FOLLOW-UP</h3>
-              </div>
-
-              <div className="wb-business-steps-list">
-                {[
-                  "Capture lead information from connected sources",
-                  "Trigger a timely initial response",
-                  "Support lead qualification and routing",
-                  "Update the CRM with relevant information",
-                  "Trigger follow-up reminders or next steps",
-                  "Improve visibility into lead status and ownership",
-                ].map((step, idx) => (
-                  <div key={idx} className="wb-business-step-row">
-                    <span className="wb-bstep-arrow wb-arrow-green">➔</span>
-                    <span className="wb-bstep-text">{step}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="wb-business-result-box">
-                <div className="wb-bresult-icon-badge wb-bresult-green">
-                  <Target size={15} />
-                </div>
-                <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-green">Business Opportunity</span>
-                  <p className="wb-bresult-desc">
-                    Spend less time managing repetitive lead administration and more time building relationships and progressing qualified opportunities.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: MARKETING */}
-            <div className="wb-business-card wb-bcard-marketing">
-              <div className="wb-business-diagram-box">
-                <Image
-                  src="/images/webinar-redesign/marketing-diagram.webp"
-                  alt="Marketing Nurture and Campaign Automation Diagram"
-                  width={402}
-                  height={206}
-                  quality={92}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1180px) 50vw, 340px"
-                  className="wb-business-diagram-img"
-                />
-              </div>
-
-              <div className="wb-business-card-header">
-                <div className="wb-bcard-icon-badge wb-badge-cyan">
-                  <Megaphone size={16} />
-                </div>
-                <h3 className="wb-bcard-title">2. MARKETING: CAPTURE TO ACTION</h3>
-              </div>
-
-              <div className="wb-business-steps-list">
-                {[
-                  "Route incoming enquiries into the right workflow",
-                  "Trigger relevant follow-up or nurture sequences",
-                  "Connect campaign information with lead records",
-                  "Reduce repetitive coordination between marketing activities",
-                  "Make reporting and performance tracking consistent",
-                ].map((step, idx) => (
-                  <div key={idx} className="wb-business-step-row">
-                    <span className="wb-bstep-arrow wb-arrow-cyan">➔</span>
-                    <span className="wb-bstep-text">{step}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="wb-business-result-box">
-                <div className="wb-bresult-icon-badge wb-bresult-cyan">
-                  <TrendingUp size={15} />
-                </div>
-                <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-cyan">Business Opportunity</span>
-                  <p className="wb-bresult-desc">
-                    Reduce manual handovers and help marketing teams turn everyday activity into organized, trackable processes.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: HR */}
-            <div className="wb-business-card wb-bcard-hr">
-              <div className="wb-business-diagram-box">
-                <Image
-                  src="/images/webinar-redesign/hr-diagram.webp"
-                  alt="HR Candidate Screening AI Automation Diagram"
-                  width={402}
-                  height={206}
-                  quality={92}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1180px) 50vw, 340px"
-                  className="wb-business-diagram-img"
-                />
-              </div>
-
-              <div className="wb-business-card-header">
-                <div className="wb-bcard-icon-badge wb-badge-mint">
-                  <Users size={16} />
-                </div>
-                <h3 className="wb-bcard-title">3. HR: COORDINATED HIRING</h3>
-              </div>
-
-              <div className="wb-business-steps-list">
-                {[
-                  "Organizing incoming applications",
-                  "Assisting with resume screening and categorization",
-                  "Coordinating interview availability and scheduling",
-                  "Triggering candidate communications and reminders",
-                  "Maintaining clearer hiring-stage updates",
-                ].map((step, idx) => (
-                  <div key={idx} className="wb-business-step-row">
-                    <span className="wb-bstep-arrow wb-arrow-mint">➔</span>
-                    <span className="wb-bstep-text">{step}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="wb-business-result-box">
-                <div className="wb-bresult-icon-badge wb-bresult-mint">
-                  <Users size={15} />
-                </div>
-                <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-mint">Business Opportunity</span>
-                  <p className="wb-bresult-desc">
-                    Reduce administrative pressure so recruiters can focus on candidate experience and final decisions (human oversight remains essential).
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4: OPERATIONS */}
-            <div className="wb-business-card wb-bcard-ops">
-              <div className="wb-business-diagram-box">
-                <Image
-                  src="/images/webinar-redesign/ops-diagram.webp"
-                  alt="Operations Task & Bottleneck Automation Diagram"
-                  width={402}
-                  height={206}
-                  quality={92}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1180px) 50vw, 340px"
-                  className="wb-business-diagram-img"
-                />
-              </div>
-
-              <div className="wb-business-card-header">
-                <div className="wb-bcard-icon-badge wb-badge-blue">
-                  <Settings size={16} />
-                </div>
-                <h3 className="wb-bcard-title">4. OPERATIONS: CONNECTED EXECUTION</h3>
-              </div>
-
-              <div className="wb-business-steps-list">
-                {[
-                  "Capture incoming requests in a structured way",
-                  "Assign tasks based on defined business rules",
-                  "Trigger status updates and proactive reminders",
-                  "Keep relevant records and systems synchronized",
-                  "Support recurring reporting and process checks",
-                ].map((step, idx) => (
-                  <div key={idx} className="wb-business-step-row">
-                    <span className="wb-bstep-arrow wb-arrow-blue">➔</span>
-                    <span className="wb-bstep-text">{step}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="wb-business-result-box">
-                <div className="wb-bresult-icon-badge wb-bresult-blue">
-                  <BarChart3 size={15} />
-                </div>
-                <div className="wb-bresult-content">
-                  <span className="wb-bresult-label wb-label-blue">Business Opportunity</span>
-                  <p className="wb-bresult-desc">
-                    Make routine internal work easier to track, coordinate, and scale reliably as your operational volume grows.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1960,7 +1594,7 @@ export default function WebinarPage() {
             <div className="wb-partner-card wb-partner-card-blue">
               <div className="wb-partner-photo-wrap">
                 <Image
-                  src="/images/webinar-redesign/raunak-partner-clean.webp"
+                  src="/images/webinar-redesign/raunak-partner-v2.webp"
                   alt="Raunak Kumar - Co-Founder, CTO &amp; CPO, ScalePods"
                   fill
                   quality={90}
@@ -2100,7 +1734,7 @@ export default function WebinarPage() {
               <div className="wb-partner-card wb-partner-card-blue">
                 <div className="wb-partner-photo-wrap">
                   <Image
-                    src="/images/webinar-redesign/raunak-partner-clean.webp"
+                    src="/images/webinar-redesign/raunak-partner-v2.webp"
                     alt="Raunak Kumar - Co-Founder, CTO &amp; CPO, ScalePods"
                     fill
                     quality={90}
@@ -2616,37 +2250,6 @@ export default function WebinarPage() {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 18: PRE-FOOTER FINAL CALL TO ACTION ───────────────────── */}
-      <section className="wb-section-prefooter-cta">
-        <div className="wb-container wb-container-narrow">
-          <div className="wb-prefooter-cta-card">
-            <div className="wb-pill-green" style={{ marginBottom: "18px" }}>
-              <Sparkles size={14} />
-              <span>TRANSFORM YOUR WORKFLOWS</span>
-            </div>
-            <h2 className="wb-prefooter-cta-title">
-              READY TO RETHINK HOW YOUR BUSINESS WORKS?
-            </h2>
-            <p className="wb-prefooter-cta-subtitle">
-              Stop looking at every repetitive task as something your team must handle manually forever. Discover how to identify bottlenecks, connect disconnected systems, and explore where AI-powered automation can unlock real productivity.
-            </p>
-            <div className="wb-prefooter-cta-btn-wrap">
-              <button
-                onClick={handleOpenModal}
-                className="wb-button-primary wb-btn-pulse-glow"
-                style={{ padding: "16px 36px", fontSize: "16px" }}
-              >
-                <span>Save Your Seat for ₹99</span>
-                <ArrowRight size={18} />
-              </button>
-            </div>
-            <p className="wb-prefooter-cta-note">
-              Live online session &bull; Practical business use cases &bull; No coding required
-            </p>
           </div>
         </div>
       </section>

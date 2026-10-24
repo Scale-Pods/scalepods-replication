@@ -3808,7 +3808,7 @@ html:not(.dark) .wb-section-fullscreen-masterclass {
 .wb-founder-img-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 16 / 13;
   border-radius: 14px;
   overflow: hidden;
   background: #020C14;
@@ -5781,13 +5781,21 @@ html:not(.dark) .wb-section-fullscreen-partnership {
 .wb-partnership-fullscreen-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
   min-height: 100vh;
   margin: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 3.5vh, 48px) clamp(16px, 2.5vw, 36px);
+  gap: clamp(14px, 2vh, 24px);
+  box-sizing: border-box;
 }
 
 .wb-partnership-canvas-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -5795,6 +5803,7 @@ html:not(.dark) .wb-section-fullscreen-partnership {
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+  z-index: 0;
 }
 
 .wb-partnership-canvas-overlay {
@@ -5803,21 +5812,20 @@ html:not(.dark) .wb-section-fullscreen-partnership {
   pointer-events: none;
   background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 72%, #02050B 100%),
               linear-gradient(180deg, #02050B 0%, transparent 6%, transparent 94%, #02050B 100%);
+  z-index: 1;
 }
 
-/* Stage Top Header (y: 3.5% to 20%) */
+/* Stage Top Header */
 .wb-partnership-stage-header {
-  position: absolute;
-  top: clamp(24px, 3.8%, 44px);
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   text-align: center;
-  width: 92%;
+  width: 100%;
   max-width: 1100px;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
 }
 
 .wb-pill-badge-green {
@@ -5868,19 +5876,17 @@ html:not(.dark) .wb-section-fullscreen-partnership {
   text-transform: uppercase;
 }
 
-/* Stage Center Body (y: 22% to 80%) */
+/* Stage Center Body */
 .wb-partnership-stage-body {
-  position: absolute;
-  top: clamp(185px, 22%, 265px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
+  position: relative;
+  width: 100%;
   max-width: 1040px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0;
   z-index: 10;
+  margin: 0;
 }
 
 /* Executive Speaker Cards */
@@ -5922,7 +5928,7 @@ html:not(.dark) .wb-section-fullscreen-partnership {
 .wb-partner-photo-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.25 / 1;
+  aspect-ratio: 1.42 / 1;
   overflow: hidden;
   background: #020710;
 }
@@ -5953,7 +5959,7 @@ html:not(.dark) .wb-section-fullscreen-partnership {
 }
 
 .wb-partner-content {
-  padding: clamp(12px, 1.2vw, 18px) clamp(16px, 1.6vw, 24px) clamp(16px, 1.7vw, 24px);
+  padding: clamp(10px, 1vw, 15px) clamp(14px, 1.4vw, 20px) clamp(14px, 1.4vw, 20px);
   display: flex;
   flex-direction: column;
   background: rgba(4, 10, 18, 0.85);
@@ -6089,12 +6095,9 @@ html:not(.dark) .wb-section-fullscreen-partnership {
   box-shadow: 0 0 24px rgba(72, 221, 131, 0.7);
 }
 
-/* Bottom Pathway Bar (y: 86% to 94%) */
+/* Bottom Pathway Bar */
 .wb-partnership-stage-pathway {
-  position: absolute;
-  bottom: clamp(20px, 2.8%, 38px);
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6108,6 +6111,7 @@ html:not(.dark) .wb-section-fullscreen-partnership {
   z-index: 10;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(72, 221, 131, 0.1);
   white-space: nowrap;
+  margin: 0;
 }
 
 .wb-pathway-node {
@@ -7228,6 +7232,597 @@ html:not(.dark) .wb-section-fullscreen-attend {
   .wb-prefooter-cta-card {
     padding: 36px 20px;
     border-radius: 18px;
+  }
+}
+
+/* ==========================================================================
+   NEW 1ST FOLD: THE AI AUTOMATION MASTERCLASS (HERO REDESIGN)
+   ========================================================================== */
+
+.wb-section-firstfold-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #030712;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(14px, 1.6vw, 22px) 20px 40px;
+  overflow: hidden;
+}
+
+[data-theme="light"] .wb-section-firstfold-hero,
+html:not(.dark) .wb-section-firstfold-hero {
+  background-color: #030712;
+}
+
+.wb-firstfold-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  opacity: 0.92;
+}
+
+.wb-firstfold-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 80% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.78) 0%, rgba(2, 6, 23, 0.52) 40%, rgba(2, 6, 23, 0.95) 100%);
+}
+
+.wb-firstfold-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Eyebrow / Badges Row */
+.wb-firstfold-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+}
+
+.wb-firstfold-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(3, 20, 36, 0.78);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #38BDF8;
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(11px, 0.8vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wb-pulse-dot-cyan {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #38BDF8;
+  box-shadow: 0 0 10px #38BDF8;
+  animation: wbPulseCyan 2s infinite ease-in-out;
+}
+
+@keyframes wbPulseCyan {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.wb-firstfold-partners {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(11.5px, 0.8vw, 13px);
+  color: #94A3B8;
+}
+
+.wb-firstfold-partner-label {
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+.wb-firstfold-partner-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wb-partner-chip-openai {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 12px rgba(56, 189, 248, 0.15);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.wb-partner-chip-openai:hover {
+  border-color: #38BDF8;
+  background: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
+}
+
+.wb-partner-chip-openai .wb-openai-spiral-svg {
+  width: 15px;
+  height: 15px;
+  color: #FFFFFF;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.75));
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.wb-partner-chip-openai:hover .wb-openai-spiral-svg {
+  transform: rotate(15deg) scale(1.08);
+}
+
+.wb-partner-chip-claude {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(217, 119, 87, 0.12);
+  border: 1.5px solid rgba(217, 119, 87, 0.55);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 14px rgba(217, 119, 87, 0.2);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.wb-partner-chip-claude:hover {
+  border-color: #FF885B;
+  background: rgba(217, 119, 87, 0.22);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 22px rgba(217, 119, 87, 0.45);
+  transform: translateY(-1px);
+}
+
+.wb-partner-chip-claude .wb-claude-sunburst-svg {
+  width: 15px;
+  height: 15px;
+  color: #FF885B;
+  filter: drop-shadow(0 0 10px rgba(217, 119, 87, 0.85));
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.wb-partner-chip-claude:hover .wb-claude-sunburst-svg {
+  transform: rotate(15deg) scale(1.08);
+}
+
+.wb-partner-brand-name-topbar {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* Hero Title & Subtitle */
+.wb-firstfold-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+  align-items: center;
+}
+
+.wb-firstfold-title {
+  font-family: var(--font-inter), -apple-system, sans-serif;
+  font-size: clamp(24px, 2.7vw, 44px);
+  font-weight: 900;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+
+.wb-firstfold-title-top {
+  display: block;
+  color: #FFFFFF;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
+}
+
+.wb-firstfold-title-grad {
+  display: inline-block;
+  background: linear-gradient(90deg, #38BDF8 0%, #2DD4BF 50%, #48DD83 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 24px rgba(45, 212, 191, 0.4));
+}
+
+.wb-firstfold-desc {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(14px, 1.1vw, 17.5px);
+  color: #94A3B8;
+  font-weight: 400;
+  line-height: 1.55;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* 6 Data Stats Cards */
+.wb-firstfold-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.wb-firstfold-stat-card {
+  position: relative;
+  background: rgba(8, 18, 30, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.wb-firstfold-stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--stat-glow-color, linear-gradient(90deg, #38BDF8, #48DD83));
+  opacity: 1;
+}
+
+.wb-firstfold-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 22px var(--stat-shadow, rgba(56, 189, 248, 0.3));
+}
+
+.wb-firstfold-stat-val {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(22px, 1.8vw, 32px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #FFFFFF !important;
+}
+
+.wb-firstfold-stat-lbl {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  line-height: 1.35;
+}
+
+/* Stage Grid: Left Booking / Specs, Right Founders */
+.wb-firstfold-stage-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.35fr;
+  gap: 22px;
+  width: 100%;
+  align-items: stretch;
+  margin-top: 4px;
+}
+
+/* Left Booking Card */
+.wb-firstfold-booking-box {
+  background: rgba(8, 20, 34, 0.78);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  padding: clamp(16px, 1.8vw, 22px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.1);
+}
+
+.wb-firstfold-booking-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wb-booking-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #48DD83;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wb-booking-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.wb-booking-price-curr {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(32px, 2.6vw, 44px);
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+}
+
+.wb-booking-price-strike {
+  font-size: 18px;
+  font-weight: 600;
+  color: #64748B;
+  text-decoration: line-through;
+}
+
+.wb-booking-discount-chip {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38BDF8;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* Feature bullets */
+.wb-booking-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wb-booking-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #CBD5E1;
+}
+
+.wb-booking-feature-icon {
+  color: #48DD83;
+  flex-shrink: 0;
+}
+
+/* CTA Button */
+.wb-firstfold-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 24px;
+  border-radius: 12px;
+  background: #38BDF8;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #030712;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.45), 0 0 25px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.25s ease;
+}
+
+.wb-firstfold-cta-btn:hover {
+  background: #7DD3FC;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(56, 189, 248, 0.6), 0 0 35px rgba(56, 189, 248, 0.5);
+}
+
+.wb-firstfold-seats-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #F59E0B;
+}
+
+/* Founders Cards Wrap */
+.wb-firstfold-founders-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.wb-firstfold-founder-card {
+  position: relative;
+  background: rgba(10, 22, 38, 0.82);
+  border-radius: 20px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wb-firstfold-founder-card:hover {
+  transform: translateY(-3px);
+}
+
+.wb-ff-card-adnan {
+  border: 1.5px solid rgba(52, 211, 153, 0.45);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(52, 211, 153, 0.15);
+}
+
+.wb-ff-card-adnan:hover {
+  border-color: #48DD83;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.8), 0 0 32px rgba(72, 221, 131, 0.25);
+}
+
+.wb-ff-card-raunak {
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
+}
+
+.wb-ff-card-raunak:hover {
+  border-color: #38BDF8;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.8), 0 0 32px rgba(56, 189, 248, 0.25);
+}
+
+.wb-firstfold-founder-img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 13;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #020C14;
+}
+
+.wb-firstfold-founder-img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.wb-firstfold-founder-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+}
+
+.wb-firstfold-founder-name {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(17px, 1.25vw, 21px);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.wb-ff-card-adnan .wb-firstfold-founder-name {
+  background: linear-gradient(90deg, #FFFFFF 20%, #48DD83 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(72, 221, 131, 0.45));
+}
+
+.wb-ff-card-raunak .wb-firstfold-founder-name {
+  background: linear-gradient(90deg, #FFFFFF 20%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+}
+
+.wb-firstfold-founder-role {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-bottom: 2px;
+}
+
+.wb-firstfold-founder-focus {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #E2E8F0;
+  line-height: 1.4;
+  margin: 0 0 6px 0;
+}
+
+.wb-firstfold-founder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+.wb-ff-badge-green {
+  background: rgba(72, 221, 131, 0.12);
+  border: 1px solid rgba(72, 221, 131, 0.35);
+  color: #48DD83;
+}
+
+.wb-ff-badge-blue {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .wb-firstfold-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .wb-firstfold-stage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .wb-firstfold-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .wb-firstfold-founders-wrap {
+    grid-template-columns: 1fr;
+  }
+  .wb-firstfold-topbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
