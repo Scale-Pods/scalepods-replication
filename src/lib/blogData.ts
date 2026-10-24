@@ -48,7 +48,7 @@ export const blogPosts: BlogPost[] = [
     slug: "best-sales-automation-software-2026",
     date: "October 24, 2026",
     category: "Sales Automation",
-    title: "Best Sales Automation Software in 2026: 9 Features to Look For (How SalesPod Handles Them)",
+    title: "Best Sales Automation Software in 2026: 9\u00A0Features to Look For (How\u00A0SalesPod Handles Them)",
     metaTitle: "Best sales automation software in 2026: 9 features to look for",
     metaDescription: "Compare the best sales automation software in 2026. See 9 must-have features, from AI lead generation to CRM automation, and how SalesPod handles each.",
     excerpt: "Choosing sales automation software in 2026 means finding a connected system, not just an email sender. This guide covers nine features to check, from AI prospecting and lead scoring to CRM updates and analytics, and shows how ScalePods SalesPod handles each one.",
