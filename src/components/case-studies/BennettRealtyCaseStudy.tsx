@@ -343,7 +343,7 @@ export default function BennettRealtyCaseStudy({ faqs }: BennettRealtyProps) {
                   Headquarters
                 </div>
                 <div style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)" }}>
-                  Greenbelt, MD (DC Metro)
+                  Greenbelt, MD, USA (DC Metro)
                 </div>
               </div>
             </div>
