@@ -44,6 +44,8 @@ import {
   UserCheck,
   Filter,
   Box,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { getDetectedCountryCode } from "@/lib/country";
@@ -90,6 +92,30 @@ const loadRazorpayScript = (): Promise<boolean> => {
 
 export default function WebinarPage() {
   const { resolvedTheme, setTheme } = useTheme();
+  const [webinarTheme, setWebinarTheme] = useState<"dark" | "light">("dark");
+  const isLight = webinarTheme === "light";
+
+  const toggleTheme = () => {
+    const nextTheme = webinarTheme === "dark" ? "light" : "dark";
+    setWebinarTheme(nextTheme);
+    try {
+      if (setTheme) {
+        setTheme(nextTheme);
+      }
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", nextTheme);
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        if (nextTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        document.documentElement.style.colorScheme = nextTheme;
+      }
+    } catch {
+      // ignore
+    }
+  };
 
   // Modal & Flow state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,17 +136,23 @@ export default function WebinarPage() {
     orderId: string;
   } | null>(null);
 
-  // Strictly enforce dark mode on this landing page
+  // Sync theme on initial load (respect saved theme if any, else default to dark)
   useEffect(() => {
     try {
+      const savedTheme = typeof window !== "undefined" ? (localStorage.getItem("theme") as "dark" | "light" | null) : null;
+      const initial = savedTheme || "dark";
+      setWebinarTheme(initial);
       if (setTheme) {
-        setTheme("dark");
+        setTheme(initial);
       }
       if (typeof window !== "undefined") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        document.documentElement.classList.add("dark");
-        document.documentElement.style.colorScheme = "dark";
-        localStorage.setItem("theme", "dark");
+        document.documentElement.setAttribute("data-theme", initial);
+        if (initial === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        document.documentElement.style.colorScheme = initial;
       }
     } catch {
       // ignore
@@ -357,7 +389,7 @@ export default function WebinarPage() {
   };
 
   return (
-    <BeamsBackground className="webinarpod-container" hues={[96, 210]} intensity="strong">
+    <BeamsBackground className={`webinarpod-container ${isLight ? "wb-theme-light" : "wb-theme-dark"}`} data-webinar-theme={webinarTheme} hues={[96, 210]} intensity="strong">
       {/* ScalePods Ambient Lighting Atmosphere */}
       <div className="wb-ambient-glow wb-ambient-hero" />
       <div className="wb-ambient-glow wb-ambient-mid" />
@@ -380,7 +412,8 @@ export default function WebinarPage() {
                 style={{
                   objectFit: "contain",
                   objectPosition: "left center",
-                  filter: "invert(1)",
+                  filter: isLight ? "none" : "invert(1)",
+                  transition: "filter 0.3s ease",
                 }}
               />
             </div>
@@ -388,6 +421,27 @@ export default function WebinarPage() {
 
           {/* Right Action Cluster */}
           <div className="wb-navbar-actions">
+            {/* Theme Toggle Button */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="wb-theme-toggle-btn"
+              aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+              title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            >
+              {isLight ? (
+                <>
+                  <Moon size={15} className="wb-toggle-icon-moon" />
+                  <span className="wb-toggle-label">Dark</span>
+                </>
+              ) : (
+                <>
+                  <Sun size={15} className="wb-toggle-icon-sun" />
+                  <span className="wb-toggle-label">Light</span>
+                </>
+              )}
+            </button>
+
             <div className="wb-nav-live-badge">
               <span className="wb-nav-pulse-dot" />
               <span>LIVE MASTERCLASS</span>
@@ -408,7 +462,7 @@ export default function WebinarPage() {
       <section className="wb-section-firstfold-hero" id="masterclass">
         {/* High-Res Background Canvas */}
         <Image
-          src="/images/webinar-redesign/masterclass-hero-bg.png"
+          src={isLight ? "/images/webinar-redesign/light/masterclass-hero-bg.png" : "/images/webinar-redesign/masterclass-hero-bg.png"}
           alt="The AI Automation Masterclass - ScalePods with Adnan Shaikh & Raunak Kumar"
           fill
           priority
@@ -462,32 +516,32 @@ export default function WebinarPage() {
           {/* 6 Top Data Metrics Cards */}
           {/* 6 Top Data Metrics Cards - Merging smoothly from Blue to Green */}
           <div className="wb-firstfold-stats-grid">
-            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #38BDF8, #33C6E1)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(56, 189, 248, 0.3)" }}>
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #38BDF8, #33C6E1)", ["--stat-color" as string]: isLight ? "#090D14" : "#FFFFFF", ["--stat-shadow" as string]: isLight ? "rgba(14, 165, 233, 0.15)" : "rgba(56, 189, 248, 0.3)" }}>
               <span className="wb-firstfold-stat-val">10X</span>
               <span className="wb-firstfold-stat-lbl">Revenue Growth Improvement</span>
             </div>
 
-            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #33C6E1, #2DD4BF)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(51, 198, 225, 0.3)" }}>
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #33C6E1, #2DD4BF)", ["--stat-color" as string]: isLight ? "#090D14" : "#FFFFFF", ["--stat-shadow" as string]: isLight ? "rgba(20, 184, 166, 0.15)" : "rgba(51, 198, 225, 0.3)" }}>
               <span className="wb-firstfold-stat-val">80%</span>
               <span className="wb-firstfold-stat-lbl">Hiring Time Reduced</span>
             </div>
 
-            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #2DD4BF, #30D2B8)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(45, 212, 191, 0.3)" }}>
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #2DD4BF, #30D2B8)", ["--stat-color" as string]: isLight ? "#090D14" : "#FFFFFF", ["--stat-shadow" as string]: isLight ? "rgba(20, 184, 166, 0.15)" : "rgba(45, 212, 191, 0.3)" }}>
               <span className="wb-firstfold-stat-val">80%</span>
               <span className="wb-firstfold-stat-lbl">Faster Brand Scaling vs Agencies</span>
             </div>
 
-            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #30D2B8, #36D7A6)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(50, 213, 179, 0.3)" }}>
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #30D2B8, #36D7A6)", ["--stat-color" as string]: isLight ? "#090D14" : "#FFFFFF", ["--stat-shadow" as string]: isLight ? "rgba(16, 185, 129, 0.15)" : "rgba(50, 213, 179, 0.3)" }}>
               <span className="wb-firstfold-stat-val">95%</span>
               <span className="wb-firstfold-stat-lbl">Manual Data Entry Eliminated</span>
             </div>
 
-            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #36D7A6, #3FD995)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(61, 217, 155, 0.3)" }}>
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #36D7A6, #3FD995)", ["--stat-color" as string]: isLight ? "#090D14" : "#FFFFFF", ["--stat-shadow" as string]: isLight ? "rgba(16, 185, 129, 0.15)" : "rgba(61, 217, 155, 0.3)" }}>
               <span className="wb-firstfold-stat-val">&lt; 60s</span>
               <span className="wb-firstfold-stat-lbl">Instant Lead Engagement</span>
             </div>
 
-            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #3FD995, #48DD83)", ["--stat-color" as string]: "#FFFFFF", ["--stat-shadow" as string]: "rgba(72, 221, 131, 0.3)" }}>
+            <div className="wb-firstfold-stat-card" style={{ ["--stat-glow-color" as string]: "linear-gradient(90deg, #3FD995, #48DD83)", ["--stat-color" as string]: isLight ? "#090D14" : "#FFFFFF", ["--stat-shadow" as string]: isLight ? "rgba(5, 150, 105, 0.15)" : "rgba(72, 221, 131, 0.3)" }}>
               <span className="wb-firstfold-stat-val">400%</span>
               <span className="wb-firstfold-stat-lbl">Operational Efficiency ROI</span>
             </div>
@@ -551,7 +605,7 @@ export default function WebinarPage() {
               <div className="wb-firstfold-founder-card wb-ff-card-adnan">
                 <div className="wb-firstfold-founder-img-frame">
                   <Image
-                    src="/images/webinar-redesign/adnan-shaikh.png"
+                    src={isLight ? "/images/webinar-redesign/light/adnan-shaikh.png" : "/images/webinar-redesign/adnan-shaikh.png"}
                     alt="Adnan Shaikh - Co-Founder & CEO, ScalePods"
                     fill
                     sizes="(max-width: 768px) 100vw, 300px"
@@ -576,7 +630,7 @@ export default function WebinarPage() {
               <div className="wb-firstfold-founder-card wb-ff-card-raunak">
                 <div className="wb-firstfold-founder-img-frame">
                   <Image
-                    src="/images/webinar-redesign/raunak-kumar.png"
+                    src={isLight ? "/images/webinar-redesign/light/raunak-kumar.png" : "/images/webinar-redesign/raunak-kumar.png"}
                     alt="Raunak Kumar - Co-Founder, CTO & CPO, ScalePods"
                     fill
                     sizes="(max-width: 768px) 100vw, 300px"
@@ -606,7 +660,7 @@ export default function WebinarPage() {
         {/* Background Image Container */}
         <div className="wb-founders-bg-wrap">
           <Image
-            src="/images/webinar-redesign/founders-partners-bg.webp"
+            src={isLight ? "/images/webinar-redesign/light/founders-partners-bg.png" : "/images/webinar-redesign/founders-partners-bg.webp"}
             alt="ScalePods Founders and AI Partners"
             fill
             quality={90}
@@ -806,7 +860,7 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Matches Masterclass Fold Architecture) ── */}
         <div className="wb-not-tools-fullscreen-stage">
           <Image
-            src="/images/webinar-redesign/not-ai-tools-bg.webp"
+            src={isLight ? "/images/webinar-redesign/light/not-ai-tools-bg.png" : "/images/webinar-redesign/not-ai-tools-bg.webp"}
             alt="This is not a learn AI tools webinar - ScalePods"
             fill
             priority
@@ -923,7 +977,7 @@ export default function WebinarPage() {
             {/* Mobile Crisp Graphic */}
             <div className="wb-not-tools-mobile-graphic-card">
               <Image
-                src="/images/webinar-redesign/not-ai-tools-graphic.webp"
+                src={isLight ? "/images/webinar-redesign/light/not-ai-tools-graphic.png" : "/images/webinar-redesign/not-ai-tools-graphic.webp"}
                 alt="Chaotic tools overwhelm converted to streamlined automated pipeline"
                 width={1200}
                 height={215}
@@ -1003,92 +1057,12 @@ export default function WebinarPage() {
       </section>
 
 
-      {/* ── SECTION 6: SEE THE PATTERN BEHIND SMARTER BUSINESS AUTOMATION ─────── */}
-      <section className="wb-section">
-        <div className="wb-container">
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <div className="wb-pill-green" style={{ marginBottom: "14px" }}>
-              <Cpu size={14} />
-              <span>THE 5-STEP WORKFLOW PATTERN</span>
-            </div>
-            <h2 style={{ fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.2, marginBottom: "14px" }}>
-              SEE THE PATTERN BEHIND <span className="wb-framework-title-cyan">SMARTER BUSINESS AUTOMATION</span>
-            </h2>
-            <p style={{ fontSize: "16px", color: "#94A3B8", maxWidth: "720px", margin: "0 auto" }}>
-              You don&apos;t need to start by automating your entire business. You need to understand how individual steps can work together seamlessly.
-            </p>
-          </div>
-
-          {/* 5 Cards Grid */}
-          <div className="wb-4layers-grid">
-            <div className="wb-4layer-card">
-              <span className="wb-4layer-num">01</span>
-              <h3 className="wb-4layer-title">CAPTURE</h3>
-              <p className="wb-4layer-desc">
-                Bring a lead, request, application, or task into the workflow automatically from any source.
-              </p>
-              <span className="wb-4layer-tag">Universal Ingestion</span>
-            </div>
-
-            <div className="wb-4layer-card">
-              <span className="wb-4layer-num">02</span>
-              <h3 className="wb-4layer-title">RESPOND</h3>
-              <p className="wb-4layer-desc">
-                Trigger the appropriate first action instead of relying entirely on manual intervention.
-              </p>
-              <span className="wb-4layer-tag">Instant First Action</span>
-            </div>
-
-            <div className="wb-4layer-card">
-              <span className="wb-4layer-num">03</span>
-              <h3 className="wb-4layer-title">QUALIFY</h3>
-              <p className="wb-4layer-desc">
-                Apply defined rules or AI assistance to organize information and determine the next step.
-              </p>
-              <span className="wb-4layer-tag">Intelligent Triage</span>
-            </div>
-
-            <div className="wb-4layer-card">
-              <span className="wb-4layer-num">04</span>
-              <h3 className="wb-4layer-title">SYNC</h3>
-              <p className="wb-4layer-desc">
-                Update relevant records across systems and pass context to the right person or team.
-              </p>
-              <span className="wb-4layer-tag">Connected Records</span>
-            </div>
-
-            <div className="wb-4layer-card">
-              <span className="wb-4layer-num">05</span>
-              <h3 className="wb-4layer-title">FOLLOW UP</h3>
-              <p className="wb-4layer-desc">
-                Trigger reminders, communications, and next actions so work never stalls after initial contact.
-              </p>
-              <span className="wb-4layer-tag">Proactive Continuity</span>
-            </div>
-          </div>
-
-          {/* Signature Framework Bar */}
-          <div className="wb-pathway-card" style={{ textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
-              <span style={{ color: "#48DD83" }}>CAPTURE</span> →{" "}
-              <span style={{ color: "#38BDF8" }}>RESPOND</span> →{" "}
-              <span style={{ color: "#48DD83" }}>QUALIFY</span> →{" "}
-              <span style={{ color: "#38BDF8" }}>SYNC</span> →{" "}
-              <span style={{ color: "#48DD83" }}>FOLLOW UP</span>
-            </div>
-            <p style={{ fontSize: "13px", color: "#94A3B8", maxWidth: "780px", margin: "0 auto", lineHeight: 1.6 }}>
-              The objective is not to remove people from every process. It&apos;s to help people spend less time coordinating routine work and more time doing the work that requires judgment, expertise, and relationships.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ── SECTION 8: THE PROPRIETARY FRAMEWORK (THE BIG IDEA) ─────────────── */}
       <section className="wb-section-fullscreen-framework" id="big-idea">
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Matches Webinar Fold Architecture) ── */}
         <div className="wb-framework-fullscreen-stage">
           <Image
-            src="/images/webinar-redesign/framework-bg.webp"
+            src={isLight ? "/images/webinar-redesign/light/framework-bg.png" : "/images/webinar-redesign/framework-bg.webp"}
             alt="The Proprietary Framework - The Big Idea - ScalePods"
             fill
             priority
@@ -1268,7 +1242,7 @@ export default function WebinarPage() {
             {/* Mobile Diagram Image */}
             <div className="wb-framework-mobile-stage-box">
               <Image
-                src="/images/webinar-redesign/framework-diagram-mobile.webp"
+                src={isLight ? "/images/webinar-redesign/light/framework-diagram-mobile.png" : "/images/webinar-redesign/framework-diagram-mobile.webp"}
                 alt="Proprietary AI Workflow Engine Connecting Leads, Customers, Support, Marketing, and Finance"
                 width={1200}
                 height={321}
@@ -1312,7 +1286,7 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Slide 18) ── */}
         <div className="wb-curriculum-fullscreen-stage">
           <Image
-            src="/images/webinar-redesign/curriculum-bg.webp"
+            src={isLight ? "/images/webinar-redesign/light/curriculum-bg.png" : "/images/webinar-redesign/curriculum-bg.webp"}
             alt="What You'll Learn - AI Business Automation Masterclass Curriculum"
             fill
             priority
@@ -1344,9 +1318,9 @@ export default function WebinarPage() {
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <Settings size={22} />
               </div>
-              <div>
-                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>Where to start</strong>
-                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+              <div className="wb-cstage-content">
+                <strong className="wb-cstage-item-title wb-ctitle-green">Where to start</strong>
+                <p className="wb-cstage-card-text">
                   Recognize repetitive, rule-based tasks that are prime candidates for workflow automation.
                 </p>
               </div>
@@ -1356,9 +1330,9 @@ export default function WebinarPage() {
               <div className="wb-cstage-icon-badge wb-cbadge-cyan">
                 <Target size={22} />
               </div>
-              <div>
-                <strong style={{ display: "block", color: "#38BDF8", fontSize: "14px", marginBottom: "4px" }}>What to prioritize</strong>
-                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+              <div className="wb-cstage-content">
+                <strong className="wb-cstage-item-title wb-ctitle-cyan">What to prioritize</strong>
+                <p className="wb-cstage-card-text">
                   Evaluate opportunities based on business impact, frequency, time spent, and implementation effort.
                 </p>
               </div>
@@ -1368,9 +1342,9 @@ export default function WebinarPage() {
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <Layers size={22} />
               </div>
-              <div>
-                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>How workflows connect</strong>
-                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+              <div className="wb-cstage-content">
+                <strong className="wb-cstage-item-title wb-ctitle-green">How workflows connect</strong>
+                <p className="wb-cstage-card-text">
                   Understand how inputs, decisions, systems, and follow-up actions fit together seamlessly.
                 </p>
               </div>
@@ -1385,9 +1359,9 @@ export default function WebinarPage() {
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <BrainCircuit size={22} />
               </div>
-              <div>
-                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>Where AI adds value</strong>
-                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+              <div className="wb-cstage-content">
+                <strong className="wb-cstage-item-title wb-ctitle-green">Where AI adds value</strong>
+                <p className="wb-cstage-card-text">
                   Distinguish between rule-based automation, tasks suited for AI, and decisions requiring human oversight.
                 </p>
               </div>
@@ -1397,9 +1371,9 @@ export default function WebinarPage() {
               <div className="wb-cstage-icon-badge wb-cbadge-cyan">
                 <Box size={22} />
               </div>
-              <div>
-                <strong style={{ display: "block", color: "#38BDF8", fontSize: "14px", marginBottom: "4px" }}>How to approach integration</strong>
-                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+              <div className="wb-cstage-content">
+                <strong className="wb-cstage-item-title wb-ctitle-cyan">How to approach integration</strong>
+                <p className="wb-cstage-card-text">
                   Connect automation into your existing business stack without breaking everyday operations.
                 </p>
               </div>
@@ -1409,9 +1383,9 @@ export default function WebinarPage() {
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <TrendingUp size={22} />
               </div>
-              <div>
-                <strong style={{ display: "block", color: "#48DD83", fontSize: "14px", marginBottom: "4px" }}>What to do next</strong>
-                <p className="wb-cstage-card-text" style={{ margin: 0 }}>
+              <div className="wb-cstage-content">
+                <strong className="wb-cstage-item-title wb-ctitle-green">What to do next</strong>
+                <p className="wb-cstage-card-text">
                   Identify immediate automation opportunities across your Sales, Marketing, HR, or Operations workflows.
                 </p>
               </div>
@@ -1440,7 +1414,7 @@ export default function WebinarPage() {
             {/* 3D Central Workspace Visual Stage */}
             <div className="wb-curriculum-mobile-stage-box">
               <Image
-                src="/images/webinar-redesign/curriculum-pedestal-mobile.webp"
+                src={isLight ? "/images/webinar-redesign/light/curriculum-pedestal-mobile.png" : "/images/webinar-redesign/curriculum-pedestal-mobile.webp"}
                 alt="Interactive AI automation workspace and laptop dashboard"
                 width={1200}
                 height={872}
@@ -1497,7 +1471,7 @@ export default function WebinarPage() {
                       <IconComponent size={18} />
                     </div>
                     <div>
-                      <span style={{ fontSize: "11px", fontWeight: 700, color: item.color === "green" ? "#48DD83" : "#38BDF8", textTransform: "uppercase" }}>
+                      <span className={`wb-curriculum-card-badge wb-cbadge-text-${item.color}`}>
                         {item.label}
                       </span>
                       <p className="wb-curriculum-card-text" style={{ marginTop: "4px" }}>{item.title}</p>
@@ -1519,7 +1493,7 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Slide 20) ── */}
         <div className="wb-partnership-fullscreen-stage">
           <Image
-            src="/images/webinar-redesign/partnership-bg.webp"
+            src={isLight ? "/images/webinar-redesign/light/partnership-bg.png" : "/images/webinar-redesign/partnership-bg.webp"}
             alt="Claude + OpenAI Partnership - Business Brain and Technology Brain"
             fill
             priority
@@ -1552,7 +1526,7 @@ export default function WebinarPage() {
             <div className="wb-partner-card wb-partner-card-green">
               <div className="wb-partner-photo-wrap">
                 <Image
-                  src="/images/webinar-redesign/adnan-partner-clean.webp"
+                  src={isLight ? "/images/webinar-redesign/light/adnan-partner-clean.png" : "/images/webinar-redesign/adnan-partner-clean.webp"}
                   alt="Adnan Shaikh - Co-Founder &amp; CEO, ScalePods"
                   fill
                   quality={90}
@@ -1594,7 +1568,7 @@ export default function WebinarPage() {
             <div className="wb-partner-card wb-partner-card-blue">
               <div className="wb-partner-photo-wrap">
                 <Image
-                  src="/images/webinar-redesign/raunak-partner-v2.webp"
+                  src={isLight ? "/images/webinar-redesign/light/raunak-partner-v2.png" : "/images/webinar-redesign/raunak-partner-v2.webp"}
                   alt="Raunak Kumar - Co-Founder, CTO &amp; CPO, ScalePods"
                   fill
                   quality={90}
@@ -1697,7 +1671,7 @@ export default function WebinarPage() {
               <div className="wb-partner-card wb-partner-card-green">
                 <div className="wb-partner-photo-wrap">
                   <Image
-                    src="/images/webinar-redesign/adnan-partner-clean.webp"
+                    src={isLight ? "/images/webinar-redesign/light/adnan-partner-clean.png" : "/images/webinar-redesign/adnan-partner-clean.webp"}
                     alt="Adnan Shaikh - Co-Founder &amp; CEO, ScalePods"
                     fill
                     quality={90}
@@ -1734,7 +1708,7 @@ export default function WebinarPage() {
               <div className="wb-partner-card wb-partner-card-blue">
                 <div className="wb-partner-photo-wrap">
                   <Image
-                    src="/images/webinar-redesign/raunak-partner-v2.webp"
+                    src={isLight ? "/images/webinar-redesign/light/raunak-partner-v2.png" : "/images/webinar-redesign/raunak-partner-v2.webp"}
                     alt="Raunak Kumar - Co-Founder, CTO &amp; CPO, ScalePods"
                     fill
                     quality={90}
@@ -1900,7 +1874,7 @@ export default function WebinarPage() {
             {/* Right 3D Visual Diagram Stage */}
             <div className="wb-why-diagram-stage">
               <Image
-                src="/images/webinar-redesign/why-scalepods-diagram-clean.webp"
+                src={isLight ? "/images/webinar-redesign/light/why-scalepods-diagram-clean.png" : "/images/webinar-redesign/why-scalepods-diagram-clean.webp"}
                 alt="ScalePods autonomous AI transformation engine orchestrating Operations, HR, Marketing, Sales, and Finance into Automated Workflows"
                 width={720}
                 height={428}
@@ -1958,7 +1932,7 @@ export default function WebinarPage() {
             {/* 3D Diagram Showcase on Mobile (Vertical Mobile Edition) */}
             <div className="wb-why-mobile-diagram-wrap">
               <Image
-                src="/images/webinar-redesign/why-scalepods-diagram-mobile.webp"
+                src={isLight ? "/images/webinar-redesign/light/why-scalepods-diagram-mobile.png" : "/images/webinar-redesign/why-scalepods-diagram-mobile.webp"}
                 alt="ScalePods AI Autonomous Engine"
                 width={480}
                 height={910}
@@ -2157,7 +2131,7 @@ export default function WebinarPage() {
           {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Desktop */}
           <div className="wb-attend-stage-wrap wb-attend-desktop-stage">
             <Image
-              src="/images/webinar-redesign/who-should-attend-personas.webp"
+              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas.png" : "/images/webinar-redesign/who-should-attend-personas.webp"}
               alt="Business and technology leaders powered by the ScalePods AI engine"
               width={1260}
               height={354}
@@ -2170,7 +2144,7 @@ export default function WebinarPage() {
           {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Mobile Vertical Edition */}
           <div className="wb-attend-mobile-stage">
             <Image
-              src="/images/webinar-redesign/who-should-attend-personas-mobile.webp"
+              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas-mobile.png" : "/images/webinar-redesign/who-should-attend-personas-mobile.webp"}
               alt="Business and technology leaders powered by the ScalePods AI engine"
               width={480}
               height={806}
@@ -2608,7 +2582,7 @@ export default function WebinarPage() {
                 alt="ScalePods"
                 fill
                 sizes="160px"
-                style={{ objectFit: "contain", filter: "invert(1)", opacity: 1 }}
+                style={{ objectFit: "contain", filter: isLight ? "none" : "invert(1)", opacity: 1, transition: "filter 0.3s ease" }}
               />
             </div>
           </div>

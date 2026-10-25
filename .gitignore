@@ -47,6 +47,7 @@ next-env.d.ts
 
 # temp assets
 Blogs-*/
+/webinar-page-images/
 
 # Non-source planning artifacts and media
 /Admin/

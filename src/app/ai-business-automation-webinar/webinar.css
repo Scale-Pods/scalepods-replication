@@ -2119,10 +2119,7 @@
 }
 
 /* Light Mode Overrides for Full Screen Hero */
-[data-theme="light"] .wb-section-fullscreen-hero,
-html:not(.dark) .wb-section-fullscreen-hero {
-  background-color: #02050B; /* Hero retains cyber canvas integrity */
-}
+/* [neutralized dark override for light mode] */
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
@@ -2258,10 +2255,7 @@ html:not(.dark) .wb-section-fullscreen-hero {
 }
 
 /* Light Mode Overrides for Expansion Fullscreen */
-[data-theme="light"] .wb-section-fullscreen-expansion,
-html:not(.dark) .wb-section-fullscreen-expansion {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 /* Top Pill Badge */
 .wb-expansion-pill-fs {
@@ -2592,10 +2586,7 @@ html:not(.dark) .wb-section-fullscreen-expansion {
 }
 
 /* Light Mode Overrides for Fullscreen Cost */
-[data-theme="light"] .wb-section-fullscreen-cost,
-html:not(.dark) .wb-section-fullscreen-cost {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 /* Top Pill Badge */
 .wb-cost-pill-fs {
@@ -2957,10 +2948,7 @@ html:not(.dark) .wb-section-fullscreen-cost {
 }
 
 /* Light mode overrides */
-[data-theme="light"] .wb-section-fullscreen-masterclass,
-html:not(.dark) .wb-section-fullscreen-masterclass {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 /* Left Content Column */
 .wb-masterclass-left-content {
@@ -4209,10 +4197,7 @@ html:not(.dark) .wb-section-fullscreen-masterclass {
 }
 
 /* Light Mode Overrides */
-[data-theme="light"] .wb-section-founders-partners,
-html:not(.dark) .wb-section-founders-partners {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
@@ -4284,10 +4269,7 @@ html:not(.dark) .wb-section-founders-partners {
 }
 
 /* Light mode overrides */
-[data-theme="light"] .wb-section-fullscreen-not-tools,
-html:not(.dark) .wb-section-fullscreen-not-tools {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 /* Desktop Stage: Top Header (y: 3.5% - 19%) */
 .wb-not-tools-stage-header {
@@ -4647,10 +4629,7 @@ html:not(.dark) .wb-section-fullscreen-not-tools {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-[data-theme="light"] .wb-section-business-frontend,
-html:not(.dark) .wb-section-business-frontend {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 .wb-business-inner-container {
   width: 100%;
@@ -4998,10 +4977,7 @@ html:not(.dark) .wb-section-business-frontend {
   margin: 0;
 }
 
-[data-theme="light"] .wb-section-fullscreen-framework,
-html:not(.dark) .wb-section-fullscreen-framework {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 /* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE ── */
 .wb-framework-fullscreen-stage {
@@ -5335,10 +5311,7 @@ html:not(.dark) .wb-section-fullscreen-framework {
   margin: 0;
 }
 
-[data-theme="light"] .wb-section-fullscreen-curriculum,
-html:not(.dark) .wb-section-fullscreen-curriculum {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 .wb-curriculum-fullscreen-stage {
   position: relative;
@@ -5440,15 +5413,42 @@ html:not(.dark) .wb-section-fullscreen-curriculum {
 
 .wb-cstage-card {
   width: 100%;
-  height: clamp(66px, 5.8vw, 88px);
+  min-height: clamp(74px, 6.2vw, 92px);
+  height: auto;
+  box-sizing: border-box;
   border-radius: 16px;
-  padding: 0 clamp(14px, 1.1vw, 20px);
+  padding: clamp(10px, 0.9vw, 14px) clamp(14px, 1.1vw, 20px);
   display: flex;
   align-items: center;
   gap: clamp(12px, 1vw, 18px);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wb-cstage-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wb-cstage-item-title {
+  display: block;
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(13px, 0.92vw, 15px);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.wb-ctitle-green {
+  color: #48DD83;
+}
+
+.wb-ctitle-cyan {
+  color: #38BDF8;
 }
 
 .wb-cstage-card-green {
@@ -5773,10 +5773,7 @@ html:not(.dark) .wb-section-fullscreen-curriculum {
   margin: 0;
 }
 
-[data-theme="light"] .wb-section-fullscreen-partnership,
-html:not(.dark) .wb-section-fullscreen-partnership {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 .wb-partnership-fullscreen-stage {
   position: relative;
@@ -6266,10 +6263,7 @@ html:not(.dark) .wb-section-fullscreen-partnership {
   margin: 0;
 }
 
-[data-theme="light"] .wb-section-fullscreen-why,
-html:not(.dark) .wb-section-fullscreen-why {
-  background-color: #030712;
-}
+/* [neutralized dark override for light mode] */
 
 /* Background Ambient Glows — subtle, elegant depth */
 .wb-why-bg-ambient {
@@ -6752,10 +6746,7 @@ html:not(.dark) .wb-section-fullscreen-why {
   margin: 0;
 }
 
-[data-theme="light"] .wb-section-fullscreen-attend,
-html:not(.dark) .wb-section-fullscreen-attend {
-  background-color: #02050B;
-}
+/* [neutralized dark override for light mode] */
 
 .wb-attend-bg-ambient {
   position: absolute;
@@ -7252,10 +7243,7 @@ html:not(.dark) .wb-section-fullscreen-attend {
   overflow: hidden;
 }
 
-[data-theme="light"] .wb-section-firstfold-hero,
-html:not(.dark) .wb-section-firstfold-hero {
-  background-color: #030712;
-}
+/* [neutralized dark override for light mode] */
 
 .wb-firstfold-bg {
   position: absolute;
@@ -7826,4 +7814,1435 @@ html:not(.dark) .wb-section-firstfold-hero {
   }
 }
 
+/* ==========================================================================
+   ScalePods AI Business Automation Webinar — Premium Light Theme System
+   Provides an ultra-clean, high-contrast, modern white theme alongside Dark.
+   ========================================================================== */
 
+.wb-theme-light,
+[data-webinar-theme="light"],
+[data-theme="light"] .webinarpod-container,
+html:not(.dark) .webinarpod-container {
+  --wb-bg: #F8FAF7;
+  --wb-green: #059669;
+  --wb-green-rgb: 5, 150, 105;
+  --wb-green-glow: rgba(5, 150, 105, 0.12);
+  --wb-blue: #0284C7;
+  --wb-blue-rgb: 2, 132, 199;
+  --wb-blue-glow: rgba(2, 132, 199, 0.12);
+
+  --wb-text-bright: #090D14;
+  --wb-text-mid: #1E293B;
+  --wb-text-body: #334155;
+  --wb-text-muted: #64748B;
+  --wb-text-faint: #94A3B8;
+
+  --wb-card-bg: #FFFFFF;
+  --wb-card-bg-hover: #FFFFFF;
+  --wb-card-border: 1px solid rgba(15, 23, 42, 0.08);
+  --wb-card-border-green: 1px solid rgba(5, 150, 105, 0.35);
+  --wb-card-border-blue: 1px solid rgba(2, 132, 199, 0.35);
+  --wb-card-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 2px 8px -2px rgba(15, 23, 42, 0.04);
+  --wb-card-shadow-hover: 0 20px 40px -10px rgba(15, 23, 42, 0.12), 0 0 24px rgba(5, 150, 105, 0.10);
+  --wb-card-blur: blur(20px);
+
+  --wb-divider: rgba(15, 23, 42, 0.08);
+  --wb-subcard-bg: #F1F5F9;
+  --wb-subcard-border: rgba(15, 23, 42, 0.08);
+  --wb-box-bg: #FFFFFF;
+  --wb-pain-text: #991B1B;
+  --wb-modal-bg: #FFFFFF;
+  --wb-modal-overlay: rgba(15, 23, 42, 0.65);
+  --wb-input-bg: #FFFFFF;
+  --wb-input-border: rgba(15, 23, 42, 0.16);
+  --wb-navbar-bg: rgba(255, 255, 255, 0.94);
+  --wb-navbar-border: rgba(15, 23, 42, 0.08);
+  --wb-bottombar-bg: rgba(255, 255, 255, 0.96);
+  --wb-footer-bg: #F1F5F9;
+}
+
+/* ── Inline Highlight Elements (Founders, ScalePods, Partners) ── */
+.wb-theme-light .wb-highlight-founder,
+[data-webinar-theme="light"] .wb-highlight-founder {
+  color: #065F46 !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+  background: rgba(5, 150, 105, 0.12) !important;
+  padding: 1px 5px !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+}
+
+.wb-theme-light .wb-highlight-founder:hover,
+[data-webinar-theme="light"] .wb-highlight-founder:hover {
+  color: #047857 !important;
+  text-shadow: none !important;
+  background: rgba(5, 150, 105, 0.22) !important;
+}
+
+.wb-theme-light .wb-highlight-scalepods,
+[data-webinar-theme="light"] .wb-highlight-scalepods {
+  background: linear-gradient(90deg, #059669 0%, #0284C7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: none !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+}
+
+.wb-theme-light .wb-highlight-claude,
+[data-webinar-theme="light"] .wb-highlight-claude {
+  color: #C2410C !important;
+  font-weight: 700 !important;
+}
+
+.wb-theme-light .wb-highlight-openai,
+[data-webinar-theme="light"] .wb-highlight-openai {
+  color: #0284C7 !important;
+  font-weight: 700 !important;
+}
+
+/* ── Section Eyebrow Pills ── */
+.wb-theme-light .wb-pill-badge-green,
+[data-webinar-theme="light"] .wb-pill-badge-green {
+  background: #ECFDF5 !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.08) !important;
+}
+
+.wb-theme-light .wb-pill-badge-green span,
+.wb-theme-light .wb-pill-badge-green svg,
+[data-webinar-theme="light"] .wb-pill-badge-green span,
+[data-webinar-theme="light"] .wb-pill-badge-green svg {
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-pill-green,
+[data-webinar-theme="light"] .wb-pill-green {
+  background: #ECFDF5 !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-dot-green,
+[data-webinar-theme="light"] .wb-dot-green {
+  background-color: #059669 !important;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.5) !important;
+}
+
+/* ── Theme Toggle Button (Navbar) ── */
+.wb-theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--wb-subcard-bg, #F1F5F9);
+  border: 1px solid var(--wb-divider, rgba(15, 23, 42, 0.1));
+  border-radius: 9999px;
+  color: var(--wb-text-bright, #090D14);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  user-select: none;
+}
+
+.wb-theme-toggle-btn:hover {
+  background: var(--wb-card-bg-hover, #FFFFFF);
+  border-color: rgba(5, 150, 105, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.wb-toggle-icon-sun {
+  color: #F59E0B;
+}
+
+.wb-toggle-icon-moon {
+  color: #0284C7;
+}
+
+.wb-toggle-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .wb-toggle-label {
+    display: none;
+  }
+  .wb-theme-toggle-btn {
+    padding: 6px 10px;
+  }
+}
+
+/* ── Navbar in Light Mode ── */
+.wb-theme-light .wb-navbar,
+[data-webinar-theme="light"] .wb-navbar {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+}
+
+.wb-theme-light .wb-nav-live-badge,
+[data-webinar-theme="light"] .wb-nav-live-badge {
+  background: rgba(236, 253, 245, 0.95) !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-nav-pulse-dot,
+[data-webinar-theme="light"] .wb-nav-pulse-dot {
+  background-color: #059669 !important;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6) !important;
+}
+
+/* ── Section Canvas Backgrounds in Light Mode ── */
+.wb-theme-light .wb-section-firstfold-hero,
+.wb-theme-light .wb-section-founders-partners,
+.wb-theme-light .wb-section-fullscreen-not-tools,
+.wb-theme-light .wb-section-fullscreen-framework,
+.wb-theme-light .wb-section-fullscreen-curriculum,
+.wb-theme-light .wb-section-fullscreen-partnership,
+.wb-theme-light .wb-section-fullscreen-why,
+.wb-theme-light .wb-section-fullscreen-attend,
+.wb-theme-light .wb-section-faq,
+.wb-theme-light .wb-section-prefooter-cta,
+.wb-theme-light.webinarpod-container,
+[data-webinar-theme="light"] .wb-section-firstfold-hero,
+[data-webinar-theme="light"] .wb-section-founders-partners,
+[data-webinar-theme="light"] .wb-section-fullscreen-not-tools,
+[data-webinar-theme="light"] .wb-section-fullscreen-framework,
+[data-webinar-theme="light"] .wb-section-fullscreen-curriculum,
+[data-webinar-theme="light"] .wb-section-fullscreen-partnership,
+[data-webinar-theme="light"] .wb-section-fullscreen-why,
+[data-webinar-theme="light"] .wb-section-fullscreen-attend,
+[data-webinar-theme="light"] .wb-section-faq,
+[data-webinar-theme="light"] .wb-section-prefooter-cta,
+[data-webinar-theme="light"].webinarpod-container {
+  background-color: #F8FAF7 !important;
+  color: #1E293B !important;
+}
+
+/* Ambient glows softened in light mode */
+.wb-theme-light .wb-ambient-glow,
+[data-webinar-theme="light"] .wb-ambient-glow {
+  opacity: 0.18 !important;
+}
+
+/* Overlays softened into crisp light canvas */
+.wb-theme-light .wb-firstfold-overlay,
+[data-webinar-theme="light"] .wb-firstfold-overlay {
+  background: 
+    radial-gradient(circle at 80% 30%, rgba(2, 132, 199, 0.08) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(248, 250, 247, 0.7) 0%, rgba(248, 250, 247, 0.3) 40%, rgba(248, 250, 247, 0.98) 100%) !important;
+}
+
+.wb-theme-light .wb-founders-bg-overlay,
+[data-webinar-theme="light"] .wb-founders-bg-overlay {
+  background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 72%, #F8FAF7 100%),
+              linear-gradient(180deg, #F8FAF7 0%, transparent 8%, transparent 92%, #F8FAF7 100%) !important;
+}
+
+.wb-theme-light .wb-not-tools-canvas-overlay,
+[data-webinar-theme="light"] .wb-not-tools-canvas-overlay {
+  background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 68%, #F8FAF7 100%),
+              linear-gradient(180deg, #F8FAF7 0%, transparent 8%, transparent 92%, #F8FAF7 100%) !important;
+}
+
+.wb-theme-light .wb-framework-canvas-overlay,
+[data-webinar-theme="light"] .wb-framework-canvas-overlay {
+  background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 70%, #F8FAF7 100%),
+              linear-gradient(180deg, #F8FAF7 0%, transparent 6%, transparent 94%, #F8FAF7 100%) !important;
+}
+
+.wb-theme-light .wb-curriculum-canvas-overlay,
+[data-webinar-theme="light"] .wb-curriculum-canvas-overlay {
+  background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 72%, #F8FAF7 100%),
+              linear-gradient(180deg, #F8FAF7 0%, transparent 6%, transparent 94%, #F8FAF7 100%) !important;
+}
+
+.wb-theme-light .wb-partnership-canvas-overlay,
+[data-webinar-theme="light"] .wb-partnership-canvas-overlay {
+  background: radial-gradient(ellipse 98% 90% at 50% 50%, transparent 72%, #F8FAF7 100%),
+              linear-gradient(180deg, #F8FAF7 0%, transparent 6%, transparent 94%, #F8FAF7 100%) !important;
+}
+
+.wb-theme-light .wb-attend-bg-ambient,
+.wb-theme-light .wb-why-bg-ambient,
+[data-webinar-theme="light"] .wb-attend-bg-ambient,
+[data-webinar-theme="light"] .wb-why-bg-ambient {
+  opacity: 0.15 !important;
+}
+
+/* ==========================================================================
+   1. HERO FOLD (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-firstfold-pill,
+[data-webinar-theme="light"] .wb-firstfold-pill {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(2, 132, 199, 0.3) !important;
+  color: #0284C7 !important;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08) !important;
+}
+
+.wb-theme-light .wb-firstfold-pill span,
+[data-webinar-theme="light"] .wb-firstfold-pill span {
+  color: #0284C7 !important;
+}
+
+.wb-theme-light .wb-firstfold-partners,
+[data-webinar-theme="light"] .wb-firstfold-partners {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-firstfold-partner-label,
+[data-webinar-theme="light"] .wb-firstfold-partner-label {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-partner-chip-openai,
+.wb-theme-light .wb-partner-chip-claude,
+[data-webinar-theme="light"] .wb-partner-chip-openai,
+[data-webinar-theme="light"] .wb-partner-chip-claude {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  color: #0F172A !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
+}
+
+.wb-theme-light .wb-partner-chip-openai:hover,
+.wb-theme-light .wb-partner-chip-claude:hover,
+[data-webinar-theme="light"] .wb-partner-chip-openai:hover,
+[data-webinar-theme="light"] .wb-partner-chip-claude:hover {
+  background: #F8FAFC !important;
+  border-color: rgba(15, 23, 42, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-partner-chip-openai .wb-openai-spiral-svg,
+[data-webinar-theme="light"] .wb-partner-chip-openai .wb-openai-spiral-svg {
+  color: #000000 !important;
+  filter: none !important;
+}
+
+.wb-theme-light .wb-partner-chip-openai .wb-partner-brand-name-topbar,
+[data-webinar-theme="light"] .wb-partner-chip-openai .wb-partner-brand-name-topbar {
+  color: #000000 !important;
+  font-weight: 750 !important;
+}
+
+.wb-theme-light .wb-partner-chip-claude .wb-claude-sunburst-svg,
+[data-webinar-theme="light"] .wb-partner-chip-claude .wb-claude-sunburst-svg {
+  color: #C2410C !important;
+  filter: none !important;
+}
+
+.wb-theme-light .wb-partner-chip-claude .wb-partner-brand-name-topbar,
+[data-webinar-theme="light"] .wb-partner-chip-claude .wb-partner-brand-name-topbar {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: #C2410C !important;
+  font-weight: 750 !important;
+  filter: none !important;
+}
+
+.wb-theme-light .wb-firstfold-title,
+.wb-theme-light .wb-firstfold-title-top,
+[data-webinar-theme="light"] .wb-firstfold-title,
+[data-webinar-theme="light"] .wb-firstfold-title-top {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-firstfold-title-grad,
+[data-webinar-theme="light"] .wb-firstfold-title-grad {
+  background: linear-gradient(135deg, #0284C7 0%, #059669 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-firstfold-sub,
+.wb-theme-light .wb-firstfold-desc,
+[data-webinar-theme="light"] .wb-firstfold-sub,
+[data-webinar-theme="light"] .wb-firstfold-desc {
+  color: #334155 !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* 6 Hero Stats Cards */
+.wb-theme-light .wb-firstfold-stat-card,
+[data-webinar-theme="light"] .wb-firstfold-stat-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-firstfold-stat-card:hover,
+[data-webinar-theme="light"] .wb-firstfold-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.1) !important;
+}
+
+.wb-theme-light .wb-firstfold-stat-val,
+[data-webinar-theme="light"] .wb-firstfold-stat-val {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-firstfold-stat-lbl,
+[data-webinar-theme="light"] .wb-firstfold-stat-lbl {
+  color: #475569 !important;
+  font-weight: 500 !important;
+}
+
+/* Left: Booking Box */
+.wb-theme-light .wb-firstfold-booking-box,
+[data-webinar-theme="light"] .wb-firstfold-booking-box {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.3) !important;
+  box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.1) !important;
+}
+
+.wb-theme-light .wb-booking-live-pill,
+[data-webinar-theme="light"] .wb-booking-live-pill {
+  background: rgba(236, 253, 245, 0.95) !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-booking-discount-chip,
+[data-webinar-theme="light"] .wb-booking-discount-chip {
+  background: rgba(254, 242, 242, 0.95) !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  color: #991B1B !important;
+}
+
+.wb-theme-light .wb-firstfold-booking-box h3,
+[data-webinar-theme="light"] .wb-firstfold-booking-box h3 {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-booking-desc,
+[data-webinar-theme="light"] .wb-booking-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-booking-price-curr,
+[data-webinar-theme="light"] .wb-booking-price-curr {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-booking-price-strike,
+[data-webinar-theme="light"] .wb-booking-price-strike {
+  color: #94A3B8 !important;
+}
+
+.wb-theme-light .wb-booking-feature-item,
+[data-webinar-theme="light"] .wb-booking-feature-item {
+  color: #1E293B !important;
+}
+
+.wb-theme-light .wb-booking-feature-icon,
+[data-webinar-theme="light"] .wb-booking-feature-icon {
+  color: #059669 !important;
+}
+
+.wb-theme-light .wb-firstfold-seats-note,
+[data-webinar-theme="light"] .wb-firstfold-seats-note {
+  color: #64748B !important;
+}
+
+/* Right: Hero Founder Cards */
+.wb-theme-light .wb-firstfold-founder-card,
+[data-webinar-theme="light"] .wb-firstfold-founder-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-ff-card-adnan,
+[data-webinar-theme="light"] .wb-ff-card-adnan {
+  border-color: rgba(5, 150, 105, 0.35) !important;
+}
+
+.wb-theme-light .wb-ff-card-raunak,
+[data-webinar-theme="light"] .wb-ff-card-raunak {
+  border-color: rgba(2, 132, 199, 0.35) !important;
+}
+
+.wb-theme-light .wb-firstfold-founder-img-frame,
+[data-webinar-theme="light"] .wb-firstfold-founder-img-frame {
+  background: #F1F5F9 !important;
+}
+
+.wb-theme-light .wb-firstfold-founder-name,
+[data-webinar-theme="light"] .wb-firstfold-founder-name {
+  color: #090D14 !important;
+  -webkit-text-fill-color: #090D14 !important;
+  background: none !important;
+  filter: none !important;
+}
+
+.wb-theme-light .wb-firstfold-founder-role,
+[data-webinar-theme="light"] .wb-firstfold-founder-role {
+  color: #64748B !important;
+}
+
+.wb-theme-light .wb-firstfold-founder-focus,
+[data-webinar-theme="light"] .wb-firstfold-founder-focus {
+  color: #1E293B !important;
+}
+
+.wb-theme-light .wb-ff-badge-green,
+[data-webinar-theme="light"] .wb-ff-badge-green {
+  background: rgba(236, 253, 245, 0.95) !important;
+  color: #065F46 !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+}
+
+.wb-theme-light .wb-ff-badge-blue,
+[data-webinar-theme="light"] .wb-ff-badge-blue {
+  background: rgba(240, 249, 255, 0.95) !important;
+  color: #0369A1 !important;
+  border: 1px solid rgba(2, 132, 199, 0.3) !important;
+}
+
+.wb-theme-light .wb-verified-metrics-strip,
+.wb-theme-light .wb-firstfold-partner-tags,
+[data-webinar-theme="light"] .wb-verified-metrics-strip,
+[data-webinar-theme="light"] .wb-firstfold-partner-tags {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  color: #334155 !important;
+}
+
+/* ==========================================================================
+   2. MEET YOUR FOUNDERS & AI PARTNERS (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-founders-main-title,
+[data-webinar-theme="light"] .wb-founders-main-title {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-text-highlight-green,
+[data-webinar-theme="light"] .wb-text-highlight-green {
+  color: #059669 !important;
+}
+
+.wb-theme-light .wb-founders-main-desc,
+[data-webinar-theme="light"] .wb-founders-main-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-founder-exp-badge,
+[data-webinar-theme="light"] .wb-founder-exp-badge {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  color: #090D14 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.wb-theme-light .wb-founder-exp-badge span,
+[data-webinar-theme="light"] .wb-founder-exp-badge span {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-founder-profile-card,
+.wb-theme-light .wb-founders-cards-grid > div,
+[data-webinar-theme="light"] .wb-founder-profile-card,
+[data-webinar-theme="light"] .wb-founders-cards-grid > div {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-founders-about-btn,
+[data-webinar-theme="light"] .wb-founders-about-btn {
+  color: #0284C7 !important;
+  background: rgba(2, 132, 199, 0.08) !important;
+  border: 1px solid rgba(2, 132, 199, 0.25) !important;
+}
+
+/* Claude & OpenAI Brand Cards */
+.wb-theme-light .wb-partner-brand-card,
+[data-webinar-theme="light"] .wb-partner-brand-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-partner-card-claude,
+[data-webinar-theme="light"] .wb-partner-card-claude {
+  border-color: rgba(217, 119, 87, 0.35) !important;
+}
+
+.wb-theme-light .wb-partner-card-openai,
+[data-webinar-theme="light"] .wb-partner-card-openai {
+  border-color: rgba(2, 132, 199, 0.35) !important;
+}
+
+.wb-theme-light .wb-partner-brand-header,
+[data-webinar-theme="light"] .wb-partner-brand-header {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-brand-name-bold,
+[data-webinar-theme="light"] .wb-brand-name-bold {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-partner-card-openai .wb-openai-spiral-svg,
+[data-webinar-theme="light"] .wb-partner-card-openai .wb-openai-spiral-svg {
+  color: #000000 !important;
+  filter: none !important;
+}
+
+.wb-theme-light .wb-partner-card-openai .wb-brand-name-bold,
+[data-webinar-theme="light"] .wb-partner-card-openai .wb-brand-name-bold {
+  color: #000000 !important;
+}
+
+.wb-theme-light .wb-partner-card-claude .wb-claude-sunburst-svg,
+[data-webinar-theme="light"] .wb-partner-card-claude .wb-claude-sunburst-svg {
+  color: #C2410C !important;
+  filter: none !important;
+}
+
+.wb-theme-light .wb-partner-card-claude .wb-claude-name-gradient,
+[data-webinar-theme="light"] .wb-partner-card-claude .wb-claude-name-gradient {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: #C2410C !important;
+  filter: none !important;
+  font-weight: 800 !important;
+}
+
+.wb-theme-light .wb-brand-sub-anthropic,
+[data-webinar-theme="light"] .wb-brand-sub-anthropic {
+  color: #64748B !important;
+  font-weight: 600 !important;
+}
+
+.wb-theme-light .wb-claude-status-pill,
+.wb-theme-light .wb-partner-status-pill,
+[data-webinar-theme="light"] .wb-claude-status-pill,
+[data-webinar-theme="light"] .wb-partner-status-pill {
+  background: #ECFDF5 !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-partner-bullet-row,
+[data-webinar-theme="light"] .wb-partner-bullet-row {
+  color: #334155 !important;
+}
+
+/* What to Expect */
+.wb-theme-light .wb-expect-header,
+.wb-theme-light .wb-expect-main-title,
+[data-webinar-theme="light"] .wb-expect-header,
+[data-webinar-theme="light"] .wb-expect-main-title {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-expect-main-desc,
+[data-webinar-theme="light"] .wb-expect-main-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-expect-node-item,
+[data-webinar-theme="light"] .wb-expect-node-item {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-expect-node-title,
+[data-webinar-theme="light"] .wb-expect-node-title {
+  color: #090D14 !important;
+  font-weight: 700 !important;
+}
+
+.wb-theme-light .wb-expect-node-sub,
+[data-webinar-theme="light"] .wb-expect-node-sub {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-expect-node-icon-circle,
+[data-webinar-theme="light"] .wb-expect-node-icon-circle {
+  background: #F1F5F9 !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  color: #0284C7 !important;
+}
+
+/* ==========================================================================
+   3. NOT AI TOOLS SECTION (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-not-tools-main-title,
+[data-webinar-theme="light"] .wb-not-tools-main-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-not-tools-title-green,
+[data-webinar-theme="light"] .wb-not-tools-title-green {
+  color: #059669 !important;
+}
+
+.wb-theme-light .wb-not-tools-main-desc,
+[data-webinar-theme="light"] .wb-not-tools-main-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-not-tools-box-negative,
+[data-webinar-theme="light"] .wb-not-tools-box-negative {
+  background: #FEF2F2 !important;
+  border: 1.5px solid rgba(239, 68, 68, 0.25) !important;
+  box-shadow: 0 10px 30px -5px rgba(239, 68, 68, 0.08) !important;
+}
+
+.wb-theme-light .wb-not-tools-box-title-red,
+[data-webinar-theme="light"] .wb-not-tools-box-title-red {
+  color: #991B1B !important;
+}
+
+.wb-theme-light .wb-not-tools-item-text-red,
+[data-webinar-theme="light"] .wb-not-tools-item-text-red {
+  color: #7F1D1D !important;
+}
+
+.wb-theme-light .wb-not-tools-box-positive,
+[data-webinar-theme="light"] .wb-not-tools-box-positive {
+  background: #ECFDF5 !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.08) !important;
+}
+
+.wb-theme-light .wb-not-tools-box-title-green,
+[data-webinar-theme="light"] .wb-not-tools-box-title-green {
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-not-tools-item-text-green,
+[data-webinar-theme="light"] .wb-not-tools-item-text-green {
+  color: #064E3B !important;
+}
+
+.wb-theme-light .wb-not-tools-stage-footer-note,
+[data-webinar-theme="light"] .wb-not-tools-stage-footer-note {
+  color: #475569 !important;
+}
+
+/* ==========================================================================
+   4. 5-STEP WORKFLOW PATTERN (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-pattern-section-title,
+[data-webinar-theme="light"] .wb-pattern-section-title {
+  color: #090D14 !important;
+  -webkit-text-fill-color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-pattern-section-desc,
+[data-webinar-theme="light"] .wb-pattern-section-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-4layer-card,
+[data-webinar-theme="light"] .wb-4layer-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-4layer-title,
+[data-webinar-theme="light"] .wb-4layer-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-4layer-desc,
+[data-webinar-theme="light"] .wb-4layer-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-4layer-tag,
+[data-webinar-theme="light"] .wb-4layer-tag {
+  color: #0284C7 !important;
+  background: rgba(2, 132, 199, 0.08) !important;
+}
+
+.wb-theme-light .wb-pathway-card,
+[data-webinar-theme="light"] .wb-pathway-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-pathway-card-flow,
+[data-webinar-theme="light"] .wb-pathway-card-flow {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-pathway-card-desc,
+[data-webinar-theme="light"] .wb-pathway-card-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-flow-step-green,
+[data-webinar-theme="light"] .wb-flow-step-green {
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid rgba(5, 150, 105, 0.25) !important;
+}
+
+.wb-theme-light .wb-flow-step-cyan,
+[data-webinar-theme="light"] .wb-flow-step-cyan {
+  background: #F0F9FF !important;
+  color: #0369A1 !important;
+  border: 1px solid rgba(2, 132, 199, 0.25) !important;
+}
+
+.wb-theme-light .wb-flow-arrow,
+[data-webinar-theme="light"] .wb-flow-arrow {
+  color: #94A3B8 !important;
+}
+
+/* ==========================================================================
+   5. PROPRIETARY FRAMEWORK (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-framework-stage-title,
+.wb-theme-light .wb-framework-mobile-title,
+[data-webinar-theme="light"] .wb-framework-stage-title,
+[data-webinar-theme="light"] .wb-framework-mobile-title {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-framework-title-cyan,
+[data-webinar-theme="light"] .wb-framework-title-cyan {
+  color: #0284C7 !important;
+}
+
+.wb-theme-light .wb-framework-pill,
+[data-webinar-theme="light"] .wb-framework-pill {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  color: #090D14 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+
+.wb-theme-light .wb-framework-subtext-lead,
+[data-webinar-theme="light"] .wb-framework-subtext-lead {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-framework-subtext-highlight,
+[data-webinar-theme="light"] .wb-framework-subtext-highlight {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-framework-subtext-highlight strong,
+[data-webinar-theme="light"] .wb-framework-subtext-highlight strong {
+  color: #090D14 !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.02em;
+}
+
+.wb-theme-light .wb-framework-bottom-card,
+[data-webinar-theme="light"] .wb-framework-bottom-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-framework-bottom-label,
+[data-webinar-theme="light"] .wb-framework-bottom-label {
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-framework-bottom-flow,
+[data-webinar-theme="light"] .wb-framework-bottom-flow {
+  color: #090D14 !important;
+}
+
+/* ==========================================================================
+   6. CURRICULUM (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-curriculum-stage-title,
+.wb-theme-light .wb-curriculum-mobile-title,
+[data-webinar-theme="light"] .wb-curriculum-stage-title,
+[data-webinar-theme="light"] .wb-curriculum-mobile-title {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-curriculum-title-green,
+[data-webinar-theme="light"] .wb-curriculum-title-green {
+  color: #059669 !important;
+}
+
+.wb-theme-light .wb-curriculum-stage-desc,
+.wb-theme-light .wb-curriculum-mobile-desc,
+[data-webinar-theme="light"] .wb-curriculum-stage-desc,
+[data-webinar-theme="light"] .wb-curriculum-mobile-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-cstage-card,
+[data-webinar-theme="light"] .wb-cstage-card {
+  background: #FFFFFF !important;
+  height: auto !important;
+  min-height: clamp(74px, 6.2vw, 92px) !important;
+  padding: clamp(10px, 0.9vw, 14px) clamp(14px, 1.1vw, 20px) !important;
+  box-sizing: border-box !important;
+}
+
+.wb-theme-light .wb-cstage-card-green,
+[data-webinar-theme="light"] .wb-cstage-card-green {
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06), 0 0 16px rgba(5, 150, 105, 0.05) !important;
+}
+
+.wb-theme-light .wb-cstage-card-green:hover,
+[data-webinar-theme="light"] .wb-cstage-card-green:hover {
+  border-color: rgba(5, 150, 105, 0.7) !important;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.1), 0 0 20px rgba(5, 150, 105, 0.12) !important;
+}
+
+.wb-theme-light .wb-cstage-card-cyan,
+[data-webinar-theme="light"] .wb-cstage-card-cyan {
+  border: 1.5px solid rgba(2, 132, 199, 0.35) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06), 0 0 16px rgba(2, 132, 199, 0.05) !important;
+}
+
+.wb-theme-light .wb-cstage-card-cyan:hover,
+[data-webinar-theme="light"] .wb-cstage-card-cyan:hover {
+  border-color: rgba(2, 132, 199, 0.7) !important;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.1), 0 0 20px rgba(2, 132, 199, 0.12) !important;
+}
+
+.wb-theme-light .wb-cstage-item-title,
+.wb-theme-light .wb-ctitle-green,
+[data-webinar-theme="light"] .wb-cstage-item-title,
+[data-webinar-theme="light"] .wb-ctitle-green {
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-ctitle-cyan,
+[data-webinar-theme="light"] .wb-ctitle-cyan {
+  color: #0369A1 !important;
+}
+
+.wb-theme-light .wb-cstage-card-text,
+.wb-theme-light .wb-curriculum-card-text,
+[data-webinar-theme="light"] .wb-cstage-card-text,
+[data-webinar-theme="light"] .wb-curriculum-card-text {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-cbadge-green,
+[data-webinar-theme="light"] .wb-cbadge-green {
+  background: #ECFDF5 !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-cbadge-cyan,
+[data-webinar-theme="light"] .wb-cbadge-cyan {
+  background: #F0F9FF !important;
+  border: 1px solid rgba(2, 132, 199, 0.3) !important;
+  color: #0369A1 !important;
+}
+
+/* ==========================================================================
+   7. PARTNERSHIP / EXECUTIVE SPEAKERS (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-partnership-stage-title,
+.wb-theme-light .wb-partnership-mobile-title,
+[data-webinar-theme="light"] .wb-partnership-stage-title,
+[data-webinar-theme="light"] .wb-partnership-mobile-title {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-partnership-title-cyan,
+[data-webinar-theme="light"] .wb-partnership-title-cyan {
+  color: #0284C7 !important;
+}
+
+.wb-theme-light .wb-partnership-stage-desc,
+.wb-theme-light .wb-partnership-mobile-desc,
+[data-webinar-theme="light"] .wb-partnership-stage-desc,
+[data-webinar-theme="light"] .wb-partnership-mobile-desc {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-partner-card,
+[data-webinar-theme="light"] .wb-partner-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-partner-card-green,
+[data-webinar-theme="light"] .wb-partner-card-green {
+  border-color: rgba(5, 150, 105, 0.35) !important;
+}
+
+.wb-theme-light .wb-partner-card-blue,
+[data-webinar-theme="light"] .wb-partner-card-blue {
+  border-color: rgba(2, 132, 199, 0.35) !important;
+}
+
+.wb-theme-light .wb-partner-content,
+[data-webinar-theme="light"] .wb-partner-content {
+  background: #FFFFFF !important;
+}
+
+.wb-theme-light .wb-partner-photo-fade,
+.wb-theme-light .wb-pfade-green,
+.wb-theme-light .wb-pfade-blue,
+[data-webinar-theme="light"] .wb-partner-photo-fade,
+[data-webinar-theme="light"] .wb-pfade-green,
+[data-webinar-theme="light"] .wb-pfade-blue {
+  background: linear-gradient(180deg, transparent 40%, #FFFFFF 100%) !important;
+}
+
+.wb-theme-light .wb-partner-name,
+[data-webinar-theme="light"] .wb-partner-name {
+  color: #090D14 !important;
+  -webkit-text-fill-color: #090D14 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-partner-role,
+[data-webinar-theme="light"] .wb-partner-role {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-prole-green,
+[data-webinar-theme="light"] .wb-prole-green {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+.wb-theme-light .wb-prole-blue,
+[data-webinar-theme="light"] .wb-prole-blue {
+  color: #0284C7 !important;
+  font-weight: 600 !important;
+}
+
+.wb-theme-light .wb-partner-tags,
+[data-webinar-theme="light"] .wb-partner-tags {
+  background: #F8FAFC !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-partner-bio,
+[data-webinar-theme="light"] .wb-partner-bio {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-partner-connector,
+.wb-theme-light .wb-partner-plus-circle,
+[data-webinar-theme="light"] .wb-partner-connector,
+[data-webinar-theme="light"] .wb-partner-plus-circle {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.12) !important;
+  color: #090D14 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+.wb-theme-light .wb-partnership-stage-pathway,
+.wb-theme-light .wb-partnership-mobile-pathway,
+[data-webinar-theme="light"] .wb-partnership-stage-pathway,
+[data-webinar-theme="light"] .wb-partnership-mobile-pathway {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-pathway-node,
+[data-webinar-theme="light"] .wb-pathway-node {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-pathway-node-text,
+[data-webinar-theme="light"] .wb-pathway-node-text {
+  color: #334155 !important;
+}
+
+/* ==========================================================================
+   8. WHY SCALEPODS (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-why-stage-title,
+.wb-theme-light .wb-why-mobile-title,
+[data-webinar-theme="light"] .wb-why-stage-title,
+[data-webinar-theme="light"] .wb-why-mobile-title {
+  color: #090D14 !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-why-title-gradient,
+[data-webinar-theme="light"] .wb-why-title-gradient {
+  background: linear-gradient(135deg, #0284C7 0%, #059669 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.wb-theme-light .wb-why-stage-desc,
+.wb-theme-light .wb-why-mobile-desc,
+[data-webinar-theme="light"] .wb-why-stage-desc,
+[data-webinar-theme="light"] .wb-why-mobile-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-why-card,
+[data-webinar-theme="light"] .wb-why-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-why-card:hover,
+[data-webinar-theme="light"] .wb-why-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 14px 36px -6px rgba(15, 23, 42, 0.1) !important;
+}
+
+.wb-theme-light .wb-why-card-title,
+[data-webinar-theme="light"] .wb-why-card-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-why-card-desc,
+[data-webinar-theme="light"] .wb-why-card-desc {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-why-card-icon-wrap,
+[data-webinar-theme="light"] .wb-why-card-icon-wrap {
+  background: #F1F5F9 !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-why-bottom-bar,
+.wb-theme-light .wb-why-mobile-bar,
+[data-webinar-theme="light"] .wb-why-bottom-bar,
+[data-webinar-theme="light"] .wb-why-mobile-bar {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-why-bar-title,
+[data-webinar-theme="light"] .wb-why-bar-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-why-bar-sub,
+[data-webinar-theme="light"] .wb-why-bar-sub {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-why-bar-price,
+[data-webinar-theme="light"] .wb-why-bar-price {
+  color: #059669 !important;
+  font-weight: 700 !important;
+}
+
+.wb-theme-light .wb-why-bar-strike,
+[data-webinar-theme="light"] .wb-why-bar-strike {
+  color: #94A3B8 !important;
+}
+
+.wb-theme-light .wb-why-bar-badge,
+[data-webinar-theme="light"] .wb-why-bar-badge {
+  background: rgba(236, 253, 245, 0.95) !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-why-bar-dot,
+[data-webinar-theme="light"] .wb-why-bar-dot {
+  background-color: #059669 !important;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6) !important;
+}
+
+/* ==========================================================================
+   9. WHO SHOULD ATTEND / THIS IS NOT FOR EVERYONE (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-attend-title,
+[data-webinar-theme="light"] .wb-attend-title {
+  color: #090D14 !important;
+  text-shadow: none !important;
+}
+
+.wb-theme-light .wb-attend-title-gradient,
+[data-webinar-theme="light"] .wb-attend-title-gradient {
+  background: linear-gradient(135deg, #0284C7 0%, #059669 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.wb-theme-light .wb-attend-desc,
+[data-webinar-theme="light"] .wb-attend-desc {
+  color: #334155 !important;
+}
+
+/* Left Card: Who Should Attend */
+.wb-theme-light .wb-attend-card-left,
+[data-webinar-theme="light"] .wb-attend-card-left {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 14px 36px -6px rgba(15, 23, 42, 0.08), 0 0 20px rgba(5, 150, 105, 0.06) !important;
+}
+
+.wb-theme-light .wb-attend-track-title,
+[data-webinar-theme="light"] .wb-attend-track-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-attend-track-desc,
+[data-webinar-theme="light"] .wb-attend-track-desc {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-attend-pill-item,
+[data-webinar-theme="light"] .wb-attend-pill-item {
+  background: #F8FAFC !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  color: #0F172A !important;
+}
+
+.wb-theme-light .wb-attend-pill-icon,
+[data-webinar-theme="light"] .wb-attend-pill-icon {
+  color: #059669 !important;
+}
+
+/* Right Card: Not For Everyone */
+.wb-theme-light .wb-attend-card-right,
+[data-webinar-theme="light"] .wb-attend-card-right {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(239, 68, 68, 0.3) !important;
+  box-shadow: 0 14px 36px -6px rgba(15, 23, 42, 0.08), 0 0 20px rgba(239, 68, 68, 0.05) !important;
+}
+
+.wb-theme-light .wb-attend-right-title,
+[data-webinar-theme="light"] .wb-attend-right-title {
+  color: #991B1B !important;
+}
+
+.wb-theme-light .wb-attend-right-sub,
+[data-webinar-theme="light"] .wb-attend-right-sub {
+  color: #64748B !important;
+}
+
+.wb-theme-light .wb-attend-right-callout,
+[data-webinar-theme="light"] .wb-attend-right-callout {
+  background: #FEF2F2 !important;
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+}
+
+.wb-theme-light .wb-attend-callout-label,
+[data-webinar-theme="light"] .wb-attend-callout-label {
+  color: #991B1B !important;
+  font-weight: 700 !important;
+}
+
+.wb-theme-light .wb-attend-callout-quotes,
+[data-webinar-theme="light"] .wb-attend-callout-quotes {
+  color: #1E293B !important;
+  font-style: italic !important;
+}
+
+.wb-theme-light .wb-attend-callout-highlight,
+[data-webinar-theme="light"] .wb-attend-callout-highlight {
+  color: #991B1B !important;
+  font-weight: 600 !important;
+}
+
+.wb-theme-light .wb-attend-callout-italic,
+[data-webinar-theme="light"] .wb-attend-callout-italic {
+  color: #334155 !important;
+}
+
+/* ==========================================================================
+   10. FAQS (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-faq-title-gradient,
+[data-webinar-theme="light"] .wb-faq-title-gradient {
+  background: linear-gradient(135deg, #0284C7 0%, #059669 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.wb-theme-light .wb-faq-card,
+[data-webinar-theme="light"] .wb-faq-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-faq-card:hover,
+[data-webinar-theme="light"] .wb-faq-card:hover {
+  border-color: rgba(5, 150, 105, 0.3) !important;
+}
+
+.wb-theme-light .wb-faq-btn,
+[data-webinar-theme="light"] .wb-faq-btn {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-faq-answer,
+[data-webinar-theme="light"] .wb-faq-answer {
+  color: #334155 !important;
+}
+
+/* ==========================================================================
+   11. STICKY BOTTOM BAR (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-bottom-bar-inner,
+[data-webinar-theme="light"] .wb-bottom-bar-inner {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.wb-theme-light .wb-bottom-bar-title,
+[data-webinar-theme="light"] .wb-bottom-bar-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-bottom-bar-subtitle,
+.wb-theme-light .wb-bottom-bar-hosts,
+[data-webinar-theme="light"] .wb-bottom-bar-subtitle,
+[data-webinar-theme="light"] .wb-bottom-bar-hosts {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-bottom-bar-subtitle s,
+[data-webinar-theme="light"] .wb-bottom-bar-subtitle s {
+  color: #94A3B8 !important;
+}
+
+/* ==========================================================================
+   12. PREFOOTER CTA & FOOTER (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-prefooter-cta-card,
+[data-webinar-theme="light"] .wb-prefooter-cta-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-prefooter-cta-title,
+[data-webinar-theme="light"] .wb-prefooter-cta-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-prefooter-cta-subtitle,
+[data-webinar-theme="light"] .wb-prefooter-cta-subtitle {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-prefooter-cta-note,
+[data-webinar-theme="light"] .wb-prefooter-cta-note {
+  color: rgba(15, 23, 42, 0.6) !important;
+}
+
+.wb-theme-light .wb-footer,
+.wb-theme-light .wb-footer-section,
+[data-webinar-theme="light"] .wb-footer,
+[data-webinar-theme="light"] .wb-footer-section {
+  background: #F1F5F9 !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-footer-links a,
+.wb-theme-light .wb-footer-link,
+[data-webinar-theme="light"] .wb-footer-links a,
+[data-webinar-theme="light"] .wb-footer-link {
+  color: #475569 !important;
+}
+
+.wb-theme-light .wb-footer-links a:hover,
+.wb-theme-light .wb-footer-link:hover,
+[data-webinar-theme="light"] .wb-footer-links a:hover,
+[data-webinar-theme="light"] .wb-footer-link:hover {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-footer-copy,
+[data-webinar-theme="light"] .wb-footer-copy {
+  color: #64748B !important;
+}
+
+/* ==========================================================================
+   13. MODAL & CHECKOUT (Light Mode)
+   ========================================================================== */
+.wb-theme-light .wb-modal-body,
+[data-webinar-theme="light"] .wb-modal-body {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+}
+
+.wb-theme-light .wb-modal-body h3,
+[data-webinar-theme="light"] .wb-modal-body h3 {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-form-label,
+[data-webinar-theme="light"] .wb-form-label {
+  color: #1E293B !important;
+}
+
+.wb-theme-light .wb-form-input,
+.wb-theme-light .wb-phone-number-input,
+.wb-theme-light .wb-country-select,
+.wb-theme-light .wb-custom-code-input,
+[data-webinar-theme="light"] .wb-form-input,
+[data-webinar-theme="light"] .wb-phone-number-input,
+[data-webinar-theme="light"] .wb-country-select,
+[data-webinar-theme="light"] .wb-custom-code-input {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.16) !important;
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-form-input:focus,
+.wb-theme-light .wb-phone-number-input:focus,
+[data-webinar-theme="light"] .wb-form-input:focus,
+[data-webinar-theme="light"] .wb-phone-number-input:focus {
+  border-color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15) !important;
+}
+
+.wb-theme-light .wb-order-summary-box,
+[data-webinar-theme="light"] .wb-order-summary-box {
+  background: #F8FAFC !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  color: #1E293B !important;
+}
