@@ -1208,6 +1208,7 @@
 @media (max-width: 768px) {
   .webinarpod-container {
     --wb-section-py: 60px;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom, 16px)) !important;
   }
 
   .wb-container,
@@ -1427,6 +1428,7 @@
 
   /* Sticky Bottom Bar on Mobile */
   .wb-bottom-bar {
+    z-index: 80 !important;
     padding: 10px 14px !important;
     padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
   }
@@ -1476,13 +1478,46 @@
 
   /* Modal on Mobile */
   .wb-modal-overlay {
-    padding: 12px !important;
+    padding: 10px 10px calc(24px + env(safe-area-inset-bottom, 16px)) !important;
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    z-index: 99999 !important;
   }
 
   .wb-modal-body {
-    padding: 24px 18px !important;
-    max-height: calc(100dvh - 32px) !important;
-    border-radius: 18px !important;
+    margin: auto 0 !important;
+    padding: 20px 16px !important;
+    max-height: calc(100dvh - 20px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 16px !important;
+  }
+
+  .wb-modal-body h3 {
+    font-size: 19px !important;
+    line-height: 1.25 !important;
+    margin: 4px 0 !important;
+  }
+
+  .wb-modal-body p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .wb-order-summary-box {
+    padding: 10px 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .wb-form-group {
+    margin-bottom: 11px !important;
+  }
+
+  .wb-form-label {
+    font-size: 12px !important;
+    margin-bottom: 4px !important;
   }
 
   /* Crucial iOS fix: 16px font prevents safari auto-zoom */
@@ -1491,7 +1526,14 @@
   .wb-custom-code-input,
   .wb-phone-number-input {
     font-size: 16px !important;
-    padding: 13px 12px !important;
+    padding: 10px 12px !important;
+    height: 44px !important;
+  }
+
+  .wb-modal-body .wb-button-primary {
+    padding: 13px 20px !important;
+    font-size: 15px !important;
+    width: 100% !important;
   }
 
   .wb-country-select-wrapper {
@@ -4214,17 +4256,96 @@
   }
 }
 
+@media (max-width: 768px) {
+  .wb-founders-intro-col {
+    align-items: center !important;
+    text-align: center !important;
+    width: 100%;
+  }
+  .wb-founders-intro-col .wb-pill-badge-green {
+    margin: 0 auto 16px !important;
+    align-self: center !important;
+  }
+  .wb-founders-main-title {
+    text-align: center !important;
+    font-size: clamp(22px, 5.8vw, 32px) !important;
+    margin: 0 0 14px 0 !important;
+  }
+  .wb-founders-main-desc {
+    text-align: center !important;
+    margin: 0 auto 20px !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    max-width: 100% !important;
+  }
+  .wb-founders-badges-row {
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+    gap: 8px !important;
+    margin-bottom: 22px !important;
+  }
+  .wb-founder-exp-badge {
+    justify-content: center !important;
+    font-size: 11.5px !important;
+    padding: 6px 12px !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+  .wb-founders-about-btn {
+    margin: 0 auto !important;
+    justify-content: center !important;
+    width: 100%;
+    max-width: 320px !important;
+  }
+}
+
 @media (max-width: 640px) {
   .wb-founders-cards-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .wb-partner-brand-card {
+    padding: 14px 16px !important;
+    border-radius: 16px !important;
   }
   .wb-partners-cards-grid {
     grid-template-columns: 1fr;
   }
   .wb-expect-nodes-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .wb-expect-node-item {
+    padding: 10px 8px !important;
+    border-radius: 12px !important;
+    gap: 8px !important;
+  }
+  .wb-expect-node-icon-circle {
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+  }
+  .wb-expect-node-icon-circle svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .wb-expect-node-title {
+    font-size: 12.5px !important;
+    line-height: 1.2 !important;
+  }
+  .wb-expect-node-sub {
+    font-size: 10.5px !important;
+    line-height: 1.25 !important;
   }
 }
+
+@media (max-width: 340px) {
+  .wb-expect-nodes-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 
 /* ── SECTION 6: THIS IS NOT A "LEARN AI TOOLS" WEBINAR (SLIDES 12 & 13) ──── */
 .wb-section-fullscreen-not-tools {
@@ -5641,12 +5762,25 @@
     border: 1px solid rgba(96, 165, 250, 0.45);
     color: #60A5FA;
   }
-  .wb-curriculum-card-text {
+  .wb-curriculum-card-badge {
     font-family: var(--font-inter), sans-serif;
     font-size: 13.5px;
-    font-weight: 550;
-    color: #E2E8F0;
-    line-height: 1.4;
+    font-weight: 750;
+    display: block;
+    letter-spacing: -0.01em;
+  }
+  .wb-cbadge-text-green {
+    color: #48DD83;
+  }
+  .wb-cbadge-text-cyan {
+    color: #38BDF8;
+  }
+  .wb-curriculum-card-text {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 13px;
+    font-weight: 450;
+    color: #94A3B8;
+    line-height: 1.45;
     margin: 0;
   }
 
@@ -7802,17 +7936,171 @@
 }
 
 @media (max-width: 640px) {
-  .wb-firstfold-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .wb-section-firstfold-hero {
+    padding: 12px 14px 28px !important;
   }
-  .wb-firstfold-founders-wrap {
-    grid-template-columns: 1fr;
+  .wb-firstfold-container {
+    gap: 12px !important;
   }
   .wb-firstfold-topbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 8px;
+    width: 100%;
+  }
+  .wb-firstfold-pill {
+    font-size: 11px !important;
+    padding: 5px 14px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+  .wb-firstfold-partners {
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 6px 14px !important;
+    font-size: 11.5px !important;
+    flex-wrap: wrap;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    gap: 6px;
+    text-align: center !important;
+  }
+  .wb-firstfold-partner-tags {
+    flex-wrap: wrap;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px;
+  }
+  .wb-firstfold-header {
+    gap: 8px !important;
+  }
+  .wb-firstfold-title {
+    font-size: clamp(18px, 5.2vw, 24px) !important;
+    line-height: 1.16 !important;
+  }
+  .wb-firstfold-desc {
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
+  }
+  .wb-firstfold-stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+  }
+  .wb-firstfold-stat-card {
+    padding: 7px 5px !important;
+    border-radius: 10px !important;
+    gap: 2px !important;
+  }
+  .wb-firstfold-stat-val {
+    font-size: 16.5px !important;
+    line-height: 1 !important;
+  }
+  .wb-firstfold-stat-lbl {
+    font-size: 9.5px !important;
+    line-height: 1.2 !important;
+  }
+  .wb-firstfold-booking-box {
+    padding: 12px 12px !important;
+    border-radius: 14px !important;
+    gap: 8px !important;
+  }
+  .wb-booking-live-pill {
+    padding: 3px 8px !important;
+    font-size: 9.5px !important;
+    letter-spacing: 0.05em !important;
+  }
+  .wb-booking-discount-chip {
+    padding: 2px 6px !important;
+    font-size: 9.5px !important;
+  }
+  .wb-booking-price-row {
+    gap: 8px !important;
+    margin: 1px 0 !important;
+  }
+  .wb-booking-price-curr {
+    font-size: 26px !important;
+    line-height: 1 !important;
+  }
+  .wb-booking-price-strike {
+    font-size: 14.5px !important;
+  }
+  .wb-booking-features-list {
+    gap: 5px !important;
+  }
+  .wb-booking-feature-item {
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+    gap: 7px !important;
+  }
+  .wb-booking-feature-icon {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .wb-firstfold-cta-btn {
+    padding: 11px 16px !important;
+    font-size: 12.5px !important;
+    border-radius: 10px !important;
+    letter-spacing: 0.03em !important;
+  }
+  .wb-firstfold-seats-note {
+    font-size: 10.5px !important;
+    gap: 4px !important;
+  }
+  .wb-firstfold-seats-note svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+  .wb-firstfold-founders-wrap {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .wb-firstfold-founder-card {
+    padding: 8px !important;
+    border-radius: 14px !important;
+    gap: 6px !important;
+  }
+  .wb-firstfold-founder-img-frame {
+    aspect-ratio: 1 / 1 !important;
+    max-height: 150px !important;
+    border-radius: 10px !important;
+  }
+  .wb-firstfold-founder-name {
+    font-size: 13.5px !important;
+    line-height: 1.2 !important;
+  }
+  .wb-firstfold-founder-role {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0 !important;
+  }
+  .wb-firstfold-founder-focus {
+    font-size: 9.5px !important;
+    line-height: 1.25 !important;
+    margin: 0 0 4px 0 !important;
+  }
+  .wb-firstfold-founder-badge {
+    font-size: 8.5px !important;
+    padding: 2px 5px !important;
   }
 }
+
+@media (max-width: 350px) {
+  .wb-firstfold-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .wb-firstfold-founders-wrap {
+    grid-template-columns: 1fr !important;
+  }
+  .wb-firstfold-founder-img-frame {
+    aspect-ratio: 16 / 11 !important;
+    max-height: 180px !important;
+  }
+}
+
 
 /* ==========================================================================
    ScalePods AI Business Automation Webinar — Premium Light Theme System
@@ -7974,10 +8262,22 @@ html:not(.dark) .webinarpod-container {
 
 @media (max-width: 640px) {
   .wb-toggle-label {
-    display: none;
+    display: none !important;
   }
   .wb-theme-toggle-btn {
-    padding: 6px 10px;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  .wb-theme-toggle-btn svg {
+    width: 16px !important;
+    height: 16px !important;
   }
 }
 
@@ -8545,8 +8845,27 @@ html:not(.dark) .webinarpod-container {
 }
 
 .wb-theme-light .wb-not-tools-stage-footer-note,
-[data-webinar-theme="light"] .wb-not-tools-stage-footer-note {
+.wb-theme-light .wb-not-tools-mobile-footer-note,
+[data-webinar-theme="light"] .wb-not-tools-stage-footer-note,
+[data-webinar-theme="light"] .wb-not-tools-mobile-footer-note {
   color: #475569 !important;
+}
+
+.wb-theme-light .wb-not-tools-mobile-title,
+[data-webinar-theme="light"] .wb-not-tools-mobile-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-not-tools-mobile-desc,
+[data-webinar-theme="light"] .wb-not-tools-mobile-desc {
+  color: #334155 !important;
+}
+
+.wb-theme-light .wb-not-tools-mobile-graphic-card,
+[data-webinar-theme="light"] .wb-not-tools-mobile-graphic-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
 }
 
 /* ==========================================================================
@@ -8681,6 +9000,36 @@ html:not(.dark) .webinarpod-container {
   color: #090D14 !important;
 }
 
+.wb-theme-light .wb-framework-mobile-wrapper,
+[data-webinar-theme="light"] .wb-framework-mobile-wrapper {
+  background-color: #F8FAF7 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 50%, #F8FAF7 100%) !important;
+}
+
+.wb-theme-light .wb-framework-mobile-stage-box,
+[data-webinar-theme="light"] .wb-framework-mobile-stage-box {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-framework-mobile-bottom-card,
+[data-webinar-theme="light"] .wb-framework-mobile-bottom-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-framework-mobile-bottom-card .wb-framework-bottom-label,
+[data-webinar-theme="light"] .wb-framework-mobile-bottom-card .wb-framework-bottom-label {
+  color: #065F46 !important;
+}
+
+.wb-theme-light .wb-framework-mobile-bottom-card .wb-framework-bottom-flow,
+[data-webinar-theme="light"] .wb-framework-mobile-bottom-card .wb-framework-bottom-flow {
+  color: #090D14 !important;
+}
+
 /* ==========================================================================
    6. CURRICULUM (Light Mode)
    ========================================================================== */
@@ -8768,6 +9117,59 @@ html:not(.dark) .webinarpod-container {
   background: #F0F9FF !important;
   border: 1px solid rgba(2, 132, 199, 0.3) !important;
   color: #0369A1 !important;
+}
+
+.wb-theme-light .wb-cbadge-text-green,
+[data-webinar-theme="light"] .wb-cbadge-text-green {
+  color: #059669 !important;
+}
+
+.wb-theme-light .wb-cbadge-text-cyan,
+[data-webinar-theme="light"] .wb-cbadge-text-cyan {
+  color: #0284C7 !important;
+}
+
+.wb-theme-light .wb-curriculum-mobile-stage-box,
+[data-webinar-theme="light"] .wb-curriculum-mobile-stage-box {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+}
+
+.wb-theme-light .wb-curriculum-card,
+.wb-theme-light .wb-curriculum-mobile-grid .wb-curriculum-card,
+[data-webinar-theme="light"] .wb-curriculum-card,
+[data-webinar-theme="light"] .wb-curriculum-mobile-grid .wb-curriculum-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+}
+
+.wb-theme-light .wb-curriculum-card.wb-ccard-green,
+[data-webinar-theme="light"] .wb-curriculum-card.wb-ccard-green {
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+}
+
+.wb-theme-light .wb-curriculum-card.wb-ccard-cyan,
+[data-webinar-theme="light"] .wb-curriculum-card.wb-ccard-cyan {
+  border: 1.5px solid rgba(2, 132, 199, 0.35) !important;
+}
+
+.wb-theme-light .wb-curriculum-mobile-callout-card,
+[data-webinar-theme="light"] .wb-curriculum-mobile-callout-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(5, 150, 105, 0.35) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+.wb-theme-light .wb-curriculum-callout-title,
+[data-webinar-theme="light"] .wb-curriculum-callout-title {
+  color: #090D14 !important;
+}
+
+.wb-theme-light .wb-curriculum-callout-meta,
+[data-webinar-theme="light"] .wb-curriculum-callout-meta {
+  color: #475569 !important;
 }
 
 /* ==========================================================================
