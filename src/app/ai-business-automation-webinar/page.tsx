@@ -855,6 +855,142 @@ export default function WebinarPage() {
         </div>
       </section>
 
+      {/* ── 3RD FOLD: WHO SHOULD ATTEND? / THIS IS NOT FOR EVERYONE (SLIDES 24 & 25) ── */}
+      <section className="wb-section-fullscreen-attend" id="who-should-attend">
+        {/* Ambient atmospheric glows */}
+        <div className="wb-attend-bg-ambient" aria-hidden="true" />
+
+        <div className="wb-attend-container">
+          {/* Section Header */}
+          <div className="wb-attend-header">
+            <h2 className="wb-attend-title">
+              WHO SHOULD <span className="wb-attend-title-gradient">ATTEND?</span>
+            </h2>
+            <p className="wb-attend-desc">
+              Designed for people responsible for making a business or team work better. You don&apos;t need to code or be an AI expert.
+            </p>
+          </div>
+
+          {/* 2-Column Split Cards */}
+          <div className="wb-attend-grid">
+            {/* Left Card: Who Should Attend / Leadership Tracks */}
+            <div className="wb-attend-card-left">
+              <div className="wb-attend-tracks-list">
+                {[
+                  {
+                    icon: User,
+                    title: "BUSINESS OWNERS & FOUNDERS",
+                    desc: "If you want to scale your business sustainably without allowing manual busywork to grow unchecked.",
+                  },
+                  {
+                    icon: TrendingUp,
+                    title: "SALES LEADERS",
+                    desc: "If you want more consistent lead handling, faster qualification, and timely follow-ups without manual CRM overhead.",
+                  },
+                  {
+                    icon: Megaphone,
+                    title: "MARKETING LEADERS",
+                    desc: "If you want better-connected campaigns, automated lead workflows, AI content creation, and trackable reporting.",
+                  },
+                  {
+                    icon: Users,
+                    title: "HR & RECRUITMENT LEADERS",
+                    desc: "If you're looking to streamline repetitive resume screening, interview scheduling, and candidate communication.",
+                  },
+                  {
+                    icon: Settings,
+                    title: "OPERATIONS MANAGERS",
+                    desc: "If you need better coordination, structured task handovers, automated record syncing, and process visibility.",
+                  },
+                  {
+                    icon: Monitor,
+                    title: "ENTREPRENEURS & PROFESSIONALS",
+                    desc: "If you're exploring practical, ROI-driven applications of AI without the coding lessons or tool hype.",
+                  },
+                ].map((track, i) => {
+                  const Icon = track.icon;
+                  return (
+                    <div key={i} className="wb-attend-track-item">
+                      <div className="wb-attend-track-icon-wrap">
+                        <Icon size={18} />
+                      </div>
+                      <div className="wb-attend-track-info">
+                        <h3 className="wb-attend-track-title">{track.title}</h3>
+                        <p className="wb-attend-track-desc">{track.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Card: This Is Not For Everyone */}
+            <div className="wb-attend-card-right">
+              <div className="wb-attend-right-header">
+                <div className="wb-attend-right-title-wrap">
+                  <AlertTriangle size={19} className="wb-attend-warn-icon" />
+                  <h3 className="wb-attend-right-title">THIS IS NOT FOR EVERYONE.</h3>
+                </div>
+                <p className="wb-attend-right-sub">If you&apos;re looking for:</p>
+              </div>
+
+              {/* 5 Disqualifier Pills */}
+              <div className="wb-attend-pills-list">
+                {[
+                  "“10 ChatGPT prompts you need today”",
+                  "A basic introduction to AI",
+                  "A random list of AI tools",
+                  "Coding tutorials",
+                  "AI hype without business application",
+                ].map((item, i) => (
+                  <div key={i} className="wb-attend-pill-item">
+                    <XCircle size={15} className="wb-attend-pill-icon" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom Callout */}
+              <div className="wb-attend-right-callout">
+                <p className="wb-attend-callout-italic">This isn&apos;t that webinar.</p>
+                <div className="wb-attend-callout-label">But if you&apos;re asking:</div>
+                <p className="wb-attend-callout-quotes">
+                  “Where can AI actually save my team time?” &bull; “What should I automate first?” &bull; “Can I automate lead follow-up?” &bull; “Can AI help my sales team?” &bull; “Can I reduce repetitive HR work?” &bull; “Can my systems talk to each other?” &bull; “How do I build an AI-powered workflow?”
+                </p>
+                <div className="wb-attend-callout-highlight">
+                  YOU&apos;RE IN THE RIGHT ROOM.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Desktop */}
+          <div className="wb-attend-stage-wrap wb-attend-desktop-stage">
+            <Image
+              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas.png" : "/images/webinar-redesign/who-should-attend-personas.webp"}
+              alt="Business and technology leaders powered by the ScalePods AI engine"
+              width={1260}
+              height={354}
+              quality={90}
+              sizes="(max-width: 1400px) 100vw, 1260px"
+              className="wb-attend-stage-img"
+            />
+          </div>
+
+          {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Mobile Vertical Edition */}
+          <div className="wb-attend-mobile-stage">
+            <Image
+              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas-mobile.png" : "/images/webinar-redesign/who-should-attend-personas-mobile.webp"}
+              alt="Business and technology leaders powered by the ScalePods AI engine"
+              width={480}
+              height={806}
+              quality={90}
+              className="wb-attend-mobile-stage-img"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ── SECTION 6: THIS IS NOT A "LEARN AI TOOLS" WEBINAR (SLIDES 12 & 13) ──── */}
       <section className="wb-section-fullscreen-not-tools" id="not-tools">
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Matches Masterclass Fold Architecture) ── */}
@@ -2018,144 +2154,6 @@ export default function WebinarPage() {
           </div>
         </div>
       </section>
-
-      {/* ── SECTION 12: WHO SHOULD ATTEND? / THIS IS NOT FOR EVERYONE (SLIDES 24 & 25) ── */}
-      <section className="wb-section-fullscreen-attend" id="who-should-attend">
-        {/* Ambient atmospheric glows */}
-        <div className="wb-attend-bg-ambient" aria-hidden="true" />
-
-        <div className="wb-attend-container">
-          {/* Section Header */}
-          <div className="wb-attend-header">
-            <h2 className="wb-attend-title">
-              WHO SHOULD <span className="wb-attend-title-gradient">ATTEND?</span>
-            </h2>
-            <p className="wb-attend-desc">
-              Designed for people responsible for making a business or team work better. You don&apos;t need to code or be an AI expert.
-            </p>
-          </div>
-
-          {/* 2-Column Split Cards */}
-          <div className="wb-attend-grid">
-            {/* Left Card: Who Should Attend / Leadership Tracks */}
-            <div className="wb-attend-card-left">
-              <div className="wb-attend-tracks-list">
-                {[
-                  {
-                    icon: User,
-                    title: "BUSINESS OWNERS & FOUNDERS",
-                    desc: "If you want to scale your business sustainably without allowing manual busywork to grow unchecked.",
-                  },
-                  {
-                    icon: TrendingUp,
-                    title: "SALES LEADERS",
-                    desc: "If you want more consistent lead handling, faster qualification, and timely follow-ups without manual CRM overhead.",
-                  },
-                  {
-                    icon: Megaphone,
-                    title: "MARKETING LEADERS",
-                    desc: "If you want better-connected campaigns, automated lead workflows, AI content creation, and trackable reporting.",
-                  },
-                  {
-                    icon: Users,
-                    title: "HR & RECRUITMENT LEADERS",
-                    desc: "If you're looking to streamline repetitive resume screening, interview scheduling, and candidate communication.",
-                  },
-                  {
-                    icon: Settings,
-                    title: "OPERATIONS MANAGERS",
-                    desc: "If you need better coordination, structured task handovers, automated record syncing, and process visibility.",
-                  },
-                  {
-                    icon: Monitor,
-                    title: "ENTREPRENEURS & PROFESSIONALS",
-                    desc: "If you're exploring practical, ROI-driven applications of AI without the coding lessons or tool hype.",
-                  },
-                ].map((track, i) => {
-                  const Icon = track.icon;
-                  return (
-                    <div key={i} className="wb-attend-track-item">
-                      <div className="wb-attend-track-icon-wrap">
-                        <Icon size={18} />
-                      </div>
-                      <div className="wb-attend-track-info">
-                        <h3 className="wb-attend-track-title">{track.title}</h3>
-                        <p className="wb-attend-track-desc">{track.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Right Card: This Is Not For Everyone */}
-            <div className="wb-attend-card-right">
-              <div className="wb-attend-right-header">
-                <div className="wb-attend-right-title-wrap">
-                  <AlertTriangle size={19} className="wb-attend-warn-icon" />
-                  <h3 className="wb-attend-right-title">THIS IS NOT FOR EVERYONE.</h3>
-                </div>
-                <p className="wb-attend-right-sub">If you&apos;re looking for:</p>
-              </div>
-
-              {/* 5 Disqualifier Pills */}
-              <div className="wb-attend-pills-list">
-                {[
-                  "“10 ChatGPT prompts you need today”",
-                  "A basic introduction to AI",
-                  "A random list of AI tools",
-                  "Coding tutorials",
-                  "AI hype without business application",
-                ].map((item, i) => (
-                  <div key={i} className="wb-attend-pill-item">
-                    <XCircle size={15} className="wb-attend-pill-icon" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bottom Callout */}
-              <div className="wb-attend-right-callout">
-                <p className="wb-attend-callout-italic">This isn&apos;t that webinar.</p>
-                <div className="wb-attend-callout-label">But if you&apos;re asking:</div>
-                <p className="wb-attend-callout-quotes">
-                  “Where can AI actually save my team time?” &bull; “What should I automate first?” &bull; “Can I automate lead follow-up?” &bull; “Can AI help my sales team?” &bull; “Can I reduce repetitive HR work?” &bull; “Can my systems talk to each other?” &bull; “How do I build an AI-powered workflow?”
-                </p>
-                <div className="wb-attend-callout-highlight">
-                  YOU&apos;RE IN THE RIGHT ROOM.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Desktop */}
-          <div className="wb-attend-stage-wrap wb-attend-desktop-stage">
-            <Image
-              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas.png" : "/images/webinar-redesign/who-should-attend-personas.webp"}
-              alt="Business and technology leaders powered by the ScalePods AI engine"
-              width={1260}
-              height={354}
-              quality={90}
-              sizes="(max-width: 1400px) 100vw, 1260px"
-              className="wb-attend-stage-img"
-            />
-          </div>
-
-          {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Mobile Vertical Edition */}
-          <div className="wb-attend-mobile-stage">
-            <Image
-              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas-mobile.png" : "/images/webinar-redesign/who-should-attend-personas-mobile.webp"}
-              alt="Business and technology leaders powered by the ScalePods AI engine"
-              width={480}
-              height={806}
-              quality={90}
-              className="wb-attend-mobile-stage-img"
-            />
-          </div>
-        </div>
-      </section>
-
-
 
       {/* ── SECTION 17: FAQS ─────────────────────────────────────────────── */}
       <section className="wb-section wb-section-bordered">
