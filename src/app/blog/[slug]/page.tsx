@@ -373,12 +373,17 @@ export default async function ArticlePage({ params }: Props) {
     displayData = { ...sPost, image: sPost.image };
   }
 
+  const isCaseStudyPost = displayData.category === "Case Study";
+  const pageCanonicalUrl = isCaseStudyPost
+    ? `https://www.scalepods.co/case-study/${slug}`
+    : `https://www.scalepods.co/blog/${slug}`;
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.scalepods.co/blog/${slug}`
+      "@id": pageCanonicalUrl
     },
     "headline": displayData.title,
     "description": displayData.excerpt,

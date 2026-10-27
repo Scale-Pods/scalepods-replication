@@ -2130,6 +2130,45 @@ const caseStudiesData = [
     ],
     image: "/brands/lootah-group-new.svg",
     accent: "var(--color-blue-mid)"
+  },
+  {
+    id: 5,
+    category: "FINANCIAL STUDIO",
+    title: "MACRO Media USA",
+    href: "/case-study/macro-media-finance-workflow-automation",
+    description: "Macro Media replaced local HTML spreadsheets with Macro Studio, achieving 100% task ownership, sub-2-second global cloud sync, and 30% faster month-end coordination.",
+    metrics: [
+      { value: "100%", label: "Task Ownership" },
+      { value: "30%", label: "Coordination Saved" }
+    ],
+    image: "/brands/macro-media-box.svg",
+    accent: "var(--color-blue-mid)"
+  },
+  {
+    id: 6,
+    category: "REAL ESTATE GROWTH OS",
+    title: "Bennett Realty USA",
+    href: "/case-study/bennett-realty-growth-os",
+    description: "Bennett Realty deployed a custom brokerage platform connecting lead capture, sub-2-minute replies, transaction tracking, and 24/7 agent support, cutting missed deadlines by ~90%.",
+    metrics: [
+      { value: "< 2 min", label: "Lead Response" },
+      { value: "~90%", label: "Fewer Missed Deadlines" }
+    ],
+    image: "/brands/bennett-realty-box.svg",
+    accent: "var(--color-blue-mid)"
+  },
+  {
+    id: 7,
+    category: "MULTI-ENTITY INDUSTRIAL AI",
+    title: "Victory Energy USA",
+    href: "/case-study/victory-energy-business-automation",
+    description: "Victory Energy automated recruiting, sales response, marketing production, and financial operations across 17 entities, cutting resume screening by 74% and closing books in 5 days.",
+    metrics: [
+      { value: "74%", label: "Screening Cut" },
+      { value: "5 Days", label: "Month-End Close" }
+    ],
+    image: "/brands/victory-energy-box.svg",
+    accent: "var(--color-blue-mid)"
   }
 ];
 

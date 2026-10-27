@@ -26,6 +26,9 @@ const caseStudyLinks = [
   { label: "ZV Steels India", href: "/case-study/zv-steels-recruitment-automation-tool" },
   { label: "A Squared Dubai", href: "/case-study/asquared-real-estate-sales-automation-dubai" },
   { label: "Lootah Group Dubai", href: "/case-study/lootah-group-procurement-workflow-automation" },
+  { label: "Macro Media USA", href: "/case-study/macro-media-finance-workflow-automation" },
+  { label: "Bennett Realty USA", href: "/case-study/bennett-realty-growth-os" },
+  { label: "Victory Energy USA", href: "/case-study/victory-energy-business-automation" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";
