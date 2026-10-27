@@ -16,6 +16,7 @@ import LotusManorCaseStudy from "@/components/case-studies/LotusManorCaseStudy";
 import LootahCaseStudy from "@/components/case-studies/LootahCaseStudy";
 import MacroMediaCaseStudy from "@/components/case-studies/MacroMediaCaseStudy";
 import BennettRealtyCaseStudy from "@/components/case-studies/BennettRealtyCaseStudy";
+import VictoryEnergyCaseStudy from "@/components/case-studies/VictoryEnergyCaseStudy";
 
 // Without this, a dynamic (DB-backed) post's page gets ISR-cached on first visit and then keeps
 // serving that stale snapshot indefinitely -- publish's revalidatePath(`/blog/${slug}`) call is
@@ -417,7 +418,8 @@ export default async function ArticlePage({ params }: Props) {
   const isLootahCaseStudy = slug === "lootah-group-procurement-workflow-automation";
   const isMacroMediaCaseStudy = slug === "macro-media-finance-workflow-automation";
   const isBennettRealtyCaseStudy = slug === "bennett-realty-growth-os";
-  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy || isMacroMediaCaseStudy || isBennettRealtyCaseStudy;
+  const isVictoryEnergyCaseStudy = slug === "victory-energy-business-automation";
+  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy || isMacroMediaCaseStudy || isBennettRealtyCaseStudy || isVictoryEnergyCaseStudy;
 
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
@@ -551,6 +553,8 @@ export default async function ArticlePage({ params }: Props) {
           <MacroMediaCaseStudy faqs={displayData.faqs} />
         ) : isBennettRealtyCaseStudy ? (
           <BennettRealtyCaseStudy faqs={displayData.faqs} />
+        ) : isVictoryEnergyCaseStudy ? (
+          <VictoryEnergyCaseStudy faqs={displayData.faqs} />
         ) : (
           <>
             {/* Meta */}

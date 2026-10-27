@@ -1311,6 +1311,72 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "victory-energy-business-automation",
+    date: "October 27, 2026",
+    category: "Case Study",
+    title: "How Victory Energy Automated Four Core Business Functions with AI Operating Systems",
+    excerpt: "Victory Energy needed a faster way to hire, sell, market, and manage multi-entity accounting. ScalePods engineered four unified systems: Talent OS, Growth OS for Sales, Growth OS for Marketing, and Financial OS—delivering 74% less screening time, 38% more booked appointments, 65% less manual marketing production, and a 5-day month-end close across 17 operating entities.",
+    metaTitle: "How Victory Energy Automated Four Business Functions | ScalePods Case Study",
+    metaDescription: "Notice how Victory Energy used four AI operating systems to eliminate manual friction in hiring, selling, marketing, and 17-entity finance operations.",
+    image: "/images/case-studies/victory-energy/solution-overview-banner.webp",
+    sections: [
+      {
+        heading: "Overview",
+        body: "Victory Energy is an industrial energy solutions leader specializing in the design, engineering, and manufacturing of boilers, burners, and heat-recovery equipment. Managing rapid growth across 17 distinct entities created severe operational drag across recruiting, sales follow-up, content production, and accounting reconciliation. ScalePods engineered four interconnected AI operating systems—Talent OS, Growth OS for Sales, Growth OS for Marketing, and Financial OS—to remove repetitive manual bottlenecks while preserving human-in-the-loop decision making."
+      },
+      {
+        heading: "The Challenge: Disconnected Operations Across 17 Entities",
+        body: "Before automation, high-volume recruiting was bogged down by manual resume screening taking 12 minutes per candidate and slow email-based interview scheduling. In sales, leads waited an average of 6 hours for a response, leading to lost warm opportunities and high appointment no-show rates. Marketing content required multi-step manual handoffs and approvals, while underperforming paid ad spend continued unnoticed. In finance, managing accounts across 17 separate entities meant manual bank reconciliation, delayed invoice approvals, and a stressful 9-day month-end close."
+      },
+      {
+        heading: "The Solution: Four Purpose-Built AI Operating Systems",
+        body: "ScalePods designed a connected operational infrastructure tailored to Victory Energy's exact business procedures:\n\n• Talent OS (Intake to Onboarding): AI extracts CV information, contextually scores candidates against job specs, and automates self-scheduling with reminders, compressing candidate screening by 74% and automating Gusto HR onboarding in under 1 hour.\n• Growth OS for Sales (Respond, Qualify, Book): Ingests inbound leads and initiates automated multi-channel sequences (WhatsApp, SMS, email, voice) in under 2 minutes, increasing appointment bookings by 38% and slashing no-shows by 44%.\n• Growth OS for Marketing (Strategy as Content): Ingests brand style guides and context, orchestrating a maker-checker flow across copy, Canva/Figma artwork, and automated social publishing while alerting on ad performance.\n• Financial OS (Consolidating 17 Companies): Integrates Xero, bank feeds, and payroll into a single operational dashboard, automatically reconciling >90% of transactions and cutting bill handling from 15 minutes to under 3 minutes."
+      },
+      {
+        heading: "The 7-Stage End-to-End Workflow",
+        body: "The four systems operate across a synchronized 7-stage workflow:\n\n• 01 CAPTURE: Ingests candidate profiles, sales leads, brand context, and multi-entity financial transactions.\n• 02 ORGANIZE: Combines profiles, scrubs and segments leads, imports marketing assets, and prepares finance data.\n• 03 ANALYZE: Contextual candidate ranking, lead qualification scoring (1-100), and research matching.\n• 04 ROUTE: Directs work items to the appropriate workflow sequence, candidate stage, or management approval queue.\n• 05 ENGAGE & EXECUTE: Triggers automated multi-channel outreach, interview reminders, scheduled publishing, and invoice workflows.\n• 06 REVIEW: Human-in-the-loop checkpoints where recruiters hire, sales reps take qualified meetings, and finance approves exceptions.\n• 07 MEASURE: Unified dashboards tracking hiring throughput, pipeline velocity, content engagement, and cash flow."
+      },
+      {
+        heading: "The Results",
+        body: "Deploying the four operating systems transformed operational speed and financial visibility across Victory Energy:\n\n• 74% Less Resume Screening Time: Dropping candidate review from 12 minutes to 3 minutes.\n• <2 Minute Speed-to-Lead: Engaging prospects in real time vs. a 6-hour previous delay, increasing bookings by 38%.\n• 65% Reduction in Manual Marketing Production: Content strategy creation compressed from 5 days to <6 hours.\n• 70% Less Routine Finance Processing: Consolidating 17 entities with >90% automated bank reconciliation and closing books in 5 days instead of 9."
+      }
+    ],
+    faqs: [
+      {
+        q: "What is Victory Energy and why did they partner with ScalePods?",
+        a: "Victory Energy is an industrial energy solutions company specializing in the design, engineering, and manufacturing of boilers, burners, and heat-recovery equipment. They partnered with ScalePods to eliminate manual bottlenecks across recruiting, sales, marketing, and 17-entity financial operations through custom AI operating systems."
+      },
+      {
+        q: "What were the four AI operating systems deployed?",
+        a: "ScalePods engineered Talent OS (candidate screening, interview self-scheduling, and Gusto onboarding), Growth OS for Sales (sub-2-minute multi-channel lead response and qualification), Growth OS for Marketing (contextual content generation, maker-checker approvals, and automated publishing), and Financial OS (multi-entity reconciliation, bill extraction, and cash forecasting across 17 companies)."
+      },
+      {
+        q: "How did Financial OS consolidate accounting across 17 distinct entities?",
+        a: "Financial OS integrated Xero, bank feeds, and payroll into a single unified financial dashboard. It automatically reconciles over 90% of bank transactions, routes bill approval exceptions directly to responsible approvers, and monitors overdue invoice reminders, shortening month-end close from 9 days to 5 days."
+      },
+      {
+        q: "How does Talent OS accelerate candidate hiring without removing human discretion?",
+        a: "Talent OS parses CVs, compares them against weighted job specifications, and scores candidates at scale. Shortlisted applicants self-book interview slots with automated reminder sequences. Recruiters and hiring managers retain 100% control over the final hiring decision before automated Gusto onboarding triggers."
+      },
+      {
+        q: "What multi-channel follow-up cadences were established in Growth OS for Sales?",
+        a: "Growth OS initiates sub-2-minute automated outreach across the prospect's channel of choice (WhatsApp, SMS, email, or AI voice). It runs a 21-day structured nurture sequence, provides automated pre-call briefs to sales reps, and dynamically reallocates budget away from underperforming ad campaigns."
+      },
+      {
+        q: "How does Growth OS for Marketing enforce brand governance?",
+        a: "The system ingests Victory Energy brand assets, style guides, and competitor insights to generate campaign assets. It implements a strict 'maker-checker' review workflow where human marketers approve copy and visuals before automated publishing to Instagram, LinkedIn, and the website."
+      },
+      {
+        q: "Does ScalePods AI automation replace employees?",
+        a: "No. ScalePods operates on a human-in-the-loop philosophy. The operating systems eliminate routine administrative friction—such as manual data entry, resume parsing, and reconciliation—freeing teams to focus on strategic execution, candidate relationships, and deal closing."
+      },
+      {
+        q: "What were the primary ROI metrics achieved by Victory Energy?",
+        a: "Results included a 74% reduction in resume screening time, a 38% increase in booked sales appointments, a 65% reduction in manual marketing production hours, 70% less routine finance processing time, and shortening month-end close from 9 days to 5 days across 17 entities."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

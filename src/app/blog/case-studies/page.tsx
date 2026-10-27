@@ -441,6 +441,70 @@ export default function CaseStudiesPage() {
 
               </div>
 
+              {/* ── Case Study 7: Victory Energy (Image Left, Text Right - Alternate Manner) ── */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-5xl mx-auto w-full">
+                
+                {/* Left Column: Image Container */}
+                <div className="lg:col-span-5 w-full flex justify-center">
+                  <div style={logoBoxStyle}>
+                    <Image
+                      src="/brands/victory-energy-box.svg"
+                      alt="Victory Energy Logo Box"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{
+                        objectFit: "cover",
+                        transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                      className="hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+                {/* Right Column: Case Study Text */}
+                <div className="lg:col-span-7 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
+                  <span style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "var(--color-blue-mid)"
+                  }}>
+                    CASE STUDY
+                  </span>
+                  
+                  <h2 style={{
+                    fontSize: "clamp(32px, 3.5vw, 48px)",
+                    fontWeight: 750,
+                    color: "var(--color-text-bright)",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em"
+                  }}>
+                    Victory Energy
+                  </h2>
+
+                  <p style={{
+                    fontSize: "17px",
+                    color: "var(--color-text-body)",
+                    lineHeight: 1.6,
+                    margin: 0
+                  }}>
+                    Victory Energy needed to streamline recruiting, sales response, content production, and accounting across 17 distinct operating entities. ScalePods engineered four interconnected AI operating systems—Talent OS, Growth OS for Sales, Growth OS for Marketing, and Financial OS—slashing resume screening time by 74%, driving 38% more appointment bookings, and compressing month-end financial close from 9 days down to 5 days.
+                  </p>
+
+                  <div style={{ marginTop: "12px" }}>
+                    <Link 
+                      href="/case-study/victory-energy-business-automation"
+                      style={learnMoreBtnStyle}
+                      className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                    >
+                      Learn more →
+                    </Link>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>
