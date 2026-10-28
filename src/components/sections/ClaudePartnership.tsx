@@ -312,45 +312,53 @@ export default function ClaudePartnership() {
 
         @media (max-width: 568px) {
           .claude-partnership-section {
-            margin: 20px auto 36px auto;
+            margin: 36px auto 52px auto;
+          }
+
+          .claude-disclaimer {
+            margin-top: 20px;
+            margin-bottom: 8px;
           }
 
           .claude-main-card {
-            padding: 24px;
+            padding: 24px 18px;
             gap: 24px;
+            border-radius: 20px;
           }
 
           .claude-badge-card {
-            padding: 24px 28px;
-            gap: 28px;
+            padding: 16px 14px;
+            gap: 14px;
+            border-radius: 18px;
             min-height: auto;
           }
 
           .claude-wordmark {
-            font-size: 28px;
+            font-size: 24px;
           }
 
           .anthropic-symbol {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
           }
 
           .claude-badge-divider {
-            height: 80px;
+            height: 64px;
           }
 
           .badge-select-partner {
-            font-size: 18px;
+            font-size: 16px;
           }
 
           .badge-network-track {
-            font-size: 13.5px;
+            font-size: 13px;
           }
 
           .claude-pillars-grid {
             grid-template-columns: 1fr;
-            padding: 20px;
-            gap: 20px;
+            padding: 18px 16px;
+            gap: 16px;
+            border-radius: 18px;
             margin-top: 20px;
           }
 

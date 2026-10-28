@@ -72,7 +72,7 @@ const Label = memo(function Label({ icon, text }: { icon: string; text: string }
         alignItems: "center", 
         justifyContent: "center", 
         gap: "8px", 
-        marginBottom: isMobile ? "20px" : "16px" 
+        marginBottom: isMobile ? "14px" : "16px" 
       }}>
         <span style={{ fontSize: "13px" }}>{icon}</span>
         <span style={{ fontFamily: F.inter, fontSize: "11px", fontWeight: 600, letterSpacing: "0.17em", textTransform: "uppercase" as const, color: C.txtMuted }}>
@@ -84,13 +84,15 @@ const Label = memo(function Label({ icon, text }: { icon: string; text: string }
 });
 
 const H2 = memo(function H2({ plain, italic, style = {} }: { plain: string; italic?: string; style?: React.CSSProperties }) {
+  const isMobile = useMobile(767);
   return (
     <ScrollReveal delay={0.05}>
       <h2 style={{
-        fontFamily: F.inter, fontSize: "clamp(32px,4.2vw,52px)",
+        fontFamily: F.inter, 
+        fontSize: isMobile ? "clamp(24px, 6.2vw, 30px)" : "clamp(32px, 4.2vw, 52px)",
         fontWeight: 500, color: C.txtBright,
-        lineHeight: 1.1, letterSpacing: "-0.022em",
-        textAlign: "center", marginBottom: "8px",
+        lineHeight: 1.15, letterSpacing: "-0.022em",
+        textAlign: "center", marginBottom: isMobile ? "12px" : "8px",
         ...style
       }}>
         {plain}
@@ -113,7 +115,7 @@ const Sub = memo(function Sub({ children, style = {} }: { children: string; styl
         lineHeight: 1.65, textAlign: "center", maxWidth: "520px", 
         marginTop: "0px",
         marginRight: "auto",
-        marginBottom: isMobile ? "32px" : "12px",
+        marginBottom: isMobile ? "28px" : "12px",
         marginLeft: "auto",
         ...style
       }}>{children}</p>
@@ -221,7 +223,6 @@ function Section({ id, children, style = {} }: { id?: string; children: React.Re
         position: "relative", 
         background: C.bgPage, 
         padding: "140px 24px",
-        marginTop: isMobile ? "75px" : "0px",
         ...style
       }}
     >
@@ -250,11 +251,10 @@ export function Services() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        marginTop: isMobile ? "75px" : "0px"
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "4px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
@@ -266,9 +266,9 @@ export function Services() {
           </span>
         </div>
       </div>
-      <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "8px" }}>
+      <div style={{ transform: isMobile ? "none" : "scale(0.9)", transformOrigin: "top center", marginBottom: isMobile ? "24px" : "8px" }}>
         <H2 plain="Smarter Services," italic="Built with AI" />
-        <Sub>Everything you need to automate operations, improve productivity, and build scalable AI-powered workflows for sales, marketing, finance, and operations.</Sub>
+        <Sub style={{ marginBottom: isMobile ? "0px" : "12px" }}>Everything you need to automate operations, improve productivity, and build scalable AI-powered workflows for sales, marketing, finance, and operations.</Sub>
       </div>
 
        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-3 w-full">
@@ -312,7 +312,7 @@ export function Services() {
                       background: resolvedTheme === 'dark' ? "rgba(255, 255, 255, 0.03)" : "#FFFFFF",
                       border: resolvedTheme === 'dark' ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(15, 23, 42, 0.08)",
                       boxShadow: resolvedTheme === 'dark' ? "0 4px 12px rgba(0,0,0,0.15)" : "0 4px 10px rgba(15,23,42,0.04)",
-                      margin: "0 12px"
+                      margin: isMobile ? "0 4px" : "0 12px"
                     }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: it.color, display: "inline-block" }} />
@@ -953,22 +953,21 @@ export function DataAnalysis() {
         display: "flex", 
         flexDirection: "column", 
         alignItems: "center", 
-        justifyContent: "center",
+        justifyContent: "center", 
         textAlign: "center",
         minHeight: isMobile ? "auto" : "600px",
-        padding: isMobile ? "24px 12px 16px" : "100px 32px",
+        padding: isMobile ? "12px 0" : "100px 32px",
         width: "100%",
-        maxWidth: "100vw",
+        maxWidth: "100%",
         overflow: "hidden"
       }}>
-
 
       {/* Badge matching live site */}
       <div style={{
         display: "inline-flex", alignItems: "center", gap: "8px",
         padding: "6px 16px", borderRadius: "20px",
         background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: `1px solid var(--color-border)`,
-        marginBottom: "32px",
+        marginBottom: isMobile ? "20px" : "32px",
       }}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-blue-mid)" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
@@ -978,7 +977,7 @@ export function DataAnalysis() {
         </span>
       </div>
 
-      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: isMobile ? "0 10px" : "0" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", width: "100%", padding: "0" }}>
         <ScrollRevealText
           className="justify-center text-center"
           words={[
@@ -1027,17 +1026,17 @@ export function DataAnalysis() {
 
       {/* Trusted Brands Marquee */}
       <div style={{ 
-        marginTop: isMobile ? "40px" : "120px", 
+        marginTop: isMobile ? "36px" : "120px", 
         width: "100%", 
         maxWidth: "1200px", 
         zIndex: 1,
-        paddingBottom: isMobile ? "10px" : "0"
+        paddingBottom: isMobile ? "0px" : "0"
       }}>
         <p style={{
           fontFamily: "var(--font-inter), Inter, sans-serif",
           fontSize: isMobile ? "14px" : "18px",
           color: "var(--color-text-muted)",
-          marginBottom: isMobile ? "32px" : "48px",
+          marginBottom: isMobile ? "20px" : "48px",
           fontWeight: 400,
           letterSpacing: "0.01em"
         }}>
@@ -1071,7 +1070,7 @@ const BenefitCard = memo(function BenefitCard({ card, i }: { card: any, i: numbe
         position: "relative",
         background: C.bgCard,
         borderRadius: "28px",
-        padding: "32px 0",
+        padding: isMobile ? "24px 16px" : "32px 0",
         overflow: "hidden",
         border: `1.5px solid ${C.border}`,
         textAlign: "center",
@@ -1079,7 +1078,7 @@ const BenefitCard = memo(function BenefitCard({ card, i }: { card: any, i: numbe
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "340px",
+        minHeight: isMobile ? "auto" : "340px",
         boxShadow: resolvedTheme === 'dark' ? "0 15px 45px -10px rgba(0,0,0,0.6)" : "0 10px 30px -10px rgba(0,0,0,0.05)",
         cursor: "default",
         transform: "translate3d(0,0,0)",
@@ -1090,19 +1089,19 @@ const BenefitCard = memo(function BenefitCard({ card, i }: { card: any, i: numbe
       <div style={{ position: "absolute", bottom: 0, left: "20%", right: "20%", height: "1.5px", background: "linear-gradient(90deg, transparent, var(--color-border), transparent)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ 
         width: "100%", 
-        height: isMobile ? "140px" : "160px", 
+        height: isMobile ? "130px" : "160px", 
         display: "flex", 
         justifyContent: "center", 
         alignItems: "center", 
         position: "relative", 
         zIndex: 1,
-        marginBottom: "20px"
+        marginBottom: isMobile ? "12px" : "20px"
       }}>
         <div style={{ transform: isMobile ? "scale(0.8)" : "scale(0.9)" }}>
           <card.Icon hovered={hovered} />
         </div>
       </div>
-      <div style={{ padding: "0 28px", position: "relative", zIndex: 1 }}>
+      <div style={{ padding: isMobile ? "0 8px" : "0 28px", position: "relative", zIndex: 1 }}>
         <motion.h3
           variants={{ rest: { color: C.blueMid }, hover: { color: "#94D1FF" } }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -1435,12 +1434,7 @@ const benefitCards = [
 export function Benefits() {
   const isMobile = useMobile(768);
   return (
-    <Section 
-      id="benefits" 
-      style={{
-        marginTop: isMobile ? "75px" : "0px"
-      }}
-    >
+    <Section id="benefits">
       <Label icon="✦" text="BENEFITS" />
       <H2 plain="Why Choose " italic="Us?" />
       <Sub>Automate growth with intelligence, speed, and scalable enterprise process automation.</Sub>
@@ -1448,8 +1442,8 @@ export function Benefits() {
       <div style={{
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-        gap: isMobile ? "32px" : "24px",
-        marginTop: "48px"
+        gap: isMobile ? "16px" : "24px",
+        marginTop: isMobile ? "0px" : "48px"
       }}>
         {benefitCards.map((card, i) => (
           <BenefitCard key={i} card={card} i={i} />
@@ -1521,21 +1515,21 @@ export function Features() {
 
   return (
     <Section id="features">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "4px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "6px 14px", borderRadius: "100px", background: "var(--color-glass-bg)", backdropFilter: "blur(16px)", border: "1px solid var(--color-border)" }}>
           <Layers style={{ width: "12px", height: "12px", color: "var(--color-blue-mid)" }} />
           <span style={{ fontFamily: F.inter, fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: C.txtBright }}>FEATURES</span>
         </div>
       </div>
-      <div style={{ transform: "scale(0.85)", transformOrigin: "top center", marginBottom: "8px" }}>
+      <div style={{ transform: isMobile ? "none" : "scale(0.85)", transformOrigin: "top center", marginBottom: isMobile ? "24px" : "8px" }}>
         <H2 plain="AI-Powered " italic="Automation Features" />
-        <Sub>Everything you need to automate operations, boost productivity, and connect AI-powered workflows.</Sub>
+        <Sub style={{ marginBottom: isMobile ? "0px" : "12px" }}>Everything you need to automate operations, boost productivity, and connect AI-powered workflows.</Sub>
       </div>
 
       <div style={{ 
         display: "grid", 
         gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", 
-        gap: isMobile ? "32px" : "10px", 
+        gap: isMobile ? "14px" : "10px", 
         maxWidth: "1050px", 
         margin: "0 auto",
         width: "100%"
@@ -1550,12 +1544,13 @@ export function Features() {
 
 function FeatureCard({ it, i }: { it: any; i: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useMobile(768);
   return (
     <motion.div 
       {...fup(i * 0.05)} 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ ...card, border: `1px solid var(--color-border)`, borderRadius: "12px", padding: "16px", textAlign: "center", display: "flex", flexDirection: "column", gap: "8px", minHeight: "220px", justifyContent: "flex-start" }}
+      style={{ ...card, border: `1px solid var(--color-border)`, borderRadius: "12px", padding: "16px", textAlign: "center", display: "flex", flexDirection: "column", gap: "8px", minHeight: isMobile ? "auto" : "220px", justifyContent: "flex-start" }}
     >
       <it.Visual hovered={isHovered} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
@@ -1604,9 +1599,10 @@ const cons = ["Slower execution and manual setup", "Requires manual updates as y
 
 export function Comparison() {
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(768);
   return (
     <Section id="comparison">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "16px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
@@ -1621,10 +1617,16 @@ export function Comparison() {
       <H2 plain="Why Choose ScalePods for " italic="Enterprise Process Automation" />
       <Sub>Understand the capabilities and outcomes you can expect from a scalable automation partner.</Sub>
 
-      <div style={{ maxWidth: "1100px", margin: "60px auto 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "32px" }}>
+      <div style={{ 
+        maxWidth: "1100px", 
+        margin: isMobile ? "0 auto 16px" : "60px auto 20px", 
+        display: "grid", 
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(320px, 1fr))", 
+        gap: isMobile ? "20px" : "32px" 
+      }}>
         {/* ScalePods column */}
         <motion.div variants={fup(0)} initial="initial" whileInView="whileInView" viewport={{ once: true }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "24px" }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: isMobile ? "16px" : "24px" }}>
             {/* Cropped logo: 2193×377 ≈ 5.8:1 ratio → 200px wide × 34px tall */}
             <div style={{ position: "relative", width: "200px", height: "34px" }}>
               <Image
@@ -1641,15 +1643,15 @@ export function Comparison() {
               />
             </div>
           </div>
-          <div style={{ ...card, padding: "12px 24px" }}>
+          <div style={{ ...card, padding: isMobile ? "8px 16px" : "12px 24px" }}>
             {pros.map((item, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: "16px",
-                padding: "24px 0",
+                padding: isMobile ? "16px 0" : "24px 0",
                 borderBottom: i < pros.length - 1 ? `1px solid var(--color-border)` : "none",
               }}>
                 <Check style={{ width: "16px", height: "16px", flexShrink: 0, color: C.green }} />
-                <span style={{ fontFamily: F.inter, fontSize: "15px", color: C.txtBright }}>{item}</span>
+                <span style={{ fontFamily: F.inter, fontSize: isMobile ? "14px" : "15px", color: C.txtBright }}>{item}</span>
               </div>
             ))}
           </div>
@@ -1657,21 +1659,21 @@ export function Comparison() {
 
         {/* Others column */}
         <motion.div variants={fup(0.1)} initial="initial" whileInView="whileInView" viewport={{ once: true }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", height: "48px", marginBottom: "24px" }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", height: isMobile ? "34px" : "48px", marginBottom: isMobile ? "16px" : "24px" }}>
             <Layers style={{ width: "24px", height: "24px", color: C.txtBody }} />
             <p style={{ fontFamily: F.serif, fontSize: "28px", fontStyle: "italic", color: C.txtBody, margin: 0 }}>
               Others
             </p>
           </div>
-          <div style={{ ...card, padding: "12px 24px" }}>
+          <div style={{ ...card, padding: isMobile ? "8px 16px" : "12px 24px" }}>
             {cons.map((item, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: "16px",
-                padding: "24px 0",
+                padding: isMobile ? "16px 0" : "24px 0",
                 borderBottom: i < cons.length - 1 ? `1px solid var(--color-border)` : "none",
               }}>
                 <X style={{ width: "16px", height: "16px", flexShrink: 0, color: C.blueMid }} />
-                <span style={{ fontFamily: F.inter, fontSize: "15px", color: C.txtFaint }}>{item}</span>
+                <span style={{ fontFamily: F.inter, fontSize: isMobile ? "14px" : "15px", color: C.txtFaint }}>{item}</span>
               </div>
             ))}
           </div>
@@ -1846,11 +1848,10 @@ export function Process() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        marginTop: isMobile ? "75px" : "0px"
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "8px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
@@ -1863,9 +1864,9 @@ export function Process() {
         </div>
       </div>
       <H2 plain="Our Simple & " italic="Smart Automation Process" />
-      <Sub>A clear, structured approach to identifying opportunities, designing workflows, and implementing scalable automation for marketing, sales, and operations.</Sub>
+      <Sub style={{ marginBottom: isMobile ? "28px" : "12px" }}>A clear, structured approach to identifying opportunities, designing workflows, and implementing scalable automation for marketing, sales, and operations.</Sub>
 
-      <div style={{ borderRadius: "16px", border: `1px solid ${C.border}`, background: C.bgCard, overflow: "hidden", marginTop: "16px" }}>
+      <div style={{ borderRadius: "16px", border: `1px solid ${C.border}`, background: C.bgCard, overflow: "hidden", marginTop: isMobile ? "0px" : "16px" }}>
         {/* Navigation Tabs */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", padding: "8px", gap: "6px" }}>
           {processSteps.map((step, idx) => {
@@ -1875,13 +1876,13 @@ export function Process() {
                 key={idx}
                 onClick={() => setActiveTab(idx)}
                 style={{
-                  padding: "8px",
+                  padding: isMobile ? "8px 4px" : "8px",
                   borderRadius: "8px",
                   background: isActive ? "var(--color-bg-card-alt)" : "transparent",
                   border: `1px solid ${isActive ? "rgba(var(--color-green-rgb), 0.3)" : "var(--color-border)"}`,
                   color: isActive ? C.green : C.txtMuted,
                   fontFamily: F.inter,
-                  fontSize: "13px",
+                  fontSize: isMobile ? "11px" : "13px",
                   fontWeight: 600,
                   letterSpacing: "0.1em",
                   cursor: "pointer",
@@ -1899,7 +1900,7 @@ export function Process() {
         <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: "300px" }}>
 
           {/* Left Column - Visual Mockups */}
-          <div style={{ position: "relative", padding: "24px", overflow: "hidden" }}>
+          <div style={{ position: "relative", padding: isMobile ? "16px 12px" : "24px", overflow: "hidden" }}>
             {/* Gradient glow behind visuals */}
             <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "300px", height: "300px", background: "radial-gradient(circle, rgba(var(--color-blue-mid-rgb), 0.08) 0%, transparent 70%)", zIndex: 0 }} />
 
@@ -1913,20 +1914,20 @@ export function Process() {
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: "16px" }}
                 >
-                  <div style={{ display: "flex", gap: "12px" }}>
-                    <div style={{ flex: 1, background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: "12px", padding: "16px" }}>
+                  <div style={{ display: "flex", gap: isMobile ? "8px" : "12px" }}>
+                    <div style={{ flex: 1, background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: "12px", padding: isMobile ? "12px 10px" : "16px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "11px", color: C.txtMuted }}>Customers</span>
+                        <span style={{ fontSize: isMobile ? "10px" : "11px", color: C.txtMuted }}>Customers</span>
                         <span style={{ fontSize: "10px", color: C.txtFaint, border: `1px solid ${C.border}`, borderRadius: "4px", padding: "2px 6px" }}>+ Chart</span>
                       </div>
-                      <div style={{ fontSize: "24px", fontWeight: 700, color: C.txtBright, marginBottom: "8px" }}>-32%</div>
+                      <div style={{ fontSize: isMobile ? "20px" : "24px", fontWeight: 700, color: C.txtBright, marginBottom: "8px" }}>-32%</div>
                       <svg width="100%" height="40" viewBox="0 0 100 40" preserveAspectRatio="none">
                         <path d="M0 30 Q 15 40 25 30 T 50 30 T 75 35 T 100 25" fill="none" stroke="var(--color-border)" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </div>
-                    <div style={{ flex: 1, background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: "12px", padding: "16px" }}>
+                    <div style={{ flex: 1, background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: "12px", padding: isMobile ? "12px 10px" : "16px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "11px", color: C.txtMuted }}>Cost Management</span>
+                        <span style={{ fontSize: isMobile ? "10px" : "11px", color: C.txtMuted }}>Cost Management</span>
                         <span style={{ fontSize: "10px", color: C.txtFaint, border: `1px solid ${C.border}`, borderRadius: "4px", padding: "2px 6px" }}>+ Chart</span>
                       </div>
                       <div style={{ fontSize: "24px", fontWeight: 700, color: C.txtBright, marginBottom: "8px" }}>-54%</div>
@@ -2219,14 +2220,13 @@ export function CaseStudies() {
         flexDirection: "column",
         justifyContent: "center",
         overflow: "hidden",
-        marginTop: isMobile ? "75px" : "0px"
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
         
         {/* Header Section */}
         <div style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "8px" }}>
             <div style={{
               display: "flex", alignItems: "center", gap: "8px",
               padding: "4px 12px", borderRadius: "100px",
@@ -2241,7 +2241,7 @@ export function CaseStudies() {
           <H2 
             plain="Success Stories with " 
             italic="Workflow Automation" 
-            style={{ fontSize: isMobile ? "32px" : "clamp(40px, 4vw, 56px)", marginBottom: "4px" }} 
+            style={{ fontSize: isMobile ? "clamp(24px, 5.8vw, 30px)" : "clamp(40px, 4vw, 56px)", marginBottom: isMobile ? "10px" : "4px" }} 
           />
           <Sub style={{ fontSize: "14px", marginBottom: "0" }}>Discover how businesses and creators achieve results</Sub>
         </div>
@@ -2258,7 +2258,7 @@ export function CaseStudies() {
             margin: "0 auto",
             background: "rgba(255,255,255,0.01)",
             backdropFilter: "blur(4px)",
-            borderRadius: "32px",
+            borderRadius: isMobile ? "20px" : "32px",
             border: "1px solid var(--color-border-faint)",
             overflow: "hidden",
             display: "flex",
@@ -2269,7 +2269,7 @@ export function CaseStudies() {
           {/* Left Panel: Content */}
           <div style={{
             flex: isMobile ? "none" : "0 0 42%",
-            padding: isMobile ? "32px 24px" : "clamp(32px, 4vw, 48px)",
+            padding: isMobile ? "24px 16px" : "clamp(32px, 4vw, 48px)",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -2431,8 +2431,8 @@ export function CaseStudies() {
                   transition={{ delay: 0.3, duration: 0.6 }}
                   style={{
                     position: "absolute",
-                    bottom: "24px",
-                    right: "24px",
+                    bottom: isMobile ? "12px" : "24px",
+                    right: isMobile ? "12px" : "24px",
                     display: "flex",
                     flexDirection: "column",
                     gap: "10px",
@@ -2440,20 +2440,20 @@ export function CaseStudies() {
                   }}
                 >
                   <div style={{
-                    padding: "12px 20px",
+                    padding: isMobile ? "8px 12px" : "12px 20px",
                     background: "rgba(255,255,255,0.1)",
                     backdropFilter: "blur(20px)",
                     border: "1px solid rgba(255,255,255,0.2)",
-                    borderRadius: "16px",
+                    borderRadius: isMobile ? "12px" : "16px",
                     boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
                     display: "flex",
                     alignItems: "center",
-                    gap: "10px"
+                    gap: "8px"
                   }}>
-                    <TrendingUp size={18} color={activeStudy.accent} />
+                    <TrendingUp size={isMobile ? 15 : 18} color={activeStudy.accent} />
                     <div>
-                      <div style={{ fontSize: "16px", fontWeight: 800, color: "#fff" }}>{activeStudy.metrics[0].value}</div>
-                      <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.7)", textTransform: "uppercase" }}>Impact Delivered</div>
+                      <div style={{ fontSize: isMobile ? "13px" : "16px", fontWeight: 800, color: "#fff" }}>{activeStudy.metrics[0].value}</div>
+                      <div style={{ fontSize: isMobile ? "8px" : "9px", fontWeight: 600, color: "rgba(255,255,255,0.7)", textTransform: "uppercase" }}>Impact Delivered</div>
                     </div>
                   </div>
                 </motion.div>
@@ -2505,9 +2505,15 @@ export function CaseStudies() {
         {/* Thumbnail Navigation */}
         <div style={{ 
           display: "flex", 
-          justifyContent: "center", 
-          gap: "10px", 
-          marginTop: isMobile ? "24px" : "20px" 
+          justifyContent: isMobile ? "flex-start" : "center", 
+          gap: isMobile ? "8px" : "10px", 
+          marginTop: isMobile ? "20px" : "20px",
+          overflowX: isMobile ? "auto" : "visible",
+          maxWidth: "100%",
+          padding: isMobile ? "4px 8px" : "0",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none"
         }}>
           {caseStudiesData.map((study, idx) => (
             <motion.button
@@ -2524,7 +2530,8 @@ export function CaseStudies() {
                 border: activeIndex === idx ? `2px solid ${study.accent}` : "1px solid var(--color-border-faint)",
                 background: "var(--color-bg-card)",
                 cursor: "pointer",
-                transition: "border-color 0.3s ease"
+                transition: "border-color 0.3s ease",
+                flexShrink: 0
               }}
             >
               <img 
@@ -2600,13 +2607,14 @@ const row3 = ["hubspot", "twilio", "google", "notion", "hubspot", "twilio", "goo
 
 const MarqueeRow = memo(function MarqueeRow({ items, direction = 1, speed = 30 }: { items: string[], direction?: number, speed?: number }) {
   const { resolvedTheme } = useTheme();
+  const isMobile = useMobile(768);
   return (
     <div 
       data-scroll-observed="1"
       style={{ 
         position: "relative",
         display: "flex", 
-        gap: "16px", 
+        gap: isMobile ? "8px" : "16px", 
         width: "fit-content", 
         padding: "4px 0", 
         willChange: "transform", 
@@ -2627,14 +2635,16 @@ const MarqueeRow = memo(function MarqueeRow({ items, direction = 1, speed = 30 }
       }}>
         {[...items, ...items].map((iconKey, i) => (
           <div key={i} style={{
-            width: "60px", height: "60px", borderRadius: "14px",
+            width: isMobile ? "48px" : "60px", 
+            height: isMobile ? "48px" : "60px", 
+            borderRadius: isMobile ? "10px" : "14px",
             background: "var(--color-glass-bg)", backdropFilter: "blur(16px)",
             border: "1px solid var(--color-border)",
             boxShadow: resolvedTheme === 'dark' ? "0px 2px 12px rgba(0,0,0,0.5)" : "0px 2px 6px rgba(0,0,0,0.05)",
             display: "flex", alignItems: "center", justifyContent: "center",
             color: "var(--color-text-bright)",
             flexShrink: 0,
-            margin: "0 8px"
+            margin: isMobile ? "0 4px" : "0 8px"
           }}>
             {I_SVG[iconKey as keyof typeof I_SVG] || <Database />}
           </div>
@@ -2649,7 +2659,7 @@ export function Integrations() {
   const { resolvedTheme } = useTheme();
   return (
     <Section id="integrations">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "16px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
@@ -2665,7 +2675,7 @@ export function Integrations() {
       <Sub>Connect your business software and data sources so your AI workflow automation can operate across the tools your teams already use, creating a connected layer for AI business process automation.</Sub>
 
       {/* Marquee Container */}
-      <div style={{ display: "flex", justifyContent: "center", margin: isMobile ? "40px 0" : "60px 0 40px" }}>
+      <div style={{ display: "flex", justifyContent: "center", margin: isMobile ? "0 0 24px" : "60px 0 40px" }}>
         <div style={{
           position: "relative",
           width: "100%", maxWidth: isMobile ? "100%" : "800px",
@@ -2720,16 +2730,15 @@ export function Reviews() {
       style={{ 
         position: "relative", 
         background: C.bgPage, 
-        padding: isMobile ? "72px 24px 140px 24px" : "140px 24px",
+        padding: "140px 24px",
         minHeight: isMobile ? "auto" : "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        marginTop: isMobile ? "75px" : "0px"
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "4px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "4px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
@@ -2741,12 +2750,12 @@ export function Reviews() {
           </span>
         </div>
       </div>
-      <div style={{ transform: "scale(0.9)", transformOrigin: "top center", marginBottom: "12px" }}>
+      <div style={{ transform: isMobile ? "none" : "scale(0.9)", transformOrigin: "top center", marginBottom: isMobile ? "24px" : "12px" }}>
         <H2 plain="Trusted by " italic="Visionaries" />
-        <Sub>Hear from real users who achieved measurable results with our automation solutions.</Sub>
+        <Sub style={{ marginBottom: isMobile ? "0px" : "12px" }}>Hear from real users who achieved measurable results with our automation solutions.</Sub>
       </div>
 
-      <div style={{ marginTop: "24px" }}>
+      <div style={{ marginTop: isMobile ? "0px" : "24px" }}>
         <TestimonialCarousel />
       </div>
       </div>
@@ -2789,8 +2798,8 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(1); // Default second one open like mock
 
   return (
-    <Section id="faq" style={{ marginTop: isMobile ? "150px" : "0px" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+    <Section id="faq">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: isMobile ? "14px" : "16px" }}>
         <div style={{
           display: "flex", alignItems: "center", gap: "8px",
           padding: "6px 14px", borderRadius: "100px",
@@ -2806,15 +2815,15 @@ export function FAQ() {
       <Sub>Find quick answers about workflow automation, AI implementation, integrations, security, and business process automation.</Sub>
 
       <div style={{
-        display: "flex", flexWrap: "wrap", gap: "32px", marginTop: "60px",
-        alignItems: "flex-start", justifyContent: "center", paddingBottom: "20px"
+        display: "flex", flexWrap: "wrap", gap: isMobile ? "20px" : "32px", marginTop: isMobile ? "0px" : "60px",
+        alignItems: "flex-start", justifyContent: "center", paddingBottom: "10px"
       }}>
 
         {/* Left Side: Still Have Questions Card */}
         <motion.div variants={fup(0.1)} initial="initial" whileInView="whileInView" viewport={{ once: true }} style={{
-          flex: "1 1 300px", maxWidth: "340px", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
+          flex: isMobile ? "1 1 100%" : "1 1 300px", maxWidth: isMobile ? "100%" : "340px", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(16px)",
           borderRadius: "24px", border: "1px solid var(--color-border)",
-          padding: "40px 30px", display: "flex", flexDirection: "column",
+          padding: isMobile ? "28px 20px" : "40px 30px", display: "flex", flexDirection: "column",
           alignItems: "center", textAlign: "center", boxShadow: resolvedTheme === 'dark' ? "0 20px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.05)"
         }}>
           <div style={{
@@ -2839,7 +2848,7 @@ export function FAQ() {
 
         {/* Right Side: Accordion */}
         <motion.div variants={fup(0.2)} initial="initial" whileInView="whileInView" viewport={{ once: true }} style={{
-          flex: "1 1 480px", maxWidth: "680px", display: "flex", flexDirection: "column", gap: "10px"
+          flex: isMobile ? "1 1 100%" : "1 1 480px", maxWidth: isMobile ? "100%" : "680px", display: "flex", flexDirection: "column", gap: "10px"
         }}>
           {faqData.map((item, i) => {
             const isOpen = openIndex === i;
@@ -2853,9 +2862,9 @@ export function FAQ() {
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   style={{
                     width: "100%", background: "transparent", border: "none",
-                    padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: isMobile ? "16px 18px" : "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between",
                     cursor: "pointer", color: C.blueMid,
-                    fontFamily: F.inter, fontSize: "16px", fontWeight: isOpen ? 500 : 400, textAlign: "left",
+                    fontFamily: F.inter, fontSize: isMobile ? "15px" : "16px", fontWeight: isOpen ? 500 : 400, textAlign: "left",
                   }}
                 >
                   <span>{item.q}</span>
@@ -2870,7 +2879,7 @@ export function FAQ() {
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <div style={{
-                        padding: "0 24px 24px", color: C.txtMuted, fontFamily: F.inter,
+                        padding: isMobile ? "0 18px 18px" : "0 24px 24px", color: C.txtMuted, fontFamily: F.inter,
                         fontSize: "15px", lineHeight: 1.6
                       }}>
                         {item.a}
@@ -2901,10 +2910,9 @@ export function FinalCTA() {
       style={{ 
         position: "relative", 
         background: C.bgPage, 
-        padding: "160px 24px", 
+        padding: isMobile ? "72px 16px" : "160px 24px", 
         textAlign: "center", 
         overflow: "hidden",
-        marginTop: isMobile ? "110px" : "0px"
       }}
     >
 
@@ -2945,7 +2953,7 @@ export function FinalCTA() {
 
       <div style={{ position: "relative", zIndex: 2, maxWidth: "680px", margin: "0 auto" }}>
         {/* Reach out anytime with faint lines */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "32px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: isMobile ? "20px" : "32px" }}>
           <div style={{ height: "1px", width: "60px", background: resolvedTheme === 'dark' ? "linear-gradient(90deg, transparent, rgba(var(--color-text-bright-rgb), 0.2))" : "linear-gradient(90deg, transparent, rgba(var(--color-text-bright-rgb), 0.1))" }} />
           <span style={{ fontFamily: F.inter, fontSize: "14px", fontStyle: "italic", color: C.txtMuted }}>
             Reach out anytime
@@ -2967,12 +2975,12 @@ export function FinalCTA() {
         </h2>
 
         {/* Sub Header */}
-        <p style={{ fontFamily: F.inter, fontSize: "16px", color: C.txtBody, marginTop: "24px", marginBottom: "48px" }}>
+        <p style={{ fontFamily: F.inter, fontSize: "16px", color: C.txtBody, marginTop: isMobile ? "12px" : "24px", marginBottom: isMobile ? "28px" : "48px" }}>
           Schedule a call and begin building a scalable automation strategy.
         </p>
 
         {/* Glowing Button */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "48px" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: isMobile ? "32px" : "48px" }}>
           <GlowingButton href="/contact">
             <span>Book A Free Call</span> <ArrowUpRight style={{ width: "16px", height: "16px", marginLeft: "6px" }} />
           </GlowingButton>
@@ -2981,7 +2989,7 @@ export function FinalCTA() {
 
 
         {/* Social Line */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginBottom: "32px", color: "var(--color-blue-bright)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginBottom: isMobile ? "24px" : "32px", color: "var(--color-blue-bright)" }}>
           <a href="https://www.linkedin.com/company/scalepods-co" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", color: "inherit", opacity: 0.8, transition: "opacity 0.2s" }} onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
           </a>
@@ -3008,7 +3016,7 @@ export function FinalCTA() {
             textDecoration: "none", 
             transition: "color 0.2s",
             display: "inline-block",
-            marginBottom: isMobile ? "150px" : "40px"
+            marginBottom: isMobile ? "16px" : "40px"
           }} 
           onMouseEnter={e => e.currentTarget.style.color = C.blueOn} 
           onMouseLeave={e => e.currentTarget.style.color = C.txtBright}

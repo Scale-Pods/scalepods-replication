@@ -46,7 +46,7 @@ export default function Footer() {
       style={{
         background: "var(--color-bg-page)",
         borderTop: "1px solid var(--color-border)",
-        padding: isMobile ? "40px 20px 40px" : "80px 32px 40px",
+        padding: isMobile ? "48px 16px 40px" : "80px 32px 40px",
         fontFamily: "var(--font-inter), sans-serif",
         position: "relative",
         overflow: "hidden"
@@ -70,15 +70,15 @@ export default function Footer() {
 
         <div style={{ 
           display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-          gap: "60px",
-          marginBottom: "60px" 
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(200px, 1fr))", 
+          gap: isMobile ? "36px" : "60px",
+          marginBottom: isMobile ? "40px" : "60px" 
         }}>
           {/* Brand Column */}
           <div style={{ flex: 1 }}>
             <Link href="/" style={{ display: "inline-block", marginBottom: "24px" }}>
               {/* Cropped logo: 2193×377 ≈ 5.8:1 ratio */}
-              <div style={{ position: "relative", width: "260px", height: "45px" }}>
+              <div style={{ position: "relative", width: isMobile ? "210px" : "260px", height: isMobile ? "36px" : "45px" }}>
                 <Image
                   src="/scalepods-navbar-logo.png"
                   alt="ScalePods"
@@ -163,7 +163,7 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "32px", flex: 2 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(auto-fit, minmax(140px, 1fr))", gap: isMobile ? "28px 16px" : "32px", flex: 2 }}>
             <div>
               <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Solutions</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

@@ -295,45 +295,53 @@ export default function OpenAIPartnership() {
 
         @media (max-width: 568px) {
           .openai-partnership-section {
-            margin: 0 auto 36px auto;
+            margin: 0 auto 56px auto;
+          }
+
+          .openai-disclaimer {
+            margin-top: 20px;
+            margin-bottom: 8px;
           }
 
           .openai-main-card {
-            padding: 24px;
+            padding: 24px 18px;
             gap: 24px;
+            border-radius: 20px;
           }
 
           .openai-badge-card {
-            padding: 24px 28px;
-            gap: 28px;
+            padding: 16px 14px;
+            gap: 14px;
+            border-radius: 18px;
             min-height: auto;
           }
 
           .openai-wordmark {
-            font-size: 20px;
-          }
-
-          .openai-symbol {
-            width: 44px;
-            height: 44px;
-          }
-
-          .openai-badge-divider {
-            height: 80px;
-          }
-
-          .openai-badge-partner {
             font-size: 18px;
           }
 
+          .openai-symbol {
+            width: 38px;
+            height: 38px;
+          }
+
+          .openai-badge-divider {
+            height: 64px;
+          }
+
+          .openai-badge-partner {
+            font-size: 16px;
+          }
+
           .openai-badge-track {
-            font-size: 13.5px;
+            font-size: 13px;
           }
 
           .openai-pillars-grid {
             grid-template-columns: 1fr;
-            padding: 20px;
-            gap: 20px;
+            padding: 18px 16px;
+            gap: 16px;
+            border-radius: 18px;
             margin-top: 20px;
           }
 
