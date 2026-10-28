@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 
 // Below the fold sections are dynamically imported to improve initial load speed
 const ClaudePartnership = dynamic(() => import("@/components/sections/ClaudePartnership"), { ssr: true });
+const OpenAIPartnership = dynamic(() => import("@/components/sections/OpenAIPartnership"), { ssr: true });
 const DataAnalysis = dynamic(() => import("@/components/sections/Sections").then(mod => mod.DataAnalysis), { ssr: true });
 const Benefits = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Benefits), { ssr: true });
 const Services = dynamic(() => import("@/components/sections/Sections").then(mod => mod.Services), { ssr: true });
@@ -26,6 +27,7 @@ export default function Home() {
         }
       `}</style>
       <ClaudePartnership />
+      <OpenAIPartnership />
       <DataAnalysis />
       <Services />
       <Benefits />

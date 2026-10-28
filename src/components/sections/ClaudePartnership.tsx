@@ -14,7 +14,7 @@ export default function ClaudePartnership() {
         .claude-partnership-section {
           width: 100%;
           max-width: 1200px;
-          margin: 32px auto 60px auto;
+          margin: 32px auto 40px auto;
           padding: 0 24px;
           font-family: var(--font-sans), sans-serif;
           position: relative;
