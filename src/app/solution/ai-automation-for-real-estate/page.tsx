@@ -33,6 +33,7 @@ const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: fa
 const TestimonialCarousel = dynamic(() => import("@/components/ui/TestimonialCarousel"), { ssr: false });
 import { BrandsMarquee } from "@/components/sections/Sections";
 import ClaudePartnership from "@/components/sections/ClaudePartnership";
+import OpenAIPartnership from "@/components/sections/OpenAIPartnership";
 import { FloatingPreviewCarouselWrapper } from "@/components/ui/FloatingPreviewCarouselWrapper";
 import "./realestatepod.css";
 
@@ -866,8 +867,9 @@ export default function RealEstateWorkflowAutomationPage() {
       {/* Brands Marquee */}
       <BrandsMarquee />
 
-      {/* Claude Partnership */}
+      {/* Claude & OpenAI Partnership */}
       <ClaudePartnership />
+      <OpenAIPartnership />
 
       {/* Fold 2: Benchmark Metrics Section */}
       <section className="sp-section-wrapper">

@@ -26,6 +26,7 @@ const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: fa
 const TestimonialCarousel = dynamic(() => import("@/components/ui/TestimonialCarousel"), { ssr: false });
 import { BrandsMarquee } from "@/components/sections/Sections";
 import ClaudePartnership from "@/components/sections/ClaudePartnership";
+import OpenAIPartnership from "@/components/sections/OpenAIPartnership";
 import "./hrpod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
@@ -2149,8 +2150,9 @@ export default function HRWorkflowAutomationPage() {
         <BrandsMarquee />
       </div>
 
-      {/* Claude Select Partner Network section */}
+      {/* Claude & OpenAI Partner Network sections */}
       <ClaudePartnership />
+      <OpenAIPartnership />
 
       {/* ── FOLD 2: TRUST SIGNAL ── */}
       <motion.div

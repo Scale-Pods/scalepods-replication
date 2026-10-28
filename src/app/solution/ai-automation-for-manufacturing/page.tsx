@@ -32,6 +32,7 @@ const AuditModal = dynamic(() => import("@/components/ui/AuditModal"), { ssr: fa
 const TestimonialCarousel = dynamic(() => import("@/components/ui/TestimonialCarousel"), { ssr: false });
 import { BrandsMarquee } from "@/components/sections/Sections";
 import ClaudePartnership from "@/components/sections/ClaudePartnership";
+import OpenAIPartnership from "@/components/sections/OpenAIPartnership";
 import { FloatingPreviewCarouselWrapper } from "@/components/ui/FloatingPreviewCarouselWrapper";
 import "./manufacturingpod.css";
 
@@ -877,8 +878,9 @@ export default function ManufacturingWorkflowAutomationPage() {
       {/* Brands Marquee */}
       <BrandsMarquee />
 
-      {/* Claude Partnership */}
+      {/* Claude & OpenAI Partnership */}
       <ClaudePartnership />
+      <OpenAIPartnership />
 
       {/* Fold 2: Trust Signals Section */}
       <section className="sp-section-wrapper">

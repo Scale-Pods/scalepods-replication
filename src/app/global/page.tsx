@@ -18,6 +18,7 @@ import { BeamsBackground } from "@/components/ui/beams-background";
 
 // ── Dynamic Imports for Below-the-Fold Sections ─────────────────────────────
 const ClaudePartnership = dynamic(() => import("@/components/sections/ClaudePartnership"), { ssr: false });
+const OpenAIPartnership = dynamic(() => import("@/components/sections/OpenAIPartnership"), { ssr: false });
 const ImmersiveFeatures = dynamic(() => import("@/components/sections/ImmersiveFeatures").then(mod => mod.ImmersiveFeatures), { ssr: false });
 const SalesPodShowcase = dynamic(() => import("@/components/sections/SalesPodShowcase").then(mod => mod.SalesPodShowcase), { ssr: false });
 const HRShowcase = dynamic(() => import("@/components/sections/HRShowcase").then(mod => mod.HRShowcase), { ssr: false });
@@ -852,6 +853,7 @@ export default function GlobalPage() {
             }
           `}</style>
           <ClaudePartnership />
+          <OpenAIPartnership />
 
           {/* ── IMMERSIVE PRODUCT SHOWCASE SECTION ───────────────────────────── */}
           <ImmersiveFeatures />
