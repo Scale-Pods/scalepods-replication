@@ -555,7 +555,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div style={{ width: "100%", height: "200px", borderRadius: "16px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/challenge-hiring-eating-recruiting.webp"
-                    alt="The Hiring Was Eating Into Recruiting"
+                    alt="Laptop showing a recruitment dashboard with candidate pipeline metrics, illustrating hiring automation replacing manual resume tracking"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
@@ -585,7 +585,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div style={{ width: "100%", height: "200px", borderRadius: "16px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/challenge-sales-followup-slow.webp"
-                    alt="Sales Follow-Up Slower Than The Leads Wanted"
+                    alt="Laptop displaying a Google Ads overview dashboard, showing campaign performance tracking for sales automation and lead follow-up"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
@@ -597,7 +597,14 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                     Sales Follow-Up Slower Than The Leads Wanted
                   </h3>
                   <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.55, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
-                    Inbound leads took an average of 6 hours to receive a response, causing high-intent prospects to go cold. Lead scoring was absent, meaning sales reps wasted time pursuing unqualified contacts while warm opportunities slipped through the cracks. No-show rates climbed without automated reminder cadences.
+                    Sales and marketing operated on disconnected, siloed processes without{" "}
+                    <Link
+                      href="/blog/how-to-implement-sales-workflow-automation"
+                      style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}
+                    >
+                      sales and marketing automation software
+                    </Link>
+                    . Inbound leads took an average of 6 hours to receive a response, causing high-intent prospects to go cold. Lead qualification and scoring were absent, meaning sales reps chased cold contacts while warm opportunities slipped through the cracks without automated reminder cadences.
                   </p>
                 </div>
               </div>
@@ -615,7 +622,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div style={{ width: "100%", height: "200px", borderRadius: "16px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/challenge-promotion-lagging.webp"
-                    alt="Promotion Production was Lagging"
+                    alt="Laptop with Google Ads, Meta, Instagram and LinkedIn icons above it, representing marketing automation across social and paid channels"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
@@ -645,7 +652,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div style={{ width: "100%", height: "200px", borderRadius: "16px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/challenge-17-entities-finance-workload.webp"
-                    alt="17 Entities' Finance Leads To Excessive Administrative Workload"
+                    alt="Laptop financial dashboard with 17 company icons above it, showing multi-entity finance consolidated in one view"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
@@ -707,7 +714,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
             >
               <img
                 src="/images/case-studies/victory-energy/solution-overview-banner.webp"
-                alt="ScalePods Enterprise AI Operating Systems for Victory Energy"
+                alt="Two professionals at a laptop with a glowing gear icon connecting email, documents, charts, alerts and team members, showing AI workflow automation"
                 style={{ width: "100%", height: "auto", borderRadius: "14px", display: "block" }}
               />
             </div>
@@ -728,11 +735,29 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                   <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, textAlign: "justify", textJustify: "inter-word" }}>
                     Talent OS brings the entire applicant journey—from resume ingestion and contextual scoring to self-scheduling and HR compliance—into a single system. Inbound CVs are automatically parsed, deduplicated, and scored against specific job specifications, reducing screening time from 12 minutes to under 3 minutes. Candidates self-schedule interview slots with automated reminder sequences (24h, 2h, 30m), cutting no-shows by 41%. Upon offer acceptance, Gusto integration initiates employee records and payroll compliance in under 1 hour—all while keeping recruiters in complete command of hiring decisions.
                   </p>
+                  <div style={{ marginTop: "14px" }}>
+                    <Link
+                      href="/solution/hr-workflow-automation"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontSize: "13.5px",
+                        fontWeight: 600,
+                        color: "var(--color-blue-mid)",
+                        textDecoration: "none"
+                      }}
+                      className="hover:underline"
+                    >
+                      View Scale Pods&apos; HR workflow automation solution.
+                      <ArrowUpRight style={{ width: "14px", height: "14px" }} />
+                    </Link>
+                  </div>
                 </div>
                 <div className="md:col-span-6" style={{ borderRadius: "14px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/solution-talent-os.webp"
-                    alt="Talent OS: From Candidate Intake to Onboarding"
+                    alt="Talent OS HR automation dashboard with candidate profile cards, star ratings and interview scheduling calendar on a laptop screen"
                     style={{ width: "100%", height: "auto", display: "block" }}
                   />
                 </div>
@@ -745,7 +770,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div className="md:col-span-6 order-2 md:order-1" style={{ borderRadius: "14px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/solution-growth-os-sales.webp"
-                    alt="Growth OS for Sales: Respond. Qualify. Book. Faster."
+                    alt="Growth OS sales automation software dashboard on a laptop, with lead cards and a campaign pipeline view"
                     style={{ width: "100%", height: "auto", display: "block" }}
                   />
                 </div>
@@ -760,7 +785,14 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                     Growth OS for Sales: Respond. Qualify. Book. Faster.
                   </h3>
                   <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, textAlign: "justify", textJustify: "inter-word" }}>
-                    Growth OS unites lead enrichment, multi-channel cadences, calendar booking, and CRM pipeline synchronization into an autonomous engine. Incoming inquiries receive immediate conversational follow-up in under 2 minutes (down from 6 hours) via WhatsApp, SMS, email, or voice. Leads are validated, scored (1–100), and entered into tailored 21-day nurture workflows. Automated pre-call briefs arm sales reps with full prospect context, boosting appointment bookings by 38% and exposing 3.2x more pipeline value to leadership.
+                    Growth OS unites lead enrichment, multi-channel cadences, calendar booking, and CRM pipeline synchronization into an autonomous engine. Incoming inquiries receive immediate conversational follow-up in under 2 minutes (down from 6 hours) via WhatsApp, SMS, email, or voice. Leads are validated, scored (1–100), and entered into tailored 21-day nurture workflows. Automated pre-call briefs arm sales reps with full prospect context, boosting appointment bookings by 38% and exposing 3.2x more pipeline value to leadership. This operational model mirrors the philosophy demonstrated in the{" "}
+                    <Link
+                      href="/case-study/asquared-real-estate-sales-automation-dubai"
+                      style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}
+                    >
+                      Scale Pods A Squared Real Estate automation example
+                    </Link>
+                    —focusing not just on lead volume, but guaranteeing the next appropriate engagement step fires the moment a prospect enters your ecosystem.
                   </p>
                 </div>
               </div>
@@ -786,7 +818,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div className="md:col-span-6" style={{ borderRadius: "14px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/solution-growth-os-marketing.webp"
-                    alt="Growth OS for Marketing: Publish your Strategy as Content"
+                    alt="Team reviewing marketing automation platform screens with scheduled social posts, property images, calendar and performance charts"
                     style={{ width: "100%", height: "auto", display: "block" }}
                   />
                 </div>
@@ -799,7 +831,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div className="md:col-span-6 order-2 md:order-1" style={{ borderRadius: "14px", overflow: "hidden" }}>
                   <img
                     src="/images/case-studies/victory-energy/solution-financial-os.webp"
-                    alt="Financial OS: Consolidate 17 Companies into a Single Financial View"
+                    alt="Finance team using Financial OS, with workflow icons for bank feeds, approvals, payroll and reporting, showing finance process automation"
                     style={{ width: "100%", height: "auto", display: "block" }}
                   />
                 </div>
@@ -901,7 +933,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
             >
               <img
                 src="/images/case-studies/victory-energy/workflow-light.webp"
-                alt="Victory Energy 7-Stage Workflow Architecture Diagram (Light Theme)"
+                alt="Scale Pods seven-step AI workflow diagram, from capture and organize to analyze, route, engage and measure, on a light background"
                 style={{
                   width: "100%",
                   height: "auto",
@@ -912,7 +944,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
               />
               <img
                 src="/images/case-studies/victory-energy/workflow-dark.webp"
-                alt="Victory Energy 7-Stage Workflow Architecture Diagram (Dark Theme)"
+                alt="Dark version of the Scale Pods workflow automation diagram showing organize, analyze, route, engage and measure stages with analytics charts"
                 style={{
                   width: "100%",
                   height: "auto",
@@ -1104,8 +1136,19 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
               }}
             >
               <Info style={{ width: "18px", height: "18px", color: "var(--color-blue-mid)", flexShrink: 0, marginTop: "2px" }} />
-              <div style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
-                <strong style={{ color: "var(--color-text-bright)" }}>Performance note:</strong> Figures reflect production outcomes recorded across live campaigns and multi-entity operational rollouts for Victory Energy, benchmarked against pre-automation baseline performance.
+              <div style={{ fontSize: "13px", color: "var(--color-text-muted)", lineHeight: 1.6 }}>
+                <div>
+                  <strong style={{ color: "var(--color-text-bright)" }}>Performance note:</strong> Figures reflect production outcomes recorded across live campaigns and multi-entity operational rollouts for Victory Energy, benchmarked against pre-automation baseline performance.
+                </div>
+                <div style={{ marginTop: "8px" }}>
+                  <em>Learn more about Scale Pods&apos; perspective on these business outcomes: </em>
+                  <Link
+                    href="/blog/ai-automation-roi-real-business-impact"
+                    style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}
+                  >
+                    What is the ROI of AI automation for sales, marketing, and HR?
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -1240,7 +1283,17 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 margin: 0
               }}
             >
-              Whether you are managing multi-channel lead follow-ups, high-volume candidate screening, or multi-entity financial consolidation, ScalePods builds custom AI Operating Systems that drive speed and transparency.
+              Whether you are managing multi-channel lead follow-ups, high-volume candidate screening, or multi-entity financial consolidation, ScalePods builds custom AI Operating Systems that drive speed and transparency.{" "}
+              <Link
+                href="/"
+                style={{
+                  color: "var(--color-blue-mid)",
+                  fontWeight: 600,
+                  textDecoration: "underline"
+                }}
+              >
+                See the Scale Pods site to find out more about how AI workflows can help your business.
+              </Link>
             </p>
             <div style={{ marginTop: "12px" }}>
               <Link
