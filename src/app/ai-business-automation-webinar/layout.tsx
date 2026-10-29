@@ -9,7 +9,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "AI Automation Masterclass (₹99) | ScalePods with Adnan Shaikh & Raunak Kumar",
+  title: "AI Business Automation Masterclass (₹99) | ScalePods",
   description:
     "Before you hire another person, discover how to identify repetitive tasks, connect disconnected workflows, and use AI automation across Sales, Marketing, HR, and Operations. Live founder-led masterclass for ₹99.",
   alternates: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "AI Automation Masterclass (₹99) | ScalePods with Adnan Shaikh & Raunak Kumar",
+    title: "AI Business Automation Masterclass (₹99) | ScalePods",
     description:
       "Before you hire another person, find out how much of your work your business could automate. Live online masterclass across Sales, Marketing, HR, and Operations.",
     url: "https://www.scalepods.co/ai-business-automation-webinar",

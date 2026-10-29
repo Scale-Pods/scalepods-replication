@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/SEO/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Enterprise Marketing Workflow Automation | ScalePods",
+  title: "Marketing Workflow Automation Software & AI Engine | ScalePods",
   description:
     "Scale growth engines with enterprise marketing workflow automation. Deploy AI workflow automation to unify multichannel messaging, accelerate demand capture, and automate lifecycle email and CRM operations.",
   keywords: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "https://www.scalepods.co/solution/marketing-workflow-automation",
   },
   openGraph: {
-    title: "Enterprise Marketing Workflow Automation | ScalePods",
+    title: "Marketing Workflow Automation Software & AI Engine | ScalePods",
     description:
       "Scale growth engines with enterprise marketing workflow automation. Deploy AI workflow automation to unify multichannel messaging, accelerate demand capture, and automate lifecycle email and CRM operations.",
     url: "https://www.scalepods.co/solution/marketing-workflow-automation",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Enterprise Marketing Workflow Automation | ScalePods",
+    title: "Marketing Workflow Automation Software & AI Engine | ScalePods",
     description:
       "Scale growth engines with enterprise marketing workflow automation. Deploy AI workflow automation to unify multichannel messaging, accelerate demand capture, and automate lifecycle email and CRM operations.",
   },

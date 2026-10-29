@@ -51,7 +51,6 @@ export default function ResourcesPage() {
   return (
     <div style={{ background: "var(--color-bg-page)", minHeight: "100vh", color: "var(--color-text-body)" }}>
       <BeamsBackground hues={[200, 210, 225]} intensity="strong">
-        <Navbar />
 
       {/* Top Section / Header */}
       <section style={{ paddingTop: "140px", paddingBottom: "40px", borderBottom: "1px solid var(--color-border-faint)" }}>
@@ -74,7 +73,7 @@ export default function ResourcesPage() {
             textTransform: "uppercase"
           }}>
             <BookOpen size={14} />
-            <span>ScalePods E - Books</span>
+            <span>Executive Knowledge Hub</span>
           </div>
 
           <h1 style={{
@@ -86,17 +85,17 @@ export default function ResourcesPage() {
             letterSpacing: "-0.02em",
             marginBottom: "16px"
           }}>
-            ScalePods E - Books
+            Executive Resources &amp; Automation Playbooks
           </h1>
 
           <p style={{
             fontSize: "18px",
             color: "var(--color-text-muted)",
-            maxWidth: "680px",
+            maxWidth: "720px",
             margin: "0 auto",
             lineHeight: 1.6
           }}>
-            Executive E - Books and guides on AI, automation, and the future of work.
+            Practical frameworks, technical blueprints, and executive guides designed to help enterprise leaders eliminate manual friction, modernize core operations, and deploy autonomous AI ecosystems.
           </p>
         </div>
       </section>
@@ -274,7 +273,129 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-        <Footer />
+      {/* Informative Value Section: Inside ScalePods Playbooks */}
+      <section style={{ padding: "80px 0", borderTop: "1px solid var(--color-border-faint)", background: isDark ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.4)" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ textAlign: "center", marginBottom: "50px" }}>
+            <h2 style={{
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "clamp(24px, 3.5vw, 36px)",
+              fontWeight: 800,
+              color: "var(--color-text-bright)",
+              letterSpacing: "-0.02em",
+              marginBottom: "12px"
+            }}>
+              Engineering Autonomous Enterprise Operations
+            </h2>
+            <p style={{ fontSize: "16px", color: "var(--color-text-muted)", maxWidth: "640px", margin: "0 auto", lineHeight: 1.6 }}>
+              ScalePods executive resources are authored directly from real deployments across US, UAE, and global industrial, real estate, and professional services firms.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "28px" }}>
+            <div style={{
+              background: isDark ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.8)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              padding: "32px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px"
+            }}>
+              <h3 style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>
+                1. Architectural Blueprints
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0 }}>
+                Move past vague AI hype with exact system topology diagrams, trigger-action maps, and API integration architectures connecting CRMs, ERPs, and multimodal AI agents.
+              </p>
+            </div>
+
+            <div style={{
+              background: isDark ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.8)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              padding: "32px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px"
+            }}>
+              <h3 style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>
+                2. Hard ROI &amp; Metric Benchmarks
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0 }}>
+                Analyze documented operational outcomes: 80% reduction in recruiter resume screening, sub-2-minute lead response rates, and 95% faster purchase order reconciliation.
+              </p>
+            </div>
+
+            <div style={{
+              background: isDark ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.8)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              padding: "32px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px"
+            }}>
+              <h3 style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>
+                3. 90-Day Implementation Roadmaps
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0 }}>
+                Step-by-step phased execution frameworks to audit internal operational friction, prioritize pilot workflows, and deploy production automation with human-in-the-loop governance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section style={{ padding: "80px 0 120px 0", borderTop: "1px solid var(--color-border-faint)" }}>
+        <div style={{ maxWidth: "880px", margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ textAlign: "center", marginBottom: "48px" }}>
+            <h2 style={{
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "clamp(24px, 3.5vw, 36px)",
+              fontWeight: 800,
+              color: "var(--color-text-bright)",
+              letterSpacing: "-0.02em",
+              marginBottom: "12px"
+            }}>
+              Frequently Asked Questions
+            </h2>
+            <p style={{ fontSize: "15px", color: "var(--color-text-muted)", margin: 0 }}>
+              Everything you need to know about accessing and applying ScalePods research.
+            </p>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div style={{ background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.7)", border: "1px solid var(--color-border)", borderRadius: "12px", padding: "24px" }}>
+              <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px" }}>
+                Are these executive playbooks and frameworks completely free to download?
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0 }}>
+                Yes. All eBooks, architecture guides, and frameworks in the ScalePods Executive Knowledge Hub are 100% free for founders, operations leaders, and technology executives.
+              </p>
+            </div>
+
+            <div style={{ background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.7)", border: "1px solid var(--color-border)", borderRadius: "12px", padding: "24px" }}>
+              <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px" }}>
+                Who should read the AI Employees and HR Automation guides?
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0 }}>
+                These resources are tailored for CEOs, COOs, Chief People Officers, and VP/Director-level leaders evaluating how autonomous agentic workflows can remove headcount dependencies and eliminate repetitive administrative work.
+              </p>
+            </div>
+
+            <div style={{ background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.7)", border: "1px solid var(--color-border)", borderRadius: "12px", padding: "24px" }}>
+              <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)", marginBottom: "8px" }}>
+                Can ScalePods help customize these blueprints for our specific tech stack?
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0 }}>
+                Yes. While these guides provide generalizable enterprise patterns, ScalePods engineers custom turn-key solutions tailored to your exact CRM, ERP, ATS, database, and internal business logic. You can schedule a complimentary workflow audit via our Contact page.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
       </BeamsBackground>
     </div>
   );

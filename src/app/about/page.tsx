@@ -217,16 +217,26 @@ export default function AboutPage() {
                 Our Mission
               </motion.div>
 
-              {/* Bold Statement Badges Container */}
-              <div 
-                style={{ 
-                  display: "flex", 
-                  flexDirection: "column", 
-                  alignItems: "center", 
-                  gap: "24px",
-                  width: "100%"
+              {/* Bold Statement Badges Container with semantic H1 */}
+              <h1
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  fontSize: "inherit",
+                  fontWeight: "inherit",
+                  lineHeight: "inherit",
+                  display: "contents",
                 }}
               >
+                <div 
+                  style={{ 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    alignItems: "center", 
+                    gap: "24px",
+                    width: "100%"
+                  }}
+                >
                 {/* Row 1: To design and deploy practical AI solutions */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
@@ -321,6 +331,7 @@ export default function AboutPage() {
                   and help businesses grow without adding complexity.
                 </motion.div>
               </div>
+              </h1>
             </div>
 
             {/* Right Column: Paragraphs */}

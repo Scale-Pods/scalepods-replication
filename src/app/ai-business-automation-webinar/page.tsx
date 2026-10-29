@@ -270,7 +270,7 @@ export default function WebinarPage() {
         currency: orderData.currency,
         name: "ScalePods",
         description: "AI Business Automation Live Masterclass Pass",
-        image: "https://scalepods.co/favicon.ico",
+        image: "https://www.scalepods.co/icon.png",
         order_id: orderData.orderId,
         prefill: {
           name: formData.name,

@@ -4,12 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMobile } from "@/lib/hooks";
 
-const footerLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "Contact", href: "/contact" },
-  { label: "Blog", href: "/blog" },
+const platformLinks = [
+  { label: "About Us", href: "/about" },
+  { label: "Resources", href: "/resources" },
+  { label: "AI Masterclass", href: "/ai-business-automation-webinar" },
+  { label: "Blog & Insights", href: "/blog" },
+  { label: "Contact Us", href: "/contact" },
+];
+
+const legalLinks = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
+  { label: "AI & LLM Docs", href: "/llms.txt" },
 ];
 
 const solutionLinks = [
@@ -197,9 +203,9 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Platform</h4>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Company</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {footerLinks.slice(0, 3).map((link) => (
+                {platformLinks.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
@@ -213,9 +219,9 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Legal</h4>
+              <h4 style={{ color: "var(--color-text-bright)", fontSize: "14px", fontWeight: 700, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Legal &amp; AI</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {footerLinks.slice(3).map((link) => (
+                {legalLinks.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}

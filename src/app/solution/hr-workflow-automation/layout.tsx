@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/SEO/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Autonomous HR & Talent Workflow Automation | ScalePods",
+  title: "HR Workflow Automation & AI Recruitment Platform | ScalePods",
   description:
     "Build your elite team with modern HR workflow automation. Automate candidate sourcing, AI resume screening, automated interview scheduling, and onboarding automation 24/7.",
   keywords: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: "https://www.scalepods.co/solution/hr-workflow-automation",
   },
   openGraph: {
-    title: "Autonomous HR & Talent Workflow Automation | ScalePods",
+    title: "HR Workflow Automation & AI Recruitment Platform | ScalePods",
     description:
       "Scale talent acquisition with next-generation recruitment automation, AI resume screening, automated interview scheduling, and onboarding compliance.",
     url: "https://www.scalepods.co/solution/hr-workflow-automation",

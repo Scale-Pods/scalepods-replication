@@ -119,9 +119,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Map static blogs (exclude case studies — they have their own /case-study/ route)
+  // Set of legacy slugs that redirect and must never appear in sitemap.xml
+  const redirectedSlugs = new Set([
+    "operations-automation-guide",
+    "lotus-manor-case-study",
+    "lotus-manor-real-estate-sales-automation-dubai",
+    "zv-steels-recruitment-automation-tool",
+    "asquared-real-estate-sales-automation-dubai",
+  ]);
+
+  // 2. Map static blogs (exclude case studies and redirected slugs)
   const staticBlogRoutes: MetadataRoute.Sitemap = staticPosts
-    .filter((post) => post.category !== "Case Study")
+    .filter((post) => post.category !== "Case Study" && !redirectedSlugs.has(post.slug))
     .map((post) => {
     // Parse the static date safely (e.g. "May 20, 2026")
     let parsedDate = new Date();
@@ -156,7 +165,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  // 3. Fetch dynamic blogs from Supabase
+  // 3. Fetch dynamic blogs from Supabase (filter out redirected/legacy slugs)
   let dynamicBlogRoutes: MetadataRoute.Sitemap = [];
   try {
     const { data: dbPosts, error } = await supabase
@@ -167,12 +176,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (error) {
       console.error("[Sitemap] Supabase query error:", error);
     } else if (dbPosts) {
-      dynamicBlogRoutes = dbPosts.map((post) => ({
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: post.published_at ? new Date(post.published_at) : new Date(),
-        changeFrequency: "weekly",
-        priority: 0.7,
-      }));
+      dynamicBlogRoutes = dbPosts
+        .filter((post) => post.slug && !redirectedSlugs.has(post.slug))
+        .map((post) => ({
+          url: `${baseUrl}/blog/${post.slug}`,
+          lastModified: post.published_at ? new Date(post.published_at) : new Date(),
+          changeFrequency: "weekly",
+          priority: 0.7,
+        }));
     }
   } catch (err) {
     console.error("[Sitemap] Failed to generate dynamic blog routes:", err);

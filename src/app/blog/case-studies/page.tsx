@@ -53,6 +53,52 @@ export default function CaseStudiesPage() {
         <div style={{ paddingTop: "140px", paddingBottom: "140px" }}>
           <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
             
+            {/* Page Header */}
+            <div style={{ textAlign: "center", marginBottom: "80px" }}>
+              <div
+                style={{
+                  display: "inline-block",
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.2em",
+                  color: isDark ? "#B1D997" : "#1a3d0a",
+                  marginBottom: "16px",
+                  background: isDark ? "rgba(177, 217, 151, 0.12)" : "rgba(177, 217, 151, 0.22)",
+                  padding: "6px 16px",
+                  borderRadius: "20px",
+                  border: isDark ? "1px solid rgba(177, 217, 151, 0.25)" : "1px solid rgba(177, 217, 151, 0.55)",
+                }}
+              >
+                Case Studies
+              </div>
+              <h1
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "clamp(30px, 4vw, 50px)",
+                  fontWeight: 800,
+                  color: "var(--color-text-bright)",
+                  letterSpacing: "-0.03em",
+                  lineHeight: "1.2",
+                  marginBottom: "16px",
+                }}
+              >
+                Real-World AI Automation in Action
+              </h1>
+              <p
+                style={{
+                  maxWidth: "660px",
+                  margin: "0 auto",
+                  fontSize: "clamp(15px, 1.8vw, 17px)",
+                  color: "var(--color-text-muted)",
+                  lineHeight: 1.6,
+                }}
+              >
+                Explore how enterprises deploy ScalePods autonomous AI workflows to eliminate operational bottlenecks, slash response times, and scale revenue without headcount inflation.
+              </p>
+            </div>
+
             {/* Case Studies Container */}
             <div style={{ display: "flex", flexDirection: "column", gap: "110px" }}>
 

@@ -582,11 +582,11 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
                   lineHeight: 1.3
                 }}>
                   System 2:{" "}
-                  <Link href="/blog/operations-automation-guide" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                  <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                     ERP automation
                   </Link>{" "}
                   &amp; SAP Build Process Automation for{" "}
-                  <Link href="/solution/operations-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                  <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                     logistics audits
                   </Link>
                 </h3>

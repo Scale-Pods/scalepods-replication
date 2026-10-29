@@ -96,6 +96,7 @@ const ThemeToggle = memo(() => {
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Solutions", dropdown: true, href: "/solution" },
+  { label: "About", href: "/about" },
   { label: "Resources", dropdown: true, href: "/resources" },
   { label: "Global", href: "/global" },
   { label: "Contact", href: "/contact" },

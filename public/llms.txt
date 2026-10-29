@@ -1,0 +1,40 @@
+# ScalePods
+
+> ScalePods designs, engineers, and deploys custom AI-powered workflow automation engines that eliminate operational friction, replace repetitive manual busywork, and help lean enterprises scale without headcount inflation.
+
+ScalePods partners with ambitious businesses across the US, UK, UAE, and India to architect end-to-end intelligent systems combining conversational AI, automated data pipelines, computer vision, and autonomous agents.
+
+## Core Solutions
+
+- [Sales Workflow Automation](https://www.scalepods.co/solution/sales-workflow-automation): Autonomous revenue infrastructure connecting multichannel lead capture, sub-2-minute qualification (WhatsApp, SMS, Email, AI Voice), CRM synchronization, and intelligent follow-up loops.
+- [HR & Talent Workflow Automation](https://www.scalepods.co/solution/hr-workflow-automation): Autonomous talent acquisition and onboarding systems featuring contextual AI resume parsing, candidate scoring, self-scheduling interview bots, and compliance workflows.
+- [Marketing Workflow Automation](https://www.scalepods.co/solution/marketing-workflow-automation): Enterprise growth automation unifying multi-channel demand capture, dynamic content orchestration, maker-checker creative pipelines, and lifecycle email automation.
+- [Operations & Process Workflow Automation](https://www.scalepods.co/solution/ops-workflow-automation): Centralized operational hubs automating supplier invoice reconciliation, 3-way PO matching, ERP/SAP connectivity, and real-time executive spend tracking.
+- [Manufacturing AI Automation](https://www.scalepods.co/solution/ai-automation-for-manufacturing): Industrial automation for plant operations, real-time bill-of-materials reconciliation, logistics audits, and inventory anomaly detection.
+- [Real Estate AI Automation](https://www.scalepods.co/solution/ai-automation-for-real-estate): Brokerage operating systems connecting sub-2-minute lead capture, milestone transaction coordination, agent recruiting, and 24/7 compliance coaching.
+
+## Proven Enterprise Case Studies
+
+- [Lotus Manor Real Estate (Dubai)](https://www.scalepods.co/case-study/lotus-manor-real-estate-sales-automation-dubai): Automated 7,000+ follow-ups across 1,000+ property prospects, driving 229 qualified buyer appointments.
+- [ZV Steels (India)](https://www.scalepods.co/case-study/zv-steels-recruitment-automation-tool): Slashed recruiter screening effort by 80% with Claude-powered candidate evaluations and automated 3-way ERP invoice verification.
+- [A Squared Real Estate (Dubai)](https://www.scalepods.co/case-study/asquared-real-estate-sales-automation-dubai): Triaged 22,000 dormant leads in 72 hours, extracting 30 high-intent property buyers via WhatsApp and AI Voice.
+- [Lootah Group (Dubai)](https://www.scalepods.co/case-study/lootah-group-procurement-workflow-automation): Compressed purchase order batch ingestion from 45 minutes to under 2 minutes, eliminating supplier overpayments.
+- [Macro Media (USA)](https://www.scalepods.co/case-study/macro-media-finance-workflow-automation): Rebuilt financial coordination, cutting month-end close coordination by 30% across accounting units.
+- [Bennett Realty (USA)](https://www.scalepods.co/case-study/bennett-realty-growth-os): Sub-2-minute lead response and automated transaction tracking, saving 8–10 administrative hours per closing.
+- [Victory Energy (USA)](https://www.scalepods.co/case-study/victory-energy-business-automation): Deployed four custom operating systems (Talent OS, Sales OS, Marketing OS, Financial OS) across 17 operating entities.
+
+## Executive Resources & Playbooks
+
+- [Executive Resources Hub](https://www.scalepods.co/resources): Whitepapers, implementation frameworks, and automation readiness tools.
+- [AI Employees: Meet the Digital Workforce](https://www.scalepods.co/resources/ebooks/ai-employees-digital-workforce): Executive guide on designing and deploying autonomous AI workers.
+- [AI in HR: Executive Playbook](https://www.scalepods.co/resources/ebooks/ai-in-hr-executive-playbook): Step-by-step strategy for building an AI-first talent and recruitment organization.
+- [AI Business Automation Masterclass](https://www.scalepods.co/ai-business-automation-webinar): Live founder-led masterclass on evaluating business processes for automation.
+
+## Company & Contact
+
+- Website: https://www.scalepods.co
+- About: https://www.scalepods.co/about
+- Blog: https://www.scalepods.co/blog
+- Book an Automation Audit: https://www.scalepods.co/contact
+- Inquiries: info@scalepods.co
+- Global Offices: USA, UAE, India

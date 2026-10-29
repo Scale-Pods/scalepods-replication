@@ -57,6 +57,8 @@ Blogs-*/
 Video-data/
 *.py
 *.txt
+!public/llms.txt
+!public/robots.txt
 public/images/temp_*
 /src/app/api/copy-images/
 /src/app/api/git-helper/

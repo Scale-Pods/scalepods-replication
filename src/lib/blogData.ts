@@ -223,6 +223,7 @@ export const blogPosts: BlogPost[] = [
     date: "May 20, 2026",
     category: "Article",
     title: "How to Automate Your SDR Workflow with AI (Step-by-Step Guide for 2026)",
+    metaTitle: "Automate SDR Workflows with AI (2026 Guide) | ScalePods",
     excerpt:
       "Prospecting, cold email personalization, and follow-ups can consume up to 70% of an SDR's day. Learn how to combine AI-powered workflows with human oversight to qualify leads intelligently and book 3x more meetings.",
     image: "/images/blog/sdr_workflow_hero.webp",
@@ -460,6 +461,7 @@ export const blogPosts: BlogPost[] = [
     date: "January 15, 2025",
     category: "Article",
     title: "The Future of Workflows: Why AI Automation Is the Standard",
+    metaTitle: "The Future of Workflows & AI Automation | ScalePods",
     excerpt:
       "Discover how businesses are replacing repetitive tasks with intelligent automation — and why early adoption gives you a competitive edge.",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85",
@@ -1004,7 +1006,7 @@ export const blogPosts: BlogPost[] = [
     category: "Case Study",
     title: "How Lotus Manor Automated 7,000+ Follow-Ups With Sales Workflow Automation",
     excerpt: "Lotus Manor Real Estate had a growing database of qualified property prospects—but manual outreach made it difficult to follow up consistently. ScalePods implemented an AI-enabled sales workflow automation system coordinating follow-ups across WhatsApp, email, and AI voice calls, reaching 1,000+ prospects, sending 7,000+ automated follow-ups, and driving 229 direct responses.",
-    metaTitle: "Lotus Manor Case Study: Sales Workflow Automation in Dubai | ScalePods",
+    metaTitle: "Lotus Manor: Sales Automation Case Study | ScalePods",
     metaDescription: "See how ScalePods helped Lotus Manor Real Estate in Dubai automate sales follow-ups across WhatsApp, email, and AI voice—reaching 1,000+ prospects and generating 229 direct responses.",
     image: "/brands/lotus-manor.webp",
     sections: [
@@ -1080,7 +1082,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "System 2: ERP Automation & SAP Build Process Automation for Logistics Audits",
-        body: "An automated compliance system designed with [ERP automation](/blog/operations-automation-guide) to catch billing errors, transit inconsistencies, and tax discrepancies during [logistics audits](/solution/operations-automation):\n\n• Inbound (Purchase) 3-Way Verification: Automatically reconciles Supplier Invoices against E-Way Bills (EWB) and Logistics Receipts (LR). It applies fuzzy matching for factory address variations (ZV Metal Processor vs. Russian Fabricators) while enforcing exact verification on vehicle numbers, GSTIN, and batch coil codes.\n• Outbound (Sales) Compliance: Cross-references Sales Order Excel sheets with generated Sales Invoices, validating 18% GST (9% CGST + 9% SGST), base rates, standard 0.47% brokerages, and loading charges within weight tolerances (±300 kg).\n• Real-Time Discrepancy Reporting: Labels run as Match (✓), Partial Match (Δ), or Mismatch (×) with field-by-field error logs."
+        body: "An automated compliance system designed with [ERP automation](/solution/ops-workflow-automation) to catch billing errors, transit inconsistencies, and tax discrepancies during [logistics audits](/solution/ops-workflow-automation):\n\n• Inbound (Purchase) 3-Way Verification: Automatically reconciles Supplier Invoices against E-Way Bills (EWB) and Logistics Receipts (LR). It applies fuzzy matching for factory address variations (ZV Metal Processor vs. Russian Fabricators) while enforcing exact verification on vehicle numbers, GSTIN, and batch coil codes.\n• Outbound (Sales) Compliance: Cross-references Sales Order Excel sheets with generated Sales Invoices, validating 18% GST (9% CGST + 9% SGST), base rates, standard 0.47% brokerages, and loading charges within weight tolerances (±300 kg).\n• Real-Time Discrepancy Reporting: Labels run as Match (✓), Partial Match (Δ), or Mismatch (×) with field-by-field error logs."
       },
       {
         heading: "System 3: Operations Automation Software & Sales Process Automation with a Sales Automation Platform",
@@ -1164,7 +1166,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "The Solution: Centralized Procurement Workflow Automation Platform",
-        body: "ScalePods built a centralized [procurement workflow automation](/solution/ops-workflow-automation) platform applying [intelligent process automation](/solution/ai-automation-for-manufacturing) principles:\n\n• 3-Step Smart Import Workflow: Paste raw PO logs -> Smart Match columns against historical records -> Classify as New, Updated, or Matching in under 2 minutes.\n• Automated Price Variance & Multi-Change Analytics: Instantly flags unapproved supplier rate increases (saving an estimated 2–5%) and highlights frequent price fluctuations.\n• Real-Time Spend Dashboard: KPI cards tracking total spend, active suppliers, and line items across daily, monthly, and yearly views.\n• Role-Based Access & AI Audit Trails: Admin, Editor, and Viewer permissions coupled with an immutable audit modal documenting every record change.\n• Unified Connectivity: Foundation for [automated inventory systems](/blog/operations-automation-guide) and integrated WhatsApp/email quotation requests."
+        body: "ScalePods built a centralized [procurement workflow automation](/solution/ops-workflow-automation) platform applying [intelligent process automation](/solution/ai-automation-for-manufacturing) principles:\n\n• 3-Step Smart Import Workflow: Paste raw PO logs -> Smart Match columns against historical records -> Classify as New, Updated, or Matching in under 2 minutes.\n• Automated Price Variance & Multi-Change Analytics: Instantly flags unapproved supplier rate increases (saving an estimated 2–5%) and highlights frequent price fluctuations.\n• Real-Time Spend Dashboard: KPI cards tracking total spend, active suppliers, and line items across daily, monthly, and yearly views.\n• Role-Based Access & AI Audit Trails: Admin, Editor, and Viewer permissions coupled with an immutable audit modal documenting every record change.\n• Unified Connectivity: Foundation for [automated inventory systems](/solution/ops-workflow-automation) and integrated WhatsApp/email quotation requests."
       },
       {
         heading: "The Results",
@@ -1262,7 +1264,7 @@ export const blogPosts: BlogPost[] = [
     category: "Case Study",
     title: "How a Real Estate Brokerage Can Scale Without Adding More Admin Work",
     excerpt: "Growing a real estate brokerage means handling more than incoming leads. Disconnected follow-ups, contract checklists, and agent questions can consume hours of valuable time. ScalePods engineered Bennett Realty Growth OS for Gregory Bennett, connecting multi-channel lead capture, sub-2-minute conversational replies, automated transaction coordination, and 24/7 agent coaching into a unified workflow engine. Discover how automated business systems cut lead response times to under 2 minutes and saved 8–10 administrative hours per transaction.",
-    metaTitle: "Bennett Realty Growth OS: Real Estate Workflow Automation | ScalePods",
+    metaTitle: "Bennett Realty: Real Estate Workflow Automation | ScalePods",
     metaDescription: "See how ScalePods built Bennett Realty Growth OS for Gregory Bennett—automating lead capture, transaction milestones, and agent coaching while saving 8–10 hours per deal.",
     image: "/brands/bennett-realty-box.svg",
     sections: [
@@ -1316,7 +1318,7 @@ export const blogPosts: BlogPost[] = [
     category: "Case Study",
     title: "How Victory Energy Automated Four Core Business Functions with AI Operating Systems",
     excerpt: "Victory Energy needed a faster way to hire, sell, market, and manage multi-entity accounting. ScalePods engineered four unified systems: Talent OS, Growth OS for Sales, Growth OS for Marketing, and Financial OS—delivering 74% less screening time, 38% more booked appointments, 65% less manual marketing production, and a 5-day month-end close across 17 operating entities.",
-    metaTitle: "How Victory Energy Automated Four Business Functions | ScalePods Case Study",
+    metaTitle: "Victory Energy: Business Automation Case Study | ScalePods",
     metaDescription: "Notice how Victory Energy used four AI operating systems to eliminate manual friction in hiring, selling, marketing, and 17-entity finance operations.",
     image: "/images/case-studies/victory-energy/solution-overview-banner.webp",
     sections: [

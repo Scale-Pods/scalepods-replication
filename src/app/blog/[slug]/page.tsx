@@ -426,6 +426,11 @@ export default async function ArticlePage({ params }: Props) {
   const isVictoryEnergyCaseStudy = slug === "victory-energy-business-automation";
   const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy || isMacroMediaCaseStudy || isBennettRealtyCaseStudy || isVictoryEnergyCaseStudy;
 
+  const candidatePosts = staticPosts.filter(p => p.slug !== slug && p.category !== "Case Study");
+  const currentIndex = Math.max(0, staticPosts.findIndex(p => p.slug === slug));
+  const startIndex = candidatePosts.length > 3 ? (currentIndex % (candidatePosts.length - 2)) : 0;
+  const relatedPosts = candidatePosts.slice(startIndex, startIndex + 3);
+
   return (
     <main style={{ minHeight: "100vh", color: "var(--color-text-body)" }}>
       <JsonLd data={articleSchema} />
@@ -646,11 +651,63 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
+        {/* Related Articles Section for Internal Link Architecture */}
+        {!isCustomCaseStudy && relatedPosts.length > 0 && (
+          <div style={{ marginTop: "70px", marginBottom: "30px" }}>
+            <h3 style={{
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "22px",
+              fontWeight: 700,
+              color: "var(--color-text-bright)",
+              marginBottom: "20px",
+              letterSpacing: "-0.02em"
+            }}>
+              Related Insights &amp; Guides
+            </h3>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "20px"
+            }}>
+              {relatedPosts.map((rp) => (
+                <Link
+                  key={rp.slug}
+                  href={`/blog/${rp.slug}`}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "20px",
+                    borderRadius: "14px",
+                    background: "var(--color-bg-card)",
+                    border: "1px solid var(--color-border)",
+                    textDecoration: "none",
+                    transition: "all 0.25s ease",
+                  }}
+                  className="hover:border-[var(--color-green)]"
+                >
+                  <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--color-green-text)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
+                    {rp.category}
+                  </span>
+                  <h4 style={{
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    color: "var(--color-text-bright)",
+                    lineHeight: 1.4,
+                    margin: 0
+                  }}>
+                    {rp.title}
+                  </h4>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Divider */}
         <div style={{
           height: "1px",
           background: "var(--color-border)",
-          marginTop: isCustomCaseStudy ? "32px" : "80px",
+          marginTop: isCustomCaseStudy ? "32px" : "40px",
           marginBottom: isCustomCaseStudy ? "24px" : "40px"
         }} />
 

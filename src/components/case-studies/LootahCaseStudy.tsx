@@ -755,7 +755,7 @@ export default function LootahCaseStudy({ faqs }: LootahProps) {
                   </h3>
                   <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     PO information, supplier pricing, inventory connectivity, dashboards, user permissions, and audit records all operate within the same platform. That makes it a practical model of{" "}
-                    <Link href="/blog/operations-automation-guide" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
+                    <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
                       Operations automation
                     </Link>{" "}
                     applied to heavy industrial purchasing.
