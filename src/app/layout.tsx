@@ -210,12 +210,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           
           {/* Scalepods Chatbot Integration */}
           <ChatbotLoader />
-          
-          {/* Global Lottie Player Script to optimize rendering on pages like About */}
-          <Script 
-            src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" 
-            strategy="afterInteractive" 
-          />
         </ThemeProvider>
 
         {/* Global scroll fade-up animation via IntersectionObserver */}

@@ -41,7 +41,7 @@ export default function ChatbotLoader() {
         if (!(window as any).ReactDOM) {
           await loadScript("https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js");
         }
-        await loadScript("https://v0-scalepods-chatbot-frontend.vercel.app/embed.js");
+        await loadScript("/chatbot/embed.min.js");
       } catch (err) {
         console.error("[ChatbotLoader]", err);
       }
