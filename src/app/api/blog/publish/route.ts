@@ -88,10 +88,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    // 4. Trigger Next.js cache revalidation for blog list and post page
+    // 4. Trigger Next.js cache revalidation for blog list, post page, and sitemap
     try {
       revalidatePath("/blog");
       revalidatePath(`/blog/${slug}`);
+      revalidatePath("/sitemap.xml");
     } catch (revalErr) {
       console.warn("[Blog Publish Revalidate Warning]:", revalErr);
     }
@@ -145,10 +146,11 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    // 4. Trigger Next.js cache revalidation for blog list and post page
+    // 4. Trigger Next.js cache revalidation for blog list, post page, and sitemap
     try {
       revalidatePath("/blog");
       revalidatePath(`/blog/${slug}`);
+      revalidatePath("/sitemap.xml");
     } catch (revalErr) {
       console.warn("[Blog Unpublish Revalidate Warning]:", revalErr);
     }
