@@ -141,7 +141,7 @@ export default function Footer() {
                   key={i}
                   href={social.href}
                   target="_blank"
-                  rel="nofollow noopener noreferrer"
+                  rel={social.href.includes("wa.me") ? "nofollow noopener noreferrer" : "noopener noreferrer"}
                   style={{
                     width: "40px", height: "40px", borderRadius: "12px",
                     display: "flex", alignItems: "center", justifyContent: "center",

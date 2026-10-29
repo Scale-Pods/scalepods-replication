@@ -159,8 +159,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/lotus-manor-real-estate-sales-automation-dubai"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Lotus Manor Real Estate Case Study"
                     >
-                      Learn more →
+                      Explore Lotus Manor Case Study →
                     </Link>
                   </div>
                 </div>
@@ -206,8 +207,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/zv-steels-recruitment-automation-tool"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore ZV Steels Case Study"
                     >
-                      Learn more →
+                      Explore ZV Steels Case Study →
                     </Link>
                   </div>
                 </div>
@@ -287,8 +289,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/asquared-real-estate-sales-automation-dubai"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore A Squared Real Estate Case Study"
                     >
-                      Learn more →
+                      Explore A Squared Case Study →
                     </Link>
                   </div>
                 </div>
@@ -334,8 +337,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/lootah-group-procurement-workflow-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Lootah Group Case Study"
                     >
-                      Learn more →
+                      Explore Lootah Group Case Study →
                     </Link>
                   </div>
                 </div>
@@ -415,8 +419,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/macro-media-finance-workflow-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Macro Media Case Study"
                     >
-                      Learn more →
+                      Explore Macro Media Case Study →
                     </Link>
                   </div>
                 </div>
@@ -462,8 +467,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/bennett-realty-growth-os"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Bennett Realty Case Study"
                     >
-                      Learn more →
+                      Explore Bennett Realty Case Study →
                     </Link>
                   </div>
                 </div>
@@ -543,8 +549,9 @@ export default function CaseStudiesPage() {
                       href="/case-study/victory-energy-business-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Victory Energy Case Study"
                     >
-                      Learn more →
+                      Explore Victory Energy Case Study →
                     </Link>
                   </div>
                 </div>
