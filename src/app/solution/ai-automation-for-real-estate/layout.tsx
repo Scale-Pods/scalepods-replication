@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import JsonLd from "@/components/SEO/JsonLd";
 
 export const metadata: Metadata = {
-  title: "AI Automation for Real Estate: Convert Buyers Faster & Eliminate Pipeline Leakage | ScalePods",
+  title: "AI Automation for Real Estate & Sales Pipelines | ScalePods",
   description:
     "Deploy practical AI for real estate solutions. Automate client discovery, accelerate site viewing schedules, and build a unified buyer engagement pipeline in under 30 days.",
   keywords: [

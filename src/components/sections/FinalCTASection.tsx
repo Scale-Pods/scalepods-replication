@@ -222,7 +222,7 @@ export const FinalCTASection = () => {
             <a 
               href="https://wa.me/917680974640?text=Hi%20ScalePods!%20I'm%20interested%20in%20deploying%20an%20AI%20Ecosystem%20for%20my%20business." 
               target="_blank" 
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer"
               style={{ textDecoration: "none" }}
             >
               <button
@@ -267,7 +267,7 @@ export const FinalCTASection = () => {
             <a 
               href="https://wa.me/919867271848?text=Hi%20ScalePods!%20I'm%20interested%20in%20discussing%20custom%20workflow%20automation%20solutions%20for%20my%20business." 
               target="_blank" 
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer"
               style={{ textDecoration: "none" }}
             >
               <button

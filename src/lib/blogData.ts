@@ -155,7 +155,7 @@ export const blogPosts: BlogPost[] = [
     date: "August 12, 2026",
     category: "AI Automation",
     title: "AI Employees: Meet the Digital Workforce Changing How Businesses Get Work Done",
-    metaTitle: "AI Employees: Meet the Digital Workforce Changing How Businesses Work (2026)",
+    metaTitle: "AI Employees & Digital Workforce Guide (2026) | ScalePods",
     metaDescription: "AI employees are digital team members that own an entire role — sales, marketing, HR, or operations — not just a single task. See how they work.",
     excerpt: "A practical look at how AI employees work, and how four of them — Alex, Maya, Harper, and Orion — cover sales, marketing, HR, and operations without ever clocking out.",
     image: "/images/blog/ai_employees_hero.webp",
@@ -1114,7 +1114,7 @@ export const blogPosts: BlogPost[] = [
     category: "Case Study",
     title: "22,000 Leads. 30 Hot. How A Squared Changed the Game",
     excerpt: "A Squared had thousands of prospects moving through its CRM, but lead volume wasn't the real problem. Follow-ups were inconsistent, high-intent opportunities could go cold, and older leads were being forgotten. ScalePods built an AI-powered automated sales system that qualified leads, triggered WhatsApp and voice outreach, analyzed responses, and used sales lead automation to bring inactive prospects back into the sales pipeline software .",
-    metaTitle: "22,000 Leads. 30 Hot. How A Squared Changed the Game",
+    metaTitle: "A Squared Real Estate Case Study: AI Sales Automation | ScalePods",
     metaDescription: "22,000 leads. Just 30 hot. See how A Squared used AI sales automation to rebuild follow-up and keep more opportunities moving.",
     image: "/brands/asquared-brand-1x1.webp",
     sections: [
@@ -1384,7 +1384,7 @@ export const blogPosts: BlogPost[] = [
     category: "Article",
     title: "How to Implement Sales Workflow Automation (Step-by-Step)",
     excerpt: "A 4-step framework for rolling out sales workflow automation without breaking your process — plus the 5 most common mistakes to avoid.",
-    metaTitle: "How to Implement Sales Workflow Automation (Step-by-Step)",
+    metaTitle: "Sales Workflow Automation Implementation Guide | ScalePods",
     metaDescription: "A 4-step framework for rolling out sales workflow automation without breaking your process — plus the 5 most common mistakes to avoid.",
     image: "/images/blog/sales_workflow_hero.webp",
     sections: [

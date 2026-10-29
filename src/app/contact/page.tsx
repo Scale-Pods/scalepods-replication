@@ -447,7 +447,7 @@ export default function ContactPage() {
                   <a
                     href="https://wa.me/919867271848?text=Hi%20ScalePods!%20I'm%20interested%20in%20discussing%20custom%20workflow%20automation%20solutions%20for%20my%20business."
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                     style={{
                       fontFamily: F.inter, fontSize: "13px", color: C.txtBody,
                       textDecoration: "underline", textUnderlineOffset: "3px",
@@ -924,7 +924,7 @@ export default function ContactPage() {
                   <a
                     href="https://wa.me/917680974640?text=Hi%20ScalePods!%20I%20have%20a%20question%20about%20your%20workflow%20automation%20services."
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                     style={{
                       position: "relative",
                       zIndex: 1,

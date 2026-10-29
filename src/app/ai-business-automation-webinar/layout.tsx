@@ -54,6 +54,8 @@ const webinarSchema = {
       "description": "A live, founder-led session with Adnan Shaikh (Co-Founder & CEO) and Raunak Kumar (Co-Founder, CTO & CPO) on how businesses can identify and integrate AI-powered workflow automation across Sales, Marketing, HR, and Operations.",
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "startDate": "2026-11-20T18:30:00+05:30",
+      "endDate": "2026-11-20T20:30:00+05:30",
       "location": {
         "@type": "VirtualLocation",
         "url": "https://www.scalepods.co/ai-business-automation-webinar"

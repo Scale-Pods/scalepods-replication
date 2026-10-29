@@ -431,9 +431,9 @@ export default function GlobalPage() {
           >
 
             {/* ... Content remains as refactored ... */}
-            <h2 className="hero-title-accent">
+            <h1 className="hero-title-accent">
               Plug-and-Play Pods
-            </h2>
+            </h1>
             <h3 className="hero-subtitle">
               for Growing Businesses.
             </h3>
