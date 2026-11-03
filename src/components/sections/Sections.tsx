@@ -2170,6 +2170,19 @@ const caseStudiesData = [
     ],
     image: "/brands/victory-energy-box.svg",
     accent: "var(--color-blue-mid)"
+    },
+  {
+    id: 8,
+    category: "LUXURY REAL ESTATE FUB AUTOMATION",
+    title: "Ryan Schwartz USA",
+    href: "/case-study/ryan-schwartz-fub-crm-automation",
+    description: "Ryan Schwartz deployed an AI ecosystem around Follow Up Boss, achieving <45s speed-to-lead, 38% WhatsApp engagement, and 22% appointment booking across Naples and Aspen.",
+    metrics: [
+      { value: "< 45s", label: "Speed-to-Lead" },
+      { value: "38%", label: "WhatsApp Reply" }
+    ],
+    image: "/brands/ryan-schwartz-box.svg",
+    accent: "var(--color-blue-mid)"
   }
 ];
 

@@ -558,6 +558,71 @@ export default function CaseStudiesPage() {
 
               </div>
 
+              {/* ── Case Study 8: Ryan Schwartz Real Estate (Text Left, Image Right - Alternate Manner) ── */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-5xl mx-auto w-full">
+                
+                {/* Left Column on Desktop / Bottom on Mobile: Case Study Text */}
+                <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
+                  <span style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "var(--color-blue-mid)"
+                  }}>
+                    CASE STUDY
+                  </span>
+                  
+                  <h2 style={{
+                    fontSize: "clamp(32px, 3.5vw, 48px)",
+                    fontWeight: 750,
+                    color: "var(--color-text-bright)",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em"
+                  }}>
+                    Ryan Schwartz Real Estate
+                  </h2>
+
+                  <p style={{
+                    fontSize: "17px",
+                    color: "var(--color-text-body)",
+                    lineHeight: 1.6,
+                    margin: 0
+                  }}>
+                    Ryan Schwartz, a luxury real estate advisor across Naples and Aspen, was overwhelmed by 100+ weekly inquiries across Zillow, Realtor.com, and paid campaigns. ScalePods engineered an AI ecosystem around Follow Up Boss CRM—featuring sub-45-second multi-channel engagement, intelligent routing, automated calendar booking, and 100% CRM call logging—driving a 38% WhatsApp response rate and 22% conversion from inquiry to booked private consultation.
+                  </p>
+
+                  <div style={{ marginTop: "12px" }}>
+                    <Link 
+                      href="/case-study/ryan-schwartz-fub-crm-automation"
+                      style={learnMoreBtnStyle}
+                      className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Ryan Schwartz Case Study"
+                    >
+                      Explore Ryan Schwartz Case Study →
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right Column on Desktop / Top on Mobile: Image Container */}
+                <div className="order-1 lg:order-2 lg:col-span-5 w-full flex justify-center">
+                  <div style={logoBoxStyle}>
+                    <Image
+                      src="/brands/ryan-schwartz-box.svg"
+                      alt="Ryan Schwartz Luxury Real Estate Logo Box"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{
+                        objectFit: "cover",
+                        transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                      className="hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>

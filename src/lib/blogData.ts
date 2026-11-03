@@ -1379,6 +1379,60 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "ryan-schwartz-fub-crm-automation",
+    date: "November 3, 2026",
+    category: "Case Study",
+    title: "How Ryan Automated Real Estate Lead Follow-Up with FUB CRM Automation",
+    excerpt: "Discover how FUB CRM automation, real estate lead automation, and AI-powered lead nurturing helped Ryan Schwartz’s luxury real estate team manage inquiries across Naples and Aspen. ScalePods connected multiple lead sources with Follow Up Boss, automated first-touch WhatsApp outreach, coordinated follow-ups across channels, supported calendar-checked appointment booking, and documented completed calls in the CRM. After deployment, average speed-to-lead fell to under 45 seconds, first-touch WhatsApp engagement reached approximately 38%, and appointment booking conversion among qualified leads reached roughly 22%.",
+    metaTitle: "Ryan’s FUB CRM Automation Case Study | ScalePods",
+    metaDescription: "See how FUB CRM automation helped a luxury real estate team improve lead response, WhatsApp engagement, appointment booking, and CRM updates.",
+    image: "/images/case-studies/ryan-schwartz/solution-overview-architecture.png",
+    sections: [
+      {
+        heading: "Overview",
+        body: "In a luxury real estate company, time is precious. If you do not respond to a buyer or seller promptly, you lose them. To keep inquiries coming in Naples and Aspen, the team maintained conversations from various sources and managed their follow-ups. Using FUB CRM automation allowed the team to streamline the process of responding to leads, communicating with them, booking appointments, and keeping Follow Up Boss updated, without relying on manual work at every step."
+      },
+      {
+        heading: "The Challenge: Too Many Leads, Not Enough Time",
+        body: "Ryan’s team was receiving leads from Facebook ads, Google Ads, website forms, Fello valuations, CallRail, and open houses. It was getting very difficult to track every real estate lead across all these channels. Response time was too long, follow-ups were erratic, and teams had to enter information into follow-up boards, update pipeline stages, record call outcomes, and keep track of all the appointments. This led to duplicate records, missing notes, and inconsistent lead information, with zero clear visibility into speed-to-lead or appointment conversion metrics."
+      },
+      {
+        heading: "The Solution: A Better Way To Handle All Leads",
+        body: "ScalePods created a Real Estate AI ecosystem around Follow Up Boss (FUB). This ecosystem combines lead sources, messaging channels, voice agents, scheduling, and CRM updates into one automated workflow:\n\n• 1. Faster Responses Across Lead Sources: Ingests incoming leads from ads, website forms, Fello, CallRail, and open houses into Follow Up Boss. The first-touch real estate lead agent sends a personalized WhatsApp message within 60 seconds with focused, single-question qualification.\n• 2. Custom Follow-Up: Orchestrates adaptive follow-ups across calls, SMS, WhatsApp, and email based on timeline and engagement, capped at three call attempts in rolling 30 days with duplicate suppression and opt-out safeguards.\n• 3. Conversations That Stay Connected: Unifies context across email, SMS, WhatsApp, and voice. When a lead has a 0–3 month timeline, the system escalates the opportunity directly to Ryan or his team in real time.\n• 4. Calendar Checks for Booking Appointments: Checks live calendar availability before confirming showings or calls, dispatching automated reminders that reduce no-shows.\n• 5. Calls and CRM Records Handled Automatically: Voice agents handle inbound/outbound calls, and Follow Up Boss automatically documents transcripts, summaries, structured notes, tags, and pipeline updates."
+      },
+      {
+        heading: "The Results: Faster Replies and More Consistent Follow-Up",
+        body: "After deployment, Ryan's luxury real estate team achieved:\n\n• Under 45 seconds average speed-to-lead across channels (beating the 60-second target).\n• ~38% first-touch WhatsApp engagement (vs. 12% manual outreach baseline).\n• ~22% appointment booking conversion among qualified leads.\n• Under 15% appointment no-show rate with automated reminder cadences.\n• 100% completed call documentation with automated transcripts and CRM summaries in FUB.\n• Zero duplicate outreach with healthy WhatsApp quality score maintained throughout rollout."
+      }
+    ],
+    faqs: [
+      {
+        q: "What is FUB CRM automation for real estate?",
+        a: "FUB CRM automation connects Follow Up Boss with external lead sources (Google Ads, Facebook, website forms, Fello, CallRail), messaging channels (WhatsApp, SMS, email), conversational voice agents, and calendar booking systems to automate lead intake, instant qualification, and CRM record keeping."
+      },
+      {
+        q: "How does the system achieve an under-45-second speed to lead?",
+        a: "The moment an inquiry registers across any advertising channel, website form, or valuation tool, an automated real estate lead agent initiates a personalized WhatsApp or SMS message within 60 seconds, engaging the buyer or seller while their intent is at its peak."
+      },
+      {
+        q: "How does automated appointment scheduling check calendar availability?",
+        a: "When a qualified buyer or seller requests a private showing or consultation, the workflow queries Ryan's live calendar in real time to offer confirmed available time slots, books the calendar event, and triggers automated reminder cadences to keep no-show rates under 15%."
+      },
+      {
+        q: "What safeguard prevents sending duplicate or unwanted outreach?",
+        a: "The workflow applies automated opt-out preference checks and duplicate suppression algorithms before dispatching messages. Call attempts are strictly capped at three within a rolling 30-day window, maintaining high engagement and healthy carrier/WhatsApp quality ratings."
+      },
+      {
+        q: "How are high-priority luxury prospects escalated to Ryan and his team?",
+        a: "When a lead indicates an immediate buying or selling timeline (0–3 months) or requests direct agent involvement, the AI system flags the record, updates the FUB pipeline stage, and sends an urgent notification to Ryan and designated team members for personal high-touch closing."
+      },
+      {
+        q: "Does AI CRM automation replace real estate agents?",
+        a: "No. ScalePods operates on a human-in-the-loop architecture. The automation removes routine friction—such as manual data entry, transcript writing, initial outreach, and follow-up tracking—so luxury real estate agents can focus entirely on client relationships, property showings, and closing transactions."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

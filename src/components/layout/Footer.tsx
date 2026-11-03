@@ -35,6 +35,7 @@ const caseStudyLinks = [
   { label: "Macro Media USA", href: "/case-study/macro-media-finance-workflow-automation" },
   { label: "Bennett Realty USA", href: "/case-study/bennett-realty-growth-os" },
   { label: "Victory Energy USA", href: "/case-study/victory-energy-business-automation" },
+  { label: "Ryan Schwartz USA", href: "/case-study/ryan-schwartz-fub-crm-automation" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";
