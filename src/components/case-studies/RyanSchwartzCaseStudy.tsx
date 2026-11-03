@@ -302,7 +302,7 @@ export default function RyanSchwartzCaseStudy({ faqs }: RyanSchwartzProps) {
                   textJustify: "inter-word"
                 }}
               >
-                Ryan Schwartz leads a premier luxury real estate advisory serving high-net-worth buyers and sellers across Naples, Florida and Aspen, Colorado. Managing multi-million dollar property transactions requires immediate, personalized attention across every channel. Partnering with ScalePods, Ryan deployed an end-to-end Real Estate AI ecosystem integrated directly into Follow Up Boss (FUB), automating lead intake, speed-to-lead qualification, appointment booking, and CRM logging.
+                Ryan Schwartz leads a premier luxury real estate advisory serving high-net-worth buyers and sellers across Naples, Florida and Aspen, Colorado. Managing multi-million dollar property transactions requires immediate, personalized attention across every channel. Partnering with ScalePods, Ryan deployed an end-to-end <Link href="/solution/ai-automation-for-real-estate" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>Real Estate AI ecosystem</Link> integrated directly into Follow Up Boss (FUB), automating lead intake, speed-to-lead qualification, appointment booking, and CRM logging.
               </p>
             </div>
 
@@ -954,7 +954,7 @@ export default function RyanSchwartzCaseStudy({ faqs }: RyanSchwartzProps) {
                 textJustify: "inter-word"
               }}
             >
-              Hot leads with an immediate zero-to-three-month timeline are routed to Ryan in real time, letting the advisory prioritize prospects who are actively making purchasing decisions. These results show how real estate CRM workflow automation enables teams to spend less time chasing information and more time focusing on meaningful conversations with luxury buyers and sellers.
+              Hot leads with an immediate zero-to-three-month timeline are routed to Ryan in real time, letting the advisory prioritize prospects who are actively making purchasing decisions. These results show how real estate CRM workflow automation enables teams to spend less time chasing information and more time focusing on meaningful conversations with luxury buyers and sellers, mirroring outcomes seen at <Link href="/case-study/bennett-realty-growth-os" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>Bennett Realty</Link> and <Link href="/case-study/lotus-manor-real-estate-sales-automation-dubai" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>Lotus Manor Dubai</Link>.
             </p>
           </div>
 
@@ -1029,7 +1029,7 @@ export default function RyanSchwartzCaseStudy({ faqs }: RyanSchwartzProps) {
                 textJustify: "inter-word"
               }}
             >
-              If your team is juggling inquiries across multiple ad channels, manual CRM updates and inconsistent follow-ups can make it harder to spot the right opportunities. ScalePods builds custom CRM real estate workflow automations that connect your tools and workflows, helping your team respond faster and manage leads with greater consistency.
+              If your team is juggling inquiries across multiple ad channels, manual CRM updates and inconsistent follow-ups can make it harder to spot the right opportunities. ScalePods builds custom <Link href="/solution/ai-automation-for-real-estate" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>real estate workflow automations</Link> and <Link href="/solution/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>sales CRM engines</Link> that connect your tools and workflows, helping your team respond faster and manage leads with greater consistency.
             </p>
             <div style={{ marginTop: "12px", display: "flex", gap: "16px", flexWrap: "wrap", justifyContent: "center" }}>
               <Link

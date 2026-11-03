@@ -1390,7 +1390,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         heading: "Overview",
-        body: "In a luxury real estate company, time is precious. If you do not respond to a buyer or seller promptly, you lose them. To keep inquiries coming in Naples and Aspen, the team maintained conversations from various sources and managed their follow-ups. Using FUB CRM automation allowed the team to streamline the process of responding to leads, communicating with them, booking appointments, and keeping Follow Up Boss updated, without relying on manual work at every step."
+        body: "In a luxury real estate company, time is precious. If you do not respond to a buyer or seller promptly, you lose them. To keep inquiries coming in Naples and Aspen, the team maintained conversations from various sources and managed their follow-ups. Using FUB CRM automation allowed the team to streamline the process of responding to leads, communicating with them, booking appointments, and keeping Follow Up Boss updated, without relying on manual work at every step. [Explore ScalePods real estate workflow automation solutions.](/solution/ai-automation-for-real-estate)"
       },
       {
         heading: "The Challenge: Too Many Leads, Not Enough Time",
