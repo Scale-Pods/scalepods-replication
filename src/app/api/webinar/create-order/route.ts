@@ -9,7 +9,7 @@ import {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, role, countryCode, customCode, internal_test, test_secret } = body;
+    const { name, email, phone, role, countryCode, customCode } = body;
 
     // 1. Strict validation of Name, Email, and WhatsApp Phone
     const nameCheck = validateFullName(name);
@@ -40,10 +40,8 @@ export async function POST(req: NextRequest) {
     const cleanEmail = emailCheck.formatted!;
     const cleanPhone = phoneCheck.formatted!;
 
-    // Secure internal testing check (allows ₹1 checkout only with exact matching secret)
-    const isTest =
-      internal_test === true && test_secret === "scalepods_live_test_2026";
-    const chargeAmountPaise = isTest ? 1 * 100 : 99 * 100; // 100 paise = ₹1, 9900 paise = ₹99
+    // Strictly charge ₹99 (9900 paise) for all registrations
+    const chargeAmountPaise = 99 * 100;
 
     const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID;
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -64,7 +62,7 @@ export async function POST(req: NextRequest) {
       key_secret: keySecret,
     });
 
-    // Create an Order (₹1 for secret internal test, ₹99 for public visitors)
+    // Create an Order (₹99 for all visitors)
     const options = {
       amount: chargeAmountPaise,
       currency: "INR",
@@ -75,7 +73,6 @@ export async function POST(req: NextRequest) {
         attendee_phone: cleanPhone.slice(0, 30),
         attendee_role: String(role || "Leader").trim().slice(0, 50),
         webinar_title: "AI Business Automation Masterclass with Adnan Shaikh & Raunak Kumar",
-        is_internal_test: isTest ? "true" : "false",
       },
     };
 
@@ -87,7 +84,6 @@ export async function POST(req: NextRequest) {
       amount: order.amount,
       currency: order.currency,
       keyId,
-      isTest,
     });
   } catch (error: any) {
     console.error("[Razorpay Create Order Error]:", error);

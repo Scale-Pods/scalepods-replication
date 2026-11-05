@@ -37,7 +37,6 @@ function ThankYouContent() {
   const orderId = searchParams.get("order_id") || searchParams.get("orderId") || "";
   const name = searchParams.get("name") || "";
   const email = searchParams.get("email") || "";
-  const isTest = searchParams.get("test") === "1" || searchParams.get("internal_test") === "1";
 
   const { setTheme } = useTheme();
   const [webinarTheme, setWebinarTheme] = useState<"dark" | "light">(() => {
@@ -89,13 +88,8 @@ function ThankYouContent() {
     }
   }, [webinarTheme]);
 
-  // Fire Meta Pixel & GTM Conversion Tracking on mount (strictly suppressed during internal tests to protect Ad metrics)
+  // Fire Meta Pixel & GTM Conversion Tracking on mount
   useEffect(() => {
-    if (isTest) {
-      console.log("[Notice]: Meta Pixel & CAPI tracking suppressed for internal test mode.");
-      return;
-    }
-
     try {
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
@@ -130,7 +124,7 @@ function ThankYouContent() {
     } catch (trackingErr) {
       console.warn("[Meta/GTM Thank-You Tracking Notice]:", trackingErr);
     }
-  }, [paymentId, isTest]);
+  }, [paymentId]);
 
   return (
     <BeamsBackground
@@ -257,26 +251,6 @@ function ThankYouContent() {
           </div>
 
           {/* Status Badge */}
-          {isTest && (
-            <div
-              style={{
-                background: "rgba(245, 158, 11, 0.15)",
-                border: "1px solid rgba(245, 158, 11, 0.4)",
-                color: "#F59E0B",
-                padding: "6px 14px",
-                borderRadius: "20px",
-                fontSize: "12px",
-                fontWeight: 700,
-                marginBottom: "10px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              <span>🛠️ INTERNAL VERIFICATION MODE (Meta Pixel conversion suppressed)</span>
-            </div>
-          )}
-
           <div
             className="wb-pill-green"
             style={{
@@ -441,11 +415,11 @@ function ThankYouContent() {
               <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Pass Fee</span>
               <span
                 style={{
-                  color: isTest ? "#F59E0B" : isLight ? "#090D14" : "#FFFFFF",
+                  color: isLight ? "#090D14" : "#FFFFFF",
                   fontWeight: 800,
                 }}
               >
-                {isTest ? "₹1.00 INR (Internal Test Verification)" : "₹99.00 INR (Paid)"}
+                ₹99.00 INR (Paid)
               </span>
             </div>
 
@@ -466,7 +440,7 @@ function ThankYouContent() {
                   gap: "4px",
                 }}
               >
-                <ShieldCheck size={13} /> {isTest ? "Test Verified & Recorded" : "Active & Confirmed"}
+                <ShieldCheck size={13} /> Active &amp; Confirmed
               </span>
             </div>
           </div>
