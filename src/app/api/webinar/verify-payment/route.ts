@@ -51,6 +51,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const isTest =
+      body.internal_test === true &&
+      body.test_secret === "scalepods_live_test_2026";
+    const amountVal = isTest ? 1.0 : 99.0;
+
     // 1. Insert into Supabase webinar_registrations table for live dashboard
     try {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -61,18 +66,18 @@ export async function POST(req: NextRequest) {
         const { createClient } = await import("@supabase/supabase-js");
         const supabase = createClient(supabaseUrl, supabaseKey);
         await supabase.from("webinar_registrations").insert({
-          name,
+          name: isTest ? `[TEST] ${name}` : name,
           email,
           phone,
           role: role || "",
-          amount: 99.0,
+          amount: amountVal,
           currency: "INR",
           order_id: razorpay_order_id,
           payment_id: razorpay_payment_id,
-          payment_status: "confirmed",
+          payment_status: isTest ? "test_confirmed" : "confirmed",
           session_dates: "12-13 December 2026 (2-3 PM IST)",
           utm_source: body.utm_source || "",
-          utm_campaign: body.utm_campaign || "",
+          utm_campaign: isTest ? "Internal Team Test (₹1)" : (body.utm_campaign || ""),
           whatsapp_joined: false,
         });
       }
@@ -91,16 +96,16 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           formType: "webinar_registration",
           event: "webinar_payment_confirmed",
-          amount: 99,
+          amount: amountVal,
           currency: "INR",
           order_id: razorpay_order_id,
           payment_id: razorpay_payment_id,
-          name,
+          name: isTest ? `[TEST] ${name}` : name,
           email,
           phone,
           role: role || "",
           utm_source: body.utm_source || "",
-          utm_campaign: body.utm_campaign || "",
+          utm_campaign: isTest ? "Internal Team Test (₹1)" : (body.utm_campaign || ""),
           whatsapp_group_link:
             "https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4",
           timestamp: new Date().toISOString(),
@@ -118,11 +123,11 @@ export async function POST(req: NextRequest) {
           body: JSON.stringify({
             formType: "webinar_registration",
             event: "webinar_payment_confirmed",
-            amount: 99,
+            amount: amountVal,
             currency: "INR",
             order_id: razorpay_order_id,
             payment_id: razorpay_payment_id,
-            name,
+            name: isTest ? `[TEST] ${name}` : name,
             email,
             phone,
             role: role || "",
@@ -135,27 +140,30 @@ export async function POST(req: NextRequest) {
     }
 
     // 3. Fire Server-Side Meta Conversions API (CAPI) Purchase Event for Ad Attribution
-    try {
-      const { ip, userAgent } = getClientInfo(req.headers);
-      const origin = req.nextUrl.origin || "https://www.scalepods.co";
-      sendMetaCapiEvent({
-        eventName: "Purchase",
-        eventId: razorpay_payment_id,
-        eventSourceUrl: `${origin}/ai-business-automation-webinar`,
-        email,
-        phone,
-        clientIp: ip,
-        clientUserAgent: userAgent,
-        customData: {
-          currency: "INR",
-          value: 99.0,
-          content_name: "AI Business Automation Live Webinar Pass",
-          content_type: "product",
-          order_id: razorpay_order_id,
-        },
-      }).catch((err) => console.warn("[Meta CAPI Purchase Notice]:", err?.message));
-    } catch (e) {
-      console.warn("[Meta CAPI Error Notice]:", e);
+    // ONLY fired for real customers, NEVER for internal test mode to protect ad metrics
+    if (!isTest) {
+      try {
+        const { ip, userAgent } = getClientInfo(req.headers);
+        const origin = req.nextUrl.origin || "https://www.scalepods.co";
+        sendMetaCapiEvent({
+          eventName: "Purchase",
+          eventId: razorpay_payment_id,
+          eventSourceUrl: `${origin}/ai-business-automation-webinar`,
+          email,
+          phone,
+          clientIp: ip,
+          clientUserAgent: userAgent,
+          customData: {
+            currency: "INR",
+            value: 99.0,
+            content_name: "AI Business Automation Live Webinar Pass",
+            content_type: "product",
+            order_id: razorpay_order_id,
+          },
+        }).catch((err) => console.warn("[Meta CAPI Purchase Notice]:", err?.message));
+      } catch (e) {
+        console.warn("[Meta CAPI Error Notice]:", e);
+      }
     }
 
     return NextResponse.json({

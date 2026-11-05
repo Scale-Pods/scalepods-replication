@@ -174,6 +174,25 @@ export default function WebinarPage() {
     }
   }, []);
 
+  // Check for secret internal test query param (e.g. ?internal_test=1 or ?test=1)
+  const [isInternalTest, setIsInternalTest] = useState(false);
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        if (
+          params.get("internal_test") === "1" ||
+          params.get("test_mode") === "true" ||
+          params.get("test") === "1"
+        ) {
+          setIsInternalTest(true);
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
   // Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -255,6 +274,8 @@ export default function WebinarPage() {
         body: JSON.stringify({
           ...formData,
           phone: fullPhone,
+          internal_test: isInternalTest,
+          test_secret: isInternalTest ? "scalepods_live_test_2026" : undefined,
         }),
       });
 
@@ -269,7 +290,9 @@ export default function WebinarPage() {
         amount: orderData.amount,
         currency: orderData.currency,
         name: "ScalePods",
-        description: "AI Business Automation Live Masterclass Pass",
+        description: isInternalTest
+          ? "AI Business Automation Masterclass (Internal Test ₹1)"
+          : "AI Business Automation Live Masterclass Pass",
         image: "https://www.scalepods.co/icon.png",
         order_id: orderData.orderId,
         prefill: {
@@ -301,6 +324,8 @@ export default function WebinarPage() {
                 email: formData.email,
                 phone: fullPhone,
                 role: formData.role,
+                internal_test: isInternalTest,
+                test_secret: isInternalTest ? "scalepods_live_test_2026" : undefined,
               }),
             });
 
@@ -312,37 +337,40 @@ export default function WebinarPage() {
               });
 
               // Fire Client-Side Meta Pixel & GTM Purchase Conversion Event
-              try {
-                if (typeof window !== "undefined") {
-                  (window as any).dataLayer = (window as any).dataLayer || [];
-                  (window as any).dataLayer.push({
-                    event: "purchase",
-                    ecommerce: {
-                      transaction_id: response.razorpay_payment_id,
-                      value: 99.0,
-                      currency: "INR",
-                      items: [
-                        {
-                          item_name: "AI Business Automation Live Masterclass Pass",
-                          price: 99.0,
-                          quantity: 1,
-                        },
-                      ],
-                    },
-                  });
-                  (window as any).fbq?.(
-                    "track",
-                    "Purchase",
-                    {
-                      value: 99.0,
-                      currency: "INR",
-                      content_name: "AI Business Automation Live Masterclass Pass",
-                    },
-                    { eventID: response.razorpay_payment_id }
-                  );
+              // ONLY for real non-test customers so ads campaign metrics remain 100% accurate
+              if (!isInternalTest) {
+                try {
+                  if (typeof window !== "undefined") {
+                    (window as any).dataLayer = (window as any).dataLayer || [];
+                    (window as any).dataLayer.push({
+                      event: "purchase",
+                      ecommerce: {
+                        transaction_id: response.razorpay_payment_id,
+                        value: 99.0,
+                        currency: "INR",
+                        items: [
+                          {
+                            item_name: "AI Business Automation Live Masterclass Pass",
+                            price: 99.0,
+                            quantity: 1,
+                          },
+                        ],
+                      },
+                    });
+                    (window as any).fbq?.(
+                      "track",
+                      "Purchase",
+                      {
+                        value: 99.0,
+                        currency: "INR",
+                        content_name: "AI Business Automation Live Masterclass Pass",
+                      },
+                      { eventID: response.razorpay_payment_id }
+                    );
+                  }
+                } catch (trackingErr) {
+                  console.warn("[Tracking Notice]:", trackingErr);
                 }
-              } catch (trackingErr) {
-                console.warn("[Tracking Notice]:", trackingErr);
               }
 
               setModalStep("confirmed");
@@ -355,7 +383,7 @@ export default function WebinarPage() {
                   response.razorpay_order_id
                 )}&name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(
                   formData.email
-                )}`;
+                )}${isInternalTest ? "&test=1" : ""}`;
                 window.location.href = thankYouUrl;
               } catch (navErr) {
                 console.warn("[Navigation Notice]:", navErr);
@@ -2322,8 +2350,8 @@ export default function WebinarPage() {
                 {/* Price summary badge */}
                 <div
                   style={{
-                    background: "rgba(177, 217, 151, 0.08)",
-                    border: "1px solid rgba(177, 217, 151, 0.28)",
+                    background: isInternalTest ? "rgba(245, 158, 11, 0.12)" : "rgba(177, 217, 151, 0.08)",
+                    border: isInternalTest ? "1px solid rgba(245, 158, 11, 0.45)" : "1px solid rgba(177, 217, 151, 0.28)",
                     borderRadius: "12px",
                     padding: "14px 18px",
                     display: "flex",
@@ -2333,14 +2361,20 @@ export default function WebinarPage() {
                   }}
                 >
                   <div>
-                    <span style={{ fontSize: "14px", color: "var(--wb-text-bright)", fontWeight: 600, display: "block" }}>Masterclass Access Pass</span>
-                    <span style={{ fontSize: "12px", color: "#38BDF8", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px", marginTop: "2px" }}>
+                    <span style={{ fontSize: "14px", color: isInternalTest ? "#FBBF24" : "var(--wb-text-bright)", fontWeight: 700, display: "block" }}>
+                      {isInternalTest ? "🛠️ Internal Team Verification Pass" : "Masterclass Access Pass"}
+                    </span>
+                    <span style={{ fontSize: "12px", color: isInternalTest ? "#F59E0B" : "#38BDF8", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px", marginTop: "2px" }}>
                       <Calendar size={12} /> 12–13 Dec (2–3 PM IST)
                     </span>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <span style={{ fontSize: "20px", fontWeight: 800, color: "#48DD83" }}>₹99</span>
-                    <span style={{ fontSize: "13px", color: "var(--wb-text-faint)", marginLeft: "6px", textDecoration: "line-through" }}>₹999</span>
+                    <span style={{ fontSize: "20px", fontWeight: 800, color: isInternalTest ? "#FBBF24" : "#48DD83" }}>
+                      {isInternalTest ? "₹1" : "₹99"}
+                    </span>
+                    <span style={{ fontSize: "13px", color: "var(--wb-text-faint)", marginLeft: "6px", textDecoration: "line-through" }}>
+                      {isInternalTest ? "₹99" : "₹999"}
+                    </span>
                   </div>
                 </div>
 
@@ -2466,7 +2500,7 @@ export default function WebinarPage() {
                     ) : (
                       <>
                         <Lock size={16} />
-                        <span>Proceed to Pay ₹99</span>
+                        <span>Proceed to Pay {isInternalTest ? "₹1 (Test Pass)" : "₹99"}</span>
                       </>
                     )}
                   </button>
