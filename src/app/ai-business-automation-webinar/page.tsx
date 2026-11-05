@@ -50,6 +50,11 @@ import {
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { getDetectedCountryCode } from "@/lib/country";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import {
+  validateEmail,
+  validatePhone,
+  validateFullName,
+} from "@/lib/webinarValidation";
 import "./webinar.css";
 
 const webinarCountries = [
@@ -128,6 +133,16 @@ export default function WebinarPage() {
     phone: "",
     role: "",
   });
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+  }>({});
+  const [touched, setTouched] = useState<{
+    name?: boolean;
+    email?: boolean;
+    phone?: boolean;
+  }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
@@ -237,6 +252,8 @@ export default function WebinarPage() {
 
   const handleOpenModal = () => {
     setPaymentError(null);
+    setFieldErrors({});
+    setTouched({});
     setModalStep("form");
     setIsModalOpen(true);
   };
@@ -244,20 +261,35 @@ export default function WebinarPage() {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPaymentError(null);
+
+    // Strict client-side verification
+    const nameCheck = validateFullName(formData.name);
+    const emailCheck = validateEmail(formData.email);
+    const phoneCheck = validatePhone(formData.phone, formData.countryCode, formData.customCode);
+
+    setTouched({ name: true, email: true, phone: true });
+    setFieldErrors({
+      name: nameCheck.error,
+      email: emailCheck.error,
+      phone: phoneCheck.error,
+    });
+
+    if (!nameCheck.valid || !emailCheck.valid || !phoneCheck.valid) {
+      setPaymentError(
+        nameCheck.error ||
+          emailCheck.error ||
+          phoneCheck.error ||
+          "Please verify your inputs and correct the highlighted errors."
+      );
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Format phone number with selected country code
-      const rawPhone = formData.phone.trim();
-      const dial =
-        formData.countryCode === "Custom"
-          ? formData.customCode.trim()
-            ? formData.customCode.trim().startsWith("+")
-              ? formData.customCode.trim()
-              : `+${formData.customCode.trim()}`
-            : "+91"
-          : formData.countryCode;
-      const fullPhone = rawPhone.startsWith("+") ? rawPhone : `${dial} ${rawPhone}`;
+      const fullPhone = phoneCheck.formatted!;
+      const cleanName = nameCheck.formatted!;
+      const cleanEmail = emailCheck.formatted!;
 
       // 1. Ensure Razorpay checkout script is loaded
       const scriptLoaded = await loadRazorpayScript();
@@ -272,8 +304,12 @@ export default function WebinarPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
+          name: cleanName,
+          email: cleanEmail,
           phone: fullPhone,
+          role: formData.role,
+          countryCode: formData.countryCode,
+          customCode: formData.customCode,
           internal_test: isInternalTest,
           test_secret: isInternalTest ? "scalepods_live_test_2026" : undefined,
         }),
@@ -296,8 +332,8 @@ export default function WebinarPage() {
         image: "https://www.scalepods.co/icon.png",
         order_id: orderData.orderId,
         prefill: {
-          name: formData.name,
-          email: formData.email,
+          name: cleanName,
+          email: cleanEmail,
           contact: fullPhone.replace(/[\s-]/g, ""),
         },
         theme: {
@@ -320,10 +356,12 @@ export default function WebinarPage() {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 ...response,
-                name: formData.name,
-                email: formData.email,
+                name: cleanName,
+                email: cleanEmail,
                 phone: fullPhone,
                 role: formData.role,
+                countryCode: formData.countryCode,
+                customCode: formData.customCode,
                 internal_test: isInternalTest,
                 test_secret: isInternalTest ? "scalepods_live_test_2026" : undefined,
               }),
@@ -2407,10 +2445,40 @@ export default function WebinarPage() {
                       required
                       placeholder="e.g. Rahul Sharma"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onBlur={() => {
+                        setTouched((t) => ({ ...t, name: true }));
+                        const check = validateFullName(formData.name);
+                        setFieldErrors((fe) => ({ ...fe, name: check.error }));
+                      }}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setFormData({ ...formData, name: val });
+                        if (touched.name) {
+                          setFieldErrors((fe) => ({
+                            ...fe,
+                            name: validateFullName(val).error,
+                          }));
+                        }
+                      }}
                       className="wb-form-input"
+                      style={{
+                        borderColor:
+                          touched.name && fieldErrors.name ? "#EF4444" : undefined,
+                      }}
                       disabled={isSubmitting || isVerifying}
                     />
+                    {touched.name && fieldErrors.name && (
+                      <span
+                        style={{
+                          color: "#F87171",
+                          fontSize: "11.5px",
+                          marginTop: "4px",
+                          display: "block",
+                        }}
+                      >
+                        {fieldErrors.name}
+                      </span>
+                    )}
                   </div>
 
                   <div className="wb-form-group">
@@ -2420,10 +2488,40 @@ export default function WebinarPage() {
                       required
                       placeholder="rahul@company.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onBlur={() => {
+                        setTouched((t) => ({ ...t, email: true }));
+                        const check = validateEmail(formData.email);
+                        setFieldErrors((fe) => ({ ...fe, email: check.error }));
+                      }}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setFormData({ ...formData, email: val });
+                        if (touched.email) {
+                          setFieldErrors((fe) => ({
+                            ...fe,
+                            email: validateEmail(val).error,
+                          }));
+                        }
+                      }}
                       className="wb-form-input"
+                      style={{
+                        borderColor:
+                          touched.email && fieldErrors.email ? "#EF4444" : undefined,
+                      }}
                       disabled={isSubmitting || isVerifying}
                     />
+                    {touched.email && fieldErrors.email && (
+                      <span
+                        style={{
+                          color: "#F87171",
+                          fontSize: "11.5px",
+                          marginTop: "4px",
+                          display: "block",
+                        }}
+                      >
+                        {fieldErrors.email}
+                      </span>
+                    )}
                   </div>
 
                   <div className="wb-form-group">
@@ -2432,7 +2530,16 @@ export default function WebinarPage() {
                       <div className={`wb-country-select-wrapper ${formData.countryCode === "Custom" ? "wb-country-custom" : ""}`}>
                         <select
                           value={formData.countryCode}
-                          onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                          onChange={(e) => {
+                            const newCountry = e.target.value;
+                            setFormData({ ...formData, countryCode: newCountry });
+                            if (touched.phone) {
+                              setFieldErrors((fe) => ({
+                                ...fe,
+                                phone: validatePhone(formData.phone, newCountry, formData.customCode).error,
+                              }));
+                            }
+                          }}
                           className="wb-country-select"
                           disabled={isSubmitting || isVerifying}
                           aria-label="Country Code"
@@ -2452,7 +2559,16 @@ export default function WebinarPage() {
                           required
                           placeholder="+..."
                           value={formData.customCode}
-                          onChange={(e) => setFormData({ ...formData, customCode: e.target.value })}
+                          onChange={(e) => {
+                            const newCustom = e.target.value;
+                            setFormData({ ...formData, customCode: newCustom });
+                            if (touched.phone) {
+                              setFieldErrors((fe) => ({
+                                ...fe,
+                                phone: validatePhone(formData.phone, "Custom", newCustom).error,
+                              }));
+                            }
+                          }}
                           className="wb-custom-code-input"
                           disabled={isSubmitting || isVerifying}
                           aria-label="Custom dialing code"
@@ -2464,11 +2580,62 @@ export default function WebinarPage() {
                         required
                         placeholder="83790 62166"
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onBlur={() => {
+                          setTouched((t) => ({ ...t, phone: true }));
+                          const check = validatePhone(
+                            formData.phone,
+                            formData.countryCode,
+                            formData.customCode
+                          );
+                          setFieldErrors((fe) => ({ ...fe, phone: check.error }));
+                        }}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setFormData({ ...formData, phone: val });
+                          if (touched.phone) {
+                            setFieldErrors((fe) => ({
+                              ...fe,
+                              phone: validatePhone(
+                                val,
+                                formData.countryCode,
+                                formData.customCode
+                              ).error,
+                            }));
+                          }
+                        }}
                         className="wb-phone-number-input"
+                        style={{
+                          borderColor:
+                            touched.phone && fieldErrors.phone ? "#EF4444" : undefined,
+                        }}
                         disabled={isSubmitting || isVerifying}
                       />
                     </div>
+                    {touched.phone && fieldErrors.phone ? (
+                      <span
+                        style={{
+                          color: "#F87171",
+                          fontSize: "11.5px",
+                          marginTop: "4px",
+                          display: "block",
+                        }}
+                      >
+                        {fieldErrors.phone}
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          color: "var(--wb-text-faint)",
+                          fontSize: "11px",
+                          marginTop: "4px",
+                          display: "block",
+                        }}
+                      >
+                        {formData.countryCode === "+91"
+                          ? "Enter genuine 10-digit Indian WhatsApp mobile number (starts with 6, 7, 8, or 9)"
+                          : "Enter mobile number with country code"}
+                      </span>
+                    )}
                   </div>
 
                   <div className="wb-form-group">

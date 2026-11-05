@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { sendMetaCapiEvent, getClientInfo } from "@/lib/meta-capi";
+import {
+  validateEmail,
+  validatePhone,
+  validateFullName,
+} from "@/lib/webinarValidation";
 
 export async function POST(req: NextRequest) {
   try {
@@ -56,6 +61,10 @@ export async function POST(req: NextRequest) {
       body.test_secret === "scalepods_live_test_2026";
     const amountVal = isTest ? 1.0 : 99.0;
 
+    const cleanName = validateFullName(name).formatted || String(name || "").trim();
+    const cleanEmail = validateEmail(email).formatted || String(email || "").trim().toLowerCase();
+    const cleanPhone = validatePhone(phone, body.countryCode, body.customCode).formatted || String(phone || "").trim();
+
     // 1. Insert into Supabase webinar_registrations table for live dashboard
     try {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -66,9 +75,9 @@ export async function POST(req: NextRequest) {
         const { createClient } = await import("@supabase/supabase-js");
         const supabase = createClient(supabaseUrl, supabaseKey);
         await supabase.from("webinar_registrations").insert({
-          name: isTest ? `[TEST] ${name}` : name,
-          email,
-          phone,
+          name: isTest ? `[TEST] ${cleanName}` : cleanName,
+          email: cleanEmail,
+          phone: cleanPhone,
           role: role || "",
           amount: amountVal,
           currency: "INR",
@@ -99,9 +108,9 @@ export async function POST(req: NextRequest) {
         currency: "INR",
         order_id: razorpay_order_id,
         payment_id: razorpay_payment_id,
-        name: isTest ? `[TEST] ${name}` : name,
-        email,
-        phone,
+        name: isTest ? `[TEST] ${cleanName}` : cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
         role: role || "",
         utm_source: body.utm_source || "",
         utm_campaign: isTest ? "Internal Team Test (₹1)" : (body.utm_campaign || ""),

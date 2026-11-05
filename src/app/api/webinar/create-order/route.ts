@@ -1,18 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
+import {
+  validateEmail,
+  validatePhone,
+  validateFullName,
+} from "@/lib/webinarValidation";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, role, internal_test, test_secret } = body;
+    const { name, email, phone, role, countryCode, customCode, internal_test, test_secret } = body;
 
-    // Validate inputs
-    if (!name || !email || !phone) {
+    // 1. Strict validation of Name, Email, and WhatsApp Phone
+    const nameCheck = validateFullName(name);
+    if (!nameCheck.valid) {
       return NextResponse.json(
-        { success: false, error: "Name, email, and phone number are required." },
+        { success: false, error: nameCheck.error || "Please enter your valid full name." },
         { status: 400 }
       );
     }
+
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
+      return NextResponse.json(
+        { success: false, error: emailCheck.error || "Please enter a valid work or personal email." },
+        { status: 400 }
+      );
+    }
+
+    const phoneCheck = validatePhone(phone, countryCode, customCode);
+    if (!phoneCheck.valid) {
+      return NextResponse.json(
+        { success: false, error: phoneCheck.error || "Please enter a valid WhatsApp phone number." },
+        { status: 400 }
+      );
+    }
+
+    const cleanName = nameCheck.formatted!;
+    const cleanEmail = emailCheck.formatted!;
+    const cleanPhone = phoneCheck.formatted!;
 
     // Secure internal testing check (allows ₹1 checkout only with exact matching secret)
     const isTest =
@@ -44,9 +70,9 @@ export async function POST(req: NextRequest) {
       currency: "INR",
       receipt: `rcpt_wb_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
       notes: {
-        attendee_name: String(name).trim().slice(0, 50),
-        attendee_email: String(email).trim().slice(0, 50),
-        attendee_phone: String(phone).trim().slice(0, 20),
+        attendee_name: cleanName.slice(0, 50),
+        attendee_email: cleanEmail.slice(0, 50),
+        attendee_phone: cleanPhone.slice(0, 30),
         attendee_role: String(role || "Leader").trim().slice(0, 50),
         webinar_title: "AI Business Automation Masterclass with Adnan Shaikh & Raunak Kumar",
         is_internal_test: isTest ? "true" : "false",
