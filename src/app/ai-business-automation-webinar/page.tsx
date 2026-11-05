@@ -2578,7 +2578,11 @@ export default function WebinarPage() {
                       <input
                         type="tel"
                         required
-                        placeholder="83790 62166"
+                        placeholder={
+                          formData.countryCode === "+91"
+                            ? "Enter 10-digit mobile number"
+                            : "Enter WhatsApp number"
+                        }
                         value={formData.phone}
                         onBlur={() => {
                           setTouched((t) => ({ ...t, phone: true }));
