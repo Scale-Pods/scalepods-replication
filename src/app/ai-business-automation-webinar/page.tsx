@@ -578,6 +578,19 @@ export default function WebinarPage() {
                 <span className="wb-booking-price-strike">₹1,999</span>
               </div>
 
+              {/* Webinar Schedule: 12-13 December 2-3 PM */}
+              <div className="wb-booking-schedule-banner">
+                <div className="wb-booking-schedule-item">
+                  <Calendar size={14} className="wb-booking-schedule-icon" />
+                  <span>12–13 December</span>
+                </div>
+                <span className="wb-booking-schedule-dot">•</span>
+                <div className="wb-booking-schedule-item">
+                  <Clock size={14} className="wb-booking-schedule-icon" />
+                  <span>2:00 PM – 3:00 PM</span>
+                </div>
+              </div>
+
               <div className="wb-booking-features-list">
                 <div className="wb-booking-feature-item">
                   <CheckCircle2 size={16} className="wb-booking-feature-icon" />
@@ -2045,7 +2058,7 @@ export default function WebinarPage() {
               <div className="wb-why-bar-info">
                 <h4 className="wb-why-bar-title">AI Business Automation Masterclass</h4>
                 <p className="wb-why-bar-sub">
-                  With <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span> &bull; Only <span className="wb-why-bar-price">₹99/-</span> <span className="wb-why-bar-strike">₹999</span>
+                  With <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span> &bull; 12–13 Dec (2–3 PM) &bull; Only <span className="wb-why-bar-price">₹99/-</span> <span className="wb-why-bar-strike">₹999</span>
                 </p>
               </div>
             </div>
@@ -2152,7 +2165,7 @@ export default function WebinarPage() {
                 </span>
                 <div className="wb-why-bar-info">
                   <h4 className="wb-why-bar-title">AI Business Automation Masterclass</h4>
-                  <p className="wb-why-bar-sub">With <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span> &bull; Only <span className="wb-why-bar-price">₹99/-</span> <span className="wb-why-bar-strike">₹999</span></p>
+                  <p className="wb-why-bar-sub">With <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span> &bull; 12–13 Dec (2–3 PM) &bull; Only <span className="wb-why-bar-price">₹99/-</span> <span className="wb-why-bar-strike">₹999</span></p>
                 </div>
               </div>
               <button
@@ -2202,7 +2215,7 @@ export default function WebinarPage() {
               },
               {
                 q: "When and where will the webinar take place?",
-                a: "The webinar will be conducted live online. The date and time will be announced on this page.",
+                a: "The webinar will be conducted live online on 12–13 December from 2:00 PM to 3:00 PM IST. Meeting access links and session resources will be emailed to registered attendees and shared in the VIP WhatsApp community.",
               },
               {
                 q: "How much does registration cost?",
@@ -2254,6 +2267,7 @@ export default function WebinarPage() {
               </div>
               <div className="wb-bottom-bar-subtitle">
                 <span className="wb-bottom-bar-hosts">With <span className="wb-highlight-founder">Adnan Shaikh</span> &amp; <span className="wb-highlight-founder">Raunak Kumar</span> • </span>
+                <span style={{ color: "#38BDF8", fontWeight: 700 }}>12–13 Dec (2–3 PM) • </span>
                 <strong>Only ₹99/-</strong> <s style={{ color: "var(--wb-text-faint)" }}>₹999</s>
               </div>
             </div>
@@ -2318,7 +2332,12 @@ export default function WebinarPage() {
                     marginBottom: "18px",
                   }}
                 >
-                  <span style={{ fontSize: "14px", color: "var(--wb-text-bright)", fontWeight: 600 }}>Masterclass Access Pass</span>
+                  <div>
+                    <span style={{ fontSize: "14px", color: "var(--wb-text-bright)", fontWeight: 600, display: "block" }}>Masterclass Access Pass</span>
+                    <span style={{ fontSize: "12px", color: "#38BDF8", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px", marginTop: "2px" }}>
+                      <Calendar size={12} /> 12–13 Dec (2–3 PM IST)
+                    </span>
+                  </div>
                   <div style={{ textAlign: "right" }}>
                     <span style={{ fontSize: "20px", fontWeight: 800, color: "#48DD83" }}>₹99</span>
                     <span style={{ fontSize: "13px", color: "var(--wb-text-faint)", marginLeft: "6px", textDecoration: "line-through" }}>₹999</span>
@@ -2514,7 +2533,7 @@ export default function WebinarPage() {
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "12px" }}>
                       <span style={{ color: "var(--wb-text-muted)" }}>Session Date</span>
-                      <span style={{ color: "#FCD34D", fontWeight: 600 }}>To Be Announced (Saved &amp; Reserved)</span>
+                      <span style={{ color: "#48DD83", fontWeight: 700 }}>12–13 December (2:00 PM – 3:00 PM IST)</span>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px" }}>
                       <span style={{ color: "var(--wb-text-muted)" }}>Pass Fee</span>
@@ -2561,7 +2580,7 @@ export default function WebinarPage() {
                       lineHeight: 1.5,
                     }}
                   >
-                    Official session date, preparation resources, and live Zoom access link will be announced in the VIP WhatsApp group and emailed to you.
+                    Session access link (12–13 December 2–3 PM IST), live Zoom room, and preparation resources will be emailed to you and shared in the VIP WhatsApp group.
                   </div>
                 </div>
 

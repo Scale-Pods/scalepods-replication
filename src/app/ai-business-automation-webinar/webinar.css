@@ -7737,6 +7737,38 @@
   border-radius: 6px;
 }
 
+/* Schedule Date Banner */
+.wb-booking-schedule-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #E2E8F0;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.wb-booking-schedule-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wb-booking-schedule-icon {
+  color: #38BDF8;
+  flex-shrink: 0;
+}
+
+.wb-booking-schedule-dot {
+  color: #64748B;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
 /* Feature bullets */
 .wb-booking-features-list {
   display: flex;
@@ -8027,6 +8059,17 @@
   }
   .wb-booking-price-strike {
     font-size: 14.5px !important;
+  }
+  .wb-booking-schedule-banner {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    gap: 6px !important;
+    justify-content: center !important;
+    border-radius: 7px !important;
+  }
+  .wb-booking-schedule-icon {
+    width: 12.5px !important;
+    height: 12.5px !important;
   }
   .wb-booking-features-list {
     gap: 5px !important;
@@ -8548,6 +8591,23 @@ html:not(.dark) .webinarpod-container {
 
 .wb-theme-light .wb-booking-price-strike,
 [data-webinar-theme="light"] .wb-booking-price-strike {
+  color: #94A3B8 !important;
+}
+
+.wb-theme-light .wb-booking-schedule-banner,
+[data-webinar-theme="light"] .wb-booking-schedule-banner {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border: 1px solid rgba(2, 132, 199, 0.28) !important;
+  color: #0F172A !important;
+}
+
+.wb-theme-light .wb-booking-schedule-icon,
+[data-webinar-theme="light"] .wb-booking-schedule-icon {
+  color: #0284C7 !important;
+}
+
+.wb-theme-light .wb-booking-schedule-dot,
+[data-webinar-theme="light"] .wb-booking-schedule-dot {
   color: #94A3B8 !important;
 }
 

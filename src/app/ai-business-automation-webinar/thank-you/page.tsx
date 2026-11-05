@@ -14,6 +14,8 @@ import {
   Moon,
   Mail,
   Zap,
+  Calendar,
+  Clock,
 } from "lucide-react";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -388,6 +390,28 @@ function ThankYouContent() {
                 fontSize: "12px",
               }}
             >
+              <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Date &amp; Time</span>
+              <span
+                style={{
+                  color: isLight ? "#0284C7" : "#38BDF8",
+                  fontWeight: 700,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "5px",
+                }}
+              >
+                <Calendar size={13} /> 12–13 Dec <Clock size={13} style={{ marginLeft: "4px" }} /> 2:00 PM – 3:00 PM IST
+              </span>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "8px",
+                fontSize: "12px",
+              }}
+            >
               <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Pass Fee</span>
               <span
                 style={{
@@ -469,7 +493,7 @@ function ThankYouContent() {
                 lineHeight: 1.5,
               }}
             >
-              📌 <strong>Important:</strong> Live Zoom access link, session date confirmation, and
+              📌 <strong>Important:</strong> Live Zoom access link for <strong>12–13 December (2:00 PM – 3:00 PM IST)</strong>, calendar invite, and
               pre-session automation templates are shared directly inside the VIP WhatsApp group.
             </div>
           </div>
@@ -583,7 +607,7 @@ function ThankYouContent() {
                   margin: 0,
                 }}
               >
-                3+ hours with Adnan Shaikh &amp; Raunak Kumar.
+                12–13 December (2–3 PM) live systems walkthrough.
               </p>
             </div>
           </div>
