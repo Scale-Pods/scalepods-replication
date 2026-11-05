@@ -29,7 +29,7 @@ declare global {
 }
 
 const WHATSAPP_GROUP_LINK =
-  "https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4";
+  "https://chat.whatsapp.com/FxKlQwxOkF17VlUeLgIgl8?s=cl&p=i&mlu=4&ilr=4&iam=2";
 
 function ThankYouContent() {
   const searchParams = useSearchParams();

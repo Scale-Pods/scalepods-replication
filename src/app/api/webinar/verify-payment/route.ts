@@ -86,57 +86,55 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Forward registration details to dedicated n8n webinar engine (Google Sheet + Email Alerts)
+    // IMPORTANT: In serverless runtimes (Vercel), we MUST await the webhook request so the Lambda doesn't freeze before sending
     try {
       const webinarWebhookUrl =
         process.env.WEBINAR_N8N_WEBHOOK_URL ||
         "https://n8n.srv1010832.hstgr.cloud/webhook/scalepods-webinar-registration";
-      fetch(webinarWebhookUrl, {
+
+      const webhookPayload = {
+        formType: "webinar_registration",
+        event: "webinar_payment_confirmed",
+        amount: amountVal,
+        currency: "INR",
+        order_id: razorpay_order_id,
+        payment_id: razorpay_payment_id,
+        name: isTest ? `[TEST] ${name}` : name,
+        email,
+        phone,
+        role: role || "",
+        utm_source: body.utm_source || "",
+        utm_campaign: isTest ? "Internal Team Test (₹1)" : (body.utm_campaign || ""),
+        whatsapp_group_link:
+          "https://chat.whatsapp.com/FxKlQwxOkF17VlUeLgIgl8?s=cl&p=i&mlu=4&ilr=4&iam=2",
+        timestamp: new Date().toISOString(),
+      };
+
+      const webhookRes = await fetch(webinarWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          formType: "webinar_registration",
-          event: "webinar_payment_confirmed",
-          amount: amountVal,
-          currency: "INR",
-          order_id: razorpay_order_id,
-          payment_id: razorpay_payment_id,
-          name: isTest ? `[TEST] ${name}` : name,
-          email,
-          phone,
-          role: role || "",
-          utm_source: body.utm_source || "",
-          utm_campaign: isTest ? "Internal Team Test (₹1)" : (body.utm_campaign || ""),
-          whatsapp_group_link:
-            "https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4",
-          timestamp: new Date().toISOString(),
-        }),
-      }).catch((err) =>
-        console.warn("[n8n Webinar Webhook Notice]:", err?.message)
-      );
+        body: JSON.stringify(webhookPayload),
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (!webhookRes.ok) {
+        console.warn("[n8n Webinar Webhook Non-200 Status]:", webhookRes.status, await webhookRes.text().catch(() => ""));
+      } else {
+        console.log("[n8n Webinar Webhook Success]: registration forwarded to Google Sheet & Email Engine");
+      }
 
       // Also notify primary webhook if configured and different
       const primaryWebhook = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL;
       if (primaryWebhook && primaryWebhook !== webinarWebhookUrl) {
-        fetch(primaryWebhook, {
+        await fetch(primaryWebhook, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            formType: "webinar_registration",
-            event: "webinar_payment_confirmed",
-            amount: amountVal,
-            currency: "INR",
-            order_id: razorpay_order_id,
-            payment_id: razorpay_payment_id,
-            name: isTest ? `[TEST] ${name}` : name,
-            email,
-            phone,
-            role: role || "",
-            timestamp: new Date().toISOString(),
-          }),
+          body: JSON.stringify(webhookPayload),
+          signal: AbortSignal.timeout(5000),
         }).catch(() => {});
       }
-    } catch (e) {
-      console.warn("[Webhook Notification Notice]:", e);
+    } catch (e: any) {
+      console.warn("[Webhook Notification Notice]:", e?.message || e);
     }
 
     // 3. Fire Server-Side Meta Conversions API (CAPI) Purchase Event for Ad Attribution

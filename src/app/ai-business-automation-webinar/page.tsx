@@ -2579,7 +2579,7 @@ export default function WebinarPage() {
                 {/* Next Steps Buttons */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
                   <a
-                    href="https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4"
+                    href="https://chat.whatsapp.com/FxKlQwxOkF17VlUeLgIgl8?s=cl&p=i&mlu=4&ilr=4&iam=2"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
