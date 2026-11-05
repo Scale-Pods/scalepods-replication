@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
-import { Activity, BarChart2, Search, Sparkles, Users, LogOut, Sun, Moon, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Activity, BarChart2, Search, Sparkles, Users, LogOut, Sun, Moon, PanelLeftClose, PanelLeftOpen, Ticket } from "lucide-react";
 import { useAdminTheme } from "./ThemeProvider";
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ interface SidebarProps {
 }
 
 const NAV = [
+  { label: "Webinar Feed",      href: "/admin/webinar",  icon: Ticket },
   { label: "Microsoft Clarity", href: "/admin/clarity",  icon: Activity },
   { label: "Google Analytics",  href: "/admin/ga4",      icon: BarChart2 },
   { label: "User Sessions",     href: "/admin/sessions", icon: Users },

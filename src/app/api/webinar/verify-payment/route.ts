@@ -51,11 +51,68 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Forward registration details to n8n webhook
+    // 1. Insert into Supabase webinar_registrations table for live dashboard
     try {
-      const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL;
-      if (webhookUrl) {
-        fetch(webhookUrl, {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseKey =
+        process.env.SUPABASE_SERVICE_ROLE_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      if (supabaseUrl && supabaseKey) {
+        const { createClient } = await import("@supabase/supabase-js");
+        const supabase = createClient(supabaseUrl, supabaseKey);
+        await supabase.from("webinar_registrations").insert({
+          name,
+          email,
+          phone,
+          role: role || "",
+          amount: 99.0,
+          currency: "INR",
+          order_id: razorpay_order_id,
+          payment_id: razorpay_payment_id,
+          payment_status: "confirmed",
+          session_dates: "12-13 December 2026 (2-3 PM IST)",
+          utm_source: body.utm_source || "",
+          utm_campaign: body.utm_campaign || "",
+          whatsapp_joined: false,
+        });
+      }
+    } catch (dbErr) {
+      console.warn("[Supabase Webinar Registration Notice]:", dbErr);
+    }
+
+    // 2. Forward registration details to dedicated n8n webinar engine (Google Sheet + Email Alerts)
+    try {
+      const webinarWebhookUrl =
+        process.env.WEBINAR_N8N_WEBHOOK_URL ||
+        "https://n8n.srv1010832.hstgr.cloud/webhook/scalepods-webinar-registration";
+      fetch(webinarWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "webinar_registration",
+          event: "webinar_payment_confirmed",
+          amount: 99,
+          currency: "INR",
+          order_id: razorpay_order_id,
+          payment_id: razorpay_payment_id,
+          name,
+          email,
+          phone,
+          role: role || "",
+          utm_source: body.utm_source || "",
+          utm_campaign: body.utm_campaign || "",
+          whatsapp_group_link:
+            "https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4",
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch((err) =>
+        console.warn("[n8n Webinar Webhook Notice]:", err?.message)
+      );
+
+      // Also notify primary webhook if configured and different
+      const primaryWebhook = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL;
+      if (primaryWebhook && primaryWebhook !== webinarWebhookUrl) {
+        fetch(primaryWebhook, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -69,17 +126,15 @@ export async function POST(req: NextRequest) {
             email,
             phone,
             role: role || "",
-            whatsapp_group_link: "https://chat.whatsapp.com/DXUZY64yIV9E0VdLprFIx2?s=sh&p=a&mlu=4&ilr=4",
-            attendee: { name, email, phone, role },
             timestamp: new Date().toISOString(),
           }),
-        }).catch((err) => console.warn("[n8n Webhook Notice]:", err?.message));
+        }).catch(() => {});
       }
     } catch (e) {
       console.warn("[Webhook Notification Notice]:", e);
     }
 
-    // 2. Fire Server-Side Meta Conversions API (CAPI) Purchase Event for Ad Attribution
+    // 3. Fire Server-Side Meta Conversions API (CAPI) Purchase Event for Ad Attribution
     try {
       const { ip, userAgent } = getClientInfo(req.headers);
       const origin = req.nextUrl.origin || "https://www.scalepods.co";
