@@ -346,6 +346,20 @@ export default function WebinarPage() {
               }
 
               setModalStep("confirmed");
+
+              // Redirect to dedicated Thank You page for Meta Custom Conversion tracking
+              try {
+                const thankYouUrl = `/ai-business-automation-webinar/thank-you?payment_id=${encodeURIComponent(
+                  response.razorpay_payment_id
+                )}&order_id=${encodeURIComponent(
+                  response.razorpay_order_id
+                )}&name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(
+                  formData.email
+                )}`;
+                window.location.href = thankYouUrl;
+              } catch (navErr) {
+                console.warn("[Navigation Notice]:", navErr);
+              }
             } else {
               setPaymentError(
                 verifyData.error ||
