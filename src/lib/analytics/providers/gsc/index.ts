@@ -25,7 +25,7 @@ function setCached<T>(key: string, value: T): void {
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GSC_BASE  = "https://www.googleapis.com/webmasters/v3";
 
-// ── Auth (Service Account JWT) ──────────────────────────────────────────────────
+// ── Auth (Service Account JWT with OAuth2 Refresh Token Fallback) ───────────
 
 let cachedToken: { value: string; expiresAt: number } | null = null;
 
@@ -34,63 +34,109 @@ async function getAccessToken(): Promise<string> {
     return cachedToken.value;
   }
 
-  // Decode service account JSON from base64
-  const serviceAccountJson = JSON.parse(
-    Buffer.from(process.env.GA4_SERVICE_ACCOUNT_JSON!, "base64").toString("utf8")
+  // 1. Try Service Account JSON if configured
+  if (process.env.GA4_SERVICE_ACCOUNT_JSON) {
+    try {
+      const raw = process.env.GA4_SERVICE_ACCOUNT_JSON.trim();
+      let serviceAccountJson: { client_email: string; private_key: string };
+      try {
+        serviceAccountJson = JSON.parse(raw);
+      } catch {
+        serviceAccountJson = JSON.parse(Buffer.from(raw, "base64").toString("utf8"));
+      }
+
+      // Create JWT for service account
+      const header = { alg: "RS256", typ: "JWT" };
+      const iat = Math.floor(Date.now() / 1000);
+      const payload = {
+        iss:   serviceAccountJson.client_email,
+        scope: [
+          "https://www.googleapis.com/auth/analytics.readonly",
+          "https://www.googleapis.com/auth/webmasters.readonly"
+        ].join(" "),
+        aud:   "https://oauth2.googleapis.com/token",
+        exp:   iat + 3600,
+        iat,
+      };
+
+      // Encode and sign JWT
+      const base64url = (buf: Buffer) => buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+      const headerB64 = base64url(Buffer.from(JSON.stringify(header)));
+      const payloadB64 = base64url(Buffer.from(JSON.stringify(payload)));
+      const msg = `${headerB64}.${payloadB64}`;
+
+      // Sign with private key
+      const crypto = await import("crypto");
+      let privateKey = serviceAccountJson.private_key;
+      if (!privateKey.includes("\n")) {
+        privateKey = privateKey.replace(/\\n/g, "\n");
+      }
+      const signatureBytes = crypto.createSign("sha256").update(msg).sign(privateKey);
+      const signature = base64url(signatureBytes);
+      const jwt = `${msg}.${signature}`;
+
+      // Exchange JWT for access token
+      const res = await fetch(TOKEN_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+          assertion:  jwt,
+        }),
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        if (json.access_token) {
+          cachedToken = {
+            value:     json.access_token,
+            expiresAt: Date.now() + (json.expires_in ?? 3600) * 1000,
+          };
+          return cachedToken.value;
+        }
+      }
+    } catch (saErr) {
+      console.warn("[GSC Auth] Service account JWT attempt failed, trying OAuth refresh token...", saErr);
+    }
+  }
+
+  // 2. Fallback to OAuth2 Refresh Token (configured via GA4_CLIENT_ID, GA4_CLIENT_SECRET, GA4_REFRESH_TOKEN)
+  const clientId = process.env.GA4_CLIENT_ID;
+  const clientSecret = process.env.GA4_CLIENT_SECRET;
+  const refreshToken = process.env.GA4_REFRESH_TOKEN;
+
+  if (clientId && clientSecret && refreshToken) {
+    const res = await fetch(TOKEN_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id:     clientId,
+        client_secret: clientSecret,
+        refresh_token: refreshToken,
+        grant_type:    "refresh_token",
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`GSC OAuth token refresh failed: ${err}`);
+    }
+
+    const json = await res.json();
+    if (!json.access_token) {
+      throw new Error(`GSC token exchange returned no access_token: ${JSON.stringify(json)}`);
+    }
+
+    cachedToken = {
+      value:     json.access_token,
+      expiresAt: Date.now() + (json.expires_in ?? 3600) * 1000,
+    };
+    return cachedToken.value;
+  }
+
+  throw new Error(
+    "GSC authentication error: Neither GA4_SERVICE_ACCOUNT_JSON nor (GA4_CLIENT_ID, GA4_CLIENT_SECRET, GA4_REFRESH_TOKEN) are configured in environment."
   );
-
-  // Create JWT for service account
-  const header = { alg: "RS256", typ: "JWT" };
-  const iat = Math.floor(Date.now() / 1000);
-  const payload = {
-    iss:   serviceAccountJson.client_email,
-    scope: [
-      "https://www.googleapis.com/auth/analytics.readonly",
-      "https://www.googleapis.com/auth/webmasters.readonly"
-    ].join(" "),
-    aud:   "https://oauth2.googleapis.com/token",
-    exp:   iat + 3600,
-    iat,
-  };
-
-  // Encode and sign JWT
-  const base64url = (buf: Buffer) => buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
-  const headerB64 = base64url(Buffer.from(JSON.stringify(header)));
-  const payloadB64 = base64url(Buffer.from(JSON.stringify(payload)));
-  const msg = `${headerB64}.${payloadB64}`;
-
-  // Sign with private key
-  const crypto = await import("crypto");
-  const privateKey = serviceAccountJson.private_key;
-  const signatureBytes = crypto.createSign("sha256").update(msg).sign(privateKey);
-  const signature = base64url(signatureBytes);
-  const jwt = `${msg}.${signature}`;
-
-  // Exchange JWT for access token
-  const res = await fetch(TOKEN_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-      assertion:  jwt,
-    }),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`GSC token refresh failed: ${err}`);
-  }
-
-  const json = await res.json();
-  if (!json.access_token) {
-    throw new Error(`GSC token exchange returned no access_token: ${JSON.stringify(json)}`);
-  }
-
-  cachedToken = {
-    value:     json.access_token,
-    expiresAt: Date.now() + (json.expires_in ?? 3600) * 1000,
-  };
-  return cachedToken.value;
 }
 
 // ── GSC Search Analytics API ──────────────────────────────────────────────────
