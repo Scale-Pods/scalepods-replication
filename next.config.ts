@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // ── Core & Landing Page Redirects ──────────────────────────────────────────
       {
         source: '/salespod',
         destination: '/solution/sales-workflow-automation',
@@ -39,6 +40,43 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/solution/operations-automation',
+        destination: '/solution/ops-workflow-automation',
+        permanent: true,
+      },
+      {
+        source: '/blog/operations-automation-guide',
+        destination: '/solution/ops-workflow-automation',
+        permanent: true,
+      },
+      {
+        source: '/gcc',
+        destination: '/global',
+        permanent: true,
+      },
+      {
+        source: '/uae',
+        destination: '/global',
+        permanent: true,
+      },
+      {
+        source: '/resources/ebooks',
+        destination: '/resources',
+        permanent: true,
+      },
+      {
+        source: '/ai-automation-for-manufacturing',
+        destination: '/solution/ai-automation-for-manufacturing',
+        permanent: true,
+      },
+      {
+        source: '/ai-automation-for-real-estate',
+        destination: '/solution/ai-automation-for-real-estate',
+        permanent: true,
+      },
+
+      // ── Case Studies (Consolidate /blog/[slug] to /case-study/[slug]) ──────────
       {
         source: '/blog/lotus-manor-case-study',
         destination: '/case-study/lotus-manor-real-estate-sales-automation-dubai',
@@ -60,13 +98,28 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/solution/operations-automation',
-        destination: '/solution/ops-workflow-automation',
+        source: '/blog/lootah-group-procurement-workflow-automation',
+        destination: '/case-study/lootah-group-procurement-workflow-automation',
         permanent: true,
       },
       {
-        source: '/blog/operations-automation-guide',
-        destination: '/solution/ops-workflow-automation',
+        source: '/blog/macro-media-finance-workflow-automation',
+        destination: '/case-study/macro-media-finance-workflow-automation',
+        permanent: true,
+      },
+      {
+        source: '/blog/bennett-realty-growth-os',
+        destination: '/case-study/bennett-realty-growth-os',
+        permanent: true,
+      },
+      {
+        source: '/blog/victory-energy-business-automation',
+        destination: '/case-study/victory-energy-business-automation',
+        permanent: true,
+      },
+      {
+        source: '/blog/ryan-schwartz-fub-crm-automation',
+        destination: '/case-study/ryan-schwartz-fub-crm-automation',
         permanent: true,
       },
     ];

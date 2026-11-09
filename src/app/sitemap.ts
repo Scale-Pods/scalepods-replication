@@ -126,6 +126,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "lotus-manor-real-estate-sales-automation-dubai",
     "zv-steels-recruitment-automation-tool",
     "asquared-real-estate-sales-automation-dubai",
+    "lootah-group-procurement-workflow-automation",
+    "macro-media-finance-workflow-automation",
+    "bennett-realty-growth-os",
+    "victory-energy-business-automation",
+    "ryan-schwartz-fub-crm-automation",
   ]);
 
   // 2. Map static blogs (exclude case studies and redirected slugs)
