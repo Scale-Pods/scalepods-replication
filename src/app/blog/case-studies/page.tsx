@@ -623,6 +623,71 @@ export default function CaseStudiesPage() {
 
               </div>
 
+              {/* ── Case Study 9: Miguel Clinic Lead Generation (Image Left, Text Right - Alternate Manner) ── */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-5xl mx-auto w-full">
+                
+                {/* Left Column: Image Container */}
+                <div className="lg:col-span-5 w-full flex justify-center">
+                  <div style={logoBoxStyle}>
+                    <Image
+                      src="/brands/miguel-case-study-box.svg"
+                      alt="Miguel Clinic Lead Generation Logo Box"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{
+                        objectFit: "cover",
+                        transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                      className="hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+                {/* Right Column: Case Study Text */}
+                <div className="lg:col-span-7 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
+                  <span style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "var(--color-blue-mid)"
+                  }}>
+                    CASE STUDY
+                  </span>
+                  
+                  <h2 style={{
+                    fontSize: "clamp(32px, 3.5vw, 48px)",
+                    fontWeight: 750,
+                    color: "var(--color-text-bright)",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em"
+                  }}>
+                    Miguel Clinic Lead Generation
+                  </h2>
+
+                  <p style={{
+                    fontSize: "17px",
+                    color: "var(--color-text-body)",
+                    lineHeight: 1.6,
+                    margin: 0
+                  }}>
+                    Miguel needed to scale clinic prospecting across diverse geographic territories without burning countless hours on manual research and generic outreach. ScalePods architected an autonomous 5-engine AI lead generation and conversion system—featuring multi-channel directory scraping, verified social enrichment, custom AI hooks with human reviewer approval, and sub-60-second AI Concierge BANT qualification synced directly into Pipedrive CRM—achieving a 34% LinkedIn connection rate and zero account restrictions.
+                  </p>
+
+                  <div style={{ marginTop: "12px" }}>
+                    <Link 
+                      href="/case-study/miguel-clinic-lead-generation-automation"
+                      style={learnMoreBtnStyle}
+                      className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore Miguel Case Study"
+                    >
+                      Explore Miguel Case Study →
+                    </Link>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>

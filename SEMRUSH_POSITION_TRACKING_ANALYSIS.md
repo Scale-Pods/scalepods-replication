@@ -107,3 +107,4 @@ flowchart LR
   * Low-KD keywords (KD < 25%) begin appearing in Semrush in positions **#50 to #90** across Google US and UAE.
 * **Weeks 6–10**:
   * With steady internal linking, case study proof, and engagement signals, long-tail terms climb toward the **top 20–30**.
+

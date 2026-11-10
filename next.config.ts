@@ -122,6 +122,11 @@ const nextConfig: NextConfig = {
         destination: '/case-study/ryan-schwartz-fub-crm-automation',
         permanent: true,
       },
+      {
+        source: '/blog/miguel-clinic-lead-generation-automation',
+        destination: '/case-study/miguel-clinic-lead-generation-automation',
+        permanent: true,
+      },
     ];
   },
 };

@@ -60,3 +60,4 @@ Every redirect in this table has been validated to ensure:
 2. Target routes contain self-referential canonical tags `<link rel="canonical" href="..." />`.
 3. Target routes are actively mapped in [`src/app/sitemap.ts`](file:///f:/Scalepods.co/scalepods-website-nextjs/src/app/sitemap.ts).
 4. No redirect chains or loops exist.
+

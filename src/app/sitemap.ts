@@ -131,6 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "bennett-realty-growth-os",
     "victory-energy-business-automation",
     "ryan-schwartz-fub-crm-automation",
+    "miguel-clinic-lead-generation-automation",
   ]);
 
   // 2. Map static blogs (exclude case studies and redirected slugs)

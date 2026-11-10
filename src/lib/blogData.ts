@@ -1433,6 +1433,60 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "miguel-clinic-lead-generation-automation",
+    date: "November 10, 2026",
+    category: "Case Study",
+    title: "47 Clinics Found. 34% LinkedIn Connection Rate. How Miguel Created An AI-Powered Lead Generation System",
+    excerpt: "Miguel’s AI lead generation system found and enriched 47 of his 50 target clinics. This allowed him to personalise his outreach on LinkedIn using verified clinic information. Using AI-powered lead enrichment, LinkedIn outreach automation & automated follow-up, we achieved a connection rate of around 34% on our pilot. 9 clinics engaged with us. We minimised manual input by using automated reply routing & CRM integration. Using our AI Concierge test, we were able to qualify leads, book meetings, and map BANT information to Pipedrive in under 60 seconds.",
+    metaTitle: "How Miguel Scaled His Clinic Outreach With AI Automation | ScalePods",
+    metaDescription: "Discover how Miguel’s AI lead generation system found and enriched 47 clinics, personalised outreach on LinkedIn, and automated follow-ups with CRM integration.",
+    image: "/images/case-studies/miguel/solution-lead-gen-conversion-system.webp",
+    sections: [
+      {
+        heading: "Overview: From Manual Clinic Prospecting to AI-Powered Lead Generation",
+        body: "Prospecting aesthetic clinics across multiple geographic territories is easy in small batches, but extraordinarily difficult to scale manually. Researching individual clinics, gathering social footprints across Instagram, Facebook, and LinkedIn, and writing custom-tailored outreach consumes dozens of sales hours every week.\n\nScalePods engineered an integrated AI sales automation and lead generation engine that automates the entire outbound cycle: geographic scraping, licensed multi-channel enrichment, AI personalized outreach hooks verified by human reviewers, automated Unipile LinkedIn cadences, 3-stage follow-up sequences, and sub-60-second AI Concierge BANT qualification synced directly into Pipedrive CRM."
+      },
+      {
+        heading: "The Challenges Miguel Faced",
+        body: "Prior to automating with ScalePods, clinic outreach was bottlenecked by four core structural challenges:\n\n• Manual Prospecting Across Geographic Areas: Sales reps spent hours manually researching aesthetic clinics across target cities and regions, repeating manual data gathering for every new territory.\n• Generic Outreach: Traditional copy-paste templates ignored actual clinic positioning, website offerings, and doctor credentials, leading to poor connection and reply rates.\n• Difficult Keeping Up With Follow-Ups: Manually tracking Day 3, Day 5, and Day 7 follow-ups was inconsistent, causing high-intent prospects to fall through the cracks.\n• Need Someone to Identify Real Interests: Even when clinics replied, a dedicated team member was still needed to gauge intent, conduct BANT qualification, coordinate Calendly slots, and update the CRM."
+      },
+      {
+        heading: "The Solution: A 5-Engine AI Lead Generation & Conversion System",
+        body: "ScalePods built an autonomous system configured via a central control sheet, enabling Miguel to target any city or clinic vertical on demand:\n\n• Engine 01 (Find & Enrich Leads): Scrapes business directories for clinic targets and uses licensed providers to enrich each record with verified Instagram, Facebook, and LinkedIn profiles.\n• Engine 02 (Personalise Outreach): Analyzes clinic website and social content with AI to generate unique, contextual outreach hooks—gated by a rapid daily human approval workflow.\n• Engine 03 (Automated LinkedIn Outreach): Dispatches connection requests and messages via Unipile with strict account limits (15–20 daily actions) and randomized human pacing to preserve account health.\n• Engine 04 (Automated Follow-Up): Enrolls unresponsive clinics into a systematic 3-touch cadence (Day 3, Day 5, Day 7) with automated auto-responder email diversion.\n• Engine 05 (AI Concierge Qualification): Engages warm replies in under 60 seconds, evaluates BANT (Budget, Authority, Need, Timeline) criteria, books meetings via Calendly, and automatically writes structured notes to Pipedrive CRM."
+      },
+      {
+        heading: "The Results: Pilot Performance & Benchmark Data",
+        body: "During the 50-clinic pilot run and test benchmarks, the system delivered remarkable operational results:\n\n• 47 Clinics Fully Found & Enriched: 47 out of 50 target clinics were completely processed and enriched automatically (only 3 flagged for manual review).\n• 100% Verified Information in Hooks: Every outreach hook utilized real, verified clinic website and social data, confirmed through reviewer approval.\n• ~34% LinkedIn Connection Rate: 9 clinics engaged directly with the personalized hook and VSL presentation.\n• 0 Flagged or Suspended Accounts: Strict adherence to 15–20 daily action limits and randomized pacing kept all outreach accounts completely healthy.\n• 4 Auto-Responder Replies Diverted: Automated reply classification routed vacation and generic auto-responders straight to email, eliminating CRM noise.\n• Under 60 Seconds AI Concierge Response: Verified intent conversations were qualified against BANT criteria and booked to Calendly with zero human intervention."
+      }
+    ],
+    faqs: [
+      {
+        q: "What is an AI-powered clinic lead generation system?",
+        a: "It is an automated outbound sales workflow that combines geographic data scraping, multi-channel social enrichment (Instagram, Facebook, LinkedIn), AI-generated personalized hooks, automated outreach cadences, and an AI Concierge that qualifies leads on BANT criteria before syncing bookings to CRM."
+      },
+      {
+        q: "How does the system ensure LinkedIn outreach accounts don't get suspended?",
+        a: "The system connects via Unipile with strict daily outreach throttling (capped at 15–20 actions per account per day) and randomized, human-like pacing intervals. During the pilot, zero accounts were flagged or restricted."
+      },
+      {
+        q: "How does the AI personalize outreach hooks for each clinic?",
+        a: "An AI model crawls each clinic's verified website, Instagram, Facebook, and LinkedIn pages to extract specific services, practitioner credentials, and positioning. It crafts a unique opening hook based on real business facts rather than generic cold templates."
+      },
+      {
+        q: "What is the role of human review in this automated workflow?",
+        a: "ScalePods operates on a human-in-the-loop framework. Every AI-generated outreach hook is presented in a daily batch reviewer dashboard, allowing a human manager to approve, tweak, or reject hooks before messages are dispatched."
+      },
+      {
+        q: "How does the AI Concierge qualify leads using BANT?",
+        a: "When a clinic replies with interest, the AI Concierge responds in under 60 seconds to evaluate Budget, Authority, Need, and Timeline through natural conversational prompts, offering live Calendly booking slots to qualified prospects."
+      },
+      {
+        q: "Which CRMs and tools does this outbound system integrate with?",
+        a: "The system was built with Pipedrive CRM for deal and contact management, Unipile for LinkedIn automation, Calendly for schedule booking, and Google Sheets for vertical/geographic control targeting."
+      }
+    ]
+  },
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

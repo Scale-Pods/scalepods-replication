@@ -36,6 +36,7 @@ const caseStudyLinks = [
   { label: "Bennett Realty USA", href: "/case-study/bennett-realty-growth-os" },
   { label: "Victory Energy USA", href: "/case-study/victory-energy-business-automation" },
   { label: "Ryan Schwartz USA", href: "/case-study/ryan-schwartz-fub-crm-automation" },
+  { label: "Miguel Clinic Lead Gen", href: "/case-study/miguel-clinic-lead-generation-automation" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";
