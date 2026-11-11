@@ -46,11 +46,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/blog/operations-automation-guide',
-        destination: '/solution/ops-workflow-automation',
-        permanent: true,
-      },
-      {
         source: '/gcc',
         destination: '/global',
         permanent: true,

@@ -121,7 +121,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Set of legacy slugs that redirect and must never appear in sitemap.xml
   const redirectedSlugs = new Set([
-    "operations-automation-guide",
+    // Case study aliases consolidated into /case-study/*
     "lotus-manor-case-study",
     "lotus-manor-real-estate-sales-automation-dubai",
     "zv-steels-recruitment-automation-tool",

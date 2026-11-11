@@ -389,7 +389,7 @@ export default async function ArticlePage({ params }: Props) {
     },
     "headline": displayData.title,
     "description": displayData.excerpt,
-    "image": displayData.image.startsWith("http") ? displayData.image : `https://www.scalepods.co${displayData.image}`,
+    "image": (displayData.image || "").startsWith("http") ? displayData.image : `https://www.scalepods.co${displayData.image || "/scalepods-logo.png"}`,
     "datePublished": displayData.date ? new Date(displayData.date).toISOString() : new Date().toISOString(),
     "author": {
       "@type": "Organization",

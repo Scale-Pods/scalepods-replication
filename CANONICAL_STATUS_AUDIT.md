@@ -129,7 +129,6 @@ These legacy or shorthand URLs redirect permanently (HTTP 301) to their canonica
 | `https://www.scalepods.co/salespod` | `https://www.scalepods.co/solution/sales-workflow-automation` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/use-cases` | `https://www.scalepods.co/` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/solution/operations-automation` | `https://www.scalepods.co/solution/ops-workflow-automation` | 301 Permanent | ❌ Excluded |
-| `https://www.scalepods.co/blog/operations-automation-guide` | `https://www.scalepods.co/solution/ops-workflow-automation` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/blog/lotus-manor-case-study` | `https://www.scalepods.co/case-study/lotus-manor-real-estate-sales-automation-dubai` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/blog/lotus-manor-real-estate-sales-automation-dubai` | `https://www.scalepods.co/case-study/lotus-manor-real-estate-sales-automation-dubai` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/blog/zv-steels-recruitment-automation-tool` | `https://www.scalepods.co/case-study/zv-steels-recruitment-automation-tool` | 301 Permanent | ❌ Excluded |

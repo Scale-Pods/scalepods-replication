@@ -32,7 +32,7 @@ Every redirect is configured at the edge layer in [`next.config.ts`](file:///f:/
 | **9** | Case Study | `/blog/ryan-schwartz-fub-crm-automation` | [`/case-study/ryan-schwartz-fub-crm-automation`](https://www.scalepods.co/case-study/ryan-schwartz-fub-crm-automation) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
 | **10** | Solution | `/salespod` | [`/solution/sales-workflow-automation`](https://www.scalepods.co/solution/sales-workflow-automation) | `301 Permanent` | `next.config.ts` |
 | **11** | Solution | `/solution/operations-automation` | [`/solution/ops-workflow-automation`](https://www.scalepods.co/solution/ops-workflow-automation) | `301 Permanent` | `next.config.ts` |
-| **12** | Solution | `/blog/operations-automation-guide` | [`/solution/ops-workflow-automation`](https://www.scalepods.co/solution/ops-workflow-automation) | `301 Permanent` | `next.config.ts` |
+| **12** | Case Study | `/blog/miguel-clinic-lead-generation-automation` | [`/case-study/miguel-clinic-lead-generation-automation`](https://www.scalepods.co/case-study/miguel-clinic-lead-generation-automation) | `301 Permanent` | `next.config.ts` |
 | **13** | Solution | `/ai-automation-for-manufacturing` | [`/solution/ai-automation-for-manufacturing`](https://www.scalepods.co/solution/ai-automation-for-manufacturing) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
 | **14** | Solution | `/ai-automation-for-real-estate` | [`/solution/ai-automation-for-real-estate`](https://www.scalepods.co/solution/ai-automation-for-real-estate) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
 | **15** | Regional / Core | `/gcc` | [`/global`](https://www.scalepods.co/global) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
