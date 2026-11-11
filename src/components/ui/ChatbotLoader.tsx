@@ -11,15 +11,24 @@ import { usePathname } from "next/navigation";
  * one to fully load before injecting the next, avoiding the race condition
  * that caused the chatbot to silently fail when using Next.js <Script>.
  */
+interface ChatbotWindow extends Window {
+  __SCALEPODS_LOADER_INIT__?: boolean;
+  React?: unknown;
+  ReactDOM?: unknown;
+}
+
 export default function ChatbotLoader() {
   const pathname = usePathname();
-  if (pathname?.startsWith("/ai-business-automation-webinar") || pathname?.startsWith("/admin")) {
-    return null;
-  }
+  const shouldHide =
+    pathname?.startsWith("/ai-business-automation-webinar") ||
+    pathname?.startsWith("/admin");
+
   useEffect(() => {
+    if (shouldHide) return;
+    const win = window as ChatbotWindow;
     // Guard: only run once
-    if ((window as any).__SCALEPODS_LOADER_INIT__) return;
-    (window as any).__SCALEPODS_LOADER_INIT__ = true;
+    if (win.__SCALEPODS_LOADER_INIT__) return;
+    win.__SCALEPODS_LOADER_INIT__ = true;
 
     const loadScript = (src: string): Promise<void> => {
       return new Promise((resolve, reject) => {
@@ -35,18 +44,22 @@ export default function ChatbotLoader() {
     (async () => {
       try {
         // Only load React/ReactDOM if not already present (Next.js uses its own internal copy)
-        if (!(window as any).React) {
+        if (!win.React) {
           await loadScript("https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js");
         }
-        if (!(window as any).ReactDOM) {
+        if (!win.ReactDOM) {
           await loadScript("https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js");
         }
-        await loadScript("/chatbot/embed.min.js");
+        await loadScript("https://updated-chatbot-beta.vercel.app/embed.js");
       } catch (err) {
         console.error("[ChatbotLoader]", err);
       }
     })();
-  }, []);
+  }, [shouldHide]);
+
+  if (shouldHide) {
+    return null;
+  }
 
   return <div id="scalepods-chat-root" />;
 }
