@@ -971,7 +971,7 @@ export default function MacroMediaCaseStudy({ faqs }: MacroMediaProps) {
                 <ArrowUpRight size={16} />
               </Link>
               <Link
-                href="/blog/case-studies"
+                href="/resources/case-studies"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

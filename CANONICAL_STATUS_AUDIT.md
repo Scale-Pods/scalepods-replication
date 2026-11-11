@@ -30,10 +30,11 @@ This document provides a complete audit of all URLs across **ScalePods.co**, det
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `https://www.scalepods.co/` | `https://www.scalepods.co` | **Self-Canonical** | 200 OK | ✅ Yes | Daily / 1.0 |
 | `https://www.scalepods.co/about` | `https://www.scalepods.co/about` | **Self-Canonical** | 200 OK | ✅ Yes | Monthly / 0.8 |
-| `https://www.scalepods.co/blog` | `https://www.scalepods.co/blog` | **Self-Canonical** | 200 OK | ✅ Yes | Daily / 0.8 |
-| `https://www.scalepods.co/blog/case-studies` | `https://www.scalepods.co/blog/case-studies` | **Self-Canonical** | 200 OK | ✅ Yes | Weekly / 0.9 |
 | `https://www.scalepods.co/ai-business-automation-webinar` | `https://www.scalepods.co/ai-business-automation-webinar` | **Self-Canonical** | 200 OK | ✅ Yes | Weekly / 0.9 |
 | `https://www.scalepods.co/resources` | `https://www.scalepods.co/resources` | **Self-Canonical** | 200 OK | ✅ Yes | Weekly / 0.8 |
+| `https://www.scalepods.co/resources/ebooks` | `https://www.scalepods.co/resources/ebooks` | **Self-Canonical** | 200 OK | ✅ Yes | Weekly / 0.85 |
+| `https://www.scalepods.co/resources/case-studies` | `https://www.scalepods.co/resources/case-studies` | **Self-Canonical** | 200 OK | ✅ Yes | Weekly / 0.9 |
+| `https://www.scalepods.co/resources/blog` | `https://www.scalepods.co/resources/blog` | **Self-Canonical** | 200 OK | ✅ Yes | Daily / 0.8 |
 | `https://www.scalepods.co/contact` | `https://www.scalepods.co/contact` | **Self-Canonical** | 200 OK | ✅ Yes | Monthly / 0.8 |
 | `https://www.scalepods.co/global` | `https://www.scalepods.co/global` | **Self-Canonical** | 200 OK | ✅ Yes | Weekly / 0.8 |
 | `https://www.scalepods.co/privacy` | `https://www.scalepods.co/privacy` | **Self-Canonical** | 200 OK | ✅ Yes | Yearly / 0.3 |
@@ -126,6 +127,8 @@ These legacy or shorthand URLs redirect permanently (HTTP 301) to their canonica
 
 | Source URL | Destination URL | Redirect Type | In Sitemap? |
 | :--- | :--- | :--- | :--- |
+| `https://www.scalepods.co/blog` | `https://www.scalepods.co/resources/blog` | 301 Permanent | ❌ Excluded |
+| `https://www.scalepods.co/blog/case-studies` | `https://www.scalepods.co/resources/case-studies` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/salespod` | `https://www.scalepods.co/solution/sales-workflow-automation` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/use-cases` | `https://www.scalepods.co/` | 301 Permanent | ❌ Excluded |
 | `https://www.scalepods.co/solution/operations-automation` | `https://www.scalepods.co/solution/ops-workflow-automation` | 301 Permanent | ❌ Excluded |
@@ -143,9 +146,8 @@ These Next.js App Router route handlers perform server-side redirection:
 | Source URL | Destination URL | Implementation | In Sitemap? |
 | :--- | :--- | :--- | :--- |
 | `https://www.scalepods.co/uae` | `https://www.scalepods.co/global` | `redirect("/global")` in `src/app/uae/page.tsx` | ❌ Excluded (Clean) |
-| `https://www.scalepods.co/resources/ebooks` | `https://www.scalepods.co/resources` | `redirect("/resources")` in `src/app/resources/ebooks/page.tsx` | ❌ Excluded (Clean) |
 
-*(Note: `/uae` and `/resources/ebooks` were previously removed from `sitemap.ts` to prevent "Page with redirect" errors in Google Search Console).*
+*(Note: `/uae` was previously removed from `sitemap.ts` to prevent "Page with redirect" errors in Google Search Console; `/resources/ebooks` is now a live self-canonical page).*
 
 ---
 

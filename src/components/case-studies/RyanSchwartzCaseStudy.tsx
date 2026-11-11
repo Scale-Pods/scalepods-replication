@@ -1051,7 +1051,7 @@ export default function RyanSchwartzCaseStudy({ faqs }: RyanSchwartzProps) {
                 <ArrowUpRight style={{ width: "16px", height: "16px" }} />
               </Link>
               <Link
-                href="/blog/case-studies"
+                href="/resources/case-studies"
                 className="blog-back-btn"
                 style={{
                   background: "transparent",

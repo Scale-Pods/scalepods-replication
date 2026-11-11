@@ -309,7 +309,8 @@ const Navbar = memo(() => {
       router.prefetch("/solution/hr-workflow-automation");
       router.prefetch("/solution/marketing-workflow-automation");
       router.prefetch("/solution/ops-workflow-automation");
-      router.prefetch("/blog");
+      router.prefetch("/resources");
+      router.prefetch("/resources/blog");
       router.prefetch("/contact");
     }
   }, [router, isProd]);
@@ -615,7 +616,7 @@ const Navbar = memo(() => {
               }
 
               if (link.dropdown && link.label === "Resources") {
-                const active = pathname?.startsWith("/resources");
+                const active = pathname?.startsWith("/resources") || pathname?.startsWith("/blog") || pathname?.startsWith("/case-study");
                 return (
                   <div
                     key={link.label}
@@ -722,13 +723,40 @@ const Navbar = memo(() => {
                                 borderRadius: "10px",
                                 textDecoration: "none",
                                 transition: "all 0.2s ease",
-                                background: pathname === "/resources" || pathname?.startsWith("/resources/") ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                                background: pathname === "/resources" ? "rgba(255, 255, 255, 0.05)" : "transparent"
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                               }}
                               onMouseLeave={(e) => {
-                                e.currentTarget.style.background = pathname === "/resources" || pathname?.startsWith("/resources/") ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                e.currentTarget.style.background = pathname === "/resources" ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                              }}
+                            >
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
+                                All Resources
+                              </div>
+                              <div style={{ fontSize: "12px", color: "var(--color-text-muted)", lineHeight: 1.4 }}>
+                                eBooks, case studies & automation articles
+                              </div>
+                            </Link>
+
+                            <Link
+                              href="/resources/ebooks"
+                              prefetch={isProd}
+                              onClick={() => setResourcesOpen(false)}
+                              style={{
+                                display: "block",
+                                padding: "10px 14px",
+                                borderRadius: "10px",
+                                textDecoration: "none",
+                                transition: "all 0.2s ease",
+                                background: pathname === "/resources/ebooks" || pathname?.startsWith("/resources/ebooks/") ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = pathname === "/resources/ebooks" || pathname?.startsWith("/resources/ebooks/") ? "rgba(255, 255, 255, 0.05)" : "transparent";
                               }}
                             >
                               <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
@@ -740,7 +768,7 @@ const Navbar = memo(() => {
                             </Link>
 
                             <Link
-                              href="/blog/case-studies"
+                              href="/resources/case-studies"
                               prefetch={isProd}
                               onClick={() => setResourcesOpen(false)}
                               style={{
@@ -749,13 +777,13 @@ const Navbar = memo(() => {
                                 borderRadius: "10px",
                                 textDecoration: "none",
                                 transition: "all 0.2s ease",
-                                background: pathname === "/blog/case-studies" ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                                background: pathname === "/resources/case-studies" || pathname === "/blog/case-studies" || pathname?.startsWith("/case-study") ? "rgba(255, 255, 255, 0.05)" : "transparent"
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                               }}
                               onMouseLeave={(e) => {
-                                e.currentTarget.style.background = pathname === "/blog/case-studies" ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                e.currentTarget.style.background = pathname === "/resources/case-studies" || pathname === "/blog/case-studies" || pathname?.startsWith("/case-study") ? "rgba(255, 255, 255, 0.05)" : "transparent";
                               }}
                             >
                               <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
@@ -767,7 +795,7 @@ const Navbar = memo(() => {
                             </Link>
 
                             <Link
-                              href="/blog"
+                              href="/resources/blog"
                               prefetch={isProd}
                               onClick={() => setResourcesOpen(false)}
                               style={{
@@ -776,13 +804,13 @@ const Navbar = memo(() => {
                                 borderRadius: "10px",
                                 textDecoration: "none",
                                 transition: "all 0.2s ease",
-                                background: pathname === "/blog" ? "rgba(255, 255, 255, 0.05)" : "transparent"
+                                background: pathname === "/resources/blog" || pathname === "/blog" || (pathname?.startsWith("/blog/") && pathname !== "/blog/case-studies") ? "rgba(255, 255, 255, 0.05)" : "transparent"
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                               }}
                               onMouseLeave={(e) => {
-                                e.currentTarget.style.background = pathname === "/blog" ? "rgba(255, 255, 255, 0.05)" : "transparent";
+                                e.currentTarget.style.background = pathname === "/resources/blog" || pathname === "/blog" || (pathname?.startsWith("/blog/") && pathname !== "/blog/case-studies") ? "rgba(255, 255, 255, 0.05)" : "transparent";
                               }}
                             >
                               <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text-bright)", marginBottom: "2px" }}>
@@ -1127,7 +1155,7 @@ const Navbar = memo(() => {
                     }
 
                     if (link.dropdown && link.label === "Resources") {
-                      const active = pathname?.startsWith("/resources");
+                      const active = pathname?.startsWith("/resources") || pathname?.startsWith("/blog") || pathname?.startsWith("/case-study");
                       return (
                         <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
                           <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
@@ -1208,10 +1236,10 @@ const Navbar = memo(() => {
                                     textAlign: "left"
                                   }}
                                 >
-                                  • Executive eBooks
+                                  • All Resources
                                 </Link>
                                 <Link
-                                  href="/blog/case-studies"
+                                  href="/resources/ebooks"
                                   prefetch={isProd}
                                   onClick={closeMenu}
                                   style={{
@@ -1219,8 +1247,27 @@ const Navbar = memo(() => {
                                     padding: "10px 40px",
                                     fontSize: "13px",
                                     fontWeight: 500,
-                                    color: pathname === "/blog/case-studies" ? "var(--color-text-bright)" : "var(--color-text-muted)",
-                                    background: pathname === "/blog/case-studies" ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                    color: pathname === "/resources/ebooks" || pathname?.startsWith("/resources/ebooks/") ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                    background: pathname === "/resources/ebooks" || pathname?.startsWith("/resources/ebooks/") ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                    border: "none",
+                                    fontFamily: "Inter, sans-serif",
+                                    textDecoration: "none",
+                                    textAlign: "left"
+                                  }}
+                                >
+                                  • Executive eBooks
+                                </Link>
+                                <Link
+                                  href="/resources/case-studies"
+                                  prefetch={isProd}
+                                  onClick={closeMenu}
+                                  style={{
+                                    display: "block",
+                                    padding: "10px 40px",
+                                    fontSize: "13px",
+                                    fontWeight: 500,
+                                    color: pathname === "/resources/case-studies" || pathname === "/blog/case-studies" || pathname?.startsWith("/case-study") ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                    background: pathname === "/resources/case-studies" || pathname === "/blog/case-studies" || pathname?.startsWith("/case-study") ? "rgba(255, 255, 255, 0.03)" : "transparent",
                                     border: "none",
                                     fontFamily: "Inter, sans-serif",
                                     textDecoration: "none",
@@ -1230,7 +1277,7 @@ const Navbar = memo(() => {
                                   • Case Studies
                                 </Link>
                                 <Link
-                                  href="/blog"
+                                  href="/resources/blog"
                                   prefetch={isProd}
                                   onClick={closeMenu}
                                   style={{
@@ -1238,8 +1285,8 @@ const Navbar = memo(() => {
                                     padding: "10px 40px",
                                     fontSize: "13px",
                                     fontWeight: 500,
-                                    color: pathname === "/blog" ? "var(--color-text-bright)" : "var(--color-text-muted)",
-                                    background: pathname === "/blog" ? "rgba(255, 255, 255, 0.03)" : "transparent",
+                                    color: pathname === "/resources/blog" || pathname === "/blog" || (pathname?.startsWith("/blog/") && pathname !== "/blog/case-studies") ? "var(--color-text-bright)" : "var(--color-text-muted)",
+                                    background: pathname === "/resources/blog" || pathname === "/blog" || (pathname?.startsWith("/blog/") && pathname !== "/blog/case-studies") ? "rgba(255, 255, 255, 0.03)" : "transparent",
                                     border: "none",
                                     fontFamily: "Inter, sans-serif",
                                     textDecoration: "none",

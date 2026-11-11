@@ -8,7 +8,7 @@ const platformLinks = [
   { label: "About Us", href: "/about" },
   { label: "Resources", href: "/resources" },
   { label: "AI Masterclass", href: "/ai-business-automation-webinar" },
-  { label: "Blog & Insights", href: "/blog" },
+  { label: "Blog & Insights", href: "/resources/blog" },
   { label: "Contact Us", href: "/contact" },
 ];
 

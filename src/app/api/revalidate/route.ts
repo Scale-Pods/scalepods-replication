@@ -20,11 +20,15 @@ export async function POST(req: NextRequest) {
       // Also revalidate index and root aggressively
       revalidatePath('/', 'layout'); 
       revalidatePath('/blog', 'page');
+      revalidatePath('/resources', 'page');
+      revalidatePath('/resources/blog', 'page');
       revalidatePath('/sitemap.xml');
     } else {
       console.log('[Revalidate] Refreshing all blog paths');
       revalidatePath('/', 'layout');
       revalidatePath('/blog', 'page');
+      revalidatePath('/resources', 'page');
+      revalidatePath('/resources/blog', 'page');
       revalidatePath('/blog/[slug]', 'page');
       revalidatePath('/sitemap.xml');
     }

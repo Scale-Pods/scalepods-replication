@@ -56,8 +56,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/resources/ebooks',
-        destination: '/resources',
+        source: '/blog',
+        destination: '/resources/blog',
+        permanent: true,
+      },
+      {
+        source: '/blog/case-studies',
+        destination: '/resources/case-studies',
         permanent: true,
       },
       {

@@ -2570,7 +2570,7 @@ export function CaseStudies() {
         {/* View All Case Studies Link */}
         <div style={{ textAlign: "center", marginTop: "24px" }}>
           <Link
-            href="/blog/case-studies"
+            href="/resources/case-studies"
             style={{
               display: "inline-flex",
               alignItems: "center",

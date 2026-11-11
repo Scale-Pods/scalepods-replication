@@ -91,6 +91,8 @@ export async function POST(req: Request) {
     // 4. Trigger Next.js cache revalidation for blog list, post page, and sitemap
     try {
       revalidatePath("/blog");
+      revalidatePath("/resources");
+      revalidatePath("/resources/blog");
       revalidatePath(`/blog/${slug}`);
       revalidatePath("/sitemap.xml");
     } catch (revalErr) {
@@ -149,6 +151,8 @@ export async function DELETE(req: Request) {
     // 4. Trigger Next.js cache revalidation for blog list, post page, and sitemap
     try {
       revalidatePath("/blog");
+      revalidatePath("/resources");
+      revalidatePath("/resources/blog");
       revalidatePath(`/blog/${slug}`);
       revalidatePath("/sitemap.xml");
     } catch (revalErr) {

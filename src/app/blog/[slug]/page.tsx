@@ -549,7 +549,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Back Button */}
         <div className={isCustomCaseStudy ? "px-6 md:px-10" : ""}>
-          <Link href={isCustomCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
+          <Link href={isCustomCaseStudy ? "/resources/case-studies" : "/resources/blog"} className="blog-back-btn">
             <ArrowLeft style={{ width: "14px", height: "14px" }} />
             {isCustomCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
           </Link>
@@ -721,7 +721,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Bottom Back Button */}
         <div className={isCustomCaseStudy ? "px-6 md:px-10" : ""}>
-          <Link href={isCustomCaseStudy ? "/blog/case-studies" : "/blog"} className="blog-back-btn">
+          <Link href={isCustomCaseStudy ? "/resources/case-studies" : "/resources/blog"} className="blog-back-btn">
             <ArrowLeft style={{ width: "14px", height: "14px" }} />
             {isCustomCaseStudy ? "Back To Case Studies" : "Back To All Blogs"}
           </Link>

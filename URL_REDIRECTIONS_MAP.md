@@ -1,6 +1,6 @@
 # ScalePods.co — Master URL Redirections & SEO Canonical Map
 
-**Last Updated:** November 9, 2026  
+**Last Updated:** November 11, 2026  
 **Status:** All 301 Permanent Redirects Configured & Active in `next.config.ts`  
 **Domain:** `https://www.scalepods.co`  
 
@@ -37,8 +37,9 @@ Every redirect is configured at the edge layer in [`next.config.ts`](file:///f:/
 | **14** | Solution | `/ai-automation-for-real-estate` | [`/solution/ai-automation-for-real-estate`](https://www.scalepods.co/solution/ai-automation-for-real-estate) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
 | **15** | Regional / Core | `/gcc` | [`/global`](https://www.scalepods.co/global) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
 | **16** | Regional / Core | `/uae` | [`/global`](https://www.scalepods.co/global) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
-| **17** | Regional / Core | `/resources/ebooks` | [`/resources`](https://www.scalepods.co/resources) | `301 Permanent` | `next.config.ts` *(Newly Added)* |
-| **18** | Core | `/use-cases` | [`/`](https://www.scalepods.co/) | `301 Permanent` | `next.config.ts` |
+| **17** | Resources Hub | `/blog` | [`/resources/blog`](https://www.scalepods.co/resources/blog) | `301 Permanent` | `next.config.ts` *(Updated)* |
+| **18** | Resources Hub | `/blog/case-studies` | [`/resources/case-studies`](https://www.scalepods.co/resources/case-studies) | `301 Permanent` | `next.config.ts` *(Updated)* |
+| **19** | Core | `/use-cases` | [`/`](https://www.scalepods.co/) | `301 Permanent` | `next.config.ts` |
 
 ---
 
