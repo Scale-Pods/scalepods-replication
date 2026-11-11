@@ -11,6 +11,7 @@ import {
   Monitor,
   Ticket,
   ChevronDown,
+  ChevronRight,
   ArrowRight,
   Sparkles,
   Users,
@@ -55,6 +56,8 @@ import {
   validatePhone,
   validateFullName,
 } from "@/lib/webinarValidation";
+import { WebinarPreviewDrawer } from "./WebinarPreviewDrawer";
+import { WEBINAR_PREVIEW_ITEMS } from "./webinarPreviewData";
 import "./webinar.css";
 
 const webinarCountries = [
@@ -122,8 +125,9 @@ export default function WebinarPage() {
     }
   };
 
-  // Modal & Flow state
+  // Modal & Preview Drawer state
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activePreviewId, setActivePreviewId] = useState<string | null>(null);
   const [modalStep, setModalStep] = useState<"form" | "confirmed">("form");
   const [formData, setFormData] = useState({
     name: "",
@@ -237,6 +241,17 @@ export default function WebinarPage() {
     setTouched({});
     setModalStep("form");
     setIsModalOpen(true);
+  };
+
+  const handleReserveFromDrawer = (rolePrefill?: string) => {
+    setActivePreviewId(null);
+    if (rolePrefill) {
+      setFormData((prev) => ({
+        ...prev,
+        role: prev.role.trim() ? prev.role : rolePrefill,
+      }));
+    }
+    handleOpenModal();
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -454,12 +469,11 @@ export default function WebinarPage() {
           <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <div className="wb-navbar-logo-wrap" style={{ position: "relative", width: "160px", height: "28px", flexShrink: 0 }}>
               <Image
-                src="/scalepods-navbar-logo.png"
+                src="/scalepods-navbar-logo.webp"
                 alt="ScalePods"
                 className="wb-navbar-logo-img"
                 fill
                 sizes="160px"
-                priority
                 loading="eager"
                 style={{
                   objectFit: "contain",
@@ -514,11 +528,11 @@ export default function WebinarPage() {
       <section className="wb-section-firstfold-hero" id="masterclass">
         {/* High-Res Background Canvas */}
         <Image
-          src={isLight ? "/images/webinar-redesign/light/masterclass-hero-bg.png" : "/images/webinar-redesign/masterclass-hero-bg.png"}
+          src={isLight ? "/images/webinar-redesign/light/masterclass-hero-bg.webp" : "/images/webinar-redesign/masterclass-hero-bg.webp"}
           alt="The AI Automation Masterclass - ScalePods with Adnan Shaikh & Raunak Kumar"
           fill
-          priority
-          quality={95}
+          preload
+          quality={75}
           sizes="100vw"
           className="wb-firstfold-bg"
         />
@@ -667,54 +681,80 @@ export default function WebinarPage() {
             {/* Right: Both Founder Image Cards (As added in 2nd fold) */}
             <div className="wb-firstfold-founders-wrap">
               {/* Founder 1: Adnan Shaikh */}
-              <div className="wb-firstfold-founder-card wb-ff-card-adnan">
+              <button
+                type="button"
+                onClick={() => setActivePreviewId("founder-adnan")}
+                className="wb-firstfold-founder-card wb-ff-card-adnan"
+                aria-label="Preview Adnan Shaikh's session focus"
+              >
                 <div className="wb-firstfold-founder-img-frame">
                   <Image
-                    src={isLight ? "/images/webinar-redesign/light/adnan-shaikh.png" : "/images/webinar-redesign/adnan-shaikh.png"}
+                    src={isLight ? "/images/webinar-redesign/light/adnan-shaikh.webp" : "/images/webinar-redesign/adnan-shaikh.webp"}
                     alt="Adnan Shaikh - Co-Founder & CEO, ScalePods"
                     fill
-                    sizes="(max-width: 768px) 100vw, 300px"
+                    loading="eager"
+                    fetchPriority="high"
+                    quality={75}
+                    sizes="(max-width: 350px) 92vw, (max-width: 1024px) 46vw, 300px"
                     className="wb-firstfold-founder-img"
                   />
                 </div>
                 <div className="wb-firstfold-founder-body">
-                  <h3 className="wb-firstfold-founder-name">Adnan Shaikh</h3>
+                  <span className="wb-firstfold-founder-name">Adnan Shaikh</span>
                   <div className="wb-firstfold-founder-role">
                     Co-Founder &amp; CEO, <span className="wb-highlight-scalepods">ScalePods</span>
                   </div>
                   <div className="wb-firstfold-founder-focus">
                     Sales Leadership &amp; Revenue Growth
                   </div>
-                  <div className="wb-firstfold-founder-badge wb-ff-badge-green">
-                    <span>⚡ Sales &amp; Revenue OS</span>
+                  <div className="wb-firstfold-founder-footer">
+                    <span className="wb-firstfold-founder-badge wb-ff-badge-green">
+                      ⚡ Sales &amp; Revenue OS
+                    </span>
+                    <span className="wb-card-preview-cue">
+                      Focus <ChevronRight size={13} />
+                    </span>
                   </div>
                 </div>
-              </div>
+              </button>
 
               {/* Founder 2: Raunak Kumar */}
-              <div className="wb-firstfold-founder-card wb-ff-card-raunak">
+              <button
+                type="button"
+                onClick={() => setActivePreviewId("founder-raunak")}
+                className="wb-firstfold-founder-card wb-ff-card-raunak"
+                aria-label="Preview Raunak Kumar's session focus"
+              >
                 <div className="wb-firstfold-founder-img-frame">
                   <Image
-                    src={isLight ? "/images/webinar-redesign/light/raunak-kumar.png" : "/images/webinar-redesign/raunak-kumar.png"}
+                    src={isLight ? "/images/webinar-redesign/light/raunak-kumar.webp" : "/images/webinar-redesign/raunak-kumar.webp"}
                     alt="Raunak Kumar - Co-Founder, CTO & CPO, ScalePods"
                     fill
-                    sizes="(max-width: 768px) 100vw, 300px"
+                    loading="eager"
+                    fetchPriority="high"
+                    quality={75}
+                    sizes="(max-width: 350px) 92vw, (max-width: 1024px) 46vw, 300px"
                     className="wb-firstfold-founder-img"
                   />
                 </div>
                 <div className="wb-firstfold-founder-body">
-                  <h3 className="wb-firstfold-founder-name">Raunak Kumar</h3>
+                  <span className="wb-firstfold-founder-name">Raunak Kumar</span>
                   <div className="wb-firstfold-founder-role">
                     Co-Founder, CTO &amp; CPO, <span className="wb-highlight-scalepods">ScalePods</span>
                   </div>
                   <div className="wb-firstfold-founder-focus">
                     Product Architecture &amp; Enterprise AI
                   </div>
-                  <div className="wb-firstfold-founder-badge wb-ff-badge-blue">
-                    <span>🧠 Enterprise AI &amp; Architecture</span>
+                  <div className="wb-firstfold-founder-footer">
+                    <span className="wb-firstfold-founder-badge wb-ff-badge-blue">
+                      🧠 Enterprise AI &amp; Architecture
+                    </span>
+                    <span className="wb-card-preview-cue">
+                      Focus <ChevronRight size={13} />
+                    </span>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -725,10 +765,10 @@ export default function WebinarPage() {
         {/* Background Image Container */}
         <div className="wb-founders-bg-wrap">
           <Image
-            src={isLight ? "/images/webinar-redesign/light/founders-partners-bg.png" : "/images/webinar-redesign/founders-partners-bg.webp"}
+            src={isLight ? "/images/webinar-redesign/light/founders-partners-bg.webp" : "/images/webinar-redesign/founders-partners-bg.webp"}
             alt="ScalePods Founders and AI Partners"
             fill
-            quality={90}
+            quality={75}
             sizes="100vw"
             className="wb-founders-bg-img"
           />
@@ -790,7 +830,12 @@ export default function WebinarPage() {
             {/* Right Column: 2 AI Partner Cards */}
             <div className="wb-founders-cards-grid">
               {/* Claude Card */}
-              <div className="wb-partner-brand-card wb-partner-card-claude">
+              <button
+                type="button"
+                onClick={() => setActivePreviewId("partner-claude")}
+                className="wb-partner-brand-card wb-partner-card-claude"
+                aria-label="Preview how ScalePods deploys Claude by Anthropic"
+              >
                 <div className="wb-partner-brand-header">
                   <div className="wb-partner-brand-logo-wrap">
                     <svg viewBox="0 0 24 24" className="wb-claude-sunburst-svg" fill="currentColor">
@@ -801,6 +846,9 @@ export default function WebinarPage() {
                       <span className="wb-brand-sub-anthropic wb-anthropic-accent">by ANTHROPIC</span>
                     </div>
                   </div>
+                  <span className="wb-card-preview-cue">
+                    Use cases <ChevronRight size={13} />
+                  </span>
                 </div>
 
                 <div className="wb-partner-status-pill wb-claude-status-pill">
@@ -822,10 +870,15 @@ export default function WebinarPage() {
                     <span>Built for production business execution</span>
                   </div>
                 </div>
-              </div>
+              </button>
 
               {/* OpenAI Card */}
-              <div className="wb-partner-brand-card wb-partner-card-openai">
+              <button
+                type="button"
+                onClick={() => setActivePreviewId("partner-openai")}
+                className="wb-partner-brand-card wb-partner-card-openai"
+                aria-label="Preview how ScalePods deploys OpenAI"
+              >
                 <div className="wb-partner-brand-header">
                   <div className="wb-partner-brand-logo-wrap">
                     <svg viewBox="0 0 24 24" className="wb-openai-spiral-svg" fill="currentColor">
@@ -833,6 +886,9 @@ export default function WebinarPage() {
                     </svg>
                     <span className="wb-brand-name-bold">OpenAI</span>
                   </div>
+                  <span className="wb-card-preview-cue">
+                    Use cases <ChevronRight size={13} />
+                  </span>
                 </div>
 
                 <div className="wb-partner-status-pill">
@@ -854,7 +910,7 @@ export default function WebinarPage() {
                     <span>Seamless integration</span>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
 
@@ -943,47 +999,61 @@ export default function WebinarPage() {
               <div className="wb-attend-tracks-list">
                 {[
                   {
+                    previewId: "track-owners",
                     icon: User,
                     title: "BUSINESS OWNERS & FOUNDERS",
                     desc: "If you want to scale your business sustainably without allowing manual busywork to grow unchecked.",
                   },
                   {
+                    previewId: "track-sales",
                     icon: TrendingUp,
                     title: "SALES LEADERS",
                     desc: "If you want more consistent lead handling, faster qualification, and timely follow-ups without manual CRM overhead.",
                   },
                   {
+                    previewId: "track-marketing",
                     icon: Megaphone,
                     title: "MARKETING LEADERS",
                     desc: "If you want better-connected campaigns, automated lead workflows, AI content creation, and trackable reporting.",
                   },
                   {
+                    previewId: "track-hr",
                     icon: Users,
                     title: "HR & RECRUITMENT LEADERS",
                     desc: "If you're looking to streamline repetitive resume screening, interview scheduling, and candidate communication.",
                   },
                   {
+                    previewId: "track-ops",
                     icon: Settings,
                     title: "OPERATIONS MANAGERS",
                     desc: "If you need better coordination, structured task handovers, automated record syncing, and process visibility.",
                   },
                   {
+                    previewId: "track-entrepreneurs",
                     icon: Monitor,
                     title: "ENTREPRENEURS & PROFESSIONALS",
                     desc: "If you're exploring practical, ROI-driven applications of AI without the coding lessons or tool hype.",
                   },
-                ].map((track, i) => {
+                ].map((track) => {
                   const Icon = track.icon;
                   return (
-                    <div key={i} className="wb-attend-track-item">
+                    <button
+                      key={track.previewId}
+                      type="button"
+                      className="wb-attend-track-item"
+                      onClick={() => setActivePreviewId(track.previewId)}
+                    >
                       <div className="wb-attend-track-icon-wrap">
                         <Icon size={18} />
                       </div>
                       <div className="wb-attend-track-info">
-                        <h3 className="wb-attend-track-title">{track.title}</h3>
-                        <p className="wb-attend-track-desc">{track.desc}</p>
+                        <span className="wb-attend-track-title" style={{ display: "block" }}>{track.title}</span>
+                        <span className="wb-attend-track-desc" style={{ display: "block" }}>{track.desc}</span>
+                        <span className="wb-attend-track-action">
+                          Preview workflow <ChevronRight size={13} />
+                        </span>
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -1032,11 +1102,11 @@ export default function WebinarPage() {
           {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Desktop */}
           <div className="wb-attend-stage-wrap wb-attend-desktop-stage">
             <Image
-              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas.png" : "/images/webinar-redesign/who-should-attend-personas.webp"}
+              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas.webp" : "/images/webinar-redesign/who-should-attend-personas.webp"}
               alt="Business and technology leaders powered by the ScalePods AI engine"
               width={1260}
               height={354}
-              quality={90}
+              quality={80}
               sizes="(max-width: 1400px) 100vw, 1260px"
               className="wb-attend-stage-img"
             />
@@ -1045,11 +1115,11 @@ export default function WebinarPage() {
           {/* 3D Visual Stage (6 Leaders on Cyber Stage) - Mobile Vertical Edition */}
           <div className="wb-attend-mobile-stage">
             <Image
-              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas-mobile.png" : "/images/webinar-redesign/who-should-attend-personas-mobile.webp"}
+              src={isLight ? "/images/webinar-redesign/light/who-should-attend-personas-mobile.webp" : "/images/webinar-redesign/who-should-attend-personas-mobile.webp"}
               alt="Business and technology leaders powered by the ScalePods AI engine"
               width={480}
               height={806}
-              quality={90}
+              quality={80}
               className="wb-attend-mobile-stage-img"
             />
           </div>
@@ -1061,11 +1131,10 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Matches Masterclass Fold Architecture) ── */}
         <div className="wb-not-tools-fullscreen-stage">
           <Image
-            src={isLight ? "/images/webinar-redesign/light/not-ai-tools-bg.png" : "/images/webinar-redesign/not-ai-tools-bg.webp"}
+            src={isLight ? "/images/webinar-redesign/light/not-ai-tools-bg.webp" : "/images/webinar-redesign/not-ai-tools-bg.webp"}
             alt="This is not a learn AI tools webinar - ScalePods"
             fill
-            priority
-            quality={92}
+            quality={75}
             sizes="(max-width: 900px) 0px, 100vw"
             className="wb-not-tools-canvas-img"
           />
@@ -1178,11 +1247,11 @@ export default function WebinarPage() {
             {/* Mobile Crisp Graphic */}
             <div className="wb-not-tools-mobile-graphic-card">
               <Image
-                src={isLight ? "/images/webinar-redesign/light/not-ai-tools-graphic.png" : "/images/webinar-redesign/not-ai-tools-graphic.webp"}
+                src={isLight ? "/images/webinar-redesign/light/not-ai-tools-graphic.webp" : "/images/webinar-redesign/not-ai-tools-graphic.webp"}
                 alt="Chaotic tools overwhelm converted to streamlined automated pipeline"
                 width={1200}
                 height={215}
-                quality={92}
+                quality={85}
                 sizes="(max-width: 900px) 100vw, 800px"
                 className="wb-not-tools-mobile-img"
               />
@@ -1263,11 +1332,10 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Matches Webinar Fold Architecture) ── */}
         <div className="wb-framework-fullscreen-stage">
           <Image
-            src={isLight ? "/images/webinar-redesign/light/framework-bg.png" : "/images/webinar-redesign/framework-bg.webp"}
+            src={isLight ? "/images/webinar-redesign/light/framework-bg.webp" : "/images/webinar-redesign/framework-bg.webp"}
             alt="The Proprietary Framework - The Big Idea - ScalePods"
             fill
-            priority
-            quality={92}
+            quality={75}
             sizes="(max-width: 1024px) 0px, 100vw"
             className="wb-framework-canvas-img"
           />
@@ -1443,11 +1511,11 @@ export default function WebinarPage() {
             {/* Mobile Diagram Image */}
             <div className="wb-framework-mobile-stage-box">
               <Image
-                src={isLight ? "/images/webinar-redesign/light/framework-diagram-mobile.png" : "/images/webinar-redesign/framework-diagram-mobile.webp"}
+                src={isLight ? "/images/webinar-redesign/light/framework-diagram-mobile.webp" : "/images/webinar-redesign/framework-diagram-mobile.webp"}
                 alt="Proprietary AI Workflow Engine Connecting Leads, Customers, Support, Marketing, and Finance"
                 width={1200}
                 height={321}
-                quality={92}
+                quality={85}
                 sizes="(max-width: 900px) 100vw, 850px"
                 className="wb-framework-mobile-img"
               />
@@ -1487,11 +1555,10 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Slide 18) ── */}
         <div className="wb-curriculum-fullscreen-stage">
           <Image
-            src={isLight ? "/images/webinar-redesign/light/curriculum-bg.png" : "/images/webinar-redesign/curriculum-bg.webp"}
+            src={isLight ? "/images/webinar-redesign/light/curriculum-bg.webp" : "/images/webinar-redesign/curriculum-bg.webp"}
             alt="What You'll Learn - AI Business Automation Masterclass Curriculum"
             fill
-            priority
-            quality={92}
+            quality={75}
             sizes="(max-width: 1024px) 0px, 100vw"
             className="wb-curriculum-canvas-img"
           />
@@ -1515,82 +1582,124 @@ export default function WebinarPage() {
 
           {/* Left 3 Cards Column (y: 24% - 88%) */}
           <div className="wb-curriculum-stage-col-left">
-            <div className="wb-cstage-card wb-cstage-card-green">
+            <button
+              type="button"
+              className="wb-cstage-card wb-cstage-card-green"
+              onClick={() => setActivePreviewId("curriculum-start")}
+            >
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <Settings size={22} />
               </div>
               <div className="wb-cstage-content">
-                <strong className="wb-cstage-item-title wb-ctitle-green">Where to start</strong>
-                <p className="wb-cstage-card-text">
+                <span className="wb-cstage-item-header">
+                  <strong className="wb-cstage-item-title wb-ctitle-green">Where to start</strong>
+                  <span className="wb-cstage-preview-cue">Preview <ChevronRight size={12} /></span>
+                </span>
+                <span className="wb-cstage-card-text" style={{ display: "block" }}>
                   Recognize repetitive, rule-based tasks that are prime candidates for workflow automation.
-                </p>
+                </span>
               </div>
-            </div>
+            </button>
 
-            <div className="wb-cstage-card wb-cstage-card-cyan">
+            <button
+              type="button"
+              className="wb-cstage-card wb-cstage-card-cyan"
+              onClick={() => setActivePreviewId("curriculum-prioritize")}
+            >
               <div className="wb-cstage-icon-badge wb-cbadge-cyan">
                 <Target size={22} />
               </div>
               <div className="wb-cstage-content">
-                <strong className="wb-cstage-item-title wb-ctitle-cyan">What to prioritize</strong>
-                <p className="wb-cstage-card-text">
+                <span className="wb-cstage-item-header">
+                  <strong className="wb-cstage-item-title wb-ctitle-cyan">What to prioritize</strong>
+                  <span className="wb-cstage-preview-cue">Preview <ChevronRight size={12} /></span>
+                </span>
+                <span className="wb-cstage-card-text" style={{ display: "block" }}>
                   Evaluate opportunities based on business impact, frequency, time spent, and implementation effort.
-                </p>
+                </span>
               </div>
-            </div>
+            </button>
 
-            <div className="wb-cstage-card wb-cstage-card-green">
+            <button
+              type="button"
+              className="wb-cstage-card wb-cstage-card-green"
+              onClick={() => setActivePreviewId("curriculum-connect")}
+            >
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <Layers size={22} />
               </div>
               <div className="wb-cstage-content">
-                <strong className="wb-cstage-item-title wb-ctitle-green">How workflows connect</strong>
-                <p className="wb-cstage-card-text">
+                <span className="wb-cstage-item-header">
+                  <strong className="wb-cstage-item-title wb-ctitle-green">How workflows connect</strong>
+                  <span className="wb-cstage-preview-cue">Preview <ChevronRight size={12} /></span>
+                </span>
+                <span className="wb-cstage-card-text" style={{ display: "block" }}>
                   Understand how inputs, decisions, systems, and follow-up actions fit together seamlessly.
-                </p>
+                </span>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Central Workspace Pedestal shines through from curriculum-bg.webp */}
 
           {/* Right 3 Cards Column (y: 24% - 88%) */}
           <div className="wb-curriculum-stage-col-right">
-            <div className="wb-cstage-card wb-cstage-card-green">
+            <button
+              type="button"
+              className="wb-cstage-card wb-cstage-card-green"
+              onClick={() => setActivePreviewId("curriculum-ai-value")}
+            >
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <BrainCircuit size={22} />
               </div>
               <div className="wb-cstage-content">
-                <strong className="wb-cstage-item-title wb-ctitle-green">Where AI adds value</strong>
-                <p className="wb-cstage-card-text">
+                <span className="wb-cstage-item-header">
+                  <strong className="wb-cstage-item-title wb-ctitle-green">Where AI adds value</strong>
+                  <span className="wb-cstage-preview-cue">Preview <ChevronRight size={12} /></span>
+                </span>
+                <span className="wb-cstage-card-text" style={{ display: "block" }}>
                   Distinguish between rule-based automation, tasks suited for AI, and decisions requiring human oversight.
-                </p>
+                </span>
               </div>
-            </div>
+            </button>
 
-            <div className="wb-cstage-card wb-cstage-card-cyan">
+            <button
+              type="button"
+              className="wb-cstage-card wb-cstage-card-cyan"
+              onClick={() => setActivePreviewId("curriculum-integrate")}
+            >
               <div className="wb-cstage-icon-badge wb-cbadge-cyan">
                 <Box size={22} />
               </div>
               <div className="wb-cstage-content">
-                <strong className="wb-cstage-item-title wb-ctitle-cyan">How to approach integration</strong>
-                <p className="wb-cstage-card-text">
+                <span className="wb-cstage-item-header">
+                  <strong className="wb-cstage-item-title wb-ctitle-cyan">How to approach integration</strong>
+                  <span className="wb-cstage-preview-cue">Preview <ChevronRight size={12} /></span>
+                </span>
+                <span className="wb-cstage-card-text" style={{ display: "block" }}>
                   Connect automation into your existing business stack without breaking everyday operations.
-                </p>
+                </span>
               </div>
-            </div>
+            </button>
 
-            <div className="wb-cstage-card wb-cstage-card-green">
+            <button
+              type="button"
+              className="wb-cstage-card wb-cstage-card-green"
+              onClick={() => setActivePreviewId("curriculum-next")}
+            >
               <div className="wb-cstage-icon-badge wb-cbadge-green">
                 <TrendingUp size={22} />
               </div>
               <div className="wb-cstage-content">
-                <strong className="wb-cstage-item-title wb-ctitle-green">What to do next</strong>
-                <p className="wb-cstage-card-text">
+                <span className="wb-cstage-item-header">
+                  <strong className="wb-cstage-item-title wb-ctitle-green">What to do next</strong>
+                  <span className="wb-cstage-preview-cue">Preview <ChevronRight size={12} /></span>
+                </span>
+                <span className="wb-cstage-card-text" style={{ display: "block" }}>
                   Identify immediate automation opportunities across your Sales, Marketing, HR, or Operations workflows.
-                </p>
+                </span>
               </div>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -1615,11 +1724,11 @@ export default function WebinarPage() {
             {/* 3D Central Workspace Visual Stage */}
             <div className="wb-curriculum-mobile-stage-box">
               <Image
-                src={isLight ? "/images/webinar-redesign/light/curriculum-pedestal-mobile.png" : "/images/webinar-redesign/curriculum-pedestal-mobile.webp"}
+                src={isLight ? "/images/webinar-redesign/light/curriculum-pedestal-mobile.webp" : "/images/webinar-redesign/curriculum-pedestal-mobile.webp"}
                 alt="Interactive AI automation workspace and laptop dashboard"
                 width={1200}
                 height={872}
-                quality={92}
+                quality={85}
                 sizes="(max-width: 900px) 100vw, 850px"
                 className="wb-curriculum-mobile-img"
               />
@@ -1629,45 +1738,56 @@ export default function WebinarPage() {
             <div className="wb-curriculum-mobile-grid">
               {[
                 {
+                  previewId: "curriculum-start",
                   label: "Where to start",
                   title: "Recognize repetitive, rule-based tasks suitable for automation",
                   icon: Settings,
                   color: "green",
                 },
                 {
+                  previewId: "curriculum-prioritize",
                   label: "What to prioritize",
                   title: "Evaluate based on business impact, frequency, time spent, and effort",
                   icon: Target,
                   color: "cyan",
                 },
                 {
+                  previewId: "curriculum-connect",
                   label: "How workflows connect",
                   title: "Understand how inputs, decisions, systems, and follow-ups fit together",
                   icon: Layers,
                   color: "green",
                 },
                 {
+                  previewId: "curriculum-ai-value",
                   label: "Where AI adds value",
                   title: "Distinguish rules vs. AI-assisted interpretation vs. human oversight",
                   icon: BrainCircuit,
                   color: "cyan",
                 },
                 {
+                  previewId: "curriculum-integrate",
                   label: "How to integrate",
                   title: "Connect automation into your existing tools without operational disruption",
                   icon: Box,
                   color: "green",
                 },
                 {
+                  previewId: "curriculum-next",
                   label: "What to do next",
                   title: "Identify practical opportunities across Sales, Marketing, HR, or Operations",
                   icon: TrendingUp,
                   color: "cyan",
                 },
-              ].map((item, idx) => {
+              ].map((item) => {
                 const IconComponent = item.icon;
                 return (
-                  <div key={idx} className={`wb-curriculum-card wb-ccard-${item.color}`}>
+                  <button
+                    key={item.previewId}
+                    type="button"
+                    className={`wb-curriculum-card wb-ccard-${item.color}`}
+                    onClick={() => setActivePreviewId(item.previewId)}
+                  >
                     <div className={`wb-ccard-icon-badge wb-cbadge-${item.color}`}>
                       <IconComponent size={18} />
                     </div>
@@ -1675,9 +1795,12 @@ export default function WebinarPage() {
                       <span className={`wb-curriculum-card-badge wb-cbadge-text-${item.color}`}>
                         {item.label}
                       </span>
-                      <p className="wb-curriculum-card-text" style={{ marginTop: "4px" }}>{item.title}</p>
+                      <span className="wb-curriculum-card-text" style={{ display: "block", marginTop: "4px" }}>{item.title}</span>
+                      <span className="wb-card-preview-cue" style={{ marginTop: "8px" }}>
+                        View module <ChevronRight size={13} />
+                      </span>
                     </div>
-                  </div>
+                  </button>
                 );
               })}
             </div>
@@ -1694,11 +1817,10 @@ export default function WebinarPage() {
         {/* ── DESKTOP: FULLSCREEN 16:9 CANVAS STAGE (Slide 20) ── */}
         <div className="wb-partnership-fullscreen-stage">
           <Image
-            src={isLight ? "/images/webinar-redesign/light/partnership-bg.png" : "/images/webinar-redesign/partnership-bg.webp"}
+            src={isLight ? "/images/webinar-redesign/light/partnership-bg.webp" : "/images/webinar-redesign/partnership-bg.webp"}
             alt="Claude + OpenAI Partnership - Business Brain and Technology Brain"
             fill
-            priority
-            quality={92}
+            quality={75}
             sizes="(max-width: 1024px) 0px, 100vw"
             className="wb-partnership-canvas-img"
           />
@@ -1727,10 +1849,10 @@ export default function WebinarPage() {
             <div className="wb-partner-card wb-partner-card-green">
               <div className="wb-partner-photo-wrap">
                 <Image
-                  src={isLight ? "/images/webinar-redesign/light/adnan-partner-clean.png" : "/images/webinar-redesign/adnan-partner-clean.webp"}
+                  src={isLight ? "/images/webinar-redesign/light/adnan-partner-clean.webp" : "/images/webinar-redesign/adnan-partner-clean.webp"}
                   alt="Adnan Shaikh - Co-Founder &amp; CEO, ScalePods"
                   fill
-                  quality={90}
+                  quality={75}
                   sizes="(max-width: 1024px) 0px, (max-width: 1400px) 30vw, 440px"
                   className="wb-partner-photo"
                 />
@@ -1769,10 +1891,10 @@ export default function WebinarPage() {
             <div className="wb-partner-card wb-partner-card-blue">
               <div className="wb-partner-photo-wrap">
                 <Image
-                  src={isLight ? "/images/webinar-redesign/light/raunak-partner-v2.png" : "/images/webinar-redesign/raunak-partner-v2.webp"}
+                  src={isLight ? "/images/webinar-redesign/light/raunak-partner-v2.webp" : "/images/webinar-redesign/raunak-partner-v2.webp"}
                   alt="Raunak Kumar - Co-Founder, CTO &amp; CPO, ScalePods"
                   fill
-                  quality={90}
+                  quality={75}
                   sizes="(max-width: 1024px) 0px, (max-width: 1400px) 30vw, 440px"
                   className="wb-partner-photo"
                 />
@@ -1872,10 +1994,10 @@ export default function WebinarPage() {
               <div className="wb-partner-card wb-partner-card-green">
                 <div className="wb-partner-photo-wrap">
                   <Image
-                    src={isLight ? "/images/webinar-redesign/light/adnan-partner-clean.png" : "/images/webinar-redesign/adnan-partner-clean.webp"}
+                    src={isLight ? "/images/webinar-redesign/light/adnan-partner-clean.webp" : "/images/webinar-redesign/adnan-partner-clean.webp"}
                     alt="Adnan Shaikh - Co-Founder &amp; CEO, ScalePods"
                     fill
-                    quality={90}
+                    quality={75}
                     sizes="(max-width: 1024px) 100vw, 0px"
                     className="wb-partner-photo"
                   />
@@ -1909,10 +2031,10 @@ export default function WebinarPage() {
               <div className="wb-partner-card wb-partner-card-blue">
                 <div className="wb-partner-photo-wrap">
                   <Image
-                    src={isLight ? "/images/webinar-redesign/light/raunak-partner-v2.png" : "/images/webinar-redesign/raunak-partner-v2.webp"}
+                    src={isLight ? "/images/webinar-redesign/light/raunak-partner-v2.webp" : "/images/webinar-redesign/raunak-partner-v2.webp"}
                     alt="Raunak Kumar - Co-Founder, CTO &amp; CPO, ScalePods"
                     fill
-                    quality={90}
+                    quality={75}
                     sizes="(max-width: 1024px) 100vw, 0px"
                     className="wb-partner-photo"
                   />
@@ -2075,12 +2197,11 @@ export default function WebinarPage() {
             {/* Right 3D Visual Diagram Stage */}
             <div className="wb-why-diagram-stage">
               <Image
-                src={isLight ? "/images/webinar-redesign/light/why-scalepods-diagram-clean.png" : "/images/webinar-redesign/why-scalepods-diagram-clean.webp"}
+                src={isLight ? "/images/webinar-redesign/light/why-scalepods-diagram-clean.webp" : "/images/webinar-redesign/why-scalepods-diagram-clean.webp"}
                 alt="ScalePods autonomous AI transformation engine orchestrating Operations, HR, Marketing, Sales, and Finance into Automated Workflows"
                 width={720}
                 height={428}
-                quality={90}
-                loading="eager"
+                quality={85}
                 sizes="(max-width: 1400px) 45vw, 680px"
                 className="wb-why-diagram-img"
               />
@@ -2133,11 +2254,11 @@ export default function WebinarPage() {
             {/* 3D Diagram Showcase on Mobile (Vertical Mobile Edition) */}
             <div className="wb-why-mobile-diagram-wrap">
               <Image
-                src={isLight ? "/images/webinar-redesign/light/why-scalepods-diagram-mobile.png" : "/images/webinar-redesign/why-scalepods-diagram-mobile.webp"}
+                src={isLight ? "/images/webinar-redesign/light/why-scalepods-diagram-mobile.webp" : "/images/webinar-redesign/why-scalepods-diagram-mobile.webp"}
                 alt="ScalePods AI Autonomous Engine"
                 width={480}
                 height={910}
-                quality={90}
+                quality={85}
                 className="wb-why-mobile-diagram-img"
               />
             </div>
@@ -2786,7 +2907,7 @@ export default function WebinarPage() {
           <div style={{ marginBottom: "18px", display: "flex", justifyContent: "center" }}>
             <div style={{ position: "relative", width: "160px", height: "28px" }}>
               <Image
-                src="/scalepods-navbar-logo.png"
+                src="/scalepods-navbar-logo.webp"
                 alt="ScalePods"
                 fill
                 sizes="160px"
@@ -2826,6 +2947,12 @@ export default function WebinarPage() {
           </p>
         </div>
       </footer>
+
+      <WebinarPreviewDrawer
+        item={activePreviewId ? WEBINAR_PREVIEW_ITEMS[activePreviewId] ?? null : null}
+        onClose={() => setActivePreviewId(null)}
+        onReserveSeat={handleReserveFromDrawer}
+      />
     </BeamsBackground>
   );
 }

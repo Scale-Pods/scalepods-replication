@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
@@ -27,24 +26,28 @@ interface Beam {
 
 function createBeam(width: number, height: number, customHues?: number[]): Beam {
     const angle = -35 + Math.random() * 10;
-    // We'll alternate between the brand's green (H100) and blue (H210)
     const brandHues = customHues || [96, 210];
-
     const hue = brandHues[Math.floor(Math.random() * brandHues.length)] + (Math.random() * 20 - 10);
-    
+
     return {
         x: Math.random() * width * 1.5 - width * 0.25,
         y: Math.random() * height * 1.5 - height * 0.25,
         width: 30 + Math.random() * 60,
         length: height * 2.5,
-        angle: angle,
+        angle,
         speed: 1.2 + Math.random() * 1.8,
         opacity: 0.12 + Math.random() * 0.16,
-        hue: hue,
+        hue,
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: 0.02 + Math.random() * 0.03,
     };
 }
+
+const OPACITY_MAP = {
+    subtle: 0.7,
+    medium: 0.85,
+    strong: 1,
+} as const;
 
 export function BeamsBackground({
     className,
@@ -55,15 +58,10 @@ export function BeamsBackground({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
-    const isMobileRef = useRef(false);
+    const lastWidthRef = useRef<number>(0);
     const { resolvedTheme } = useTheme();
-    const MINIMUM_BEAMS = 20;
-
-    const opacityMap = {
-        subtle: 0.7,
-        medium: 0.85,
-        strong: 1,
-    };
+    const DESKTOP_BEAM_COUNT = 18;
+    const MOBILE_BEAM_COUNT = 8;
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -72,36 +70,21 @@ export function BeamsBackground({
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        const updateCanvasSize = () => {
-            const dpr = window.devicePixelRatio || 1;
+        const prefersReducedMotion =
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        const isDark = resolvedTheme === "dark";
+        const lightness = isDark ? 65 : 45;
+        const saturation = isDark ? 85 : 70;
+        const intensityAlpha = OPACITY_MAP[intensity];
+
+        function resetBeam(beam: Beam, index: number) {
             const width = window.innerWidth;
             const height = window.innerHeight;
-            isMobileRef.current = width < 768;
-
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-            canvas.style.width = `${width}px`;
-            canvas.style.height = `${height}px`;
-            ctx.scale(dpr, dpr);
-
-            const baseCount = isMobileRef.current ? 8 : MINIMUM_BEAMS;
-            const totalBeams = baseCount * 1.5;
-            beamsRef.current = Array.from({ length: totalBeams }, () =>
-                createBeam(width, height, hues)
-            );
-        };
-
-        updateCanvasSize();
-        window.addEventListener("resize", updateCanvasSize);
-
-        function resetBeam(beam: Beam, index: number, totalBeams: number) {
-            if (!canvas) return beam;
-
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-
             const column = index % 3;
             const spacing = width / 3;
+            const brandHues = hues || [96, 210];
 
             beam.y = height + 100;
             beam.x =
@@ -110,92 +93,135 @@ export function BeamsBackground({
                 (Math.random() - 0.5) * spacing * 0.5;
             beam.width = 100 + Math.random() * 100;
             beam.speed = 1.0 + Math.random() * 1.2;
-            // Alternate hues on reset as well
-            const brandHues = hues || [96, 210];
-
             beam.hue = brandHues[index % brandHues.length] + (Math.random() * 20 - 10);
             beam.opacity = 0.2 + Math.random() * 0.1;
-            // Fixed length relative to viewport
             beam.length = height * 2.5;
             return beam;
         }
 
-        function drawBeam(ctx: CanvasRenderingContext2D, beam: Beam) {
-            ctx.save();
-            ctx.translate(beam.x, beam.y);
-            ctx.rotate((beam.angle * Math.PI) / 180);
+        function drawBeam(context: CanvasRenderingContext2D, beam: Beam) {
+            context.save();
+            context.translate(beam.x, beam.y);
+            context.rotate((beam.angle * Math.PI) / 180);
 
-            // Calculate pulsing opacity
             const pulsingOpacity =
-                beam.opacity *
-                (0.8 + Math.sin(beam.pulse) * 0.2) *
-                opacityMap[intensity];
+                beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * intensityAlpha;
+            const finalOpacity = isDark ? pulsingOpacity : pulsingOpacity * 0.4;
 
-            const gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
-
-            const lightness = resolvedTheme === "dark" ? 65 : 45;
-            const saturation = resolvedTheme === "dark" ? 85 : 70;
-            const finalOpacity = resolvedTheme === "dark" ? pulsingOpacity : pulsingOpacity * 0.4;
-
-            // Enhanced gradient with multiple color stops
+            const gradient = context.createLinearGradient(0, 0, 0, beam.length);
             gradient.addColorStop(0, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, 0)`);
-            gradient.addColorStop(
-                0.1,
-                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity * 0.5})`
-            );
-            gradient.addColorStop(
-                0.4,
-                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity})`
-            );
-            gradient.addColorStop(
-                0.6,
-                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity})`
-            );
-            gradient.addColorStop(
-                0.9,
-                `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity * 0.5})`
-            );
+            gradient.addColorStop(0.1, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity * 0.5})`);
+            gradient.addColorStop(0.4, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity})`);
+            gradient.addColorStop(0.6, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity})`);
+            gradient.addColorStop(0.9, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, ${finalOpacity * 0.5})`);
             gradient.addColorStop(1, `hsla(${beam.hue}, ${saturation}%, ${lightness}%, 0)`);
 
-            ctx.fillStyle = gradient;
-            ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
-            ctx.restore();
+            context.fillStyle = gradient;
+            context.fillRect(-beam.width / 2, 0, beam.width, beam.length);
+            context.restore();
         }
 
-        function animate() {
+        function drawFrame(advance: boolean) {
             if (!canvas || !ctx) return;
-
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // REMOVED expensive ctx.filter = "blur(35px)" which was causing layout thrashing
-            // We now rely on the CSS filter: blur(15px) on the canvas element for performance.
 
-            const totalBeamsCount = beamsRef.current.length;
-            beamsRef.current.forEach((beam, index) => {
-                beam.y -= beam.speed;
-                beam.pulse += beam.pulseSpeed;
-
-                // Reset beam when it goes off screen
-                if (beam.y + beam.length < -100) {
-                    resetBeam(beam, index, totalBeamsCount);
+            for (let i = 0; i < beamsRef.current.length; i++) {
+                const beam = beamsRef.current[i];
+                if (advance) {
+                    beam.y -= beam.speed;
+                    beam.pulse += beam.pulseSpeed;
+                    if (beam.y + beam.length < -100) {
+                        resetBeam(beam, i);
+                    }
                 }
-
                 drawBeam(ctx, beam);
-            });
+            }
+        }
 
+        const updateCanvasSize = (force = false) => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const isMobile = width < 768;
+
+            // Ignore mobile URL bar vertical resize churn during scroll
+            if (!force && isMobile && lastWidthRef.current === width) {
+                return;
+            }
+            lastWidthRef.current = width;
+
+            // Cap backing resolution to 1x CSS pixels: soft blurred beams do not need 2x/3x fill rate
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+            canvas.style.filter = isMobile ? "blur(32px)" : "blur(48px)";
+
+            const totalBeams = isMobile ? MOBILE_BEAM_COUNT : DESKTOP_BEAM_COUNT;
+            beamsRef.current = Array.from({ length: totalBeams }, () =>
+                createBeam(width, height, hues)
+            );
+            drawFrame(false);
+        };
+
+        updateCanvasSize(true);
+
+        const handleResize = () => updateCanvasSize(false);
+        window.addEventListener("resize", handleResize, { passive: true });
+
+        const shouldAnimate = window.innerWidth >= 768 && !prefersReducedMotion;
+        let idleTimeoutId: number | undefined;
+        let stopped = false;
+
+        function animate() {
+            if (stopped || document.hidden || window.innerWidth < 768) {
+                animationFrameRef.current = 0;
+                return;
+            }
+            drawFrame(true);
             animationFrameRef.current = requestAnimationFrame(animate);
         }
 
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                if (animationFrameRef.current) {
+                    cancelAnimationFrame(animationFrameRef.current);
+                    animationFrameRef.current = 0;
+                }
+            } else if (shouldAnimate && !stopped && !animationFrameRef.current) {
+                animationFrameRef.current = requestAnimationFrame(animate);
+            }
+        };
 
-        animate();
+        if (shouldAnimate) {
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+            // Defer continuous animation past initial paint so hero LCP paints without contention
+            idleTimeoutId = window.setTimeout(() => {
+                if (!stopped && !document.hidden) {
+                    animationFrameRef.current = requestAnimationFrame(animate);
+                }
+            }, 1200);
+        }
 
         return () => {
-            window.removeEventListener("resize", updateCanvasSize);
+            stopped = true;
+            window.removeEventListener("resize", handleResize);
+            if (shouldAnimate) {
+                document.removeEventListener("visibilitychange", handleVisibilityChange);
+            }
+            if (idleTimeoutId) {
+                clearTimeout(idleTimeoutId);
+            }
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = 0;
             }
         };
     }, [intensity, resolvedTheme, hues]);
+
+    const overlayTint =
+        resolvedTheme === "dark"
+            ? "rgba(4, 7, 13, 0.14)"
+            : "rgba(255, 255, 255, 0.12)";
 
     return (
         <div
@@ -209,25 +235,11 @@ export function BeamsBackground({
                 <canvas
                     ref={canvasRef}
                     className="absolute inset-0"
-                    style={{ filter: "blur(64px)", opacity: 0.85 }}
+                    style={{ opacity: 0.85 }}
                 />
-
-
-                <motion.div
+                <div
                     className="absolute inset-0"
-                    style={{
-                        background: resolvedTheme === "dark" ? "rgba(4, 7, 13, 0.05)" : "rgba(255, 255, 255, 0.05)",
-                        backdropFilter: "blur(20px)", 
-                        WebkitBackdropFilter: "blur(20px)",
-                    }}
-                    animate={{
-                        opacity: [0.05, 0.15, 0.05],
-                    }}
-                    transition={{
-                        duration: 10,
-                        ease: "easeInOut",
-                        repeat: Number.POSITIVE_INFINITY,
-                    }}
+                    style={{ background: overlayTint }}
                 />
             </div>
 
