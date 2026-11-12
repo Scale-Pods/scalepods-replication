@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -10,15 +10,12 @@ import {
   ExternalLink,
   ShieldCheck,
   ArrowRight,
-  Sun,
-  Moon,
   Mail,
   Zap,
   Calendar,
   Clock,
 } from "lucide-react";
 import { BeamsBackground } from "@/components/ui/beams-background";
-import { useTheme } from "@/components/providers/ThemeProvider";
 import "../webinar.css";
 
 declare global {
@@ -37,56 +34,6 @@ function ThankYouContent() {
   const orderId = searchParams.get("order_id") || searchParams.get("orderId") || "";
   const name = searchParams.get("name") || "";
   const email = searchParams.get("email") || "";
-
-  const { setTheme } = useTheme();
-  const [webinarTheme, setWebinarTheme] = useState<"dark" | "light">(() => {
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "light" || savedTheme === "dark") {
-        return savedTheme;
-      }
-    }
-    return "dark";
-  });
-  const isLight = webinarTheme === "light";
-
-  const toggleTheme = () => {
-    const nextTheme = webinarTheme === "dark" ? "light" : "dark";
-    setWebinarTheme(nextTheme);
-    try {
-      if (setTheme) {
-        setTheme(nextTheme);
-      }
-      if (typeof window !== "undefined") {
-        localStorage.setItem("theme", nextTheme);
-        document.documentElement.setAttribute("data-theme", nextTheme);
-        if (nextTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-        document.documentElement.style.colorScheme = nextTheme;
-      }
-    } catch {
-      // ignore
-    }
-  };
-
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        document.documentElement.setAttribute("data-theme", webinarTheme);
-        if (webinarTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-        document.documentElement.style.colorScheme = webinarTheme;
-      }
-    } catch {
-      // ignore
-    }
-  }, [webinarTheme]);
 
   // Fire Meta Pixel & GTM Conversion Tracking on mount
   useEffect(() => {
@@ -128,8 +75,8 @@ function ThankYouContent() {
 
   return (
     <BeamsBackground
-      className={`webinarpod-container ${isLight ? "wb-theme-light" : "wb-theme-dark"}`}
-      data-webinar-theme={webinarTheme}
+      className="webinarpod-container wb-theme-light"
+      forcedTheme="light"
       hues={[96, 210]}
       intensity="strong"
     >
@@ -146,44 +93,22 @@ function ThankYouContent() {
               style={{ position: "relative", width: "160px", height: "28px", flexShrink: 0 }}
             >
               <Image
-                src="/scalepods-navbar-logo.png"
+                src="/scalepods-navbar-logo.webp"
                 alt="ScalePods"
                 className="wb-navbar-logo-img"
                 fill
                 sizes="160px"
-                priority
                 loading="eager"
                 style={{
                   objectFit: "contain",
                   objectPosition: "left center",
-                  filter: isLight ? "none" : "invert(1)",
-                  transition: "filter 0.3s ease",
+                  filter: "none",
                 }}
               />
             </div>
           </Link>
 
           <div className="wb-navbar-actions">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="wb-theme-toggle-btn"
-              aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
-              title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-            >
-              {isLight ? (
-                <>
-                  <Moon size={15} className="wb-toggle-icon-moon" />
-                  <span className="wb-toggle-label">Dark</span>
-                </>
-              ) : (
-                <>
-                  <Sun size={15} className="wb-toggle-icon-sun" />
-                  <span className="wb-toggle-label">Light</span>
-                </>
-              )}
-            </button>
-
             <Link
               href="/ai-business-automation-webinar"
               className="wb-button-primary wb-button-nav"
@@ -212,17 +137,14 @@ function ThankYouContent() {
           style={{
             maxWidth: "680px",
             width: "100%",
-            background: isLight ? "#FFFFFF" : "rgba(8, 20, 34, 0.88)",
-            border: isLight
-              ? "1.5px solid rgba(5, 150, 105, 0.3)"
-              : "1.5px solid rgba(72, 221, 131, 0.4)",
+            background: "#FFFFFF",
+            border: "1.5px solid rgba(5, 150, 105, 0.3)",
             borderRadius: "24px",
             padding: "clamp(24px, 3.5vw, 44px)",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
-            boxShadow: isLight
-              ? "0 20px 50px -10px rgba(15, 23, 42, 0.12), 0 0 30px rgba(5, 150, 105, 0.08)"
-              : "0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(72, 221, 131, 0.15)",
+            boxShadow:
+              "0 20px 50px -10px rgba(15, 23, 42, 0.12), 0 0 30px rgba(5, 150, 105, 0.08)",
             textAlign: "center",
             display: "flex",
             flexDirection: "column",
@@ -235,16 +157,14 @@ function ThankYouContent() {
               width: "72px",
               height: "72px",
               borderRadius: "50%",
-              background: isLight ? "rgba(5, 150, 105, 0.12)" : "rgba(72, 221, 131, 0.14)",
-              border: isLight ? "2px solid #059669" : "2px solid #48DD83",
+              background: "rgba(5, 150, 105, 0.12)",
+              border: "2px solid #059669",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: isLight ? "#059669" : "#48DD83",
+              color: "#059669",
               marginBottom: "18px",
-              boxShadow: isLight
-                ? "0 0 24px rgba(5, 150, 105, 0.25)"
-                : "0 0 28px rgba(72, 221, 131, 0.35)",
+              boxShadow: "0 0 24px rgba(5, 150, 105, 0.25)",
             }}
           >
             <CheckCircle2 size={40} />
@@ -271,7 +191,7 @@ function ThankYouContent() {
               fontSize: "clamp(24px, 3vw, 36px)",
               fontWeight: 900,
               lineHeight: 1.15,
-              color: isLight ? "#090D14" : "#FFFFFF",
+              color: "#090D14",
               letterSpacing: "-0.02em",
               margin: "0 0 12px 0",
             }}
@@ -284,18 +204,18 @@ function ThankYouContent() {
             style={{
               fontFamily: "var(--font-inter), sans-serif",
               fontSize: "clamp(13.5px, 1vw, 15.5px)",
-              color: isLight ? "#334155" : "#94A3B8",
+              color: "#334155",
               lineHeight: 1.55,
               maxWidth: "520px",
               margin: "0 0 24px 0",
             }}
           >
             Thank you{name ? `, ${name}` : ""}. Your registration for the{" "}
-            <strong style={{ color: isLight ? "#090D14" : "#FFFFFF" }}>
+            <strong style={{ color: "#090D14" }}>
               AI Business Automation Live Masterclass
             </strong>{" "}
             has been confirmed. A confirmation receipt was dispatched to{" "}
-            <strong style={{ color: isLight ? "#090D14" : "#FFFFFF" }}>
+            <strong style={{ color: "#090D14" }}>
               {email || "your registered email"}
             </strong>
             .
@@ -305,8 +225,8 @@ function ThankYouContent() {
           <div
             style={{
               width: "100%",
-              background: isLight ? "#F8FAFC" : "rgba(3, 14, 26, 0.7)",
-              border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(56, 189, 248, 0.2)",
+              background: "#F8FAFC",
+              border: "1px solid #E2E8F0",
               borderRadius: "14px",
               padding: "16px 20px",
               marginBottom: "24px",
@@ -319,17 +239,17 @@ function ThankYouContent() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 paddingBottom: "8px",
-                borderBottom: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.08)",
+                borderBottom: "1px solid #E2E8F0",
                 marginBottom: "10px",
                 fontSize: "12.5px",
               }}
             >
-              <span style={{ color: isLight ? "#64748B" : "#94A3B8", fontWeight: 600 }}>
+              <span style={{ color: "#64748B", fontWeight: 600 }}>
                 Program
               </span>
               <span
                 style={{
-                  color: isLight ? "#090D14" : "#FFFFFF",
+                  color: "#090D14",
                   fontWeight: 700,
                   textAlign: "right",
                 }}
@@ -347,10 +267,10 @@ function ThankYouContent() {
                   fontSize: "12px",
                 }}
               >
-                <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Payment ID</span>
+                <span style={{ color: "#64748B" }}>Payment ID</span>
                 <span
                   style={{
-                    color: isLight ? "#059669" : "#48DD83",
+                    color: "#059669",
                     fontFamily: "monospace",
                     fontWeight: 600,
                   }}
@@ -369,10 +289,10 @@ function ThankYouContent() {
                   fontSize: "12px",
                 }}
               >
-                <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Order Reference</span>
+                <span style={{ color: "#64748B" }}>Order Reference</span>
                 <span
                   style={{
-                    color: isLight ? "#0284C7" : "#38BDF8",
+                    color: "#0284C7",
                     fontFamily: "monospace",
                     fontWeight: 600,
                   }}
@@ -390,10 +310,10 @@ function ThankYouContent() {
                 fontSize: "12px",
               }}
             >
-              <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Date &amp; Time</span>
+              <span style={{ color: "#64748B" }}>Date &amp; Time</span>
               <span
                 style={{
-                  color: isLight ? "#0284C7" : "#38BDF8",
+                  color: "#0284C7",
                   fontWeight: 700,
                   display: "inline-flex",
                   alignItems: "center",
@@ -412,10 +332,10 @@ function ThankYouContent() {
                 fontSize: "12px",
               }}
             >
-              <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Pass Fee</span>
+              <span style={{ color: "#64748B" }}>Pass Fee</span>
               <span
                 style={{
-                  color: isLight ? "#090D14" : "#FFFFFF",
+                  color: "#090D14",
                   fontWeight: 800,
                 }}
               >
@@ -430,10 +350,10 @@ function ThankYouContent() {
                 fontSize: "12px",
               }}
             >
-              <span style={{ color: isLight ? "#64748B" : "#94A3B8" }}>Status</span>
+              <span style={{ color: "#64748B" }}>Status</span>
               <span
                 style={{
-                  color: isLight ? "#059669" : "#48DD83",
+                  color: "#059669",
                   fontWeight: 700,
                   display: "inline-flex",
                   alignItems: "center",
@@ -482,14 +402,12 @@ function ThankYouContent() {
 
             <div
               style={{
-                background: isLight ? "rgba(5, 150, 105, 0.08)" : "rgba(34, 197, 94, 0.08)",
-                border: isLight
-                  ? "1px solid rgba(5, 150, 105, 0.2)"
-                  : "1px solid rgba(72, 221, 131, 0.25)",
+                background: "rgba(5, 150, 105, 0.08)",
+                border: "1px solid rgba(5, 150, 105, 0.2)",
                 borderRadius: "12px",
                 padding: "12px 16px",
                 fontSize: "12.5px",
-                color: isLight ? "#065F46" : "#86EFAC",
+                color: "#065F46",
                 lineHeight: 1.5,
               }}
             >
@@ -511,8 +429,8 @@ function ThankYouContent() {
           >
             <div
               style={{
-                background: isLight ? "#F8FAFC" : "rgba(3, 16, 26, 0.65)",
-                border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.06)",
+                background: "#F8FAFC",
+                border: "1px solid #E2E8F0",
                 borderRadius: "12px",
                 padding: "14px 16px",
               }}
@@ -522,7 +440,7 @@ function ThankYouContent() {
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
-                  color: isLight ? "#0284C7" : "#38BDF8",
+                  color: "#0284C7",
                   fontWeight: 700,
                   fontSize: "13px",
                   marginBottom: "4px",
@@ -534,7 +452,7 @@ function ThankYouContent() {
               <p
                 style={{
                   fontSize: "11.5px",
-                  color: isLight ? "#64748B" : "#94A3B8",
+                  color: "#64748B",
                   lineHeight: 1.45,
                   margin: 0,
                 }}
@@ -545,8 +463,8 @@ function ThankYouContent() {
 
             <div
               style={{
-                background: isLight ? "#F8FAFC" : "rgba(3, 16, 26, 0.65)",
-                border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.06)",
+                background: "#F8FAFC",
+                border: "1px solid #E2E8F0",
                 borderRadius: "12px",
                 padding: "14px 16px",
               }}
@@ -556,7 +474,7 @@ function ThankYouContent() {
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
-                  color: isLight ? "#059669" : "#48DD83",
+                  color: "#059669",
                   fontWeight: 700,
                   fontSize: "13px",
                   marginBottom: "4px",
@@ -568,7 +486,7 @@ function ThankYouContent() {
               <p
                 style={{
                   fontSize: "11.5px",
-                  color: isLight ? "#64748B" : "#94A3B8",
+                  color: "#64748B",
                   lineHeight: 1.45,
                   margin: 0,
                 }}
@@ -579,8 +497,8 @@ function ThankYouContent() {
 
             <div
               style={{
-                background: isLight ? "#F8FAFC" : "rgba(3, 16, 26, 0.65)",
-                border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.06)",
+                background: "#F8FAFC",
+                border: "1px solid #E2E8F0",
                 borderRadius: "12px",
                 padding: "14px 16px",
               }}
@@ -590,7 +508,7 @@ function ThankYouContent() {
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
-                  color: isLight ? "#D97706" : "#FBBF24",
+                  color: "#D97706",
                   fontWeight: 700,
                   fontSize: "13px",
                   marginBottom: "4px",
@@ -602,7 +520,7 @@ function ThankYouContent() {
               <p
                 style={{
                   fontSize: "11.5px",
-                  color: isLight ? "#64748B" : "#94A3B8",
+                  color: "#64748B",
                   lineHeight: 1.45,
                   margin: 0,
                 }}
@@ -617,7 +535,7 @@ function ThankYouContent() {
             href="/ai-business-automation-webinar"
             style={{
               fontSize: "13px",
-              color: isLight ? "#64748B" : "#94A3B8",
+              color: "#64748B",
               textDecoration: "underline",
               textUnderlineOffset: "4px",
             }}
@@ -640,8 +558,8 @@ export default function ThankYouPage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "#030712",
-            color: "#FFFFFF",
+            background: "#F8FAF7",
+            color: "#090D14",
             fontFamily: "var(--font-inter), sans-serif",
           }}
         >

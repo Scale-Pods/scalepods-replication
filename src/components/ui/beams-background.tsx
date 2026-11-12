@@ -9,6 +9,7 @@ interface AnimatedGradientBackgroundProps {
     children?: React.ReactNode;
     intensity?: "subtle" | "medium" | "strong";
     hues?: number[];
+    forcedTheme?: "dark" | "light";
 }
 
 interface Beam {
@@ -54,12 +55,14 @@ export function BeamsBackground({
     children,
     intensity = "strong",
     hues,
+    forcedTheme,
 }: AnimatedGradientBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
     const lastWidthRef = useRef<number>(0);
     const { resolvedTheme } = useTheme();
+    const activeTheme = forcedTheme ?? resolvedTheme;
     const DESKTOP_BEAM_COUNT = 18;
     const MOBILE_BEAM_COUNT = 8;
 
@@ -74,7 +77,7 @@ export function BeamsBackground({
             typeof window !== "undefined" &&
             window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        const isDark = resolvedTheme === "dark";
+        const isDark = activeTheme === "dark";
         const lightness = isDark ? 65 : 45;
         const saturation = isDark ? 85 : 70;
         const intensityAlpha = OPACITY_MAP[intensity];
@@ -216,10 +219,10 @@ export function BeamsBackground({
                 animationFrameRef.current = 0;
             }
         };
-    }, [intensity, resolvedTheme, hues]);
+    }, [intensity, activeTheme, hues]);
 
     const overlayTint =
-        resolvedTheme === "dark"
+        activeTheme === "dark"
             ? "rgba(4, 7, 13, 0.14)"
             : "rgba(255, 255, 255, 0.12)";
 
@@ -229,7 +232,15 @@ export function BeamsBackground({
                 "relative min-h-screen w-full",
                 className
             )}
-            style={{ background: "var(--color-bg-page)" }}
+            data-webinar-theme={forcedTheme}
+            style={{
+                background:
+                    forcedTheme === "light"
+                        ? "#F8FAF7"
+                        : forcedTheme === "dark"
+                          ? "#04070D"
+                          : "var(--color-bg-page)",
+            }}
         >
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
                 <canvas
