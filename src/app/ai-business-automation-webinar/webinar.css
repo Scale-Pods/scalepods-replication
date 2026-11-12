@@ -7990,23 +7990,24 @@
     text-align: center !important;
   }
   .wb-firstfold-partners {
-    width: auto !important;
+    width: fit-content !important;
     max-width: 100%;
     box-sizing: border-box;
-    padding: 6px 14px !important;
-    font-size: 11.5px !important;
+    border-radius: 20px !important;
+    padding: 9px 16px !important;
+    font-size: 12.5px !important;
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
     margin: 0 auto !important;
-    gap: 6px;
+    gap: 8px 10px !important;
     text-align: center !important;
   }
   .wb-firstfold-partner-tags {
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
-    gap: 6px;
+    gap: 8px;
   }
   .wb-firstfold-header {
     gap: 8px !important;
@@ -8442,15 +8443,23 @@ html:not(.dark) .webinarpod-container {
 
 .wb-theme-light .wb-firstfold-partners,
 [data-webinar-theme="light"] .wb-firstfold-partners {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border: 1px solid rgba(15, 23, 42, 0.12) !important;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
-  color: #475569 !important;
+  background: linear-gradient(135deg, rgba(254, 226, 226, 0.92) 0%, rgba(254, 242, 242, 0.96) 52%, rgba(255, 228, 230, 0.92) 100%) !important;
+  border: 1.5px solid rgba(239, 68, 68, 0.44) !important;
+  box-shadow:
+    0 8px 22px -6px rgba(220, 38, 38, 0.2),
+    0 0 0 3px rgba(254, 226, 226, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  padding: 8px 20px !important;
+  gap: 12px !important;
+  font-size: clamp(13px, 0.95vw, 15px) !important;
+  color: #991B1B !important;
 }
 
 .wb-theme-light .wb-firstfold-partner-label,
 [data-webinar-theme="light"] .wb-firstfold-partner-label {
-  color: #475569 !important;
+  color: #991B1B !important;
+  font-weight: 700 !important;
+  font-size: clamp(13px, 0.95vw, 15px) !important;
 }
 
 .wb-theme-light .wb-partner-chip-openai,
@@ -8458,15 +8467,17 @@ html:not(.dark) .webinarpod-container {
 [data-webinar-theme="light"] .wb-partner-chip-openai,
 [data-webinar-theme="light"] .wb-partner-chip-claude {
   background: #FFFFFF !important;
-  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  border: 1px solid rgba(220, 38, 38, 0.18) !important;
   color: #0F172A !important;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
+  padding: 6px 15px !important;
+  gap: 8px !important;
+  box-shadow: 0 3px 10px -2px rgba(153, 27, 27, 0.1) !important;
 }
-
-
 
 .wb-theme-light .wb-partner-chip-openai .wb-openai-spiral-svg,
 [data-webinar-theme="light"] .wb-partner-chip-openai .wb-openai-spiral-svg {
+  width: 18px !important;
+  height: 18px !important;
   color: #000000 !important;
   filter: none !important;
 }
@@ -8474,11 +8485,14 @@ html:not(.dark) .webinarpod-container {
 .wb-theme-light .wb-partner-chip-openai .wb-partner-brand-name-topbar,
 [data-webinar-theme="light"] .wb-partner-chip-openai .wb-partner-brand-name-topbar {
   color: #000000 !important;
+  font-size: 14px !important;
   font-weight: 750 !important;
 }
 
 .wb-theme-light .wb-partner-chip-claude .wb-claude-sunburst-svg,
 [data-webinar-theme="light"] .wb-partner-chip-claude .wb-claude-sunburst-svg {
+  width: 18px !important;
+  height: 18px !important;
   color: #C2410C !important;
   filter: none !important;
 }
@@ -8489,6 +8503,7 @@ html:not(.dark) .webinarpod-container {
   -webkit-background-clip: initial !important;
   -webkit-text-fill-color: initial !important;
   color: #C2410C !important;
+  font-size: 14px !important;
   font-weight: 750 !important;
   filter: none !important;
 }
@@ -8671,9 +8686,7 @@ html:not(.dark) .webinarpod-container {
 }
 
 .wb-theme-light .wb-verified-metrics-strip,
-.wb-theme-light .wb-firstfold-partner-tags,
-[data-webinar-theme="light"] .wb-verified-metrics-strip,
-[data-webinar-theme="light"] .wb-firstfold-partner-tags {
+[data-webinar-theme="light"] .wb-verified-metrics-strip {
   background: #FFFFFF !important;
   border: 1px solid rgba(15, 23, 42, 0.08) !important;
   color: #334155 !important;

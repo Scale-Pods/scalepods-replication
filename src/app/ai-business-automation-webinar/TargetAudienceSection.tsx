@@ -229,7 +229,7 @@ const AUDIENCE_CARDS: readonly AudienceCardItem[] = [
       "Replace manual cross-team updates with unified automated pipelines",
       "Embed clear human-in-the-loop checkpoints for sensitive approvals",
     ],
-    outcomeMetric: "Tailored 90-Day AI Automation Roadmap",
+    outcomeMetric: "Tailored 60-Day AI Automation Roadmap",
     outcomeNote: "Walk away knowing exact ROI targets and implementation order for your company size.",
     ctaLabel: "Reserve Seat for Founders Track (₹99)",
   },
