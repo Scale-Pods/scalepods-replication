@@ -813,7 +813,7 @@ export default function WebinarPage() {
       {/* ── SECTION 17: FAQS ─────────────────────────────────────────────── */}
       <section className="wb-section wb-section-bordered" id="faq-section">
         <div className="wb-container wb-container-narrow">
-          <div style={{ textAlign: "center", marginBottom: "44px" }}>
+          <div className="wb-faq-header" style={{ textAlign: "center", marginBottom: "44px" }}>
             <div className="wb-pill-eyebrow">
               <MessageSquare size={14} />
               <span>CLEAR ANSWERS</span>

@@ -805,10 +805,12 @@ export function BusinessPainPointsSection() {
           {PAIN_CARDS.map(({ id, title, description, Icon, renderIllustration }) => (
             <article key={id} className="wb-pain2-card">
               <div className="wb-pain2-card-top">
-                <div className="wb-pain2-card-icon-box" aria-hidden="true">
-                  <Icon />
+                <div className="wb-pain2-card-header-row">
+                  <div className="wb-pain2-card-icon-box" aria-hidden="true">
+                    <Icon />
+                  </div>
+                  <h3 className="wb-pain2-card-title">{title}</h3>
                 </div>
-                <h3 className="wb-pain2-card-title">{title}</h3>
                 <p className="wb-pain2-card-desc">{description}</p>
               </div>
 

@@ -425,21 +425,24 @@ export function TargetAudienceSection({ onReserveSeat }: TargetAudienceSectionPr
                   ease: "easeOut",
                 }}
               >
-                <motion.div
-                  className={`wb-aud-card-icon-box ${iconBoxClass}`}
-                  aria-hidden="true"
-                  animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
-                  transition={{
-                    duration: 4.5,
-                    delay: index * 0.35,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Icon />
-                </motion.div>
+                <div className="wb-aud-card-header-row">
+                  <motion.div
+                    className={`wb-aud-card-icon-box ${iconBoxClass}`}
+                    aria-hidden="true"
+                    animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
+                    transition={{
+                      duration: 4.5,
+                      delay: index * 0.35,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <Icon />
+                  </motion.div>
 
-                <h3 className="wb-aud-card-title">{title}</h3>
+                  <h3 className="wb-aud-card-title">{title}</h3>
+                </div>
+
                 <p className="wb-aud-card-desc">{description}</p>
 
                 <span className="wb-aud-card-cta">

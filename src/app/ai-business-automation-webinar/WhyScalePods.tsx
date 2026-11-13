@@ -308,21 +308,24 @@ export function WhyScalePods({ onReserveSeat }: WhyScalePodsProps) {
                     ease: "easeOut",
                   }}
                 >
-                  <motion.div
-                    className={`wb-why-card-icon-box ${iconBoxClass}`}
-                    aria-hidden="true"
-                    animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
-                    transition={{
-                      duration: 4.4,
-                      delay: idx * 0.35,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Icon />
-                  </motion.div>
+                  <div className="wb-why-card-header-row">
+                    <motion.div
+                      className={`wb-why-card-icon-box ${iconBoxClass}`}
+                      aria-hidden="true"
+                      animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
+                      transition={{
+                        duration: 4.4,
+                        delay: idx * 0.35,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <Icon />
+                    </motion.div>
 
-                  <h3 className="wb-why-card-title">{title}</h3>
+                    <h3 className="wb-why-card-title">{title}</h3>
+                  </div>
+
                   <p className="wb-why-card-desc">{description}</p>
                 </motion.article>
               );

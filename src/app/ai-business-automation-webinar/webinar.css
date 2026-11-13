@@ -1306,12 +1306,12 @@
   }
 
   .wb-navbar {
-    height: 58px !important;
+    height: 52px !important;
   }
 
   .wb-navbar-logo-wrap {
-    width: 120px !important;
-    height: 22px !important;
+    width: 115px !important;
+    height: 21px !important;
     flex-shrink: 0 !important;
   }
 
@@ -1328,8 +1328,8 @@
   }
 
   .wb-button-nav {
-    padding: 7px 13px !important;
-    font-size: 13px !important;
+    padding: 6px 12px !important;
+    font-size: 12.5px !important;
     font-weight: 700 !important;
     width: auto !important;
     white-space: nowrap !important;
@@ -1421,20 +1421,33 @@
     padding: 24px 16px !important;
   }
 
+  #faq-section {
+    padding: 30px 0 34px !important;
+  }
+
+  .wb-faq-header {
+    margin-bottom: 18px !important;
+  }
+
+  .wb-faq-header h2 {
+    font-size: clamp(21px, 6vw, 26px) !important;
+  }
+
   .wb-faq-card {
-    padding: 16px 14px !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
   }
 
   .wb-faq-btn {
-    font-size: 15px !important;
-    padding: 16px 0 !important;
-    gap: 10px !important;
+    font-size: 13.5px !important;
+    padding: 11px 0 !important;
+    gap: 8px !important;
   }
 
   .wb-faq-answer {
-    font-size: 13.5px !important;
-    padding-bottom: 16px !important;
-    line-height: 1.6 !important;
+    font-size: 12.5px !important;
+    padding-bottom: 12px !important;
+    line-height: 1.5 !important;
   }
 
   .wb-final-cta-card {
@@ -7970,22 +7983,22 @@
 
 @media (max-width: 640px) {
   .wb-section-firstfold-hero {
-    padding: 12px 14px 28px !important;
+    padding: 10px 14px 22px !important;
   }
   .wb-firstfold-container {
-    gap: 12px !important;
+    gap: 10px !important;
   }
   .wb-firstfold-topbar {
     flex-direction: column;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    gap: 8px;
+    gap: 7px;
     width: 100%;
   }
   .wb-firstfold-pill {
-    font-size: 11px !important;
-    padding: 5px 14px !important;
+    font-size: 10.5px !important;
+    padding: 4px 12px !important;
     margin: 0 auto !important;
     text-align: center !important;
   }
@@ -7993,54 +8006,60 @@
     width: fit-content !important;
     max-width: 100%;
     box-sizing: border-box;
-    border-radius: 20px !important;
-    padding: 9px 16px !important;
-    font-size: 12.5px !important;
+    border-radius: 18px !important;
+    padding: 7px 14px !important;
+    font-size: 12px !important;
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
     margin: 0 auto !important;
-    gap: 8px 10px !important;
+    gap: 6px 10px !important;
     text-align: center !important;
   }
   .wb-firstfold-partner-tags {
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
-    gap: 8px;
+    gap: 7px;
   }
   .wb-firstfold-header {
-    gap: 8px !important;
+    gap: 7px !important;
   }
   .wb-firstfold-title {
-    font-size: clamp(18px, 5.2vw, 24px) !important;
-    line-height: 1.16 !important;
+    font-size: clamp(20px, 5.5vw, 25px) !important;
+    line-height: 1.18 !important;
   }
   .wb-firstfold-desc {
     font-size: 12.5px !important;
     line-height: 1.45 !important;
   }
   .wb-firstfold-stats-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 6px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
   }
   .wb-firstfold-stat-card {
-    padding: 7px 5px !important;
-    border-radius: 10px !important;
-    gap: 2px !important;
+    padding: 9px 12px !important;
+    border-radius: 12px !important;
+    min-height: 54px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 3px !important;
   }
   .wb-firstfold-stat-val {
-    font-size: 16.5px !important;
-    line-height: 1 !important;
+    font-size: 18.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
   }
   .wb-firstfold-stat-lbl {
-    font-size: 9.5px !important;
-    line-height: 1.2 !important;
+    font-size: 11.5px !important;
+    line-height: 1.25 !important;
+    color: #475569 !important;
   }
   .wb-firstfold-booking-box {
-    padding: 12px 12px !important;
+    padding: 13px 13px 11px !important;
     border-radius: 14px !important;
-    gap: 8px !important;
+    gap: 7px !important;
   }
   .wb-booking-live-pill {
     padding: 3px 8px !important;
@@ -8063,7 +8082,7 @@
     font-size: 14.5px !important;
   }
   .wb-booking-schedule-banner {
-    padding: 6px 10px !important;
+    padding: 5px 10px !important;
     font-size: 11px !important;
     gap: 6px !important;
     justify-content: center !important;
@@ -8087,7 +8106,7 @@
   }
   .wb-firstfold-cta-btn {
     padding: 11px 16px !important;
-    font-size: 12.5px !important;
+    font-size: 13px !important;
     border-radius: 10px !important;
     letter-spacing: 0.03em !important;
   }
@@ -8104,38 +8123,53 @@
     gap: 8px !important;
   }
   .wb-firstfold-founder-card {
-    padding: 8px !important;
-    border-radius: 14px !important;
-    gap: 6px !important;
+    padding: 7px 7px 8px !important;
+    border-radius: 12px !important;
+    gap: 5px !important;
   }
   .wb-firstfold-founder-img-frame {
     aspect-ratio: 1 / 1 !important;
-    max-height: 150px !important;
-    border-radius: 10px !important;
+    max-height: 140px !important;
+    border-radius: 9px !important;
   }
   .wb-firstfold-founder-name {
-    font-size: 13.5px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
     line-height: 1.2 !important;
   }
   .wb-firstfold-founder-role {
-    font-size: 10px !important;
+    font-size: 9.5px !important;
     line-height: 1.2 !important;
     margin-bottom: 0 !important;
   }
   .wb-firstfold-founder-focus {
-    font-size: 9.5px !important;
+    font-size: 9px !important;
     line-height: 1.25 !important;
-    margin: 0 0 4px 0 !important;
+    margin: 0 0 3px 0 !important;
   }
   .wb-firstfold-founder-badge {
     font-size: 8.5px !important;
     padding: 2px 5px !important;
+  }
+  .wb-firstfold-scroll-cue {
+    margin-top: 8px !important;
+    gap: 4px !important;
   }
 }
 
 @media (max-width: 350px) {
   .wb-firstfold-stats-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+  .wb-firstfold-stat-card {
+    padding: 7px 8px !important;
+  }
+  .wb-firstfold-stat-val {
+    font-size: 16px !important;
+  }
+  .wb-firstfold-stat-lbl {
+    font-size: 10px !important;
   }
   .wb-firstfold-founders-wrap {
     grid-template-columns: 1fr !important;
@@ -10491,6 +10525,10 @@ html:not(.dark) .webinarpod-container {
   align-items: flex-start;
 }
 
+.wb-pain2-card-header-row {
+  display: contents;
+}
+
 .wb-pain2-card-icon-box {
   width: 44px;
   height: 44px;
@@ -10739,7 +10777,7 @@ html:not(.dark) .webinarpod-container {
 
 @media (max-width: 640px) {
   .wb-section-pain-points {
-    padding: 44px 0 48px;
+    padding: 30px 0 34px !important;
   }
 
   .wb-pain2-bg-texture {
@@ -10747,56 +10785,137 @@ html:not(.dark) .webinarpod-container {
   }
 
   .wb-pain2-header {
-    margin-bottom: 22px;
+    margin-bottom: 16px !important;
   }
 
   .wb-pain2-eyebrow-pill {
-    font-size: 10.5px;
-    padding: 5px 12px;
-    margin-bottom: 12px;
+    font-size: 10.5px !important;
+    padding: 4px 11px !important;
+    margin-bottom: 10px !important;
   }
 
   .wb-pain2-title {
-    font-size: clamp(23px, 6.4vw, 30px);
-    line-height: 1.18;
+    font-size: clamp(21px, 6vw, 26px) !important;
+    line-height: 1.18 !important;
   }
 
   .wb-pain2-heading-sparks {
-    transform: scale(0.82);
-    margin-left: 4px;
-    margin-top: -6px;
+    transform: scale(0.78) !important;
+    margin-left: 4px !important;
+    margin-top: -6px !important;
   }
 
   .wb-pain2-subtitle {
-    font-size: 14px;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
   }
 
   .wb-pain2-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
   }
 
   .wb-pain2-card {
-    min-height: auto;
-    padding: 22px 18px 16px;
-    border-radius: 20px;
+    min-height: auto !important;
+    padding: 14px 15px 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .wb-pain2-card-header-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    margin-bottom: 6px !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .wb-pain2-card-icon-box {
+    width: 32px !important;
+    height: 32px !important;
+    margin-bottom: 0 !important;
+    border-radius: 9px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .wb-pain2-card-icon-box svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .wb-pain2-card-title {
+    margin: 0 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+
+  .wb-pain2-card-desc {
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
   }
 
   .wb-pain2-card-media {
-    height: 176px;
-    margin-top: 14px;
+    height: 110px !important;
+    margin-top: 10px !important;
+  }
+
+  .wb-pain2-illus-svg {
+    max-width: 170px !important;
+    max-height: 105px !important;
+  }
+
+  .wb-pain2-hourglass-badge {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+  }
+
+  .wb-pain2-hourglass-badge svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .wb-pain2-app-tile {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+  }
+
+  .wb-pain2-app-tile svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .wb-pain2-app-crm {
+    padding: 3px 8px !important;
+    font-size: 10px !important;
+    border-radius: 7px !important;
+  }
+
+  .wb-pain2-calendar-badge {
+    transform: scale(0.68) !important;
+    transform-origin: top right !important;
+    top: 4px !important;
+    right: 2px !important;
+  }
+
+  .wb-pain2-sparks-leads,
+  .wb-pain2-sparks-ops {
+    transform: scale(0.65) !important;
   }
 
   .wb-pain2-banner {
-    padding: 16px 18px;
-    border-radius: 16px;
-    gap: 12px;
-    align-items: flex-start;
+    margin-top: 14px !important;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+    gap: 10px !important;
+    align-items: center !important;
   }
 
   .wb-pain2-banner-text {
-    font-size: 14.5px;
-    line-height: 1.48;
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
   }
 }
 
@@ -11033,7 +11152,7 @@ html:not(.dark) .webinarpod-container {
 
 @media (max-width: 640px) {
   .wb-section-deliverables {
-    padding: 46px 0 42px;
+    padding: 30px 0 34px !important;
   }
 
   .wb-deliv-bg-texture {
@@ -11041,48 +11160,75 @@ html:not(.dark) .webinarpod-container {
   }
 
   .wb-deliv-header {
-    margin-bottom: 22px;
+    margin-bottom: 16px !important;
   }
 
   .wb-deliv-eyebrow-pill {
-    font-size: 10.5px;
-    padding: 5px 12px;
-    margin-bottom: 12px;
+    font-size: 10.5px !important;
+    padding: 4px 11px !important;
+    margin-bottom: 10px !important;
   }
 
   .wb-deliv-title {
-    font-size: clamp(23px, 6.4vw, 29px);
-    line-height: 1.2;
+    font-size: clamp(21px, 6vw, 26px) !important;
+    line-height: 1.2 !important;
   }
 
   .wb-deliv-heading-sparks {
-    transform: scale(0.82);
-    margin-left: 4px;
-    margin-top: -6px;
+    transform: scale(0.78) !important;
+    margin-left: 4px !important;
+    margin-top: -6px !important;
   }
 
   .wb-deliv-subtitle {
-    font-size: 14px;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
   }
 
   .wb-deliv-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
   }
 
   .wb-deliv-card {
-    padding: 20px 18px 22px;
-    border-radius: 18px;
+    padding: 12px 11px 13px !important;
+    border-radius: 15px !important;
   }
 
   .wb-deliv-card-icon-box {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 14px;
+    width: 32px !important;
+    height: 32px !important;
+    margin-bottom: 8px !important;
+    border-radius: 9px !important;
+  }
+
+  .wb-deliv-card-icon-box svg {
+    width: 17px !important;
+    height: 17px !important;
+  }
+
+  .wb-deliv-card-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .wb-deliv-card-desc {
+    font-size: 11.5px !important;
+    line-height: 1.42 !important;
+    color: #475569 !important;
   }
 
   .wb-deliv-eco-wrap {
-    margin-top: 22px;
+    margin-top: 14px !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .wb-deliv-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -11302,6 +11448,10 @@ html:not(.dark) .webinarpod-container {
   box-shadow:
     0 18px 34px -12px rgba(13, 148, 136, 0.2),
     0 0 0 3px rgba(20, 184, 166, 0.15);
+}
+
+.wb-aud-card-header-row {
+  display: contents;
 }
 
 .wb-aud-card-icon-box {
@@ -11793,7 +11943,7 @@ html:not(.dark) .webinarpod-container {
 
 @media (max-width: 640px) {
   .wb-section-audience {
-    padding: 46px 0 48px;
+    padding: 30px 0 34px;
   }
 
   .wb-aud-dots-right {
@@ -11801,49 +11951,85 @@ html:not(.dark) .webinarpod-container {
   }
 
   .wb-aud-header {
-    margin-bottom: 22px;
+    margin-bottom: 16px;
   }
 
   .wb-aud-eyebrow-pill {
     font-size: 10.5px;
-    padding: 5px 12px;
-    margin-bottom: 12px;
+    padding: 4px 11px;
+    margin-bottom: 10px;
   }
 
   .wb-aud-title {
-    font-size: clamp(23px, 6.4vw, 30px);
+    font-size: clamp(21px, 6vw, 26px);
     line-height: 1.2;
   }
 
   .wb-aud-title-sparks {
-    top: -14px;
-    right: -16px;
-    transform: scale(0.8);
+    top: -12px;
+    right: -14px;
+    transform: scale(0.78);
   }
 
   .wb-aud-subtitle {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.45;
   }
 
   .wb-aud-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 9px;
   }
 
   .wb-aud-card {
-    padding: 20px 18px 20px;
-    border-radius: 20px;
+    padding: 12px 14px;
+    border-radius: 15px;
+    gap: 4px;
+  }
+
+  .wb-aud-card-header-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    margin-bottom: 6px !important;
+    width: 100% !important;
+    text-align: left !important;
   }
 
   .wb-aud-card-icon-box {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 14px;
+    width: 32px !important;
+    height: 32px !important;
+    margin-bottom: 0 !important;
+    border-radius: 9px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .wb-aud-card-icon-box svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .wb-aud-card-title {
+    margin: 0 !important;
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+
+  .wb-aud-card-desc {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.46 !important;
+  }
+
+  .wb-aud-card-cta {
+    display: none !important;
   }
 
   .wb-aud-glass-stage {
-    padding: 18px 15px;
-    border-radius: 20px;
+    padding: 16px 14px;
+    border-radius: 18px;
+    margin-top: 14px;
   }
 
   .wb-aud-glass-header {
@@ -11853,25 +12039,26 @@ html:not(.dark) .webinarpod-container {
   }
 
   .wb-aud-glass-card {
-    padding: 16px;
-    border-radius: 16px;
+    padding: 14px;
+    border-radius: 14px;
   }
 
   .wb-aud-banner {
-    padding: 16px 18px;
-    border-radius: 16px;
-    gap: 12px;
-    align-items: flex-start;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    gap: 10px;
+    align-items: center;
   }
 
   .wb-aud-banner-divider {
-    height: 36px;
-    margin-top: 2px;
+    height: 28px;
+    margin-top: 0;
   }
 
   .wb-aud-banner-text {
-    font-size: 14px;
-    line-height: 1.48;
+    font-size: 12.5px;
+    line-height: 1.45;
   }
 }
 
@@ -12458,69 +12645,80 @@ html:not(.dark) .webinarpod-container {
 
 @media (max-width: 640px) {
   .wb-section-final-cta {
-    padding: 60px 16px 68px;
+    padding: 34px 16px 38px !important;
   }
 
   .wb-cta5-glass-layer,
   .wb-cta5-network-svg {
-    display: none;
+    display: none !important;
   }
 
   .wb-cta5-badge {
-    font-size: 11px;
-    padding: 7px 14px;
-    margin-bottom: 18px;
+    font-size: 10.5px !important;
+    padding: 5px 12px !important;
+    margin-bottom: 12px !important;
   }
 
   .wb-cta5-heading {
-    font-size: 27px;
-    line-height: 1.24;
+    font-size: clamp(20px, 5.8vw, 24px) !important;
+    line-height: 1.22 !important;
   }
 
   .wb-cta5-heading-sparks {
-    top: -16px;
-    right: -20px;
-    width: 22px;
-    height: 20px;
+    top: -14px !important;
+    right: -16px !important;
+    width: 18px !important;
+    height: 16px !important;
   }
 
   .wb-cta5-sub {
-    font-size: 15px;
-    margin-bottom: 26px;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin-bottom: 16px !important;
   }
 
   .wb-cta5-info-card {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 16px 18px;
-    gap: 14px;
-    margin-bottom: 28px;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 12px 14px !important;
+    gap: 10px !important;
+    margin-bottom: 18px !important;
+    border-radius: 14px !important;
   }
 
   .wb-cta5-info-col {
-    padding: 2px 0;
+    padding: 2px 0 !important;
+  }
+
+  .wb-cta5-info-label {
+    font-size: 11px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .wb-cta5-info-value {
+    font-size: 13.5px !important;
   }
 
   .wb-cta5-info-divider {
-    width: 100%;
-    height: 1px;
-    margin: 0;
+    width: 100% !important;
+    height: 1px !important;
+    margin: 0 !important;
   }
 
   .wb-cta5-action-wrap {
-    width: 100%;
-    gap: 0;
+    width: 100% !important;
+    gap: 0 !important;
   }
 
   .wb-cta5-btn-sparks {
-    display: none;
+    display: none !important;
   }
 
   .wb-cta5-btn {
-    width: 100%;
-    padding: 16px 20px;
-    font-size: 14.5px;
-    border-radius: 14px;
+    width: 100% !important;
+    padding: 13px 18px !important;
+    font-size: 13.5px !important;
+    border-radius: 12px !important;
   }
 }
 
@@ -13377,6 +13575,10 @@ html:not(.dark) .webinarpod-container {
   box-shadow: 0 18px 34px -14px rgba(2, 132, 199, 0.16);
 }
 
+.wb-why-card-header-row {
+  display: contents;
+}
+
 .wb-why-card-icon-box {
   width: 44px;
   height: 44px;
@@ -13650,74 +13852,116 @@ html:not(.dark) .webinarpod-container {
 
 @media (max-width: 640px) {
   .wb-section-why {
-    padding: 48px 0 50px;
+    padding: 30px 0 32px !important;
   }
 
   .wb-why-header {
-    margin-bottom: 24px;
+    margin-bottom: 16px !important;
   }
 
   .wb-why-eyebrow-pill {
-    font-size: 10.5px;
-    padding: 5px 12px;
+    font-size: 10.5px !important;
+    padding: 4px 11px !important;
+    margin-bottom: 10px !important;
   }
 
   .wb-why-title {
-    font-size: clamp(24px, 6.8vw, 31px);
+    font-size: clamp(21px, 6vw, 26px) !important;
+    line-height: 1.2 !important;
   }
 
   .wb-why-title-sparks {
-    top: -12px;
-    right: -16px;
-    transform: scale(0.8);
+    top: -12px !important;
+    right: -14px !important;
+    transform: scale(0.78) !important;
   }
 
   .wb-why-mission {
-    font-size: 14px;
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
   }
 
   .wb-why-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
   }
 
   .wb-why-span-2,
   .wb-why-span-3,
   .wb-why-cards-grid .wb-why-span-3:last-child {
-    grid-column: span 1;
+    grid-column: span 1 !important;
   }
 
   .wb-why-card {
-    padding: 18px 18px 20px;
-    border-radius: 18px;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+    gap: 6px !important;
+  }
+
+  .wb-why-card-header-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    margin-bottom: 6px !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .wb-why-card-icon-box,
+  .wb-why-card-icon-wrap {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 9px !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .wb-why-card-icon-box svg,
+  .wb-why-card-icon-wrap svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .wb-why-card-title {
+    margin: 0 !important;
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+
+  .wb-why-card-desc {
+    font-size: 12px !important;
+    line-height: 1.45 !important;
   }
 
   .wb-why-eco-shell {
-    padding: 8px 4px;
-    border-radius: 20px;
+    padding: 8px 4px !important;
+    border-radius: 18px !important;
   }
 
   .wb-why-reg-banner {
-    padding: 16px;
-    border-radius: 18px;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+    margin-top: 14px !important;
   }
 
   .wb-why-reg-left {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
   }
 
   .wb-why-reg-event {
-    font-size: 16px;
+    font-size: 15px !important;
   }
 
   .wb-why-reg-meta {
-    font-size: 13px;
+    font-size: 12px !important;
   }
 
   .wb-why-reg-cta {
-    padding: 13px 18px;
-    font-size: 14.5px;
+    padding: 11px 16px !important;
+    font-size: 13px !important;
+    border-radius: 10px !important;
   }
 }
