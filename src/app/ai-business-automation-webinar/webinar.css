@@ -626,19 +626,34 @@
 
 .wb-modal-body {
   width: 100%;
-  max-width: 480px;
+  max-width: 490px;
   background: var(--wb-modal-bg);
   border: 1px solid var(--wb-card-border-green);
   border-radius: 20px;
-  padding: 32px;
+  padding: 24px 28px;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(72, 221, 131, 0.15);
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+
+.wb-modal-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.wb-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wb-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
 }
 
 .wb-form-group {
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .wb-form-label {
@@ -9736,6 +9751,17 @@ html:not(.dark) .webinarpod-container {
 [data-webinar-theme="light"] .wb-phone-number-input:focus {
   border-color: #059669 !important;
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15) !important;
+}
+
+.wb-theme-light .wb-form-input.wb-form-input-error,
+.wb-theme-light .wb-phone-number-input.wb-form-input-error,
+[data-webinar-theme="light"] .wb-form-input.wb-form-input-error,
+[data-webinar-theme="light"] .wb-phone-number-input.wb-form-input-error,
+.wb-form-input.wb-form-input-error,
+.wb-phone-number-input.wb-form-input-error {
+  border-color: #EF4444 !important;
+  background-color: rgba(254, 242, 242, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18) !important;
 }
 
 .wb-theme-light .wb-order-summary-box,

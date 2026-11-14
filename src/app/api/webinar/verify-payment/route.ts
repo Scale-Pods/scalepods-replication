@@ -5,6 +5,7 @@ import {
   validateEmail,
   validatePhone,
   validateFullName,
+  validateCompanyName,
 } from "@/lib/webinarValidation";
 
 export async function POST(req: NextRequest) {
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
       name,
       email,
       phone,
+      company,
       role,
     } = body;
 
@@ -61,6 +63,7 @@ export async function POST(req: NextRequest) {
     const cleanName = validateFullName(name).formatted || String(name || "").trim();
     const cleanEmail = validateEmail(email).formatted || String(email || "").trim().toLowerCase();
     const cleanPhone = validatePhone(phone, body.countryCode, body.customCode).formatted || String(phone || "").trim();
+    const cleanCompany = validateCompanyName(company || "").formatted || String(company || "").trim();
 
     // 1. Insert into Supabase webinar_registrations table for live dashboard
     try {
@@ -75,7 +78,8 @@ export async function POST(req: NextRequest) {
           name: cleanName,
           email: cleanEmail,
           phone: cleanPhone,
-          role: role || "",
+          company: cleanCompany,
+          role: role ? `${role} (${cleanCompany})` : cleanCompany,
           amount: amountVal,
           currency: "INR",
           order_id: razorpay_order_id,
@@ -108,6 +112,7 @@ export async function POST(req: NextRequest) {
         name: cleanName,
         email: cleanEmail,
         phone: cleanPhone,
+        company: cleanCompany,
         role: role || "",
         utm_source: body.utm_source || "",
         utm_campaign: body.utm_campaign || "Webinar Campaign",
@@ -172,7 +177,7 @@ export async function POST(req: NextRequest) {
       message: "Payment successfully verified and registered.",
       bookingId: razorpay_payment_id,
       orderId: razorpay_order_id,
-      attendee: { name, email, phone, role },
+      attendee: { name: cleanName, email: cleanEmail, phone: cleanPhone, company: cleanCompany, role },
     });
   } catch (error: any) {
     console.error("[Razorpay Verification Exception]:", error);

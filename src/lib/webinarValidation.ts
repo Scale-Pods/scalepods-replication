@@ -195,3 +195,18 @@ export function validateFullName(name: string): ValidationResult {
   }
   return { valid: true, formatted: trimmed };
 }
+
+
+export function validateCompanyName(company: string): ValidationResult {
+  const trimmed = (company || "").trim();
+  if (!trimmed) {
+    return { valid: false, error: "Company name is required." };
+  }
+  if (trimmed.length < 2) {
+    return { valid: false, error: "Please enter your company or business name." };
+  }
+  if (/^[\d\W]+$/.test(trimmed)) {
+    return { valid: false, error: "Please enter a valid company name." };
+  }
+  return { valid: true, formatted: trimmed };
+}

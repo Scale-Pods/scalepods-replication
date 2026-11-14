@@ -27,6 +27,7 @@ import {
   validateEmail,
   validatePhone,
   validateFullName,
+  validateCompanyName,
 } from "@/lib/webinarValidation";
 import { WebinarPreviewDrawer } from "./WebinarPreviewDrawer";
 import { WEBINAR_PREVIEW_ITEMS } from "./webinarPreviewData";
@@ -141,17 +142,20 @@ export default function WebinarPage() {
     countryCode: "+91",
     customCode: "",
     phone: "",
+    company: "",
     role: "",
   });
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
     email?: string;
     phone?: string;
+    company?: string;
   }>({});
   const [touched, setTouched] = useState<{
     name?: boolean;
     email?: boolean;
     phone?: boolean;
+    company?: boolean;
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -241,19 +245,22 @@ export default function WebinarPage() {
     const nameCheck = validateFullName(formData.name);
     const emailCheck = validateEmail(formData.email);
     const phoneCheck = validatePhone(formData.phone, formData.countryCode, formData.customCode);
+    const companyCheck = validateCompanyName(formData.company);
 
-    setTouched({ name: true, email: true, phone: true });
+    setTouched({ name: true, email: true, phone: true, company: true });
     setFieldErrors({
       name: nameCheck.error,
       email: emailCheck.error,
       phone: phoneCheck.error,
+      company: companyCheck.error,
     });
 
-    if (!nameCheck.valid || !emailCheck.valid || !phoneCheck.valid) {
+    if (!nameCheck.valid || !emailCheck.valid || !phoneCheck.valid || !companyCheck.valid) {
       setPaymentError(
         nameCheck.error ||
           emailCheck.error ||
           phoneCheck.error ||
+          companyCheck.error ||
           "Please verify your inputs and correct the highlighted errors."
       );
       return;
@@ -265,6 +272,7 @@ export default function WebinarPage() {
       const fullPhone = phoneCheck.formatted!;
       const cleanName = nameCheck.formatted!;
       const cleanEmail = emailCheck.formatted!;
+      const cleanCompany = companyCheck.formatted!;
 
       // 1. Ensure Razorpay checkout script is loaded
       const scriptLoaded = await loadRazorpayScript();
@@ -282,6 +290,7 @@ export default function WebinarPage() {
           name: cleanName,
           email: cleanEmail,
           phone: fullPhone,
+          company: cleanCompany,
           role: formData.role,
           countryCode: formData.countryCode,
           customCode: formData.customCode,
@@ -330,6 +339,7 @@ export default function WebinarPage() {
                 name: cleanName,
                 email: cleanEmail,
                 phone: fullPhone,
+                company: cleanCompany,
                 role: formData.role,
                 countryCode: formData.countryCode,
                 customCode: formData.customCode,
@@ -953,15 +963,15 @@ export default function WebinarPage() {
 
             {modalStep === "form" ? (
               <div>
-                <div style={{ textAlign: "center", marginBottom: "22px" }}>
-                  <div className="wb-pill-green" style={{ marginBottom: "10px" }}>
+                <div style={{ textAlign: "center", marginBottom: "16px" }}>
+                  <div className="wb-pill-green" style={{ marginBottom: "8px" }}>
                     <span className="wb-dot-green" />
                     <span>SECURE REGISTRATION</span>
                   </div>
-                  <h3 style={{ fontSize: "22px", fontWeight: 800, color: "var(--wb-text-bright)" }}>
+                  <h3 style={{ fontSize: "21px", fontWeight: 800, color: "var(--wb-text-bright)", margin: "0 0 4px 0" }}>
                     Reserve Your Masterclass Seat
                   </h3>
-                  <p style={{ fontSize: "13px", color: "var(--wb-text-muted)", marginTop: "4px" }}>
+                  <p style={{ fontSize: "12.5px", color: "var(--wb-text-muted)", margin: 0 }}>
                     “How Businesses Are Automating 60–80% of Repetitive Workflows Using AI”
                   </p>
                 </div>
@@ -972,11 +982,11 @@ export default function WebinarPage() {
                     background: "rgba(177, 217, 151, 0.08)",
                     border: "1px solid rgba(177, 217, 151, 0.28)",
                     borderRadius: "12px",
-                    padding: "14px 18px",
+                    padding: "10px 14px",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: "18px",
+                    marginBottom: "14px",
                   }}
                 >
                   <div>
@@ -1041,11 +1051,9 @@ export default function WebinarPage() {
                           }));
                         }
                       }}
-                      className="wb-form-input"
-                      style={{
-                        borderColor:
-                          touched.name && fieldErrors.name ? "#EF4444" : undefined,
-                      }}
+                      className={`wb-form-input ${
+                        touched.name && fieldErrors.name ? "wb-form-input-error" : ""
+                      }`}
                       disabled={isSubmitting || isVerifying}
                     />
                     {touched.name && fieldErrors.name && (
@@ -1084,11 +1092,9 @@ export default function WebinarPage() {
                           }));
                         }
                       }}
-                      className="wb-form-input"
-                      style={{
-                        borderColor:
-                          touched.email && fieldErrors.email ? "#EF4444" : undefined,
-                      }}
+                      className={`wb-form-input ${
+                        touched.email && fieldErrors.email ? "wb-form-input-error" : ""
+                      }`}
                       disabled={isSubmitting || isVerifying}
                     />
                     {touched.email && fieldErrors.email && (
@@ -1188,11 +1194,9 @@ export default function WebinarPage() {
                             }));
                           }
                         }}
-                        className="wb-phone-number-input"
-                        style={{
-                          borderColor:
-                            touched.phone && fieldErrors.phone ? "#EF4444" : undefined,
-                        }}
+                        className={`wb-phone-number-input ${
+                          touched.phone && fieldErrors.phone ? "wb-form-input-error" : ""
+                        }`}
                         disabled={isSubmitting || isVerifying}
                       />
                     </div>
@@ -1224,10 +1228,51 @@ export default function WebinarPage() {
                   </div>
 
                   <div className="wb-form-group">
-                    <label className="wb-form-label">Company / Role (Optional)</label>
+                    <label className="wb-form-label">Company Name *</label>
                     <input
                       type="text"
-                      placeholder="e.g. Founder, Ops Lead"
+                      required
+                      placeholder="e.g. Acme Technologies / Your Business Name"
+                      value={formData.company}
+                      onBlur={() => {
+                        setTouched((t) => ({ ...t, company: true }));
+                        const check = validateCompanyName(formData.company);
+                        setFieldErrors((fe) => ({ ...fe, company: check.error }));
+                      }}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setFormData({ ...formData, company: val });
+                        if (touched.company) {
+                          setFieldErrors((fe) => ({
+                            ...fe,
+                            company: validateCompanyName(val).error,
+                          }));
+                        }
+                      }}
+                      className={`wb-form-input ${
+                        touched.company && fieldErrors.company ? "wb-form-input-error" : ""
+                      }`}
+                      disabled={isSubmitting || isVerifying}
+                    />
+                    {touched.company && fieldErrors.company && (
+                      <span
+                        style={{
+                          color: "#F87171",
+                          fontSize: "11.5px",
+                          marginTop: "4px",
+                          display: "block",
+                        }}
+                      >
+                        {fieldErrors.company}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="wb-form-group">
+                    <label className="wb-form-label">Role / Designation (Optional)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Founder, Ops Lead, CTO"
                       value={formData.role}
                       onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                       className="wb-form-input"

@@ -4,14 +4,15 @@ import {
   validateEmail,
   validatePhone,
   validateFullName,
+  validateCompanyName,
 } from "@/lib/webinarValidation";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, role, countryCode, customCode } = body;
+    const { name, email, phone, company, role, countryCode, customCode } = body;
 
-    // 1. Strict validation of Name, Email, and WhatsApp Phone
+    // 1. Strict validation of Name, Email, WhatsApp Phone, and Company
     const nameCheck = validateFullName(name);
     if (!nameCheck.valid) {
       return NextResponse.json(
@@ -36,9 +37,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const companyCheck = validateCompanyName(company);
+    if (!companyCheck.valid) {
+      return NextResponse.json(
+        { success: false, error: companyCheck.error || "Company name is required." },
+        { status: 400 }
+      );
+    }
+
     const cleanName = nameCheck.formatted!;
     const cleanEmail = emailCheck.formatted!;
     const cleanPhone = phoneCheck.formatted!;
+    const cleanCompany = companyCheck.formatted!;
 
     // Strictly charge ₹99 (9900 paise) for all registrations
     const chargeAmountPaise = 99 * 100;
@@ -71,6 +81,7 @@ export async function POST(req: NextRequest) {
         attendee_name: cleanName.slice(0, 50),
         attendee_email: cleanEmail.slice(0, 50),
         attendee_phone: cleanPhone.slice(0, 30),
+        attendee_company: cleanCompany.slice(0, 50),
         attendee_role: String(role || "Leader").trim().slice(0, 50),
         webinar_title: "AI Business Automation Masterclass with Adnan Shaikh & Raunak Kumar",
       },
