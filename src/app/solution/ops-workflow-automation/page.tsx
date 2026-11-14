@@ -2223,7 +2223,7 @@ export default function OperationsWorkflowAutomationPage() {
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            OperationsPod automates the entire audit workflow, from multi-document verification and intelligent cross-checking to mismatch detection and trend analytics, helping operations teams scale transaction volume without scaling manual oversight.
+            Operations Pod automates the entire audit workflow, from multi-document verification and intelligent cross-checking to mismatch detection and trend analytics, helping operations teams scale transaction volume without scaling manual oversight.
           </p>
         </div>
 
@@ -2386,7 +2386,7 @@ export default function OperationsWorkflowAutomationPage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B1D997] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B1D997]"></span>
             </span>
-            <span>Automated OperationsPod Workflow</span>
+            <span>Automated Operations Pod Workflow</span>
           </div>
 
           {/* LEFT CARDS */}

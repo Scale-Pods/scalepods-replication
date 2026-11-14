@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "operations automation",
     "automated business operations",
     "operations and automation",
-    "ScalePods opspod",
+    "ScalePods operations pod",
     "document audit automation",
     "optical document parsing",
     "cross departmental task routing",
