@@ -25,6 +25,7 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
   Article: { bg: "var(--color-bg-card-alt)", text: "var(--color-text-bright)", border: "var(--color-border)" },
   Resources: { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
   "Sales Automation": { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
+  "Marketing Automation": { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
   "AI Automation": { bg: "rgba(var(--color-blue-mid-rgb), 0.1)", text: "var(--color-blue-mid)", border: "rgba(var(--color-blue-mid-rgb), 0.2)" },
 };
 
