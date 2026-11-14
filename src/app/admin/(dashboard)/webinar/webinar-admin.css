@@ -1,0 +1,1207 @@
+/* ==========================================================================
+   ScalePods Webinar Admin - Enterprise Google Workspace & Gmail Theme
+   Supports Light Mode & Authentic Gmail Dark Mode
+   ========================================================================== */
+
+/* ── Light Mode Design Tokens (Default & [data-theme="light"]) ── */
+:root,
+[data-theme="light"] {
+  --sp-bg-page: #F8F9FA;
+  --sp-bg-surface: #FFFFFF;
+  --sp-bg-hover: #F1F3F4;
+  --sp-bg-active: #E8F0FE;
+  --sp-bg-subtle: #F8F9FA;
+  --sp-input-bg: #FFFFFF;
+  --sp-th-bg: #F8F9FA;
+  --sp-border: #DADCE0;
+  --sp-border-subtle: #F1F3F4;
+  --sp-border-hover: #BDC1C6;
+
+  --sp-text-primary: #202124;
+  --sp-text-secondary: #5F6368;
+  --sp-text-muted: #80868B;
+
+  --sp-accent: #1A73E8;
+  --sp-accent-hover: #1557B0;
+  --sp-accent-bg: #E8F0FE;
+  --sp-accent-border: #D2E3FC;
+  --sp-btn-primary-bg: #1A73E8;
+  --sp-btn-primary-color: #FFFFFF;
+  --sp-btn-primary-hover: #1557B0;
+  --sp-focus-ring: rgba(26, 115, 232, 0.2);
+
+  --sp-success: #188038;
+  --sp-success-bg: #E6F4EA;
+  --sp-success-border: #CEEAD6;
+
+  --sp-warning: #E37400;
+  --sp-warning-bg: #FEF7E0;
+  --sp-warning-border: #FEEFC3;
+  --sp-warning-text: #B06000;
+
+  --sp-error: #D93025;
+  --sp-error-bg: #FCE8E6;
+  --sp-error-border: #FAD2CF;
+
+  --sp-avatar-bg: #E8EAED;
+  --sp-avatar-text: #3C4043;
+
+  /* Cadence step indicators */
+  --sp-cadence-sent-bg: #E6F4EA;
+  --sp-cadence-sent-border: #CEEAD6;
+  --sp-cadence-sent-color: #188038;
+
+  --sp-cadence-held-bg: #FEF7E0;
+  --sp-cadence-held-border: #FEEFC3;
+  --sp-cadence-held-color: #E37400;
+
+  --sp-cadence-pending-bg: #F1F3F4;
+  --sp-cadence-pending-border: #DADCE0;
+  --sp-cadence-pending-color: #80868B;
+
+  /* Gmail Conversation Drawer */
+  --sp-backdrop: rgba(32, 33, 36, 0.4);
+  --sp-drawer-bg: #FFFFFF;
+  --sp-drawer-shadow: -4px 0 24px rgba(60, 64, 67, 0.15);
+  --sp-email-card-bg: #FFFFFF;
+  --sp-dropdown-bg: #F8F9FA;
+  --sp-email-actions-bg: #F8F9FA;
+  --sp-reply-header-bg: #F8F9FA;
+  --sp-ai-header-bg: #F8F9FA;
+  --sp-card-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.08);
+  --sp-kpi-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.05);
+}
+
+/* ── Dark Mode Design Tokens ([data-theme="dark"], .dark, or :root:not([data-theme="light"])) ── */
+[data-theme="dark"],
+.dark,
+:root:not([data-theme="light"]) {
+  --sp-bg-page: #131314;
+  --sp-bg-surface: #1E1F20;
+  --sp-bg-hover: #282A2C;
+  --sp-bg-active: rgba(138, 180, 248, 0.16);
+  --sp-bg-subtle: #18191A;
+  --sp-input-bg: #282A2C;
+  --sp-th-bg: #18191A;
+  --sp-border: #3C4043;
+  --sp-border-subtle: #2D2F31;
+  --sp-border-hover: #5F6368;
+
+  --sp-text-primary: #E3E3E3;
+  --sp-text-secondary: #9AA0A6;
+  --sp-text-muted: #80868B;
+
+  --sp-accent: #8AB4F8;
+  --sp-accent-hover: #A8C7FA;
+  --sp-accent-bg: rgba(138, 180, 248, 0.16);
+  --sp-accent-border: rgba(138, 180, 248, 0.3);
+  --sp-btn-primary-bg: #8AB4F8;
+  --sp-btn-primary-color: #041E49;
+  --sp-btn-primary-hover: #A8C7FA;
+  --sp-focus-ring: rgba(138, 180, 248, 0.25);
+
+  --sp-success: #81C995;
+  --sp-success-bg: rgba(129, 201, 149, 0.16);
+  --sp-success-border: rgba(129, 201, 149, 0.3);
+
+  --sp-warning: #FDD663;
+  --sp-warning-bg: rgba(253, 214, 99, 0.14);
+  --sp-warning-border: rgba(253, 214, 99, 0.3);
+  --sp-warning-text: #FDD663;
+
+  --sp-error: #F28B82;
+  --sp-error-bg: rgba(242, 139, 130, 0.16);
+  --sp-error-border: rgba(242, 139, 130, 0.3);
+
+  --sp-avatar-bg: #3C4043;
+  --sp-avatar-text: #E3E3E3;
+
+  /* Cadence step indicators in dark mode */
+  --sp-cadence-sent-bg: rgba(129, 201, 149, 0.16);
+  --sp-cadence-sent-border: rgba(129, 201, 149, 0.35);
+  --sp-cadence-sent-color: #81C995;
+
+  --sp-cadence-held-bg: rgba(253, 214, 99, 0.14);
+  --sp-cadence-held-border: rgba(253, 214, 99, 0.35);
+  --sp-cadence-held-color: #FDD663;
+
+  --sp-cadence-pending-bg: #282A2C;
+  --sp-cadence-pending-border: #3C4043;
+  --sp-cadence-pending-color: #80868B;
+
+  /* Gmail Conversation Drawer in dark mode */
+  --sp-backdrop: rgba(0, 0, 0, 0.7);
+  --sp-drawer-bg: #1E1F20;
+  --sp-drawer-shadow: -4px 0 32px rgba(0, 0, 0, 0.6);
+  --sp-email-card-bg: #282A2C;
+  --sp-dropdown-bg: #1E1F20;
+  --sp-email-actions-bg: #232527;
+  --sp-reply-header-bg: #232527;
+  --sp-ai-header-bg: #282A2C;
+  --sp-card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --sp-kpi-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ── Container & Layout ── */
+.sp-admin-page-wrapper {
+  min-height: 100%;
+  width: 100%;
+  background-color: var(--sp-bg-page);
+  transition: background-color 0.2s ease;
+}
+
+.sp-admin-container {
+  padding: 24px 32px 64px;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--sp-bg-page);
+  font-family: var(--font-inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  color: var(--sp-text-primary);
+  min-height: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ── Main Dashboard Header ── */
+.sp-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.sp-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sp-title-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sp-page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--sp-text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.sp-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sp-success);
+  background: var(--sp-success-bg);
+  border: 1px solid var(--sp-success-border);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.sp-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--sp-success);
+}
+
+.sp-page-desc {
+  font-size: 13.5px;
+  color: var(--sp-text-secondary);
+  margin: 0;
+}
+
+/* ── Action Buttons ── */
+.sp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sp-btn-outlined {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--sp-bg-surface);
+  border: 1px solid var(--sp-border);
+  color: var(--sp-text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  line-height: 1.4;
+}
+
+.sp-btn-outlined:hover:not(:disabled) {
+  background: var(--sp-bg-hover);
+  color: var(--sp-text-primary);
+  border-color: var(--sp-border-hover);
+}
+
+.sp-btn-outlined.blue {
+  color: var(--sp-accent);
+}
+
+.sp-btn-outlined.blue:hover:not(:disabled) {
+  background: var(--sp-accent-bg);
+  border-color: var(--sp-accent-border);
+  color: var(--sp-accent);
+}
+
+.sp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--sp-btn-primary-bg);
+  border: 1px solid var(--sp-btn-primary-bg);
+  color: var(--sp-btn-primary-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1.4;
+}
+
+.sp-btn-primary:hover:not(:disabled) {
+  background: var(--sp-btn-primary-hover);
+  border-color: var(--sp-btn-primary-hover);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.sp-btn-primary:disabled,
+.sp-btn-outlined:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── 6 KPI Cards Grid ── */
+.sp-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .sp-kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .sp-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sp-kpi-card {
+  background: var(--sp-bg-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: var(--sp-kpi-shadow);
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sp-kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.sp-kpi-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sp-text-secondary);
+}
+
+.sp-kpi-icon {
+  color: var(--sp-text-secondary);
+}
+
+.sp-kpi-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--sp-text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.sp-kpi-secondary-stat {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.sp-kpi-sub {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  margin-top: auto;
+}
+
+/* ── Filters & Search Toolbar ── */
+.sp-card-wrapper {
+  background: var(--sp-bg-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--sp-card-shadow);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sp-filter-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sp-border);
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--sp-bg-surface);
+}
+
+.sp-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.sp-tab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sp-text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sp-tab-item:hover {
+  background: var(--sp-bg-hover);
+  color: var(--sp-text-primary);
+}
+
+.sp-tab-item.active {
+  background: var(--sp-accent-bg);
+  color: var(--sp-accent);
+  font-weight: 600;
+}
+
+.sp-tab-badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--sp-bg-hover);
+  color: var(--sp-text-secondary);
+  font-weight: 600;
+}
+
+.sp-tab-item.active .sp-tab-badge {
+  background: var(--sp-accent-border);
+  color: var(--sp-accent);
+}
+
+.sp-search-box {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+}
+
+.sp-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sp-text-secondary);
+  pointer-events: none;
+}
+
+.sp-search-input {
+  width: 100%;
+  padding: 7px 12px 7px 32px;
+  border-radius: 6px;
+  background: var(--sp-input-bg);
+  border: 1px solid var(--sp-border);
+  color: var(--sp-text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.sp-search-input::placeholder {
+  color: var(--sp-text-muted);
+}
+
+.sp-search-input:focus {
+  border-color: var(--sp-accent);
+  box-shadow: 0 0 0 2px var(--sp-focus-ring);
+}
+
+/* ── Clean Google Workspace Data Table ── */
+.sp-table-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.sp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+
+.sp-table th {
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sp-text-secondary);
+  border-bottom: 1px solid var(--sp-border);
+  background: var(--sp-th-bg);
+  white-space: nowrap;
+}
+
+.sp-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--sp-border-subtle);
+  vertical-align: middle;
+  color: var(--sp-text-primary);
+  background: var(--sp-bg-surface);
+  transition: background-color 0.15s ease;
+}
+
+.sp-table tr:hover td {
+  background: var(--sp-bg-hover);
+}
+
+/* ── Attendee Column ── */
+.sp-user-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sp-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--sp-avatar-bg);
+  color: var(--sp-avatar-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sp-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-user-name {
+  font-weight: 500;
+  color: var(--sp-text-primary);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.sp-user-role {
+  font-size: 12px;
+  color: var(--sp-text-secondary);
+  margin-top: 2px;
+}
+
+.sp-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  width: fit-content;
+}
+
+.sp-status-chip.unsubscribed {
+  background: var(--sp-error-bg);
+  color: var(--sp-error);
+  border: 1px solid var(--sp-error-border);
+}
+
+.sp-status-chip.bounced {
+  background: var(--sp-error-bg);
+  color: var(--sp-error);
+  border: 1px solid var(--sp-error-border);
+}
+
+/* ── Contact Column ── */
+.sp-contact-email {
+  font-size: 13px;
+  color: var(--sp-accent);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.sp-contact-email:hover {
+  text-decoration: underline;
+}
+
+.sp-contact-phone {
+  font-size: 12px;
+  color: var(--sp-text-secondary);
+  text-decoration: none;
+  margin-top: 2px;
+  display: block;
+}
+
+.sp-sync-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--sp-success);
+  margin-top: 4px;
+}
+
+.sp-sync-indicator.pending {
+  color: var(--sp-text-muted);
+}
+
+/* ── Outbound Cadence (1–5) ── */
+.sp-cadence-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sp-cadence-step {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sp-cadence-step.sent {
+  background: var(--sp-cadence-sent-bg);
+  border-color: var(--sp-cadence-sent-border);
+  color: var(--sp-cadence-sent-color);
+}
+
+.sp-cadence-step.held {
+  background: var(--sp-cadence-held-bg);
+  border-color: var(--sp-cadence-held-border);
+  color: var(--sp-cadence-held-color);
+}
+
+.sp-cadence-step.pending {
+  background: var(--sp-cadence-pending-bg);
+  border-color: var(--sp-cadence-pending-border);
+  color: var(--sp-cadence-pending-color);
+}
+
+.sp-cadence-label {
+  font-size: 11.5px;
+  color: var(--sp-text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Inbound & AI Response ── */
+.sp-reply-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--sp-accent-bg);
+  border: 1px solid var(--sp-accent-border);
+  color: var(--sp-accent);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.sp-reply-tag:hover {
+  background: var(--sp-accent-border);
+}
+
+.sp-ai-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  width: fit-content;
+}
+
+.sp-ai-tag.held {
+  background: var(--sp-warning-bg);
+  border: 1px solid var(--sp-warning-border);
+  color: var(--sp-warning-text);
+}
+
+.sp-ai-tag.sent {
+  background: var(--sp-success-bg);
+  border: 1px solid var(--sp-success-border);
+  color: var(--sp-success);
+}
+
+/* ── Amount Column ── */
+.sp-amount-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sp-text-primary);
+}
+
+/* ── Action Button ── */
+.sp-btn-view-conv {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: var(--sp-bg-surface);
+  border: 1px solid var(--sp-border);
+  color: var(--sp-accent);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sp-btn-view-conv:hover {
+  background: var(--sp-accent-bg);
+  border-color: var(--sp-accent);
+  color: var(--sp-accent);
+}
+
+/* ── Loading and Empty states ── */
+.sp-loading-container {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--sp-text-secondary);
+}
+
+.sp-empty-container {
+  padding: 56px 24px;
+  text-align: center;
+  color: var(--sp-text-secondary);
+}
+
+.sp-empty-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sp-text-primary);
+  margin: 0 0 4px;
+}
+
+.sp-empty-desc {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   GMAIL CONVERSATION DRAWER (Authentic Gmail UI)
+   ========================================================================== */
+
+.sp-gmail-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--sp-backdrop);
+  z-index: 10000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sp-gmail-drawer {
+  width: 100%;
+  max-width: 760px;
+  height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  background: var(--sp-drawer-bg);
+  color: var(--sp-text-primary);
+  border-left: 1px solid var(--sp-border);
+  box-shadow: var(--sp-drawer-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+@media (max-width: 780px) {
+  .sp-gmail-drawer {
+    max-width: 100%;
+  }
+}
+
+/* ── Gmail Toolbar ── */
+.sp-gmail-toolbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--sp-border);
+  background: var(--sp-drawer-bg);
+  min-height: 48px;
+}
+
+.sp-gmail-toolbar-left,
+.sp-gmail-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sp-gmail-tool-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--sp-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sp-gmail-tool-btn:hover {
+  background: var(--sp-bg-hover);
+  color: var(--sp-text-primary);
+}
+
+/* ── Gmail Subject & Category Labels ── */
+.sp-gmail-header-area {
+  flex-shrink: 0;
+  padding: 16px 24px 12px;
+  border-bottom: 1px solid var(--sp-border);
+  background: var(--sp-drawer-bg);
+}
+
+.sp-gmail-subject {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--sp-text-primary);
+  margin: 0 0 10px;
+  line-height: 1.35;
+}
+
+.sp-gmail-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sp-gmail-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.sp-gmail-chip.inbox {
+  background: var(--sp-accent-bg);
+  color: var(--sp-accent);
+}
+
+.sp-gmail-chip.drip {
+  background: var(--sp-bg-hover);
+  color: var(--sp-text-secondary);
+}
+
+.sp-gmail-chip.replied {
+  background: var(--sp-accent-bg);
+  color: var(--sp-accent);
+}
+
+.sp-gmail-chip.synced {
+  background: var(--sp-success-bg);
+  color: var(--sp-success);
+  border: 1px solid var(--sp-success-border);
+}
+
+/* ── Gmail Sequence Tabs (Email 1 to 5) ── */
+.sp-gmail-seq-tabs {
+  flex-shrink: 0;
+  display: flex;
+  border-bottom: 1px solid var(--sp-border);
+  background: var(--sp-drawer-bg);
+  overflow-x: auto;
+}
+
+.sp-gmail-seq-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sp-text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.sp-gmail-seq-tab:hover {
+  color: var(--sp-text-primary);
+}
+
+.sp-gmail-seq-tab.active {
+  color: var(--sp-accent);
+  font-weight: 600;
+  border-bottom-color: var(--sp-accent);
+}
+
+.sp-gmail-seq-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.sp-gmail-seq-dot.sent {
+  background-color: var(--sp-success);
+}
+
+.sp-gmail-seq-dot.held {
+  background-color: var(--sp-warning);
+}
+
+.sp-gmail-seq-dot.pending {
+  background-color: var(--sp-text-muted);
+}
+
+/* ── Gmail Content Scroll Area (Full Vertical Scrollability) ── */
+.sp-gmail-content {
+  flex: 1 1 0%;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 24px 64px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--sp-drawer-bg);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Custom Sleek Scrollbar */
+.sp-gmail-content::-webkit-scrollbar {
+  width: 8px;
+}
+.sp-gmail-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sp-gmail-content::-webkit-scrollbar-thumb {
+  background: var(--sp-border);
+  border-radius: 4px;
+}
+.sp-gmail-content::-webkit-scrollbar-thumb:hover {
+  background: var(--sp-text-muted);
+}
+
+/* ── Authentic Email Message Card ── */
+.sp-email-card {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  width: 100%;
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  background: var(--sp-email-card-bg);
+  overflow: hidden;
+  box-shadow: var(--sp-kpi-shadow);
+  box-sizing: border-box;
+  min-height: fit-content;
+}
+
+.sp-email-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  gap: 12px;
+  background: var(--sp-email-card-bg);
+}
+
+.sp-email-sender-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.sp-email-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.sp-email-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-email-from {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sp-text-primary);
+}
+
+.sp-email-from-addr {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--sp-text-secondary);
+}
+
+.sp-email-to-line {
+  font-size: 12px;
+  color: var(--sp-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.sp-email-to-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--sp-text-secondary);
+  display: inline-flex;
+  align-items: center;
+}
+
+.sp-email-to-toggle-btn:hover {
+  color: var(--sp-text-primary);
+}
+
+.sp-email-date-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--sp-text-secondary);
+}
+
+.sp-email-to-dropdown {
+  margin: 0 20px 12px 68px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  background: var(--sp-dropdown-bg);
+  border: 1px solid var(--sp-border);
+  font-size: 12px;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 6px;
+  color: var(--sp-text-primary);
+}
+
+.sp-dropdown-label {
+  color: var(--sp-text-secondary);
+}
+
+.sp-email-body {
+  padding: 12px 20px 24px 68px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--sp-text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .sp-email-body {
+    padding-left: 20px;
+  }
+}
+
+.sp-email-actions {
+  padding: 12px 20px;
+  border-top: 1px solid var(--sp-border);
+  background: var(--sp-email-actions-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sp-safety-notice-box {
+  margin: 0 20px 12px 68px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: var(--sp-warning-bg);
+  border: 1px solid var(--sp-warning-border);
+  color: var(--sp-warning-text);
+  font-size: 12px;
+}
+
+/* ── Customer Reply Thread Card ── */
+.sp-reply-card {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  width: 100%;
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  background: var(--sp-email-card-bg);
+  overflow: hidden;
+  box-shadow: var(--sp-kpi-shadow);
+  box-sizing: border-box;
+  min-height: fit-content;
+}
+
+.sp-reply-card .sp-email-header {
+  background: var(--sp-reply-header-bg);
+  border-bottom: 1px solid var(--sp-border);
+}
+
+.sp-reply-subject-line {
+  padding: 12px 20px 4px 68px;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--sp-text-primary);
+}
+
+.sp-msg-classification {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--sp-bg-hover);
+  color: var(--sp-text-secondary);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+/* ── AI Auto-Response (Clean Enterprise Card) ── */
+.sp-ai-card {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  width: 100%;
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  background: var(--sp-email-card-bg);
+  overflow: hidden;
+  box-shadow: var(--sp-kpi-shadow);
+  box-sizing: border-box;
+  min-height: fit-content;
+}
+
+.sp-ai-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--sp-ai-header-bg);
+  border-bottom: 1px solid var(--sp-border);
+}
+
+.sp-ai-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sp-text-primary);
+}
+
+.sp-ai-badge-draft {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--sp-accent);
+  background: var(--sp-accent-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.sp-ai-safety-alert {
+  margin: 12px 16px 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: var(--sp-warning-bg);
+  border: 1px solid var(--sp-warning-border);
+  color: var(--sp-warning-text);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sp-ai-content {
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--sp-text-primary);
+  white-space: pre-wrap;
+}
+
+.sp-ai-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--sp-border);
+  background: var(--sp-email-actions-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--sp-text-secondary);
+}

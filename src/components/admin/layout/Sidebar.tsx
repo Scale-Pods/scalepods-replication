@@ -28,6 +28,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
   const router    = useRouter();
   const supabase  = createClient();
   const { theme, toggle } = useAdminTheme();
+  const isDark = theme === "dark";
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -37,19 +38,29 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
 
   const W = collapsed ? "52px" : "220px";
 
+  // Google Workspace theme colors
+  const bgSidebar    = isDark ? "#1E1F20" : "#FFFFFF";
+  const borderCol    = isDark ? "#2D2F31" : "#DADCE0";
+  const textPrimary  = isDark ? "#E3E3E3" : "#202124";
+  const textSecondary= isDark ? "#9AA0A6" : "#5F6368";
+  const textMuted    = isDark ? "#80868B" : "#80868B";
+  const activeBg     = isDark ? "rgba(138, 180, 248, 0.16)" : "#E8F0FE";
+  const activeColor  = isDark ? "#8AB4F8" : "#1A73E8";
+  const hoverBg      = isDark ? "#282A2C" : "#F1F3F4";
+
   return (
     <aside
       style={{
         width: W,
         minWidth: W,
         height: "100%",
-        background: "var(--bg-sidebar)",
-        borderRight: "1px solid var(--border)",
+        background: bgSidebar,
+        borderRight: `1px solid ${borderCol}`,
         display: "flex",
         flexDirection: "column",
         position: "relative",
         zIndex: 10,
-        transition: "width 0.22s cubic-bezier(.4,0,.2,1), min-width 0.22s cubic-bezier(.4,0,.2,1)",
+        transition: "width 0.22s cubic-bezier(.4,0,.2,1), min-width 0.22s cubic-bezier(.4,0,.2,1), background 0.2s, border-color 0.2s",
         overflow: "hidden",
       }}
     >
@@ -59,17 +70,17 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
           height: "64px",
           minHeight: "64px",
           padding: collapsed ? "0 10px" : "0 14px 0 16px",
-          borderBottom: "1px solid var(--border)",
+          borderBottom: `1px solid ${borderCol}`,
           display: "flex",
           alignItems: "center",
           justifyContent: collapsed ? "center" : "space-between",
           flexShrink: 0,
-          transition: "padding 0.22s",
+          transition: "padding 0.22s, border-color 0.2s",
         }}
       >
         {/* Logo — hidden when collapsed */}
         {!collapsed && (
-          <Link href="/admin/clarity" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0 }}>
+          <Link href="/admin/webinar" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0 }}>
             <Image
               src="/scalepods-navbar-logo.png"
               alt="ScalePods"
@@ -80,7 +91,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
                 width: "110px",
                 height: "auto",
                 display: "block",
-                filter: theme === "dark" ? "invert(1)" : "none",
+                filter: isDark ? "invert(1)" : "none",
                 transition: "filter 0.2s",
               }}
               priority
@@ -90,8 +101,8 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
 
         {/* Collapsed: logo-link replaced by icon-only brand dot */}
         {collapsed && (
-          <Link href="/admin/clarity" title="ScalePods" style={{ textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", background: "var(--accent-dim)", flexShrink: 0 }}>
-            <span style={{ fontSize: "13px", fontWeight: 800, color: "var(--accent)" }}>S</span>
+          <Link href="/admin/webinar" title="ScalePods" style={{ textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "6px", background: activeBg, flexShrink: 0 }}>
+            <span style={{ fontSize: "14px", fontWeight: 700, color: activeColor }}>S</span>
           </Link>
         )}
 
@@ -102,13 +113,19 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
             title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             style={{
               background: "none", border: "none", cursor: "pointer",
-              color: "var(--text-muted)", padding: "5px",
+              color: textSecondary, padding: "5px",
               display: "flex", alignItems: "center", justifyContent: "center",
               borderRadius: "6px", flexShrink: 0,
-              transition: "color 0.15s",
+              transition: "color 0.15s, background-color 0.15s",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = hoverBg;
+              (e.currentTarget as HTMLButtonElement).style.color = textPrimary;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = "none";
+              (e.currentTarget as HTMLButtonElement).style.color = textSecondary;
+            }}
           >
             {collapsed
               ? <PanelLeftOpen  size={16} />
@@ -120,7 +137,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
         {onClose && (
           <button
             onClick={onClose}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "4px", display: "flex", borderRadius: "6px" }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: textSecondary, padding: "4px", display: "flex", borderRadius: "6px" }}
           >
             ✕
           </button>
@@ -134,7 +151,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
           padding: collapsed ? "12px 8px" : "12px 10px",
           display: "flex",
           flexDirection: "column",
-          gap: "2px",
+          gap: "3px",
           overflowY: "auto",
           overflowX: "hidden",
           transition: "padding 0.22s",
@@ -142,7 +159,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
       >
         {/* Section label */}
         {!collapsed && (
-          <div style={{ fontSize: "10px", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", padding: "8px 10px 6px", whiteSpace: "nowrap" }}>
+          <div style={{ fontSize: "11px", fontWeight: 600, color: textMuted, textTransform: "uppercase", letterSpacing: "0.06em", padding: "8px 10px 4px", whiteSpace: "nowrap" }}>
             Analytics
           </div>
         )}
@@ -159,21 +176,31 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
               style={{
                 display: "flex", alignItems: "center",
                 gap: collapsed ? "0" : "10px",
-                padding: collapsed ? "9px 0" : "8px 10px",
+                padding: collapsed ? "9px 0" : "8px 12px",
                 justifyContent: collapsed ? "center" : "flex-start",
-                borderRadius: "8px", textDecoration: "none",
-                background: isActive ? "var(--accent-dim)" : "transparent",
-                border: isActive ? "1px solid var(--accent)22" : "1px solid transparent",
-                color: isActive ? "var(--accent)" : "var(--text-secondary)",
-                transition: "background 0.15s, padding 0.22s",
+                borderRadius: "6px", textDecoration: "none",
+                background: isActive ? activeBg : "transparent",
+                color: isActive ? activeColor : textSecondary,
+                fontWeight: isActive ? 600 : 500,
+                transition: "background 0.15s, color 0.15s",
                 whiteSpace: "nowrap",
               }}
-              onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-card-hover)"; }}
-              onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  (e.currentTarget as HTMLAnchorElement).style.background = hoverBg;
+                  (e.currentTarget as HTMLAnchorElement).style.color = textPrimary;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                  (e.currentTarget as HTMLAnchorElement).style.color = textSecondary;
+                }
+              }}
             >
-              <Icon size={15} style={{ flexShrink: 0 }} />
+              <Icon size={16} style={{ flexShrink: 0, color: isActive ? activeColor : textSecondary }} />
               {!collapsed && (
-                <span style={{ fontSize: "13px", fontWeight: isActive ? 600 : 500, flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}>
+                <span style={{ fontSize: "13.5px", flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}>
                   {item.label}
                 </span>
               )}
@@ -183,7 +210,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
 
         {/* ── AI Assistant ── */}
         {!collapsed && (
-          <div style={{ fontSize: "10px", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", padding: "10px 10px 6px", marginTop: "4px", whiteSpace: "nowrap" }}>
+          <div style={{ fontSize: "11px", fontWeight: 600, color: textMuted, textTransform: "uppercase", letterSpacing: "0.06em", padding: "12px 10px 4px", whiteSpace: "nowrap" }}>
             Intelligence
           </div>
         )}
@@ -199,28 +226,33 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
               style={{
                 display: "flex", alignItems: "center",
                 gap: collapsed ? "0" : "10px",
-                padding: collapsed ? "9px 0" : "8px 10px",
+                padding: collapsed ? "9px 0" : "8px 12px",
                 justifyContent: collapsed ? "center" : "flex-start",
-                borderRadius: "8px", textDecoration: "none",
-                background: isActive ? "linear-gradient(135deg, var(--accent-dim), rgba(139,92,246,0.12))" : "transparent",
-                border: isActive ? "1px solid var(--accent)33" : "1px solid transparent",
-                color: isActive ? "var(--accent)" : "var(--text-secondary)",
-                transition: "background 0.15s, padding 0.22s",
+                borderRadius: "6px", textDecoration: "none",
+                background: isActive ? activeBg : "transparent",
+                color: isActive ? activeColor : textSecondary,
+                fontWeight: isActive ? 600 : 500,
+                transition: "background 0.15s, color 0.15s",
                 whiteSpace: "nowrap",
               }}
-              onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-card-hover)"; }}
-              onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  (e.currentTarget as HTMLAnchorElement).style.background = hoverBg;
+                  (e.currentTarget as HTMLAnchorElement).style.color = textPrimary;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                  (e.currentTarget as HTMLAnchorElement).style.color = textSecondary;
+                }
+              }}
             >
-              <Icon size={15} style={{ flexShrink: 0 }} />
+              <Icon size={16} style={{ flexShrink: 0, color: isActive ? activeColor : textSecondary }} />
               {!collapsed && (
-                <>
-                  <span style={{ fontSize: "13px", fontWeight: isActive ? 600 : 500, flex: 1 }}>
-                    {AI_NAV.label}
-                  </span>
-                  {!isActive && (
-                    <span style={{ fontSize: "9px", fontWeight: 700, padding: "2px 6px", borderRadius: "100px", background: "linear-gradient(135deg,var(--accent),var(--purple))", color: "#fff", letterSpacing: "0.05em" }}>NEW</span>
-                  )}
-                </>
+                <span style={{ fontSize: "13.5px", flex: 1 }}>
+                  {AI_NAV.label}
+                </span>
               )}
             </Link>
           );
@@ -230,40 +262,40 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
       {/* ── Footer: theme toggle + logout ── */}
       <div style={{
         padding: collapsed ? "12px 8px" : "12px 10px",
-        borderTop: "1px solid var(--border)",
+        borderTop: `1px solid ${borderCol}`,
         display: "flex", flexDirection: "column", gap: "4px",
-        transition: "padding 0.22s",
+        transition: "padding 0.22s, border-color 0.2s",
       }}>
         {/* Theme toggle */}
         <button
           onClick={toggle}
-          title={collapsed ? (theme === "dark" ? "Light mode" : "Dark mode") : undefined}
+          title={collapsed ? (isDark ? "Light mode" : "Dark mode") : undefined}
           style={{
             display: "flex", alignItems: "center",
             gap: collapsed ? "0" : "10px",
             justifyContent: collapsed ? "center" : "flex-start",
             width: "100%", padding: collapsed ? "9px 0" : "8px 10px",
-            borderRadius: "8px", background: "transparent",
+            borderRadius: "6px", background: "transparent",
             border: "1px solid transparent", cursor: "pointer",
-            color: "var(--text-muted)", textAlign: "left",
+            color: textSecondary, textAlign: "left",
             transition: "background 0.15s, color 0.15s, padding 0.22s",
             whiteSpace: "nowrap",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "var(--bg-card-hover)";
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)";
+            (e.currentTarget as HTMLButtonElement).style.background = hoverBg;
+            (e.currentTarget as HTMLButtonElement).style.color = textPrimary;
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)";
+            (e.currentTarget as HTMLButtonElement).style.color = textSecondary;
           }}
         >
-          {theme === "dark"
-            ? <Sun  size={14} style={{ flexShrink: 0 }} />
-            : <Moon size={14} style={{ flexShrink: 0 }} />}
+          {isDark
+            ? <Sun  size={15} style={{ flexShrink: 0 }} />
+            : <Moon size={15} style={{ flexShrink: 0 }} />}
           {!collapsed && (
             <span style={{ fontSize: "13px", fontWeight: 500 }}>
-              {theme === "dark" ? "Light mode" : "Dark mode"}
+              {isDark ? "Light mode" : "Dark mode"}
             </span>
           )}
         </button>
@@ -277,22 +309,22 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
             gap: collapsed ? "0" : "10px",
             justifyContent: collapsed ? "center" : "flex-start",
             width: "100%", padding: collapsed ? "9px 0" : "8px 10px",
-            borderRadius: "8px", background: "transparent",
+            borderRadius: "6px", background: "transparent",
             border: "1px solid transparent", cursor: "pointer",
-            color: "var(--text-muted)", textAlign: "left",
+            color: textSecondary, textAlign: "left",
             transition: "background 0.15s, color 0.15s, padding 0.22s",
             whiteSpace: "nowrap",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.08)";
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--red)";
+            (e.currentTarget as HTMLButtonElement).style.background = isDark ? "rgba(242, 139, 130, 0.12)" : "rgba(217, 48, 37, 0.08)";
+            (e.currentTarget as HTMLButtonElement).style.color = isDark ? "#F28B82" : "#D93025";
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)";
+            (e.currentTarget as HTMLButtonElement).style.color = textSecondary;
           }}
         >
-          <LogOut size={14} style={{ flexShrink: 0 }} />
+          <LogOut size={15} style={{ flexShrink: 0 }} />
           {!collapsed && <span style={{ fontSize: "13px", fontWeight: 500 }}>Sign Out</span>}
         </button>
       </div>

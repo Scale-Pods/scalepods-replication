@@ -16,7 +16,7 @@ export function useAdminTheme() {
 }
 
 export function AdminThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   // Read persisted preference on mount
   useEffect(() => {
@@ -31,8 +31,10 @@ export function AdminThemeProvider({ children }: { children: React.ReactNode }) 
     const el = document.documentElement;
     if (theme === "light") {
       el.setAttribute("data-theme", "light");
+      el.classList.remove("dark");
     } else {
-      el.removeAttribute("data-theme");
+      el.setAttribute("data-theme", "dark");
+      el.classList.add("dark");
     }
     try { localStorage.setItem("scalepods-admin-theme", theme); } catch {}
   }, [theme]);

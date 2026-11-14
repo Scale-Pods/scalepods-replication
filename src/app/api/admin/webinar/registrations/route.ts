@@ -43,6 +43,31 @@ export async function GET() {
     const lastRegisteredAt =
       registrations.length > 0 ? registrations[0].created_at : null;
 
+    // Outbound email & AI automation metrics
+    let totalEmailsSent = 0;
+    let totalRepliesReceived = 0;
+    let totalInstantlySynced = 0;
+    let totalUnsubscribed = 0;
+    let totalBounced = 0;
+
+    registrations.forEach((item: Record<string, unknown>) => {
+      if (item.instantly_synced) totalInstantlySynced++;
+      if (item.is_unsubscribed) totalUnsubscribed++;
+      if (item.is_bounced) totalBounced++;
+
+      const hasReplies =
+        Boolean(item.customer_reply) ||
+        (Array.isArray(item.replies_history) && item.replies_history.length > 0);
+      if (hasReplies) totalRepliesReceived++;
+
+      for (let i = 1; i <= 5; i++) {
+        const st = item[`email_status_${i}`] as { status?: string } | null;
+        if (st && (st.status === "sent" || st.status === "delivered")) {
+          totalEmailsSent++;
+        }
+      }
+    });
+
     return NextResponse.json({
       registrations,
       stats: {
@@ -50,6 +75,11 @@ export async function GET() {
         totalRevenue,
         todayCount,
         lastRegisteredAt,
+        totalEmailsSent,
+        totalRepliesReceived,
+        totalInstantlySynced,
+        totalUnsubscribed,
+        totalBounced,
       },
     });
   } catch (err: unknown) {

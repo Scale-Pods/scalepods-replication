@@ -78,7 +78,6 @@ export async function POST(req: NextRequest) {
           name: cleanName,
           email: cleanEmail,
           phone: cleanPhone,
-          company: cleanCompany,
           role: role ? `${role} (${cleanCompany})` : cleanCompany,
           amount: amountVal,
           currency: "INR",
