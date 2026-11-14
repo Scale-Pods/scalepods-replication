@@ -13965,3 +13965,552 @@ html:not(.dark) .webinarpod-container {
     border-radius: 10px !important;
   }
 }
+
+/* ==========================================================================
+   INTERACTIVE CERTIFICATION PARTNER CHIPS & CENTRIC GLASSMORPHIC MODAL
+   ========================================================================== */
+
+/* Clickable Chips in Top Hero Pill */
+button.wb-partner-chip-clickable {
+  cursor: pointer !important;
+  user-select: none;
+  font: inherit;
+  outline: none;
+  border-style: solid;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease,
+              background-color 0.22s ease;
+}
+
+button.wb-partner-chip-clickable:focus-visible {
+  outline: 2px solid #0284C7 !important;
+  outline-offset: 2px !important;
+}
+
+button.wb-partner-chip-openai.wb-partner-chip-clickable:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  border-color: rgba(2, 132, 199, 0.5) !important;
+  box-shadow: 0 8px 18px -4px rgba(2, 132, 199, 0.28), 0 0 0 2px rgba(186, 230, 253, 0.5) !important;
+}
+
+button.wb-partner-chip-claude.wb-partner-chip-clickable:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  border-color: rgba(194, 65, 12, 0.5) !important;
+  box-shadow: 0 8px 18px -4px rgba(194, 65, 12, 0.28), 0 0 0 2px rgba(254, 215, 170, 0.5) !important;
+}
+
+button.wb-partner-chip-clickable:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+/* Modal Overlay Backdrop */
+.wb-partner-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.64);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-y: auto;
+}
+
+/* Centric Glassmorphic Card */
+.wb-partner-glass-card {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  max-height: calc(100vh - 48px);
+  overflow-x: hidden !important;
+  overflow-y: auto;
+  border-radius: 26px;
+  padding: 28px 30px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.92) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 25px 60px -15px rgba(15, 23, 42, 0.28),
+    0 0 0 1px rgba(226, 232, 240, 0.8),
+    inset 0 1px 2px rgba(255, 255, 255, 1);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+.wb-partner-glass-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wb-partner-glass-card::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 16px 0;
+}
+
+.wb-partner-glass-card::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.38);
+  border-radius: 9999px;
+}
+
+.wb-partner-glass-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}
+
+/* Ambient Backing Glow Orbs */
+.wb-partner-modal-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.wb-partner-glow-left {
+  top: 0px;
+  left: 0px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, transparent 70%);
+}
+
+.wb-partner-glow-right {
+  bottom: 0px;
+  right: 0px;
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.3) 0%, transparent 70%);
+}
+
+/* Top Bar: Eyebrow + Close Button */
+.wb-partner-modal-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.wb-partner-modal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #047857;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+}
+
+.wb-partner-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(241, 245, 249, 0.85);
+  border: 1px solid rgba(203, 213, 225, 0.6);
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+}
+
+.wb-partner-modal-close:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+  transform: scale(1.08);
+}
+
+/* Header Text */
+.wb-partner-modal-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16px;
+}
+
+.wb-partner-modal-title {
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+}
+
+.wb-partner-modal-desc {
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.wb-partner-modal-desc strong {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+/* Segmented Framework Switcher Tabs */
+.wb-partner-tabs-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  background: rgba(226, 232, 240, 0.65);
+  border-radius: 14px;
+  border: 1px solid rgba(203, 213, 225, 0.55);
+  margin-bottom: 18px;
+}
+
+.wb-partner-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.22s ease;
+}
+
+.wb-partner-tab-btn .wb-openai-tab-svg,
+.wb-partner-tab-btn .wb-claude-tab-svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+.wb-partner-tab-btn:hover:not(.wb-partner-tab-active) {
+  color: #0F172A;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.wb-partner-tab-openai.wb-partner-tab-active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(2, 132, 199, 0.25);
+}
+
+.wb-partner-tab-openai.wb-partner-tab-active .wb-openai-tab-svg {
+  color: #000000;
+}
+
+.wb-partner-tab-claude.wb-partner-tab-active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(194, 65, 12, 0.25);
+}
+
+.wb-partner-tab-claude.wb-partner-tab-active .wb-claude-tab-svg {
+  color: #C2410C;
+}
+
+/* Panel Content */
+.wb-partner-panel-content {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16px;
+}
+
+.wb-partner-details-block {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Brand Strip */
+.wb-partner-brand-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.wb-strip-openai {
+  background: linear-gradient(135deg, rgba(240, 249, 255, 0.95) 0%, rgba(224, 242, 254, 0.7) 100%);
+  border: 1px solid rgba(186, 230, 253, 0.9);
+}
+
+.wb-strip-claude {
+  background: linear-gradient(135deg, rgba(255, 247, 237, 0.95) 0%, rgba(254, 237, 222, 0.7) 100%);
+  border: 1px solid rgba(254, 215, 170, 0.9);
+}
+
+.wb-partner-badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wb-icon-openai {
+  background: #000000;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.wb-icon-claude {
+  background: #C2410C;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(194, 65, 12, 0.25);
+}
+
+.wb-partner-brand-meta {
+  flex: 1;
+  min-width: 180px;
+}
+
+.wb-partner-brand-heading {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.wb-partner-brand-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 1px;
+}
+
+.wb-partner-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 750;
+  background: rgba(16, 185, 129, 0.14);
+  color: #065F46;
+  border: 1px solid rgba(16, 185, 129, 0.32);
+}
+
+.wb-partner-status-pill.wb-pill-claude {
+  background: rgba(234, 88, 12, 0.12);
+  color: #9A3412;
+  border-color: rgba(234, 88, 12, 0.3);
+}
+
+/* Overview Text */
+.wb-partner-overview-text {
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.55;
+  margin: 0 0 14px 0;
+}
+
+/* 2x2 Features Grid */
+.wb-partner-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.wb-partner-feature-box {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 13px;
+  padding: 11px 13px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.wb-partner-feature-box:hover {
+  transform: translateY(-1px);
+  border-color: rgba(14, 165, 233, 0.45);
+}
+
+.wb-feature-box-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 750;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.wb-feature-box-desc {
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Deliverables Perks Strip */
+.wb-partner-perks-strip {
+  position: relative;
+  z-index: 2;
+  background: rgba(240, 253, 244, 0.7);
+  border: 1px dashed rgba(74, 222, 128, 0.65);
+  border-radius: 14px;
+  padding: 11px 15px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.wb-partner-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #166534;
+}
+
+/* Modal Footer & CTA */
+.wb-partner-modal-footer {
+  position: relative;
+  z-index: 2;
+}
+
+.wb-partner-modal-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 22px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0284C7 0%, #06B6D4 100%);
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 10px 24px -6px rgba(2, 132, 199, 0.42);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wb-partner-modal-cta:hover {
+  background: linear-gradient(135deg, #0369A1 0%, #0891B2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -6px rgba(2, 132, 199, 0.55);
+}
+
+.wb-partner-modal-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.wb-partner-footer-note {
+  margin-top: 9px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+/* Responsive adjustments for mobile viewports */
+@media (max-width: 640px) {
+  .wb-partner-glass-card {
+    padding: 20px 16px;
+    border-radius: 20px;
+    max-height: calc(100vh - 24px);
+  }
+
+  .wb-partner-modal-title {
+    font-size: 18px;
+  }
+
+  .wb-partner-modal-desc {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .wb-partner-tabs-wrap {
+    margin-bottom: 14px;
+  }
+
+  .wb-partner-tab-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .wb-partner-brand-strip {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .wb-partner-brand-heading {
+    font-size: 13.5px;
+  }
+
+  .wb-partner-brand-sub {
+    font-size: 11px;
+  }
+
+  .wb-partner-status-pill {
+    font-size: 10.5px;
+    padding: 3px 8px;
+  }
+
+  .wb-partner-overview-text {
+    font-size: 12px;
+  }
+
+  .wb-partner-features-grid {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .wb-partner-feature-box {
+    padding: 10px 12px;
+  }
+
+  .wb-feature-box-title {
+    font-size: 12px;
+  }
+
+  .wb-feature-box-desc {
+    font-size: 11px;
+  }
+
+  .wb-partner-perks-strip {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .wb-partner-perk-item {
+    font-size: 11px;
+  }
+
+  .wb-partner-modal-cta {
+    padding: 12px 16px;
+    font-size: 12.5px;
+  }
+}
