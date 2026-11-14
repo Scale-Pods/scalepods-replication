@@ -37,6 +37,8 @@ const caseStudyCoverImages: Record<string, string> = {
 };
 
 const excludedSlugs = new Set([
+  "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
+  "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",
   "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
   "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
   "scaling-smarter-how-automation-helps-startups-mo8jpr8g",

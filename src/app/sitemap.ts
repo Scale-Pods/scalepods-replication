@@ -138,6 +138,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "victory-energy-business-automation",
     "ryan-schwartz-fub-crm-automation",
     "miguel-clinic-lead-generation-automation",
+    // Deprecated, empty, or unmaintained dynamic slugs excluded from sitemap
+    "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
+    "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",
+    "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
+    "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
+    "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
+    "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8",
+    "how-to-build-an-autonomous-agency-the-uae-blueprint-mo8lksce",
   ]);
 
   // 2. Map static blogs (exclude case studies and redirected slugs)

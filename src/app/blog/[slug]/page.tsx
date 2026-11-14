@@ -266,12 +266,28 @@ function renderBodyContent(body: string, hasFooter: boolean) {
   );
 }
 
+const excludedBlogSlugs = new Set([
+  "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
+  "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",
+  "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
+  "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
+  "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
+  "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8",
+  "how-to-build-an-autonomous-agency-the-uae-blueprint-mo8lksce",
+]);
+
 export async function generateStaticParams() {
   return staticPosts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  if (excludedBlogSlugs.has(slug)) {
+    return {
+      title: "Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
   const sPost = staticPosts.find((p) => p.slug === slug);
   const isCaseStudy = sPost?.category === "Case Study";
   const canonicalUrl = isCaseStudy
@@ -323,7 +339,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
-  const { data: post } = await supabase.from("website_content").select("*").eq("slug", slug).single();
+  if (excludedBlogSlugs.has(slug)) notFound();
+
+  const { data: post } = await supabase.from("website_content").select("*").eq("slug", slug).eq("status", "published").single();
 
   let displayData: any = null;
   if (post) {
@@ -339,6 +357,10 @@ export default async function ArticlePage({ params }: Props) {
       }
     } catch {
       sections = [{ heading: "", body: post.body }];
+    }
+
+    if (sections.length === 0 && (!post.body || post.body.trim() === "[]" || post.body.trim() === "")) {
+      notFound();
     }
 
     const heroImageDark = post.hero_image_dark || bodyMeta.bannerUrlDark || bodyMeta.banner_url_dark || post.hero_image;
