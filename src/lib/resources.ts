@@ -45,6 +45,7 @@ const excludedSlugs = new Set([
 ]);
 
 const staticArticleWhitelist = new Set([
+  "business-process-automation-ai-replace-manual-workflows",
   "advertising-automation-ai-campaigns-budget-performance",
   "best-sales-automation-software-2026",
   "ai-employees-digital-workforce-guide",
