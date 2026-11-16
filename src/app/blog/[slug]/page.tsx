@@ -19,6 +19,7 @@ import BennettRealtyCaseStudy from "@/components/case-studies/BennettRealtyCaseS
 import VictoryEnergyCaseStudy from "@/components/case-studies/VictoryEnergyCaseStudy";
 import RyanSchwartzCaseStudy from "@/components/case-studies/RyanSchwartzCaseStudy";
 import MiguelCaseStudy from "@/components/case-studies/MiguelCaseStudy";
+import WWRCaseStudy from "@/components/case-studies/WWRCaseStudy";
 
 // Without this, a dynamic (DB-backed) post's page gets ISR-cached on first visit and then keeps
 // serving that stale snapshot indefinitely -- publish's revalidatePath(`/blog/${slug}`) call is
@@ -450,7 +451,8 @@ export default async function ArticlePage({ params }: Props) {
   const isVictoryEnergyCaseStudy = slug === "victory-energy-business-automation";
   const isRyanCaseStudy = slug === "ryan-schwartz-fub-crm-automation";
   const isMiguelCaseStudy = slug === "miguel-clinic-lead-generation-automation";
-  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy || isMacroMediaCaseStudy || isBennettRealtyCaseStudy || isVictoryEnergyCaseStudy || isRyanCaseStudy || isMiguelCaseStudy;
+  const isWWRCaseStudy = slug === "wwr-real-estate-sales-automation-qatar";
+  const isCustomCaseStudy = isLotusManorCaseStudy || isZVSteelsCaseStudy || isASquaredCaseStudy || isLootahCaseStudy || isMacroMediaCaseStudy || isBennettRealtyCaseStudy || isVictoryEnergyCaseStudy || isRyanCaseStudy || isMiguelCaseStudy || isWWRCaseStudy;
 
   const candidatePosts = staticPosts.filter(p => p.slug !== slug && p.category !== "Case Study");
   const currentIndex = Math.max(0, staticPosts.findIndex(p => p.slug === slug));
@@ -595,6 +597,8 @@ export default async function ArticlePage({ params }: Props) {
           <RyanSchwartzCaseStudy faqs={displayData.faqs} />
         ) : isMiguelCaseStudy ? (
           <MiguelCaseStudy faqs={displayData.faqs} />
+        ) : isWWRCaseStudy ? (
+          <WWRCaseStudy faqs={displayData.faqs} />
         ) : (
           <>
             {/* Meta */}

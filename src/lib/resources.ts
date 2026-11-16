@@ -34,6 +34,7 @@ const caseStudyCoverImages: Record<string, string> = {
   "victory-energy-business-automation": "/brands/victory-energy-box.svg",
   "ryan-schwartz-fub-crm-automation": "/brands/ryan-schwartz-box.svg",
   "miguel-clinic-lead-generation-automation": "/brands/miguel-case-study-box.svg",
+  "wwr-real-estate-sales-automation-qatar": "/brands/wwr-real-estate-box.svg",
 };
 
 const excludedSlugs = new Set([

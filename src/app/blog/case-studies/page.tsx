@@ -688,6 +688,71 @@ export default function CaseStudiesPage() {
 
               </div>
 
+              {/* ── Case Study 10: World Wide Real Estate (WWR Qatar) (Text Left, Image Right - Alternate Manner) ── */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-5xl mx-auto w-full">
+                
+                {/* Left Column on Desktop / Bottom on Mobile: Case Study Text */}
+                <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
+                  <span style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "var(--color-blue-mid)"
+                  }}>
+                    CASE STUDY
+                  </span>
+                  
+                  <h2 style={{
+                    fontSize: "clamp(32px, 3.5vw, 48px)",
+                    fontWeight: 750,
+                    color: "var(--color-text-bright)",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em"
+                  }}>
+                    World Wide Real Estate (WWR Qatar)
+                  </h2>
+
+                  <p style={{
+                    fontSize: "17px",
+                    color: "var(--color-text-body)",
+                    lineHeight: 1.6,
+                    margin: 0
+                  }}>
+                    WWR Qatar manages commercial and residential real estate across Doha. Inbound leads from Property Finder, Qatar Living, Meta ads, and WhatsApp were bottlenecked by manual entry into Zoho CRM and fragmented chat channels. ScalePods built a centralized AI Sales Engine connected directly to Zoho CRM—unifying all lead sources in seconds, prioritizing high-margin Business Centre inventory, deploying an 11-touch follow-up cadence, and re-engaging 3,200 dormant leads with an 18% response rate and +34% monthly increase in qualified site visits.
+                  </p>
+
+                  <div style={{ marginTop: "12px" }}>
+                    <Link 
+                      href="/case-study/wwr-real-estate-sales-automation-qatar"
+                      style={learnMoreBtnStyle}
+                      className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
+                      aria-label="Explore WWR Qatar Case Study"
+                    >
+                      Explore WWR Qatar Case Study →
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right Column on Desktop / Top on Mobile: Image Container */}
+                <div className="order-1 lg:order-2 lg:col-span-5 w-full flex justify-center">
+                  <div style={logoBoxStyle}>
+                    <Image
+                      src="/brands/wwr-real-estate-box.svg"
+                      alt="World Wide Real Estate WWR Qatar Logo Box"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{
+                        objectFit: "cover",
+                        transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                      className="hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>

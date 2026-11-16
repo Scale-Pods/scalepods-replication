@@ -138,6 +138,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "victory-energy-business-automation",
     "ryan-schwartz-fub-crm-automation",
     "miguel-clinic-lead-generation-automation",
+    "wwr-real-estate-sales-automation-qatar",
     // Deprecated, empty, or unmaintained dynamic slugs excluded from sitemap
     "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
     "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",

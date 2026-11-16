@@ -1639,6 +1639,61 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
+    slug: "wwr-real-estate-sales-automation-qatar",
+    date: "November 16, 2026",
+    category: "Case Study",
+    title: "How WWR’s AI Sales Engine Recovered 3,200 Leads & Increased Qualified Site Visits by 34%",
+    excerpt: "WWR had 5-10 calls per day. Leads were coming in from multiple sources, including property portals, ads, forms, calls, and WhatsApp. ScalePods designed an AI sales automation solution that covers Business Centre, Brokerage & Bizsoug. This ensures all leads are captured into Zoho, using a shared AI persona and an 11-touch follow-up process within 30 days. In the first re-activation cycle, 3,200 historical leads were processed. 18% were re-engaged and 6% qualified. See how real estate sales automation, CRM automation, and lead re-activation helped WWR recover opportunities.",
+    metaTitle: "How WWR Real Estate Scaled Sales With AI Automation | ScalePods",
+    metaDescription: "See how WWR’s AI sales automation helped to capture leads, re-engage 3,200 leads, and increase qualified site visits by 34% month-on-month.",
+    image: "/images/case-studies/wwr/ai-sales-engine-integrated-zoho.webp",
+    sections: [
+      {
+        heading: "Overview: Managing Multi-Channel Real Estate Inquiries in Doha",
+        body: "World Wide Real Estate (WWR Qatar) is an established property service provider in Doha operating since 2016 across broking, sales, leasing, property management, and commercial business centres. Inbound leads arrive continuously from Property Finder, Qatar Living, Meta ads, website forms, WhatsApp, and calls. Manually downloading, entering, and coordinating these inquiries into Zoho CRM created significant administrative delay and lost deals.\n\nScalePods built an Always-On AI Sales Engine connected directly to Zoho CRM. The engine unifies all lead channels in seconds, uses a single conversational AI persona across WhatsApp, voice, and email, enforces commercial routing to prioritize high-margin internal inventory, and executes an 11-touch 30-day cadence that processes 140–160 contacts daily."
+      },
+      {
+        heading: "The Operational Challenges",
+        body: "Before deploying ScalePods automation, WWR's growth was restricted by five operational bottlenecks:\n\n• Multiple Disconnected Lead Sources: Inquiries from Property Finder, Qatar Living, Meta Ads, forms, calls, and WhatsApp were manually transcribed into Zoho CRM, introducing data lag and entry mistakes.\n• Portal Inquiries Leaking to Personal Chats: Leads from property portals frequently bypassed central management into third-party WhatsApp chats, stripping WWR of visibility and ownership.\n• Overwhelmed Reps & 3,500 Idle Leads: Sales agents could only manage 5–10 follow-up calls per day, leaving over 3,500 historical prospects completely unworked.\n• Unrecovered Inbound Calls: After-hours and peak-time missed calls had no automated callback mechanism, leading prospects to competing Doha brokers.\n• Unprioritized Internal Inventory: Commercial leads were not systematically matched to WWR Business Centre spaces first, causing high-margin revenue to leak to external listings."
+      },
+      {
+        heading: "The ScalePods Solution: Centralized AI Sales Engine Linked With Zoho",
+        body: "ScalePods implemented an autonomous revenue architecture linking every lead touchpoint directly with Zoho CRM:\n\n• Instant Multi-Source Ingestion: Automatically parses and syncs inquiries from property portals, social ads, website forms, and WhatsApp into Zoho CRM within seconds.\n• Shared Conversational AI Persona: One AI representative with persistent contextual memory across WhatsApp, voice, and email matching WWR scripts and tone.\n• Business Centre Inventory Prioritization: Automatically evaluates prospect requirements against high-margin internal spaces before external options are presented.\n• 11-Touch Follow-Up Cadence Over 30 Days: Automated multi-channel cadences with real-time intent detection that immediately pause upon positive replies and escalate warm leads to named sales executives.\n• Systematic Database Reactivation: Segments historical contacts and runs targeted reactivation sequences to monetize dormant assets.\n• Zoho CRM as Single Source of Truth: Real-time bi-directional data flow powering a live executive analytics dashboard tracking pipeline velocity and conversion outcomes."
+      },
+      {
+        heading: "Results and Commercial Impact",
+        body: "The deployment delivered immediate, verifiable gains across WWR Qatar's sales operations:\n\n• 140–160 Daily Contacts: Outreach volume scaled from under 30 manual touches per day to a steady 140–160 daily touchpoints.\n• <45 Seconds Response Time: Inbound speed-to-lead across WhatsApp, email, and missed calls dropped below 45 seconds.\n• 3,200 Historical Leads Reactivated: In the initial cycle, 18% of dormant leads re-engaged and 6% qualified for active site visits with zero ad spend.\n• +34% Monthly Increase in Site Visits: Qualified in-person property tours surged by 34% month-over-month while maintaining a consistent 22% deal close rate.\n• 100% Contextual Escalations: Sales executives receive warm handoffs with complete conversational transcripts and buyer preferences logged in Zoho."
+      }
+    ],
+    faqs: [
+      {
+        q: "What is an AI real estate sales engine and how does it connect to Zoho CRM?",
+        a: "An AI real estate sales engine is an automated system that captures buyer and tenant inquiries across property portals, social ads, website forms, and WhatsApp, creating enriched lead profiles in Zoho CRM within seconds. It automates initial qualification, multi-touch follow-ups, and calendar bookings, escalating only qualified conversations to human sales executives."
+      },
+      {
+        q: "How does the system capture leads from property portals like Property Finder and Qatar Living?",
+        a: "The engine integrates with portal webhooks, email parsers, and direct messaging APIs. When an inquiry is submitted on Property Finder or Qatar Living, lead data is parsed, deduplicated, and synchronized to Zoho CRM in real time, preventing leads from getting trapped in personal WhatsApp inboxes."
+      },
+      {
+        q: "How does the unified AI persona handle multiple communication channels?",
+        a: "ScalePods configured a single conversational AI persona with unified memory across WhatsApp, voice calls, and email. The AI remembers prospect preferences, budget, property types, and past messages, conversing naturally in WWR's brand voice without losing context across channels."
+      },
+      {
+        q: "How does the system prioritize high-margin internal inventory like Business Centre spaces?",
+        a: "The system applies an intelligent commercial routing layer. Every incoming commercial lead is automatically evaluated against WWR's internal Business Centre inventory first before external broking options are considered, ensuring the company maximizes its highest-margin assets."
+      },
+      {
+        q: "How does the 11-touch follow-up cadence work without annoying prospects?",
+        a: "Outreach is spaced strategically over 30 days using gentle, value-first messaging across WhatsApp, email, and voice. The moment a prospect replies or signals intent, the automated sequence halts immediately, and the lead is escalated to a named sales agent with complete conversation history."
+      },
+      {
+        q: "What results did WWR Qatar achieve from dormant database reactivation?",
+        a: "In the first reactivation cycle of 3,200 previously unworked leads, the AI engine re-engaged 18% of contacts and qualified 6% for active site visits—unlocking significant revenue from historical data with zero additional advertising spend."
+      }
+    ]
+  },
+
+  {
     slug: "how-to-implement-sales-workflow-automation",
     date: "July 27, 2026",
     category: "Article",

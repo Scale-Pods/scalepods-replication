@@ -127,6 +127,11 @@ const nextConfig: NextConfig = {
         destination: '/case-study/miguel-clinic-lead-generation-automation',
         permanent: true,
       },
+      {
+        source: '/blog/wwr-real-estate-sales-automation-qatar',
+        destination: '/case-study/wwr-real-estate-sales-automation-qatar',
+        permanent: true,
+      },
     ];
   },
 };

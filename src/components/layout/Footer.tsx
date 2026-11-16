@@ -37,6 +37,7 @@ const caseStudyLinks = [
   { label: "Victory Energy USA", href: "/case-study/victory-energy-business-automation" },
   { label: "Ryan Schwartz USA", href: "/case-study/ryan-schwartz-fub-crm-automation" },
   { label: "Miguel Clinic Lead Gen", href: "/case-study/miguel-clinic-lead-generation-automation" },
+  { label: "WWR Qatar", href: "/case-study/wwr-real-estate-sales-automation-qatar" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";
