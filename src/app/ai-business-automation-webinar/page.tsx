@@ -629,7 +629,7 @@ export default function WebinarPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.48, delay: reduceHeroMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
-              Scaling to 100 or 500 Cr is no longer a dream now—we can help you get it fulfilled. Discover how to connect your Sales, Marketing, HR, and Ops into self-operating AI workflows without adding headcount or writing code.
+              Scaling to 100 or 500 Cr is no longer a dream now, we can help you get it fulfilled. Discover how to connect your Sales, Marketing, HR, and Operations into self-operating AI workflows without adding headcount or writing code.
             </motion.p>
           </div>
 
