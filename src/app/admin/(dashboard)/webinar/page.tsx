@@ -28,6 +28,9 @@ import {
   CornerUpLeft,
   Printer,
   ChevronDown,
+  Calendar,
+  ArrowDown,
+  ArrowUp,
 } from "lucide-react";
 import "./webinar-admin.css";
 
@@ -173,6 +176,7 @@ export default function WebinarAdminPage() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filterTab, setFilterTab] = useState<"all" | "replies" | "synced" | "held" | "unsubscribed">("all");
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedEmailText, setCopiedEmailText] = useState<boolean>(false);
 
@@ -288,6 +292,32 @@ export default function WebinarAdminPage() {
     return false;
   };
 
+  const formatRegDate = (dateStr?: string | null) => {
+    if (!dateStr) return { date: "—", time: "" };
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return { date: "—", time: "" };
+
+      const date = d.toLocaleDateString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+
+      const time = d.toLocaleTimeString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+
+      return { date, time };
+    } catch {
+      return { date: "—", time: "" };
+    }
+  };
+
   const filteredRegistrations = useMemo(() => {
     let list = registrations;
 
@@ -301,21 +331,39 @@ export default function WebinarAdminPage() {
       list = list.filter((r) => r.is_unsubscribed || r.is_bounced);
     }
 
-    if (!searchQuery.trim()) return list;
-    const q = searchQuery.toLowerCase().trim();
-    return list.filter((r) => {
-      return (
-        r.name?.toLowerCase().includes(q) ||
-        r.email?.toLowerCase().includes(q) ||
-        r.phone?.toLowerCase().includes(q) ||
-        r.payment_id?.toLowerCase().includes(q) ||
-        r.order_id?.toLowerCase().includes(q) ||
-        r.role?.toLowerCase().includes(q) ||
-        r.customer_reply?.toLowerCase().includes(q) ||
-        r.ai_reply?.toLowerCase().includes(q)
-      );
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter((r) => {
+        const regFormatted = r.created_at
+          ? new Date(r.created_at)
+              .toLocaleDateString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })
+              .toLowerCase()
+          : "";
+        return (
+          r.name?.toLowerCase().includes(q) ||
+          r.email?.toLowerCase().includes(q) ||
+          r.phone?.toLowerCase().includes(q) ||
+          r.payment_id?.toLowerCase().includes(q) ||
+          r.order_id?.toLowerCase().includes(q) ||
+          r.role?.toLowerCase().includes(q) ||
+          r.customer_reply?.toLowerCase().includes(q) ||
+          r.ai_reply?.toLowerCase().includes(q) ||
+          regFormatted.includes(q)
+        );
+      });
+    }
+
+    return [...list].sort((a, b) => {
+      const timeA = a.created_at ? new Date(a.created_at).getTime() : 0;
+      const timeB = b.created_at ? new Date(b.created_at).getTime() : 0;
+      return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
     });
-  }, [registrations, filterTab, searchQuery]);
+  }, [registrations, filterTab, searchQuery, sortOrder]);
 
   const replyCount = useMemo(() => registrations.filter(hasInboundReply).length, [registrations]);
   const syncedCount = useMemo(() => registrations.filter((r) => r.instantly_synced).length, [registrations]);
@@ -598,6 +646,21 @@ export default function WebinarAdminPage() {
                 <tr>
                   <th>Attendee</th>
                   <th>Contact Information</th>
+                  <th>
+                    <button
+                      type="button"
+                      onClick={() => setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"))}
+                      className="sp-th-sort-btn"
+                      title={`Sorted by ${sortOrder === "desc" ? "Newest first" : "Oldest first"}. Click to toggle.`}
+                    >
+                      <span>Registration Date</span>
+                      {sortOrder === "desc" ? (
+                        <ArrowDown size={12} className="sp-sort-icon" />
+                      ) : (
+                        <ArrowUp size={12} className="sp-sort-icon" />
+                      )}
+                    </button>
+                  </th>
                   <th>Outbound Cadence (1–5)</th>
                   <th>Inbound & AI Response</th>
                   <th style={{ textAlign: "right" }}>Amount</th>
@@ -611,6 +674,7 @@ export default function WebinarAdminPage() {
                   const deliveredCount = [1, 2, 3, 4, 5].filter(
                     (n) => getEmailStatus(item, n).status === "sent"
                   ).length;
+                  const regDate = formatRegDate(item.created_at);
 
                   return (
                     <tr key={item.id || idx}>
@@ -657,6 +721,14 @@ export default function WebinarAdminPage() {
                               <span>Sync Pending</span>
                             </span>
                           )}
+                        </div>
+                      </td>
+
+                      {/* Registration Date */}
+                      <td>
+                        <div className="sp-date-col">
+                          <span className="sp-date-main">{regDate.date}</span>
+                          <span className="sp-date-sub">{regDate.time}</span>
                         </div>
                       </td>
 
@@ -844,6 +916,25 @@ export default function WebinarAdminPage() {
                     Inbound Reply
                   </span>
                 )}
+                {selectedAttendee.created_at && (
+                  <span
+                    className="sp-gmail-chip reg-date"
+                    title={`Registered at ${new Date(selectedAttendee.created_at).toLocaleString("en-IN", {
+                      timeZone: "Asia/Kolkata",
+                    })}`}
+                  >
+                    <Calendar size={11} />
+                    <span>
+                      Registered:{" "}
+                      {new Date(selectedAttendee.created_at).toLocaleDateString("en-IN", {
+                        timeZone: "Asia/Kolkata",
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </span>
+                )}
               </div>
             </div>
 
@@ -932,7 +1023,18 @@ export default function WebinarAdminPage() {
                           {selectedAttendee.name} &lt;{selectedAttendee.email}&gt;
                         </span>
 
-                        <span className="sp-dropdown-label">date:</span>
+                        <span className="sp-dropdown-label">registered:</span>
+                        <span>
+                          {selectedAttendee.created_at
+                            ? new Date(selectedAttendee.created_at).toLocaleString("en-IN", {
+                                timeZone: "Asia/Kolkata",
+                                dateStyle: "medium",
+                                timeStyle: "short",
+                              })
+                            : "—"}
+                        </span>
+
+                        <span className="sp-dropdown-label">email date:</span>
                         <span>{sentDateStr}</span>
 
                         <span className="sp-dropdown-label">subject:</span>

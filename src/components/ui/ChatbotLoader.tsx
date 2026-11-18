@@ -30,29 +30,68 @@ export default function ChatbotLoader() {
     if (win.__SCALEPODS_LOADER_INIT__) return;
     win.__SCALEPODS_LOADER_INIT__ = true;
 
-    const loadScript = (src: string): Promise<void> => {
-      return new Promise((resolve, reject) => {
+    const loadScript = (src: string): Promise<boolean> => {
+      return new Promise((resolve) => {
+        // Prevent duplicate injection
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve(true);
+          return;
+        }
+
         const s = document.createElement("script");
         s.src = src;
-        s.crossOrigin = "anonymous";
-        s.onload = () => resolve();
-        s.onerror = () => reject(new Error(`Failed to load: ${src}`));
+        s.async = true;
+        s.onload = () => resolve(true);
+        s.onerror = () => {
+          s.remove();
+          resolve(false);
+        };
         document.body.appendChild(s);
       });
     };
 
+    const loadWithFallbacks = async (sources: string[]): Promise<boolean> => {
+      for (const src of sources) {
+        const ok = await loadScript(src);
+        if (ok) return true;
+      }
+      return false;
+    };
+
     (async () => {
       try {
-        // Only load React/ReactDOM if not already present (Next.js uses its own internal copy)
+        // Only load React 18 UMD if not already present on window for embed.js
         if (!win.React) {
-          await loadScript("https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js");
+          const okReact = await loadWithFallbacks([
+            "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
+            "https://unpkg.com/react@18.3.1/umd/react.production.min.js",
+            "https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js",
+          ]);
+          if (!okReact) {
+            console.warn("[ChatbotLoader] Could not load React UMD bundle from CDN (blocked or offline).");
+            return;
+          }
         }
+
+        // Only load ReactDOM 18 UMD if not already present on window for embed.js
         if (!win.ReactDOM) {
-          await loadScript("https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js");
+          const okDom = await loadWithFallbacks([
+            "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js",
+            "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js",
+            "https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js",
+          ]);
+          if (!okDom) {
+            console.warn("[ChatbotLoader] Could not load ReactDOM UMD bundle from CDN (blocked or offline).");
+            return;
+          }
         }
-        await loadScript("https://updated-chatbot-beta.vercel.app/embed.js");
+
+        const okEmbed = await loadScript("https://updated-chatbot-beta.vercel.app/embed.js");
+        if (!okEmbed) {
+          console.warn("[ChatbotLoader] Could not load Chatbot embed script (blocked or offline).");
+        }
       } catch (err) {
-        console.error("[ChatbotLoader]", err);
+        console.warn("[ChatbotLoader] Note: External chatbot assets could not be loaded:", err);
       }
     })();
   }, [shouldHide]);
