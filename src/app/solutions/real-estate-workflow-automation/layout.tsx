@@ -40,13 +40,13 @@ export const metadata: Metadata = {
     "real estate and AI"
   ],
   alternates: {
-    canonical: "https://www.scalepods.co/solution/ai-automation-for-real-estate",
+    canonical: "https://www.scalepods.co/solutions/real-estate-workflow-automation",
   },
   openGraph: {
     title: "AI Automation for Real Estate | ScalePods",
     description:
       "Deploy practical AI for real estate solutions. Automate client discovery, accelerate site viewing schedules, and build a unified buyer engagement pipeline in under 30 days.",
-    url: "https://www.scalepods.co/solution/ai-automation-for-real-estate",
+    url: "https://www.scalepods.co/solutions/real-estate-workflow-automation",
     siteName: "ScalePods",
     locale: "en_US",
     type: "website",
@@ -69,8 +69,8 @@ export default function RealEstateLayout({
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://www.scalepods.co/solution/ai-automation-for-real-estate/#webpage",
-        "url": "https://www.scalepods.co/solution/ai-automation-for-real-estate",
+        "@id": "https://www.scalepods.co/solutions/real-estate-workflow-automation/#webpage",
+        "url": "https://www.scalepods.co/solutions/real-estate-workflow-automation",
         "name": "AI Automation for Real Estate | ScalePods",
         "description": "Deploy practical AI for real estate solutions. Automate client discovery, accelerate site viewing schedules, and build a unified buyer engagement pipeline in under 30 days.",
         "publisher": {
@@ -85,7 +85,7 @@ export default function RealEstateLayout({
       },
       {
         "@type": "Service",
-        "@id": "https://www.scalepods.co/solution/ai-automation-for-real-estate/#service",
+        "@id": "https://www.scalepods.co/solutions/real-estate-workflow-automation/#service",
         "name": "Real Estate AI Workflow Automation Pods",
         "provider": {
           "@type": "Organization",
@@ -96,7 +96,7 @@ export default function RealEstateLayout({
       },
       {
         "@type": "FAQPage",
-        "@id": "https://www.scalepods.co/solution/ai-automation-for-real-estate/#faq",
+        "@id": "https://www.scalepods.co/solutions/real-estate-workflow-automation/#faq",
         "mainEntity": [
           {
             "@type": "Question",

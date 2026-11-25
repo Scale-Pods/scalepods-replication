@@ -20,12 +20,12 @@ export const metadata: Metadata = {
     "ScalePods",
   ],
   alternates: {
-    canonical: "https://www.scalepods.co/solution/sales-workflow-automation",
+    canonical: "https://www.scalepods.co/solutions/sales-workflow-automation",
   },
   openGraph: {
     title: "Sales Workflow Automation Software & AI Sales Engine | ScalePods",
     description: "Transform manual sales drag into high-velocity revenue with intelligent sales automation software.",
-    url: "https://www.scalepods.co/solution/sales-workflow-automation",
+    url: "https://www.scalepods.co/solutions/sales-workflow-automation",
     siteName: "ScalePods",
     type: "website",
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 const salesSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://www.scalepods.co/solution/sales-workflow-automation/#service",
+  "@id": "https://www.scalepods.co/solutions/sales-workflow-automation/#service",
   "name": "Sales Workflow Automation Software",
   "provider": {
     "@type": "Organization",

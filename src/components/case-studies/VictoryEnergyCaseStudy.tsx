@@ -457,7 +457,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
               </h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 <Link
-                  href="/solution/hr-workflow-automation"
+                  href="/solutions/hr-workflow-automation"
                   style={{
                     fontSize: "12px",
                     padding: "4px 10px",
@@ -473,7 +473,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                   Talent OS
                 </Link>
                 <Link
-                  href="/solution/sales-workflow-automation"
+                  href="/solutions/sales-workflow-automation"
                   style={{
                     fontSize: "12px",
                     padding: "4px 10px",
@@ -599,7 +599,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                   <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.55, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     Sales and marketing operated on disconnected, siloed processes without{" "}
                     <Link
-                      href="/blog/how-to-implement-sales-workflow-automation"
+                      href="/resources/blog/how-to-implement-sales-workflow-automation"
                       style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}
                     >
                       sales and marketing automation software
@@ -737,7 +737,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                   </p>
                   <div style={{ marginTop: "14px" }}>
                     <Link
-                      href="/solution/hr-workflow-automation"
+                      href="/solutions/hr-workflow-automation"
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
@@ -787,7 +787,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                   <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, textAlign: "justify", textJustify: "inter-word" }}>
                     Growth OS unites lead enrichment, multi-channel cadences, calendar booking, and CRM pipeline synchronization into an autonomous engine. Incoming inquiries receive immediate conversational follow-up in under 2 minutes (down from 6 hours) via WhatsApp, SMS, email, or voice. Leads are validated, scored (1–100), and entered into tailored 21-day nurture workflows. Automated pre-call briefs arm sales reps with full prospect context, boosting appointment bookings by 38% and exposing 3.2x more pipeline value to leadership. This operational model mirrors the philosophy demonstrated in the{" "}
                     <Link
-                      href="/case-study/asquared-real-estate-sales-automation-dubai"
+                      href="/resources/case-studies/asquared-real-estate-sales-automation-dubai"
                       style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}
                     >
                       Scale Pods A Squared Real Estate automation example
@@ -1143,7 +1143,7 @@ export default function VictoryEnergyCaseStudy({ faqs }: VictoryEnergyProps) {
                 <div style={{ marginTop: "8px" }}>
                   <em>Learn more about Scale Pods&apos; perspective on these business outcomes: </em>
                   <Link
-                    href="/blog/ai-automation-roi-real-business-impact"
+                    href="/resources/blog/ai-automation-roi-real-business-impact"
                     style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}
                   >
                     What is the ROI of AI automation for sales, marketing, and HR?

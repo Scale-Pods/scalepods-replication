@@ -95,7 +95,7 @@ const ThemeToggle = memo(() => {
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Solutions", dropdown: true, href: "/solution" },
+  { label: "Solutions", dropdown: true, href: "/solutions" },
   { label: "About", href: "/about" },
   { label: "Resources", dropdown: true, href: "/resources" },
   { label: "Global", href: "/global" },
@@ -103,15 +103,15 @@ const navLinks = [
 ];
 
 const workflowSolutions = [
-  { label: "Sales Workflow Automation", href: "/solution/sales-workflow-automation" },
-  { label: "HR Workflow Automation", href: "/solution/hr-workflow-automation" },
-  { label: "Marketing Workflow Automation", href: "/solution/marketing-workflow-automation" },
-  { label: "Operations Workflow Automation", href: "/solution/ops-workflow-automation" },
+  { label: "Sales Workflow Automation", href: "/solutions/sales-workflow-automation" },
+  { label: "HR Workflow Automation", href: "/solutions/hr-workflow-automation" },
+  { label: "Marketing Workflow Automation", href: "/solutions/marketing-workflow-automation" },
+  { label: "Operations Workflow Automation", href: "/solutions/operations-workflow-automation" },
 ];
 
 const industrySolutions = [
-  { label: "Manufacturing Workflow Automation", href: "/solution/ai-automation-for-manufacturing" },
-  { label: "Real Estate Workflow Automation", href: "/solution/ai-automation-for-real-estate" },
+  { label: "Manufacturing Workflow Automation", href: "/solutions/manufacturing-workflow-automation" },
+  { label: "Real Estate Workflow Automation", href: "/solutions/real-estate-workflow-automation" },
 ];
 
 const solutions = [...workflowSolutions, ...industrySolutions];
@@ -162,7 +162,7 @@ const Navbar = memo(() => {
       if (href === "/blog/case-studies") {
         return (
           pathname === "/blog/case-studies" ||
-          pathname?.startsWith("/case-study/")
+          pathname?.startsWith("/resources/case-studies/")
         );
       }
       return pathname === href || pathname?.startsWith(href + "/");
@@ -245,8 +245,8 @@ const Navbar = memo(() => {
         setActiveSection("blog");
       } else if (pathname === "/contact" || pathname?.startsWith("/contact")) {
         setActiveSection("contact");
-      } else if (pathname?.startsWith("/solution")) {
-        setActiveSection("solution");
+      } else if (pathname?.startsWith("/solutions")) {
+        setActiveSection("solutions");
       } else if (pathname === "/global" || pathname?.startsWith("/global")) {
         setActiveSection("global");
       } else {
@@ -296,7 +296,7 @@ const Navbar = memo(() => {
 
   // Auto-expand Solutions accordion on mobile when visiting solutions page
   useEffect(() => {
-    if (pathname?.startsWith("/solution")) {
+    if (pathname?.startsWith("/solutions")) {
       setSolutionsExpanded(true);
     }
   }, [pathname]);
@@ -305,10 +305,10 @@ const Navbar = memo(() => {
   useEffect(() => {
     if (isProd) {
       router.prefetch("/global");
-      router.prefetch("/solution/sales-workflow-automation");
-      router.prefetch("/solution/hr-workflow-automation");
-      router.prefetch("/solution/marketing-workflow-automation");
-      router.prefetch("/solution/ops-workflow-automation");
+      router.prefetch("/solutions/sales-workflow-automation");
+      router.prefetch("/solutions/hr-workflow-automation");
+      router.prefetch("/solutions/marketing-workflow-automation");
+      router.prefetch("/solutions/operations-workflow-automation");
       router.prefetch("/resources");
       router.prefetch("/resources/blog");
       router.prefetch("/contact");
@@ -405,7 +405,7 @@ const Navbar = memo(() => {
           >
             {navLinks.map((link) => {
               if (link.dropdown && link.label === "Solutions") {
-                const active = pathname?.startsWith("/solution");
+                const active = pathname?.startsWith("/solutions");
                 return (
                   <div
                     key={link.label}
@@ -1010,7 +1010,7 @@ const Navbar = memo(() => {
                 }}>
                   {navLinks.map((link, i) => {
                     if (link.dropdown && link.label === "Solutions") {
-                      const active = pathname?.startsWith("/solution");
+                      const active = pathname?.startsWith("/solutions");
                       return (
                         <div key={link.label} style={{ borderBottom: "1px solid var(--color-border-faint)" }}>
                           <div style={{ display: "flex", alignItems: "center", position: "relative" }}>

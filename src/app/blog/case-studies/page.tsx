@@ -156,7 +156,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/lotus-manor-real-estate-sales-automation-dubai"
+                      href="/resources/case-studies/lotus-manor-real-estate-sales-automation-dubai"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Lotus Manor Real Estate Case Study"
@@ -204,7 +204,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/zv-steels-recruitment-automation-tool"
+                      href="/resources/case-studies/zv-steels-recruitment-automation-tool"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore ZV Steels Case Study"
@@ -286,7 +286,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/asquared-real-estate-sales-automation-dubai"
+                      href="/resources/case-studies/asquared-real-estate-sales-automation-dubai"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore A Squared Real Estate Case Study"
@@ -334,7 +334,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/lootah-group-procurement-workflow-automation"
+                      href="/resources/case-studies/lootah-group-procurement-workflow-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Lootah Group Case Study"
@@ -416,7 +416,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/macro-media-finance-workflow-automation"
+                      href="/resources/case-studies/macro-media-finance-workflow-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Macro Media Case Study"
@@ -464,7 +464,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/bennett-realty-growth-os"
+                      href="/resources/case-studies/bennett-realty-real-estate-workflow-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Bennett Realty Case Study"
@@ -546,7 +546,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/victory-energy-business-automation"
+                      href="/resources/case-studies/victory-energy-business-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Victory Energy Case Study"
@@ -594,7 +594,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/ryan-schwartz-fub-crm-automation"
+                      href="/resources/case-studies/ryan-schwartz-fub-crm-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Ryan Schwartz Case Study"
@@ -676,7 +676,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/miguel-clinic-lead-generation-automation"
+                      href="/resources/case-studies/miguel-clinic-lead-generation-automation"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore Miguel Case Study"
@@ -724,7 +724,7 @@ export default function CaseStudiesPage() {
 
                   <div style={{ marginTop: "12px" }}>
                     <Link 
-                      href="/case-study/wwr-real-estate-sales-automation-qatar"
+                      href="/resources/case-studies/wwr-real-estate-sales-automation-qatar"
                       style={learnMoreBtnStyle}
                       className="hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg"
                       aria-label="Explore WWR Qatar Case Study"

@@ -93,14 +93,14 @@ export async function POST(req: Request) {
       revalidatePath("/blog");
       revalidatePath("/resources");
       revalidatePath("/resources/blog");
-      revalidatePath(`/blog/${slug}`);
+      revalidatePath(`/resources/blog/${slug}`);
       revalidatePath("/sitemap.xml");
     } catch (revalErr) {
       console.warn("[Blog Publish Revalidate Warning]:", revalErr);
     }
 
     // 5. Return success response
-    const postUrl = `https://www.scalepods.co/blog/${slug}`;
+    const postUrl = `https://www.scalepods.co/resources/blog/${slug}`;
     return NextResponse.json({
       success: true,
       slug,
@@ -153,7 +153,7 @@ export async function DELETE(req: Request) {
       revalidatePath("/blog");
       revalidatePath("/resources");
       revalidatePath("/resources/blog");
-      revalidatePath(`/blog/${slug}`);
+      revalidatePath(`/resources/blog/${slug}`);
       revalidatePath("/sitemap.xml");
     } catch (revalErr) {
       console.warn("[Blog Unpublish Revalidate Warning]:", revalErr);

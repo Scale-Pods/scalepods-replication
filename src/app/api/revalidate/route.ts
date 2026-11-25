@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       revalidatePath('/blog', 'page');
       revalidatePath('/resources', 'page');
       revalidatePath('/resources/blog', 'page');
-      revalidatePath('/blog/[slug]', 'page');
+      revalidatePath('/resources/blog/[slug]', 'page');
       revalidatePath('/sitemap.xml');
     }
 

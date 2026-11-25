@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts as staticPosts, BlogPost } from "@/lib/blogData";
 import { supabase } from "@/lib/supabase";
+import { EXCLUDED_BLOG_SLUGS, normalizeBlogSlug } from "@/lib/slugConfig";
 import { BeamsBackground } from "@/components/ui/beams-background";
 
 export const revalidate = 0; // Force dynamic fetching for real-time updates
@@ -35,7 +36,7 @@ const placeholderImages: Record<string, string> = {
   "future-of-workflows-ai-automation": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
   "5-ways-ai-assistants-transforming-operations": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
   "scaling-smarter-automation-startups": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
-  "beyond-bots-real-business-impact-ai-integration": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
+  "beyond-bots-real-business-impact-from-ai-integration": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
 };
 
 export default async function BlogPage() {
@@ -50,7 +51,7 @@ export default async function BlogPage() {
 
   // 2. Map DB posts to BlogPost format
   const dynamicPosts: BlogPost[] = (dbPosts || []).map((db) => ({
-    slug: db.slug,
+    slug: normalizeBlogSlug(db.slug),
     title: db.title,
     excerpt: db.excerpt,
     category: db.category || "Article",
@@ -69,6 +70,8 @@ export default async function BlogPage() {
     .filter(post => 
       post.category !== "Case Study" && (
         !post.date.includes("2026") || 
+        post.slug === "business-process-automation-ai-replace-manual-workflows" ||
+        post.slug === "advertising-automation-ai-campaigns-budget-performance" ||
         post.slug === "best-sales-automation-software-2026" ||
         post.slug === "ai-employees-digital-workforce-guide" ||
         post.slug === "5-ways-ai-assistants-transforming-operations" ||
@@ -78,21 +81,11 @@ export default async function BlogPage() {
         post.slug === "sales-workflow-automation-complete-guide-2026" ||
         post.slug === "hr-automation-complete-guide-2026" ||
         post.slug === "marketing-automation-complete-guide-2026" ||
-        post.slug === "the-ai-marketing-edge-how-ai-is-reshaping-marketing-in-2026"
+        post.slug === "how-ai-is-reshaping-marketing-in-2026"
       )
     );
 
-  const excludedSlugs = new Set([
-    "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
-    "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",
-    "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
-    "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
-    "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
-    "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8",
-    "how-to-build-an-autonomous-agency-the-uae-blueprint-mo8lksce"
-  ]);
-
-  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study" && !excludedSlugs.has(post.slug));
+  const filteredDynamicPosts = dynamicPosts.filter(post => post.category !== "Case Study" && !EXCLUDED_BLOG_SLUGS.has(post.slug));
 
   const allPosts = [...filteredDynamicPosts, ...filteredStaticPosts].sort((a, b) => {
     const timeA = isNaN(Date.parse(a.date)) ? 0 : Date.parse(a.date);
@@ -144,7 +137,7 @@ export default async function BlogPage() {
             return (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={`/resources/blog/${post.slug}`}
                 style={{ textDecoration: "none", display: "flex", flexDirection: "column", height: "100%" }}
               >
                 <div className="blog-card" style={{ 

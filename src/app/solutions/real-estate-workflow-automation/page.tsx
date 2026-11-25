@@ -365,7 +365,7 @@ export default function RealEstateWorkflowAutomationPage() {
     const apiPromise = submitLead({
       formType: "contact_sales",
       workflowType: "operations_workflow", // maps to operations/sales pipeline
-      sourcePage: "/solution/ai-automation-for-real-estate",
+      sourcePage: "/solutions/real-estate-workflow-automation",
       name: form.name,
       email: form.email,
       phone: form.phone ? `${dialCode} ${form.phone}` : undefined,
@@ -389,7 +389,7 @@ export default function RealEstateWorkflowAutomationPage() {
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solution/ai-automation-for-real-estate" };
+      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solutions/real-estate-workflow-automation" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
     }

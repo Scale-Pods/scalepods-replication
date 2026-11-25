@@ -358,7 +358,7 @@ export default function LootahCaseStudy({ faqs }: LootahProps) {
             </h4>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
               <Link
-                href="/solution/ops-workflow-automation"
+                href="/solutions/operations-workflow-automation"
                 style={{
                   fontSize: "12px",
                   padding: "4px 10px",
@@ -375,7 +375,7 @@ export default function LootahCaseStudy({ faqs }: LootahProps) {
                 Operations Automation
               </Link>
               <Link
-                href="/solution/ai-automation-for-manufacturing"
+                href="/solutions/manufacturing-workflow-automation"
                 style={{
                   fontSize: "12px",
                   padding: "4px 10px",
@@ -564,7 +564,7 @@ export default function LootahCaseStudy({ faqs }: LootahProps) {
               textJustify: "inter-word"
             }}>
               ScalePods built a procurement system around the way Lootah's teams already worked, applying{" "}
-              <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+              <Link href="/solutions/operations-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                 AI business process automation
               </Link>{" "}
               principles to connect operational purchasing with financial oversight without simply replacing one spreadsheet with another database.
@@ -582,7 +582,7 @@ export default function LootahCaseStudy({ faqs }: LootahProps) {
                   </h3>
                   <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, textAlign: "justify", textJustify: "inter-word" }}>
                     The platform brings together purchase-order data, supplier pricing, material information, procurement analytics, executive reporting, user permissions, audit records, and data reconciliation. This workflow automation platform applies{" "}
-                    <Link href="/solution/ai-automation-for-manufacturing" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
+                    <Link href="/solutions/manufacturing-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
                       AI Automation for manufacturing
                     </Link>{" "}
                     principles: standardizing how information enters the system, how records are matched, and how pricing changes are reviewed.
@@ -755,7 +755,7 @@ export default function LootahCaseStudy({ faqs }: LootahProps) {
                   </h3>
                   <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     PO information, supplier pricing, inventory connectivity, dashboards, user permissions, and audit records all operate within the same platform. That makes it a practical model of{" "}
-                    <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
+                    <Link href="/solutions/operations-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
                       Operations automation
                     </Link>{" "}
                     applied to heavy industrial purchasing.

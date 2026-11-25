@@ -287,7 +287,7 @@ export default function MiguelCaseStudy({ faqs }: MiguelCaseStudyProps) {
                   textJustify: "inter-word"
                 }}
               >
-                Miguel was looking to scale B2B customer acquisition for aesthetic clinics and medical wellness practices across targeted geographic regions. Traditional outbound was fragmented: sales reps spent too many hours manually scouring directories, crafting generic messages that were ignored, and failing to execute structured multi-touch follow-ups. ScalePods architected an autonomous, human-in-the-loop <Link href="/solution/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>AI Sales Automation System</Link> that seamlessly orchestrates geographic scraping, AI personalization, safe LinkedIn outreach via Unipile, automated follow-ups, and AI Concierge qualification directly integrated with Pipedrive CRM.
+                Miguel was looking to scale B2B customer acquisition for aesthetic clinics and medical wellness practices across targeted geographic regions. Traditional outbound was fragmented: sales reps spent too many hours manually scouring directories, crafting generic messages that were ignored, and failing to execute structured multi-touch follow-ups. ScalePods architected an autonomous, human-in-the-loop <Link href="/solutions/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>AI Sales Automation System</Link> that seamlessly orchestrates geographic scraping, AI personalization, safe LinkedIn outreach via Unipile, automated follow-ups, and AI Concierge qualification directly integrated with Pipedrive CRM.
               </p>
             </div>
 

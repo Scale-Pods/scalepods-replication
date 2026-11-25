@@ -705,7 +705,7 @@ export default function WWRCaseStudy({ faqs }: WWRCaseStudyProps) {
               textJustify: "inter-word"
             }}
           >
-            ScalePods engineered a centralized <Link href="/solution/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>AI sales software</Link> and <Link href="/solution/ai-automation-for-real-estate" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>real estate automation engine</Link> to capture, qualify, engage, and follow up with leads across WWR&apos;s business lines. The system links all lead sources, a unified AI persona, Zoho CRM, and automated outreach sequences together with an executive analytics dashboard—passing valuable, qualified opportunities directly to sales executives:
+            ScalePods engineered a centralized <Link href="/solutions/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>AI sales software</Link> and <Link href="/solutions/real-estate-workflow-automation" style={{ color: "var(--color-blue-mid)", fontWeight: 600, textDecoration: "underline" }}>real estate automation engine</Link> to capture, qualify, engage, and follow up with leads across WWR&apos;s business lines. The system links all lead sources, a unified AI persona, Zoho CRM, and automated outreach sequences together with an executive analytics dashboard—passing valuable, qualified opportunities directly to sales executives:
           </p>
 
           {/* Overview Banner */}

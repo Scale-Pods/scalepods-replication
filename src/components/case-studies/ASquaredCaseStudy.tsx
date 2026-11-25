@@ -607,7 +607,7 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
                     </div>
                     <p style={{ fontSize: "14.5px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                       Sales reps no longer have to manually schedule every next touchpoint. The{" "}
-                      <Link href="/blog/how-to-implement-sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                      <Link href="/resources/blog/how-to-implement-sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                         sales workflow automation
                       </Link>{" "}
                       keeps the conversation moving across channels.
@@ -851,7 +851,7 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
 
                 <p style={{ fontSize: "14.5px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                   Lead recycling becomes an ongoing{" "}
-                  <Link href="/blog/how-to-automate-your-sdr-workflow-with-ai" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                  <Link href="/resources/blog/how-to-automate-your-sdr-workflow-with-ai" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                     sales prospecting automation loop
                   </Link>{" "}
                   instead of an abandoned, manual database-cleaning chore.
@@ -1062,7 +1062,7 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
               textJustify: "inter-word"
             }}>
               By connecting Bitrix24 to an autonomous{" "}
-              <Link href="/blog/sales-workflow-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+              <Link href="/resources/blog/sales-workflow-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                 AI sales automation layer
               </Link>
               , A Squared unlocked rapid speed-to-lead and revitalized its massive prospect database without expanding headcount:
@@ -1240,7 +1240,7 @@ export default function ASquaredCaseStudy({ faqs }: ASquaredProps) {
               </h3>
               <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                 Bitrix24 already contained the data. What was missing was an intelligent CRM and sales automation layer that could actually act on that data. ScalePods connected the CRM to automated outreach, AI qualification, sentiment analysis, lead recycling, and live executive reporting. The result was a{" "}
-                <Link href="/solution/ai-automation-for-real-estate" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                <Link href="/solutions/real-estate-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                   Real Estate Sales Automation system
                 </Link>{" "}
                 built around the way A Squared&apos;s sales team actually works.

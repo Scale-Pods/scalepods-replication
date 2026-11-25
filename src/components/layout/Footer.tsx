@@ -19,25 +19,25 @@ const legalLinks = [
 ];
 
 const solutionLinks = [
-  { label: "Sales Automation", href: "/solution/sales-workflow-automation" },
-  { label: "Ops Automation", href: "/solution/ops-workflow-automation" },
-  { label: "Manufacturing AI", href: "/solution/ai-automation-for-manufacturing" },
-  { label: "Real Estate AI", href: "/solution/ai-automation-for-real-estate" },
-  { label: "HR Automation", href: "/solution/hr-workflow-automation" },
-  { label: "Marketing Automation", href: "/solution/marketing-workflow-automation" },
+  { label: "Sales Automation", href: "/solutions/sales-workflow-automation" },
+  { label: "Ops Automation", href: "/solutions/operations-workflow-automation" },
+  { label: "Manufacturing AI", href: "/solutions/manufacturing-workflow-automation" },
+  { label: "Real Estate AI", href: "/solutions/real-estate-workflow-automation" },
+  { label: "HR Automation", href: "/solutions/hr-workflow-automation" },
+  { label: "Marketing Automation", href: "/solutions/marketing-workflow-automation" },
 ];
 
 const caseStudyLinks = [
-  { label: "Lotus Manor Dubai", href: "/case-study/lotus-manor-real-estate-sales-automation-dubai" },
-  { label: "ZV Steels India", href: "/case-study/zv-steels-recruitment-automation-tool" },
-  { label: "A Squared Dubai", href: "/case-study/asquared-real-estate-sales-automation-dubai" },
-  { label: "Lootah Group Dubai", href: "/case-study/lootah-group-procurement-workflow-automation" },
-  { label: "Macro Media USA", href: "/case-study/macro-media-finance-workflow-automation" },
-  { label: "Bennett Realty USA", href: "/case-study/bennett-realty-growth-os" },
-  { label: "Victory Energy USA", href: "/case-study/victory-energy-business-automation" },
-  { label: "Ryan Schwartz USA", href: "/case-study/ryan-schwartz-fub-crm-automation" },
-  { label: "Miguel Clinic Lead Gen", href: "/case-study/miguel-clinic-lead-generation-automation" },
-  { label: "WWR Qatar", href: "/case-study/wwr-real-estate-sales-automation-qatar" },
+  { label: "Lotus Manor Dubai", href: "/resources/case-studies/lotus-manor-real-estate-sales-automation-dubai" },
+  { label: "ZV Steels India", href: "/resources/case-studies/zv-steels-recruitment-automation-tool" },
+  { label: "A Squared Dubai", href: "/resources/case-studies/asquared-real-estate-sales-automation-dubai" },
+  { label: "Lootah Group Dubai", href: "/resources/case-studies/lootah-group-procurement-workflow-automation" },
+  { label: "Macro Media USA", href: "/resources/case-studies/macro-media-finance-workflow-automation" },
+  { label: "Bennett Realty USA", href: "/resources/case-studies/bennett-realty-real-estate-workflow-automation" },
+  { label: "Victory Energy USA", href: "/resources/case-studies/victory-energy-business-automation" },
+  { label: "Ryan Schwartz USA", href: "/resources/case-studies/ryan-schwartz-fub-crm-automation" },
+  { label: "Miguel Clinic Lead Gen", href: "/resources/case-studies/miguel-clinic-lead-generation-automation" },
+  { label: "WWR Qatar", href: "/resources/case-studies/wwr-real-estate-sales-automation-qatar" },
 ];
 
 import { useTheme } from "@/components/providers/ThemeProvider";

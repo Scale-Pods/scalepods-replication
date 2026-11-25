@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts as staticPosts } from "@/lib/blogData";
 import { supabase } from "@/lib/supabase";
+import { EXCLUDED_BLOG_SLUGS, normalizeBlogSlug } from "@/lib/slugConfig";
 
 export const revalidate = 3600; // Cache sitemap for 1 hour
 
@@ -70,37 +71,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/solution/sales-workflow-automation`,
+      url: `${baseUrl}/solutions/sales-workflow-automation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/solution/hr-workflow-automation`,
+      url: `${baseUrl}/solutions/hr-workflow-automation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/solution/marketing-workflow-automation`,
+      url: `${baseUrl}/solutions/marketing-workflow-automation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/solution/ops-workflow-automation`,
+      url: `${baseUrl}/solutions/operations-workflow-automation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/solution/ai-automation-for-manufacturing`,
+      url: `${baseUrl}/solutions/manufacturing-workflow-automation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/solution/ai-automation-for-real-estate`,
+      url: `${baseUrl}/solutions/real-estate-workflow-automation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
@@ -125,9 +126,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Set of legacy slugs that redirect and must never appear in sitemap.xml
+  // Set of legacy slugs that redirect and must never appear directly in sitemap.xml
   const redirectedSlugs = new Set([
-    // Case study aliases consolidated into /case-study/*
     "lotus-manor-case-study",
     "lotus-manor-real-estate-sales-automation-dubai",
     "zv-steels-recruitment-automation-tool",
@@ -135,58 +135,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "lootah-group-procurement-workflow-automation",
     "macro-media-finance-workflow-automation",
     "bennett-realty-growth-os",
+    "bennett-realty-real-estate-workflow-automation",
     "victory-energy-business-automation",
     "ryan-schwartz-fub-crm-automation",
     "miguel-clinic-lead-generation-automation",
     "wwr-real-estate-sales-automation-qatar",
-    // Deprecated, empty, or unmaintained dynamic slugs excluded from sitemap
-    "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
-    "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",
-    "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
-    "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
-    "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
-    "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8",
-    "how-to-build-an-autonomous-agency-the-uae-blueprint-mo8lksce",
   ]);
 
-  // 2. Map static blogs (exclude case studies and redirected slugs)
+  // 2. Map static blogs under /resources/blog/
   const staticBlogRoutes: MetadataRoute.Sitemap = staticPosts
-    .filter((post) => post.category !== "Case Study" && !redirectedSlugs.has(post.slug))
+    .filter(
+      (post) =>
+        post.category !== "Case Study" &&
+        !redirectedSlugs.has(post.slug) &&
+        !EXCLUDED_BLOG_SLUGS.has(post.slug)
+    )
     .map((post) => {
-    // Parse the static date safely (e.g. "May 20, 2026")
-    let parsedDate = new Date();
-    if (post.date) {
-      const d = Date.parse(post.date);
-      if (!isNaN(d)) {
-        parsedDate = new Date(d);
+      let parsedDate = new Date();
+      if (post.date) {
+        const d = Date.parse(post.date);
+        if (!isNaN(d)) {
+          parsedDate = new Date(d);
+        }
       }
-    }
-    return {
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: parsedDate,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    };
-  });
+      const canonicalSlug = normalizeBlogSlug(post.slug);
+      return {
+        url: `${baseUrl}/resources/blog/${canonicalSlug}`,
+        lastModified: parsedDate,
+        changeFrequency: "weekly",
+        priority: 0.7,
+      };
+    });
 
-  // 2b. Case study routes under /case-study/
+  // 2b. Case study routes under /resources/case-studies/
   const staticCaseStudyRoutes: MetadataRoute.Sitemap = staticPosts
     .filter((post) => post.category === "Case Study")
     .map((post) => {
-    let parsedDate = new Date();
-    if (post.date) {
-      const d = Date.parse(post.date);
-      if (!isNaN(d)) parsedDate = new Date(d);
-    }
-    return {
-      url: `${baseUrl}/case-study/${post.slug}`,
-      lastModified: parsedDate,
-      changeFrequency: "monthly" as const,
-      priority: 0.9,
-    };
-  });
+      let parsedDate = new Date();
+      if (post.date) {
+        const d = Date.parse(post.date);
+        if (!isNaN(d)) parsedDate = new Date(d);
+      }
+      return {
+        url: `${baseUrl}/resources/case-studies/${post.slug}`,
+        lastModified: parsedDate,
+        changeFrequency: "monthly" as const,
+        priority: 0.9,
+      };
+    });
 
-  // 3. Fetch dynamic blogs from Supabase (filter out redirected/legacy slugs)
+  // 3. Fetch dynamic blogs from Supabase (normalize slugs, filter out excluded/legacy slugs)
   let dynamicBlogRoutes: MetadataRoute.Sitemap = [];
   try {
     const { data: dbPosts, error } = await supabase
@@ -198,9 +196,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       console.error("[Sitemap] Supabase query error:", error);
     } else if (dbPosts) {
       dynamicBlogRoutes = dbPosts
-        .filter((post) => post.slug && !redirectedSlugs.has(post.slug))
+        .filter((post) => post.slug && !redirectedSlugs.has(post.slug) && !EXCLUDED_BLOG_SLUGS.has(post.slug))
         .map((post) => ({
-          url: `${baseUrl}/blog/${post.slug}`,
+          url: `${baseUrl}/resources/blog/${normalizeBlogSlug(post.slug)}`,
           lastModified: post.published_at ? new Date(post.published_at) : new Date(),
           changeFrequency: "weekly",
           priority: 0.7,
@@ -212,7 +210,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Combine and deduplicate by URL
   const allRoutes = [...staticRoutes, ...staticBlogRoutes, ...staticCaseStudyRoutes, ...dynamicBlogRoutes];
-  const uniqueRoutesMap = new Map<string, typeof allRoutes[0]>();
+  const uniqueRoutesMap = new Map<string, (typeof allRoutes)[0]>();
 
   for (const route of allRoutes) {
     uniqueRoutesMap.set(route.url, route);

@@ -1575,7 +1575,7 @@ export default function MarketingWorkflowAutomationPage() {
     const apiPromise = submitLead({
       formType: "contact_sales",
       workflowType: "marketing_workflow",
-      sourcePage: "/solution/marketing-workflow-automation",
+      sourcePage: "/solutions/marketing-workflow-automation",
       name: form.name,
       email: form.email,
       phone: form.phone ? `${dialCode} ${form.phone}` : undefined,
@@ -1600,7 +1600,7 @@ export default function MarketingWorkflowAutomationPage() {
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solution/marketing-workflow-automation" };
+      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solutions/marketing-workflow-automation" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
     }

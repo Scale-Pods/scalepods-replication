@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     "ScalePods",
   ],
   alternates: {
-    canonical: "https://www.scalepods.co/solution/ops-workflow-automation",
+    canonical: "https://www.scalepods.co/solutions/operations-workflow-automation",
   },
   openGraph: {
     title: "Enterprise Operations & Process Workflow Automation | ScalePods",
     description:
       "Scale enterprise operations with modern workflow automation. Deploy intelligent process automation to eliminate manual data entry, streamline cross-departmental workflows, and automate IT infrastructure.",
-    url: "https://www.scalepods.co/solution/ops-workflow-automation",
+    url: "https://www.scalepods.co/solutions/operations-workflow-automation",
     siteName: "ScalePods",
     locale: "en_US",
     type: "website",
@@ -63,8 +63,8 @@ const opsJsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://www.scalepods.co/solution/ops-workflow-automation/#webpage",
-      "url": "https://www.scalepods.co/solution/ops-workflow-automation",
+      "@id": "https://www.scalepods.co/solutions/operations-workflow-automation/#webpage",
+      "url": "https://www.scalepods.co/solutions/operations-workflow-automation",
       "name": "Enterprise Operations & Process Workflow Automation | ScalePods",
       "description":
         "Scale enterprise operations with modern workflow automation. Deploy intelligent process automation to eliminate manual data entry, streamline cross-departmental workflows, and automate IT infrastructure.",
@@ -87,14 +87,14 @@ const opsJsonLd = {
             "@type": "ListItem",
             "position": 3,
             "name": "Operations Workflow Automation",
-            "item": "https://www.scalepods.co/solution/ops-workflow-automation"
+            "item": "https://www.scalepods.co/solutions/operations-workflow-automation"
           }
         ]
       }
     },
     {
       "@type": "Service",
-      "@id": "https://www.scalepods.co/solution/ops-workflow-automation/#service",
+      "@id": "https://www.scalepods.co/solutions/operations-workflow-automation/#service",
       "name": "Enterprise Operations & Process Workflow Automation Pod",
       "provider": {
         "@type": "Organization",
@@ -109,7 +109,7 @@ const opsJsonLd = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://www.scalepods.co/solution/ops-workflow-automation/#faq",
+      "@id": "https://www.scalepods.co/solutions/operations-workflow-automation/#faq",
       "mainEntity": [
         {
           "@type": "Question",

@@ -378,7 +378,7 @@ export default function MacroMediaCaseStudy({ faqs }: MacroMediaProps) {
             </h4>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
               <Link
-                href="/solution/ops-workflow-automation"
+                href="/solutions/operations-workflow-automation"
                 style={{
                   fontSize: "12px",
                   padding: "4px 10px",
@@ -395,7 +395,7 @@ export default function MacroMediaCaseStudy({ faqs }: MacroMediaProps) {
                 Operations Automation
               </Link>
               <Link
-                href="/solution/sales-workflow-automation"
+                href="/solutions/sales-workflow-automation"
                 style={{
                   fontSize: "12px",
                   padding: "4px 10px",
@@ -560,7 +560,7 @@ export default function MacroMediaCaseStudy({ faqs }: MacroMediaProps) {
               textJustify: "inter-word"
             }}>
               ScalePods rebuilt the fragile client-side HTML prototype into <strong>Macro Studio</strong>, a hosted multi-user web application applying{" "}
-              <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+              <Link href="/solutions/operations-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                 operations workflow automation
               </Link>{" "}
               and modern web architecture to give Macro Media a reliable, synchronized financial operating environment.
@@ -902,7 +902,7 @@ export default function MacroMediaCaseStudy({ faqs }: MacroMediaProps) {
                 </h3>
                 <p style={{ fontSize: "14px", color: "var(--color-text-muted)", lineHeight: 1.6, textAlign: "justify", textJustify: "inter-word" }}>
                   Macro Media already had a prototype for its close tracker and reference guide, but the team faced real security and coordination risks. ScalePods focused strictly on the essential needs: shared live data, secure access, sub-2s updates, and total task ownership. Reworking the application eliminated reliance on files and manual file transfers. That is the core value of{" "}
-                  <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
+                  <Link href="/solutions/operations-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline" }}>
                     business operations automation
                   </Link>: improving the exact processes people use every day without introducing unnecessary tool complexity.
                 </p>

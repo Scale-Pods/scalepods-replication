@@ -353,7 +353,7 @@ export default function LotusManorCaseStudy({ faqs }: LotusManorProps) {
             </h4>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
               <Link
-                href="/solution/ai-automation-for-real-estate"
+                href="/solutions/real-estate-workflow-automation"
                 style={{
                   fontSize: "12px",
                   padding: "4px 10px",
@@ -438,7 +438,7 @@ export default function LotusManorCaseStudy({ faqs }: LotusManorProps) {
                   </h3>
                   <p style={{ fontSize: "13px", color: "var(--color-text-muted)", lineHeight: 1.55, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     Sales representatives had to remember when to contact each prospect and what to do next. As lead volume increased, follow-up timing became harder to manage consistently. Relying on{" "}
-                    <Link href="/solution/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                    <Link href="/solutions/sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                       manual outreach
                     </Link>{" "}
                     meant some prospects could receive delayed outreach, while others risked being missed entirely.
@@ -585,7 +585,7 @@ export default function LotusManorCaseStudy({ faqs }: LotusManorProps) {
                   </h3>
                   <p style={{ fontSize: "13.5px", color: "var(--color-text-muted)", lineHeight: 1.55, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     The workflow coordinated{" "}
-                    <Link href="/blog/how-to-implement-sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                    <Link href="/resources/blog/how-to-implement-sales-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                       Multi-channel outreach
                     </Link>{" "}
                     across WhatsApp, email, and AI voice calls. Using multiple channels helped the team maintain contact with prospects through a more consistent cadence. Messaging frequency and channel choice should remain appropriate to the prospect’s preferences, consent, and applicable communication rules.
@@ -756,7 +756,7 @@ export default function LotusManorCaseStudy({ faqs }: LotusManorProps) {
               textJustify: "inter-word"
             }}>
               Within four months, Lotus Manor’s{" "}
-              <Link href="/blog/sales-workflow-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+              <Link href="/resources/blog/sales-workflow-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                 automated follow-up system
               </Link>{" "}
               helped the team maintain outreach at scale and create more opportunities for direct engagement. The following figures were reported in the client testimonial published by ScalePods.

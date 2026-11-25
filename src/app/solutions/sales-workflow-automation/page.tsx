@@ -9,8 +9,16 @@ import {
   ChevronRight,
   Loader2, 
   CheckCircle2, 
+  ArrowUpRight,
   Play,
   Pause,
+  Cpu,
+  Layers,
+  Globe,
+  RefreshCw,
+  Sliders,
+  Database,
+  Inbox,
   Volume2,
   VolumeX
 } from "lucide-react";
@@ -27,7 +35,7 @@ const TestimonialCarousel = dynamic(() => import("@/components/ui/TestimonialCar
 import { BrandsMarquee } from "@/components/sections/Sections";
 import ClaudePartnership from "@/components/sections/ClaudePartnership";
 import OpenAIPartnership from "@/components/sections/OpenAIPartnership";
-import "./opspod.css";
+import "./salespod.css";
 
 // ── Country codes list (Alphabetical) ──────────────────────────────────────
 const countries = [
@@ -43,15 +51,12 @@ const countries = [
   { name: "Other", code: "Custom", flag: "🌐" },
 ];
 
-const opsGoals = [
-  "Document & Invoice Ingestion Engine",
-  "Cross-Departmental Process Routing",
-  "Vendor & Partner Onboarding Automation",
-  "IT Infrastructure & Security Automation",
-  "ERP & WMS Data Synchronization",
-  "Operational Audit & Compliance Tracking",
+const outboundGoals = [
+  "Fully Autonomous Pipeline",
+  "LinkedIn Automation Pod",
+  "Outbound Cold Email Engine",
+  "Hyper-Intent Data Scraping",
 ];
-
 
 // Motion Variants (Framer Motion)
 const fadeUp = (delay = 0, isMobile = false) => ({
@@ -64,6 +69,291 @@ const fadeUp = (delay = 0, isMobile = false) => ({
   },
 });
 
+// ── Connected Enterprise Infrastructure Ecosystem Visualizer ─────────────────
+function EcosystemViz() {
+  return (
+    <div 
+      className="sp-form-card"
+      style={{
+        width: "100%",
+        maxWidth: "680px",
+        margin: "0 auto",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "32px",
+        overflow: "hidden",
+        position: "relative"
+      }}
+    >
+      <div 
+        style={{ 
+          position: "absolute", 
+          inset: 0, 
+          opacity: 0.015, 
+          backgroundImage: "radial-gradient(var(--sp-accent) 1px, transparent 1px)", 
+          backgroundSize: "20px 20px" 
+        }} 
+      />
+      <svg 
+        viewBox="0 0 600 400" 
+        className="w-full h-auto"
+        style={{ display: "block" }}
+      >
+        <defs>
+          <radialGradient id="hub-glow-eco" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--sp-accent)" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="var(--sp-accent)" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Outer orbital boundary lines */}
+        <circle cx="300" cy="200" r="160" fill="none" stroke="var(--color-border-faint)" strokeWidth="1" strokeDasharray="6 8" />
+        <circle cx="300" cy="200" r="110" fill="none" stroke="var(--color-border-faint)" strokeWidth="1" strokeDasharray="4 6" />
+
+        {/* Central Hub glowing halo */}
+        <circle cx="300" cy="200" r="70" fill="url(#hub-glow-eco)" />
+        <motion.circle 
+          cx="300" 
+          cy="200" 
+          r="48" 
+          fill="none" 
+          stroke="rgba(var(--sp-accent-rgb), 0.15)" 
+          strokeWidth="1.5"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Central Node: SalesPod Core */}
+        <circle cx="300" cy="200" r="32" fill="var(--color-bg-card)" stroke="var(--sp-accent)" strokeWidth="2" />
+        <text x="300" y="204" textAnchor="middle" fill="var(--sp-accent)" fontSize="10px" fontWeight="700" letterSpacing="0.05em">POD CORE</text>
+
+        {/* Orbit Connection lines */}
+        <line x1="300" y1="200" x2="160" y2="100" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
+        <line x1="300" y1="200" x2="440" y2="100" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
+        <line x1="300" y1="200" x2="160" y2="300" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
+        <line x1="300" y1="200" x2="440" y2="300" stroke="var(--color-border-faint)" strokeWidth="1.5" strokeDasharray="4 4" />
+
+        {/* Node 1: CRM */}
+        <circle cx="160" cy="100" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
+        <text x="160" y="104" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">ENTERPRISE CRM</text>
+
+        {/* Node 2: Communication */}
+        <circle cx="440" cy="100" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
+        <text x="440" y="104" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">ALERTS & CHAT</text>
+
+        {/* Node 3: Outreach Channels */}
+        <circle cx="160" cy="300" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
+        <text x="160" y="304" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">MAIL & LINKEDIN</text>
+
+        {/* Node 4: Warehouses */}
+        <circle cx="440" cy="300" r="28" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1.5" />
+        <text x="440" y="304" textAnchor="middle" fill="var(--color-text-bright)" fontSize="9px" fontWeight="600">DATA WHSE</text>
+
+        {/* Interactive connection pulses */}
+        <motion.circle 
+          cx="300" 
+          cy="200" 
+          r="4" 
+          fill="var(--sp-accent)"
+          animate={{ cx: [300, 160], cy: [200, 100], opacity: [0, 1, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 0.5 }}
+        />
+        <motion.circle 
+          cx="300" 
+          cy="200" 
+          r="4" 
+          fill="var(--sp-accent)"
+          animate={{ cx: [300, 440], cy: [200, 100], opacity: [0, 1, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.2 }}
+        />
+        <motion.circle 
+          cx="300" 
+          cy="200" 
+          r="4" 
+          fill="var(--sp-accent)"
+          animate={{ cx: [300, 160], cy: [200, 300], opacity: [0, 1, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.8 }}
+        />
+        <motion.circle 
+          cx="300" 
+          cy="200" 
+          r="4" 
+          fill="var(--sp-accent)"
+          animate={{ cx: [300, 440], cy: [200, 300], opacity: [0, 1, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 2.4 }}
+        />
+      </svg>
+    </div>
+  );
+}
+
+// ── Live Pipeline Infrastructure Visualizer ─────────────────────────────────
+function PipelineViz() {
+  // Bezier curve coordinates for node connection lines
+  const p1 = "M 150 72 C 175 72, 165 190, 180 190";
+  const p2 = "M 150 308 C 175 308, 165 190, 180 190";
+  const p3 = "M 340 190 C 355 190, 345 72, 370 72";
+  const p4 = "M 340 190 C 355 190, 345 308, 370 308";
+
+  return (
+    <div 
+      className="sp-form-card"
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "24px",
+        overflow: "hidden"
+      }}
+    >
+      <div 
+        style={{ 
+          position: "absolute", 
+          inset: 0, 
+          opacity: 0.02, 
+          backgroundImage: "radial-gradient(var(--sp-accent) 1px, transparent 1px)", 
+          backgroundSize: "24px 24px" 
+        }} 
+      />
+      <svg 
+        viewBox="0 0 520 380" 
+        className="w-full h-auto"
+        style={{ display: "block" }}
+      >
+        <defs>
+          <radialGradient id="hub-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--sp-accent)" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="var(--sp-accent)" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Glow behind Central Hub */}
+        <circle cx="260" cy="190" r="100" fill="url(#hub-glow)" />
+
+        {/* Connection Curves */}
+        <path d={p1} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
+        <path d={p2} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
+        <path d={p3} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
+        <path d={p4} fill="none" stroke="var(--color-border)" strokeWidth="1.5" strokeOpacity="0.25" />
+
+        {/* Animated Data Packets (Dashed Energy Flows) */}
+        <motion.path 
+          d={p1} 
+          fill="none" 
+          stroke="var(--sp-accent)" 
+          strokeWidth="1.5" 
+          strokeDasharray="4 6"
+          animate={{ strokeDashoffset: [20, 0] }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          strokeOpacity="0.6"
+        />
+        <motion.path 
+          d={p2} 
+          fill="none" 
+          stroke="var(--sp-accent)" 
+          strokeWidth="1.5" 
+          strokeDasharray="4 6"
+          animate={{ strokeDashoffset: [20, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 0.5
+          }}
+          strokeOpacity="0.6"
+        />
+        <motion.path 
+          d={p3} 
+          fill="none" 
+          stroke="var(--sp-accent)" 
+          strokeWidth="1.5" 
+          strokeDasharray="4 6"
+          animate={{ strokeDashoffset: [20, 0] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 0.3
+          }}
+          strokeOpacity="0.6"
+        />
+        <motion.path 
+          d={p4} 
+          fill="none" 
+          stroke="var(--sp-accent)" 
+          strokeWidth="1.5" 
+          strokeDasharray="4 6"
+          animate={{ strokeDashoffset: [20, 0] }}
+          transition={{
+            duration: 1.7,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 0.8
+          }}
+          strokeOpacity="0.6"
+        />
+
+        {/* INPUT NODE 1 */}
+        <g transform="translate(20, 40)">
+          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">DATA SIGNAL</text>
+          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="12" fontWeight="500">Account Intent</text>
+          <circle cx="16" cy="50" r="2.5" fill="var(--color-green)" />
+          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Active Scan</text>
+        </g>
+
+        {/* INPUT NODE 2 */}
+        <g transform="translate(20, 276)">
+          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">SCRAPER BOT</text>
+          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="12" fontWeight="500">Profile Scraper</text>
+          <circle cx="16" cy="50" r="2.5" fill="var(--color-green)" />
+          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Synchronized</text>
+        </g>
+
+        {/* CENTRAL HUB NODE */}
+        <g transform="translate(180, 150)">
+          <rect width="160" height="80" rx="10" ry="10" fill="var(--color-bg-card-alt)" stroke="var(--sp-accent)" strokeWidth="1.5" style={{ filter: "drop-shadow(0 0 10px rgba(var(--sp-accent-rgb), 0.08))" }} />
+          <text x="80" y="24" textAnchor="middle" fill="var(--sp-accent)" fontSize="9" fontWeight="700" letterSpacing="0.1em">CORE PIPELINE</text>
+          <text x="80" y="44" textAnchor="middle" fill="var(--color-text-bright)" fontSize="13" fontWeight="600">SalesPod Engine</text>
+          
+          {/* Status Indicator inside Hub */}
+          <circle cx="50" cy="62" r="3" fill="var(--sp-accent)" />
+          <motion.circle cx="50" cy="62" r="6" fill="none" stroke="var(--sp-accent)" strokeWidth="1"
+            animate={{ scale: [1, 1.8, 1], opacity: [0.8, 0, 0.8] }}
+            transition={{ duration: 2.2, repeat: Infinity }}
+          />
+          <text x="60" y="65" fill="var(--color-text-bright)" fontSize="10" fontWeight="500">Live Orchestrator</text>
+        </g>
+
+        {/* OUTPUT NODE 1 */}
+        <g transform="translate(370, 40)">
+          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">SEQUENCE ROUTER</text>
+          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="11" fontWeight="500">Email & LinkedIn</text>
+          <circle cx="16" cy="50" r="2.5" fill="var(--sp-accent)" />
+          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Active Loops</text>
+        </g>
+
+        {/* OUTPUT NODE 2 */}
+        <g transform="translate(370, 276)">
+          <rect width="130" height="64" rx="8" ry="8" fill="var(--color-bg-card)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="12" y="20" fill="var(--color-text-muted)" fontSize="9" fontWeight="700" letterSpacing="0.05em">CRM INTEGRATION</text>
+          <text x="12" y="38" fill="var(--color-text-bright)" fontSize="12" fontWeight="500">Database Sync</text>
+          <circle cx="16" cy="50" r="2.5" fill="var(--color-green)" />
+          <text x="24" y="53" fill="var(--color-text-faint)" fontSize="9">Fully Mapped</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
 
 const salespodReviews = [
   {
@@ -154,151 +444,106 @@ const salespodReviews = [
 const capabilitiesData = [
   {
     chapter: "Chapter 01",
-    eyebrow: "Document Ingestion",
-    title: "Document & Unstructured Data Ingestion Engine",
-    desc: "Processing heavy volumes of physical or digital records creates severe operational drag. Deploying document workflow automation allows organizations to extract, classify, and parse inbound contracts, vendor invoices, and compliance forms automatically. Coupling vision parsing with automated data processing ensures structured data flows seamlessly into enterprise databases without demanding tedious manual copy-pasting from operational staff.",
-    video: "/videos/opspod/1.mp4",
+    eyebrow: "Lead Sourcing",
+    title: "Modern B2B Prospecting Powered by AI",
+    desc: "Finding and engaging the right decision-makers no longer requires manual research or copy-paste outreach. By deploying AI for sales prospecting, your revenue team can automatically identify high-intent accounts, enrich contact data in real time, and draft personalized outreach sequences that convert. Evaluated among the best AI sales tools for modern outbound teams, our solution transforms cold outreach into predictable pipeline generation.",
+    video: "/videos/salespod/1.mp4",
     points: [
       {
-        title: "Optical Document Parsing",
-        body: "Extract text, key fields, and table line-items from incoming PDF invoices, POs, and legal contracts automatically."
+        title: "Identify High-Intent Accounts",
+        body: "Automatically discover and qualify target accounts based on real-time buying signals, industry fit, and decision-maker criteria."
       },
       {
-        title: "Validation & Exception Routing",
-        body: "Cross-verify extracted fields against existing database records, routing edge-case discrepancies directly to human reviewers."
+        title: "Real-Time Contact Data Enrichment",
+        body: "Continuously enrich prospect records with validated emails, verified direct dials, and verified professional profiles."
       },
       {
-        title: "System-Wide Database Synchronization",
-        body: "Update core systems of record instantly upon document confirmation without administrative delays."
-      },
-      {
-        title: "Audit-Compliant Archiving",
-        body: "Tag and index digital documents automatically to satisfy regulatory record-keeping standards."
+        title: "Predictable Pipeline Generation",
+        body: "Deploy personalized, high-converting outreach sequences that turn cold prospecting into qualified meetings."
       }
     ]
   },
   {
     chapter: "Chapter 02",
-    eyebrow: "Process Optimization",
-    title: "End-to-End Business Process Optimization",
-    desc: "Scale operations smoothly without inflating headcounts or administrative costs. Utilizing targeted business process automation tools helps operations managers link separate departments together into unified workflows. With tailored AI business process automation solutions, teams eliminate internal bottlenecks, speed up approval cycles, and establish crystal-clear operational accountability.",
-    video: "/videos/opspod/2.mp4",
+    eyebrow: "Outreach & Delivery",
+    title: "End-to-End Sales Pipeline Automation",
+    desc: "Stop losing deals to stalled follow-ups or untracked stage movements. With built-in sales pipeline automation, every deal progression, meeting outcome, and follow-up trigger is managed automatically. From inbound lead capture to contract execution, your reps maintain absolute visibility across every pipeline stage without manual data entry.",
+    video: "/videos/salespod/2.mp4",
     points: [
       {
-        title: "Cross-Departmental Task Routing",
-        body: "Hand off tasks between finance, legal, and fulfillment teams automatically based on predefined logic rules."
+        title: "Launch Coordinated Multichannel Cadences",
+        body: "Execute synchronized touches through Email, AI Voice Calls, LinkedIn, WhatsApp, and SMS automatically."
       },
       {
-        title: "Real-Time Process Monitoring",
-        body: "Identify internal execution delays and bottlenecks before they disrupt customer deliverables."
+        title: "Automate Stage Movements & Triggers",
+        body: "Move deals forward automatically as meetings are completed, proposals are viewed, and engagement spikes."
       },
       {
-        title: "Custom Logic Decision Trees",
-        body: "Implement rule-based routing paths tailored specifically to your organization's operating governance."
-      },
-      {
-        title: "SLA Enforcement Triggers",
-        body: "Notify department managers and reassign urgent approval requests when SLA thresholds are breached."
+        title: "Adaptive Conversation Style",
+        body: "AI agents adapt to your communication tone, company voice, and conversation patterns across every touchpoint."
       }
     ]
   },
   {
     chapter: "Chapter 03",
-    eyebrow: "Resource Execution",
-    title: "Enterprise Operations & Resource Execution",
-    desc: "Achieving high operating margins requires systematic coordination across all business units. Implementing a customized Ops automation framework transforms daily administrative burden into streamlined digital tasks. Modern automation tools for business empower leaders to enforce standardized quality control across every operational touchpoint.",
-    video: "/videos/opspod/3.mp4",
+    eyebrow: "Intent Tracking",
+    title: "Intelligent Lead Nurturing That Tracks Intent",
+    desc: "SalesPod follows every conversation and identifies the right time to involve your sales team.",
+    video: "/videos/salespod/3.mp4",
     points: [
       {
-        title: "Vendor & Partner Onboarding",
-        body: "Collect tax forms, banking details, and compliance certifications automatically through interactive portals."
+        title: "Monitor Conversations Across Channels",
+        body: "Tracks emails, calls, LinkedIn messages, WhatsApp chats, and more in real time."
       },
       {
-        title: "Resource Allocation Tracking",
-        body: "Assign personnel and physical assets dynamically based on real-time project demand."
+        title: "Follow Up Based on Buyer Behavior",
+        body: "Sends contextual follow-ups based on engagement stage and customer responses."
       },
       {
-        title: "Internal SLA Escalations",
-        body: "Trigger automated alerts when internal request tickets exceed expected turnaround times."
-      },
-      {
-        title: "Quality Control Audit Logging",
-        body: "Capture complete historical logs for every operational step to maintain strict compliance oversight."
+        title: "Handoff High-Intent Leads Instantly",
+        body: "Routes qualified opportunities to your sales team with full conversation context."
       }
     ]
   },
   {
     chapter: "Chapter 04",
-    eyebrow: "Intelligent Automation",
-    title: "Intelligent Resource Deployment & AI Systems",
-    desc: "Integrate adaptive decision-making into core operational workflows. Modern leaders leverage specialized intelligent automation tools alongside practical business AI solutions to handle complex data evaluation tasks, optimize inventory levels, and forecast operational needs accurately.",
-    video: "/videos/opspod/4.mp4",
+    eyebrow: "CRM Sync & Analytics",
+    title: "Seamless CRM and Sales Automation Sync",
+    desc: "Eliminate data silos between your engagement stack and system of record. Our complete crm and sales automation engine maintains bidirectional synchronization across your CRM, email, and meeting scheduling tools. Every touchpoint, stage update, and customer activity is logged instantly, ensuring your CRM remains a reliable source of truth.",
+    video: "/videos/salespod/4.mp4",
     points: [
       {
-        title: "Predictive Demand Forecasting",
-        body: "Analyze historical consumption patterns to predict future supply requirements automatically."
+        title: "Bidirectional Stack Synchronization",
+        body: "Instantly sync interactions, responses, and stage updates between your CRM, email inboxes, and calendar tools."
       },
       {
-        title: "Automated Exception Flagging",
-        body: "Detect data anomalies and system discrepancies instantly, alerting risk officers before errors escalate."
+        title: "Analyze Buyer Sentiment & Intent",
+        body: "Understands tone, hesitation, engagement, and intent signals across customer conversations."
       },
       {
-        title: "Context-Aware Task Routing",
-        body: "Direct inbound operational requests to team members based on workload capacity and specialized skills."
-      },
-      {
-        title: "Real-Time Operational Insights",
-        body: "Synthesize operational telemetry into clear, actionable summaries for executive decision-makers."
+        title: "Reliable Single Source of Truth",
+        body: "Eliminate manual CRM admin while maintaining pristine pipeline analytics and forecasting accuracy."
       }
     ]
   },
   {
     chapter: "Chapter 05",
-    eyebrow: "IT & Infrastructure",
-    title: "IT & Technical Infrastructure Automation",
-    desc: "Ensure high system availability while protecting sensitive operational data. Implementing robust automation in IT operations keeps software infrastructure synchronized, secure, and resilient. Deploying enterprise operations automation tools allows IT engineers to focus on strategic growth projects rather than routine system maintenance.",
-    video: "/videos/opspod/5.mp4",
+    eyebrow: "Performance Insights",
+    title: "Intelligent Dashboards for Better Sales Decisions",
+    desc: "Turn sales activity into actionable insights and measurable outcomes.",
+    video: "/videos/salespod/5.mp4",
     points: [
       {
-        title: "User Provisioning & Offboarding",
-        body: "Grant software access and revoke security credentials automatically based on employment status."
+        title: "Capture Data Across the Sales Journey",
+        body: "Tracks outreach, engagement, conversions, and pipeline activity in one place."
       },
       {
-        title: "System Log Monitoring",
-        body: "Aggregate cross-platform system metrics to catch security anomalies early."
+        title: "Analyze Campaign Performance Automatically",
+        body: "Measures what’s working across channels, messaging, and outreach flows."
       },
       {
-        title: "Database Sync & Maintenance",
-        body: "Schedule routine database updates and cloud backups automatically without manual intervention."
-      },
-      {
-        title: "Incident Remediation Rules",
-        body: "Trigger automated server recovery protocols instantly when infrastructure alerts activate."
-      }
-    ]
-  },
-  {
-    chapter: "Chapter 06",
-    eyebrow: "Operational Excellence",
-    title: "Operational Excellence & ROI Measurement",
-    desc: "Track cycle time reductions, labor cost savings, and operational throughput using centralized dashboards. Modern organizations rely on comprehensive operations automation architectures to measure performance metrics accurately. Building out tailored operations and automation systems gives leadership clear visibility into operational return on investment.",
-    video: "/videos/opspod/6.mp4",
-    points: [
-      {
-        title: "Executive KPI Dashboards",
-        body: "Monitor cost reductions, processing times, and team throughput metrics across departments."
-      },
-      {
-        title: "Process Velocity Tracking",
-        body: "Measure exact lead times from initial intake request to final fulfillment execution."
-      },
-      {
-        title: "Cost Center Attribution",
-        body: "Analyze operational expenditures per business unit to pinpoint areas for efficiency improvement."
-      },
-      {
-        title: "Continuous Optimization Feedback",
-        body: "Utilize real-time operational data to adjust workflow rules and improve system throughput."
+        title: "Break Down Insights by KPIs",
+        body: "Monitor metrics like response rates, meetings booked, conversions, and ROI."
       }
     ]
   }
@@ -429,8 +674,11 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       ([entry]) => {
         if (entry.isIntersecting) {
           if (isPlaying) {
+            // Always reset to beginning (0:00) when section becomes active
             video.currentTime = 0;
             updateProgressDOM();
+
+            // Autoplay with audio muted by default
             video.muted = true;
             setIsMuted(true);
             video.play().catch(() => {});
@@ -561,6 +809,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
               pointerEvents: "none",
             }}
           >
+            {/* ScalePods Premium Branded Logo */}
             <div style={{ position: "relative", width: "120px", height: "30px", opacity: 0.85 }}>
               <Image
                 src="/scalepods-navbar-logo.png"
@@ -571,6 +820,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
               />
             </div>
 
+            {/* Spinner and Status Indicator */}
             <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255, 255, 255, 0.7)" }}>
               <Loader2 className="animate-spin" size={16} style={{ color: "var(--sp-accent)" }} />
               <span style={{ fontSize: "12px", fontWeight: 500, letterSpacing: "0.05em", fontFamily: "Inter, sans-serif" }}>
@@ -581,6 +831,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         )}
       </AnimatePresence>
 
+      {/* Play Overlay indicator */}
       {isVideoReady && !isPlaying && (
         <div 
           style={{
@@ -601,6 +852,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         </div>
       )}
 
+      {/* Double Tap Seek Indicator Overlay */}
       {isVideoReady && seekType && (
         <div 
           style={{
@@ -652,6 +904,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         </div>
       )}
 
+      {/* Hover-based Timeline Progress Bar */}
       {isVideoReady && (
         <div 
           className="sp-video-timeline-container"
@@ -708,6 +961,7 @@ function CapabilityVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         </div>
       )}
 
+      {/* Mute/Unmute Overlay Button */}
       {isVideoReady && (
         <button
           onClick={toggleMute}
@@ -872,8 +1126,11 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
       ([entry]) => {
         if (entry.isIntersecting) {
           if (isPlaying) {
+            // Always reset to beginning (0:00) when section becomes active
             video.currentTime = 0;
             updateProgressDOM();
+
+            // Autoplay with audio muted by default
             video.muted = true;
             setIsMuted(true);
             video.play().catch(() => {});
@@ -960,9 +1217,21 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   return (
     <div 
       ref={containerRef}
-      className="sp-demo-video-wrapper" 
+      className="sp-capability-video-wrapper" 
       onClick={handleVideoClick} 
-      style={{ cursor: "pointer", position: "relative", overflow: "hidden" }}
+      style={{ 
+        cursor: "pointer", 
+        position: "relative",
+        border: "none",
+        borderRadius: "0px",
+        boxShadow: "none",
+        background: "transparent",
+        width: "100%",
+        height: "100%",
+        display: "block",
+        aspectRatio: "16/9",
+        overflow: "hidden"
+      }}
     >
       <video
         ref={videoRef}
@@ -972,8 +1241,12 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         loop
         playsInline
         preload="metadata"
-        className="sp-demo-video"
+        className="sp-capability-video"
         style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
           opacity: isVideoReady ? 1 : 0,
           transition: "opacity 0.35s ease-in-out",
         }}
@@ -1004,6 +1277,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
               pointerEvents: "none",
             }}
           >
+            {/* ScalePods Premium Branded Logo */}
             <div style={{ position: "relative", width: "120px", height: "30px", opacity: 0.85 }}>
               <Image
                 src="/scalepods-navbar-logo.png"
@@ -1014,16 +1288,18 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
               />
             </div>
 
+            {/* Spinner and Status Indicator */}
             <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255, 255, 255, 0.7)" }}>
               <Loader2 className="animate-spin" size={16} style={{ color: "var(--sp-accent)" }} />
               <span style={{ fontSize: "12px", fontWeight: 500, letterSpacing: "0.05em", fontFamily: "Inter, sans-serif" }}>
-                PREPARING DEMO EXPERIENCE...
+                PREPARING EXPERIENCE...
               </span>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Play Overlay indicator */}
       {isVideoReady && !isPlaying && (
         <div 
           style={{
@@ -1044,6 +1320,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         </div>
       )}
 
+      {/* Double Tap Seek Indicator Overlay */}
       {isVideoReady && seekType && (
         <div 
           style={{
@@ -1095,6 +1372,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         </div>
       )}
 
+      {/* Hover-based Timeline Progress Bar */}
       {isVideoReady && (
         <div 
           className="sp-video-timeline-container"
@@ -1151,6 +1429,7 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
         </div>
       )}
 
+      {/* Mute/Unmute Overlay Button */}
       {isVideoReady && (
         <button
           onClick={toggleMute}
@@ -1194,43 +1473,404 @@ function ProductDemoVideoPlayer({ src }: CapabilityVideoPlayerProps) {
   );
 }
 
-function OpsPodTestimonialCarousel() {
+function SalespodTestimonialCarousel() {
   return <TestimonialCarousel reviews={salespodReviews} />;
 }
 
-export default function OperationsWorkflowAutomationPage() {
-  const isMobile = useMobile();
+function DummySalespodTestimonialCarousel() {
+  const [active, setActive] = useState(0);
+  const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+  const next = () => {};
+  const prev = () => {};
+  const handleDragEnd = () => {};
+  const getCardStyles = (index: number) => ({ x: 0, scale: 1, opacity: 1, zIndex: 1, filter: "none", pointerEvents: "none" as const, isCenter: true });
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const isInView = false;
+
+  return (
+    <div 
+      ref={carouselRef} 
+      className="relative w-full max-w-full"
+      style={{
+        overflow: isMobile ? "hidden" : "visible",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: isMobile ? "0px" : "32px",
+        paddingBottom: isMobile ? "0px" : "32px",
+      }}
+    >
+      
+      {/* Navigation Arrows */}
+      {!isMobile && (
+        <>
+          <div style={{ position: "absolute", left: "40px", top: "50%", transform: "translateY(-50%)", zIndex: 100 }}>
+            <ArrowBtn dir="left" onClick={prev} />
+          </div>
+          <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", zIndex: 100 }}>
+            <ArrowBtn dir="right" onClick={next} />
+          </div>
+        </>
+      )}
+
+      <div 
+        className="relative w-full" 
+        style={{ 
+          perspective: 1200, 
+          minHeight: isMobile ? "auto" : "340px", 
+          height: isMobile ? "auto" : undefined,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
+          overflow: isMobile ? "hidden" : "visible"
+        }}
+      >
+        {isMobile ? (
+          <AnimatePresence initial={false} mode="wait">
+            {(() => {
+              const review = salespodReviews[active];
+              const { zIndex } = getCardStyles(active);
+              return (
+                <motion.div
+                  key={review.name}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    opacity: 1,
+                    zIndex,
+                    filter: "none",
+                  }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1],
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
+                  style={{
+                    position: "relative",
+                    pointerEvents: "auto",
+                    cursor: "grab",
+                    width: "92%",
+                    maxWidth: "360px",
+                    marginInline: "auto",
+                    height: "auto",
+                    minHeight: "300px",
+                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: "1px solid rgba(var(--sp-accent-rgb), 0.5)",
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    padding: "28px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    gap: "16px",
+                    boxShadow: resolvedTheme === 'dark'
+                      ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                      : "0 25px 50px -12px rgba(var(--sp-accent-rgb), 0.15), 0 0 20px rgba(var(--sp-accent-rgb), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                  className="transform-gpu"
+                >
+                  <div style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "80%",
+                    height: "40%",
+                    background: resolvedTheme === 'dark'
+                      ? "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.08) 0%, transparent 80%)"
+                      : "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.05) 0%, transparent 80%)",
+                    zIndex: -1,
+                    pointerEvents: "none"
+                  }} />
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ 
+                      position: "relative", 
+                      width: "44px", 
+                      height: "44px", 
+                      borderRadius: "12px", 
+                      overflow: "hidden", 
+                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                      flexShrink: 0 
+                    }}>
+                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)" }}>{review.name}</span>
+                      <span style={{ 
+                        fontFamily: "var(--font-sans), sans-serif", 
+                        fontSize: "10px", 
+                        color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb), 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        marginTop: "1px", 
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.02em"
+                      }}>{review.title}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                    <p style={{
+                      fontFamily: "var(--font-sans), sans-serif", 
+                      fontSize: "13px", 
+                      color: "var(--color-text-body)", 
+                      lineHeight: 1.65, 
+                      margin: 0,
+                      fontWeight: 400,
+                      opacity: 0.9,
+                      textAlign: "left",
+                      wordBreak: "break-word",
+                      overflow: "hidden"
+                    }}>
+                      {review.quote}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
+        ) : (
+          <AnimatePresence initial={false}>
+            {salespodReviews.map((review, i) => {
+              const { x, scale, opacity, zIndex, filter, pointerEvents, isCenter } = getCardStyles(i);
+
+              return (
+                <motion.div
+                  key={review.name}
+                  initial={false}
+                  animate={{
+                    x: `calc(-50% + ${x}px)`,
+                    y: "-50%",
+                    scale,
+                    opacity,
+                    zIndex,
+                    filter,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1],
+                  }}
+                  drag={isCenter ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
+                  onClick={() => {
+                    if (!isCenter) {
+                      if (x < 0) prev();
+                      else next();
+                    }
+                  }}
+                  style={{
+                    position: "absolute",
+                    pointerEvents: pointerEvents as any,
+                    cursor: isCenter ? "grab" : "pointer",
+                    width: "90%",
+                    maxWidth: "520px",
+                    top: "50%",
+                    left: "50%",
+                    minHeight: "200px",
+                    height: "auto",
+                    background: resolvedTheme === 'dark' ? "rgba(10, 15, 30, 0.6)" : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: isCenter 
+                      ? "1px solid rgba(var(--sp-accent-rgb), 0.5)"
+                      : "1px solid rgba(var(--sp-accent-rgb), 0.1)",
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    padding: "32px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gap: "16px",
+                    boxShadow: isCenter 
+                      ? resolvedTheme === 'dark'
+                        ? "0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(var(--sp-accent-rgb), 0.15), inset 0 1px 1px rgba(255,255,255,0.05)"
+                        : "0 25px 50px -12px rgba(var(--sp-accent-rgb), 0.15), 0 0 20px rgba(var(--sp-accent-rgb), 0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                      : "0 10px 30px rgba(0,0,0,0.05)",
+                  }}
+                  className="transform-gpu"
+                >
+                  {isCenter && (
+                    <div style={{
+                      position: "absolute",
+                      top: "0",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "80%",
+                      height: "40%",
+                      background: resolvedTheme === 'dark'
+                        ? "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.08) 0%, transparent 80%)"
+                        : "radial-gradient(circle, rgba(var(--sp-accent-rgb), 0.05) 0%, transparent 80%)",
+                      zIndex: -1,
+                      pointerEvents: "none"
+                    }} />
+                  )}
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ 
+                      position: "relative", 
+                      width: "48px", 
+                      height: "48px", 
+                      borderRadius: "12px", 
+                      overflow: "hidden", 
+                      border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`, 
+                      flexShrink: 0 
+                    }}>
+                      <Image src={review.image} alt={review.name} fill className="object-cover" sizes="64px" />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: "16px", fontWeight: 700, color: "var(--color-text-bright)" }}>{review.name}</span>
+                      <span style={{ 
+                        fontFamily: "var(--font-sans), sans-serif", 
+                        fontSize: "11px", 
+                        color: resolvedTheme === 'dark' ? "rgba(var(--sp-accent-rgb), 0.8)" : "rgba(0, 0, 0, 0.6)", 
+                        marginTop: "1px", 
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.02em"
+                      }}>{review.title}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ width: "100%", height: "1px", background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" }} />
+
+                  <div style={{ display: "flex", alignItems: "flex-start", width: "100%", overflow: "hidden" }}>
+                    <p style={{
+                      fontFamily: "var(--font-sans), sans-serif", 
+                      fontSize: "14px", 
+                      color: "var(--color-text-body)", 
+                      lineHeight: 1.65, 
+                      margin: 0,
+                      fontWeight: 400,
+                      opacity: 0.9,
+                      textAlign: "left",
+                      wordBreak: "break-word",
+                      overflow: "hidden"
+                    }}>
+                      {review.quote}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        )}
+      </div>
+
+      {/* Pagination dots */}
+      <div 
+        className="flex justify-center" 
+        style={{ 
+          marginTop: isMobile ? "20px" : "32px",
+          width: "100%",
+          alignItems: "center",
+          gap: "4px"
+        }}
+      >
+        {salespodReviews.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className="transition-all duration-300 flex items-center justify-center"
+            style={{
+              width: active === i ? "32px" : "24px",
+              height: "44px", // Proper touch target height
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0
+            }}
+            aria-label={`Go to slide ${i + 1}`}
+          >
+            <span
+              style={{
+                width: active === i ? "24px" : "8px",
+                height: "8px",
+                borderRadius: "4px",
+                background: active === i ? "rgba(var(--sp-accent-rgb), 0.8)" : resolvedTheme === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+                display: "block",
+                transition: "all 0.3s ease"
+              }}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ArrowBtn({ dir, onClick }: { dir: 'left' | 'right', onClick: () => void }) {
+  const isMobile = useMobile(768);
+  const { resolvedTheme } = useTheme();
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1, background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)" }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      style={{
+        width: isMobile ? "44px" : "56px",
+        height: isMobile ? "44px" : "56px",
+        borderRadius: "50%",
+        background: resolvedTheme === 'dark' ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)",
+        backdropFilter: "blur(12px)",
+        border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "var(--color-text-bright)",
+        cursor: "pointer",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+        zIndex: 50,
+      }}
+    >
+      {dir === 'left' ? <ChevronLeft size={isMobile ? 20 : 28} /> : <ChevronRight size={isMobile ? 20 : 28} />}
+    </motion.button>
+  );
+}
+
+export default function SalesPodPage() {
+  const isMobile = useMobile(1023);
   const { resolvedTheme } = useTheme();
 
+  // Form State
   const [form, setForm] = useState({
     name: "",
     email: "",
     company: "",
-    goal: "Document & Invoice Ingestion Engine",
     phone: "",
-    countryCode: "+1",
+    countryCode: "+91",
     customCode: "",
+    goal: "Fully Autonomous Pipeline",
     website: "", // Honeypot
   });
 
-  const [loading, setLoading] = useState(false);
-  const [loadingStatus, setLoadingStatus] = useState("Initializing payload...");
-  const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  const [showGoalPicker, setShowGoalPicker] = useState(false);
+  // UI Interactive States
   const [showCountryPicker, setShowCountryPicker] = useState(false);
+  const [showGoalPicker, setShowGoalPicker] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
-
-
-  const [auditModalTitle, setAuditModalTitle] = useState("Pre-Configure Your Operations Pod");
-  const [auditModalSourceName, setAuditModalSourceName] = useState("Operations Workflow Automation solution page");
-
-  const countryPickerRef = useRef<HTMLDivElement>(null);
-  const goalPickerRef = useRef<HTMLDivElement>(null);
+  const [auditModalTitle, setAuditModalTitle] = useState("Get a Free Workflow Audit");
+  const [auditModalSourceName, setAuditModalSourceName] = useState("Sales Workflow Automation Solution Page");
 
   useCountryDetection(
     countries,
@@ -1238,28 +1878,30 @@ export default function OperationsWorkflowAutomationPage() {
     useCallback((code: string) => setForm(prev => ({ ...prev, customCode: code })), [])
   );
 
-  // Click Outside hooks for dropdowns
+  // Status updates during loading
+  const [loadingStatus, setLoadingStatus] = useState("Initializing connection...");
+
+  // Refs for closing pickers on outside click
+  const countryPickerRef = useRef<HTMLDivElement>(null);
+  const goalPickerRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdowns on outside click
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (countryPickerRef.current && !countryPickerRef.current.contains(e.target as Node)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (countryPickerRef.current && !countryPickerRef.current.contains(event.target as Node)) {
         setShowCountryPicker(false);
       }
-      if (goalPickerRef.current && !goalPickerRef.current.contains(e.target as Node)) {
+      if (goalPickerRef.current && !goalPickerRef.current.contains(event.target as Node)) {
         setShowGoalPicker(false);
       }
-    };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Form Change Handlers
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  const selectGoal = (g: string) => {
-    setForm(prev => ({ ...prev, goal: g }));
-    setShowGoalPicker(false);
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const selectCountry = (code: string) => {
@@ -1267,33 +1909,41 @@ export default function OperationsWorkflowAutomationPage() {
     setShowCountryPicker(false);
   };
 
-  // Mock status loader for premium user feedback
-  const runStatusUpdates = async () => {
-    const messages = [
-      "Analyzing enterprise process schema...",
-      "Configuring document parsing triggers...",
-      "Mapping cross-departmental logic...",
-      "Syncing with ERP/CRM webhook pipelines...",
-      "Registering your Operations Pod..."
-    ];
+  const selectGoal = (goal: string) => {
+    setForm(prev => ({ ...prev, goal }));
+    setShowGoalPicker(false);
+  };
 
-    for (const msg of messages) {
-      setLoadingStatus(msg);
-      await new Promise(r => setTimeout(r, 600));
+  // Simulate soft telemetry status
+  const runStatusUpdates = async () => {
+    const statuses = [
+      "Configuring routing proxy arrays...",
+      "Pre-registering schema variables...",
+      "Syncing outbound target channels...",
+      "Completing handshake..."
+    ];
+    for (let i = 0; i < statuses.length; i++) {
+      await new Promise(resolve => setTimeout(resolve, 600));
+      setLoadingStatus(statuses[i]);
     }
   };
 
+  // Form Submit Handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setLoadingStatus("Connecting to ScalePods network...");
 
-    // Cooldown check to prevent abuse
-    const cooldown = localStorage.getItem("scalepods_cooldown_opspod");
-    if (cooldown && Date.now() - parseInt(cooldown) < 120000) {
-      setError("Please wait 2 minutes before submitting another configuration.");
-      setLoading(false);
-      return;
+    // Cooldown Validation
+    const lastSubmit = localStorage.getItem("scalepods_cooldown_salespod");
+    if (lastSubmit) {
+      const timeDiff = Date.now() - parseInt(lastSubmit, 10);
+      if (timeDiff < 30000) {
+        setError("Please wait a moment before resubmitting.");
+        setLoading(false);
+        return;
+      }
     }
 
     // Strict Email Verification
@@ -1312,18 +1962,18 @@ export default function OperationsWorkflowAutomationPage() {
 
     const apiPromise = submitLead({
       formType: "contact_sales",
-      workflowType: "operations_workflow",
-      sourcePage: "/solution/ops-workflow-automation",
+      workflowType: "sales_workflow",
+      sourcePage: "/solutions/sales-workflow-automation",
       name: form.name,
       email: form.email,
       phone: form.phone ? `${dialCode} ${form.phone}` : undefined,
       company: form.company,
-      message: `Operations Automation Goal: ${form.goal}`,
+      message: `Outbound Goal: ${form.goal}`,
       website: form.website,
       metadata: {
         goal: form.goal,
-        platform: "Operations Workflow Automation Solution Page",
-        workflow: "operations_workflow"
+        platform: "Sales Workflow Automation Solution Page",
+        workflow: "sales_workflow"
       }
     });
 
@@ -1334,19 +1984,19 @@ export default function OperationsWorkflowAutomationPage() {
     if (!apiResult.success) {
       setError(apiResult.error || "Submission failed. Please verify connection and try again.");
     } else {
-      localStorage.setItem("scalepods_cooldown_opspod", Date.now().toString());
+      localStorage.setItem("scalepods_cooldown_salespod", Date.now().toString());
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solution/ops-workflow-automation" };
+      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solutions/sales-workflow-automation" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
     }
   };
 
   return (
-    <BeamsBackground className="opspod-container" hues={[140, 160]}>
-      {/* Soft Ambient Cool Green Glow Overlay */}
+    <BeamsBackground className="salespod-container" hues={[210, 185]}>
+      {/* Soft Ambient Cool Blue Glow Overlay */}
       <div className="sp-ambient-bg-glow" />
 
       {/* Main Layout Area */}
@@ -1361,7 +2011,7 @@ export default function OperationsWorkflowAutomationPage() {
             className="sp-hero-left"
           >
             {/* Soft Blinking Brand-Native Eyebrow */}
-            <div className="sp-hero-eyebrow" style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+            <div className="sp-hero-eyebrow" style={{ display: "flex", justifyContent: "center", width: "100%", transform: "translateY(-0.5px)" }}>
               <span style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -1387,21 +2037,20 @@ export default function OperationsWorkflowAutomationPage() {
                     }}
                   />
                 </span>
-                Certified Enterprise Intelligent Process Automation
+                AI-Powered Sales Engine
               </span>
             </div>
 
             {/* Content Heading */}
-            <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%" }}>
-              <span style={{ color: "#B1D997" }}>Enterprise Operations</span>{" "}
-              <br className="sp-hero-desk-br" />
-              &amp; Process Workflow Automation
+            <h1 className="sp-hero-title" style={{ textAlign: "center", width: "100%", transform: "translateY(-0.5px)" }}>
+              Scale Your Revenue Engine with <br className="sp-hero-desk-br" />
+              <span style={{ color: "var(--sp-accent)" }}>Next-Gen Sales Workflow Automation</span>
             </h1>
 
             {/* Subtext */}
             <div className="sp-hero-desc" style={{ textAlign: "center", marginBottom: isMobile ? "24px" : "32px", marginInline: "auto" }}>
               <p style={{ margin: 0 }}>
-                Manually handling routine internal processes creates systemic friction, inflates overhead, and slows execution across mid-market and enterprise organizations. ScalePods builds tailored architectures for modern enterprise workflow automation, replacing disconnected spreadsheets and slow email approvals with dependable execution tracks. By integrating enterprise-grade intelligent process automation directly into core operational systems, teams systematically remove human error while keeping total control over critical data pipelines.
+                Transform manual sales drag into high-velocity revenue. Our platform equips modern revenue teams with intelligent sales automation software designed to eliminate repetitive administrative tasks, streamline prospect engagement, and close deals faster.
               </p>
             </div>
 
@@ -1409,22 +2058,21 @@ export default function OperationsWorkflowAutomationPage() {
             <div style={{
               display: "grid",
               gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
-              gap: isMobile ? "12px" : "14px 60px",
+              gap: isMobile ? "12px" : "14px 40px",
               marginBottom: "32px",
-              width: "fit-content",
-              maxWidth: "100%",
-              marginInline: "auto",
-              paddingInline: "20px"
+              width: "100%",
+              maxWidth: "540px",
+              marginInline: "auto"
             }}>
               {[
-                "Document & Unstructured Data Ingestion Engine",
-                "End-to-End Business Process Optimization",
-                "Enterprise Operations & Resource Execution",
-                "Intelligent Resource Deployment & AI Systems"
+                "Autonomous Lead Sourcing",
+                "AI-Powered Qualification",
+                "Multi-Channel Outreach",
+                "CRM Synchronization"
               ].map((bullet, idx) => (
-                <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", justifyContent: "flex-start" }}>
-                  <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0, marginTop: "2px" }} />
-                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)", letterSpacing: "-0.01em", textAlign: "left" }}>
+                <div key={idx} style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
+                  <CheckCircle2 size={16} style={{ color: "var(--sp-accent)", flexShrink: 0 }} />
+                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-bright)", letterSpacing: "-0.01em" }}>
                     {bullet}
                   </span>
                 </div>
@@ -1438,8 +2086,8 @@ export default function OperationsWorkflowAutomationPage() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 onClick={() => {
-                  setAuditModalTitle("Schedule an Operations Architectural Assessment");
-                  setAuditModalSourceName("Operations Workflow Automation - Hero CTA");
+                  setAuditModalTitle("Book a Free Outbound Audit");
+                  setAuditModalSourceName("Sales Workflow Automation - Hero CTA");
                   setIsAuditModalOpen(true);
                 }}
                 className="sp-hero-cta-btn"
@@ -1448,7 +2096,7 @@ export default function OperationsWorkflowAutomationPage() {
                   minWidth: "250px",
                 }}
               >
-                Schedule an Operations Assessment →
+                Book a Free Outbound Audit →
               </motion.button>
             </div>
           </motion.div>
@@ -1500,7 +2148,7 @@ export default function OperationsWorkflowAutomationPage() {
                       marginBottom: "12px"
                     }}
                   >
-                    Configuration Confirmed
+                    Deployment Confirmed
                   </h3>
                   <p 
                     style={{ 
@@ -1511,7 +2159,7 @@ export default function OperationsWorkflowAutomationPage() {
                       marginBottom: "24px"
                     }}
                   >
-                    Your Operations Pod configurations have been pre-registered. An integration specialist will reach out shortly to demo the customized campaigns and workflows.
+                    Your SalesPod configurations have been pre-registered. An outreach engineer will contact you shortly to complete the system integration.
                   </p>
                   
                   <div 
@@ -1537,7 +2185,7 @@ export default function OperationsWorkflowAutomationPage() {
                   {/* Card Title Header */}
                   <div style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "8px", marginBottom: "0px" }}>
                     <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-bright)", margin: 0 }}>
-                      Configure Your Operations Pod
+                      Configure Your Outbound Pod
                     </h2>
                     <p style={{ fontSize: "12px", color: "var(--color-text-muted)", marginTop: "4px" }}>
                       Provide details below to build your strategy.
@@ -1593,7 +2241,7 @@ export default function OperationsWorkflowAutomationPage() {
                   {/* Dropdown Selection: Outbound Goal */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "4px", position: "relative" }} ref={goalPickerRef}>
                     <label className="sp-form-label">
-                      Primary Operations Goal
+                      Primary Outbound Goal
                     </label>
                     <button
                       type="button"
@@ -1628,7 +2276,7 @@ export default function OperationsWorkflowAutomationPage() {
                             WebkitBackdropFilter: "blur(16px)"
                           }}
                         >
-                          {opsGoals.map((g, idx) => (
+                          {outboundGoals.map((g, idx) => (
                             <div
                               key={idx}
                               onClick={() => selectGoal(g)}
@@ -1779,7 +2427,7 @@ export default function OperationsWorkflowAutomationPage() {
                     </div>
                   )}
 
-                  {/* Submitting status message */}
+                  {/* Submitting Telemetry status message */}
                   {loading && (
                     <div 
                       style={{ 
@@ -1817,7 +2465,7 @@ export default function OperationsWorkflowAutomationPage() {
                         <Loader2 size={16} className="animate-spin" />
                       ) : null}
                       <span>
-                        {loading ? "Configuring pod..." : "Configure Operations Pod"}
+                        {loading ? "Configuring pod..." : "Configure Outbound Pod"}
                       </span>
                     </motion.button>
                     <p style={{ fontSize: "11px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px", marginBottom: 0 }}>
@@ -1905,41 +2553,38 @@ export default function OperationsWorkflowAutomationPage() {
                   }}
                 />
               </span>
-              OPERATIONAL TELEMETRY &amp; MEASURABLE OUTCOMES
+              LIVE INFRASTRUCTURE
             </span>
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            The ultimate accuracy shortcut <br />
-            for <span style={{ color: "var(--sp-accent)" }}>operations teams</span>.
+            AI Sales Automation Software <br />
+            for <span style={{ color: "var(--sp-accent)" }}>modern sales teams</span>.
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
-            Closing document mismatches and operational bottlenecks is now as simple as deploying unified execution pipelines. Step into the next generation of AI-driven operational excellence.
+            Scaling your revenue is now as simple as turning on a Pod.
+            <br /><br />
+            Step into the next generation of automated excellence.
           </p>
         </div>
 
         {/* Main Trust Metrics Grid */}
-        <div className="sp-metrics-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
+        <div className="sp-metrics-grid">
           
           <div className="sp-metric-block">
-            <div className="sp-metric-number">100%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Audit &amp; Compliance Coverage</div>
+            <div className="sp-metric-number">500+</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>CRM Automated</div>
           </div>
 
           <div className="sp-metric-block">
-            <div className="sp-metric-number">90%</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster Verification Velocity</div>
+            <div className="sp-metric-number">70%</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Faster lead response time</div>
           </div>
 
           <div className="sp-metric-block">
-            <div className="sp-metric-number">Zero</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Compliance Slippages</div>
-          </div>
-
-          <div className="sp-metric-block">
-            <div className="sp-metric-number">65%+</div>
-            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Manual Overhead Eliminated</div>
+            <div className="sp-metric-number">8 hrs</div>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)" }}>Saved Per Rep / Week</div>
           </div>
 
         </div>
@@ -1971,7 +2616,7 @@ export default function OperationsWorkflowAutomationPage() {
               textTransform: "uppercase",
               color: "var(--sp-accent)",
             }}>
-              See the Operations Pod in Action
+              Product Demo
             </span>
           </div>
 
@@ -1984,17 +2629,21 @@ export default function OperationsWorkflowAutomationPage() {
         <div className="sp-demo-wrapper">
           <div className="sp-demo-window">
             
-            {/* Full-bleed Product Demo Video Player */}
+
+
+            {/* Full-bleed Product Demo Video Video Player */}
             <div style={{ width: "100%", overflow: "hidden" }}>
-              <ProductDemoVideoPlayer src="/videos/opspod/operations-demo.mp4" />
+              <ProductDemoVideoPlayer src="/videos/Sales_pod_demo.mp4" />
             </div>
 
           </div>
         </div>
 
+
+
       </motion.div>
 
-      {/* ── FOLDS 4+: WHAT HRPOD DOES ── */}
+      {/* ── FOLDS 4, 5 & 6: WHAT SALESPOD DOES (Your AI-Powered Sales Engine) ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)", paddingBottom: "48px" }}
@@ -2005,7 +2654,7 @@ export default function OperationsWorkflowAutomationPage() {
       >
         
         {/* Intro Header */}
-        <div style={{ textAlign: "center", maxWidth: "1100px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
+        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "48px" }}>
           <div className="sp-hero-eyebrow">
             <span style={{
               display: "inline-flex",
@@ -2022,12 +2671,12 @@ export default function OperationsWorkflowAutomationPage() {
             </span>
           </div>
 
-          <h2 className="sp-hero-title" style={{ fontSize: "clamp(30px, 3.8vw, 48px)" }}>
-            Key Features of Our Enterprise Operations Automation Architecture
+          <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
+            Intelligent Sales Workflow Automation
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            From document ingestion and business process optimization to intelligent resource allocation and IT operations automation — our operations automation tools eliminate friction across every touchpoint.
+            From AI-powered B2B prospecting to autonomous pipeline tracking and CRM sync — our sales automation software accelerates every deal stage.
           </p>
         </div>
 
@@ -2071,126 +2720,9 @@ export default function OperationsWorkflowAutomationPage() {
           })}
         </div>
 
-        {/* Feature Guide CTA */}
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
-          <motion.button 
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="sp-stats-cta-btn"
-            onClick={() => {
-              setIsDownloadModalOpen(true);
-            }}
-          >
-            <span>Download the Feature Guide</span>
-            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
-          </motion.button>
-        </div>
-
-
-
       </motion.div>
 
-      {/* ── FOLD 5: MEASURABLE PERFORMANCE FRAMEWORK ── */}
-      <motion.div
-        className="sp-section-wrapper"
-        style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "56px", paddingBottom: "56px" }}
-        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div style={{ textAlign: "center", maxWidth: "800px", marginLeft: "auto", marginRight: "auto", marginBottom: "40px" }}>
-          <div className="sp-hero-eyebrow">
-            <span style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: "var(--font-sans), sans-serif",
-              fontSize: "11px",
-              fontWeight: 600,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--sp-accent)",
-            }}>
-              Operational Performance Framework
-            </span>
-          </div>
-
-          <h2 className="sp-hero-title" style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}>
-            Direct Operational Impact Across Enterprise Functions
-          </h2>
-
-          <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "0" }}>
-            See how ScalePods transforms fragmented manual handoffs into predictable, automated business operations across your core workflows.
-          </p>
-        </div>
-
-        {/* Impact Table */}
-        <div className="sp-table-wrapper">
-          <table className="sp-impact-table">
-            <thead>
-              <tr>
-                <th>Operational Function</th>
-                <th>Traditional Manual Friction</th>
-                <th>ScalePods Automated Pipeline</th>
-                <th>Measurable Outcome</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="sp-table-metric">Document Ingestion</td>
-                <td>30–45 mins per invoice/PO, tedious manual copy-pasting, high error rate</td>
-                <td>Optical vision parsing extracts line-items and cross-verifies ERP records in &lt;60 sec</td>
-                <td className="sp-table-result">90% cycle time reduction &amp; 0 data entry errors</td>
-              </tr>
-              <tr>
-                <td className="sp-table-metric">Process Handoffs</td>
-                <td>Fragmented emails, forgotten WhatsApps, and multi-day approval delays</td>
-                <td>Context-aware decision trees, automatic task routing, and SLA escalation alerts</td>
-                <td className="sp-table-result">Zero approval bottlenecks &amp; 100% SLA compliance</td>
-              </tr>
-              <tr>
-                <td className="sp-table-metric">Partner &amp; Vendor Onboarding</td>
-                <td>Weeks spent collecting tax IDs, bank proofs, and compliance certifications</td>
-                <td>Self-service interactive digital portals with real-time verification checks</td>
-                <td className="sp-table-result">4.2× faster partner onboarding velocity</td>
-              </tr>
-              <tr>
-                <td className="sp-table-metric">IT &amp; User Provisioning</td>
-                <td>Manual ticket queues, delayed software access, and missed de-provisioning</td>
-                <td>Automated role-based access triggers and instant termination offboarding protocols</td>
-                <td className="sp-table-result">100% audit-compliant security governance</td>
-              </tr>
-              <tr>
-                <td className="sp-table-metric">Executive Visibility</td>
-                <td>Disconnected monthly spreadsheets, delayed cost reports, and operational blind spots</td>
-                <td>Unified real-time operational telemetry, cost center attribution, and throughput OS</td>
-                <td className="sp-table-result">Immediate ROI transparency &amp; root cause clarity</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}>
-          <motion.button 
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="sp-stats-cta-btn"
-            onClick={() => {
-              setAuditModalTitle("Request Operational Architecture Review");
-              setAuditModalSourceName("Operations Workflow Automation - Performance Table CTA");
-              setIsAuditModalOpen(true);
-            }}
-          >
-            <span>Request Operational Architecture Review</span>
-            <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
-          </motion.button>
-        </div>
-      </motion.div>
-
-      {/* ── FOLD 6: STATS & BENEFITS ── */}
+      {/* ── FOLD 7: STATS & BENEFITS ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)", position: "relative", paddingTop: "56px", paddingBottom: "56px" }}
@@ -2218,12 +2750,12 @@ export default function OperationsWorkflowAutomationPage() {
             </span>
           </div>
 
-          <h2 className="sp-hero-title" style={{ fontSize: "clamp(22px, 2.8vw, 36px)" }}>
-            Secure Your Operation's Compliance Across Every Transaction
+          <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
+            Built to Move Leads Faster Through Your Pipeline
           </h2>
 
           <p className="sp-hero-desc" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Operations Pod automates the entire audit workflow, from multi-document verification and intelligent cross-checking to mismatch detection and trend analytics, helping operations teams scale transaction volume without scaling manual oversight.
+            SalesPod combines AI-powered lead generation, multi-channel outreach, and intelligent nurturing to help sales teams scale conversations without scaling manual effort.
           </p>
         </div>
 
@@ -2235,10 +2767,10 @@ export default function OperationsWorkflowAutomationPage() {
             whileHover={{ y: -2 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <div className="sp-stat-num">&lt;60 Sec</div>
+            <div className="sp-stat-num">3s</div>
             <div className="sp-stat-desc">
-              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Upload to Verification</strong>
-              What used to take a team member 45 minutes per shipment now takes under a minute.
+              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>First Contact</strong>
+              Lead enters. Outreach begins automatically across channels.
             </div>
           </motion.div>
 
@@ -2247,10 +2779,10 @@ export default function OperationsWorkflowAutomationPage() {
             whileHover={{ y: -2 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <div className="sp-stat-num">100%</div>
+            <div className="sp-stat-num">3×</div>
             <div className="sp-stat-desc">
-              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>GSTIN &amp; Tax Compliance</strong>
-              Ensure strict tax verification to catch critical compliance failures before goods are accepted.
+              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>More Replies</strong>
+              Multi-channel outreach consistently outperforms single-channel campaigns.
             </div>
           </motion.div>
 
@@ -2259,10 +2791,10 @@ export default function OperationsWorkflowAutomationPage() {
             whileHover={{ y: -2 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <div className="sp-stat-num">14+</div>
+            <div className="sp-stat-num">60%</div>
             <div className="sp-stat-desc">
-              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Fields Verified Per Audit</strong>
-              Cross-check invoice numbers, GSTIN, weights, HSN codes, batch numbers, mechanical properties, and chemical compositions in one single pass.
+              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Less Manual Work</strong>
+              Sales reps focus only on leads that show real engagement and intent.
             </div>
           </motion.div>
 
@@ -2271,10 +2803,10 @@ export default function OperationsWorkflowAutomationPage() {
             whileHover={{ y: -2 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <div className="sp-stat-num">0 Hours</div>
+            <div className="sp-stat-num">40%</div>
             <div className="sp-stat-desc">
-              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>Wasted on Manual Checks</strong>
-              Eliminate the need for tedious, line-by-line physical document comparisons and risky spot-checking.
+              <strong style={{ color: "var(--color-text-bright)", display: "block", marginBottom: "4px" }}>More Meetings Booked</strong>
+              Convert more opportunities from the leads your team already has.
             </div>
           </motion.div>
 
@@ -2287,8 +2819,8 @@ export default function OperationsWorkflowAutomationPage() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-stats-cta-btn"
             onClick={() => {
-              setAuditModalTitle("Evaluate Your Operations Funnel");
-              setAuditModalSourceName("Operations Workflow Automation - Funnel CTA");
+              setAuditModalTitle("Evaluate Your Sales Funnel");
+              setAuditModalSourceName("Sales Workflow Automation - Funnel CTA");
               setIsAuditModalOpen(true);
             }}
           >
@@ -2297,26 +2829,29 @@ export default function OperationsWorkflowAutomationPage() {
           </motion.button>
         </div>
 
-        {/* WHY OPERATIONS TEAMS USE OPERATIONS POD */}
+        {/* WHY SALES TEAMS USE SALESPOS GRID CONTAINER */}
         <div className="sp-why-use-wrapper">
-          <h3 className="sp-why-use-title">Why Operations Teams Use Operations Pod</h3>
+          <h3 className="sp-why-use-title">Why Teams Choose Our AI Sales Engine</h3>
+          <p style={{ textAlign: "center", fontSize: "14px", color: "var(--color-text-muted)", maxWidth: "720px", margin: "0 auto 32px auto", lineHeight: 1.6 }}>
+            Whether you are looking for the best AI for sales performance or upgrading from legacy tools, our platform provides a unified suite of AI sales tools built for enterprise scale:
+          </p>
           
           <div className="sp-why-use-grid">
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">100% Audit Coverage</h4>
-              <p className="sp-why-use-item-desc">Every single field is thoroughly verified across all documents, eliminating the risk of blind spot-checks.</p>
+              <h4 className="sp-why-use-item-title">Predictive Lead Scoring & Routing</h4>
+              <p className="sp-why-use-item-desc">Qualify and route inbound leads to the right account executive instantly.</p>
             </div>
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">Timestamped Accountability</h4>
-              <p className="sp-why-use-item-desc">Approve or reject transactions with a single click, instantly logging the decision for a clean audit trail.</p>
+              <h4 className="sp-why-use-item-title">Automated Multichannel Cadences</h4>
+              <p className="sp-why-use-item-desc">Execute coordinated email, call, and social follow-ups automatically.</p>
             </div>
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">Smart Data Normalization</h4>
-              <p className="sp-why-use-item-desc">Date formats, supplier name variations, and abbreviations are handled intelligently to eliminate false flags.</p>
+              <h4 className="sp-why-use-item-title">Pipeline Intelligence</h4>
+              <p className="sp-why-use-item-desc">Spot deal risk early and automate CRM stage transitions based on buyer intent signals.</p>
             </div>
             <div className="sp-why-use-item">
-              <h4 className="sp-why-use-item-title">Unified Audit Intelligence</h4>
-              <p className="sp-why-use-item-desc">Access live dashboards, complete historical records, and error analytics without ever digging through folders.</p>
+              <h4 className="sp-why-use-item-title">Best Sales Automation Software</h4>
+              <p className="sp-why-use-item-desc">Recognized as the best sales automation software for high-growth revenue organizations, our platform reduces rep admin work by 70% while maximizing deal velocity.</p>
             </div>
           </div>
 
@@ -2327,12 +2862,10 @@ export default function OperationsWorkflowAutomationPage() {
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
               className="sp-stats-cta-btn"
               onClick={() => {
-                setAuditModalTitle("Book an Operations Process Audit");
-                setAuditModalSourceName("Operations Workflow Automation - Stats CTA");
-                setIsAuditModalOpen(true);
+                setIsDownloadModalOpen(true);
               }}
             >
-              <span>See it in action</span>
+              <span>Download the Feature Guide</span>
               <span style={{ fontSize: "14px", fontWeight: 700 }}>→</span>
             </motion.button>
           </div>
@@ -2340,7 +2873,7 @@ export default function OperationsWorkflowAutomationPage() {
 
       </motion.div>
 
-      {/* ── FOLD 8: COMPARISON ── */}
+      {/* ── FOLD 8: WHY SCALEPODS ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)", paddingTop: "20px", paddingBottom: "20px" }}
@@ -2364,16 +2897,16 @@ export default function OperationsWorkflowAutomationPage() {
               textTransform: "uppercase",
               color: "var(--sp-accent)",
             }}>
-              Why ScalePods
+              Strategic Comparison
             </span>
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(20px, 2.5vw, 28px)", lineHeight: "1.15", marginBottom: "6px" }}>
-            What changes when you stop doing this manually
+            Manual vs Automated Sales Workflow
           </h2>
 
           <p className="sp-hero-desc" style={{ fontSize: "13px", lineHeight: "1.4", margin: "0 auto", color: "var(--color-text-muted)", maxWidth: "600px" }}>
-            Not a feature list. The actual difference between a system and a spreadsheet.
+            Integrate Sales Automation Software in your workflow to drive exponential results.
           </p>
         </div>
 
@@ -2383,19 +2916,19 @@ export default function OperationsWorkflowAutomationPage() {
           {/* LEFT HEADER */}
           <div className="sp-comp-col-header automated-header">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B1D997] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B1D997]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#63A5E7] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#63A5E7]"></span>
             </span>
-            <span>Automated Operations Pod Workflow</span>
+            <span>Automated SalesPod Workflow</span>
           </div>
 
           {/* LEFT CARDS */}
           {[
-            "All vendor contracts, invoices, and purchase records are cross-checked field by field automatically using intelligent process automation.",
-            "GSTIN, tax IDs, and line-item pricing mismatches are flagged in real time before goods or payments are accepted.",
-            "Disparate date formats, supplier naming variations, and item codes are normalized automatically across your ERP and WMS.",
-            "Approve or reject with a single click. Every decision is logged with an immutable timestamp in a complete audit history.",
-            "Operational analytics surface which suppliers or internal departments generate discrepancies, so root causes get fixed permanently."
+            "High-intent ICP lead lists populate automatically via continuous web scraping.",
+            "Tailored campaigns launch simultaneously across email, LinkedIn, WhatsApp, and AI voice.",
+            "Reps step in exclusively when a lead shows clear, cross-channel buying intent.",
+            "The CRM updates itself in real time using precise lead scores based on human sentiment and hesitation.",
+            "Clear success metrics and exact ROI unlock inside one centralized dashboard."
           ].map((text, idx) => (
             <motion.div 
               key={`left-${idx}`}
@@ -2410,16 +2943,16 @@ export default function OperationsWorkflowAutomationPage() {
 
           {/* RIGHT HEADER */}
           <div className="sp-comp-col-header manual manual-header">
-            <span>Existing Manual Verification Workflow</span>
+            <span>Existing Manual System Workflow</span>
           </div>
 
           {/* RIGHT CARDS */}
           {[
-            "Staff manually compare Invoices, POs, and shipping documents line by line, a process taking 30–45 minutes per record.",
-            "GSTIN and calculation errors are discovered weeks later during monthly accounting reconciliations, creating audit panic.",
-            "Operations teams waste hours re-typing data and fixing formatting differences rather than managing strategic priorities.",
-            "Approvals happen over fragmented emails and chats with no immutable record, no timestamp, and zero compliance oversight.",
-            "Discrepancies are handled one by one in fire-fighting mode, allowing the same operational errors to repeat month after month."
+            "Reps waste hours manually hunting for data from scratch.",
+            "Outreach stalls on basic emails that get easily ignored in crowded inboxes.",
+            "Hot opportunities freeze while reps manually hunt through scattered replies.",
+            "Pipeline data breaks down due to total reliance on what reps remember to log.",
+            "Growth opportunities vanish because nobody knows which channel is actually working."
           ].map((text, idx) => (
             <div 
               key={`right-${idx}`}
@@ -2435,7 +2968,7 @@ export default function OperationsWorkflowAutomationPage() {
         {/* BOTTOM STATEMENT & CTA */}
         <div className="sp-comp-bottom-bar">
           <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-text-bright)", margin: 0, textAlign: "left", lineHeight: "1.4" }}>
-            Your operations team is good at catching problems. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>Operations Pod makes sure nothing slips through before they even have to look.</span>
+            Your team is good at selling. <span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>SalesPod makes sure they only talk to people who are ready.</span>
           </p>
           <motion.button 
             whileHover={{ y: -2, scale: 1.02 }}
@@ -2443,8 +2976,8 @@ export default function OperationsWorkflowAutomationPage() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="sp-comp-bottom-btn"
             onClick={() => {
-              setAuditModalTitle("Pre-Configure Your Operations Pod");
-              setAuditModalSourceName("Operations Workflow Automation - Strategic Comparison");
+              setAuditModalTitle("See How SalesPod Works");
+              setAuditModalSourceName("Sales Workflow Automation - Strategic Comparison");
               setIsAuditModalOpen(true);
             }}
           >
@@ -2455,7 +2988,54 @@ export default function OperationsWorkflowAutomationPage() {
 
       </motion.div>
 
-      {/* ── FOLD 8: TESTIMONIALS ── */}
+      {/* ── FOLD 9: FINAL CALL TO ACTION ── */}
+      <div className="sp-final-cta-wrapper">
+        <div className="sp-final-cta-glow" />
+        
+        <div className="sp-final-cta-content" style={{ maxWidth: "850px" }}>
+          <div className="sp-hero-eyebrow" style={{ marginBottom: "16px" }}>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-sans), sans-serif",
+              fontSize: "11px",
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--sp-accent)",
+            }}>
+              Operational Upgrade
+            </span>
+          </div>
+
+          <h2 className="sp-final-cta-title" style={{ fontSize: "clamp(24px, 3.8vw, 46px)", width: "100%", lineHeight: "1.2" }}>
+            Ready to Automate Your <br />
+            <span style={{ color: "var(--sp-accent)" }}>Sales Process?</span>
+          </h2>
+
+          <p className="sp-final-cta-desc">
+            Request a personalized demo today and see how sales workflow automation can transform your sales cycle from prospect to closed-won.
+          </p>
+
+          <motion.button 
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            className="sp-final-cta-btn"
+            onClick={() => {
+              setAuditModalTitle("Request a Personalized Demo");
+              setAuditModalSourceName("Sales Workflow Automation - Final CTA");
+              setIsAuditModalOpen(true);
+            }}
+          >
+            <span>Request a Personalized Demo</span>
+            <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
+          </motion.button>
+        </div>
+      </div>
+
+      {/* ── FOLD 10: VOICES — CLIENT TESTIMONIALS ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)" }}
@@ -2490,12 +3070,12 @@ export default function OperationsWorkflowAutomationPage() {
 
         {/* Testimonial Carousel */}
         <div style={{ marginTop: "12px" }}>
-          <OpsPodTestimonialCarousel />
+          <SalespodTestimonialCarousel />
         </div>
 
       </motion.div>
 
-      {/* ── FOLD 9: FAQ ── */}
+      {/* ── FOLD 11: QUESTIONS · BEFORE YOU DECIDE (FAQ) ── */}
       <motion.div
         className="sp-section-wrapper"
         style={{ borderTop: "1px solid var(--color-border-faint)" }}
@@ -2524,7 +3104,7 @@ export default function OperationsWorkflowAutomationPage() {
           </div>
 
           <h2 className="sp-hero-title" style={{ fontSize: "clamp(32px, 3.8vw, 48px)" }}>
-            Frequently Asked Questions
+            FAQs
           </h2>
         </div>
 
@@ -2533,24 +3113,20 @@ export default function OperationsWorkflowAutomationPage() {
           
           {[
             {
-              q: "What is enterprise operations and process workflow automation?",
-              a: "Enterprise operations and process workflow automation replaces manual data entry, disconnected spreadsheets, and sluggish email approvals with intelligent, automated execution pipelines. ScalePods builds tailored architectures that ingest unstructured documents (invoices, POs, contracts), route tasks cross-departmentally via logic decision trees, and synchronize directly with core ERPs, WMS, and CRMs without human latency or data entry errors."
+              q: "What is AI sales automation software?",
+              a: "Traditionally, sales automation meant setting up static email sequences and auto-filling contact fields. ScalePods transforms this definition entirely. With SalesPod, sales automation becomes an end-to-end, autonomous sales pipeline engine. Instead of your team managing software, the SalesPod actively executes the work: it scrapes live internet data to find your exact ICP, launches coordinated campaigns across Email, LinkedIn, WhatsApp, and Voice, and uses AI in sales to handle lead nurturing until a meeting is ready to be booked."
             },
             {
-              q: "How does intelligent process automation (IPA) differ from traditional RPA or manual work?",
-              a: "Traditional RPA relies on brittle screen-scraping and static rules that break whenever document formats or software UIs change. Intelligent Process Automation (IPA) integrates advanced AI vision parsing and contextual decision engines that comprehend variable layouts, extract unstructured information with precision, normalize disparate data formats, and self-heal across unexpected edge cases. Normal records process automatically in seconds, while rare discrepancies route to human reviewers."
+              q: "What is the difference between sales automation and CRM?",
+              a: "A CRM (Customer Relationship Management) system like HubSpot or Salesforce is a database—it stores your contact history and logs deal stages. SalesPod is the active execution engine that brings that data to life. While traditional B2B sales automation requires you to manually log activities, SalesPod works in the background: it dynamically pulls new leads from the web, executes multi-channel outreach, reads prospect replies using sentiment analysis, and automatically updates your CRM records and lead scores in real time without human intervention."
             },
             {
-              q: "How secure is enterprise operational data when using ScalePods automation tools?",
-              a: "ScalePods protects enterprise operational data using end-to-end encryption in transit and at rest, zero-retention private tenancies, and strict role-based access controls. Proprietary financial records, supplier contracts, and internal databases are never used to train public AI models. All automated steps, approvals, and exception overrides generate immutable, timestamped audit logs to maintain regulatory compliance."
+              q: "What is the difference between sales automation and marketing automation?",
+              a: "Marketing automation software focuses on the top of the funnel, using a \"one-to-many\" approach like generic newsletters or automated social posts to capture broad interest. SalesPod is a specialized outreach automation tool built for hyper-personalized, \"one-to-one\" B2B sales development. It engages specific decision-makers directly across their preferred communication apps (Email, LinkedIn, WhatsApp, and Voice) using custom-trained bots that mimic your exact brand style to move leads into deep sales conversations."
             },
             {
-              q: "Can Operations Pod integrate with our existing ERP, WMS, CRM, and accounting systems?",
-              a: "Yes. Operations Pod is built to sit natively atop your existing technology stack without requiring you to rip and replace legacy software. It connects seamlessly via standard REST APIs, webhooks, and secure database connectors with major ERPs (SAP, Oracle, NetSuite, Microsoft Dynamics), logistics systems, WMS platforms, accounting systems (Tally, QuickBooks, Zoho Books), and CRMs."
-            },
-            {
-              q: "How does exception routing and the approval audit trail work?",
-              a: "When the automated ingestion engine detects data anomalies—such as tax ID mismatches, line-item price variances exceeding predefined tolerances, or missing compliance certificates—the system automatically flags the record as an exception. It presents managers with a unified, dual-view comparison highlighting the discrepancy and enables one-click approval or rejection. Every decision is logged with an immutable timestamp and user identifier for complete accountability."
+              q: "Will AI replace sales professionals?",
+              a: "No. AI sales tools are built to eliminate administrative friction, not human relationship builders. B2B buyers still require human trust, nuance, and strategic negotiation to finalize a partnership. SalesPod is designed to automate the grueling 80% of the sales cycle—the manual prospecting, cold outreach, follow-ups, and CRM logging. By taking over the tedious groundwork, SalesPod empowers your reps to spend 100% of their time doing what they do best: holding high-intent conversations and closing deals."
             }
           ].map((faq, idx) => {
             const isExpanded = expandedFaq === idx;
@@ -2610,69 +3186,15 @@ export default function OperationsWorkflowAutomationPage() {
         </div>
       </motion.div>
 
-      {/* ── FOLD 10: FINAL CALL TO ACTION ── */}
-      <div className="sp-final-cta-wrapper" style={{ marginTop: "40px", marginBottom: "40px" }}>
-        <div className="sp-final-cta-glow" />
-        
-        <div className="sp-final-cta-content">
-          <div className="sp-hero-eyebrow" style={{ marginBottom: "16px" }}>
-            <span style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: "var(--font-sans), sans-serif",
-              fontSize: "11px",
-              fontWeight: 600,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--sp-accent)",
-            }}>
-              Operational Upgrade
-            </span>
-          </div>
-
-          <h2 className="sp-final-cta-title">
-            Ready to Eliminate <br />
-            <span style={{ color: "var(--sp-accent)" }}>Operational Friction?</span>
-          </h2>
-
-          <p className="sp-final-cta-desc">
-            Schedule an operations architectural assessment today and see how custom automated business operations frameworks drive sustainable operational efficiency.
-          </p>
-
-          <motion.button 
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="sp-final-cta-btn"
-            onClick={() => {
-              setAuditModalTitle("Schedule Architectural Assessment");
-              setAuditModalSourceName("Operations Workflow Automation - Final CTA");
-              setIsAuditModalOpen(true);
-            }}
-          >
-            <span>Schedule Architectural Assessment</span>
-            <span style={{ fontSize: "14px", fontWeight: 700, marginLeft: "8px" }}>→</span>
-          </motion.button>
-
-          <p style={{ marginTop: "16px", fontSize: "12px", color: "var(--color-text-muted)" }}>
-            Prefer direct email? Contact our enterprise architecture team at{" "}
-            <a href="mailto:info@scalepods.co" style={{ color: "var(--sp-accent)", textDecoration: "underline" }}>
-              info@scalepods.co
-            </a>
-          </p>
-        </div>
-      </div>
-
       <DownloadModal
         isOpen={isDownloadModalOpen}
         onClose={() => setIsDownloadModalOpen(false)}
-        zipFile="/downloads/ops-guide.pdf"
-        zipName="ops-guide.pdf"
-        title="Download the Free Operations Feature Guide"
-        workflowType="operations_workflow"
+        zipFile="/downloads/AI-Powered-Outbound-Sales-Automation.pdf"
+        zipName="AI-Powered-Outbound-Sales-Automation.pdf"
+        title="Download the Free Feature Guide"
+        workflowType="sales_workflow"
         sourceType="landing_page"
-        sourceName="Operations Workflow Automation Solution Page"
+        sourceName="Sales Workflow Automation Solution Page"
       />
 
       <AuditModal
@@ -2680,7 +3202,7 @@ export default function OperationsWorkflowAutomationPage() {
         onClose={() => setIsAuditModalOpen(false)}
         title={auditModalTitle}
         sourceName={auditModalSourceName}
-        isSalesPod={false}
+        isSalesPod={true}
       />
 
 

@@ -1600,7 +1600,7 @@ export default function HRWorkflowAutomationPage() {
     const apiPromise = submitLead({
       formType: "contact_sales",
       workflowType: "hr_workflow",
-      sourcePage: "/solution/hr-workflow-automation",
+      sourcePage: "/solutions/hr-workflow-automation",
       name: form.name,
       email: form.email,
       phone: form.phone ? `${dialCode} ${form.phone}` : undefined,
@@ -1625,7 +1625,7 @@ export default function HRWorkflowAutomationPage() {
       setSubmitted(true);
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer || [];
-      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solution/hr-workflow-automation" };
+      const gtmEvent = { event: "lead_form_success", event_id: apiResult.eventId, form_type: "contact_sales", source_page: "/solutions/hr-workflow-automation" };
       console.log("[GTM] lead_form_success →", gtmEvent);
       w.dataLayer.push(gtmEvent);
     }

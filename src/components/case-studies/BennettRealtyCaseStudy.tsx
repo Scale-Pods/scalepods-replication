@@ -362,7 +362,7 @@ export default function BennettRealtyCaseStudy({ faqs }: BennettRealtyProps) {
               </h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 <Link
-                  href="/solution/ai-automation-for-real-estate"
+                  href="/solutions/real-estate-workflow-automation"
                   style={{
                     fontSize: "12px",
                     padding: "4px 10px",

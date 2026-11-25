@@ -1,5 +1,6 @@
 import { blogPosts as staticPosts, type BlogPost } from "@/lib/blogData";
 import { supabase } from "@/lib/supabase";
+import { EXCLUDED_BLOG_SLUGS, normalizeBlogSlug } from "@/lib/slugConfig";
 
 /** Supported category slugs under /resources. */
 export type ResourceFormat = "all" | "ebook" | "case-study" | "blog";
@@ -21,7 +22,7 @@ const placeholderImages: Record<string, string> = {
   "future-of-workflows-ai-automation": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
   "5-ways-ai-assistants-transforming-operations": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
   "scaling-smarter-automation-startups": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
-  "beyond-bots-real-business-impact-ai-integration": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
+  "beyond-bots-real-business-impact-from-ai-integration": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
 };
 
 const caseStudyCoverImages: Record<string, string> = {
@@ -30,22 +31,12 @@ const caseStudyCoverImages: Record<string, string> = {
   "asquared-real-estate-sales-automation-dubai": "/brands/asquared-brand-1x1.webp",
   "lootah-group-procurement-workflow-automation": "/brands/lootah-group-new.svg",
   "macro-media-finance-workflow-automation": "/brands/macro-media-box.svg",
-  "bennett-realty-growth-os": "/brands/bennett-realty-box.svg",
+  "bennett-realty-real-estate-workflow-automation": "/brands/bennett-realty-box.svg",
   "victory-energy-business-automation": "/brands/victory-energy-box.svg",
   "ryan-schwartz-fub-crm-automation": "/brands/ryan-schwartz-box.svg",
   "miguel-clinic-lead-generation-automation": "/brands/miguel-case-study-box.svg",
   "wwr-real-estate-sales-automation-qatar": "/brands/wwr-real-estate-box.svg",
 };
-
-const excludedSlugs = new Set([
-  "top-10-automation-tools-every-agency-needs-in-2025-mo8qym7y",
-  "the-roi-of-ai-measuring-the-impact-of-automation-mo8mk8hu",
-  "5-ways-ai-assistants-are-transforming-operations-mo8ksajr",
-  "beyond-bots-real-business-impact-from-ai-integration-mo8k791y",
-  "scaling-smarter-how-automation-helps-startups-mo8jpr8g",
-  "the-future-of-workflows-why-ai-automation-is-the-standard-mo8jg6s8",
-  "how-to-build-an-autonomous-agency-the-uae-blueprint-mo8lksce",
-]);
 
 const staticArticleWhitelist = new Set([
   "business-process-automation-ai-replace-manual-workflows",
@@ -59,7 +50,7 @@ const staticArticleWhitelist = new Set([
   "sales-workflow-automation-complete-guide-2026",
   "hr-automation-complete-guide-2026",
   "marketing-automation-complete-guide-2026",
-  "the-ai-marketing-edge-how-ai-is-reshaping-marketing-in-2026",
+  "how-ai-is-reshaping-marketing-in-2026",
 ]);
 
 function sortByNewestDate<T extends { date: string }>(items: T[]): T[] {
@@ -110,7 +101,7 @@ export async function getAllResources(): Promise<ResourceItem[]> {
   }
 
   const dynamicPosts: BlogPost[] = (dbPosts || []).map((db) => ({
-    slug: db.slug,
+    slug: normalizeBlogSlug(db.slug),
     title: db.title,
     excerpt: db.excerpt || "",
     category: db.category || "Article",
@@ -136,7 +127,7 @@ export async function getAllResources(): Promise<ResourceItem[]> {
     );
 
   const filteredDynamicArticles = dynamicPosts.filter(
-    (post) => post.category !== "Case Study" && !excludedSlugs.has(post.slug)
+    (post) => post.category !== "Case Study" && !EXCLUDED_BLOG_SLUGS.has(post.slug)
   );
 
   const blogItems: ResourceItem[] = sortByNewestDate([
@@ -152,7 +143,7 @@ export async function getAllResources(): Promise<ResourceItem[]> {
       post.image ||
       placeholderImages[post.slug] ||
       "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    href: `/blog/${post.slug}`,
+    href: `/resources/blog/${post.slug}`,
     description: post.excerpt,
     category: post.category,
   }));
@@ -169,11 +160,10 @@ export async function getAllResources(): Promise<ResourceItem[]> {
       caseStudyCoverImages[cs.slug] ||
       cs.image ||
       "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    href: `/case-study/${cs.slug}`,
+    href: `/resources/case-studies/${cs.slug}`,
     description: cs.excerpt,
     category: "Case Study",
   }));
 
   return [...ebookItems, ...sortByNewestDate([...caseStudyItems, ...blogItems])];
 }
-

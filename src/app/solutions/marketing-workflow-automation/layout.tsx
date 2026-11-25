@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     "ScalePods marketing pod",
   ],
   alternates: {
-    canonical: "https://www.scalepods.co/solution/marketing-workflow-automation",
+    canonical: "https://www.scalepods.co/solutions/marketing-workflow-automation",
   },
   openGraph: {
     title: "Marketing Workflow Automation Software & AI Engine | ScalePods",
     description:
       "Scale growth engines with enterprise marketing workflow automation. Deploy AI workflow automation to unify multichannel messaging, accelerate demand capture, and automate lifecycle email and CRM operations.",
-    url: "https://www.scalepods.co/solution/marketing-workflow-automation",
+    url: "https://www.scalepods.co/solutions/marketing-workflow-automation",
     siteName: "ScalePods",
     locale: "en_US",
     type: "website",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 const marketingSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://www.scalepods.co/solution/marketing-workflow-automation/#service",
+  "@id": "https://www.scalepods.co/solutions/marketing-workflow-automation/#service",
   "name": "Enterprise Marketing Workflow Automation Pod",
   "provider": {
     "@type": "Organization",

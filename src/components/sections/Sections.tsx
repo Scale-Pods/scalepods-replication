@@ -2084,7 +2084,7 @@ const caseStudiesData = [
     id: 1,
     category: "REAL ESTATE OUTBOUND",
     title: "Lotus Manor Dubai",
-    href: "/case-study/lotus-manor-real-estate-sales-automation-dubai",
+    href: "/resources/case-studies/lotus-manor-real-estate-sales-automation-dubai",
     description: "Lotus Manor automated multichannel outbound follow-ups across 1,000+ prospects in Dubai's real estate market, achieving a 21% response rate and eliminating manual lead chasing.",
     metrics: [
       { value: "21%", label: "Response Rate" },
@@ -2097,7 +2097,7 @@ const caseStudiesData = [
     id: 2,
     category: "HEAVY INDUSTRIAL AI",
     title: "ZV Steels India",
-    href: "/case-study/zv-steels-recruitment-automation-tool",
+    href: "/resources/case-studies/zv-steels-recruitment-automation-tool",
     description: "ZV Steels deployed four custom automation engines to eliminate recruitment latency, automate 3-way logistics audit verification, and retain wholesale pipeline leads.",
     metrics: [
       { value: "80%", label: "Screening Cut" },
@@ -2110,7 +2110,7 @@ const caseStudiesData = [
     id: 3,
     category: "CRM SALES AUTOMATION",
     title: "A Squared Real Estate",
-    href: "/case-study/asquared-real-estate-sales-automation-dubai",
+    href: "/resources/case-studies/asquared-real-estate-sales-automation-dubai",
     description: "A Squared turned 22,000 CRM leads into active pipeline using AI sales reps, Bitrix24 workflow automation layers, and autonomous multi-touch WhatsApp follow-up cadences.",
     metrics: [
       { value: "< 5 min", label: "First Contact (94%)" },
@@ -2123,7 +2123,7 @@ const caseStudiesData = [
     id: 4,
     category: "PROCUREMENT AUTOMATION",
     title: "Lootah Group of Companies",
-    href: "/case-study/lootah-group-procurement-workflow-automation",
+    href: "/resources/case-studies/lootah-group-procurement-workflow-automation",
     description: "Lootah Group replaced disconnected spreadsheets with an automated procurement workflow platform, reducing PO data ingestion time by ~95% and detecting unapproved supplier price hikes.",
     metrics: [
       { value: "~95%", label: "PO Ingestion Cut" },
@@ -2136,7 +2136,7 @@ const caseStudiesData = [
     id: 5,
     category: "FINANCIAL STUDIO",
     title: "MACRO Media USA",
-    href: "/case-study/macro-media-finance-workflow-automation",
+    href: "/resources/case-studies/macro-media-finance-workflow-automation",
     description: "Macro Media replaced local HTML spreadsheets with Macro Studio, achieving 100% task ownership, sub-2-second global cloud sync, and 30% faster month-end coordination.",
     metrics: [
       { value: "100%", label: "Task Ownership" },
@@ -2149,7 +2149,7 @@ const caseStudiesData = [
     id: 6,
     category: "REAL ESTATE GROWTH OS",
     title: "Bennett Realty USA",
-    href: "/case-study/bennett-realty-growth-os",
+    href: "/resources/case-studies/bennett-realty-real-estate-workflow-automation",
     description: "Bennett Realty deployed a custom brokerage platform connecting lead capture, sub-2-minute replies, transaction tracking, and 24/7 agent support, cutting missed deadlines by ~90%.",
     metrics: [
       { value: "< 2 min", label: "Lead Response" },
@@ -2162,7 +2162,7 @@ const caseStudiesData = [
     id: 7,
     category: "MULTI-ENTITY INDUSTRIAL AI",
     title: "Victory Energy USA",
-    href: "/case-study/victory-energy-business-automation",
+    href: "/resources/case-studies/victory-energy-business-automation",
     description: "Victory Energy automated recruiting, sales response, marketing production, and financial operations across 17 entities, cutting resume screening by 74% and closing books in 5 days.",
     metrics: [
       { value: "74%", label: "Screening Cut" },
@@ -2175,7 +2175,7 @@ const caseStudiesData = [
     id: 8,
     category: "LUXURY REAL ESTATE FUB AUTOMATION",
     title: "Ryan Schwartz USA",
-    href: "/case-study/ryan-schwartz-fub-crm-automation",
+    href: "/resources/case-studies/ryan-schwartz-fub-crm-automation",
     description: "Ryan Schwartz deployed an AI ecosystem around Follow Up Boss, achieving <45s speed-to-lead, 38% WhatsApp engagement, and 22% appointment booking across Naples and Aspen.",
     metrics: [
       { value: "< 45s", label: "Speed-to-Lead" },

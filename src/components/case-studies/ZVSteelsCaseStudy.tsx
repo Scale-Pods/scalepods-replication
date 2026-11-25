@@ -323,7 +323,7 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
                   </h3>
                   <p style={{ fontSize: "12.5px", color: "var(--color-text-muted)", lineHeight: 1.5, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                     Screening hundreds of technical candidate profiles using{" "}
-                    <Link href="/solution/hr-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                    <Link href="/solutions/hr-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                       manual resume screening
                     </Link>{" "}
                     and keyword searches led to hiring delays of up to five days. Top-tier engineering and plant talent frequently dropped out during multi-day scheduling coordination.
@@ -501,7 +501,7 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
                     </div>
                     <p style={{ fontSize: "14.5px", color: "var(--color-text-body)", lineHeight: 1.6, margin: 0, textAlign: "justify", textJustify: "inter-word" }}>
                       <strong style={{ color: "var(--color-text-bright)", fontWeight: 600 }}>Contextual Resume Parsing:</strong> Recruiters define custom percentage weights for Skills Match, Experience Relevance, Education Relevance, and JD Alignment. Claude executes{" "}
-                      <Link href="/blog/hr-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                      <Link href="/resources/blog/hr-automation-complete-guide-2026" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                         AI-powered resume screening
                       </Link>{" "}
                       across batches of candidates against real job criteria rather than basic keywords.
@@ -582,11 +582,11 @@ export default function ZVSteelsCaseStudy({ faqs }: ZVSteelsProps) {
                   lineHeight: 1.3
                 }}>
                   System 2:{" "}
-                  <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                  <Link href="/solutions/operations-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                     ERP automation
                   </Link>{" "}
                   &amp; SAP Build Process Automation for{" "}
-                  <Link href="/solution/ops-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+                  <Link href="/solutions/operations-workflow-automation" style={{ color: "var(--color-blue-mid)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                     logistics audits
                   </Link>
                 </h3>

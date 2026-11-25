@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     "ScalePods hrpod",
   ],
   alternates: {
-    canonical: "https://www.scalepods.co/solution/hr-workflow-automation",
+    canonical: "https://www.scalepods.co/solutions/hr-workflow-automation",
   },
   openGraph: {
     title: "HR Workflow Automation & AI Recruitment Platform | ScalePods",
     description:
       "Scale talent acquisition with next-generation recruitment automation, AI resume screening, automated interview scheduling, and onboarding compliance.",
-    url: "https://www.scalepods.co/solution/hr-workflow-automation",
+    url: "https://www.scalepods.co/solutions/hr-workflow-automation",
     siteName: "ScalePods",
     type: "website",
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const hrSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://www.scalepods.co/solution/hr-workflow-automation/#service",
+  "@id": "https://www.scalepods.co/solutions/hr-workflow-automation/#service",
   "name": "HR & Talent Workflow Automation Pod",
   "provider": {
     "@type": "Organization",

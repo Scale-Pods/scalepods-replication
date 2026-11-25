@@ -2506,7 +2506,7 @@ export default function BlogBodyClient({
             }
           }
         ` }} />
-        <a href="/solution/hr-workflow-automation" className="creative-cta-card">
+        <a href="/solutions/hr-workflow-automation" className="creative-cta-card">
           <div className="creative-cta-content">
             <div className="creative-cta-tag">HR WORKFLOW SOLUTION →</div>
             <h4 className="creative-cta-title">Explore AI powered HR solutions</h4>
@@ -2715,7 +2715,7 @@ export default function BlogBodyClient({
             }
           }
         ` }} />
-        <a href="/solution/marketing-workflow-automation" className="creative-cta-card">
+        <a href="/solutions/marketing-workflow-automation" className="creative-cta-card">
           <div className="creative-cta-content">
             <div className="creative-cta-tag">MARKETING WORKFLOW SOLUTION →</div>
             <h4 className="creative-cta-title">Explore AI powered Marketing solutions</h4>
